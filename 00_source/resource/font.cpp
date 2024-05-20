@@ -163,8 +163,12 @@ HRESULT CFont::Load(const std::string &rFilePass)
 	// 読み込んだフォントパスを保存
 	m_vecFilePass.push_back(rFilePass);
 
+#if NDEBUG	// Release版以外では事前登録を行わない
+
 	// フォントとフォント文字の事前登録
 	RegistPrepare(rFilePass);
+
+#endif	// NDEBUG
 
 	// 成功を返す
 	return S_OK;

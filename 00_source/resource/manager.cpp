@@ -325,16 +325,6 @@ HRESULT CManager::Load(void)
 		return E_FAIL;
 	}
 
-	// フォントの全読込
-	assert(m_pFont != nullptr);
-	if (FAILED(m_pFont->LoadAll()))
-	{ // 全読込に失敗した場合
-
-		// 失敗を返す
-		assert(false);
-		return E_FAIL;
-	}
-
 	// キャラクターの全読込
 	assert(m_pCharacter != nullptr);
 	if (FAILED(m_pCharacter->LoadAll()))
@@ -346,6 +336,16 @@ HRESULT CManager::Load(void)
 	}
 
 #endif	// NDEBUG
+
+	// フォントの全読込
+	assert(m_pFont != nullptr);
+	if (FAILED(m_pFont->LoadAll()))
+	{ // 全読込に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
 
 	// サウンドの全読込
 	assert(m_pSound != nullptr);
