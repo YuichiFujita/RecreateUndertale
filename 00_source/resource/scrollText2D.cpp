@@ -144,6 +144,52 @@ HRESULT CScrollText2D::AddString(const std::wstring& rStr)
 }
 
 //============================================================
+//	文字列の削除処理
+//============================================================
+void CScrollText2D::DeleteString(const int nStrID)
+{
+	int nDelHead = 0;	// 削除する先頭文字インデックス
+	for (int i = 0; i < nStrID; i++)
+	{ // 削除する文字列の手前まで繰り返す
+
+		// 削除する文字の先頭インデックスまで値を進める
+		nDelHead += GetString2D(i)->GetNumChar();
+	}
+
+	// 削除するイテレーターの先頭を求める
+	auto itrDelHead = m_vecChar.begin();	// 削除する先頭イテレーター
+	std::advance(itrDelHead, nDelHead);		// 先頭まで進める
+
+	// 削除するイテレーターの最後尾を求める
+	auto itrDelTail = m_vecChar.begin();	// 削除する最後尾イテレーター
+	std::advance(itrDelTail, nDelHead + GetString2D(nStrID)->GetNumChar());	// 最後尾まで進める
+
+	// 先頭から最後尾までのイテレーターを削除
+	m_vecChar.erase(itrDelHead, itrDelTail);
+
+	// 文字列の削除
+	CText2D::DeleteString(nStrID);
+
+	// 文字インデックスを制限する
+	useful::LimitMaxNum(m_nNextID, (int)m_vecChar.size());
+}
+
+//============================================================
+//	文字列の全削除処理
+//============================================================
+void CScrollText2D::DeleteStringAll(void)
+{
+	// 文字列の全削除
+	CText2D::DeleteStringAll();
+
+	// 全文字情報配列をクリア
+	m_vecChar.clear();
+
+	// 文字インデックスを初期化
+	m_nNextID = 0;
+}
+
+//============================================================
 //	生成処理
 //============================================================
 CScrollText2D *CScrollText2D::Create
@@ -218,6 +264,9 @@ void CScrollText2D::UpdateScroll(const float fDeltaTime)
 {
 	// 文字送りがOFFなら抜ける
 	if (!m_bScroll) { return; }
+
+	// 文字がない場合抜ける
+	if (m_vecChar.empty()) { m_bScroll = false; return; }
 
 	// 現在の待機時間を加算
 	m_fCurTime += fDeltaTime;

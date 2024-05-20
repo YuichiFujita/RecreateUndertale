@@ -250,6 +250,46 @@ HRESULT CText2D::AddString(const std::wstring& rStr)
 }
 
 //============================================================
+//	文字列の削除処理
+//============================================================
+void CText2D::DeleteString(const int nStrID)
+{
+	// 文字列がない場合抜ける
+	int nStrSize = (int)m_listString.size();
+	if (nStrSize <= 0) { assert(false); return; }
+
+	// インデックスが範囲外の場合抜ける
+	if (nStrID <= NONE_IDX || nStrID >= nStrSize) { assert(false); return; }
+
+	// イテレーターをインデックス分ずらす
+	auto itr = m_listString.begin();
+	std::advance(itr, nStrID);
+
+	// イテレーター内の文字列2Dを終了
+	SAFE_UNINIT(*itr);
+
+	// イテレーターをリストから削除
+	m_listString.erase(itr);
+}
+
+//============================================================
+//	文字列の全削除処理
+//============================================================
+void CText2D::DeleteStringAll(void)
+{
+	for (auto& rList : m_listString)
+	{ // 文字列の格納数分繰り返す
+
+		// 文字列の終了
+		assert(rList != nullptr);
+		SAFE_UNINIT(rList);
+	}
+
+	// 文字列リストをクリア
+	m_listString.clear();
+}
+
+//============================================================
 //	フォントの設定処理
 //============================================================
 void CText2D::SetFont

@@ -202,6 +202,9 @@ void CScrollString2D::UpdateScroll(const float fDeltaTime)
 	// •¶š‘—‚è‚ªOFF‚È‚ç”²‚¯‚é
 	if (!m_bScroll) { return; }
 
+	// •¶š‚ª‚È‚¢ê‡”²‚¯‚é
+	if (GetNumChar() <= 0) { m_bScroll = false; return; }
+
 	// Œ»İ‚Ì‘Ò‹@ŠÔ‚ğ‰ÁZ
 	m_fCurTime += fDeltaTime;
 	while (m_fCurTime >= m_fNextTime)

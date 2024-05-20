@@ -35,6 +35,8 @@ public:
 	void Draw(CShader *pShader = nullptr) override;			// •`‰æ
 	void SetEnableDraw(const bool bDraw) override;			// •`‰æó‹µİ’è
 	HRESULT AddString(const std::wstring& rStr) override;	// •¶š—ñ’Ç‰Á
+	void DeleteString(const int nStrID) override;			// •¶š—ñíœ
+	void DeleteStringAll(void) override;					// •¶š—ñ‘Síœ
 
 	// Ã“Iƒƒ“ƒoŠÖ”
 	static CScrollText2D *Create	// ¶¬

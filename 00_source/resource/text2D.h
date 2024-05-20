@@ -70,6 +70,8 @@ public:
 
 	// 仮想関数
 	virtual HRESULT AddString(const std::wstring& rStr);	// 文字列の追加
+	virtual void DeleteString(const int nStrID);			// 文字列削除
+	virtual void DeleteStringAll(void);						// 文字列全削除
 
 	// メンバ関数
 	void SetFont	// フォントの設定
