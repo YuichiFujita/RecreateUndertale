@@ -30,10 +30,17 @@ public:
 		STATE_LOGO = 0,	// ロゴ表示
 		STATE_TEXT,		// 文字送り
 		STATE_WAIT,		// 待機
-		STATE_FADEIN,	// フェードイン
-		STATE_FADEOUT,	// フェードアウト
 		STATE_END,		// 終了
 		STATE_MAX		// この列挙型の総数
+	};
+
+	// フェード列挙
+	enum EFade
+	{
+		FADE_NONE = 0,	// フェード無し
+		FADE_IN,		// フェードイン
+		FADE_OUT,		// フェードアウト
+		FADE_MAX		// この列挙型の総数
 	};
 
 	// 物語列挙
@@ -73,12 +80,15 @@ private:
 	bool WaitTime(const float fDeltaTime, const float fDestTime);	// 待機時間の管理
 	void NextStory(void);	// 物語の遷移
 
+	void UpdateFade(void);	// フェード更新
+
 	// メンバ変数
 	CObject2D *m_pLogo;		// タイトルロゴ
 	CObject2D *m_pFade;		// フェード
 	CScroll2D *m_pStory;	// ストーリー
 	CScrollText2D *m_pText;	// テキスト
 	EState m_state;			// 状態
+	EFade m_fade;			// フェード状況
 	int m_nStory;			// 物語インデックス
 	float m_fCurTime;		// 現在の待機時間
 };

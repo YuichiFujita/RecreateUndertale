@@ -97,7 +97,7 @@ namespace
 
 		const char *FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
 		const bool	ITALIC		= false;	// イタリック
-		const float	WAIT_TIME	= 0.12f;	// 文字表示の待機時間
+		const float	WAIT_TIME	= 0.115f;	// 文字表示の待機時間
 		const float	CHAR_HEIGHT	= 45.0f;	// 文字縦幅
 		const float	LINE_HEIGHT	= 62.0f;	// 行間縦幅
 
@@ -119,6 +119,7 @@ CIntroManager::CIntroManager() :
 	m_pStory	(nullptr),		// ストーリー
 	m_pText		(nullptr),		// テキスト
 	m_state		(STATE_LOGO),	// 状態
+	m_fade		(FADE_NONE),	// フェード状況
 	m_nStory	(0),			// 物語インデックス
 	m_fCurTime	(0.0f)			// 現在の待機時間
 {
@@ -144,6 +145,7 @@ HRESULT CIntroManager::Init(void)
 	m_pStory	= nullptr;		// ストーリー
 	m_pText		= nullptr;		// テキスト
 	m_state		= STATE_LOGO;	// 状態
+	m_fade		= FADE_NONE;	// フェード状況
 	m_nStory	= 0;			// 物語インデックス
 	m_fCurTime	= 0.0f;			// 現在の待機時間
 
@@ -245,6 +247,9 @@ void CIntroManager::Uninit(void)
 //============================================================
 void CIntroManager::Update(const float fDeltaTime)
 {
+	// フェードの更新
+	UpdateFade();
+
 	switch (m_state)
 	{ // 状態ごとの処理
 	case STATE_LOGO:	// ロゴ表示
@@ -283,42 +288,12 @@ void CIntroManager::Update(const float fDeltaTime)
 		if (WaitTime(fDeltaTime, 2.0f))
 		{ // 待機終了した場合
 
-			// フェードイン状態にする
-			m_state = STATE_FADEIN;
-		}
-
-		break;
-
-	case STATE_FADEIN:	// フェードイン
-	{
-		D3DXCOLOR colFade = m_pFade->GetColor();	// フェード色
-		colFade.a += 0.05f;
-		m_pFade->SetColor(colFade);
-
-		if (colFade.a >= 1.0f)
-		{ // フェード仕切った場合
-
 			// 物語と状態を遷移させる
 			NextStory();
 		}
 
 		break;
-	}
-	case STATE_FADEOUT:	// フェードアウト
-	{
-		D3DXCOLOR colFade = m_pFade->GetColor();	// フェード色
-		colFade.a -= 0.05f;
-		m_pFade->SetColor(colFade);
 
-		if (colFade.a <= 0.0f)
-		{ // フェード仕切った場合
-
-			// 文字送り状態にする
-			m_state = STATE_TEXT;
-		}
-
-		break;
-	}
 	case STATE_END:		// 終了
 
 		// タイトルにロードせず遷移
@@ -390,9 +365,6 @@ void CIntroManager::NextStory(void)
 	else
 	{ // まだ表示できる場合
 
-		// 物語の画像を差し替え
-		m_pStory->BindTexture(story::TEXTURE[m_nStory]);
-
 		// 文字列をすべて破棄
 		m_pText->DeleteStringAll();
 
@@ -406,8 +378,61 @@ void CIntroManager::NextStory(void)
 		// 文字送りを開始する
 		m_pText->SetEnableScroll(true);
 
-		// フェードアウト状態にする
-		m_state = STATE_FADEOUT;
+		// フェードを開始する
+		m_fade = FADE_IN;
+
+		// 文字送り状態にする
+		m_state = STATE_TEXT;
+	}
+}
+
+//============================================================
+//	フェード更新処理
+//============================================================
+void CIntroManager::UpdateFade(void)
+{
+	switch (m_fade)
+	{ // フェード状態ごとの処理
+	case FADE_NONE:	// フェード無し
+	{
+		break;
+	}
+	case FADE_IN:	// フェードイン
+	{
+		D3DXCOLOR colFade = m_pFade->GetColor();	// フェード色
+		colFade.a += 0.04f;
+		m_pFade->SetColor(colFade);
+
+		if (colFade.a >= 1.0f)
+		{ // フェード仕切った場合
+
+			// 物語の画像を差し替え
+			m_pStory->BindTexture(story::TEXTURE[m_nStory]);
+
+			// フェードアウト状態にする
+			m_fade = FADE_OUT;
+		}
+
+		break;
+	}
+	case FADE_OUT:	// フェードアウト
+	{
+		D3DXCOLOR colFade = m_pFade->GetColor();	// フェード色
+		colFade.a -= 0.04f;
+		m_pFade->SetColor(colFade);
+
+		if (colFade.a <= 0.0f)
+		{ // フェード仕切った場合
+
+			// フェード無し状態にする
+			m_fade = FADE_NONE;
+		}
+
+		break;
+	}
+	default:
+		assert(false);
+		break;
 	}
 }
 
