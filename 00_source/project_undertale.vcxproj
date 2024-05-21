@@ -179,6 +179,7 @@
     <ClCompile Include="resource\impact.cpp" />
     <ClCompile Include="resource\input.cpp" />
     <ClCompile Include="resource\introManager.cpp" />
+    <ClCompile Include="resource\introState.cpp" />
     <ClCompile Include="resource\light.cpp" />
     <ClCompile Include="resource\liquid.cpp" />
     <ClCompile Include="resource\listManager.cpp" />
@@ -282,6 +283,7 @@
     <ClInclude Include="resource\impact.h" />
     <ClInclude Include="resource\input.h" />
     <ClInclude Include="resource\introManager.h" />
+    <ClInclude Include="resource\introState.h" />
     <ClInclude Include="resource\light.h" />
     <ClInclude Include="resource\liquid.h" />
     <ClInclude Include="resource\listManager.h" />

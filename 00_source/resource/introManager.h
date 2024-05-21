@@ -16,6 +16,7 @@
 class CObject2D;		// オブジェクト2Dクラス
 class CScroll2D;		// スクロール2Dクラス
 class CScrollText2D;	// 文字送りテキスト2Dクラス
+class CIntroState;		// イントロ状態クラス
 
 //************************************************************
 //	クラス定義
@@ -24,16 +25,6 @@ class CScrollText2D;	// 文字送りテキスト2Dクラス
 class CIntroManager
 {
 public:
-	// 状態列挙
-	enum EState
-	{
-		STATE_LOGO = 0,	// ロゴ表示
-		STATE_TEXT,		// 文字送り
-		STATE_WAIT,		// 待機
-		STATE_END,		// 終了
-		STATE_MAX		// この列挙型の総数
-	};
-
 	// フェード列挙
 	enum EFade
 	{
@@ -79,7 +70,6 @@ private:
 	// メンバ関数
 	bool WaitTime(const float fDeltaTime, const float fDestTime);	// 待機時間の管理
 	void NextStory(void);	// 物語の遷移
-
 	void UpdateFade(void);	// フェード更新
 
 	// メンバ変数
@@ -87,7 +77,7 @@ private:
 	CObject2D *m_pFade;		// フェード
 	CScroll2D *m_pStory;	// ストーリー
 	CScrollText2D *m_pText;	// テキスト
-	EState m_state;			// 状態
+	CIntroState *m_pState;	// 状態
 	EFade m_fade;			// フェード状況
 	int m_nStory;			// 物語インデックス
 	float m_fCurTime;		// 現在の待機時間
