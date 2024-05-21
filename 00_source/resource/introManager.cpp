@@ -12,6 +12,7 @@
 #include "object2D.h"
 #include "scroll2D.h"
 #include "scrollText2D.h"
+#include "introState.h"
 
 //************************************************************
 //	定数宣言
@@ -118,7 +119,7 @@ CIntroManager::CIntroManager() :
 	m_pFade		(nullptr),		// フェード
 	m_pStory	(nullptr),		// ストーリー
 	m_pText		(nullptr),		// テキスト
-	m_state		(STATE_LOGO),	// 状態
+	m_pState	(nullptr),		// 状態
 	m_fade		(FADE_NONE),	// フェード状況
 	m_nStory	(0),			// 物語インデックス
 	m_fCurTime	(0.0f)			// 現在の待機時間
@@ -144,10 +145,14 @@ HRESULT CIntroManager::Init(void)
 	m_pFade		= nullptr;		// フェード
 	m_pStory	= nullptr;		// ストーリー
 	m_pText		= nullptr;		// テキスト
-	m_state		= STATE_LOGO;	// 状態
+	m_pState	= nullptr;		// 状態
 	m_fade		= FADE_NONE;	// フェード状況
 	m_nStory	= 0;			// 物語インデックス
 	m_fCurTime	= 0.0f;			// 現在の待機時間
+
+	// ロゴ表示状態を設定
+	m_pState = new CIntroContext(this);
+	m_pState->Change(new CIntroStateLogo(m_pState));
 
 	// タイトルロゴの生成
 	m_pLogo = CObject2D::Create(logo::POS, logo::SIZE);
@@ -232,6 +237,8 @@ HRESULT CIntroManager::Init(void)
 //============================================================
 void CIntroManager::Uninit(void)
 {
+	SAFE_DELETE(m_pState);
+
 	// タイトルロゴの終了
 	SAFE_UNINIT(m_pLogo);
 
@@ -250,61 +257,8 @@ void CIntroManager::Update(const float fDeltaTime)
 	// フェードの更新
 	UpdateFade();
 
-	switch (m_state)
-	{ // 状態ごとの処理
-	case STATE_LOGO:	// ロゴ表示
-
-		if (WaitTime(fDeltaTime, 4.0f))
-		{ // 待機終了した場合
-
-			// タイトルロゴの自動描画をOFFにする
-			m_pLogo->SetEnableDraw(false);
-
-			// ストーリーの自動描画をONにする
-			m_pStory->SetEnableDraw(true);
-
-			// 文字送りを開始する
-			m_pText->SetEnableScroll(true);
-
-			// 文字送り状態にする
-			m_state = STATE_TEXT;
-		}
-
-		break;
-
-	case STATE_TEXT:	// 文字送り
-
-		if (!m_pText->IsScroll())
-		{ // 文字送りが終了した場合
-
-			// 待機状態にする
-			m_state = STATE_WAIT;
-		}
-
-		break;
-
-	case STATE_WAIT:	// 待機
-
-		if (WaitTime(fDeltaTime, 2.0f))
-		{ // 待機終了した場合
-
-			// 物語と状態を遷移させる
-			NextStory();
-		}
-
-		break;
-
-	case STATE_END:		// 終了
-
-		// タイトルにロードせず遷移
-		GET_MANAGER->SetScene(CScene::MODE_TITLE);
-
-		break;
-
-	default:
-		assert(false);
-		break;
-	}
+	// 状態ごとの更新
+	m_pState->Update(fDeltaTime);
 }
 
 //============================================================
@@ -360,7 +314,7 @@ void CIntroManager::NextStory(void)
 	{ // 最後まで表示した場合
 
 		// 終了状態にする
-		m_state = STATE_END;
+		m_pState->Change(new CIntroStateEnd(m_pState));
 	}
 	else
 	{ // まだ表示できる場合
@@ -382,7 +336,7 @@ void CIntroManager::NextStory(void)
 		m_fade = FADE_IN;
 
 		// 文字送り状態にする
-		m_state = STATE_TEXT;
+		m_pState->Change(new CIntroStateText(m_pState));
 	}
 }
 
