@@ -150,11 +150,11 @@ HRESULT CIntroManager::Init(void)
 	m_nStory	= 0;			// 物語インデックス
 	m_fCurTime	= 0.0f;			// 現在の待機時間
 
-	// ロゴ表示状態を設定
-	m_pState = new CIntroContext(this);
-	m_pState->Change(new CIntroStateLogo(m_pState));
+	// ロゴ表示状態にする
+	ChangeState(new CIntroStateLogo(this));
 
 	// タイトルロゴの生成
+#if 1
 	m_pLogo = CObject2D::Create(logo::POS, logo::SIZE);
 	if (m_pLogo == nullptr)
 	{ // 生成に失敗した場合
@@ -169,8 +169,10 @@ HRESULT CIntroManager::Init(void)
 
 	// 優先順位を設定
 	m_pLogo->SetPriority(PRIORITY);
+#endif
 
 	// ストーリーの生成
+#if 1
 	m_pStory = CScroll2D::Create(0.0f, 0.0f, story::POS, story::SIZE);
 	if (m_pStory == nullptr)
 	{ // 生成に失敗した場合
@@ -188,8 +190,10 @@ HRESULT CIntroManager::Init(void)
 
 	// 自動描画をOFFにする
 	m_pStory->SetEnableDraw(false);
+#endif
 
 	// フェードの生成
+#if 1
 	m_pFade = CObject2D::Create(story::POS, story::SIZE, VEC3_ZERO, XCOL_ABLACK);
 	if (m_pFade == nullptr)
 	{ // 生成に失敗した場合
@@ -201,8 +205,10 @@ HRESULT CIntroManager::Init(void)
 
 	// 優先順位を設定
 	m_pFade->SetPriority(PRIORITY);
+#endif
 
 	// テキストの生成
+#if 1
 	m_pText = CScrollText2D::Create
 	( // 引数
 		text::FONT,			// フォントパス
@@ -227,6 +233,7 @@ HRESULT CIntroManager::Init(void)
 		// 文字列を設定
 		m_pText->AddString(text::TEXT[0][i]);
 	}
+#endif
 
 	// 成功を返す
 	return S_OK;
@@ -237,6 +244,7 @@ HRESULT CIntroManager::Init(void)
 //============================================================
 void CIntroManager::Uninit(void)
 {
+	// 状態の破棄
 	SAFE_DELETE(m_pState);
 
 	// タイトルロゴの終了
@@ -259,6 +267,22 @@ void CIntroManager::Update(const float fDeltaTime)
 
 	// 状態ごとの更新
 	m_pState->Update(fDeltaTime);
+}
+
+//============================================================
+//	状態の変更処理
+//============================================================
+void CIntroManager::ChangeState(CIntroState *pState)
+{
+	// 状態の生成に失敗している場合抜ける
+	if (pState == nullptr) { assert(false); return; }
+
+	// 自身のインスタンスを破棄
+	SAFE_DELETE(m_pState);
+
+	// 自身のインスタンスを変更
+	assert(m_pState == nullptr);
+	m_pState = pState;
 }
 
 //============================================================
@@ -314,7 +338,7 @@ void CIntroManager::NextStory(void)
 	{ // 最後まで表示した場合
 
 		// 終了状態にする
-		m_pState->Change(new CIntroStateEnd(m_pState));
+		ChangeState(new CIntroStateEnd(this));
 	}
 	else
 	{ // まだ表示できる場合
@@ -336,7 +360,7 @@ void CIntroManager::NextStory(void)
 		m_fade = FADE_IN;
 
 		// 文字送り状態にする
-		m_pState->Change(new CIntroStateText(m_pState));
+		ChangeState(new CIntroStateText(this));
 	}
 }
 

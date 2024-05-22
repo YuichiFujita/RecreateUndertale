@@ -16,7 +16,7 @@
 class CObject2D;		// オブジェクト2Dクラス
 class CScroll2D;		// スクロール2Dクラス
 class CScrollText2D;	// 文字送りテキスト2Dクラス
-class CIntroContext;	// イントロコンテキストクラス
+class CIntroState;		// イントロ状態クラス
 
 //************************************************************
 //	クラス定義
@@ -61,6 +61,7 @@ public:
 	HRESULT Init(void);	// 初期化
 	void Uninit(void);	// 終了
 	void Update(const float fDeltaTime);	// 更新
+	void ChangeState(CIntroState *pState);	// 状態変更
 
 	// 静的メンバ関数
 	static CIntroManager *Create(void);	// 生成
@@ -77,7 +78,7 @@ public:
 	CObject2D *m_pFade;		// フェード
 	CScroll2D *m_pStory;	// ストーリー
 	CScrollText2D *m_pText;	// テキスト
-	CIntroContext *m_pState;	// 状態
+	CIntroState *m_pState;	// 状態
 	EFade m_fade;			// フェード状況
 	int m_nStory;			// 物語インデックス
 	float m_fCurTime;		// 現在の待機時間

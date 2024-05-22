@@ -14,41 +14,17 @@
 //	前方宣言
 //************************************************************
 class CIntroManager;	// イントロマネージャークラス
-class CIntroState;		// イントロ状態クラス
 
 //************************************************************
 //	クラス定義
 //************************************************************
-// イントロコンテキストクラス
-class CIntroContext
-{
-public:
-	// コンストラクタ
-	CIntroContext(CIntroManager *pIntro) :
-		m_pIntro(pIntro),	// イントロマネージャー
-		m_pState(nullptr)	// 状態インスタンス
-	{}
-
-	// デストラクタ
-	~CIntroContext() { SAFE_DELETE(m_pState); }
-
-	// メンバ関数
-	void Update(const float fDeltaTime);	// 更新
-	void Change(CIntroState *pState);		// 状態変更
-
-//private:	// TODO：本来絶対ダメ！
-	// メンバ変数
-	CIntroManager *m_pIntro;	// イントロマネージャー
-	CIntroState *m_pState;		// 状態インスタンス
-};
-
 // イントロ状態クラス
 class CIntroState
 {
 public:
 	// コンストラクタ
-	CIntroState(CIntroContext *pContext) :
-		m_pContext(pContext)	// イントロコンテキスト
+	CIntroState(CIntroManager *pIntro) :
+		m_pIntro	(pIntro)	// イントロマネージャー
 	{}
 
 	// デストラクタ
@@ -59,7 +35,7 @@ public:
 
 protected:
 	// メンバ変数
-	CIntroContext *m_pContext;	// イントロコンテキスト
+	CIntroManager *m_pIntro;	// イントロマネージャー
 };
 
 // ロゴ表示状態クラス
@@ -67,8 +43,8 @@ class CIntroStateLogo : public CIntroState
 {
 public:
 	// コンストラクタ
-	CIntroStateLogo(CIntroContext *pContext) :
-		CIntroState(pContext)
+	CIntroStateLogo(CIntroManager *pIntro) :
+		CIntroState(pIntro)
 	{}
 
 	// デストラクタ
@@ -83,8 +59,8 @@ class CIntroStateText : public CIntroState
 {
 public:
 	// コンストラクタ
-	CIntroStateText(CIntroContext *pContext) :
-		CIntroState(pContext)
+	CIntroStateText(CIntroManager *pIntro) :
+		CIntroState(pIntro)
 	{}
 
 	// デストラクタ
@@ -99,8 +75,8 @@ class CIntroStateWait : public CIntroState
 {
 public:
 	// コンストラクタ
-	CIntroStateWait(CIntroContext *pContext) :
-		CIntroState(pContext)
+	CIntroStateWait(CIntroManager *pIntro) :
+		CIntroState(pIntro)
 	{}
 
 	// デストラクタ
@@ -115,8 +91,8 @@ class CIntroStateEnd : public CIntroState
 {
 public:
 	// コンストラクタ
-	CIntroStateEnd(CIntroContext *pContext) :
-		CIntroState(pContext)
+	CIntroStateEnd(CIntroManager *pIntro) :
+		CIntroState(pIntro)
 	{}
 
 	// デストラクタ
