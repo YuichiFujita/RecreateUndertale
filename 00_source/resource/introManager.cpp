@@ -115,7 +115,6 @@ namespace
 //	コンストラクタ
 //============================================================
 CIntroManager::CIntroManager() :
-	m_pLogo		(nullptr),		// タイトルロゴ
 	m_pFade		(nullptr),		// フェード
 	m_pStory	(nullptr),		// ストーリー
 	m_pText		(nullptr),		// テキスト
@@ -141,7 +140,6 @@ CIntroManager::~CIntroManager()
 HRESULT CIntroManager::Init(void)
 {
 	// メンバ変数を初期化
-	m_pLogo		= nullptr;		// タイトルロゴ
 	m_pFade		= nullptr;		// フェード
 	m_pStory	= nullptr;		// ストーリー
 	m_pText		= nullptr;		// テキスト
@@ -152,24 +150,6 @@ HRESULT CIntroManager::Init(void)
 
 	// ロゴ表示状態にする
 	ChangeState(new CIntroStateLogo(this));
-
-	// タイトルロゴの生成
-#if 1
-	m_pLogo = CObject2D::Create(logo::POS, logo::SIZE);
-	if (m_pLogo == nullptr)
-	{ // 生成に失敗した場合
-
-		// 失敗を返す
-		assert(false);
-		return E_FAIL;
-	}
-
-	// テクスチャを登録・割当
-	m_pLogo->BindTexture(logo::TEXTURE);
-
-	// 優先順位を設定
-	m_pLogo->SetPriority(PRIORITY);
-#endif
 
 	// ストーリーの生成
 #if 1
@@ -247,9 +227,6 @@ void CIntroManager::Uninit(void)
 	// 状態の破棄
 	SAFE_DELETE(m_pState);
 
-	// タイトルロゴの終了
-	SAFE_UNINIT(m_pLogo);
-
 	// フェードの終了
 	SAFE_UNINIT(m_pFade);
 
@@ -272,17 +249,29 @@ void CIntroManager::Update(const float fDeltaTime)
 //============================================================
 //	状態の変更処理
 //============================================================
-void CIntroManager::ChangeState(CIntroState *pState)
+HRESULT CIntroManager::ChangeState(CIntroState *pState)
 {
 	// 状態の生成に失敗している場合抜ける
-	if (pState == nullptr) { assert(false); return; }
+	if (pState == nullptr) { assert(false); return E_FAIL; }
 
-	// 自身のインスタンスを破棄
-	SAFE_DELETE(m_pState);
+	// 自身のインスタンスを終了
+	SAFE_UNINIT(m_pState);
 
 	// 自身のインスタンスを変更
 	assert(m_pState == nullptr);
 	m_pState = pState;
+
+	// 自身のインスタンスを初期化
+	if (FAILED(m_pState->Init()))
+	{ // 初期化に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
+
+	// 成功を返す
+	return S_OK;
 }
 
 //============================================================

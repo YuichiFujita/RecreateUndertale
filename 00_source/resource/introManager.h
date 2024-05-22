@@ -60,8 +60,8 @@ public:
 	// メンバ関数
 	HRESULT Init(void);	// 初期化
 	void Uninit(void);	// 終了
-	void Update(const float fDeltaTime);	// 更新
-	void ChangeState(CIntroState *pState);	// 状態変更
+	void Update(const float fDeltaTime);		// 更新
+	HRESULT ChangeState(CIntroState *pState);	// 状態変更
 
 	// 静的メンバ関数
 	static CIntroManager *Create(void);	// 生成
@@ -74,7 +74,6 @@ public:
 	void UpdateFade(void);	// フェード更新
 
 	// メンバ変数
-	CObject2D *m_pLogo;		// タイトルロゴ
 	CObject2D *m_pFade;		// フェード
 	CScroll2D *m_pStory;	// ストーリー
 	CScrollText2D *m_pText;	// テキスト
