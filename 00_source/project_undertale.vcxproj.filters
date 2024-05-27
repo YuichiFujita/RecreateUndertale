@@ -31,6 +31,9 @@
     <Filter Include="08_state">
       <UniqueIdentifier>{28170c41-ab9a-462a-b7af-18ac38e5ecae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="08_state\state_intro">
+      <UniqueIdentifier>{2c554e48-e799-4b07-a604-03ad41adfbad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="resource\camera.cpp">
@@ -327,8 +330,20 @@
     <ClCompile Include="resource\sceneIntro.cpp">
       <Filter>02_scene</Filter>
     </ClCompile>
+    <ClCompile Include="resource\introStateLogo.cpp">
+      <Filter>08_state\state_intro</Filter>
+    </ClCompile>
     <ClCompile Include="resource\introState.cpp">
-      <Filter>08_state</Filter>
+      <Filter>08_state\state_intro</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\introStateWait.cpp">
+      <Filter>08_state\state_intro</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\introStateText.cpp">
+      <Filter>08_state\state_intro</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\introStateEnd.cpp">
+      <Filter>08_state\state_intro</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -629,8 +644,20 @@
     <ClInclude Include="resource\sceneIntro.h">
       <Filter>02_scene</Filter>
     </ClInclude>
+    <ClInclude Include="resource\introStateLogo.h">
+      <Filter>08_state\state_intro</Filter>
+    </ClInclude>
     <ClInclude Include="resource\introState.h">
-      <Filter>08_state</Filter>
+      <Filter>08_state\state_intro</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\introStateWait.h">
+      <Filter>08_state\state_intro</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\introStateText.h">
+      <Filter>08_state\state_intro</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\introStateEnd.h">
+      <Filter>08_state\state_intro</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
