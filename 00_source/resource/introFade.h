@@ -1,48 +1,53 @@
 //============================================================
 //
-//	ロゴ表示状態ヘッダー [introStateLogo.h]
+//	イントロフェードヘッダー [introFade.h]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	二重インクルード防止
 //************************************************************
-#ifndef _INTRO_STATE_LOGO_H_
-#define _INTRO_STATE_LOGO_H_
+#ifndef _INTRO_FADE_H_
+#define _INTRO_FADE_H_
 
 //************************************************************
 //	インクルードファイル
 //************************************************************
-#include "introState.h"
-
-//************************************************************
-//	前方宣言
-//************************************************************
-class CIntroManager;	// イントロマネージャークラス
-class CObject2D;		// オブジェクト2Dクラス
+#include "object2D.h"
 
 //************************************************************
 //	クラス定義
 //************************************************************
-// ロゴ表示状態クラス
-class CIntroStateLogo : public CIntroState
+// イントロフェードクラス
+class CIntroFade : public CObject2D
 {
 public:
+	// フェード列挙
+	enum EFade
+	{
+		FADE_IN = 0,	// フェードイン
+		FADE_OUT,		// フェードアウト
+		FADE_MAX		// この列挙型の総数
+	};
+
 	// コンストラクタ
-	CIntroStateLogo(CIntroManager *pIntro);
+	CIntroFade();
 
 	// デストラクタ
-	~CIntroStateLogo() override;
+	~CIntroFade();
 
 	// オーバーライド関数
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
+	void Draw(CShader *pShader = nullptr) override;	// 描画
+
+	// 静的メンバ関数
+	static CIntroFade *Create(void);	// 生成
 
 private:
 	// メンバ変数
-	CObject2D *m_pLogo;	// タイトルロゴ
-	float m_fCurTime;	// 現在の待機時間
+	EFade m_fade;	// フェード状況
 };
 
-#endif	// _INTRO_STATE_LOGO_H_
+#endif	// _INTRO_FADE_H_

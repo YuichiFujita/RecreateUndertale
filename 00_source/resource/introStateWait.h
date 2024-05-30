@@ -28,17 +28,19 @@ class CIntroStateWait : public CIntroState
 {
 public:
 	// コンストラクタ
-	CIntroStateWait(CIntroManager *pIntro) :
-		CIntroState(pIntro)	// イニシャライザ
-	{}
+	CIntroStateWait(CIntroManager *pIntro);
 
 	// デストラクタ
-	~CIntroStateWait() override {}
+	~CIntroStateWait() override;
 
 	// オーバーライド関数
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
+
+private:
+	// メンバ変数
+	float m_fCurTime;	// 現在の待機時間
 };
 
 #endif	// _INTRO_STATE_WAIT_H_

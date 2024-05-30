@@ -28,12 +28,10 @@ class CIntroStateText : public CIntroState
 {
 public:
 	// コンストラクタ
-	CIntroStateText(CIntroManager *pIntro) :
-		CIntroState(pIntro)	// イニシャライザ
-	{}
+	CIntroStateText(CIntroManager *pIntro);
 
 	// デストラクタ
-	~CIntroStateText() override {}
+	~CIntroStateText() override;
 
 	// オーバーライド関数
 	HRESULT Init(void) override;	// 初期化

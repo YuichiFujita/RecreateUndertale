@@ -106,6 +106,35 @@ void CText2D::Draw(CShader * /*pShader*/)
 }
 
 //============================================================
+//	—Dæ‡ˆÊ‚Ìİ’èˆ—
+//============================================================
+void CText2D::SetPriority(const int nPriority)
+{
+	// ©g‚Ì—Dæ‡ˆÊ‚ğİ’è
+	CObject::SetPriority(nPriority);
+
+	for (auto& rList : m_listString)
+	{ // •¶š—ñ‚ÌŠi”[”•ªŒJ‚è•Ô‚·
+
+		// •¶š—ñ‚Ì—Dæ‡ˆÊ‚ğİ’è
+		rList->SetPriority(nPriority);
+	}
+}
+
+//============================================================
+//	XVó‹µ‚Ìİ’èˆ—
+//============================================================
+void CText2D::SetEnableUpdate(const bool bUpdate)
+{
+	for (auto& rList : m_listString)
+	{ // •¶š—ñ‚ÌŠi”[”•ªŒJ‚è•Ô‚·
+
+		// •¶š—ñ‚ÌXVó‹µ‚ğİ’è
+		rList->SetEnableUpdate(bUpdate);
+	}
+}
+
+//============================================================
 //	•`‰æó‹µ‚Ìİ’èˆ—
 //============================================================
 void CText2D::SetEnableDraw(const bool bDraw)
@@ -238,6 +267,12 @@ HRESULT CText2D::AddString(const std::wstring& rStr)
 		assert(false);
 		return E_FAIL;
 	}
+
+	// •¶š—ñ‚Ìƒ‰ƒxƒ‹‚ğw’è‚È‚µ‚É‚·‚é
+	pStr->SetLabel(LABEL_NONE);
+
+	// •¶š—ñ‚Ì—Dæ‡ˆÊ‚ğ©g‚Ì‚à‚Ì‚É‚·‚é
+	pStr->SetPriority(GetPriority());
 
 	// ÅŒã”ö‚É¶¬‚µ‚½•¶š—ñ‚ğ’Ç‰Á
 	m_listString.push_back(pStr);

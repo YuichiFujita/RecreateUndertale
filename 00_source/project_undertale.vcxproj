@@ -178,6 +178,7 @@
     <ClCompile Include="resource\hitStop.cpp" />
     <ClCompile Include="resource\impact.cpp" />
     <ClCompile Include="resource\input.cpp" />
+    <ClCompile Include="resource\introFade.cpp" />
     <ClCompile Include="resource\introManager.cpp" />
     <ClCompile Include="resource\introState.cpp" />
     <ClCompile Include="resource\introStateEnd.cpp" />
@@ -286,6 +287,7 @@
     <ClInclude Include="resource\hitStop.h" />
     <ClInclude Include="resource\impact.h" />
     <ClInclude Include="resource\input.h" />
+    <ClInclude Include="resource\introFade.h" />
     <ClInclude Include="resource\introManager.h" />
     <ClInclude Include="resource\introState.h" />
     <ClInclude Include="resource\introStateEnd.h" />

@@ -18,29 +18,42 @@
 //************************************************************
 namespace
 {
-	const int PRIORITY = 6;	// イントロの優先順位
-
-	namespace logo
-	{
-		const char *TEXTURE		= "data\\TEXTURE\\logoIntro000.png";	// タイトルロゴテクスチャ
-		const D3DXVECTOR3 POS	= SCREEN_CENT;	// タイトルロゴ位置
-		const D3DXVECTOR3 SIZE	= SCREEN_SIZE;	// タイトルロゴ大きさ
-	}
+	const char *TEXTURE	 = "data\\TEXTURE\\logoIntro000.png";	// ロゴテクスチャ
+	const int	PRIORITY = 6;	// 優先順位
 }
 
 //************************************************************
 //	子クラス [CIntroStateLogo] のメンバ関数
 //************************************************************
 //============================================================
+//	コンストラクタ
+//============================================================
+CIntroStateLogo::CIntroStateLogo(CIntroManager *pIntro) : CIntroState(pIntro),
+	m_pLogo		(nullptr),	// タイトルロゴ
+	m_fCurTime	(0.0f)		// 現在の待機時間
+{
+
+}
+
+//============================================================
+//	デストラクタ
+//============================================================
+CIntroStateLogo::~CIntroStateLogo()
+{
+
+}
+
+//============================================================
 //	初期化処理
 //============================================================
 HRESULT CIntroStateLogo::Init(void)
 {
 	// メンバ変数を初期化
-	m_pLogo = nullptr;	// タイトルロゴ
+	m_pLogo		= nullptr;	// タイトルロゴ
+	m_fCurTime	= 0.0f;		// 現在の待機時間
 
 	// タイトルロゴの生成
-	m_pLogo = CObject2D::Create(logo::POS, logo::SIZE);
+	m_pLogo = CObject2D::Create(SCREEN_CENT, SCREEN_SIZE);
 	if (m_pLogo == nullptr)
 	{ // 生成に失敗した場合
 
@@ -50,7 +63,7 @@ HRESULT CIntroStateLogo::Init(void)
 	}
 
 	// テクスチャを登録・割当
-	m_pLogo->BindTexture(logo::TEXTURE);
+	m_pLogo->BindTexture(TEXTURE);
 
 	// 優先順位を設定
 	m_pLogo->SetPriority(PRIORITY);
@@ -76,8 +89,13 @@ void CIntroStateLogo::Uninit(void)
 //============================================================
 void CIntroStateLogo::Update(const float fDeltaTime)
 {
-	if (m_pIntro->WaitTime(fDeltaTime, 4.0f))
+	// 待機時刻を進める
+	m_fCurTime += fDeltaTime;
+	if (m_fCurTime >= 4.0f)
 	{ // 待機終了した場合
+
+		// 待機時間を初期化
+		m_fCurTime = 0.0f;
 
 		// ストーリーの自動描画をONにする
 		m_pIntro->m_pStory->SetEnableDraw(true);

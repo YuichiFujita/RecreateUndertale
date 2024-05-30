@@ -13,21 +13,13 @@
 #include "scroll2D.h"
 #include "scrollText2D.h"
 #include "introState.h"
+#include "introFade.h"
 
 //************************************************************
 //	定数宣言
 //************************************************************
 namespace
 {
-	const int PRIORITY = 6;	// イントロの優先順位
-
-	namespace logo
-	{
-		const char *TEXTURE		= "data\\TEXTURE\\logoIntro000.png";	// タイトルロゴテクスチャ
-		const D3DXVECTOR3 POS	= SCREEN_CENT;	// タイトルロゴ位置
-		const D3DXVECTOR3 SIZE	= SCREEN_SIZE;	// タイトルロゴ大きさ
-	}
-
 	namespace story
 	{
 		const char *TEXTURE[] =	// 物語のテクスチャ
@@ -45,6 +37,7 @@ namespace
 			"data\\TEXTURE\\story010.png",	// 着地
 		};
 
+		const int PRIORITY = 5;	// 物語表示ポリゴンの優先順位
 		const D3DXVECTOR3 POS	= D3DXVECTOR3(SCREEN_CENT.x, 225.0f, 0.0f);	// ストーリー位置
 		const D3DXVECTOR3 SIZE	= D3DXVECTOR3(605.0f, 302.5f, 0.0f);		// ストーリー大きさ
 	}
@@ -97,6 +90,7 @@ namespace
 #endif
 
 		const char *FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
+		const int	PRIORITY	= 7;		// テキストの優先順位
 		const bool	ITALIC		= false;	// イタリック
 		const float	WAIT_TIME	= 0.115f;	// 文字表示の待機時間
 		const float	CHAR_HEIGHT	= 45.0f;	// 文字縦幅
@@ -115,13 +109,11 @@ namespace
 //	コンストラクタ
 //============================================================
 CIntroManager::CIntroManager() :
-	m_pFade		(nullptr),		// フェード
-	m_pStory	(nullptr),		// ストーリー
-	m_pText		(nullptr),		// テキスト
-	m_pState	(nullptr),		// 状態
-	m_fade		(FADE_NONE),	// フェード状況
-	m_nStory	(0),			// 物語インデックス
-	m_fCurTime	(0.0f)			// 現在の待機時間
+	m_pFade		(nullptr),	// フェード
+	m_pStory	(nullptr),	// ストーリー
+	m_pText		(nullptr),	// テキスト
+	m_pState	(nullptr),	// 状態
+	m_nStory	(0)			// 物語インデックス
 {
 
 }
@@ -140,19 +132,19 @@ CIntroManager::~CIntroManager()
 HRESULT CIntroManager::Init(void)
 {
 	// メンバ変数を初期化
-	m_pFade		= nullptr;		// フェード
-	m_pStory	= nullptr;		// ストーリー
-	m_pText		= nullptr;		// テキスト
-	m_pState	= nullptr;		// 状態
-	m_fade		= FADE_NONE;	// フェード状況
-	m_nStory	= 0;			// 物語インデックス
-	m_fCurTime	= 0.0f;			// 現在の待機時間
+	m_pFade		= nullptr;	// フェード
+	m_pStory	= nullptr;	// ストーリー
+	m_pText		= nullptr;	// テキスト
+	m_pState	= nullptr;	// 状態
+	m_nStory	= 0;		// 物語インデックス
 
 	// ロゴ表示状態にする
 	ChangeState(new CIntroStateLogo(this));
 
+	//--------------------------------------------------------
+	//	ストーリーの生成・設定
+	//--------------------------------------------------------
 	// ストーリーの生成
-#if 1
 	m_pStory = CScroll2D::Create(0.0f, 0.0f, story::POS, story::SIZE);
 	if (m_pStory == nullptr)
 	{ // 生成に失敗した場合
@@ -166,29 +158,15 @@ HRESULT CIntroManager::Init(void)
 	m_pStory->BindTexture(story::TEXTURE[0]);
 
 	// 優先順位を設定
-	m_pStory->SetPriority(PRIORITY);
+	m_pStory->SetPriority(story::PRIORITY);
 
 	// 自動描画をOFFにする
 	m_pStory->SetEnableDraw(false);
-#endif
 
-	// フェードの生成
-#if 1
-	m_pFade = CObject2D::Create(story::POS, story::SIZE, VEC3_ZERO, XCOL_ABLACK);
-	if (m_pFade == nullptr)
-	{ // 生成に失敗した場合
-
-		// 失敗を返す
-		assert(false);
-		return E_FAIL;
-	}
-
-	// 優先順位を設定
-	m_pFade->SetPriority(PRIORITY);
-#endif
-
+	//--------------------------------------------------------
+	//	テキストの生成・設定
+	//--------------------------------------------------------
 	// テキストの生成
-#if 1
 	m_pText = CScrollText2D::Create
 	( // 引数
 		text::FONT,			// フォントパス
@@ -208,12 +186,14 @@ HRESULT CIntroManager::Init(void)
 		return E_FAIL;
 	}
 
+	// 優先順位をフェードより上にする
+	m_pText->SetPriority(text::PRIORITY);
+
 	for (int i = 0; i < 3; i++)
 	{
 		// 文字列を設定
 		m_pText->AddString(text::TEXT[0][i]);
 	}
-#endif
 
 	// 成功を返す
 	return S_OK;
@@ -224,8 +204,8 @@ HRESULT CIntroManager::Init(void)
 //============================================================
 void CIntroManager::Uninit(void)
 {
-	// 状態の破棄
-	SAFE_DELETE(m_pState);
+	// 状態の終了
+	SAFE_UNINIT(m_pState);
 
 	// フェードの終了
 	SAFE_UNINIT(m_pFade);
@@ -239,9 +219,6 @@ void CIntroManager::Uninit(void)
 //============================================================
 void CIntroManager::Update(const float fDeltaTime)
 {
-	// フェードの更新
-	UpdateFade();
-
 	// 状態ごとの更新
 	m_pState->Update(fDeltaTime);
 }
@@ -345,79 +322,13 @@ void CIntroManager::NextStory(void)
 		// 文字送りを開始する
 		m_pText->SetEnableScroll(true);
 
-		// フェードを開始する
-		m_fade = FADE_IN;
+		// フェードを生成する
+		CIntroFade::Create();
+
+		// 物語の画像を差し替え
+		//m_pStory->BindTexture(story::TEXTURE[m_nStory]);	// TODO：どこにおこうかな
 
 		// 文字送り状態にする
 		ChangeState(new CIntroStateText(this));
 	}
-}
-
-//============================================================
-//	フェード更新処理
-//============================================================
-void CIntroManager::UpdateFade(void)
-{
-	switch (m_fade)
-	{ // フェード状態ごとの処理
-	case FADE_NONE:	// フェード無し
-	{
-		break;
-	}
-	case FADE_IN:	// フェードイン
-	{
-		D3DXCOLOR colFade = m_pFade->GetColor();	// フェード色
-		colFade.a += 0.04f;
-		m_pFade->SetColor(colFade);
-
-		if (colFade.a >= 1.0f)
-		{ // フェード仕切った場合
-
-			// 物語の画像を差し替え
-			m_pStory->BindTexture(story::TEXTURE[m_nStory]);
-
-			// フェードアウト状態にする
-			m_fade = FADE_OUT;
-		}
-
-		break;
-	}
-	case FADE_OUT:	// フェードアウト
-	{
-		D3DXCOLOR colFade = m_pFade->GetColor();	// フェード色
-		colFade.a -= 0.04f;
-		m_pFade->SetColor(colFade);
-
-		if (colFade.a <= 0.0f)
-		{ // フェード仕切った場合
-
-			// フェード無し状態にする
-			m_fade = FADE_NONE;
-		}
-
-		break;
-	}
-	default:
-		assert(false);
-		break;
-	}
-}
-
-//============================================================
-//	待機時間の管理処理
-//============================================================
-bool CIntroManager::WaitTime(const float fDeltaTime, const float fDestTime)
-{
-	// 待機時刻を進める
-	m_fCurTime += fDeltaTime;
-	if (m_fCurTime >= fDestTime)
-	{ // 待機終了した場合
-
-		// 待機時間を初期化
-		m_fCurTime = 0.0f;
-
-		return true;
-	}
-
-	return false;
 }

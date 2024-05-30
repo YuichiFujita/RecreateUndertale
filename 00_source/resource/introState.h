@@ -23,12 +23,10 @@ class CIntroState
 {
 public:
 	// コンストラクタ
-	CIntroState(CIntroManager *pIntro) :
-		m_pIntro	(pIntro)	// イントロマネージャー
-	{}
+	CIntroState(CIntroManager *pIntro);
 
 	// デストラクタ
-	virtual ~CIntroState() {}
+	virtual ~CIntroState();
 
 	// 純粋仮想関数
 	virtual HRESULT Init(void)	= 0;	// 初期化

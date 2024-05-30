@@ -25,15 +25,6 @@ class CIntroState;		// イントロ状態クラス
 class CIntroManager
 {
 public:
-	// フェード列挙
-	enum EFade
-	{
-		FADE_NONE = 0,	// フェード無し
-		FADE_IN,		// フェードイン
-		FADE_OUT,		// フェードアウト
-		FADE_MAX		// この列挙型の総数
-	};
-
 	// 物語列挙
 	enum EStory
 	{
@@ -69,18 +60,14 @@ public:
 
 //private:	// TODO：本来絶対ダメ！
 	// メンバ関数
-	bool WaitTime(const float fDeltaTime, const float fDestTime);	// 待機時間の管理
 	void NextStory(void);	// 物語の遷移
-	void UpdateFade(void);	// フェード更新
 
 	// メンバ変数
 	CObject2D *m_pFade;		// フェード
 	CScroll2D *m_pStory;	// ストーリー
 	CScrollText2D *m_pText;	// テキスト
 	CIntroState *m_pState;	// 状態
-	EFade m_fade;			// フェード状況
 	int m_nStory;			// 物語インデックス
-	float m_fCurTime;		// 現在の待機時間
 };
 
 #endif	// _INTROMANAGER_H_

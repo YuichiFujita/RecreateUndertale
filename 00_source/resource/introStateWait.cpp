@@ -22,10 +22,30 @@ namespace
 //	子クラス [CIntroStateWait] のメンバ関数
 //************************************************************
 //============================================================
+//	コンストラクタ
+//============================================================
+CIntroStateWait::CIntroStateWait(CIntroManager *pIntro) : CIntroState(pIntro),
+	m_fCurTime	(0.0f)	// 現在の待機時間
+{
+
+}
+
+//============================================================
+//	デストラクタ
+//============================================================
+CIntroStateWait::~CIntroStateWait()
+{
+
+}
+
+//============================================================
 //	初期化処理
 //============================================================
 HRESULT CIntroStateWait::Init(void)
 {
+	// メンバ変数を初期化
+	m_fCurTime = 0.0f;	// 現在の待機時間
+
 	// 成功を返す
 	return S_OK;
 }
@@ -44,8 +64,13 @@ void CIntroStateWait::Uninit(void)
 //============================================================
 void CIntroStateWait::Update(const float fDeltaTime)
 {
-	if (m_pIntro->WaitTime(fDeltaTime, 2.0f))
+	// 待機時刻を進める
+	m_fCurTime += fDeltaTime;
+	if (m_fCurTime >= 2.0f)
 	{ // 待機終了した場合
+
+		// 待機時間を初期化
+		m_fCurTime = 0.0f;
 
 		// 物語と状態を遷移させる
 		m_pIntro->NextStory();

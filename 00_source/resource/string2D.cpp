@@ -101,6 +101,35 @@ void CString2D::Draw(CShader * /*pShader*/)
 }
 
 //============================================================
+//	優先順位の設定処理
+//============================================================
+void CString2D::SetPriority(const int nPriority)
+{
+	// 自身の優先順位を設定
+	CObject::SetPriority(nPriority);
+
+	for (int i = 0; i < (int)m_wsStr.size(); i++)
+	{ // 文字数分繰り返す
+
+		// 文字の優先順位を設定
+		m_ppChar[i]->SetPriority(nPriority);
+	}
+}
+
+//============================================================
+//	更新状況の設定処理
+//============================================================
+void CString2D::SetEnableUpdate(const bool bUpdate)
+{
+	for (int i = 0; i < (int)m_wsStr.size(); i++)
+	{ // 文字数分繰り返す
+
+		// 文字の更新状況を設定
+		m_ppChar[i]->SetEnableUpdate(bUpdate);
+	}
+}
+
+//============================================================
 //	描画状況の設定処理
 //============================================================
 void CString2D::SetEnableDraw(const bool bDraw)
@@ -262,6 +291,12 @@ HRESULT CString2D::SetString(const std::wstring& rStr)
 			assert(false);
 			return E_FAIL;
 		}
+
+		// 文字のラベルを指定なしにする
+		m_ppChar[i]->SetLabel(LABEL_NONE);
+
+		// 文字の優先順位を自身のものにする
+		m_ppChar[i]->SetPriority(GetPriority());
 	}
 
 	// 相対位置の設定
