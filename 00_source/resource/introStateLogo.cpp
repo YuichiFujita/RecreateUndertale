@@ -101,8 +101,8 @@ void CIntroStateLogo::Update(const float fDeltaTime)
 		// ストーリーの自動描画をONにする
 		m_pContext->m_pStory->SetEnableDraw(true);
 
-		// 文字送りを開始する
-		m_pContext->m_pText->SetEnableScroll(true);
+		// 開始テキストに変更
+		m_pContext->ChangeText(0);
 
 		// 文字送り状態にする
 		m_pContext->ChangeState(new CIntroStateText);

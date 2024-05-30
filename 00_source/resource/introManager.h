@@ -11,12 +11,16 @@
 #define _INTROMANAGER_H_
 
 //************************************************************
+//	インクルードファイル
+//************************************************************
+#include "scrollText2D.h"
+
+//************************************************************
 //	前方宣言
 //************************************************************
-class CObject2D;		// オブジェクト2Dクラス
-class CScroll2D;		// スクロール2Dクラス
-class CScrollText2D;	// 文字送りテキスト2Dクラス
-class CIntroState;		// イントロ状態クラス
+class CObject2D;	// オブジェクト2Dクラス
+class CScroll2D;	// スクロール2Dクラス
+class CIntroState;	// イントロ状態クラス
 
 //************************************************************
 //	クラス定義
@@ -55,12 +59,14 @@ public:
 	HRESULT ChangeState(CIntroState *pState);	// 状態変更
 
 	void NextStory(void);	// 物語の遷移
+	void ChangeText(const int nStory);	// テキスト変更
+	bool IsTextScroll(void) { return m_pText->IsScroll(); }	// テキスト文字送り状況
 
 	// 静的メンバ関数
 	static CIntroManager *Create(void);	// 生成
 	static void Release(CIntroManager *&prIntroManager);	// 破棄
 
-//private:
+private:
 	// メンバ変数
 	CObject2D *m_pFade;		// フェード
 	CScroll2D *m_pStory;	// ストーリー

@@ -11,7 +11,6 @@
 #include "manager.h"
 #include "object2D.h"
 #include "scroll2D.h"
-#include "scrollText2D.h"
 #include "introState.h"
 #include "introFade.h"
 
@@ -44,7 +43,6 @@ namespace
 
 	namespace text
 	{
-#if 1
 		const wchar_t *TEXT[][3] =	// 物語のテキスト
 		{
 			{
@@ -87,7 +85,6 @@ namespace
 			{ L"", L"", L"", },
 			{ L"", L"", L"", },
 		};
-#endif
 
 		const char *FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
 		const int	PRIORITY	= 7;		// テキストの優先順位
@@ -270,21 +267,11 @@ void CIntroManager::NextStory(void)
 	else
 	{ // まだ表示できる場合
 
-		// 文字列をすべて破棄
-		m_pText->DeleteStringAll();
-
-		// 次の文字列に置換
-		for (int i = 0; i < 3; i++)
-		{
-			// 文字列を設定
-			m_pText->AddString(text::TEXT[m_nStory][i]);
-		}
-
-		// 文字送りを開始する
-		m_pText->SetEnableScroll(true);
-
 		// フェードを生成する
-		CIntroFade::Create();
+		CIntroFade::Create(/*TODO：ここにIntroいtれられるようにして、中で画像差し替えよう*/);
+
+		// 表示テキストを変更する
+		ChangeText(m_nStory);
 
 		// 物語の画像を差し替え
 		//m_pStory->BindTexture(story::TEXTURE[m_nStory]);	// TODO：どこにおこうかな
@@ -292,6 +279,25 @@ void CIntroManager::NextStory(void)
 		// 文字送り状態にする
 		ChangeState(new CIntroStateText);
 	}
+}
+
+//============================================================
+//	テキスト変更処理
+//============================================================
+void CIntroManager::ChangeText(const int nStory)
+{
+	// 文字列を全て削除
+	m_pText->DeleteStringAll();
+
+	// 引数の文字列に置換
+	for (int i = 0; i < 3; i++)
+	{
+		// 文字列を設定
+		m_pText->AddString(text::TEXT[nStory][i]);
+	}
+
+	// 文字送りを開始する
+	m_pText->SetEnableScroll(true);
 }
 
 //============================================================

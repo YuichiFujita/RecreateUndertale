@@ -9,7 +9,6 @@
 //************************************************************
 #include "introStateText.h"
 #include "introManager.h"
-#include "scrollText2D.h"
 
 //************************************************************
 //	’è”éŒ¾
@@ -61,7 +60,7 @@ void CIntroStateText::Uninit(void)
 //============================================================
 void CIntroStateText::Update(const float fDeltaTime)
 {
-	if (!m_pContext->m_pText->IsScroll())
+	if (!m_pContext->IsTextScroll())
 	{ // •¶Žš‘—‚è‚ªI—¹‚µ‚½ê‡
 
 		// ‘Ò‹@ó‘Ô‚É‚·‚é
