@@ -255,6 +255,46 @@ HRESULT CIntroManager::ChangeState(CIntroState *pState)
 }
 
 //============================================================
+//	物語の遷移処理
+//============================================================
+void CIntroManager::NextStory(void)
+{
+	// 物語を次に進める
+	m_nStory++;
+	if (useful::LimitMaxNum(m_nStory, (int)STORY_MAX - 1))
+	{ // 最後まで表示した場合
+
+		// 終了状態にする
+		ChangeState(new CIntroStateEnd);
+	}
+	else
+	{ // まだ表示できる場合
+
+		// 文字列をすべて破棄
+		m_pText->DeleteStringAll();
+
+		// 次の文字列に置換
+		for (int i = 0; i < 3; i++)
+		{
+			// 文字列を設定
+			m_pText->AddString(text::TEXT[m_nStory][i]);
+		}
+
+		// 文字送りを開始する
+		m_pText->SetEnableScroll(true);
+
+		// フェードを生成する
+		CIntroFade::Create();
+
+		// 物語の画像を差し替え
+		//m_pStory->BindTexture(story::TEXTURE[m_nStory]);	// TODO：どこにおこうかな
+
+		// 文字送り状態にする
+		ChangeState(new CIntroStateText);
+	}
+}
+
+//============================================================
 //	生成処理
 //============================================================
 CIntroManager *CIntroManager::Create(void)
@@ -294,44 +334,4 @@ void CIntroManager::Release(CIntroManager *&prIntroManager)
 
 	// メモリ開放
 	SAFE_DELETE(prIntroManager);
-}
-
-//============================================================
-//	物語の遷移処理
-//============================================================
-void CIntroManager::NextStory(void)
-{
-	// 物語を次に進める
-	m_nStory++;
-	if (useful::LimitMaxNum(m_nStory, (int)STORY_MAX - 1))
-	{ // 最後まで表示した場合
-
-		// 終了状態にする
-		ChangeState(new CIntroStateEnd);
-	}
-	else
-	{ // まだ表示できる場合
-
-		// 文字列をすべて破棄
-		m_pText->DeleteStringAll();
-
-		// 次の文字列に置換
-		for (int i = 0; i < 3; i++)
-		{
-			// 文字列を設定
-			m_pText->AddString(text::TEXT[m_nStory][i]);
-		}
-
-		// 文字送りを開始する
-		m_pText->SetEnableScroll(true);
-
-		// フェードを生成する
-		CIntroFade::Create();
-
-		// 物語の画像を差し替え
-		//m_pStory->BindTexture(story::TEXTURE[m_nStory]);	// TODO：どこにおこうかな
-
-		// 文字送り状態にする
-		ChangeState(new CIntroStateText);
-	}
 }

@@ -18,8 +18,9 @@
 //************************************************************
 namespace
 {
-	const char *TEXTURE	 = "data\\TEXTURE\\logoIntro000.png";	// ロゴテクスチャ
-	const int	PRIORITY = 6;	// 優先順位
+	const char *TEXTURE		= "data\\TEXTURE\\logoIntro000.png";	// ロゴテクスチャ
+	const int	PRIORITY	= 6;	// 優先順位
+	const float	DISP_TIME	= 4.0f;	// タイトルロゴ表示時間
 }
 
 //************************************************************
@@ -91,7 +92,7 @@ void CIntroStateLogo::Update(const float fDeltaTime)
 {
 	// 待機時刻を進める
 	m_fCurTime += fDeltaTime;
-	if (m_fCurTime >= 4.0f)
+	if (m_fCurTime >= DISP_TIME)
 	{ // 待機終了した場合
 
 		// 待機時間を初期化

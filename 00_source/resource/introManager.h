@@ -54,14 +54,13 @@ public:
 	void Update(const float fDeltaTime);		// 更新
 	HRESULT ChangeState(CIntroState *pState);	// 状態変更
 
+	void NextStory(void);	// 物語の遷移
+
 	// 静的メンバ関数
 	static CIntroManager *Create(void);	// 生成
 	static void Release(CIntroManager *&prIntroManager);	// 破棄
 
-//private:	// TODO：本来絶対ダメ！
-	// メンバ関数
-	void NextStory(void);	// 物語の遷移
-
+//private:
 	// メンバ変数
 	CObject2D *m_pFade;		// フェード
 	CScroll2D *m_pStory;	// ストーリー
