@@ -16,6 +16,11 @@
 #include "object2D.h"
 
 //************************************************************
+//	前方宣言
+//************************************************************
+class CIntroManager;	// イントロマネージャークラス
+
+//************************************************************
 //	クラス定義
 //************************************************************
 // イントロフェードクラス
@@ -31,7 +36,7 @@ public:
 	};
 
 	// コンストラクタ
-	CIntroFade();
+	CIntroFade(CIntroManager *pIntro);
 
 	// デストラクタ
 	~CIntroFade();
@@ -43,10 +48,11 @@ public:
 	void Draw(CShader *pShader = nullptr) override;	// 描画
 
 	// 静的メンバ関数
-	static CIntroFade *Create(void);	// 生成
+	static CIntroFade *Create(CIntroManager *pIntro);	// 生成
 
 private:
 	// メンバ変数
+	CIntroManager *m_pIntro;	// イントロマネージャー
 	EFade m_fade;	// フェード状況
 };
 

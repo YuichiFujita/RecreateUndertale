@@ -59,8 +59,10 @@ public:
 	HRESULT ChangeState(CIntroState *pState);	// 状態変更
 
 	void NextStory(void);	// 物語の遷移
-	void ChangeText(const int nStory);	// テキスト変更
-	bool IsTextScroll(void) { return m_pText->IsScroll(); }	// テキスト文字送り状況
+	void ChangeStory(const int nStoryID);	// ストーリー変更
+	void ChangeText(const int nStoryID);	// テキスト変更
+	int GetStoryID(void)	{ return m_nStoryID; }			// 物語インデックス取得
+	bool IsTextScroll(void)	{ return m_pText->IsScroll(); }	// テキスト文字送り状況取得
 
 	// 静的メンバ関数
 	static CIntroManager *Create(void);	// 生成
@@ -72,7 +74,7 @@ private:
 	CScroll2D *m_pStory;	// ストーリー
 	CScrollText2D *m_pText;	// テキスト
 	CIntroState *m_pState;	// 状態
-	int m_nStory;			// 物語インデックス
+	int m_nStoryID;			// 物語インデックス
 };
 
 #endif	// _INTROMANAGER_H_

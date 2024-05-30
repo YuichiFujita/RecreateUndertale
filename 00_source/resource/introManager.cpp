@@ -36,7 +36,7 @@ namespace
 			"data\\TEXTURE\\story010.png",	// 着地
 		};
 
-		const int PRIORITY = 5;	// 物語表示ポリゴンの優先順位
+		const int PRIORITY = 4;	// 物語表示ポリゴンの優先順位
 		const D3DXVECTOR3 POS	= D3DXVECTOR3(SCREEN_CENT.x, 225.0f, 0.0f);	// ストーリー位置
 		const D3DXVECTOR3 SIZE	= D3DXVECTOR3(605.0f, 302.5f, 0.0f);		// ストーリー大きさ
 	}
@@ -87,7 +87,7 @@ namespace
 		};
 
 		const char *FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
-		const int	PRIORITY	= 7;		// テキストの優先順位
+		const int	PRIORITY	= 6;		// テキストの優先順位
 		const bool	ITALIC		= false;	// イタリック
 		const float	WAIT_TIME	= 0.115f;	// 文字表示の待機時間
 		const float	CHAR_HEIGHT	= 45.0f;	// 文字縦幅
@@ -110,7 +110,7 @@ CIntroManager::CIntroManager() :
 	m_pStory	(nullptr),	// ストーリー
 	m_pText		(nullptr),	// テキスト
 	m_pState	(nullptr),	// 状態
-	m_nStory	(0)			// 物語インデックス
+	m_nStoryID	(0)			// 物語インデックス
 {
 
 }
@@ -133,7 +133,7 @@ HRESULT CIntroManager::Init(void)
 	m_pStory	= nullptr;	// ストーリー
 	m_pText		= nullptr;	// テキスト
 	m_pState	= nullptr;	// 状態
-	m_nStory	= 0;		// 物語インデックス
+	m_nStoryID	= 0;		// 物語インデックス
 
 	// ロゴ表示状態にする
 	ChangeState(new CIntroStateLogo);
@@ -156,9 +156,6 @@ HRESULT CIntroManager::Init(void)
 
 	// 優先順位を設定
 	m_pStory->SetPriority(story::PRIORITY);
-
-	// 自動描画をOFFにする
-	m_pStory->SetEnableDraw(false);
 
 	//--------------------------------------------------------
 	//	テキストの生成・設定
@@ -257,8 +254,9 @@ HRESULT CIntroManager::ChangeState(CIntroState *pState)
 void CIntroManager::NextStory(void)
 {
 	// 物語を次に進める
-	m_nStory++;
-	if (useful::LimitMaxNum(m_nStory, (int)STORY_MAX - 1))
+	m_nStoryID++;
+
+	if (useful::LimitMaxNum(m_nStoryID, (int)STORY_MAX - 1))
 	{ // 最後まで表示した場合
 
 		// 終了状態にする
@@ -268,13 +266,10 @@ void CIntroManager::NextStory(void)
 	{ // まだ表示できる場合
 
 		// フェードを生成する
-		CIntroFade::Create(/*TODO：ここにIntroいtれられるようにして、中で画像差し替えよう*/);
+		CIntroFade::Create(this);
 
 		// 表示テキストを変更する
-		ChangeText(m_nStory);
-
-		// 物語の画像を差し替え
-		//m_pStory->BindTexture(story::TEXTURE[m_nStory]);	// TODO：どこにおこうかな
+		ChangeText(m_nStoryID);
 
 		// 文字送り状態にする
 		ChangeState(new CIntroStateText);
@@ -282,9 +277,18 @@ void CIntroManager::NextStory(void)
 }
 
 //============================================================
+//	ストーリー変更処理
+//============================================================
+void CIntroManager::ChangeStory(const int nStoryID)
+{
+	// 物語の画像を差し替え
+	m_pStory->BindTexture(story::TEXTURE[nStoryID]);
+}
+
+//============================================================
 //	テキスト変更処理
 //============================================================
-void CIntroManager::ChangeText(const int nStory)
+void CIntroManager::ChangeText(const int nStoryID)
 {
 	// 文字列を全て削除
 	m_pText->DeleteStringAll();
@@ -293,7 +297,7 @@ void CIntroManager::ChangeText(const int nStory)
 	for (int i = 0; i < 3; i++)
 	{
 		// 文字列を設定
-		m_pText->AddString(text::TEXT[nStory][i]);
+		m_pText->AddString(text::TEXT[nStoryID][i]);
 	}
 
 	// 文字送りを開始する

@@ -8,15 +8,14 @@
 //	インクルードファイル
 //************************************************************
 #include "introFade.h"
-#include "manager.h"
-#include "renderer.h"
+#include "introManager.h"
 
 //************************************************************
 //	定数宣言
 //************************************************************
 namespace
 {
-	const int	PRIORITY	= 6;	// フェードの優先順位
+	const int	PRIORITY	= 5;	// フェードの優先順位
 	const float	FADE_LEVEL	= 2.8f;	// フェードのα変化量
 }
 
@@ -26,7 +25,9 @@ namespace
 //============================================================
 //	コンストラクタ
 //============================================================
-CIntroFade::CIntroFade() : m_fade(FADE_IN)
+CIntroFade::CIntroFade(CIntroManager *pIntro) :
+	m_pIntro	(pIntro),	// イントロマネージャー
+	m_fade		(FADE_IN)	// フェード状況
 {
 
 }
@@ -100,6 +101,9 @@ void CIntroFade::Update(const float fDeltaTime)
 		if (colFade.a >= 1.0f)
 		{ // フェード仕切った場合
 
+			// イントロの表示物語を変更する
+			m_pIntro->ChangeStory(m_pIntro->GetStoryID());
+
 			// フェードアウト状態にする
 			m_fade = FADE_OUT;
 		}
@@ -144,10 +148,10 @@ void CIntroFade::Draw(CShader *pShader)
 //============================================================
 //	生成処理
 //============================================================
-CIntroFade *CIntroFade::Create(void)
+CIntroFade *CIntroFade::Create(CIntroManager *pIntro)
 {
 	// イントロフェードの生成
-	CIntroFade *pIntroFade = new CIntroFade;
+	CIntroFade *pIntroFade = new CIntroFade(pIntro);
 	if (pIntroFade == nullptr)
 	{ // 生成に失敗した場合
 

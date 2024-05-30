@@ -20,7 +20,7 @@ namespace
 {
 	const char *TEXTURE		= "data\\TEXTURE\\logoIntro000.png";	// ロゴテクスチャ
 	const int	PRIORITY	= 6;	// 優先順位
-	const float	DISP_TIME	= 4.0f;	// タイトルロゴ表示時間
+	const float	DISP_TIME	= 4.0f;	// ロゴ表示時間
 }
 
 //************************************************************
@@ -97,9 +97,6 @@ void CIntroStateLogo::Update(const float fDeltaTime)
 
 		// 待機時間を初期化
 		m_fCurTime = 0.0f;
-
-		// ストーリーの自動描画をONにする
-		m_pContext->m_pStory->SetEnableDraw(true);
 
 		// 開始テキストに変更
 		m_pContext->ChangeText(0);
