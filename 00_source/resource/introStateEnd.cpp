@@ -25,7 +25,7 @@ namespace
 //============================================================
 //	コンストラクタ
 //============================================================
-CIntroStateEnd::CIntroStateEnd(CIntroManager *pIntro) : CIntroState(pIntro)
+CIntroStateEnd::CIntroStateEnd()
 {
 
 }

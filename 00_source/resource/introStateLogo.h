@@ -29,7 +29,7 @@ class CIntroStateLogo : public CIntroState
 {
 public:
 	// コンストラクタ
-	CIntroStateLogo(CIntroManager *pIntro);
+	CIntroStateLogo();
 
 	// デストラクタ
 	~CIntroStateLogo() override;

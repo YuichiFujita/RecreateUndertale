@@ -139,7 +139,7 @@ HRESULT CIntroManager::Init(void)
 	m_nStory	= 0;		// 物語インデックス
 
 	// ロゴ表示状態にする
-	ChangeState(new CIntroStateLogo(this));
+	ChangeState(new CIntroStateLogo);
 
 	//--------------------------------------------------------
 	//	ストーリーの生成・設定
@@ -231,14 +231,14 @@ HRESULT CIntroManager::ChangeState(CIntroState *pState)
 	// 状態の生成に失敗している場合抜ける
 	if (pState == nullptr) { assert(false); return E_FAIL; }
 
-	// 自身のインスタンスを終了
+	// 状態インスタンスを終了
 	SAFE_UNINIT(m_pState);
 
-	// 自身のインスタンスを変更
+	// 状態インスタンスを変更
 	assert(m_pState == nullptr);
 	m_pState = pState;
 
-	// 自身のインスタンスを初期化
+	// 状態インスタンスを初期化
 	if (FAILED(m_pState->Init()))
 	{ // 初期化に失敗した場合
 
@@ -246,6 +246,9 @@ HRESULT CIntroManager::ChangeState(CIntroState *pState)
 		assert(false);
 		return E_FAIL;
 	}
+
+	// 状態にコンテキストを設定
+	m_pState->SetContext(this);
 
 	// 成功を返す
 	return S_OK;
@@ -304,7 +307,7 @@ void CIntroManager::NextStory(void)
 	{ // 最後まで表示した場合
 
 		// 終了状態にする
-		ChangeState(new CIntroStateEnd(this));
+		ChangeState(new CIntroStateEnd);
 	}
 	else
 	{ // まだ表示できる場合
@@ -329,6 +332,6 @@ void CIntroManager::NextStory(void)
 		//m_pStory->BindTexture(story::TEXTURE[m_nStory]);	// TODO：どこにおこうかな
 
 		// 文字送り状態にする
-		ChangeState(new CIntroStateText(this));
+		ChangeState(new CIntroStateText);
 	}
 }

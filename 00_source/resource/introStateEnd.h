@@ -28,7 +28,7 @@ class CIntroStateEnd : public CIntroState
 {
 public:
 	// コンストラクタ
-	CIntroStateEnd(CIntroManager *pIntro);
+	CIntroStateEnd();
 
 	// デストラクタ
 	~CIntroStateEnd() override;

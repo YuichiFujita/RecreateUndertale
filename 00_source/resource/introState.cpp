@@ -15,7 +15,7 @@
 //============================================================
 //	コンストラクタ
 //============================================================
-CIntroState::CIntroState(CIntroManager *pIntro) : m_pIntro(pIntro)
+CIntroState::CIntroState() : m_pContext(nullptr)
 {
 
 }

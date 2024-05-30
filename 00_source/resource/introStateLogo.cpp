@@ -28,7 +28,7 @@ namespace
 //============================================================
 //	コンストラクタ
 //============================================================
-CIntroStateLogo::CIntroStateLogo(CIntroManager *pIntro) : CIntroState(pIntro),
+CIntroStateLogo::CIntroStateLogo() :
 	m_pLogo		(nullptr),	// タイトルロゴ
 	m_fCurTime	(0.0f)		// 現在の待機時間
 {
@@ -98,12 +98,12 @@ void CIntroStateLogo::Update(const float fDeltaTime)
 		m_fCurTime = 0.0f;
 
 		// ストーリーの自動描画をONにする
-		m_pIntro->m_pStory->SetEnableDraw(true);
+		m_pContext->m_pStory->SetEnableDraw(true);
 
 		// 文字送りを開始する
-		m_pIntro->m_pText->SetEnableScroll(true);
+		m_pContext->m_pText->SetEnableScroll(true);
 
 		// 文字送り状態にする
-		m_pIntro->ChangeState(new CIntroStateText(m_pIntro));
+		m_pContext->ChangeState(new CIntroStateText);
 	}
 }

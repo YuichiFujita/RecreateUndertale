@@ -25,7 +25,7 @@ namespace
 //============================================================
 //	コンストラクタ
 //============================================================
-CIntroStateText::CIntroStateText(CIntroManager *pIntro) : CIntroState(pIntro)
+CIntroStateText::CIntroStateText()
 {
 
 }
@@ -61,10 +61,10 @@ void CIntroStateText::Uninit(void)
 //============================================================
 void CIntroStateText::Update(const float fDeltaTime)
 {
-	if (!m_pIntro->m_pText->IsScroll())
+	if (!m_pContext->m_pText->IsScroll())
 	{ // 文字送りが終了した場合
 
 		// 待機状態にする
-		m_pIntro->ChangeState(new CIntroStateWait(m_pIntro));
+		m_pContext->ChangeState(new CIntroStateWait);
 	}
 }

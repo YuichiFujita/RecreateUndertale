@@ -28,7 +28,7 @@ class CIntroStateWait : public CIntroState
 {
 public:
 	// コンストラクタ
-	CIntroStateWait(CIntroManager *pIntro);
+	CIntroStateWait();
 
 	// デストラクタ
 	~CIntroStateWait() override;

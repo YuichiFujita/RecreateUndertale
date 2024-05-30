@@ -23,7 +23,7 @@ class CIntroState
 {
 public:
 	// コンストラクタ
-	CIntroState(CIntroManager *pIntro);
+	CIntroState();
 
 	// デストラクタ
 	virtual ~CIntroState();
@@ -33,9 +33,12 @@ public:
 	virtual void Uninit(void)	= 0;	// 終了
 	virtual void Update(const float fDeltaTime) = 0;	// 更新
 
+	// メンバ関数
+	void SetContext(CIntroManager *pContext) { m_pContext = pContext; }	// コンテキスト設定
+
 protected:
 	// メンバ変数
-	CIntroManager *m_pIntro;	// イントロマネージャー
+	CIntroManager *m_pContext;	// コンテキスト
 };
 
 //************************************************************

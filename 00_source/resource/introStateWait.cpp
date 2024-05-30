@@ -24,7 +24,7 @@ namespace
 //============================================================
 //	コンストラクタ
 //============================================================
-CIntroStateWait::CIntroStateWait(CIntroManager *pIntro) : CIntroState(pIntro),
+CIntroStateWait::CIntroStateWait() :
 	m_fCurTime	(0.0f)	// 現在の待機時間
 {
 
@@ -73,6 +73,6 @@ void CIntroStateWait::Update(const float fDeltaTime)
 		m_fCurTime = 0.0f;
 
 		// 物語と状態を遷移させる
-		m_pIntro->NextStory();
+		m_pContext->NextStory();
 	}
 }
