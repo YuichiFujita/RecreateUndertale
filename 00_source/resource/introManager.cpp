@@ -37,7 +37,8 @@ namespace
 			"data\\TEXTURE\\story010.png",	// 着地
 		};
 
-		const int PRIORITY = 4;	// 物語表示ポリゴンの優先順位
+		const int	PRIORITY	= 4;	// 物語表示ポリゴンの優先順位
+		const float	WAIT_TIME	= 4.0f;	// 待機時間
 		const D3DXVECTOR3 POS	= D3DXVECTOR3(SCREEN_CENT.x, 225.0f, 0.0f);	// ストーリー位置
 		const D3DXVECTOR3 SIZE	= D3DXVECTOR3(605.0f, 302.5f, 0.0f);		// ストーリー大きさ
 	}
@@ -52,7 +53,7 @@ namespace
 		const float	CHAR_HEIGHT	= 45.0f;	// 文字縦幅
 		const float	LINE_HEIGHT	= 62.0f;	// 行間縦幅
 		const float	WAIT_TIME_NOR	= 0.115f;	// 文字表示の待機時間 (通常速度)
-		const float	WAIT_TIME_SLOW	= 0.7f;		// 文字表示の待機時間 (速度低下)
+		const float	WAIT_TIME_SLOW	= 0.65f;	// 文字表示の待機時間 (速度低下)
 
 		const D3DXVECTOR3 POS = D3DXVECTOR3(SCREEN_CENT.x - story::SIZE.x * 0.5f, 460.0f, 0.0f);	// テキスト位置
 		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
@@ -258,6 +259,9 @@ void CIntroManager::NextStory(void)
 		// 文字列を全て削除
 		m_pText->DeleteStringAll();
 
+		// 待機状態にする
+		ChangeState(new CIntroStateWait(story::WAIT_TIME));
+
 		break;
 
 	case STORY_10:	// 着地
@@ -274,6 +278,8 @@ void CIntroManager::NextStory(void)
 //============================================================
 void CIntroManager::ChangeStory(const int nStoryID)
 {
+	// TODO：ここの処理、最後だけScrollするから変わるよ
+
 	// 物語の画像を差し替え
 	m_pStory->BindTexture(story::TEXTURE[nStoryID]);
 }

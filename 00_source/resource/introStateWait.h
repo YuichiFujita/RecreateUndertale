@@ -23,7 +23,7 @@ class CIntroStateWait : public CIntroState
 {
 public:
 	// コンストラクタ
-	CIntroStateWait();
+	CIntroStateWait(const float fEndTime);
 
 	// デストラクタ
 	~CIntroStateWait() override;
@@ -35,7 +35,8 @@ public:
 
 private:
 	// メンバ変数
-	float m_fCurTime;	// 現在の待機時間
+	const float m_fEndTime;	// 待機の終了時間
+	float m_fCurTime;		// 現在の待機時間
 };
 
 #endif	// _INTRO_STATE_WAIT_H_

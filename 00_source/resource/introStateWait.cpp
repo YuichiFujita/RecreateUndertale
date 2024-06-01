@@ -11,21 +11,14 @@
 #include "introManager.h"
 
 //************************************************************
-//	定数宣言
-//************************************************************
-namespace
-{
-
-}
-
-//************************************************************
 //	子クラス [CIntroStateWait] のメンバ関数
 //************************************************************
 //============================================================
 //	コンストラクタ
 //============================================================
-CIntroStateWait::CIntroStateWait() :
-	m_fCurTime	(0.0f)	// 現在の待機時間
+CIntroStateWait::CIntroStateWait(const float fEndTime) :
+	m_fEndTime	(fEndTime),	// 待機の終了時間
+	m_fCurTime	(0.0f)		// 現在の待機時間
 {
 
 }
@@ -66,7 +59,7 @@ void CIntroStateWait::Update(const float fDeltaTime)
 {
 	// 待機時刻を進める
 	m_fCurTime += fDeltaTime;
-	if (m_fCurTime >= 2.0f)
+	if (m_fCurTime >= m_fEndTime)
 	{ // 待機終了した場合
 
 		// 待機時間を初期化

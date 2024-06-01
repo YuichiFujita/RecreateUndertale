@@ -11,6 +11,14 @@
 #include "introManager.h"
 
 //************************************************************
+//	定数宣言
+//************************************************************
+namespace
+{
+	const float	WAIT_TIME = 2.0f;	// 待機時間
+}
+
+//************************************************************
 //	子クラス [CIntroStateText] のメンバ関数
 //************************************************************
 //============================================================
@@ -56,6 +64,6 @@ void CIntroStateText::Update(const float fDeltaTime)
 	{ // 文字送りが終了した場合
 
 		// 待機状態にする
-		m_pContext->ChangeState(new CIntroStateWait);
+		m_pContext->ChangeState(new CIntroStateWait(WAIT_TIME));
 	}
 }
