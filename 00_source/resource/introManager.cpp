@@ -14,7 +14,6 @@
 #include "introState.h"
 #include "introFade.h"
 #include "loadtext.h"
-#include "introStateTextSlow.h"	// TODO
 
 //************************************************************
 //	’è”éŒ¾

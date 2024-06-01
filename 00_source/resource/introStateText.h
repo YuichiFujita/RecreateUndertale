@@ -34,4 +34,9 @@ public:
 	void Update(const float fDeltaTime) override;	// 更新
 };
 
+//************************************************************
+//	インクルードファイル
+//************************************************************
+#include "introStateTextSlow.h"
+
 #endif	// _INTRO_STATE_TEXT_H_
