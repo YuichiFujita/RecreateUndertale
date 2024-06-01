@@ -361,7 +361,12 @@ void CObject2D::SetVtx(void)
 //============================================================
 //	アニメーションのテクスチャ座標の設定処理
 //============================================================
-void CObject2D::SetAnimTex(const int nPattern, const int nWidthPtrn, const int nHeightPtrn)
+void CObject2D::SetAnimTex
+(
+	const int nPattern,		// アニメーションパターン
+	const int nWidthPtrn,	// テクスチャの横の分割数
+	const int nHeightPtrn	// テクスチャの縦の分割数
+)
 {
 	// 変数を宣言
 	float fWidthRate	= 1.0f / nWidthPtrn;	// 横の分割数の割合
@@ -392,7 +397,13 @@ void CObject2D::SetAnimTex(const int nPattern, const int nWidthPtrn, const int n
 //============================================================
 //	スクロールのテクスチャ座標の設定処理
 //============================================================
-void CObject2D::SetScrollTex(const float fTexU, const float fTexV)
+void CObject2D::SetScrollTex
+(
+	const float fTexU,		// テクスチャの横座標の開始位置
+	const float fTexV,		// テクスチャの縦座標の開始位置
+	const float fOffsetU,	// テクスチャの横座標のオフセット位置
+	const float fOffsetV	// テクスチャの縦座標のオフセット位置
+)
 {
 	// ポインタを宣言
 	VERTEX_2D *pVtx;	// 頂点情報へのポインタ
@@ -404,10 +415,10 @@ void CObject2D::SetScrollTex(const float fTexU, const float fTexV)
 		m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
 		// テクスチャ座標の設定
-		pVtx[0].tex = D3DXVECTOR2(fTexU,		fTexV);
-		pVtx[1].tex = D3DXVECTOR2(fTexU + 1.0f,	fTexV);
-		pVtx[2].tex = D3DXVECTOR2(fTexU,		fTexV + 1.0f);
-		pVtx[3].tex = D3DXVECTOR2(fTexU + 1.0f,	fTexV + 1.0f);
+		pVtx[0].tex = D3DXVECTOR2(fTexU,			fTexV);
+		pVtx[1].tex = D3DXVECTOR2(fTexU + fOffsetU,	fTexV);
+		pVtx[2].tex = D3DXVECTOR2(fTexU,			fTexV + fOffsetV);
+		pVtx[3].tex = D3DXVECTOR2(fTexU + fOffsetU,	fTexV + fOffsetV);
 
 		// 頂点バッファをアンロックする
 		m_pVtxBuff->Unlock();

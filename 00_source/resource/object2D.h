@@ -69,8 +69,10 @@ protected:
 	);
 	void SetScrollTex	// スクロールのテクスチャ座標の設定
 	( // 引数
-		const float fTexU,	// テクスチャの横座標の開始位置
-		const float fTexV	// テクスチャの縦座標の開始位置
+		const float fTexU,		// テクスチャの横座標の開始位置
+		const float fTexV,		// テクスチャの縦座標の開始位置
+		const float fOffsetU,	// テクスチャの横座標のオフセット位置
+		const float fOffsetV	// テクスチャの縦座標のオフセット位置
 	);
 
 private:

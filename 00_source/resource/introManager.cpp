@@ -52,6 +52,7 @@ namespace
 		const bool	ITALIC		= false;	// イタリック
 		const float	CHAR_HEIGHT	= 45.0f;	// 文字縦幅
 		const float	LINE_HEIGHT	= 62.0f;	// 行間縦幅
+
 		const float	WAIT_TIME_NOR	= 0.115f;	// 文字表示の待機時間 (通常速度)
 		const float	WAIT_TIME_SLOW	= 0.65f;	// 文字表示の待機時間 (速度低下)
 
@@ -68,7 +69,6 @@ namespace
 //	コンストラクタ
 //============================================================
 CIntroManager::CIntroManager() :
-	m_pFade		(nullptr),	// フェード
 	m_pStory	(nullptr),	// ストーリー
 	m_pText		(nullptr),	// テキスト
 	m_pState	(nullptr),	// 状態
@@ -91,11 +91,10 @@ CIntroManager::~CIntroManager()
 HRESULT CIntroManager::Init(void)
 {
 	// メンバ変数を初期化
-	m_pFade		= nullptr;	// フェード
 	m_pStory	= nullptr;	// ストーリー
 	m_pText		= nullptr;	// テキスト
 	m_pState	= nullptr;	// 状態
-	m_nStoryID	= 0;		// 物語インデックス
+	m_nStoryID	= 9;		// 物語インデックス	// TODO
 
 	// ロゴ表示状態にする
 	ChangeState(new CIntroStateLogo);
@@ -157,9 +156,6 @@ void CIntroManager::Uninit(void)
 	// 状態の終了
 	SAFE_UNINIT(m_pState);
 
-	// フェードの終了
-	SAFE_UNINIT(m_pFade);
-
 	// ストーリーの終了
 	SAFE_UNINIT(m_pStory);
 }
@@ -171,6 +167,9 @@ void CIntroManager::Update(const float fDeltaTime)
 {
 	// 状態ごとの更新
 	m_pState->Update(fDeltaTime);
+
+	// ストーリーの更新
+	m_pStory->Update(fDeltaTime);
 }
 
 //============================================================
@@ -269,6 +268,8 @@ void CIntroManager::NextStory(void)
 		// 文字列を全て削除
 		m_pText->DeleteStringAll();
 
+		// TODO：ここで状態書き換え
+
 		break;
 	}
 }
@@ -278,10 +279,18 @@ void CIntroManager::NextStory(void)
 //============================================================
 void CIntroManager::ChangeStory(const int nStoryID)
 {
-	// TODO：ここの処理、最後だけScrollするから変わるよ
-
 	// 物語の画像を差し替え
 	m_pStory->BindTexture(story::TEXTURE[nStoryID]);
+
+	if (nStoryID == STORY_MAX - 1)
+	{ // 最後の物語の場合
+
+		m_pStory->SetOffsetV(0.314f);
+		m_pStory->SetTexV(0.628f);
+		m_pStory->SetMoveV(-0.001f);
+
+		// TODO：綺麗に
+	}
 }
 
 //============================================================

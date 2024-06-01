@@ -72,7 +72,6 @@ public:
 
 private:
 	// メンバ変数
-	CObject2D *m_pFade;		// フェード
 	CScroll2D *m_pStory;	// ストーリー
 	CScrollText2D *m_pText;	// テキスト
 	CIntroState *m_pState;	// 状態

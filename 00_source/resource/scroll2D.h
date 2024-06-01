@@ -53,15 +53,19 @@ public:
 	void SetColor(const D3DXCOLOR& rCol);	// 色設定
 	void SetTexU(const float fTexU);		// 横座標の開始位置設定
 	void SetTexV(const float fTexV);		// 縦座標の開始位置設定
+	void SetOffsetU(const float fOffsetU);	// 横座標のオフセット位置設定
+	void SetOffsetV(const float fOffsetV);	// 縦座標のオフセット位置設定
 	void SetMoveU(const float fMoveU);		// 横座標の移動量設定
 	void SetMoveV(const float fMoveV);		// 縦座標の移動量設定
 
 private:
 	// メンバ変数
-	float m_fTexU;	// テクスチャ横座標の開始位置
-	float m_fTexV;	// テクスチャ縦座標の開始位置
-	float m_fMoveU;	// テクスチャ横座標の移動量
-	float m_fMoveV;	// テクスチャ縦座標の移動量
+	float m_fTexU;		// テクスチャ横座標の開始位置
+	float m_fTexV;		// テクスチャ縦座標の開始位置
+	float m_fOffsetU;	// テクスチャ横座標のオフセット位置
+	float m_fOffsetV;	// テクスチャ縦座標のオフセット位置
+	float m_fMoveU;		// テクスチャ横座標の移動量
+	float m_fMoveV;		// テクスチャ縦座標の移動量
 };
 
 #endif	// _SCROLL2D_H_

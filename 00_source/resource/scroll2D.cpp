@@ -18,6 +18,8 @@
 CScroll2D::CScroll2D(const CObject::ELabel label, const CObject::EDim dimension, const int nPriority) : CObject2D(label, dimension, nPriority),
 	m_fTexU		(0.0f),	// テクスチャ横座標の開始位置
 	m_fTexV		(0.0f),	// テクスチャ縦座標の開始位置
+	m_fOffsetU	(0.0f),	// テクスチャ横座標のオフセット位置
+	m_fOffsetV	(0.0f),	// テクスチャ縦座標のオフセット位置
 	m_fMoveU	(0.0f),	// テクスチャ横座標の移動量
 	m_fMoveV	(0.0f)	// テクスチャ縦座標の移動量
 {
@@ -38,10 +40,12 @@ CScroll2D::~CScroll2D()
 HRESULT CScroll2D::Init(void)
 {
 	// メンバ変数を初期化
-	m_fTexU  = 0.0f;	// テクスチャ横座標の開始位置
-	m_fTexV  = 0.0f;	// テクスチャ縦座標の開始位置
-	m_fMoveU = 0.0f;	// テクスチャ横座標の移動量
-	m_fMoveV = 0.0f;	// テクスチャ縦座標の移動量
+	m_fTexU		= 0.0f;	// テクスチャ横座標の開始位置
+	m_fTexV		= 0.0f;	// テクスチャ縦座標の開始位置
+	m_fOffsetU	= 1.0f;	// テクスチャ横座標のオフセット位置
+	m_fOffsetV	= 1.0f;	// テクスチャ縦座標のオフセット位置
+	m_fMoveU	= 0.0f;	// テクスチャ横座標の移動量
+	m_fMoveV	= 0.0f;	// テクスチャ縦座標の移動量
 
 	// オブジェクト2Dの初期化
 	if (FAILED(CObject2D::Init()))
@@ -53,7 +57,7 @@ HRESULT CScroll2D::Init(void)
 	}
 
 	// スクロールのテクスチャ座標の設定
-	CObject2D::SetScrollTex(m_fTexU, m_fTexV);
+	CObject2D::SetScrollTex(m_fTexU, m_fTexV, m_fOffsetU, m_fOffsetV);
 
 	// 成功を返す
 	return S_OK;
@@ -95,7 +99,7 @@ void CScroll2D::Update(const float fDeltaTime)
 	CObject2D::Update(fDeltaTime);
 
 	// スクロールのテクスチャ座標の設定
-	CObject2D::SetScrollTex(m_fTexU, m_fTexV);
+	CObject2D::SetScrollTex(m_fTexU, m_fTexV, m_fOffsetU, m_fOffsetV);
 }
 
 //============================================================
@@ -116,7 +120,7 @@ void CScroll2D::SetVec3Position(const D3DXVECTOR3& rPos)
 	CObject2D::SetVec3Position(rPos);
 
 	// スクロールのテクスチャ座標の設定
-	CObject2D::SetScrollTex(m_fTexU, m_fTexV);
+	CObject2D::SetScrollTex(m_fTexU, m_fTexV, m_fOffsetU, m_fOffsetV);
 }
 
 //============================================================
@@ -128,7 +132,7 @@ void CScroll2D::SetVec3Rotation(const D3DXVECTOR3& rRot)
 	CObject2D::SetVec3Rotation(rRot);
 
 	// スクロールのテクスチャ座標の設定
-	CObject2D::SetScrollTex(m_fTexU, m_fTexV);
+	CObject2D::SetScrollTex(m_fTexU, m_fTexV, m_fOffsetU, m_fOffsetV);
 }
 
 //============================================================
@@ -140,7 +144,7 @@ void CScroll2D::SetVec3Sizing(const D3DXVECTOR3& rSize)
 	CObject2D::SetVec3Sizing(rSize);
 
 	// スクロールのテクスチャ座標の設定
-	CObject2D::SetScrollTex(m_fTexU, m_fTexV);
+	CObject2D::SetScrollTex(m_fTexU, m_fTexV, m_fOffsetU, m_fOffsetV);
 }
 
 //============================================================
@@ -207,7 +211,7 @@ void CScroll2D::SetColor(const D3DXCOLOR& rCol)
 	CObject2D::SetColor(rCol);
 
 	// スクロールのテクスチャ座標の設定
-	CObject2D::SetScrollTex(m_fTexU, m_fTexV);
+	CObject2D::SetScrollTex(m_fTexU, m_fTexV, m_fOffsetU, m_fOffsetV);
 }
 
 //============================================================
@@ -219,7 +223,7 @@ void CScroll2D::SetTexU(const float fTexU)
 	m_fTexU = fTexU;
 
 	// スクロールのテクスチャ座標の設定
-	CObject2D::SetScrollTex(m_fTexU, m_fTexV);
+	CObject2D::SetScrollTex(m_fTexU, m_fTexV, m_fOffsetU, m_fOffsetV);
 }
 
 //============================================================
@@ -231,7 +235,31 @@ void CScroll2D::SetTexV(const float fTexV)
 	m_fTexV = fTexV;
 
 	// スクロールのテクスチャ座標の設定
-	CObject2D::SetScrollTex(m_fTexU, m_fTexV);
+	CObject2D::SetScrollTex(m_fTexU, m_fTexV, m_fOffsetU, m_fOffsetV);
+}
+
+//============================================================
+//	横座標のオフセット位置設定処理
+//============================================================
+void CScroll2D::SetOffsetU(const float fOffsetU)
+{
+	// 引数の横座標のオフセット位置を代入
+	m_fOffsetU = fOffsetU;
+
+	// スクロールのテクスチャ座標の設定
+	CObject2D::SetScrollTex(m_fTexU, m_fTexV, m_fOffsetU, m_fOffsetV);
+}
+
+//============================================================
+//	縦座標のオフセット位置設定処理
+//============================================================
+void CScroll2D::SetOffsetV(const float fOffsetV)
+{
+	// 引数の横座標のオフセット位置を代入
+	m_fOffsetV = fOffsetV;
+
+	// スクロールのテクスチャ座標の設定
+	CObject2D::SetScrollTex(m_fTexU, m_fTexV, m_fOffsetU, m_fOffsetV);
 }
 
 //============================================================
@@ -243,7 +271,7 @@ void CScroll2D::SetMoveU(const float fMoveU)
 	m_fMoveU = fMoveU;
 
 	// スクロールのテクスチャ座標の設定
-	CObject2D::SetScrollTex(m_fTexU, m_fTexV);
+	CObject2D::SetScrollTex(m_fTexU, m_fTexV, m_fOffsetU, m_fOffsetV);
 }
 
 //============================================================
@@ -255,5 +283,5 @@ void CScroll2D::SetMoveV(const float fMoveV)
 	m_fMoveV = fMoveV;
 
 	// スクロールのテクスチャ座標の設定
-	CObject2D::SetScrollTex(m_fTexU, m_fTexV);
+	CObject2D::SetScrollTex(m_fTexU, m_fTexV, m_fOffsetU, m_fOffsetV);
 }
