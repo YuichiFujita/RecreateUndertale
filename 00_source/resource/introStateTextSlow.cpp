@@ -1,23 +1,30 @@
 //============================================================
 //
-//	終了状態処理 [introStateEnd.cpp]
+//	文字送り速度低下状態処理 [introStateTextSlow.cpp]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	インクルードファイル
 //************************************************************
-#include "introStateEnd.h"
+#include "introStateTextSlow.h"
 #include "introManager.h"
-#include "manager.h"
 
 //************************************************************
-//	子クラス [CIntroStateEnd] のメンバ関数
+//	定数宣言
+//************************************************************
+namespace
+{
+
+}
+
+//************************************************************
+//	子クラス [CIntroStateTextSlow] のメンバ関数
 //************************************************************
 //============================================================
 //	コンストラクタ
 //============================================================
-CIntroStateEnd::CIntroStateEnd()
+CIntroStateTextSlow::CIntroStateTextSlow()
 {
 
 }
@@ -25,7 +32,7 @@ CIntroStateEnd::CIntroStateEnd()
 //============================================================
 //	デストラクタ
 //============================================================
-CIntroStateEnd::~CIntroStateEnd()
+CIntroStateTextSlow::~CIntroStateTextSlow()
 {
 
 }
@@ -33,8 +40,17 @@ CIntroStateEnd::~CIntroStateEnd()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CIntroStateEnd::Init(void)
+HRESULT CIntroStateTextSlow::Init(void)
 {
+	// 親クラスの初期化
+	if (FAILED(CIntroStateText::Init()))
+	{ // 初期化に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
+
 	// 成功を返す
 	return S_OK;
 }
@@ -42,17 +58,27 @@ HRESULT CIntroStateEnd::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CIntroStateEnd::Uninit(void)
+void CIntroStateTextSlow::Uninit(void)
 {
-	// 自身の破棄
-	delete this;
+	// 文字送りの速度を通常に戻す
+	m_pContext->SetEnableSlowText(false);
+
+	// 親クラスの終了
+	CIntroStateText::Uninit();
 }
 
 //============================================================
 //	更新処理
 //============================================================
-void CIntroStateEnd::Update(const float fDeltaTime)
+void CIntroStateTextSlow::Update(const float fDeltaTime)
 {
-	// タイトルに遷移する
-	GET_MANAGER->SetScene(CScene::MODE_TITLE);
+	if (m_pContext->GetNextCharID() == 20)
+	{ // …の表示タイミングになった場合
+
+		// 文字送りの速度を遅くする
+		m_pContext->SetEnableSlowText(true);
+	}
+
+	// 親クラスの更新
+	CIntroStateText::Update(fDeltaTime);
 }

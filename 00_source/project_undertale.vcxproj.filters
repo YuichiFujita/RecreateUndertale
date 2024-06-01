@@ -369,6 +369,9 @@
     <ClCompile Include="resource\loadtext.cpp">
       <Filter>07_utility</Filter>
     </ClCompile>
+    <ClCompile Include="resource\introStateTextSlow.cpp">
+      <Filter>08_state\state_intro</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h">
@@ -688,6 +691,9 @@
     </ClInclude>
     <ClInclude Include="resource\loadtext.h">
       <Filter>07_utility</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\introStateTextSlow.h">
+      <Filter>08_state\state_intro</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -14,6 +14,7 @@
 #include "introState.h"
 #include "introFade.h"
 #include "loadtext.h"
+#include "introStateTextSlow.h"	// TODO
 
 //************************************************************
 //	定数宣言
@@ -49,9 +50,10 @@ namespace
 
 		const int	PRIORITY	= 6;		// テキストの優先順位
 		const bool	ITALIC		= false;	// イタリック
-		const float	WAIT_TIME	= 0.115f;	// 文字表示の待機時間
 		const float	CHAR_HEIGHT	= 45.0f;	// 文字縦幅
 		const float	LINE_HEIGHT	= 62.0f;	// 行間縦幅
+		const float	WAIT_TIME_NOR	= 0.115f;	// 文字表示の待機時間 (通常速度)
+		const float	WAIT_TIME_SLOW	= 0.7f;		// 文字表示の待機時間 (速度低下)
 
 		const D3DXVECTOR3 POS = D3DXVECTOR3(SCREEN_CENT.x - story::SIZE.x * 0.5f, 460.0f, 0.0f);	// テキスト位置
 		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
@@ -123,14 +125,14 @@ HRESULT CIntroManager::Init(void)
 	// テキストの生成
 	m_pText = CScrollText2D::Create
 	( // 引数
-		text::FONT,			// フォントパス
-		text::ITALIC,		// イタリック
-		text::POS,			// 原点位置
-		text::WAIT_TIME,	// 文字表示の待機時間
-		text::CHAR_HEIGHT,	// 文字縦幅
-		text::LINE_HEIGHT,	// 行間縦幅
-		text::ALIGN_X,		// 横配置
-		text::ALIGN_Y		// 縦配置
+		text::FONT,				// フォントパス
+		text::ITALIC,			// イタリック
+		text::POS,				// 原点位置
+		text::WAIT_TIME_NOR,	// 文字表示の待機時間
+		text::CHAR_HEIGHT,		// 文字縦幅
+		text::LINE_HEIGHT,		// 行間縦幅
+		text::ALIGN_X,			// 横配置
+		text::ALIGN_Y			// 縦配置
 	);
 	if (m_pText == nullptr)
 	{ // 生成に失敗した場合
@@ -210,23 +212,61 @@ void CIntroManager::NextStory(void)
 	// 物語を次に進める
 	m_nStoryID++;
 
-	if (useful::LimitMaxNum(m_nStoryID, (int)STORY_MAX - 1))
+	if (useful::LimitMaxNum(m_nStoryID, (int)STORY_MAX - 1))	// ストーリー上限で補正 (補正時 true)
 	{ // 最後まで表示した場合
 
 		// 終了状態にする
 		ChangeState(new CIntroStateEnd);
-	}
-	else
-	{ // まだ表示できる場合
 
-		// フェードを生成する
-		CIntroFade::Create(this);
+		// 関数を抜ける
+		return;
+	}
+
+	// フェードを生成する
+	CIntroFade::Create(this);
+
+	switch (m_nStoryID)
+	{ // 物語ごとの処理
+	case STORY_00:	// むかしむかし
+	case STORY_01:	// ところがあるとき
+	case STORY_02:	// ニンゲンしょうり
+	case STORY_03:	// ちかにとじこめました
+	case STORY_05:	// イビト山
+	case STORY_06:	// でんせつの山
 
 		// 表示テキストを変更する
 		ChangeText(m_nStoryID);
 
 		// 文字送り状態にする
 		ChangeState(new CIntroStateText);
+
+		break;
+
+	case STORY_04:	// ながいときがながれ
+
+		// 表示テキストを変更する
+		ChangeText(m_nStoryID);
+
+		// 文字送り速度低下状態にする
+		ChangeState(new CIntroStateTextSlow);
+
+		break;
+
+	case STORY_07:	// 見下ろし
+	case STORY_08:	// 引っ掛かり
+	case STORY_09:	// 落下
+
+		// 文字列を全て削除
+		m_pText->DeleteStringAll();
+
+		break;
+
+	case STORY_10:	// 着地
+
+		// 文字列を全て削除
+		m_pText->DeleteStringAll();
+
+		break;
 	}
 }
 
@@ -252,6 +292,16 @@ void CIntroManager::ChangeText(const int nStoryID)
 
 	// 文字送りを開始する
 	m_pText->SetEnableScroll(true);
+}
+
+//============================================================
+//	文字送りの速度設定処理
+//============================================================
+void CIntroManager::SetEnableSlowText(const bool bSlow)
+{
+	// 速度フラグに応じて設定
+	if (bSlow)	{ m_pText->SetNextTime(text::WAIT_TIME_SLOW); }	// 遅くする
+	else		{ m_pText->SetNextTime(text::WAIT_TIME_NOR); }	// 早くする
 }
 
 //============================================================

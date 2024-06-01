@@ -59,6 +59,9 @@ public:
 	void SetEnableScroll(const bool bScroll)	{ m_bScroll = bScroll; }		// 文字送り状況設定
 	bool IsScroll(void) const					{ return m_bScroll; }			// 文字送り状況取得
 
+	int GetNextCharID(void)			{ return m_nNextID; }				// 次の表示文字インデックス取得
+	CChar2D *GetNextChar2D(void)	{ return m_vecChar[m_nNextID]; }	// 次の表示文字取得
+
 private:
 	// メンバ関数
 	void UpdateScroll(const float fDeltaTime);	// 文字送り更新

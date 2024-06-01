@@ -10,8 +10,6 @@
 #include "introStateLogo.h"
 #include "introManager.h"
 #include "object2D.h"
-#include "scroll2D.h"
-#include "scrollText2D.h"
 
 //************************************************************
 //	’è”éŒ¾

@@ -46,6 +46,7 @@ protected:
 //************************************************************
 #include "introStateLogo.h"
 #include "introStateText.h"
+//#include "introStateTextSlow.h"	// TODO
 #include "introStateWait.h"
 #include "introStateEnd.h"
 
