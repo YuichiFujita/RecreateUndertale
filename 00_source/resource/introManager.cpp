@@ -13,6 +13,7 @@
 #include "scroll2D.h"
 #include "introState.h"
 #include "introFade.h"
+#include "loadtext.h"
 
 //************************************************************
 //	定数宣言
@@ -43,50 +44,9 @@ namespace
 
 	namespace text
 	{
-		const wchar_t *TEXT[][3] =	// 物語のテキスト
-		{
-			{
-				L"むかしむかし　ちきゅうには",
-				L"ニンゲンと　モンスターという",
-				L"2つのしゅぞくが　いました。",
-			},
-			{
-				L"ところが　あるとき",
-				L"2つのしゅぞくの　あいだに",
-				L"せんそうが　おきました。",
-			},
-			{
-				L"そして　ながい",
-				L"たたかいのすえ　ニンゲンが",
-				L"しょうりしました。",
-			},
-			{
-				L"ニンゲンは　まほうのちからで",
-				L"モンスターたちを",
-				L"ちかに　とじこめました。",
-			},
-			{
-				L"それから　さらに",
-				L"ながい　ときが　ながれ………",
-				L"",
-			},
-			{
-				L"　　　　イビト山",
-				L"　　　　　 201X年",
-				L"",
-			},
-			{
-				L"それは「のぼったものは",
-				L"にどと　もどらない」といわれる",
-				L"でんせつの山でした。",
-			},
-			{ L"", L"", L"", },
-			{ L"", L"", L"", },
-			{ L"", L"", L"", },
-			{ L"", L"", L"", },
-		};
-
 		const char *FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
+		const char *PASS = "data\\TEXT\\intro.txt";	// テキストパス
+
 		const int	PRIORITY	= 6;		// テキストの優先順位
 		const bool	ITALIC		= false;	// イタリック
 		const float	WAIT_TIME	= 0.115f;	// 文字表示の待機時間
@@ -182,12 +142,6 @@ HRESULT CIntroManager::Init(void)
 
 	// 優先順位をフェードより上にする
 	m_pText->SetPriority(text::PRIORITY);
-
-	for (int i = 0; i < 3; i++)
-	{
-		// 文字列を設定
-		m_pText->AddString(text::TEXT[0][i]);
-	}
 
 	// 成功を返す
 	return S_OK;
@@ -293,12 +247,8 @@ void CIntroManager::ChangeText(const int nStoryID)
 	// 文字列を全て削除
 	m_pText->DeleteStringAll();
 
-	// 引数の文字列に置換
-	for (int i = 0; i < 3; i++)
-	{
-		// 文字列を設定
-		m_pText->AddString(text::TEXT[nStoryID][i]);
-	}
+	// 次のテキストを割当
+	loadtext::BindText(m_pText, loadtext::LoadText(text::PASS, nStoryID));
 
 	// 文字送りを開始する
 	m_pText->SetEnableScroll(true);

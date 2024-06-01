@@ -269,6 +269,33 @@ void useful::StandardizePathPart(std::string *pPath)
 }
 
 //============================================================
+//	マルチバイト文字列のワイド文字列変換
+//============================================================
+std::wstring useful::MultiByteToWide(const std::string *pSrcStr)
+{
+	int nSrcSize = pSrcStr->size();		// 変換前の文字列のサイズ
+	if (nSrcSize <= 0) { return L""; }	// 文字列がない場合抜ける
+
+	// 文字列を変換
+	std::wstring wsDest(nSrcSize, L'\0');	// 変換後の文字列
+	int nDestSize = MultiByteToWideChar
+	( // 引数
+		CP_UTF8,			// 変換コードページ
+		0,					// 変換フラグ
+		&pSrcStr->front(),	// 変換前文字列の先頭アドレス
+		(int)nSrcSize,		// 変換前文字列のサイズ
+		&wsDest.front(),	// 変換後文字列の先頭アドレス
+		(int)wsDest.size()	// 変換前文字列のサイズ
+	);
+
+	// 文字列サイズを修正
+	wsDest.resize(nDestSize);
+
+	// 変換後の文字列を返す
+	return wsDest;
+}
+
+//============================================================
 //	ベクトルの向き変換
 //============================================================
 void useful::VecToRot(const D3DXVECTOR3& rVec, float *pPhi, float *pTheta)
