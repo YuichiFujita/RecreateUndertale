@@ -57,8 +57,19 @@ public:
 	void SetOffsetV(const float fOffsetV);	// 縦座標のオフセット位置設定
 	void SetMoveU(const float fMoveU);		// 横座標の移動量設定
 	void SetMoveV(const float fMoveV);		// 縦座標の移動量設定
+	float GetTexU(void)		{ return m_fTexU; }		// 横座標の開始位置取得
+	float GetTexV(void)		{ return m_fTexV; }		// 縦座標の開始位置取得
+	float GetOffsetU(void)	{ return m_fOffsetU; }	// 横座標のオフセット位置取得
+	float GetOffsetV(void)	{ return m_fOffsetV; }	// 縦座標のオフセット位置取得
+	float GetMoveU(void)	{ return m_fMoveU; }	// 横座標の移動量取得
+	float GetMoveV(void)	{ return m_fMoveV; }	// 縦座標の移動量取得
+	int GetNumLoopU(void)	{ return m_nNumLoopU; }	// 横パターン繰り返し数取得
+	int GetNumLoopV(void)	{ return m_nNumLoopV; }	// 縦パターン繰り返し数取得
 
 private:
+	// メンバ関数
+	bool NormalizeTexPos(float *pTexPos);	// テクスチャ座標正規化
+
 	// メンバ変数
 	float m_fTexU;		// テクスチャ横座標の開始位置
 	float m_fTexV;		// テクスチャ縦座標の開始位置
@@ -66,6 +77,8 @@ private:
 	float m_fOffsetV;	// テクスチャ縦座標のオフセット位置
 	float m_fMoveU;		// テクスチャ横座標の移動量
 	float m_fMoveV;		// テクスチャ縦座標の移動量
+	int m_nNumLoopU;	// 横パターン繰り返し数
+	int m_nNumLoopV;	// 縦パターン繰り返し数
 };
 
 #endif	// _SCROLL2D_H_

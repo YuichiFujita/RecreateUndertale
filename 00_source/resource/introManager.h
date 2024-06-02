@@ -70,7 +70,7 @@ public:
 	static CIntroManager *Create(void);	// 生成
 	static void Release(CIntroManager *&prIntroManager);	// 破棄
 
-private:
+//private:	// TODO：直せ
 	// メンバ変数
 	CScroll2D *m_pStory;	// ストーリー
 	CScrollText2D *m_pText;	// テキスト

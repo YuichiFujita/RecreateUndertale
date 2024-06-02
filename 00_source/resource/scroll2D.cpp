@@ -21,7 +21,9 @@ CScroll2D::CScroll2D(const CObject::ELabel label, const CObject::EDim dimension,
 	m_fOffsetU	(0.0f),	// テクスチャ横座標のオフセット位置
 	m_fOffsetV	(0.0f),	// テクスチャ縦座標のオフセット位置
 	m_fMoveU	(0.0f),	// テクスチャ横座標の移動量
-	m_fMoveV	(0.0f)	// テクスチャ縦座標の移動量
+	m_fMoveV	(0.0f),	// テクスチャ縦座標の移動量
+	m_nNumLoopU	(0),	// 横パターン繰り返し数
+	m_nNumLoopV	(0)		// 縦パターン繰り返し数
 {
 
 }
@@ -46,6 +48,8 @@ HRESULT CScroll2D::Init(void)
 	m_fOffsetV	= 1.0f;	// テクスチャ縦座標のオフセット位置
 	m_fMoveU	= 0.0f;	// テクスチャ横座標の移動量
 	m_fMoveV	= 0.0f;	// テクスチャ縦座標の移動量
+	m_nNumLoopU	= 0;	// 横パターン繰り返し数
+	m_nNumLoopV	= 0;	// 縦パターン繰り返し数
 
 	// オブジェクト2Dの初期化
 	if (FAILED(CObject2D::Init()))
@@ -77,22 +81,23 @@ void CScroll2D::Uninit(void)
 //============================================================
 void CScroll2D::Update(const float fDeltaTime)
 {
-	// スクロールを加算
+	// スクロール移動量を与える
 	m_fTexU += m_fMoveU;
 	m_fTexV += m_fMoveV;
 
-	if (m_fTexU > 1.0f)
-	{ // 1.0fより大きくなった場合
+	// 横座標の正規化
+	if (NormalizeTexPos(&m_fTexU))
+	{ // 正規化が行われた場合
 
-		// 開始地点を補正
-		m_fTexU -= 1.0f;
+		// 横パターン繰り返し数を加算
+		m_nNumLoopU++;
 	}
 
-	if (m_fTexV > 1.0f)
-	{ // 1.0fより大きくなった場合
-
-		// 開始地点を補正
-		m_fTexV -= 1.0f;
+	// 縦座標の正規化
+	if (NormalizeTexPos(&m_fTexV))
+	{
+		// 縦パターン繰り返し数を加算
+		m_nNumLoopV++;
 	}
 
 	// オブジェクト2Dの更新
@@ -270,6 +275,9 @@ void CScroll2D::SetMoveU(const float fMoveU)
 	// 引数の横座標の移動量を代入
 	m_fMoveU = fMoveU;
 
+	// 横パターン繰り返し数を初期化
+	m_nNumLoopU = 0;
+
 	// スクロールのテクスチャ座標の設定
 	CObject2D::SetScrollTex(m_fTexU, m_fTexV, m_fOffsetU, m_fOffsetV);
 }
@@ -282,6 +290,32 @@ void CScroll2D::SetMoveV(const float fMoveV)
 	// 引数の縦座標の移動量を代入
 	m_fMoveV = fMoveV;
 
+	// 縦パターン繰り返し数を初期化
+	m_nNumLoopV = 0;
+
 	// スクロールのテクスチャ座標の設定
 	CObject2D::SetScrollTex(m_fTexU, m_fTexV, m_fOffsetU, m_fOffsetV);
+}
+
+//============================================================
+//	テクスチャ座標の正規化
+//============================================================
+bool CScroll2D::NormalizeTexPos(float *pTexPos)
+{
+	if (*pTexPos > 1.0f)
+	{
+		// 開始地点を補正
+		*pTexPos -= 1.0f;
+
+		return true;
+	}
+	else if (*pTexPos < 0.0f)
+	{
+		// 開始地点を補正
+		*pTexPos += 1.0f;
+
+		return true;
+	}
+
+	return false;
 }

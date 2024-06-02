@@ -183,6 +183,7 @@
     <ClCompile Include="resource\introState.cpp" />
     <ClCompile Include="resource\introStateEnd.cpp" />
     <ClCompile Include="resource\introStateLogo.cpp" />
+    <ClCompile Include="resource\introStateScroll.cpp" />
     <ClCompile Include="resource\introStateText.cpp" />
     <ClCompile Include="resource\introStateTextSlow.cpp" />
     <ClCompile Include="resource\introStateWait.cpp" />
@@ -294,6 +295,7 @@
     <ClInclude Include="resource\introState.h" />
     <ClInclude Include="resource\introStateEnd.h" />
     <ClInclude Include="resource\introStateLogo.h" />
+    <ClInclude Include="resource\introStateScroll.h" />
     <ClInclude Include="resource\introStateText.h" />
     <ClInclude Include="resource\introStateTextSlow.h" />
     <ClInclude Include="resource\introStateWait.h" />

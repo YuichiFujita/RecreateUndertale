@@ -112,8 +112,8 @@ HRESULT CIntroManager::Init(void)
 		return E_FAIL;
 	}
 
-	// テクスチャを登録・割当
-	m_pStory->BindTexture(story::TEXTURE[0]);
+	// ラベルをUIに設定
+	m_pStory->SetLabel(CObject::LABEL_UI);
 
 	// 優先順位を設定
 	m_pStory->SetPriority(story::PRIORITY);
@@ -155,9 +155,6 @@ void CIntroManager::Uninit(void)
 {
 	// 状態の終了
 	SAFE_UNINIT(m_pState);
-
-	// ストーリーの終了
-	SAFE_UNINIT(m_pStory);
 }
 
 //============================================================
@@ -166,10 +163,8 @@ void CIntroManager::Uninit(void)
 void CIntroManager::Update(const float fDeltaTime)
 {
 	// 状態ごとの更新
+	assert(m_pState != nullptr);
 	m_pState->Update(fDeltaTime);
-
-	// ストーリーの更新
-	m_pStory->Update(fDeltaTime);
 }
 
 //============================================================
@@ -268,7 +263,8 @@ void CIntroManager::NextStory(void)
 		// 文字列を全て削除
 		m_pText->DeleteStringAll();
 
-		// TODO：ここで状態書き換え
+		// 物語スクロール状態にする
+		ChangeState(new CIntroStateScroll);
 
 		break;
 	}
@@ -286,8 +282,7 @@ void CIntroManager::ChangeStory(const int nStoryID)
 	{ // 最後の物語の場合
 
 		m_pStory->SetOffsetV(0.314f);
-		m_pStory->SetTexV(0.628f);
-		m_pStory->SetMoveV(-0.001f);
+		m_pStory->SetTexV(1.0f - 0.314f);
 
 		// TODO：綺麗に
 	}

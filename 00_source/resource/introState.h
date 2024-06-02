@@ -47,6 +47,7 @@ protected:
 #include "introStateLogo.h"
 #include "introStateText.h"
 #include "introStateWait.h"
+#include "introStateScroll.h"
 #include "introStateEnd.h"
 
 #endif	// _INTRO_STATE_H_

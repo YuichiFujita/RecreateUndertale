@@ -1,35 +1,32 @@
 //============================================================
 //
-//	ロゴ表示状態処理 [introStateLogo.cpp]
+//	物語スクロール状態処理 [introStateScroll.cpp]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	インクルードファイル
 //************************************************************
-#include "introStateLogo.h"
+#include "introStateScroll.h"
 #include "introManager.h"
-#include "object2D.h"
+#include "scroll2D.h"	// TODO：いらん
 
 //************************************************************
 //	定数宣言
 //************************************************************
 namespace
 {
-	const char *TEXTURE		= "data\\TEXTURE\\logoIntro000.png";	// ロゴテクスチャ
-	const int	PRIORITY	= 6;	// 優先順位
-	const float	DISP_TIME	= 4.0f;	// ロゴ表示時間
+	const float WAIT_TIME = 4.0f;	// 物語スクロール待機時間
 }
 
 //************************************************************
-//	子クラス [CIntroStateLogo] のメンバ関数
+//	子クラス [CIntroStateScroll] のメンバ関数
 //************************************************************
 //============================================================
 //	コンストラクタ
 //============================================================
-CIntroStateLogo::CIntroStateLogo() :
-	m_pLogo		(nullptr),	// タイトルロゴ
-	m_fCurTime	(0.0f)		// 現在の待機時間
+CIntroStateScroll::CIntroStateScroll() :
+	m_fCurTime	(0.0f)	// 現在の待機時間
 {
 
 }
@@ -37,7 +34,7 @@ CIntroStateLogo::CIntroStateLogo() :
 //============================================================
 //	デストラクタ
 //============================================================
-CIntroStateLogo::~CIntroStateLogo()
+CIntroStateScroll::~CIntroStateScroll()
 {
 
 }
@@ -45,27 +42,10 @@ CIntroStateLogo::~CIntroStateLogo()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CIntroStateLogo::Init(void)
+HRESULT CIntroStateScroll::Init(void)
 {
 	// メンバ変数を初期化
-	m_pLogo		= nullptr;	// タイトルロゴ
-	m_fCurTime	= 0.0f;		// 現在の待機時間
-
-	// タイトルロゴの生成
-	m_pLogo = CObject2D::Create(SCREEN_CENT, SCREEN_SIZE);
-	if (m_pLogo == nullptr)
-	{ // 生成に失敗した場合
-
-		// 失敗を返す
-		assert(false);
-		return E_FAIL;
-	}
-
-	// テクスチャを登録・割当
-	m_pLogo->BindTexture(TEXTURE);
-
-	// 優先順位を設定
-	m_pLogo->SetPriority(PRIORITY);
+	m_fCurTime = 0.0f;	// 現在の待機時間
 
 	// 成功を返す
 	return S_OK;
@@ -74,11 +54,8 @@ HRESULT CIntroStateLogo::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CIntroStateLogo::Uninit(void)
+void CIntroStateScroll::Uninit(void)
 {
-	// タイトルロゴの終了
-	SAFE_UNINIT(m_pLogo);
-
 	// 自身の破棄
 	delete this;
 }
@@ -86,23 +63,27 @@ void CIntroStateLogo::Uninit(void)
 //============================================================
 //	更新処理
 //============================================================
-void CIntroStateLogo::Update(const float fDeltaTime)
+void CIntroStateScroll::Update(const float fDeltaTime)
 {
+	// TODO：とりあえずこれで動く。あとは関数分けしよう。
+	if (m_pContext->m_pStory->GetNumLoopV() >= 1)
+	{
+		m_pContext->m_pStory->SetMoveV(0.0f);
+		m_pContext->m_pStory->SetTexV(1.0f);
+
+		// 待機状態にする
+		m_pContext->ChangeState(new CIntroStateWait(4.0f));
+	}
+
 	// 待機時刻を進める
 	m_fCurTime += fDeltaTime;
-	if (m_fCurTime >= DISP_TIME)
+	if (m_fCurTime >= WAIT_TIME)
 	{ // 待機終了した場合
 
 		// 待機時間を初期化
-		m_fCurTime = 0.0f;
+		//m_fCurTime = 0.0f;
 
-		// 開始ストーリーに変更
-		m_pContext->ChangeStory(0);
-
-		// 開始テキストに変更
-		m_pContext->ChangeText(0);
-
-		// 文字送り状態にする
-		m_pContext->ChangeState(new CIntroStateText);
+		// 
+		m_pContext->m_pStory->SetMoveV(-0.005f);
 	}
 }
