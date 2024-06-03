@@ -37,8 +37,13 @@ namespace
 			"data\\TEXTURE\\story010.png",	// 着地
 		};
 
-		const int	PRIORITY	= 4;	// 物語表示ポリゴンの優先順位
-		const float	WAIT_TIME	= 4.0f;	// 待機時間
+		const int	PRIORITY		= 4;		// 物語表示ポリゴンの優先順位
+		const float	SCROLL_MOVE		= -0.005f;	// スクロールの移動量
+		const float	SCROLL_OFFSET	= 0.314f;	// スクロールポリゴンのテクスチャオフセット
+
+		const float	WAIT_TIME_DISP		= 4.0f;	// 物語遷移の待機時間 (表示のみ)
+		const float	WAIT_TIME_SCROLL	= 6.0f;	// 物語遷移の待機時間 (スクロール)
+
 		const D3DXVECTOR3 POS	= D3DXVECTOR3(SCREEN_CENT.x, 225.0f, 0.0f);	// ストーリー位置
 		const D3DXVECTOR3 SIZE	= D3DXVECTOR3(605.0f, 302.5f, 0.0f);		// ストーリー大きさ
 	}
@@ -94,7 +99,7 @@ HRESULT CIntroManager::Init(void)
 	m_pStory	= nullptr;	// ストーリー
 	m_pText		= nullptr;	// テキスト
 	m_pState	= nullptr;	// 状態
-	m_nStoryID	= 9;		// 物語インデックス	// TODO
+	m_nStoryID	= 0;		// 物語インデックス
 
 	// ロゴ表示状態にする
 	ChangeState(new CIntroStateLogo);
@@ -206,16 +211,6 @@ void CIntroManager::NextStory(void)
 	// 物語を次に進める
 	m_nStoryID++;
 
-	if (useful::LimitMaxNum(m_nStoryID, (int)STORY_MAX - 1))	// ストーリー上限で補正 (補正時 true)
-	{ // 最後まで表示した場合
-
-		// 終了状態にする
-		ChangeState(new CIntroStateEnd);
-
-		// 関数を抜ける
-		return;
-	}
-
 	// フェードを生成する
 	CIntroFade::Create(this);
 
@@ -254,7 +249,7 @@ void CIntroManager::NextStory(void)
 		m_pText->DeleteStringAll();
 
 		// 待機状態にする
-		ChangeState(new CIntroStateWait(story::WAIT_TIME));
+		ChangeState(new CIntroStateWait(story::WAIT_TIME_DISP));
 
 		break;
 
@@ -263,8 +258,8 @@ void CIntroManager::NextStory(void)
 		// 文字列を全て削除
 		m_pText->DeleteStringAll();
 
-		// 物語スクロール状態にする
-		ChangeState(new CIntroStateScroll);
+		// 待機状態にする
+		ChangeState(new CIntroStateWait(story::WAIT_TIME_SCROLL));
 
 		break;
 	}
@@ -281,10 +276,9 @@ void CIntroManager::ChangeStory(const int nStoryID)
 	if (nStoryID == STORY_MAX - 1)
 	{ // 最後の物語の場合
 
-		m_pStory->SetOffsetV(0.314f);
-		m_pStory->SetTexV(1.0f - 0.314f);
-
-		// TODO：綺麗に
+		// テクスチャの開始地点にする
+		m_pStory->SetOffsetV(story::SCROLL_OFFSET);		// オフセットを設定
+		m_pStory->SetTexV(1.0f - story::SCROLL_OFFSET);	// テクスチャ座標を設定
 	}
 }
 
@@ -301,6 +295,33 @@ void CIntroManager::ChangeText(const int nStoryID)
 
 	// 文字送りを開始する
 	m_pText->SetEnableScroll(true);
+}
+
+//============================================================
+//	ストーリースクロールの開始
+//============================================================
+void CIntroManager::StartScrollStory(void)
+{
+	// 物語のスクロールを開始する
+	m_pStory->SetMoveV(story::SCROLL_MOVE);
+}
+
+//============================================================
+//	ストーリースクロールの正規化
+//============================================================
+bool CIntroManager::NormalizeScrollStory(void)
+{
+	if (m_pStory->GetNumLoopV() >= 1)
+	{ // テクスチャがワンループした場合
+
+		// テクスチャの終了地点で停止
+		m_pStory->SetMoveV(0.0f);	// 移動量を初期化
+		m_pStory->SetTexV(1.0f);	// テクスチャ座標を補正
+
+		return true;
+	}
+
+	return false;
 }
 
 //============================================================

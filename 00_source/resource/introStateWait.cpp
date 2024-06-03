@@ -65,7 +65,17 @@ void CIntroStateWait::Update(const float fDeltaTime)
 		// ‘Ò‹@ŽžŠÔ‚ð‰Šú‰»
 		m_fCurTime = 0.0f;
 
-		// •¨Œê‚Æó‘Ô‚ð‘JˆÚ‚³‚¹‚é
-		m_pContext->NextStory();
+		if (m_pContext->GetStoryID() >= (int)CIntroManager::STORY_MAX - 1)
+		{ // ÅŒã‚Ì•¨Œê‚Ìê‡
+
+			// •¨ŒêƒXƒNƒ[ƒ‹ó‘Ô‚É‚·‚é
+			m_pContext->ChangeState(new CIntroStateScroll);
+		}
+		else
+		{ // •¨Œê‚ª‚Ü‚¾‚ ‚éê‡
+
+			// •¨Œê‚Æó‘Ô‚ð‘JˆÚ‚³‚¹‚é
+			m_pContext->NextStory();
+		}
 	}
 }

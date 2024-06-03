@@ -9,7 +9,6 @@
 //************************************************************
 #include "introStateScroll.h"
 #include "introManager.h"
-#include "scroll2D.h"	// TODO：いらん
 
 //************************************************************
 //	定数宣言
@@ -65,25 +64,22 @@ void CIntroStateScroll::Uninit(void)
 //============================================================
 void CIntroStateScroll::Update(const float fDeltaTime)
 {
-	// TODO：とりあえずこれで動く。あとは関数分けしよう。
-	if (m_pContext->m_pStory->GetNumLoopV() >= 1)
-	{
-		m_pContext->m_pStory->SetMoveV(0.0f);
-		m_pContext->m_pStory->SetTexV(1.0f);
+	if (m_pContext->NormalizeScrollStory())
+	{ // テクスチャがワンループした場合
 
-		// 待機状態にする
-		m_pContext->ChangeState(new CIntroStateWait(4.0f));
+		// 終了状態にする
+		m_pContext->ChangeState(new CIntroStateEnd);
 	}
+}
 
-	// 待機時刻を進める
-	m_fCurTime += fDeltaTime;
-	if (m_fCurTime >= WAIT_TIME)
-	{ // 待機終了した場合
+//============================================================
+//	コンテキスト設定処理
+//============================================================
+void CIntroStateScroll::SetContext(CIntroManager *pContext)
+{
+	// コンテキストを設定
+	CIntroState::SetContext(pContext);
 
-		// 待機時間を初期化
-		//m_fCurTime = 0.0f;
-
-		// 
-		m_pContext->m_pStory->SetMoveV(-0.005f);
-	}
+	// 物語のスクロールを開始する
+	m_pContext->StartScrollStory();
 }

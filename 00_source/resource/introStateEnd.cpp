@@ -12,12 +12,21 @@
 #include "manager.h"
 
 //************************************************************
+//	定数宣言
+//************************************************************
+namespace
+{
+	const float WAIT_TIME = 4.0f;	// 遷移待機時間
+}
+
+//************************************************************
 //	子クラス [CIntroStateEnd] のメンバ関数
 //************************************************************
 //============================================================
 //	コンストラクタ
 //============================================================
-CIntroStateEnd::CIntroStateEnd()
+CIntroStateEnd::CIntroStateEnd() :
+	m_fCurTime	(0.0f)	// 現在の待機時間
 {
 
 }
@@ -35,6 +44,9 @@ CIntroStateEnd::~CIntroStateEnd()
 //============================================================
 HRESULT CIntroStateEnd::Init(void)
 {
+	// メンバ変数を初期化
+	m_fCurTime = 0.0f;	// 現在の待機時間
+
 	// 成功を返す
 	return S_OK;
 }
@@ -53,6 +65,15 @@ void CIntroStateEnd::Uninit(void)
 //============================================================
 void CIntroStateEnd::Update(const float fDeltaTime)
 {
-	// タイトルに遷移する
-	GET_MANAGER->SetScene(CScene::MODE_TITLE);
+	// 待機時刻を進める
+	m_fCurTime += fDeltaTime;
+	if (m_fCurTime >= WAIT_TIME)
+	{ // 待機終了した場合
+
+		// 待機時間を初期化
+		m_fCurTime = 0.0f;
+
+		// タイトルに遷移する
+		GET_MANAGER->SetScene(CScene::MODE_TITLE);	// フェード無し
+	}
 }

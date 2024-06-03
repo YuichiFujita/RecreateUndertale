@@ -31,7 +31,8 @@ public:
 	// オーバーライド関数
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
-	void Update(const float fDeltaTime) override;	// 更新
+	void Update(const float fDeltaTime) override;		// 更新
+	void SetContext(CIntroManager *pContext) override;	// コンテキスト設定
 
 private:
 	// メンバ変数
