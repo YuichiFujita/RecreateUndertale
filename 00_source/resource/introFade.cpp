@@ -16,7 +16,7 @@
 namespace
 {
 	const int	PRIORITY	= 5;	// フェードの優先順位
-	const float	FADE_LEVEL	= 2.8f;	// フェードのα変化量
+	const float	FADE_LEVEL	= 1.8f;	// フェードのα変化量
 }
 
 //************************************************************

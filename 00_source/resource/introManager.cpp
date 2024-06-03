@@ -38,7 +38,7 @@ namespace
 		};
 
 		const int	PRIORITY		= 4;		// 物語表示ポリゴンの優先順位
-		const float	SCROLL_MOVE		= -0.005f;	// スクロールの移動量
+		const float	SCROLL_MOVE		= -0.001f;	// スクロールの移動量
 		const float	SCROLL_OFFSET	= 0.314f;	// スクロールポリゴンのテクスチャオフセット
 
 		const float	WAIT_TIME_DISP		= 4.0f;	// 物語遷移の待機時間 (表示のみ)
