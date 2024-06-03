@@ -70,16 +70,6 @@ void CIntroStateFade::Update(const float fDeltaTime)
 	// フェードアウトしていない場合抜ける
 	if (m_pFade->GetFade() != CIntroFade::FADE_OUT) { return; }
 
-	if (m_pContext->GetStoryID() >= (int)CIntroManager::STORY_MAX - 1)
-	{ // 最後の物語の場合
-
-		// 物語スクロール状態にする
-		m_pContext->ChangeState(new CIntroStateScroll);
-	}
-	else
-	{ // 物語がまだある場合
-
-		// 物語と状態を遷移させる
-		m_pContext->NextStory();
-	}
+	// 物語と状態を遷移させる
+	m_pContext->NextStory();
 }
