@@ -12,7 +12,6 @@
 #include "object2D.h"
 #include "scroll2D.h"
 #include "introState.h"
-#include "introFade.h"
 #include "loadtext.h"
 
 //************************************************************
@@ -58,7 +57,7 @@ namespace
 		const float	CHAR_HEIGHT	= 45.0f;	// 文字縦幅
 		const float	LINE_HEIGHT	= 62.0f;	// 行間縦幅
 
-		const float	WAIT_TIME_NOR	= 0.115f;	// 文字表示の待機時間 (通常速度)
+		const float	WAIT_TIME_NOR	= 0.11f;	// 文字表示の待機時間 (通常速度)
 		const float	WAIT_TIME_SLOW	= 0.7f;		// 文字表示の待機時間 (速度低下)
 
 		const D3DXVECTOR3 POS = D3DXVECTOR3(SCREEN_CENT.x - story::SIZE.x * 0.5f, 460.0f, 0.0f);	// テキスト位置
@@ -211,8 +210,8 @@ void CIntroManager::NextStory(void)
 	// 物語を次に進める
 	m_nStoryID++;
 
-	// フェードを生成する
-	CIntroFade::Create(this);
+	// 表示物語を変更する
+	ChangeStory(m_nStoryID);
 
 	switch (m_nStoryID)
 	{ // 物語ごとの処理

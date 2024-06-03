@@ -182,6 +182,7 @@
     <ClCompile Include="resource\introManager.cpp" />
     <ClCompile Include="resource\introState.cpp" />
     <ClCompile Include="resource\introStateEnd.cpp" />
+    <ClCompile Include="resource\introStateFade.cpp" />
     <ClCompile Include="resource\introStateLogo.cpp" />
     <ClCompile Include="resource\introStateScroll.cpp" />
     <ClCompile Include="resource\introStateText.cpp" />
@@ -294,6 +295,7 @@
     <ClInclude Include="resource\introManager.h" />
     <ClInclude Include="resource\introState.h" />
     <ClInclude Include="resource\introStateEnd.h" />
+    <ClInclude Include="resource\introStateFade.h" />
     <ClInclude Include="resource\introStateLogo.h" />
     <ClInclude Include="resource\introStateScroll.h" />
     <ClInclude Include="resource\introStateText.h" />

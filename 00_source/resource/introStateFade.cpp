@@ -1,24 +1,24 @@
 //============================================================
 //
-//	待機状態処理 [introStateWait.cpp]
+//	フェード状態処理 [introStateFade.cpp]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	インクルードファイル
 //************************************************************
-#include "introStateWait.h"
+#include "introStateFade.h"
 #include "introManager.h"
+#include "introFade.h"
 
 //************************************************************
-//	子クラス [CIntroStateWait] のメンバ関数
+//	子クラス [CIntroStateFade] のメンバ関数
 //************************************************************
 //============================================================
 //	コンストラクタ
 //============================================================
-CIntroStateWait::CIntroStateWait(const float fEndTime) :
-	m_fEndTime	(fEndTime),	// 待機の終了時間
-	m_fCurTime	(0.0f)		// 現在の待機時間
+CIntroStateFade::CIntroStateFade() :
+	m_pFade	(nullptr)	// フェード
 {
 
 }
@@ -26,7 +26,7 @@ CIntroStateWait::CIntroStateWait(const float fEndTime) :
 //============================================================
 //	デストラクタ
 //============================================================
-CIntroStateWait::~CIntroStateWait()
+CIntroStateFade::~CIntroStateFade()
 {
 
 }
@@ -34,10 +34,20 @@ CIntroStateWait::~CIntroStateWait()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CIntroStateWait::Init(void)
+HRESULT CIntroStateFade::Init(void)
 {
 	// メンバ変数を初期化
-	m_fCurTime = 0.0f;	// 現在の待機時間
+	m_pFade = nullptr;	// フェード
+
+	// フェードの生成
+	m_pFade = CIntroFade::Create();
+	if (m_pFade == nullptr)
+	{ // 生成に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
 
 	// 成功を返す
 	return S_OK;
@@ -46,7 +56,7 @@ HRESULT CIntroStateWait::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CIntroStateWait::Uninit(void)
+void CIntroStateFade::Uninit(void)
 {
 	// 自身の破棄
 	delete this;
@@ -55,17 +65,21 @@ void CIntroStateWait::Uninit(void)
 //============================================================
 //	更新処理
 //============================================================
-void CIntroStateWait::Update(const float fDeltaTime)
+void CIntroStateFade::Update(const float fDeltaTime)
 {
-	// 待機時刻を進める
-	m_fCurTime += fDeltaTime;
-	if (m_fCurTime >= m_fEndTime)
-	{ // 待機終了した場合
+	// フェードアウトしていない場合抜ける
+	if (m_pFade->GetFade() != CIntroFade::FADE_OUT) { return; }
 
-		// 待機時間を初期化
-		m_fCurTime = 0.0f;
+	if (m_pContext->GetStoryID() >= (int)CIntroManager::STORY_MAX - 1)
+	{ // 最後の物語の場合
 
-		// フェード状態にする
-		m_pContext->ChangeState(new CIntroStateFade);
+		// 物語スクロール状態にする
+		m_pContext->ChangeState(new CIntroStateScroll);
+	}
+	else
+	{ // 物語がまだある場合
+
+		// 物語と状態を遷移させる
+		m_pContext->NextStory();
 	}
 }

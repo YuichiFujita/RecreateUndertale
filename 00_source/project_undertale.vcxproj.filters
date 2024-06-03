@@ -375,6 +375,9 @@
     <ClCompile Include="resource\introStateScroll.cpp">
       <Filter>08_state\state_intro</Filter>
     </ClCompile>
+    <ClCompile Include="resource\introStateFade.cpp">
+      <Filter>08_state\state_intro</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h">
@@ -699,6 +702,9 @@
       <Filter>08_state\state_intro</Filter>
     </ClInclude>
     <ClInclude Include="resource\introStateScroll.h">
+      <Filter>08_state\state_intro</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\introStateFade.h">
       <Filter>08_state\state_intro</Filter>
     </ClInclude>
   </ItemGroup>
