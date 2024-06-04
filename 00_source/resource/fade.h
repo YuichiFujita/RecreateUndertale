@@ -47,9 +47,11 @@ public:
 	HRESULT Init(void);	// 初期化
 	void Uninit(void);	// 終了
 	void Update(const float fDeltaTime);	// 更新
-	void Draw(void);	// 描画
-	void Set(const CScene::EMode mode, const int nWait);	// 次シーンへのフェード設定
-	EFade GetState(void) const;	// フェード状態取得
+	void Draw(void);						// 描画
+	EFade GetState(void) const;				// フェード状態取得
+	void SetFade(const float fWaitTime);	// フェード開始設定
+	void SetFade(const CScene::EMode mode, const float fWaitTime);		// 次シーン設定 (フェードのみ)
+	void SetLoadFade(const CScene::EMode mode, const float fWaitTime);	// 次シーン設定 (ロード画面付き)
 
 	// 静的メンバ関数
 	static CFade *Create(void);			// 生成
@@ -57,10 +59,10 @@ public:
 
 private:
 	// メンバ変数
-	CObject2D *m_pObject2D;		// フェード表示の情報
+	CObject2D *m_pFade;			// フェード情報
+	CScene::EMode m_modeNext;	// 次シーン
 	EFade m_fade;				// フェード状態
-	CScene::EMode m_modeNext;	// 次のシーンモード
-	int m_nCounterWait;			// 余韻管理カウンター
+	float m_fWaitTime;			// 余韻管理カウンター
 };
 
 #endif	// _FADE_H_

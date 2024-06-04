@@ -571,57 +571,6 @@ void CManager::ReleaseWindow(void)
 }
 
 //============================================================
-//	シーンの設定処理 (フェード：ON)
-//============================================================
-void CManager::SetFadeScene(const CScene::EMode mode, const int nWait)
-{
-	// インスタンス未使用
-	assert(m_pFade != nullptr);
-
-	// 次のシーンを設定
-	m_pFade->Set(mode, nWait);
-}
-
-//============================================================
-//	シーンの設定処理 (フェード：OFF)
-//============================================================
-HRESULT CManager::SetScene(const CScene::EMode mode)
-{
-	// サウンドを停止
-	assert(m_pSound != nullptr);
-	m_pSound->Stop();
-
-	// シーンを破棄
-	SAFE_REF_RELEASE(m_pScene);
-
-	// オブジェクトの全破棄
-	CObject::ReleaseAll();
-
-	// シーンの生成
-	assert(m_pScene == nullptr);
-	m_pScene = CScene::Create(mode);
-	if (m_pScene == nullptr)
-	{ // 非使用中の場合
-
-		// 失敗を返す
-		assert(false);
-		return E_FAIL;
-	}
-
-	// シーンの初期化
-	if (FAILED(m_pScene->Init()))
-	{ // 初期化に失敗した場合
-
-		// 失敗を返す
-		assert(false);
-		return E_FAIL;
-	}
-
-	// 成功を返す
-	return S_OK;
-}
-
-//============================================================
 //	シーンの初期化処理
 //============================================================
 HRESULT CManager::InitScene(const CScene::EMode mode)
@@ -679,15 +628,117 @@ HRESULT CManager::InitScene(const CScene::EMode mode)
 }
 
 //============================================================
-//	モードの設定処理
+//	シーンの設定処理 (フェード･ロード：OFF)
 //============================================================
-HRESULT CManager::SetMode(const CScene::EMode mode)
+HRESULT CManager::SetScene(const CScene::EMode mode)
 {
 	// サウンドを停止
 	assert(m_pSound != nullptr);
 	m_pSound->Stop();
 
 	// シーンを破棄
+	SAFE_REF_RELEASE(m_pScene);
+
+	// オブジェクトの全破棄
+	CObject::ReleaseAll();
+
+	// シーンの生成
+	assert(m_pScene == nullptr);
+	m_pScene = CScene::Create(mode);
+	if (m_pScene == nullptr)
+	{ // 非使用中の場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
+
+	// シーンの初期化
+	if (FAILED(m_pScene->Init()))
+	{ // 初期化に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
+
+	// 成功を返す
+	return S_OK;
+}
+
+//============================================================
+//	シーンの設定処理 (フェード：ON, ロード：OFF)
+//============================================================
+void CManager::SetFadeScene(const CScene::EMode mode, const float fWaitTime)
+{
+	// インスタンス未使用
+	assert(m_pFade != nullptr);
+
+	// 次のシーンを設定
+	m_pFade->SetFade(mode, fWaitTime);
+}
+
+//============================================================
+//	シーンの設定処理 (フェード･ロード：ON)
+//============================================================
+void CManager::SetLoadScene(const CScene::EMode mode, const float fWaitTime)
+{
+	// インスタンス未使用
+	assert(m_pFade != nullptr);
+
+	// 次のシーンを設定
+	m_pFade->SetLoadFade(mode, fWaitTime);
+}
+
+//============================================================
+//	モードの設定処理 (ロード：OFF)
+//============================================================
+HRESULT CManager::SetMode(const CScene::EMode mode)
+{
+	// サウンドの停止
+	assert(m_pSound != nullptr);
+	m_pSound->Stop();
+
+	// シーンの破棄
+	SAFE_REF_RELEASE(m_pScene);
+
+	// オブジェクトの全破棄
+	CObject::ReleaseAll();
+
+	// シーンの生成
+	assert(m_pScene == nullptr);
+	m_pScene = CScene::Create(mode);
+	if (m_pScene == nullptr)
+	{ // 非使用中の場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
+
+	// シーンの初期化
+	if (FAILED(m_pScene->Init()))
+	{ // 初期化に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
+
+	// 成功を返す
+	return S_OK;
+}
+
+//============================================================
+//	モードの設定処理 (ロード：ON)
+//============================================================
+HRESULT CManager::SetLoadMode(const CScene::EMode mode)
+{
+	// サウンドの停止
+	assert(m_pSound != nullptr);
+	m_pSound->Stop();
+
+	// シーンの破棄
 	SAFE_REF_RELEASE(m_pScene);
 
 	// オブジェクトの全破棄

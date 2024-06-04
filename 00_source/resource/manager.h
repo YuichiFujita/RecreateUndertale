@@ -63,10 +63,13 @@ public:
 	static void ReleaseWindow(void);			// ウインドウ破棄
 
 	// メンバ関数
-	void SetFadeScene(const CScene::EMode mode, const int nWait = 0);	// シーン設定 (フェード：ON)
-	HRESULT SetScene(const CScene::EMode mode);		// シーン設定 (フェード：OFF)
 	HRESULT InitScene(const CScene::EMode mode);	// シーン初期化
-	HRESULT SetMode(const CScene::EMode mode);		// モード設定
+	HRESULT SetScene(const CScene::EMode mode);		// シーン設定 (フェード･ロード：OFF)
+	void SetFadeScene(const CScene::EMode mode, const float fWaitTime = 0.0f);	// シーン設定 (フェード：ON, ロード：OFF)
+	void SetLoadScene(const CScene::EMode mode, const float fWaitTime = 0.0f);	// シーン設定 (フェード･ロード：ON)
+
+	HRESULT SetMode(const CScene::EMode mode);		// モード設定 (ロード：OFF)
+	HRESULT SetLoadMode(const CScene::EMode mode);	// モード設定 (ロード：ON)
 	CScene::EMode GetMode(void);					// モード取得
 
 	CDeltaTime			*GetDeltaTime(void);	// デルタタイム取得
