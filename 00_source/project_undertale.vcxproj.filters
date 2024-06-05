@@ -363,9 +363,6 @@
     <ClCompile Include="resource\rankingManager.cpp">
       <Filter>02_scene\ranking</Filter>
     </ClCompile>
-    <ClCompile Include="resource\introFade.cpp">
-      <Filter>02_scene\intro</Filter>
-    </ClCompile>
     <ClCompile Include="resource\loadtext.cpp">
       <Filter>07_utility</Filter>
     </ClCompile>
@@ -691,9 +688,6 @@
     </ClInclude>
     <ClInclude Include="resource\rankingManager.h">
       <Filter>02_scene\ranking</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\introFade.h">
-      <Filter>02_scene\intro</Filter>
     </ClInclude>
     <ClInclude Include="resource\loadtext.h">
       <Filter>07_utility</Filter>

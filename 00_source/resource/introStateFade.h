@@ -16,11 +16,6 @@
 #include "introState.h"
 
 //************************************************************
-//	前方宣言
-//************************************************************
-class CIntroFade;	// イントロフェードクラス
-
-//************************************************************
 //	クラス定義
 //************************************************************
 // フェード状態クラス
@@ -37,10 +32,6 @@ public:
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
-
-private:
-	// メンバ変数
-	CIntroFade *m_pFade;	// フェード
 };
 
 #endif	// _INTRO_STATE_FADE_H_

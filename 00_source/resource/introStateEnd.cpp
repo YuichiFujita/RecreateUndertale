@@ -73,7 +73,7 @@ void CIntroStateEnd::Update(const float fDeltaTime)
 		// 待機時間を初期化
 		m_fCurTime = 0.0f;
 
-		// タイトルに遷移する
-		GET_MANAGER->SetScene(CScene::MODE_TITLE);	// フェード無し
+		// タイトル画面に遷移する
+		GET_MANAGER->SetFadeScene(CScene::MODE_TITLE);
 	}
 }

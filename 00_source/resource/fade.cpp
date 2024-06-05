@@ -29,7 +29,7 @@ namespace
 #endif	// _DEBUG
 
 	const int	PRIORITY = 7;		// フェードの優先順位
-	const float	LEVEL	 = 0.03f;	// フェードのα値加減量
+	const float	LEVEL	 = 3.0f;	// フェードのα値加減量
 }
 
 //************************************************************

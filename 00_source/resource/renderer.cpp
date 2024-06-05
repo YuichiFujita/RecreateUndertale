@@ -182,7 +182,6 @@ void CRenderer::Draw(void)
 	// ポインタを宣言
 	CManager	*pManager	= GET_MANAGER;				// マネージャー
 	CCamera		*pCamera	= pManager->GetCamera();	// カメラ
-	CFade		*pFade		= pManager->GetFade();		// フェード
 	CLoading	*pLoading	= pManager->GetLoading();	// ローディング
 	CDebugProc	*pDebugProc	= pManager->GetDebugProc();	// デバッグプロック
 
@@ -254,10 +253,6 @@ void CRenderer::Draw(void)
 		// スクリーン描画ポリゴンの描画
 		assert(m_pDrawScreen != nullptr);
 		m_pDrawScreen->Draw();
-
-		// フェードの描画
-		assert(pFade != nullptr);
-		pFade->Draw();
 
 		// ローディングの描画
 		assert(pLoading != nullptr);

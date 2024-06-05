@@ -9,7 +9,17 @@
 //************************************************************
 #include "introStateFade.h"
 #include "introManager.h"
-#include "introFade.h"
+#include "manager.h"
+#include "fade.h"
+
+//************************************************************
+//	定数宣言
+//************************************************************
+namespace
+{
+	const int	PRIORITY	= 5;	// フェードの優先順位
+	const float	FADE_LEVEL	= 1.8f;	// フェードのα変化量
+}
 
 //************************************************************
 //	子クラス [CIntroStateFade] のメンバ関数
@@ -17,8 +27,7 @@
 //============================================================
 //	コンストラクタ
 //============================================================
-CIntroStateFade::CIntroStateFade() :
-	m_pFade	(nullptr)	// フェード
+CIntroStateFade::CIntroStateFade()
 {
 
 }
@@ -36,18 +45,9 @@ CIntroStateFade::~CIntroStateFade()
 //============================================================
 HRESULT CIntroStateFade::Init(void)
 {
-	// メンバ変数を初期化
-	m_pFade = nullptr;	// フェード
-
-	// フェードの生成
-	m_pFade = CIntroFade::Create();
-	if (m_pFade == nullptr)
-	{ // 生成に失敗した場合
-
-		// 失敗を返す
-		assert(false);
-		return E_FAIL;
-	}
+	// フェードを開始する
+	CFade *pFade = GET_MANAGER->GetFade();	// フェード情報
+	pFade->SetFade(FADE_LEVEL, PRIORITY);
 
 	// 成功を返す
 	return S_OK;
@@ -67,8 +67,9 @@ void CIntroStateFade::Uninit(void)
 //============================================================
 void CIntroStateFade::Update(const float fDeltaTime)
 {
-	// フェードアウトしていない場合抜ける
-	if (m_pFade->GetFade() != CIntroFade::FADE_OUT) { return; }
+	// フェードインしていない場合抜ける
+	CFade *pFade = GET_MANAGER->GetFade();	// フェード情報
+	if (pFade->GetState() != CFade::FADE_IN) { return; }
 
 	// 物語と状態を遷移させる
 	m_pContext->NextStory();
