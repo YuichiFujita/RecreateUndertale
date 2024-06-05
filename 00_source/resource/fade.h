@@ -14,17 +14,13 @@
 //	インクルードファイル
 //************************************************************
 #include "scene.h"
-
-//************************************************************
-//	前方宣言
-//************************************************************
-class CObject2D;	// オブジェクト2Dクラス
+#include "object2D.h"
 
 //************************************************************
 //	クラス定義
 //************************************************************
 // フェードクラス
-class CFade
+class CFade : public CObject2D
 {
 public:
 	// フェード状態列挙
@@ -43,26 +39,28 @@ public:
 	// デストラクタ
 	~CFade();
 
-	// メンバ関数
-	HRESULT Init(void);	// 初期化
-	void Uninit(void);	// 終了
-	void Update(const float fDeltaTime);	// 更新
-	void Draw(void);						// 描画
-	EFade GetState(void) const;				// フェード状態取得
-	void SetFade(const float fWaitTime);	// フェード開始設定
-	void SetFade(const CScene::EMode mode, const float fWaitTime);		// 次シーン設定 (フェードのみ)
-	void SetLoadFade(const CScene::EMode mode, const float fWaitTime);	// 次シーン設定 (ロード画面付き)
+	// オーバーライド関数
+	HRESULT Init(void) override;	// 初期化
+	void Uninit(void) override;		// 終了
+	void Update(const float fDeltaTime) override;	// 更新
+	void Draw(CShader *pShader = nullptr) override;	// 描画
 
 	// 静的メンバ関数
-	static CFade *Create(void);			// 生成
-	static void Release(CFade *&pFade);	// 破棄
+	static CFade *Create(void);	// 生成
+
+	// メンバ関数
+	EFade GetState(void) const { return m_fade; }			// フェード状態取得
+	void SetFade(const float fLevel, const int nPriority);	// フェード開始設定
+	void SetModeFade(const CScene::EMode mode, const float fWaitTime);	// 次シーン設定 (フェードのみ)
+	void SetLoadFade(const CScene::EMode mode, const float fWaitTime);	// 次シーン設定 (ロード画面付き)
 
 private:
 	// メンバ変数
-	CObject2D *m_pFade;			// フェード情報
+	std::function<HRESULT(CScene::EMode)> m_pFuncSetMode;	// モード設定関数ポインタ
 	CScene::EMode m_modeNext;	// 次シーン
-	EFade m_fade;				// フェード状態
-	float m_fWaitTime;			// 余韻管理カウンター
+	EFade m_fade;		// フェード状態
+	float m_fWaitTime;	// 現在の余韻時間
+	float m_fLevel;		// α値加減量
 };
 
 #endif	// _FADE_H_

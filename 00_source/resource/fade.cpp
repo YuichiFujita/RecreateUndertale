@@ -18,9 +18,6 @@
 //************************************************************
 namespace
 {
-	const int	PRIORITY	= 7;		// フェードの優先順位
-	const float	FADE_LEVEL	= 0.05f;	// フェードのα値の加減量
-
 #ifdef _DEBUG
 
 	const CScene::EMode INIT_SCENE = CScene::MODE_INTRO;	// 初期シーン
@@ -30,6 +27,9 @@ namespace
 	const CScene::EMode INIT_SCENE = CScene::MODE_INTRO;	// 初期シーン
 
 #endif	// _DEBUG
+
+	const int	PRIORITY = 7;		// フェードの優先順位
+	const float	LEVEL	 = 0.03f;	// フェードのα値加減量
 }
 
 //************************************************************
@@ -39,10 +39,11 @@ namespace
 //	コンストラクタ
 //============================================================
 CFade::CFade() :
-	m_pFade		(nullptr),		// フェード情報
-	m_modeNext	(INIT_SCENE),	// 次シーン
-	m_fade		(FADE_NONE),	// フェード状態
-	m_fWaitTime	(0.0f)			// 余韻管理カウンター
+	m_pFuncSetMode	(nullptr),		// モード設定関数ポインタ
+	m_modeNext		(INIT_SCENE),	// 次シーン
+	m_fade			(FADE_NONE),	// フェード状態
+	m_fWaitTime		(0.0f),			// 現在の余韻時間
+	m_fLevel		(LEVEL)			// α値加減量
 {
 
 }
@@ -61,32 +62,35 @@ CFade::~CFade()
 HRESULT CFade::Init(void)
 {
 	// メンバ変数を初期化
-	m_pFade		= nullptr;		// フェード情報
-	m_modeNext	= INIT_SCENE;	// 次シーン
-	m_fade		= FADE_IN;		// フェード状態
-	m_fWaitTime	= 0.0f;			// 余韻管理カウンター
+	m_pFuncSetMode	= nullptr;		// モード設定関数ポインタ
+	m_modeNext		= INIT_SCENE;	// 次シーン
+	m_fade			= FADE_IN;		// フェード状態
+	m_fWaitTime		= 0.0f;			// 現在の余韻時間
+	m_fLevel		= LEVEL;		// α値加減量
 
-	// フェードの生成
-	m_pFade = CObject2D::Create
-	( // 引数
-		SCREEN_CENT,	// 位置
-		SCREEN_SIZE,	// 大きさ
-		VEC3_ZERO,		// 向き
-		XCOL_BLACK		// 色
-	);
-	if (m_pFade == nullptr)
-	{ // 生成に失敗した場合
+	// オブジェクト2Dの初期化
+	if (FAILED(CObject2D::Init()))
+	{ // 初期化に失敗した場合
 
 		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
 
-	// 優先順位の設定
-	m_pFade->SetPriority(PRIORITY);
+	// 位置をスクリーン中央にする
+	SetVec3Position(SCREEN_CENT);
 
-	// ラベル指定なしに設定
-	m_pFade->SetLabel(CObject::LABEL_NONE);	// 自動破棄・更新を停止する
+	// 大きさをスクリーンサイズにする
+	SetVec3Sizing(SCREEN_SIZE);
+
+	// 色を黒にする
+	SetColor(XCOL_BLACK);
+
+	// 優先順位を一番上にする
+	SetPriority(PRIORITY);
+
+	// ラベル指定なしにする
+	SetLabel(CObject::LABEL_NONE);	// 自動破棄・更新を停止する
 
 	// シーンの初期化
 	if (FAILED(GET_MANAGER->InitScene(m_modeNext)))
@@ -106,8 +110,8 @@ HRESULT CFade::Init(void)
 //============================================================
 void CFade::Uninit(void)
 {
-	// フェードの終了
-	SAFE_UNINIT(m_pFade);
+	// オブジェクト2Dの終了
+	CObject2D::Uninit();
 }
 
 //============================================================
@@ -118,7 +122,7 @@ void CFade::Update(const float fDeltaTime)
 	// フェードしていない場合抜ける
 	if (m_fade == FADE_NONE) { return; }
 
-	D3DXCOLOR colFade = m_pFade->GetColor();	// フェード色
+	D3DXCOLOR colFade = GetColor();	// フェード色
 	switch (m_fade)
 	{ // フェード状態ごとの処理
 	case FADE_WAIT:	// フェード余韻状態
@@ -127,6 +131,9 @@ void CFade::Update(const float fDeltaTime)
 		m_fWaitTime -= fDeltaTime;
 		if (m_fWaitTime <= 0.0f)
 		{ // 余韻終了した場合
+
+			// 余韻時間を初期化
+			m_fWaitTime = 0.0f;
 
 			// フェードアウト状態にする
 			m_fade = FADE_OUT;
@@ -140,7 +147,7 @@ void CFade::Update(const float fDeltaTime)
 		if (GET_MANAGER->GetLoading()->GetState() != CLoading::LOAD_NONE) { break; }
 
 		// 透明にしていく
-		colFade.a -= FADE_LEVEL;
+		colFade.a -= m_fLevel * fDeltaTime;
 		if (colFade.a <= 0.0f)
 		{ // 透明になった場合
 
@@ -156,7 +163,7 @@ void CFade::Update(const float fDeltaTime)
 	case FADE_OUT:	// フェードアウト状態
 
 		// 不透明にしていく
-		colFade.a += FADE_LEVEL;
+		colFade.a += m_fLevel * fDeltaTime;
 		if (colFade.a >= 1.0f)
 		{ // 不透明になった場合
 
@@ -166,8 +173,12 @@ void CFade::Update(const float fDeltaTime)
 			// フェードイン状態にする
 			m_fade = FADE_IN;
 
-			// モードの設定
-			GET_MANAGER->SetMode(m_modeNext);
+			if (m_pFuncSetMode != nullptr)
+			{ // モード設定関数が指定されている場合
+
+				// モードの設定
+				m_pFuncSetMode(m_modeNext);
+			}
 		}
 
 		break;
@@ -178,62 +189,46 @@ void CFade::Update(const float fDeltaTime)
 	}
 
 	// 色を反映
-	m_pFade->SetColor(colFade);
+	SetColor(colFade);
 
-	// フェードの更新
-	m_pFade->Update(fDeltaTime);
+	// オブジェクト2Dの更新
+	CObject2D::Update(fDeltaTime);
 }
 
 //============================================================
 //	描画処理
 //============================================================
-void CFade::Draw(void)
+void CFade::Draw(CShader *pShader)
 {
-
-}
-
-//============================================================
-//	フェード状態取得処理
-//============================================================
-CFade::EFade CFade::GetState(void) const
-{
-	// 現在のフェード状態を返す
-	return m_fade;
+	// オブジェクト2Dの描画
+	CObject2D::Draw(pShader);
 }
 
 //============================================================
 //	フェードの開始処理
 //============================================================
-void CFade::SetFade(const float fWaitTime)
+void CFade::SetFade(const float fLevel, const int nPriority)
 {
 	// フェード中の場合抜ける
 	if (m_fade != FADE_NONE) { return; }
 
-	// 余韻フレームオーバー
-	assert(fWaitTime >= 0.0f);
+	// α値加減量を設定
+	m_fLevel = fLevel;
 
-	// 余韻時間を設定
-	m_fWaitTime = fWaitTime;
+	// 優先順位を設定
+	SetPriority(nPriority);
 
-	// TODO：フェードしかしない状態作ろう
-	if (m_fWaitTime <= 0.0f)
-	{ // カウンターが未設定の場合
+	// モード設定関数ポインタを初期化
+	m_pFuncSetMode = nullptr;
 
-		// フェードアウト状態にする
-		m_fade = FADE_OUT;
-	}
-	else
-	{ // カウンターが設定された場合
-
-		// フェード余韻状態にする
-		m_fade = FADE_WAIT;
-	}
+	// フェードアウト状態にする
+	m_fade = FADE_OUT;
 }
 
 //============================================================
 //	次シーンの設定処理 (フェードのみ)
 //============================================================
-void CFade::SetFade(const CScene::EMode mode, const float fWaitTime)
+void CFade::SetModeFade(const CScene::EMode mode, const float fWaitTime)
 {
 	// フェード中の場合抜ける
 	if (m_fade != FADE_NONE) { return; }
@@ -247,7 +242,15 @@ void CFade::SetFade(const CScene::EMode mode, const float fWaitTime)
 	// 余韻時間を設定
 	m_fWaitTime = fWaitTime;
 
-	// TODO：ロード画面に行かないフェード状態作ろう
+	// α値加減量を設定
+	m_fLevel = LEVEL;
+
+	// 優先順位を設定
+	SetPriority(PRIORITY);
+
+	// ロード画面を挟まないモード設定関数を設定
+	m_pFuncSetMode = std::bind(&CManager::SetMode, GET_MANAGER, std::placeholders::_1);
+
 	if (m_fWaitTime <= 0.0f)
 	{ // カウンターが未設定の場合
 
@@ -279,7 +282,15 @@ void CFade::SetLoadFade(const CScene::EMode mode, const float fWaitTime)
 	// 余韻時間を設定
 	m_fWaitTime = fWaitTime;
 
-	// TODO：ロード画面に行くフェード状態作ろう
+	// α値加減量を設定
+	m_fLevel = LEVEL;
+
+	// 優先順位を設定
+	SetPriority(PRIORITY);
+
+	// ロード画面を挟むモード設定関数を設定
+	m_pFuncSetMode = std::bind(&CManager::SetLoadMode, GET_MANAGER, std::placeholders::_1);
+
 	if (m_fWaitTime <= 0.0f)
 	{ // カウンターが未設定の場合
 
@@ -321,17 +332,4 @@ CFade *CFade::Create(void)
 		// 確保したアドレスを返す
 		return pFade;
 	}
-}
-
-//============================================================
-//	破棄処理
-//============================================================
-void CFade::Release(CFade *&prFade)
-{
-	// フェードの終了
-	assert(prFade != nullptr);
-	prFade->Uninit();
-
-	// メモリ開放
-	SAFE_DELETE(prFade);
 }

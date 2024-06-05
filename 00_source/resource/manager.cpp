@@ -408,8 +408,8 @@ void CManager::Uninit(void)
 	// シーンの破棄
 	SAFE_REF_RELEASE(m_pScene);
 
-	// フェードの破棄
-	SAFE_REF_RELEASE(m_pFade);
+	// フェードの終了
+	SAFE_UNINIT(m_pFade);
 
 	// ライトの破棄
 	SAFE_REF_RELEASE(m_pLight);
@@ -675,7 +675,7 @@ void CManager::SetFadeScene(const CScene::EMode mode, const float fWaitTime)
 	assert(m_pFade != nullptr);
 
 	// 次のシーンを設定
-	m_pFade->SetFade(mode, fWaitTime);
+	m_pFade->SetModeFade(mode, fWaitTime);
 }
 
 //============================================================
