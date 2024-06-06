@@ -47,7 +47,7 @@ HRESULT CIntroStateFade::Init(void)
 {
 	// フェードを開始する
 	CFade *pFade = GET_MANAGER->GetFade();	// フェード情報
-	pFade->SetFade(FADE_LEVEL, PRIORITY);
+	pFade->SetFade(FADE_LEVEL, FADE_LEVEL, PRIORITY);
 
 	// 成功を返す
 	return S_OK;

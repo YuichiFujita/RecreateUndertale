@@ -14,7 +14,6 @@
 #include "sound.h"
 #include "camera.h"
 #include "light.h"
-#include "fade.h"
 #include "loading.h"
 #include "texture.h"
 #include "model.h"
@@ -669,25 +668,37 @@ HRESULT CManager::SetScene(const CScene::EMode mode)
 //============================================================
 //	シーンの設定処理 (フェード：ON, ロード：OFF)
 //============================================================
-void CManager::SetFadeScene(const CScene::EMode mode, const float fWaitTime)
+void CManager::SetFadeScene
+(
+	const CScene::EMode mode,	// 次シーン
+	const float fWaitTime,		// 余韻時間
+	const float fAddOut,		// アウトのα値増加量
+	const float fSubIn			// インのα値減少量
+)
 {
 	// インスタンス未使用
 	assert(m_pFade != nullptr);
 
 	// 次のシーンを設定
-	m_pFade->SetModeFade(mode, fWaitTime);
+	m_pFade->SetModeFade(mode, fWaitTime, fAddOut, fSubIn);
 }
 
 //============================================================
 //	シーンの設定処理 (フェード･ロード：ON)
 //============================================================
-void CManager::SetLoadScene(const CScene::EMode mode, const float fWaitTime)
+void CManager::SetLoadScene
+(
+	const CScene::EMode mode,	// 次シーン
+	const float fWaitTime,		// 余韻時間
+	const float fAddOut,		// アウトのα値増加量
+	const float fSubIn			// インのα値減少量
+)
 {
 	// インスタンス未使用
 	assert(m_pFade != nullptr);
 
 	// 次のシーンを設定
-	m_pFade->SetLoadFade(mode, fWaitTime);
+	m_pFade->SetLoadFade(mode, fWaitTime, fAddOut, fSubIn);
 }
 
 //============================================================

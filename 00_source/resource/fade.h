@@ -23,6 +23,11 @@
 class CFade : public CObject2D
 {
 public:
+	// 定数
+	static constexpr int	PRIORITY	= 7;		// 優先順位
+	static constexpr float	DEF_LEVEL	= 1.0f;		// α値加減量 (デフォルト)
+	static constexpr float	SKIP_LEVEL	= 120.0f;	// α値加減量 (スキップ)
+
 	// フェード状態列挙
 	enum EFade
 	{
@@ -49,10 +54,28 @@ public:
 	static CFade *Create(void);	// 生成
 
 	// メンバ関数
-	EFade GetState(void) const { return m_fade; }			// フェード状態取得
-	void SetFade(const float fLevel, const int nPriority);	// フェード開始設定
-	void SetModeFade(const CScene::EMode mode, const float fWaitTime);	// 次シーン設定 (フェードのみ)
-	void SetLoadFade(const CScene::EMode mode, const float fWaitTime);	// 次シーン設定 (ロード画面付き)
+	EFade GetState(void) const { return m_fade; }	// フェード状態取得
+
+	void SetFade	// フェード開始設定
+	( // 引数
+		const float fAddOut	= DEF_LEVEL,	// アウトのα値増加量
+		const float fSubIn	= DEF_LEVEL,	// インのα値減少量
+		const int nPriority	= PRIORITY		// 優先順位
+	);
+	void SetModeFade	// 次シーン設定 (フェードのみ)
+	( // 引数
+		const CScene::EMode mode,				// 次シーン
+		const float fWaitTime	= 0.0f,			// 余韻時間
+		const float fAddOut		= DEF_LEVEL,	// アウトのα値増加量
+		const float fSubIn		= DEF_LEVEL		// インのα値減少量
+	);
+	void SetLoadFade	// 次シーン設定 (ロード画面付き)
+	( // 引数
+		const CScene::EMode mode,				// 次シーン
+		const float fWaitTime	= 0.0f,			// 余韻時間
+		const float fAddOut		= DEF_LEVEL,	// アウトのα値増加量
+		const float fSubIn		= DEF_LEVEL		// インのα値減少量
+	);
 
 private:
 	// メンバ変数
@@ -60,7 +83,8 @@ private:
 	CScene::EMode m_modeNext;	// 次シーン
 	EFade m_fade;		// フェード状態
 	float m_fWaitTime;	// 現在の余韻時間
-	float m_fLevel;		// α値加減量
+	float m_fSubIn;		// インのα値減少量
+	float m_fAddOut;	// アウトのα値増加量
 };
 
 #endif	// _FADE_H_

@@ -74,6 +74,6 @@ void CIntroStateEnd::Update(const float fDeltaTime)
 		m_fCurTime = 0.0f;
 
 		// ƒ^ƒCƒgƒ‹‰æ–Ê‚É‘JˆÚ‚·‚é
-		GET_MANAGER->SetFadeScene(CScene::MODE_TITLE);
+		GET_MANAGER->SetFadeScene(CScene::MODE_TITLE, 0.0f, CFade::DEF_LEVEL, CFade::SKIP_LEVEL);
 	}
 }

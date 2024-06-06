@@ -29,7 +29,7 @@ namespace
 #endif	// _DEBUG
 
 	const int	PRIORITY = 7;		// フェードの優先順位
-	const float	LEVEL	 = 3.0f;	// フェードのα値加減量
+	const float	LEVEL	 = 1.0f;	// フェードのα値加減量
 }
 
 //************************************************************
@@ -43,7 +43,8 @@ CFade::CFade() :
 	m_modeNext		(INIT_SCENE),	// 次シーン
 	m_fade			(FADE_NONE),	// フェード状態
 	m_fWaitTime		(0.0f),			// 現在の余韻時間
-	m_fLevel		(LEVEL)			// α値加減量
+	m_fSubIn		(0.0f),			// インのα値減少量
+	m_fAddOut		(0.0f)			// アウトのα値増加量
 {
 
 }
@@ -66,7 +67,8 @@ HRESULT CFade::Init(void)
 	m_modeNext		= INIT_SCENE;	// 次シーン
 	m_fade			= FADE_IN;		// フェード状態
 	m_fWaitTime		= 0.0f;			// 現在の余韻時間
-	m_fLevel		= LEVEL;		// α値加減量
+	m_fSubIn		= SKIP_LEVEL;	// インのα値減少量
+	m_fAddOut		= SKIP_LEVEL;	// アウトのα値増加量
 
 	// オブジェクト2Dの初期化
 	if (FAILED(CObject2D::Init()))
@@ -147,7 +149,7 @@ void CFade::Update(const float fDeltaTime)
 		if (GET_MANAGER->GetLoading()->GetState() != CLoading::LOAD_NONE) { break; }
 
 		// 透明にしていく
-		colFade.a -= m_fLevel * fDeltaTime;
+		colFade.a -= m_fSubIn * fDeltaTime;
 		if (colFade.a <= 0.0f)
 		{ // 透明になった場合
 
@@ -163,7 +165,7 @@ void CFade::Update(const float fDeltaTime)
 	case FADE_OUT:	// フェードアウト状態
 
 		// 不透明にしていく
-		colFade.a += m_fLevel * fDeltaTime;
+		colFade.a += m_fAddOut * fDeltaTime;
 		if (colFade.a >= 1.0f)
 		{ // 不透明になった場合
 
@@ -207,13 +209,19 @@ void CFade::Draw(CShader *pShader)
 //============================================================
 //	フェードの開始処理
 //============================================================
-void CFade::SetFade(const float fLevel, const int nPriority)
+void CFade::SetFade
+(
+	const float fAddOut,	// アウトのα値増加量
+	const float fSubIn,		// インのα値減少量
+	const int nPriority		// 優先順位
+)
 {
 	// フェード中の場合抜ける
 	if (m_fade != FADE_NONE) { return; }
 
 	// α値加減量を設定
-	m_fLevel = fLevel;
+	m_fSubIn  = fSubIn;
+	m_fAddOut = fAddOut;
 
 	// 優先順位を設定
 	SetPriority(nPriority);
@@ -228,7 +236,13 @@ void CFade::SetFade(const float fLevel, const int nPriority)
 //============================================================
 //	次シーンの設定処理 (フェードのみ)
 //============================================================
-void CFade::SetModeFade(const CScene::EMode mode, const float fWaitTime)
+void CFade::SetModeFade
+(
+	const CScene::EMode mode,	// 次シーン
+	const float fWaitTime,		// 余韻時間
+	const float fAddOut,		// アウトのα値増加量
+	const float fSubIn			// インのα値減少量
+)
 {
 	// フェード中の場合抜ける
 	if (m_fade != FADE_NONE) { return; }
@@ -243,7 +257,8 @@ void CFade::SetModeFade(const CScene::EMode mode, const float fWaitTime)
 	m_fWaitTime = fWaitTime;
 
 	// α値加減量を設定
-	m_fLevel = LEVEL;
+	m_fSubIn  = fSubIn;
+	m_fAddOut = fAddOut;
 
 	// 優先順位を設定
 	SetPriority(PRIORITY);
@@ -268,7 +283,13 @@ void CFade::SetModeFade(const CScene::EMode mode, const float fWaitTime)
 //============================================================
 //	次シーンの設定処理 (ロード画面付き)
 //============================================================
-void CFade::SetLoadFade(const CScene::EMode mode, const float fWaitTime)
+void CFade::SetLoadFade
+(
+	const CScene::EMode mode,	// 次シーン
+	const float fWaitTime,		// 余韻時間
+	const float fAddOut,		// アウトのα値増加量
+	const float fSubIn			// インのα値減少量
+)
 {
 	// フェード中の場合抜ける
 	if (m_fade != FADE_NONE) { return; }
@@ -283,7 +304,8 @@ void CFade::SetLoadFade(const CScene::EMode mode, const float fWaitTime)
 	m_fWaitTime = fWaitTime;
 
 	// α値加減量を設定
-	m_fLevel = LEVEL;
+	m_fSubIn  = fSubIn;
+	m_fAddOut = fAddOut;
 
 	// 優先順位を設定
 	SetPriority(PRIORITY);
