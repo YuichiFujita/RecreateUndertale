@@ -237,6 +237,7 @@
     <ClCompile Include="resource\sceneRanking.cpp" />
     <ClCompile Include="resource\sceneResult.cpp" />
     <ClCompile Include="resource\scenery.cpp" />
+    <ClCompile Include="resource\sceneStart.cpp" />
     <ClCompile Include="resource\sceneTitle.cpp" />
     <ClCompile Include="resource\sceneTutorial.cpp" />
     <ClCompile Include="resource\screen.cpp" />
@@ -252,6 +253,9 @@
     <ClCompile Include="resource\sky.cpp" />
     <ClCompile Include="resource\sound.cpp" />
     <ClCompile Include="resource\stage.cpp" />
+    <ClCompile Include="resource\startManager.cpp" />
+    <ClCompile Include="resource\startState.cpp" />
+    <ClCompile Include="resource\startStateLogo.cpp" />
     <ClCompile Include="resource\string2D.cpp" />
     <ClCompile Include="resource\text2D.cpp" />
     <ClCompile Include="resource\texture.cpp" />
@@ -347,6 +351,7 @@
     <ClInclude Include="resource\sceneRanking.h" />
     <ClInclude Include="resource\sceneResult.h" />
     <ClInclude Include="resource\scenery.h" />
+    <ClInclude Include="resource\sceneStart.h" />
     <ClInclude Include="resource\sceneTitle.h" />
     <ClInclude Include="resource\sceneTutorial.h" />
     <ClInclude Include="resource\screen.h" />
@@ -362,6 +367,9 @@
     <ClInclude Include="resource\sky.h" />
     <ClInclude Include="resource\sound.h" />
     <ClInclude Include="resource\stage.h" />
+    <ClInclude Include="resource\startManager.h" />
+    <ClInclude Include="resource\startState.h" />
+    <ClInclude Include="resource\startStateLogo.h" />
     <ClInclude Include="resource\string2D.h" />
     <ClInclude Include="resource\text2D.h" />
     <ClInclude Include="resource\texture.h" />

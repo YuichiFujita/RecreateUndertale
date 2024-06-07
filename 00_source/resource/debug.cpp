@@ -232,6 +232,9 @@ void CDebug::UpdateDebugControl(void)
 	case CScene::MODE_INTRO:
 		break;
 
+	case CScene::MODE_START:
+		break;
+
 	case CScene::MODE_TITLE:
 		break;
 
@@ -290,6 +293,9 @@ void CDebug::DrawDebugControl(void)
 	switch (GET_MANAGER->GetMode())
 	{ // ƒ‚[ƒh‚²‚Æ‚Ìˆ—
 	case CScene::MODE_INTRO:
+		break;
+
+	case CScene::MODE_START:
 		break;
 
 	case CScene::MODE_TITLE:

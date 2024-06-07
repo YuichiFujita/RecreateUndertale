@@ -1,32 +1,23 @@
 //============================================================
 //
-//	終了状態処理 [introStateEnd.cpp]
+//	ロゴ状態処理 [startStateLogo.cpp]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	インクルードファイル
 //************************************************************
-#include "introStateEnd.h"
+#include "startStateLogo.h"
 #include "introManager.h"
 #include "manager.h"
 
 //************************************************************
-//	定数宣言
-//************************************************************
-namespace
-{
-	const float WAIT_TIME = 4.0f;	// 遷移待機時間
-}
-
-//************************************************************
-//	子クラス [CIntroStateEnd] のメンバ関数
+//	子クラス [CStartStateLogo] のメンバ関数
 //************************************************************
 //============================================================
 //	コンストラクタ
 //============================================================
-CIntroStateEnd::CIntroStateEnd() :
-	m_fCurTime	(0.0f)	// 現在の待機時間
+CStartStateLogo::CStartStateLogo()
 {
 
 }
@@ -34,7 +25,7 @@ CIntroStateEnd::CIntroStateEnd() :
 //============================================================
 //	デストラクタ
 //============================================================
-CIntroStateEnd::~CIntroStateEnd()
+CStartStateLogo::~CStartStateLogo()
 {
 
 }
@@ -42,11 +33,8 @@ CIntroStateEnd::~CIntroStateEnd()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CIntroStateEnd::Init(void)
+HRESULT CStartStateLogo::Init(void)
 {
-	// メンバ変数を初期化
-	m_fCurTime = 0.0f;	// 現在の待機時間
-
 	// 成功を返す
 	return S_OK;
 }
@@ -54,7 +42,7 @@ HRESULT CIntroStateEnd::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CIntroStateEnd::Uninit(void)
+void CStartStateLogo::Uninit(void)
 {
 	// 自身の破棄
 	delete this;
@@ -63,17 +51,7 @@ void CIntroStateEnd::Uninit(void)
 //============================================================
 //	更新処理
 //============================================================
-void CIntroStateEnd::Update(const float fDeltaTime)
+void CStartStateLogo::Update(const float fDeltaTime)
 {
-	// 待機時刻を進める
-	m_fCurTime += fDeltaTime;
-	if (m_fCurTime >= WAIT_TIME)
-	{ // 待機終了した場合
 
-		// 待機時間を初期化
-		m_fCurTime = 0.0f;
-
-		// タイトル画面に遷移する
-		GET_MANAGER->SetFadeScene(CScene::MODE_START, 0.0f, CFade::DEF_LEVEL, CFade::SKIP_LEVEL);
-	}
 }

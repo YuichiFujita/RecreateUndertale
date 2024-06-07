@@ -52,6 +52,12 @@
     <Filter Include="02_scene\ranking">
       <UniqueIdentifier>{70eb08c3-c7f5-4242-81b3-418bdf43e655}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02_scene\start">
+      <UniqueIdentifier>{5c36d1ae-73a8-46a5-bf20-5980ba427f6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08_state\state_start">
+      <UniqueIdentifier>{790bf131-e956-4a23-8e0d-7f3fb3f9c830}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="resource\camera.cpp">
@@ -374,6 +380,18 @@
     </ClCompile>
     <ClCompile Include="resource\introStateFade.cpp">
       <Filter>08_state\state_intro</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\sceneStart.cpp">
+      <Filter>02_scene\start</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\startManager.cpp">
+      <Filter>02_scene\start</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\startState.cpp">
+      <Filter>08_state\state_start</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\startStateLogo.cpp">
+      <Filter>08_state\state_start</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -700,6 +718,18 @@
     </ClInclude>
     <ClInclude Include="resource\introStateFade.h">
       <Filter>08_state\state_intro</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\sceneStart.h">
+      <Filter>02_scene\start</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\startManager.h">
+      <Filter>02_scene\start</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\startState.h">
+      <Filter>08_state\state_start</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\startStateLogo.h">
+      <Filter>08_state\state_start</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

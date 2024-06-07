@@ -174,7 +174,7 @@ void CIntroManager::Update(const float fDeltaTime)
 	if (GET_INPUTKEY->IsTrigger(DIK_RETURN) || GET_INPUTKEY->IsTrigger(DIK_Z))
 	{
 		// ƒ^ƒCƒgƒ‹‰æ–Ê‚É‘JˆÚ‚·‚é
-		GET_MANAGER->SetFadeScene(CScene::MODE_TITLE, 0.0f, CFade::DEF_LEVEL, CFade::SKIP_LEVEL);
+		GET_MANAGER->SetFadeScene(CScene::MODE_START, 0.0f, CFade::DEF_LEVEL, CFade::SKIP_LEVEL);
 	}
 }
 

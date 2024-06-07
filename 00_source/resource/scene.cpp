@@ -13,6 +13,7 @@
 #include "light.h"
 #include "camera.h"
 #include "sceneIntro.h"
+#include "sceneStart.h"
 #include "sceneTitle.h"
 #include "sceneTutorial.h"
 #include "sceneGame.h"
