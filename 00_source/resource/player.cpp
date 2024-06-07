@@ -286,6 +286,7 @@ CPlayer *CPlayer::Create(CScene::EMode mode)
 	switch (mode)
 	{ // ÉÇÅ[ÉhÇ≤Ç∆ÇÃèàóù
 	case CScene::MODE_INTRO:
+	case CScene::MODE_START:
 	case CScene::MODE_TITLE:
 	case CScene::MODE_RESULT:
 	case CScene::MODE_RANKING:

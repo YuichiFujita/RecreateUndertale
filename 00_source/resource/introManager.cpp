@@ -62,7 +62,7 @@ namespace
 
 		const D3DXVECTOR3 POS = D3DXVECTOR3(SCREEN_CENT.x - story::SIZE.x * 0.5f, 460.0f, 0.0f);	// テキスト位置
 		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
-		const CText2D::EAlignY ALIGN_Y = CText2D::YALIGN_TOP;		// 縦配置
+		const CText2D::EAlignY	 ALIGN_Y = CText2D::YALIGN_TOP;		// 縦配置
 	}
 }
 
@@ -169,6 +169,13 @@ void CIntroManager::Update(const float fDeltaTime)
 	// 状態ごとの更新
 	assert(m_pState != nullptr);
 	m_pState->Update(fDeltaTime);
+
+	// スキップ操作
+	if (GET_INPUTKEY->IsTrigger(DIK_RETURN) || GET_INPUTKEY->IsTrigger(DIK_Z))
+	{
+		// タイトル画面に遷移する
+		GET_MANAGER->SetFadeScene(CScene::MODE_TITLE, 0.0f, CFade::DEF_LEVEL, CFade::SKIP_LEVEL);
+	}
 }
 
 //============================================================

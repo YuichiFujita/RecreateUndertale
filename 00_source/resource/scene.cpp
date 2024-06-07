@@ -118,6 +118,10 @@ CScene *CScene::Create(EMode mode)
 		pScene = new CSceneIntro(mode);
 		break;
 
+	case MODE_START:
+		pScene = new CSceneStart(mode);
+		break;
+
 	case MODE_TITLE:
 		pScene = new CSceneTitle(mode);
 		break;
