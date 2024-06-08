@@ -8,7 +8,7 @@
 //	インクルードファイル
 //************************************************************
 #include "startStateLogo.h"
-#include "introManager.h"
+#include "startManager.h"
 #include "manager.h"
 #include "object2D.h"
 #include "string2D.h"
@@ -84,29 +84,6 @@ HRESULT CStartStateLogo::Init(void)
 	// 優先順位を設定
 	m_pLogo->SetPriority(PRIORITY);
 
-	// 操作説明の生成
-	m_pCont = CString2D::Create
-	( // 引数
-		str::FONT,		// フォントパス
-		str::ITALIC,	// イタリック
-		str::STRING,	// 指定文字列
-		str::POS,		// 原点位置
-		str::HEIGHT,	// 文字縦幅
-		str::ALIGN_X,	// 横配置
-		str::ROT,		// 原点向き
-		str::COL		// 色
-	);
-	if (m_pCont == nullptr)
-	{ // 生成に失敗した場合
-
-		// 失敗を返す
-		assert(false);
-		return E_FAIL;
-	}
-
-	// 優先順位を設定
-	m_pCont->SetPriority(PRIORITY);
-
 	// 成功を返す
 	return S_OK;
 }
@@ -119,6 +96,9 @@ void CStartStateLogo::Uninit(void)
 	// タイトルロゴの終了
 	SAFE_UNINIT(m_pLogo);
 
+	// 操作説明の終了
+	SAFE_UNINIT(m_pCont);
+
 	// 自身の破棄
 	delete this;
 }
@@ -128,15 +108,39 @@ void CStartStateLogo::Uninit(void)
 //============================================================
 void CStartStateLogo::Update(const float fDeltaTime)
 {
-	// 待機時刻を進める
-	m_fCurTime += fDeltaTime;
-	if (m_fCurTime >= DISP_TIME)
-	{ // 待機終了した場合
+	if (m_pCont == nullptr)
+	{ // 操作説明が生成されていない場合
 
-		// 待機時間を初期化
-		m_fCurTime = 0.0f;
+		// 待機時刻を進める
+		m_fCurTime += fDeltaTime;
+		if (m_fCurTime >= DISP_TIME)
+		{ // 待機終了した場合
 
-		// 文字送り状態にする
-		//m_pContext->ChangeState(new CIntroStateText);
+			// 待機時間を初期化
+			m_fCurTime = 0.0f;
+
+			// 操作説明の生成
+			m_pCont = CString2D::Create
+			( // 引数
+				str::FONT,		// フォントパス
+				str::ITALIC,	// イタリック
+				str::STRING,	// 指定文字列
+				str::POS,		// 原点位置
+				str::HEIGHT,	// 文字縦幅
+				str::ALIGN_X,	// 横配置
+				str::ROT,		// 原点向き
+				str::COL		// 色
+			);
+
+			// 優先順位を設定
+			m_pCont->SetPriority(PRIORITY);
+		}
+	}
+
+	// 進行操作
+	if (GET_INPUTKEY->IsTrigger(DIK_RETURN) || GET_INPUTKEY->IsTrigger(DIK_Z))
+	{
+		// チュートリアル状態にする
+		m_pContext->ChangeState(new CStartStateTutorial);
 	}
 }

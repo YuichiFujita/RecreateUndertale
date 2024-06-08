@@ -1,22 +1,22 @@
 //============================================================
 //
-//	何もしない状態処理 [startStateNone.cpp]
+//	初期設定状態処理 [startStateOption.cpp]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	インクルードファイル
 //************************************************************
-#include "startStateNone.h"
+#include "startStateOption.h"
 #include "startManager.h"
 
 //************************************************************
-//	子クラス [CStartStateNone] のメンバ関数
+//	子クラス [CStartStateOption] のメンバ関数
 //************************************************************
 //============================================================
 //	コンストラクタ
 //============================================================
-CStartStateNone::CStartStateNone()
+CStartStateOption::CStartStateOption()
 {
 
 }
@@ -24,7 +24,7 @@ CStartStateNone::CStartStateNone()
 //============================================================
 //	デストラクタ
 //============================================================
-CStartStateNone::~CStartStateNone()
+CStartStateOption::~CStartStateOption()
 {
 
 }
@@ -32,7 +32,7 @@ CStartStateNone::~CStartStateNone()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CStartStateNone::Init(void)
+HRESULT CStartStateOption::Init(void)
 {
 	// 成功を返す
 	return S_OK;
@@ -41,7 +41,7 @@ HRESULT CStartStateNone::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CStartStateNone::Uninit(void)
+void CStartStateOption::Uninit(void)
 {
 	// 自身の破棄
 	delete this;
@@ -50,7 +50,7 @@ void CStartStateNone::Uninit(void)
 //============================================================
 //	更新処理
 //============================================================
-void CStartStateNone::Update(const float fDeltaTime)
+void CStartStateOption::Update(const float fDeltaTime)
 {
 
 }

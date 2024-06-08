@@ -257,6 +257,8 @@
     <ClCompile Include="resource\startState.cpp" />
     <ClCompile Include="resource\startStateLogo.cpp" />
     <ClCompile Include="resource\startStateNone.cpp" />
+    <ClCompile Include="resource\startStateOption.cpp" />
+    <ClCompile Include="resource\startStateTutorial.cpp" />
     <ClCompile Include="resource\string2D.cpp" />
     <ClCompile Include="resource\text2D.cpp" />
     <ClCompile Include="resource\texture.cpp" />
@@ -372,6 +374,8 @@
     <ClInclude Include="resource\startState.h" />
     <ClInclude Include="resource\startStateLogo.h" />
     <ClInclude Include="resource\startStateNone.h" />
+    <ClInclude Include="resource\startStateOption.h" />
+    <ClInclude Include="resource\startStateTutorial.h" />
     <ClInclude Include="resource\string2D.h" />
     <ClInclude Include="resource\text2D.h" />
     <ClInclude Include="resource\texture.h" />

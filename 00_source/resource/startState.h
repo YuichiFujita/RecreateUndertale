@@ -45,5 +45,7 @@ protected:
 //	インクルードファイル
 //************************************************************
 #include "startStateLogo.h"
+#include "startStateTutorial.h"
+#include "startStateOption.h"
 
 #endif	// _START_STATE_H_
