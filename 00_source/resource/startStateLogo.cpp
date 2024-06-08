@@ -24,15 +24,15 @@ namespace
 
 	namespace str
 	{
-		const char		*FONT	= "data\\FONT\\.ttf";	// フォントパス
-		const wchar_t	*STRING	= L"press z or enter";	// 表示文字列
+		const char		*FONT	= "data\\FONT\\Crypt of Tomorrow.ttf";	// フォントパス
+		const wchar_t	*STRING	= L"[PRESS Z OR ENTER]";	// 表示文字列
 		const bool		ITALIC	= false;	// イタリック
-		const float		HEIGHT	= 45.0f;	// 文字縦幅
+		const float		HEIGHT	= 22.5f;	// 文字縦幅
 
 		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_CENTER;		// 横配置
-		const D3DXVECTOR3 POS = D3DXVECTOR3(SCREEN_CENT.x, 460.0f, 0.0f);	// 位置
+		const D3DXCOLOR   COL = D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f);			// 色
+		const D3DXVECTOR3 POS = D3DXVECTOR3(SCREEN_CENT.x, 545.0f, 0.0f);	// 位置
 		const D3DXVECTOR3 ROT = VEC3_ZERO;	// 向き
-		const D3DXCOLOR   COL = XCOL_WHITE;	// 色
 	}
 }
 

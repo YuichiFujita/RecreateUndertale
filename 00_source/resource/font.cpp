@@ -205,7 +205,7 @@ CFont::SFont CFont::Regist(const std::string &rFilePass, const bool bItalic)
 	lf.lfItalic			= bItalic;							// イタリック
 	lf.lfUnderline		= false;							// アンダーライン
 	lf.lfStrikeOut		= false;							// 打ち消し線
-	lf.lfCharSet		= SHIFTJIS_CHARSET;					// 文字セット
+	lf.lfCharSet		= DEFAULT_CHARSET;					// 文字セット
 	lf.lfOutPrecision	= OUT_TT_ONLY_PRECIS;				// 出力精度
 	lf.lfClipPrecision	= CLIP_DEFAULT_PRECIS;				// クリッピング精度
 	lf.lfQuality		= PROOF_QUALITY;					// 出力品質
