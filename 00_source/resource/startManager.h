@@ -32,6 +32,9 @@ public:
 		TEXT_START,			// ゲームをはじめる
 		TEXT_OPTION,		// せってい
 		TEXT_VIRSION,		// バージョン情報
+		TEXT_OPTION_TITLE,	// せってい
+		TEXT_OPTION_CLOSE,	// とじる
+		TEXT_MAX			// この列挙型の総数
 	};
 
 	// コンストラクタ
