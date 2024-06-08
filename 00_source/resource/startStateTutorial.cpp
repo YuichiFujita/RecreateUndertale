@@ -26,10 +26,10 @@ namespace
 	{	
 		const char	*FONT	= "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
 		const bool	ITALIC	= false;	// イタリック
-		const float	HEIGHT	= 45.0f;	// 文字縦幅
+		const float	HEIGHT	= 42.0f;	// 文字縦幅
 
 		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_CENTER;		// 横配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(SCREEN_CENT.x, 70.0f, 0.0f);	// 位置
+		const D3DXVECTOR3	POS = D3DXVECTOR3(SCREEN_CENT.x, 65.0f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;								// 向き
 		const D3DXCOLOR		COL = D3DXCOLOR(0.75f, 0.75f, 0.75f, 1.0f);		// 色
 	}
@@ -38,10 +38,10 @@ namespace
 	{
 		const char *FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
 		const bool	ITALIC		= false;	// イタリック
-		const float	CHAR_HEIGHT	= 45.0f;	// 文字縦幅
-		const float	LINE_HEIGHT	= 62.0f;	// 行間縦幅
+		const float	CHAR_HEIGHT	= 42.0f;	// 文字縦幅
+		const float	LINE_HEIGHT	= 54.0f;	// 行間縦幅
 
-		const D3DXVECTOR3	POS = D3DXVECTOR3(120.0f, 285.0f, 0.0f);	// 位置
+		const D3DXVECTOR3	POS = D3DXVECTOR3(150.0f, 262.0f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;							// 向き
 		const D3DXCOLOR		COL = D3DXCOLOR(0.75f, 0.75f, 0.75f, 1.0f);	// 色
 		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
@@ -52,10 +52,10 @@ namespace
 	{
 		const char	*FONT	= "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
 		const bool	ITALIC	= false;	// イタリック
-		const float	HEIGHT	= 45.0f;	// 文字縦幅
+		const float	HEIGHT	= 42.0f;	// 文字縦幅
 
 		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;		// 横配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(120.0f, 500.0f, 0.0f);	// 位置
+		const D3DXVECTOR3	POS = D3DXVECTOR3(150.0f, 450.0f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;							// 向き
 		const D3DXCOLOR		COL = D3DXCOLOR(0.75f, 0.75f, 0.75f, 1.0f);	// 色
 	}
@@ -64,11 +64,11 @@ namespace
 	{
 		const char	*FONT		= "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
 		const bool	ITALIC		= false;	// イタリック
-		const float	CHAR_HEIGHT	= 45.0f;	// 文字縦幅
-		const float	LINE_HEIGHT	= 62.0f;	// 行間縦幅
+		const float	CHAR_HEIGHT	= 42.0f;	// 文字縦幅
+		const float	LINE_HEIGHT	= 54.0f;	// 行間縦幅
 
-		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;		// 横配置
-		const D3DXVECTOR3 POS = D3DXVECTOR3(235.0f, 590.0f, 0.0f);	// 位置
+		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
+		const D3DXVECTOR3 POS = D3DXVECTOR3(255.0f, 535.0f, 0.0f);	// 位置
 		const D3DXVECTOR3 ROT = VEC3_ZERO;			// 向き
 		const D3DXCOLOR COL_DEFAULT	= XCOL_WHITE;	// 通常色
 		const D3DXCOLOR COL_CHOICE	= XCOL_YELLOW;	// 選択色
