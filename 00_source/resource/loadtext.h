@@ -13,7 +13,8 @@
 //************************************************************
 //	前方宣言
 //************************************************************
-class CText2D;	// テキスト2Dクラス 
+class CText2D;		// テキスト2Dクラス 
+class CString2D;	// 文字列2Dクラス 
 
 //************************************************************
 //	名前空間宣言
@@ -21,8 +22,9 @@ class CText2D;	// テキスト2Dクラス
 // テキスト読込空間
 namespace loadtext
 {
-	std::vector<std::wstring> LoadText(const char *pFilePass, const int nTextID);	// テキスト読込
-	void BindText(CText2D *pText2D, const std::vector<std::wstring> &rVecStr);		// テキスト割当
+	std::vector<std::wstring> LoadText(const char *pFilePass, const int nTextID);		// テキスト読込
+	void BindText(CText2D *pText2D, const std::vector<std::wstring> &rVecStr);			// テキスト割当
+	void BindString(CString2D *pString2D, const std::vector<std::wstring> &rVecStr);	// 文字列割当
 }
 
 #endif	// _LOAD_TEXT_H_

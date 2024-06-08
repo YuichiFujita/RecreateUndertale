@@ -19,6 +19,7 @@
 //	前方宣言
 //************************************************************
 class CString2D;	// 文字列2Dクラス
+class CText2D;		// テキスト2Dクラス
 
 //************************************************************
 //	クラス定義
@@ -39,7 +40,19 @@ public:
 	void Update(const float fDeltaTime) override;	// 更新
 
 private:
+	// 選択列挙
+	enum ESelect
+	{
+		SELECT_START = 0,	// ゲーム開始
+		SELECT_OPTION,		// 初期設定
+		SELECT_MAX			// この列挙型の総数
+	};
+
 	// メンバ変数
+	CString2D *m_apSelect[SELECT_MAX];	// 選択肢
+	CText2D   *m_pCont;		// 操作説明
+	CString2D *m_pTitle;	// タイトル
+	CString2D *m_pRule;		// ゲーム概要
 	CString2D *m_pVersion;	// バージョン表記
 };
 

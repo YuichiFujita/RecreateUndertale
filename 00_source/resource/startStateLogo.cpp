@@ -12,6 +12,7 @@
 #include "manager.h"
 #include "object2D.h"
 #include "string2D.h"
+#include "loadtext.h"
 
 //************************************************************
 //	定数宣言
@@ -24,10 +25,10 @@ namespace
 
 	namespace str
 	{
-		const char		*FONT	= "data\\FONT\\Crypt of Tomorrow.ttf";	// フォントパス
-		const wchar_t	*STRING	= L"[PRESS Z OR ENTER]";	// 表示文字列
-		const bool		ITALIC	= false;	// イタリック
-		const float		HEIGHT	= 22.5f;	// 文字縦幅
+		const char	*FONT	= "data\\FONT\\Crypt of Tomorrow.ttf";	// フォントパス
+		const char	*PASS	= "data\\TEXT\\start.txt";				// テキストパス
+		const bool	ITALIC	= false;	// イタリック
+		const float	HEIGHT	= 22.5f;	// 文字縦幅
 
 		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_CENTER;		// 横配置
 		const D3DXCOLOR   COL = D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f);			// 色
@@ -124,7 +125,7 @@ void CStartStateLogo::Update(const float fDeltaTime)
 			( // 引数
 				str::FONT,		// フォントパス
 				str::ITALIC,	// イタリック
-				str::STRING,	// 指定文字列
+				L"",			// 指定文字列
 				str::POS,		// 原点位置
 				str::HEIGHT,	// 文字縦幅
 				str::ALIGN_X,	// 横配置
@@ -134,6 +135,9 @@ void CStartStateLogo::Update(const float fDeltaTime)
 
 			// 優先順位を設定
 			m_pCont->SetPriority(PRIORITY);
+
+			// 文字列を割当
+			loadtext::BindString(m_pCont, loadtext::LoadText(str::PASS, CStartManager::TEXT_PRESS_Z));
 		}
 	}
 

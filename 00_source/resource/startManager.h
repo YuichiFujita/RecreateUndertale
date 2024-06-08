@@ -22,6 +22,18 @@ class CStartState;	// スタート状態クラス
 class CStartManager
 {
 public:
+	// 表示テキスト列挙
+	enum EText
+	{
+		TEXT_PRESS_Z = 0,	// [PRESS Z OR ENTER]
+		TEXT_BUTTON_TITLE,	// ─ ボタンそうさ ─
+		TEXT_BUTTON_KINDS,	// 各種操作ボタン
+		TEXT_RULE,			// HPが0になるとゲームオーバー
+		TEXT_START,			// ゲームをはじめる
+		TEXT_OPTION,		// せってい
+		TEXT_VIRSION,		// バージョン情報
+	};
+
 	// コンストラクタ
 	CStartManager();
 

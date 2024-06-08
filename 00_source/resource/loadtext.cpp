@@ -9,9 +9,10 @@
 //************************************************************
 #include "loadtext.h"
 #include "text2D.h"
+#include "string2D.h"
 
 //============================================================
-//	テキスト読込処理
+//	テキストの読込処理
 //============================================================
 std::vector<std::wstring> loadtext::LoadText(const char *pFilePass, const int nTextID)
 {
@@ -80,7 +81,7 @@ std::vector<std::wstring> loadtext::LoadText(const char *pFilePass, const int nT
 }
 
 //============================================================
-//	テキスト割当処理
+//	テキストの割当処理
 //============================================================
 void loadtext::BindText(CText2D *pText2D, const std::vector<std::wstring>& rVecStr)
 {
@@ -90,4 +91,16 @@ void loadtext::BindText(CText2D *pText2D, const std::vector<std::wstring>& rVecS
 		// 文字列を追加
 		pText2D->AddString(rVecStr[i]);
 	}
+}
+
+//============================================================
+//	文字列の割当処理
+//============================================================
+void loadtext::BindString(CString2D *pString2D, const std::vector<std::wstring> &rVecStr)
+{
+	// 文字列が一つではない場合エラー
+	assert((int)rVecStr.size() == 1);
+
+	// 文字列を設定
+	pString2D->SetString(rVecStr[0]);
 }
