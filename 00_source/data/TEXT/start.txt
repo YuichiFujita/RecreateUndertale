@@ -44,3 +44,31 @@ END_TEXT
 TEXT_8
 	STR = とじる
 END_TEXT
+
+TEXT_9
+	STR = おちたニンゲンに　なまえをつけてください
+END_TEXT
+
+TEXT_10
+	STR = ひらがな
+END_TEXT
+
+TEXT_11
+	STR = カタカナ
+END_TEXT
+
+TEXT_12
+	STR = アルファベット
+END_TEXT
+
+TEXT_13
+	STR = やめる
+END_TEXT
+
+TEXT_14
+	STR = さくじょ
+END_TEXT
+
+TEXT_15
+	STR = かくてい
+END_TEXT

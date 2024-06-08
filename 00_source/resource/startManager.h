@@ -34,6 +34,13 @@ public:
 		TEXT_VIRSION,		// バージョン情報
 		TEXT_OPTION_TITLE,	// せってい
 		TEXT_OPTION_CLOSE,	// とじる
+		TEXT_NAMING,		// なまえをつけてください
+		TEXT_HIRAGANA,		// ひらがな
+		TEXT_KATAKANA,		// カタカナ
+		TEXT_ALPHABET,		// アルファベット
+		TEXT_NAMING_QUIT,	// やめる
+		TEXT_NAMING_DEL,	// さくじょ
+		TEXT_NAMING_DEC,	// かくてい
 		TEXT_MAX			// この列挙型の総数
 	};
 
