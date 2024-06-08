@@ -1,14 +1,14 @@
 //============================================================
 //
-//	ロゴ表示状態ヘッダー [startStateLogo.h]
+//	何もしない状態ヘッダー [startStateNone.h]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	二重インクルード防止
 //************************************************************
-#ifndef _START_STATE_LOGO_H_
-#define _START_STATE_LOGO_H_
+#ifndef _START_STATE_NONE_H_
+#define _START_STATE_NONE_H_
 
 //************************************************************
 //	インクルードファイル
@@ -16,34 +16,22 @@
 #include "startState.h"
 
 //************************************************************
-//	前方宣言
-//************************************************************
-class CObject2D;	// オブジェクト2Dクラス
-class CString2D;	// 文字列2Dクラス
-
-//************************************************************
 //	クラス定義
 //************************************************************
-// ロゴ表示状態クラス
-class CStartStateLogo : public CStartState
+// 何もしない状態クラス
+class CStartStateNone : public CStartState
 {
 public:
 	// コンストラクタ
-	CStartStateLogo();
+	CStartStateNone();
 
 	// デストラクタ
-	~CStartStateLogo() override;
+	~CStartStateNone() override;
 
 	// オーバーライド関数
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
-
-private:
-	// メンバ変数
-	CObject2D *m_pLogo;	// タイトルロゴ
-	CString2D *m_pCont;	// 操作説明
-	float m_fCurTime;	// 現在の待機時間
 };
 
-#endif	// _START_STATE_LOGO_H_
+#endif	// _START_STATE_NONE_H_

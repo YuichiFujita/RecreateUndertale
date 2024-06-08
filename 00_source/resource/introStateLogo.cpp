@@ -16,7 +16,7 @@
 //************************************************************
 namespace
 {
-	const char *TEXTURE		= "data\\TEXTURE\\logoIntro000.png";	// ロゴテクスチャ
+	const char *TEXTURE		= "data\\TEXTURE\\logo000.png";	// ロゴテクスチャ
 	const int	PRIORITY	= 6;	// 優先順位
 	const float	DISP_TIME	= 3.0f;	// ロゴ表示時間
 }
