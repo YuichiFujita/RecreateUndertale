@@ -47,5 +47,7 @@ protected:
 #include "startStateLogo.h"
 #include "startStateTutorial.h"
 #include "startStateOption.h"
+#include "startStateCreateName.h"
+#include "startStateDecideName.h"
 
 #endif	// _START_STATE_H_

@@ -322,7 +322,7 @@ void CStartStateTutorial::UpdateDecide(void)
 		switch (m_nCurSelect)
 		{ // 現在の選択肢ごとの処理
 		case SELECT_START:
-			//m_pContext->ChangeState();	// TODO：まだクラスがない
+			m_pContext->ChangeState(new CStartStateCreateName);	// 命名状態
 			break;
 
 		case SELECT_OPTION:

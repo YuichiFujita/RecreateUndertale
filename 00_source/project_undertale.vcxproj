@@ -255,6 +255,8 @@
     <ClCompile Include="resource\stage.cpp" />
     <ClCompile Include="resource\startManager.cpp" />
     <ClCompile Include="resource\startState.cpp" />
+    <ClCompile Include="resource\startStateCreateName.cpp" />
+    <ClCompile Include="resource\startStateDecideName.cpp" />
     <ClCompile Include="resource\startStateLogo.cpp" />
     <ClCompile Include="resource\startStateNone.cpp" />
     <ClCompile Include="resource\startStateOption.cpp" />
@@ -372,6 +374,8 @@
     <ClInclude Include="resource\stage.h" />
     <ClInclude Include="resource\startManager.h" />
     <ClInclude Include="resource\startState.h" />
+    <ClInclude Include="resource\startStateCreateName.h" />
+    <ClInclude Include="resource\startStateDecideName.h" />
     <ClInclude Include="resource\startStateLogo.h" />
     <ClInclude Include="resource\startStateNone.h" />
     <ClInclude Include="resource\startStateOption.h" />

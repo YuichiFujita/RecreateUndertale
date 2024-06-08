@@ -402,6 +402,12 @@
     <ClCompile Include="resource\startStateTutorial.cpp">
       <Filter>08_state\state_start</Filter>
     </ClCompile>
+    <ClCompile Include="resource\startStateCreateName.cpp">
+      <Filter>08_state\state_start</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\startStateDecideName.cpp">
+      <Filter>08_state\state_start</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h">
@@ -747,6 +753,12 @@
       <Filter>08_state\state_start</Filter>
     </ClInclude>
     <ClInclude Include="resource\startStateTutorial.h">
+      <Filter>08_state\state_start</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\startStateCreateName.h">
+      <Filter>08_state\state_start</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\startStateDecideName.h">
       <Filter>08_state\state_start</Filter>
     </ClInclude>
   </ItemGroup>
