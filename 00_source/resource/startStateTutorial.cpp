@@ -28,7 +28,7 @@ namespace
 		const float	HEIGHT	= 45.0f;	// 文字縦幅
 
 		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_CENTER;		// 横配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(SCREEN_CENT.x, 75.0f, 0.0f);	// 位置
+		const D3DXVECTOR3	POS = D3DXVECTOR3(SCREEN_CENT.x, 70.0f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;								// 向き
 		const D3DXCOLOR		COL = D3DXCOLOR(0.75f, 0.75f, 0.75f, 1.0f);		// 色
 	}
@@ -45,6 +45,18 @@ namespace
 		const D3DXCOLOR		COL = D3DXCOLOR(0.75f, 0.75f, 0.75f, 1.0f);	// 色
 		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
 		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_CENTER;	// 縦配置
+	}
+
+	namespace rule
+	{
+		const char	*FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
+		const bool	ITALIC = false;	// イタリック
+		const float	HEIGHT = 45.0f;	// 文字縦幅
+
+		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;		// 横配置
+		const D3DXVECTOR3	POS = D3DXVECTOR3(120.0f, 500.0f, 0.0f);	// 位置
+		const D3DXVECTOR3	ROT = VEC3_ZERO;							// 向き
+		const D3DXCOLOR		COL = D3DXCOLOR(0.75f, 0.75f, 0.75f, 1.0f);	// 色
 	}
 
 	namespace virsion
@@ -141,6 +153,25 @@ HRESULT CStartStateTutorial::Init(void)
 
 	// テキストを割当
 	loadtext::BindText(m_pCont, loadtext::LoadText(PASS, CStartManager::TEXT_BUTTON_KINDS));
+
+	// ゲーム概要の生成
+	m_pRule = CString2D::Create
+	( // 引数
+		rule::FONT,		// フォントパス
+		rule::ITALIC,	// イタリック
+		L"",			// 指定文字列
+		rule::POS,		// 原点位置
+		rule::HEIGHT,	// 文字縦幅
+		rule::ALIGN_X,	// 横配置
+		rule::ROT,		// 原点向き
+		rule::COL		// 色
+	);
+
+	// 優先順位を設定
+	m_pRule->SetPriority(PRIORITY);
+
+	// 文字列を割当
+	loadtext::BindString(m_pRule, loadtext::LoadText(PASS, CStartManager::TEXT_RULE));
 
 	// バージョン表記の生成
 	m_pVersion = CString2D::Create

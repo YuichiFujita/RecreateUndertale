@@ -14,11 +14,11 @@ TEXT_1
 END_TEXT
 
 TEXT_2
-	STR = [Z / ENTER]　　かくてい
-	STR = [X / SHIFT]　　キャンセル
-	STR = [C / CTRL] 　　フィールドメニュー
-	STR = [F4] 　　　　　フルスクリーン
-	STR = [ESCながおし]　しゅうりょう
+	STR = [Z / ENTER]　　 かくてい
+	STR = [X / SHIFT]　　 キャンセル
+	STR = [C / CTRL] 　　 フィールドメニュー
+	STR = [F4] 　　　　　 フルスクリーン
+	STR = [ESCながおし]　 しゅうりょう
 END_TEXT
 
 TEXT_3
