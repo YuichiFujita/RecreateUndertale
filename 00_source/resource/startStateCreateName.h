@@ -27,6 +27,10 @@ class CString2D;	// 文字列2Dクラス
 class CStartStateCreateName : public CStartState
 {
 public:
+	// 定数
+	static constexpr int SELECT_Y_MAX = 2;	// 選択肢の縦の最大数
+	static constexpr int SELECT_X_MAX = 3;	// 選択肢の横の最大数
+
 	// コンストラクタ
 	CStartStateCreateName();
 
@@ -39,21 +43,13 @@ public:
 	void Update(const float fDeltaTime) override;	// 更新
 
 private:
-	// 選択列挙
-	enum ESelect
-	{
-		SELECT_CLOSE = 0,	// 閉じる
-		SELECT_MAX			// この列挙型の総数
-	};
-
 	// メンバ関数
 	void UpdateSelect(void);	// 選択更新
 	void UpdateDecide(void);	// 決定更新
 
 	// メンバ変数
+	CString2D *m_apSelect[SELECT_Y_MAX][SELECT_X_MAX];	// 選択肢
 	CString2D *m_pTitle;	// タイトル
-	int m_nCurSelect;		// 現在の選択肢
-	int m_nOldSelect;		// 前回の選択肢
 };
 
 #endif	// _START_STATE_CREATE_NAME_H_

@@ -25,10 +25,27 @@ namespace
 	{	
 		const char	*FONT	= "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
 		const bool	ITALIC	= false;	// イタリック
-		const float	HEIGHT	= 90.0f;	// 文字縦幅
+		const float	HEIGHT	= 42.0f;	// 文字縦幅
 
 		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_CENTER;		// 横配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(SCREEN_CENT.x, 70.0f, 0.0f);	// 位置
+		const D3DXVECTOR3	POS = D3DXVECTOR3(SCREEN_CENT.x, 80.0f, 0.0f);	// 位置
+		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
+		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
+	}
+	
+	namespace select
+	{	
+		const D3DXVECTOR3 POS[CStartStateCreateName::SELECT_Y_MAX][CStartStateCreateName::SELECT_X_MAX] =	// 位置配列
+		{
+			{ D3DXVECTOR3(180.0f, 530.0f, 0.0f), D3DXVECTOR3(440.0f, 530.0f, 0.0f), D3DXVECTOR3(750.0f, 530.0f, 0.0f) },
+			{ D3DXVECTOR3(220.0f, 630.0f, 0.0f), D3DXVECTOR3(460.0f, 630.0f, 0.0f), D3DXVECTOR3(700.0f, 630.0f, 0.0f) },
+		};
+
+		const char	*FONT	= "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
+		const bool	ITALIC	= false;	// イタリック
+		const float	HEIGHT	= 42.0f;	// 文字縦幅
+
+		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_CENTER;	// 横配置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
 		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
 	}
@@ -41,11 +58,10 @@ namespace
 //	コンストラクタ
 //============================================================
 CStartStateCreateName::CStartStateCreateName() :
-	m_pTitle		(nullptr),	// タイトル
-	m_nCurSelect	(0),		// 現在の選択肢
-	m_nOldSelect	(0)			// 前回の選択肢
+	m_pTitle	(nullptr)	// タイトル
 {
-
+	// メンバ変数をクリア
+	memset(&m_apSelect[0][0], 0, sizeof(m_apSelect));	// 選択肢
 }
 
 //============================================================
@@ -62,9 +78,8 @@ CStartStateCreateName::~CStartStateCreateName()
 HRESULT CStartStateCreateName::Init(void)
 {
 	// メンバ変数を初期化
-	m_pTitle		= nullptr;	// タイトル
-	m_nCurSelect	= 0;		// 現在の選択肢
-	m_nOldSelect	= 0;		// 前回の選択肢
+	memset(&m_apSelect[0][0], 0, sizeof(m_apSelect));	// 選択肢
+	m_pTitle = nullptr;	// タイトル
 
 	// タイトルの生成
 	m_pTitle = CString2D::Create
@@ -83,7 +98,32 @@ HRESULT CStartStateCreateName::Init(void)
 	m_pTitle->SetPriority(PRIORITY);
 
 	// 文字列を割当
-	loadtext::BindString(m_pTitle, loadtext::LoadText(PASS, CStartManager::TEXT_OPTION_TITLE));
+	loadtext::BindString(m_pTitle, loadtext::LoadText(PASS, CStartManager::TEXT_NAMING));
+
+	for (int i = 0; i < SELECT_Y_MAX; i++)
+	{
+		for (int j = 0; j < SELECT_X_MAX; j++)
+		{
+			// 選択肢の生成
+			m_apSelect[i][j] = CString2D::Create
+			( // 引数
+				select::FONT,		// フォントパス
+				select::ITALIC,		// イタリック
+				L"",				// 指定文字列
+				select::POS[i][j],	// 原点位置
+				select::HEIGHT,		// 文字縦幅
+				select::ALIGN_X,	// 横配置
+				select::ROT,		// 原点向き
+				select::COL			// 色
+			);
+
+			// 優先順位を設定
+			m_apSelect[i][j]->SetPriority(PRIORITY);
+
+			// 文字列を割当
+			loadtext::BindString(m_apSelect[i][j], loadtext::LoadText(PASS, CStartManager::TEXT_HIRAGANA + (i * SELECT_X_MAX) + j));
+		}
+	}
 
 	// 成功を返す
 	return S_OK;
@@ -96,6 +136,15 @@ void CStartStateCreateName::Uninit(void)
 {
 	// タイトルの終了
 	SAFE_UNINIT(m_pTitle);
+
+	for (int i = 0; i < SELECT_Y_MAX; i++)
+	{
+		for (int j = 0; j < SELECT_X_MAX; j++)
+		{
+			// 選択肢の終了
+			SAFE_UNINIT(m_apSelect[i][j]);
+		}
+	}
 
 	// 自身の破棄
 	delete this;
