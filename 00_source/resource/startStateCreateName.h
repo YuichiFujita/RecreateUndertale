@@ -19,6 +19,7 @@
 //	前方宣言
 //************************************************************
 class CString2D;	// 文字列2Dクラス
+class CCharState;	// 文字状態クラス
 
 //************************************************************
 //	クラス定義
@@ -42,6 +43,9 @@ public:
 	void Uninit(void) override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
 
+	// メンバ関数
+	HRESULT ChangeState(CCharState *pState);	// 状態変更
+
 private:
 	// メンバ関数
 	void UpdateSelect(void);	// 選択更新
@@ -50,6 +54,7 @@ private:
 	// メンバ変数
 	CString2D *m_apSelect[SELECT_Y_MAX][SELECT_X_MAX];	// 選択肢
 	CString2D *m_pTitle;	// タイトル
+	CCharState *m_pState;	// 文字状態
 };
 
 #endif	// _START_STATE_CREATE_NAME_H_

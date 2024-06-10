@@ -11,6 +11,7 @@
 #include "startManager.h"
 #include "manager.h"
 #include "string2D.h"
+#include "charState.h"
 #include "loadtext.h"
 
 //************************************************************
@@ -58,7 +59,8 @@ namespace
 //	コンストラクタ
 //============================================================
 CStartStateCreateName::CStartStateCreateName() :
-	m_pTitle	(nullptr)	// タイトル
+	m_pTitle	(nullptr),	// タイトル
+	m_pState	(nullptr)	// 文字状態
 {
 	// メンバ変数をクリア
 	memset(&m_apSelect[0][0], 0, sizeof(m_apSelect));	// 選択肢
@@ -80,6 +82,10 @@ HRESULT CStartStateCreateName::Init(void)
 	// メンバ変数を初期化
 	memset(&m_apSelect[0][0], 0, sizeof(m_apSelect));	// 選択肢
 	m_pTitle = nullptr;	// タイトル
+	m_pState = nullptr;	// 文字状態
+
+	// 文字状態をひらがなにする
+	ChangeState(new CCharStateHiragana);
 
 	// タイトルの生成
 	m_pTitle = CString2D::Create
@@ -146,6 +152,9 @@ void CStartStateCreateName::Uninit(void)
 		}
 	}
 
+	// 状態の終了
+	SAFE_UNINIT(m_pState);
+
 	// 自身の破棄
 	delete this;
 }
@@ -160,6 +169,41 @@ void CStartStateCreateName::Update(const float fDeltaTime)
 
 	// 決定の更新
 	UpdateDecide();
+
+	// 状態ごとの更新
+	assert(m_pState != nullptr);
+	m_pState->Update(fDeltaTime);
+}
+
+//============================================================
+//	状態の変更処理
+//============================================================
+HRESULT CStartStateCreateName::ChangeState(CCharState *pState)
+{
+	// 状態の生成に失敗している場合抜ける
+	if (pState == nullptr) { assert(false); return E_FAIL; }
+
+	// 状態インスタンスを終了
+	SAFE_UNINIT(m_pState);
+
+	// 状態インスタンスを変更
+	assert(m_pState == nullptr);
+	m_pState = pState;
+
+	// 状態インスタンスを初期化
+	if (FAILED(m_pState->Init()))
+	{ // 初期化に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
+
+	// 状態にコンテキストを設定
+	m_pState->SetContext(this);
+
+	// 成功を返す
+	return S_OK;
 }
 
 //============================================================

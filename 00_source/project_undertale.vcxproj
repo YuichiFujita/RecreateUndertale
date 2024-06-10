@@ -160,6 +160,8 @@
     <ClCompile Include="resource\camera.cpp" />
     <ClCompile Include="resource\char2D.cpp" />
     <ClCompile Include="resource\character.cpp" />
+    <ClCompile Include="resource\charState.cpp" />
+    <ClCompile Include="resource\charStateHiragana.cpp" />
     <ClCompile Include="resource\cinemaScope.cpp" />
     <ClCompile Include="resource\collision.cpp" />
     <ClCompile Include="resource\debug.cpp" />
@@ -281,6 +283,8 @@
     <ClInclude Include="resource\camera.h" />
     <ClInclude Include="resource\char2D.h" />
     <ClInclude Include="resource\character.h" />
+    <ClInclude Include="resource\charState.h" />
+    <ClInclude Include="resource\charStateHiragana.h" />
     <ClInclude Include="resource\cinemaScope.h" />
     <ClInclude Include="resource\collision.h" />
     <ClInclude Include="resource\debug.h" />
