@@ -36,7 +36,7 @@ namespace
 	
 	namespace select
 	{	
-		const D3DXVECTOR3 POS[CStartStateCreateName::SELECT_Y_MAX][CStartStateCreateName::SELECT_X_MAX] =	// 位置配列
+		const D3DXVECTOR3 POS[CStartStateCreateName::YSELECT_POLY_MAX][CStartStateCreateName::XSELECT_MAX] =	// 位置配列
 		{
 			{ D3DXVECTOR3(180.0f, 530.0f, 0.0f), D3DXVECTOR3(440.0f, 530.0f, 0.0f), D3DXVECTOR3(750.0f, 530.0f, 0.0f) },
 			{ D3DXVECTOR3(220.0f, 630.0f, 0.0f), D3DXVECTOR3(460.0f, 630.0f, 0.0f), D3DXVECTOR3(700.0f, 630.0f, 0.0f) },
@@ -47,8 +47,9 @@ namespace
 		const float	HEIGHT	= 42.0f;	// 文字縦幅
 
 		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_CENTER;	// 横配置
-		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
-		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
+		const D3DXVECTOR3	ROT			= VEC3_ZERO;	// 向き
+		const D3DXCOLOR		COL_DEFAULT	= XCOL_WHITE;	// 通常色
+		const D3DXCOLOR		COL_CHOICE	= XCOL_YELLOW;	// 選択色
 	}
 }
 
@@ -59,8 +60,10 @@ namespace
 //	コンストラクタ
 //============================================================
 CStartStateCreateName::CStartStateCreateName() :
-	m_pTitle	(nullptr),	// タイトル
-	m_pState	(nullptr)	// 文字状態
+	m_pTitle	(nullptr),		// タイトル
+	m_pState	(nullptr),		// 文字状態
+	m_curSelect	(GRID2_ZERO),	// 現在の選択肢
+	m_oldSelect	(GRID2_ZERO)	// 前回の選択肢
 {
 	// メンバ変数をクリア
 	memset(&m_apSelect[0][0], 0, sizeof(m_apSelect));	// 選択肢
@@ -81,8 +84,10 @@ HRESULT CStartStateCreateName::Init(void)
 {
 	// メンバ変数を初期化
 	memset(&m_apSelect[0][0], 0, sizeof(m_apSelect));	// 選択肢
-	m_pTitle = nullptr;	// タイトル
-	m_pState = nullptr;	// 文字状態
+	m_pTitle	= nullptr;		// タイトル
+	m_pState	= nullptr;		// 文字状態
+	m_curSelect	= GRID2_ZERO;	// 現在の選択肢
+	m_oldSelect	= GRID2_ZERO;	// 前回の選択肢
 
 	// 文字状態をひらがなにする
 	ChangeState(new CCharStateHiragana);
@@ -106,9 +111,9 @@ HRESULT CStartStateCreateName::Init(void)
 	// 文字列を割当
 	loadtext::BindString(m_pTitle, loadtext::LoadText(PASS, CStartManager::TEXT_NAMING));
 
-	for (int i = 0; i < SELECT_Y_MAX; i++)
+	for (int i = 0; i < YSELECT_POLY_MAX; i++)
 	{
-		for (int j = 0; j < SELECT_X_MAX; j++)
+		for (int j = 0; j < XSELECT_MAX; j++)
 		{
 			// 選択肢の生成
 			m_apSelect[i][j] = CString2D::Create
@@ -120,14 +125,14 @@ HRESULT CStartStateCreateName::Init(void)
 				select::HEIGHT,		// 文字縦幅
 				select::ALIGN_X,	// 横配置
 				select::ROT,		// 原点向き
-				select::COL			// 色
+				select::COL_DEFAULT	// 色
 			);
 
 			// 優先順位を設定
 			m_apSelect[i][j]->SetPriority(PRIORITY);
 
 			// 文字列を割当
-			loadtext::BindString(m_apSelect[i][j], loadtext::LoadText(PASS, CStartManager::TEXT_HIRAGANA + (i * SELECT_X_MAX) + j));
+			loadtext::BindString(m_apSelect[i][j], loadtext::LoadText(PASS, CStartManager::TEXT_HIRAGANA + (i * XSELECT_MAX) + j));
 		}
 	}
 
@@ -143,9 +148,9 @@ void CStartStateCreateName::Uninit(void)
 	// タイトルの終了
 	SAFE_UNINIT(m_pTitle);
 
-	for (int i = 0; i < SELECT_Y_MAX; i++)
+	for (int i = 0; i < YSELECT_POLY_MAX; i++)
 	{
-		for (int j = 0; j < SELECT_X_MAX; j++)
+		for (int j = 0; j < XSELECT_MAX; j++)
 		{
 			// 選択肢の終了
 			SAFE_UNINIT(m_apSelect[i][j]);
@@ -165,14 +170,10 @@ void CStartStateCreateName::Uninit(void)
 void CStartStateCreateName::Update(const float fDeltaTime)
 {
 	// 選択の更新
-	UpdateSelect();
+	UpdateSelect(fDeltaTime);
 
 	// 決定の更新
 	UpdateDecide();
-
-	// 状態ごとの更新
-	assert(m_pState != nullptr);
-	m_pState->Update(fDeltaTime);
 }
 
 //============================================================
@@ -209,32 +210,58 @@ HRESULT CStartStateCreateName::ChangeState(CCharState *pState)
 //============================================================
 //	選択の更新処理
 //============================================================
-void CStartStateCreateName::UpdateSelect(void)
+void CStartStateCreateName::UpdateSelect(const float fDeltaTime)
 {
-#if 0
 	CInputKeyboard *pKey = GET_INPUTKEY;	// キーボード情報
 
 	// 前回の選択肢を保存
-	m_nOldSelect = m_nCurSelect;
+	m_oldSelect = m_curSelect;
 
-	// 選択肢操作
-	if (pKey->IsTrigger(DIK_DOWN))
-	{
-		// 上に選択をずらす
-		m_nCurSelect = (m_nCurSelect + (SELECT_MAX - 1)) % SELECT_MAX;
+	// TODO：いまのままだと選択肢は動かせないよ
+	if (m_curSelect.y == YSELECT_TOP)
+	{ // 選択が文字に入っている場合
+
+		// 状態ごとの更新
+		assert(m_pState != nullptr);
+		m_pState->Update(fDeltaTime);
 	}
-	if (pKey->IsTrigger(DIK_UP))
-	{
-		// 下に選択をずらす
-		m_nCurSelect = (m_nCurSelect + 1) % SELECT_MAX;
+	else
+	{ // 選択が選択肢に入っている場合
+
+		// 選択肢操作
+		if (pKey->IsTrigger(DIK_LEFT))
+		{
+			// 左に選択をずらす
+			m_curSelect.x = (m_curSelect.x + (XSELECT_MAX - 1)) % XSELECT_MAX;
+		}
+		if (pKey->IsTrigger(DIK_RIGHT))
+		{
+			// 右に選択をずらす
+			m_curSelect.x = (m_curSelect.x + 1) % XSELECT_MAX;
+		}
+		if (pKey->IsTrigger(DIK_UP))
+		{
+			// 上に選択をずらす
+			m_curSelect.y = (m_curSelect.y + (YSELECT_MAX - 1)) % YSELECT_MAX;
+		}
+		if (pKey->IsTrigger(DIK_DOWN))
+		{
+			// 下に選択をずらす
+			m_curSelect.y = (m_curSelect.y + 1) % YSELECT_MAX;
+		}
 	}
 
-	// 前回の選択要素の色を白色に設定
-	m_apSelect[m_nOldSelect]->SetColor(select::COL_DEFAULT);
-
-	// 現在の選択要素の色を黄色に設定
-	m_apSelect[m_nCurSelect]->SetColor(select::COL_CHOICE);
-#endif
+	// TODO：ここどうにかしない？
+	if (m_oldSelect.y != YSELECT_TOP)
+	{
+		// 前回の選択要素の色を白色に設定
+		m_apSelect[m_oldSelect.y - 1][m_oldSelect.x]->SetColor(select::COL_DEFAULT);
+	}
+	if (m_curSelect.y != YSELECT_TOP)
+	{
+		// 現在の選択要素の色を黄色に設定
+		m_apSelect[m_curSelect.y - 1][m_curSelect.x]->SetColor(select::COL_CHOICE);
+	}
 }
 
 //============================================================

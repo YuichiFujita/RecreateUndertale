@@ -35,6 +35,7 @@
 
 #include <iostream>		// 入出力ストリーム
 #include <fstream>		// ファイル入出力ストリーム
+#include <sstream>		// 文字列入出力ストリーム
 #include <filesystem>	// ファイル操作
 #include <functional>	// 関数ポインタ
 #include <string>		// 文字列
