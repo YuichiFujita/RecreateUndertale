@@ -1,13 +1,13 @@
 //============================================================
 //
-//	ひらがな状態処理 [charStateHiragana.cpp]
+//	命名マネージャー処理 [namingManager.cpp]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	インクルードファイル
 //************************************************************
-#include "charStateHiragana.h"
+#include "namingManager.h"
 #include "manager.h"
 #include "string2D.h"
 
@@ -16,7 +16,6 @@
 //************************************************************
 namespace
 {
-	const int PRIORITY = 6;		// 優先順位
 	const char *PASS_CHAR[] =	// 文字配置情報の相対パス
 	{
 		"data\\CSV\\char_hiragana.csv",	// ひらがな配置情報
@@ -24,13 +23,16 @@ namespace
 		"data\\CSV\\char_alphabet.csv",	// アルファベット配置情報
 	};
 
+	const CNamingManager::ETypeChar INIT_TYPE = CNamingManager::TYPECHAR_HIRAGANA;	// 初期文字セット
+	const int PRIORITY = 6;		// 優先順位
+
 	namespace select
 	{	
 		const char	*FONT	= "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
 		const bool	ITALIC	= false;	// イタリック
 		const float	HEIGHT	= 42.0f;	// 文字縦幅
 
-		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_CENTER;	// 横配置
+		const CString2D::EAlignX ALIGN_X	= CString2D::XALIGN_CENTER;	// 横配置
 		const D3DXVECTOR3	ROT			= VEC3_ZERO;	// 向き
 		const D3DXCOLOR		COL_DEFAULT	= XCOL_WHITE;	// 通常色
 		const D3DXCOLOR		COL_CHOICE	= XCOL_YELLOW;	// 選択色
@@ -38,12 +40,12 @@ namespace
 }
 
 //************************************************************
-//	子クラス [CCharStateHiragana] のメンバ関数
+//	子クラス [CNamingManager] のメンバ関数
 //************************************************************
 //============================================================
 //	コンストラクタ
 //============================================================
-CCharStateHiragana::CCharStateHiragana() :
+CNamingManager::CNamingManager() :
 	m_selectMax	(GRID2_ZERO),	// 選択文字の最大量
 	m_curSelect	(GRID2_ZERO),	// 現在の選択文字
 	m_oldSelect	(GRID2_ZERO)	// 前回の選択文字
@@ -55,7 +57,7 @@ CCharStateHiragana::CCharStateHiragana() :
 //============================================================
 //	デストラクタ
 //============================================================
-CCharStateHiragana::~CCharStateHiragana()
+CNamingManager::~CNamingManager()
 {
 
 }
@@ -63,7 +65,7 @@ CCharStateHiragana::~CCharStateHiragana()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CCharStateHiragana::Init(void)
+HRESULT CNamingManager::Init(void)
 {
 	// メンバ変数を初期化
 	m_selectMax = GRID2_ZERO;	// 選択文字の最大量
@@ -74,7 +76,7 @@ HRESULT CCharStateHiragana::Init(void)
 	m_vecSelect.clear();
 
 	// 配置の読込
-	if (FAILED(LoadArray()))
+	if (FAILED(ChangeChar(INIT_TYPE)))
 	{ // 読込に失敗した場合
 
 		// 失敗を返す
@@ -89,30 +91,16 @@ HRESULT CCharStateHiragana::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CCharStateHiragana::Uninit(void)
+void CNamingManager::Uninit(void)
 {
-	for (int i = 0; i < GetSelectHeight(); i++)
-	{ // 縦の文字数分繰り返す
-
-		for (int j = 0; j < GetSelectWidth(); j++)
-		{ // 横の文字数分繰り返す
-
-			// 選択文字の終了
-			SAFE_UNINIT(m_vecSelect[i][j]);
-		}
-	}
-
-	// 選択文字配列をクリア
-	m_vecSelect.clear();
-
-	// 自身の破棄
-	delete this;
+	// 選択文字の動的配列のクリア
+	ClearVector();
 }
 
 //============================================================
 //	更新処理
 //============================================================
-void CCharStateHiragana::Update(const float fDeltaTime)
+void CNamingManager::Update(const float fDeltaTime)
 {
 	// 選択の更新
 	UpdateSelect();
@@ -122,9 +110,79 @@ void CCharStateHiragana::Update(const float fDeltaTime)
 }
 
 //============================================================
+//	文字の変更処理
+//============================================================
+HRESULT CNamingManager::ChangeChar(const ETypeChar typeChar)
+{
+	// 文字種類が不明な値の場合抜ける
+	if (typeChar <= NONE_IDX || typeChar >= TYPECHAR_MAX) { assert(false); return E_FAIL; }
+
+	// 選択文字の動的配列のクリア
+	ClearVector();
+
+	// 配置の読込
+	assert(m_vecSelect.empty());
+	if (FAILED(LoadArray(typeChar)))
+	{ // 読込に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
+
+	// 現在の選択文字を初期化
+	m_oldSelect = m_curSelect = GRID2_ZERO;	// 左上がnullptrだと壊れる
+
+	// 成功を返す
+	return S_OK;
+}
+
+//============================================================
+//	生成処理
+//============================================================
+CNamingManager *CNamingManager::Create(void)
+{
+	// 命名マネージャーの生成
+	CNamingManager *pNamingManager = new CNamingManager;
+	if (pNamingManager == nullptr)
+	{ // 生成に失敗した場合
+
+		return nullptr;
+	}
+	else
+	{ // 生成に成功した場合
+
+		// 命名マネージャーの初期化
+		if (FAILED(pNamingManager->Init()))
+		{ // 初期化に失敗した場合
+
+			// 命名マネージャーの破棄
+			SAFE_DELETE(pNamingManager);
+			return nullptr;
+		}
+
+		// 確保したアドレスを返す
+		return pNamingManager;
+	}
+}
+
+//============================================================
+//	破棄処理
+//============================================================
+void CNamingManager::Release(CNamingManager *&prNamingManager)
+{
+	// 命名マネージャーの終了
+	assert(prNamingManager != nullptr);
+	prNamingManager->Uninit();
+
+	// メモリ開放
+	SAFE_DELETE(prNamingManager);
+}
+
+//============================================================
 //	選択の更新処理
 //============================================================
-void CCharStateHiragana::UpdateSelect(void)
+void CNamingManager::UpdateSelect(void)
 {
 	CInputKeyboard *pKey = GET_INPUTKEY;	// キーボード情報
 	int nCharWidth	= GetSelectWidth();		// 横の文字数
@@ -181,7 +239,7 @@ void CCharStateHiragana::UpdateSelect(void)
 //============================================================
 //	決定の更新処理
 //============================================================
-void CCharStateHiragana::UpdateDecide(void)
+void CNamingManager::UpdateDecide(void)
 {
 #if 0
 	CInputKeyboard *pKey = GET_INPUTKEY;	// キーボード情報
@@ -203,17 +261,37 @@ void CCharStateHiragana::UpdateDecide(void)
 }
 
 //============================================================
+//	選択文字の動的配列のクリア処理
+//============================================================
+void CNamingManager::ClearVector(void)
+{
+	for (int i = 0; i < GetSelectHeight(); i++)
+	{ // 縦の文字数分繰り返す
+
+		for (int j = 0; j < GetSelectWidth(); j++)
+		{ // 横の文字数分繰り返す
+
+			// 選択文字の終了
+			SAFE_UNINIT(m_vecSelect[i][j]);
+		}
+	}
+
+	// 選択文字配列をクリア
+	m_vecSelect.clear();
+}
+
+//============================================================
 //	配置の読込処理
 //============================================================
-HRESULT CCharStateHiragana::LoadArray(void)
+HRESULT CNamingManager::LoadArray(const ETypeChar typeChar)
 {
 	D3DXVECTOR3 posOffset = VEC3_ZERO;	// 文字生成位置
 	D3DXVECTOR3 posStart = VEC3_ZERO;	// 文字開始位置
 	D3DXVECTOR2 charOffset = VEC2_ZERO;	// 文字のオフセット
-	float fSpaceOffset = 0.0f;	// 空白のオフセット
+	float fSpaceOffset = 0.0f;			// 空白のオフセット
 
 	// ファイルを開く
-	std::ifstream file(PASS_CHAR[0]);	// ファイルストリーム	// TODO：これstateパターンにしなくていいわ(発明)
+	std::ifstream file(PASS_CHAR[typeChar]);	// ファイルストリーム
 	if (file.fail())
 	{ // ファイルが開けなかった場合
 

@@ -18,8 +18,8 @@
 //************************************************************
 //	前方宣言
 //************************************************************
-class CString2D;	// 文字列2Dクラス
-class CCharState;	// 文字状態クラス
+class CString2D;		// 文字列2Dクラス
+class CNamingManager;	// 命名マネージャークラス
 
 //************************************************************
 //	クラス定義
@@ -60,9 +60,6 @@ public:
 	void Uninit(void) override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
 
-	// メンバ関数
-	HRESULT ChangeState(CCharState *pState);	// 状態変更
-
 private:
 	// メンバ関数
 	void UpdateSelect(const float fDeltaTime);	// 選択更新
@@ -70,10 +67,10 @@ private:
 
 	// メンバ変数
 	CString2D *m_apSelect[YSELECT_POLY_MAX][XSELECT_MAX];	// 選択肢
-	CString2D *m_pTitle;	// タイトル
-	CCharState *m_pState;	// 文字状態
-	POSGRID2 m_curSelect;	// 現在の選択肢
-	POSGRID2 m_oldSelect;	// 前回の選択肢
+	CString2D *m_pTitle;		// タイトル
+	CNamingManager *m_pNaming;	// 命名マネージャー
+	POSGRID2 m_curSelect;		// 現在の選択肢
+	POSGRID2 m_oldSelect;		// 前回の選択肢
 };
 
 #endif	// _START_STATE_CREATE_NAME_H_

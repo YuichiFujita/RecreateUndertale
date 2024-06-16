@@ -58,9 +58,6 @@
     <Filter Include="08_state\state_start">
       <UniqueIdentifier>{790bf131-e956-4a23-8e0d-7f3fb3f9c830}</UniqueIdentifier>
     </Filter>
-    <Filter Include="08_state\state_char">
-      <UniqueIdentifier>{805a9273-7b27-4b2e-9d70-ba3ce3539200}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="resource\camera.cpp">
@@ -411,11 +408,8 @@
     <ClCompile Include="resource\startStateDecideName.cpp">
       <Filter>08_state\state_start</Filter>
     </ClCompile>
-    <ClCompile Include="resource\charState.cpp">
-      <Filter>08_state\state_char</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\charStateHiragana.cpp">
-      <Filter>08_state\state_char</Filter>
+    <ClCompile Include="resource\namingManager.cpp">
+      <Filter>02_scene\start</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -770,11 +764,8 @@
     <ClInclude Include="resource\startStateDecideName.h">
       <Filter>08_state\state_start</Filter>
     </ClInclude>
-    <ClInclude Include="resource\charState.h">
-      <Filter>08_state\state_char</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\charStateHiragana.h">
-      <Filter>08_state\state_char</Filter>
+    <ClInclude Include="resource\namingManager.h">
+      <Filter>02_scene\start</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

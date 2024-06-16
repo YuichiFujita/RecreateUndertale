@@ -160,8 +160,6 @@
     <ClCompile Include="resource\camera.cpp" />
     <ClCompile Include="resource\char2D.cpp" />
     <ClCompile Include="resource\character.cpp" />
-    <ClCompile Include="resource\charState.cpp" />
-    <ClCompile Include="resource\charStateHiragana.cpp" />
     <ClCompile Include="resource\cinemaScope.cpp" />
     <ClCompile Include="resource\collision.cpp" />
     <ClCompile Include="resource\debug.cpp" />
@@ -201,6 +199,7 @@
     <ClCompile Include="resource\motion.cpp" />
     <ClCompile Include="resource\multiModel.cpp" />
     <ClCompile Include="resource\multiValue.cpp" />
+    <ClCompile Include="resource\namingManager.cpp" />
     <ClCompile Include="resource\object.cpp" />
     <ClCompile Include="resource\object2D.cpp" />
     <ClCompile Include="resource\object3D.cpp" />
@@ -283,8 +282,6 @@
     <ClInclude Include="resource\camera.h" />
     <ClInclude Include="resource\char2D.h" />
     <ClInclude Include="resource\character.h" />
-    <ClInclude Include="resource\charState.h" />
-    <ClInclude Include="resource\charStateHiragana.h" />
     <ClInclude Include="resource\cinemaScope.h" />
     <ClInclude Include="resource\collision.h" />
     <ClInclude Include="resource\debug.h" />
@@ -324,6 +321,7 @@
     <ClInclude Include="resource\motion.h" />
     <ClInclude Include="resource\multiModel.h" />
     <ClInclude Include="resource\multiValue.h" />
+    <ClInclude Include="resource\namingManager.h" />
     <ClInclude Include="resource\object.h" />
     <ClInclude Include="resource\object2D.h" />
     <ClInclude Include="resource\object3D.h" />
