@@ -209,7 +209,7 @@ HRESULT CCharStateHiragana::LoadArray(void)
 {
 	D3DXVECTOR3 posOffset = VEC3_ZERO;	// 文字生成位置
 	D3DXVECTOR3 posStart = VEC3_ZERO;	// 文字開始位置
-	float fCharOffset = 0.0f;	// 文字のオフセット
+	D3DXVECTOR2 charOffset = VEC2_ZERO;	// 文字のオフセット
 	float fSpaceOffset = 0.0f;	// 空白のオフセット
 
 	// ファイルを開く
@@ -244,7 +244,7 @@ HRESULT CCharStateHiragana::LoadArray(void)
 			else if (str == "CHAR_OFFSET")
 			{
 				// 文字のオフセットを読込
-				iss >> fCharOffset;
+				iss >> charOffset.x >> charOffset.y;
 			}
 			else if (str == "SAPCE_OFFSET")
 			{
@@ -281,7 +281,7 @@ HRESULT CCharStateHiragana::LoadArray(void)
 							m_vecSelect.back().push_back(nullptr);
 
 							// 横位置に文字分のオフセットを与える
-							posOffset.x += fCharOffset;
+							posOffset.x += charOffset.x;
 						}
 						else
 						{ // 特殊操作ではない場合
@@ -306,7 +306,7 @@ HRESULT CCharStateHiragana::LoadArray(void)
 							m_vecSelect.back().push_back(pChar);
 
 							// 横位置に文字分のオフセットを与える
-							posOffset.x += fCharOffset;
+							posOffset.x += charOffset.x;
 						}
 					}
 
@@ -314,7 +314,7 @@ HRESULT CCharStateHiragana::LoadArray(void)
 					posOffset.x = posStart.x;
 
 					// 縦位置に文字分のオフセットを与える
-					posOffset.y += fCharOffset;
+					posOffset.y += charOffset.y;
 				}
 			}
 		}
