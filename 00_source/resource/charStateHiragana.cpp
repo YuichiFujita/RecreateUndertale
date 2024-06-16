@@ -16,7 +16,13 @@
 //************************************************************
 namespace
 {
-	const int PRIORITY = 6;	// 優先順位
+	const int PRIORITY = 6;		// 優先順位
+	const char *PASS_CHAR[] =	// 文字配置情報の相対パス
+	{
+		"data\\CSV\\char_hiragana.csv",	// ひらがな配置情報
+		"data\\CSV\\char_katakana.csv",	// カタカナ配置情報
+		"data\\CSV\\char_alphabet.csv",	// アルファベット配置情報
+	};
 
 	namespace select
 	{	
@@ -31,7 +37,6 @@ namespace
 	}
 }
 
-
 //************************************************************
 //	子クラス [CCharStateHiragana] のメンバ関数
 //************************************************************
@@ -43,7 +48,8 @@ CCharStateHiragana::CCharStateHiragana() :
 	m_curSelect	(GRID2_ZERO),	// 現在の選択文字
 	m_oldSelect	(GRID2_ZERO)	// 前回の選択文字
 {
-
+	// 選択文字配列をクリア
+	m_vecSelect.clear();
 }
 
 //============================================================
@@ -64,13 +70,8 @@ HRESULT CCharStateHiragana::Init(void)
 	m_curSelect = GRID2_ZERO;	// 現在の選択文字
 	m_oldSelect = GRID2_ZERO;	// 前回の選択文字
 
-#if 0
-	m_vecSelect = new CString2D**[Y];
-	for (int i = 0; i < Y; i++)
-	{
-		m_vecSelect[i] = new CString2D*[X];
-	}
-#endif
+	// 選択文字配列を初期化
+	m_vecSelect.clear();
 
 	// 配置の読込
 	if (FAILED(LoadArray()))
@@ -91,21 +92,18 @@ HRESULT CCharStateHiragana::Init(void)
 void CCharStateHiragana::Uninit(void)
 {
 	for (int i = 0; i < GetSelectHeight(); i++)
-	{
+	{ // 縦の文字数分繰り返す
+
 		for (int j = 0; j < GetSelectWidth(); j++)
-		{
+		{ // 横の文字数分繰り返す
+
 			// 選択文字の終了
 			SAFE_UNINIT(m_vecSelect[i][j]);
 		}
 	}
 
-#if 0
-	for (int i = 0; i < Y; i++)
-	{
-		SAFE_DEL_ARRAY(m_vecSelect[i]);
-	}
-	SAFE_DEL_ARRAY(m_vecSelect);
-#endif
+	// 選択文字配列をクリア
+	m_vecSelect.clear();
 
 	// 自身の破棄
 	delete this;
@@ -215,12 +213,12 @@ HRESULT CCharStateHiragana::LoadArray(void)
 	float fSpaceOffset = 0.0f;	// 空白のオフセット
 
 	// ファイルを開く
-	std::ifstream file("data\\CSV\\char_hiragana.csv");	// ファイルストリーム
+	std::ifstream file(PASS_CHAR[0]);	// ファイルストリーム	// TODO：これstateパターンにしなくていいわ(発明)
 	if (file.fail())
 	{ // ファイルが開けなかった場合
 
 		// エラーメッセージボックス
-		MessageBox(nullptr, "ひらがなセットアップの読み込みに失敗！", "警告！", MB_ICONWARNING);
+		MessageBox(nullptr, "文字セットアップの読み込みに失敗！", "警告！", MB_ICONWARNING);
 
 		// 失敗を返す
 		return E_FAIL;
