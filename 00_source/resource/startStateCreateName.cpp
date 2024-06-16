@@ -273,15 +273,44 @@ void CStartStateCreateName::UpdateSelect(const float fDeltaTime)
 //============================================================
 void CStartStateCreateName::UpdateDecide(void)
 {
-#if 0
 	CInputKeyboard *pKey = GET_INPUTKEY;	// キーボード情報
 	if (pKey->IsTrigger(DIK_Z) || pKey->IsTrigger(DIK_RETURN))
 	{
-		// 選択肢に応じて遷移先を変更
-		switch (m_nCurSelect)
-		{ // 現在の選択肢ごとの処理
-		case SELECT_CLOSE:
-			m_pContext->ChangeState(new CStartStateTutorial);	// チュートリアル状態
+		// 選択肢に応じて操作を変更
+		switch (m_curSelect.y)
+		{ // 現在の行選択肢ごとの処理
+		case YSELECT_CENTER:	// 文字変更行
+
+			// 選択中の文字に変更
+			m_pNaming->ChangeChar((CNamingManager::ETypeChar)m_curSelect.x);
+			break;
+
+		case YSELECT_BOTTOM:	// 設定済み文字操作行
+
+			switch (m_curSelect.x)
+			{ // 現在の列選択肢ごとの処理
+			case XSELECT_LEFT:		// 止める
+
+				// チュートリアル状態にする
+				m_pContext->ChangeState(new CStartStateTutorial);
+				break;
+
+			case XSELECT_CENTER:	// 削除
+
+				// 最後尾を一文字削除
+				//m_pNaming->DeleteBackName();	// TODO
+				break;
+
+			case XSELECT_RIGHT:		// 確定
+
+				// 名前決定状態にする
+				//m_pContext->ChangeState(new CStartStateDecideName(m_pNaming->GetName()));	// TODO
+				break;
+
+			default:
+				assert(false);
+				break;
+			}
 			break;
 
 		default:
@@ -289,5 +318,4 @@ void CStartStateCreateName::UpdateDecide(void)
 			break;
 		}
 	}
-#endif
 }

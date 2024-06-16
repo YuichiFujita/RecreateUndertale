@@ -28,7 +28,7 @@ class CNamingManager;	// 命名マネージャークラス
 class CStartStateCreateName : public CStartState
 {
 public:
-	// 横選択列挙
+	// 列選択列挙
 	enum ESelectX
 	{
 		XSELECT_LEFT = 0,	// 左
@@ -37,7 +37,7 @@ public:
 		XSELECT_MAX			// この列挙型の総数
 	};
 
-	// 縦選択列挙
+	// 行選択列挙
 	enum ESelectY
 	{
 		YSELECT_TOP = 0,	// 上
