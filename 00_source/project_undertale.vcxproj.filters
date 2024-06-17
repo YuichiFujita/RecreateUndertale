@@ -408,9 +408,6 @@
     <ClCompile Include="resource\startStateDecideName.cpp">
       <Filter>08_state\state_start</Filter>
     </ClCompile>
-    <ClCompile Include="resource\namingManager.cpp">
-      <Filter>02_scene\start</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h">
@@ -763,9 +760,6 @@
     </ClInclude>
     <ClInclude Include="resource\startStateDecideName.h">
       <Filter>08_state\state_start</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\namingManager.h">
-      <Filter>02_scene\start</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

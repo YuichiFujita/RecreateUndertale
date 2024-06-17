@@ -199,7 +199,6 @@
     <ClCompile Include="resource\motion.cpp" />
     <ClCompile Include="resource\multiModel.cpp" />
     <ClCompile Include="resource\multiValue.cpp" />
-    <ClCompile Include="resource\namingManager.cpp" />
     <ClCompile Include="resource\object.cpp" />
     <ClCompile Include="resource\object2D.cpp" />
     <ClCompile Include="resource\object3D.cpp" />
@@ -321,7 +320,6 @@
     <ClInclude Include="resource\motion.h" />
     <ClInclude Include="resource\multiModel.h" />
     <ClInclude Include="resource\multiValue.h" />
-    <ClInclude Include="resource\namingManager.h" />
     <ClInclude Include="resource\object.h" />
     <ClInclude Include="resource\object2D.h" />
     <ClInclude Include="resource\object3D.h" />
