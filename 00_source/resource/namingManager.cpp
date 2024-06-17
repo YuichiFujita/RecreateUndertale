@@ -251,8 +251,8 @@ void CNamingManager::Release(CNamingManager *&prNamingManager)
 void CNamingManager::UpdateSelect(void)
 {
 	CInputKeyboard *pKey = GET_INPUTKEY;	// キーボード情報
-	int nCharWidth	= GetSelectWidth();		// 横の文字数
-	int nCharHeight = GetSelectHeight();	// 縦の文字数
+	//int nCharWidth	= GetSelectWidth();		// 横の文字数
+	//int nCharHeight	= GetSelectHeight();	// 縦の文字数
 
 	// 前回の選択肢を保存
 	m_oldSelect = m_curSelect;
@@ -261,29 +261,57 @@ void CNamingManager::UpdateSelect(void)
 	if (pKey->IsTrigger(DIK_LEFT))
 	{
 		do {
+			int nMaxWidth = (int)m_vecSelect[m_curSelect.y].size();
+
 			// 左に選択をずらす
-			m_curSelect.x = (m_curSelect.x + (nCharWidth - 1)) % nCharWidth;
+			m_curSelect.x = (m_curSelect.x + (nMaxWidth - 1)) % nMaxWidth;
 		} while (m_vecSelect[m_curSelect.y][m_curSelect.x] == nullptr);
 	}
 	if (pKey->IsTrigger(DIK_RIGHT))
 	{
 		do {
+			int nMaxWidth = (int)m_vecSelect[m_curSelect.y].size();
+
 			// 右に選択をずらす
-			m_curSelect.x = (m_curSelect.x + 1) % nCharWidth;
+			m_curSelect.x = (m_curSelect.x + 1) % nMaxWidth;
 		} while (m_vecSelect[m_curSelect.y][m_curSelect.x] == nullptr);
 	}
 	if (pKey->IsTrigger(DIK_UP))
 	{
 		do {
+			int nMaxHeight = (int)m_vecSelect.size();
+
 			// 上に選択をずらす
-			m_curSelect.y = (m_curSelect.y + (nCharHeight - 1)) % nCharHeight;
+			m_curSelect.y = (m_curSelect.y + (nMaxHeight - 1)) % nMaxHeight;
+
+			int nnnnn = (m_curSelect.y + 1) % nMaxHeight;
+			if (m_vecSelect[m_curSelect.y].size() < m_vecSelect[nnnnn].size())
+			{
+				m_curSelect.x /= m_vecSelect[m_oldSelect.y].size() / 3;
+			}
+			else if (m_vecSelect[m_curSelect.y].size() > m_vecSelect[nnnnn].size())
+			{
+				m_curSelect.x *= m_vecSelect[m_curSelect.y].size() / 3;
+			}
 		} while (m_vecSelect[m_curSelect.y][m_curSelect.x] == nullptr);
 	}
 	if (pKey->IsTrigger(DIK_DOWN))
 	{
 		do {
+			int nMaxHeight = (int)m_vecSelect.size();
+
 			// 下に選択をずらす
-			m_curSelect.y = (m_curSelect.y + 1) % nCharHeight;
+			m_curSelect.y = (m_curSelect.y + 1) % nMaxHeight;
+
+			int nnnnn = (m_curSelect.y + (nMaxHeight - 1)) % nMaxHeight;
+			if (m_vecSelect[m_curSelect.y].size() < m_vecSelect[nnnnn].size())
+			{
+				m_curSelect.x /= m_vecSelect[m_oldSelect.y].size() / 3;
+			}
+			else if (m_vecSelect[m_curSelect.y].size() > m_vecSelect[nnnnn].size())
+			{
+				m_curSelect.x *= m_vecSelect[m_curSelect.y].size() / 3;
+			}
 		} while (m_vecSelect[m_curSelect.y][m_curSelect.x] == nullptr);
 	}
 
