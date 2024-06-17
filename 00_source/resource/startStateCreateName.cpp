@@ -90,7 +90,7 @@ HRESULT CStartStateCreateName::Init(void)
 	m_oldSelect	= GRID2_ZERO;	// 前回の選択肢
 
 	// 命名マネージャーの生成
-	m_pNaming = CNamingManager::Create();
+	m_pNaming = CNamingManager::Create(this);
 	if (m_pNaming == nullptr)
 	{ // 生成に失敗した場合
 
@@ -125,37 +125,6 @@ HRESULT CStartStateCreateName::Init(void)
 	// 文字列を割当
 	loadtext::BindString(m_pTitle, loadtext::LoadText(PASS, CStartManager::TEXT_NAMING));
 
-	for (int i = 0; i < YSELECT_POLY_MAX; i++)
-	{
-		for (int j = 0; j < XSELECT_MAX; j++)
-		{
-			// 選択肢の生成
-			m_apSelect[i][j] = CString2D::Create
-			( // 引数
-				select::FONT,		// フォントパス
-				select::ITALIC,		// イタリック
-				L"",				// 指定文字列
-				select::POS[i][j],	// 原点位置
-				select::HEIGHT,		// 文字縦幅
-				select::ALIGN_X,	// 横配置
-				select::ROT,		// 原点向き
-				select::COL_DEFAULT	// 色
-			);
-			if (m_apSelect[i][j] == nullptr)
-			{ // 生成に失敗した場合
-
-				// 失敗を返す
-				assert(false);
-				return E_FAIL;
-			}
-
-			// 優先順位を設定
-			m_apSelect[i][j]->SetPriority(PRIORITY);
-
-			// 文字列を割当
-			loadtext::BindString(m_apSelect[i][j], loadtext::LoadText(PASS, CStartManager::TEXT_HIRAGANA + (i * XSELECT_MAX) + j));
-		}
-	}
 
 	// 成功を返す
 	return S_OK;
@@ -216,6 +185,7 @@ void CStartStateCreateName::Update(const float fDeltaTime)
 //============================================================
 void CStartStateCreateName::UpdateSelect(const float fDeltaTime)
 {
+#if 0
 	CInputKeyboard *pKey = GET_INPUTKEY;	// キーボード情報
 
 	// 前回の選択肢を保存
@@ -253,19 +223,26 @@ void CStartStateCreateName::UpdateSelect(const float fDeltaTime)
 			// 下に選択をずらす
 			m_curSelect.y = (m_curSelect.y + 1) % YSELECT_MAX;
 		}
-	}
 
-	// TODO：ここどうにかしない？
-	if (m_oldSelect.y != YSELECT_TOP)
-	{
-		// 前回の選択要素の色を白色に設定
-		m_apSelect[m_oldSelect.y - 1][m_oldSelect.x]->SetColor(select::COL_DEFAULT);
+		if (m_curSelect.y == YSELECT_TOP)
+		{
+			// 前回の選択要素の色を白色に設定
+			m_apSelect[m_oldSelect.y - 1][m_oldSelect.x]->SetColor(select::COL_DEFAULT);
+		}
+		else
+		{
+			// 前回の選択要素の色を白色に設定
+			m_apSelect[m_oldSelect.y - 1][m_oldSelect.x]->SetColor(select::COL_DEFAULT);
+
+			// 現在の選択要素の色を黄色に設定
+			m_apSelect[m_curSelect.y - 1][m_curSelect.x]->SetColor(select::COL_CHOICE);
+		}
 	}
-	if (m_curSelect.y != YSELECT_TOP)
-	{
-		// 現在の選択要素の色を黄色に設定
-		m_apSelect[m_curSelect.y - 1][m_curSelect.x]->SetColor(select::COL_CHOICE);
-	}
+#else
+	// 命名マネージャーの更新
+	assert(m_pNaming != nullptr);
+	m_pNaming->Update(fDeltaTime);
+#endif
 }
 
 //============================================================
@@ -273,6 +250,7 @@ void CStartStateCreateName::UpdateSelect(const float fDeltaTime)
 //============================================================
 void CStartStateCreateName::UpdateDecide(void)
 {
+#if 0
 	CInputKeyboard *pKey = GET_INPUTKEY;	// キーボード情報
 	if (pKey->IsTrigger(DIK_Z) || pKey->IsTrigger(DIK_RETURN))
 	{
@@ -318,4 +296,5 @@ void CStartStateCreateName::UpdateDecide(void)
 			break;
 		}
 	}
+#endif
 }

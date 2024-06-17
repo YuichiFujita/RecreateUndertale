@@ -10,6 +10,10 @@
 #include "namingManager.h"
 #include "manager.h"
 #include "string2D.h"
+#include "startStateCreateName.h"
+
+#include "startManager.h"
+#include "loadtext.h"
 
 //************************************************************
 //	定数宣言
@@ -22,12 +26,19 @@ namespace
 		"data\\CSV\\char_katakana.csv",	// カタカナ配置情報
 		"data\\CSV\\char_alphabet.csv",	// アルファベット配置情報
 	};
+	const char *PASS = "data\\TEXT\\start.txt";	// テキストパス
 
 	const CNamingManager::ETypeChar INIT_TYPE = CNamingManager::TYPECHAR_HIRAGANA;	// 初期文字セット
-	const int PRIORITY = 6;		// 優先順位
+	const int PRIORITY = 6;	// 優先順位
 
 	namespace select
-	{	
+	{
+		const D3DXVECTOR3 POS[CStartStateCreateName::YSELECT_POLY_MAX][CStartStateCreateName::XSELECT_MAX] =	// 位置配列
+		{
+			{ D3DXVECTOR3(180.0f, 530.0f, 0.0f), D3DXVECTOR3(440.0f, 530.0f, 0.0f), D3DXVECTOR3(750.0f, 530.0f, 0.0f) },
+			{ D3DXVECTOR3(220.0f, 630.0f, 0.0f), D3DXVECTOR3(460.0f, 630.0f, 0.0f), D3DXVECTOR3(700.0f, 630.0f, 0.0f) },
+		};
+
 		const char	*FONT	= "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
 		const bool	ITALIC	= false;	// イタリック
 		const float	HEIGHT	= 42.0f;	// 文字縦幅
@@ -45,8 +56,8 @@ namespace
 //============================================================
 //	コンストラクタ
 //============================================================
-CNamingManager::CNamingManager() :
-	m_selectMax	(GRID2_ZERO),	// 選択文字の最大量
+CNamingManager::CNamingManager(CStartStateCreateName *pParent) :
+	m_pParent	(pParent),		// 自身を管理する親
 	m_curSelect	(GRID2_ZERO),	// 現在の選択文字
 	m_oldSelect	(GRID2_ZERO)	// 前回の選択文字
 {
@@ -68,12 +79,49 @@ CNamingManager::~CNamingManager()
 HRESULT CNamingManager::Init(void)
 {
 	// メンバ変数を初期化
-	m_selectMax = GRID2_ZERO;	// 選択文字の最大量
 	m_curSelect = GRID2_ZERO;	// 現在の選択文字
 	m_oldSelect = GRID2_ZERO;	// 前回の選択文字
 
 	// 選択文字配列を初期化
 	m_vecSelect.clear();
+
+	for (int i = 0; i < 2; i++)
+	{
+		// 横一行分の配列を拡張
+		m_vecSelect.emplace_back();
+
+		for (int j = 0; j < 3; j++)
+		{
+			// 選択肢の生成
+			CString2D *pSelect = CString2D::Create
+			( // 引数
+				select::FONT,		// フォントパス
+				select::ITALIC,		// イタリック
+				L"",				// 指定文字列
+				select::POS[i][j],	// 原点位置
+				select::HEIGHT,		// 文字縦幅
+				select::ALIGN_X,	// 横配置
+				select::ROT,		// 原点向き
+				select::COL_DEFAULT	// 色
+			);
+			if (pSelect == nullptr)
+			{ // 生成に失敗した場合
+
+				// 失敗を返す
+				assert(false);
+				return E_FAIL;
+			}
+
+			// 優先順位を設定
+			pSelect->SetPriority(PRIORITY);
+
+			// 文字列を割当
+			loadtext::BindString(pSelect, loadtext::LoadText(PASS, CStartManager::TEXT_HIRAGANA + (i * 3) + j));
+
+			// 現在の行列の最後尾に生成した文字を追加
+			m_vecSelect.back().push_back(pSelect);
+		}
+	}
 
 	// 配置の読込
 	if (FAILED(ChangeChar(INIT_TYPE)))
@@ -93,8 +141,19 @@ HRESULT CNamingManager::Init(void)
 //============================================================
 void CNamingManager::Uninit(void)
 {
-	// 選択文字の動的配列のクリア
-	ClearVector();
+	for (int i = 0; i < (int)m_vecSelect.size(); i++)
+	{ // 縦の文字数分繰り返す
+
+		for (int j = 0; j < (int)m_vecSelect[i].size(); j++)
+		{ // 横の文字数分繰り返す
+
+			// 選択文字の終了
+			SAFE_UNINIT(m_vecSelect[i][j]);
+		}
+	}
+
+	// 選択文字配列をクリア
+	m_vecSelect.clear();
 }
 
 //============================================================
@@ -121,7 +180,6 @@ HRESULT CNamingManager::ChangeChar(const ETypeChar typeChar)
 	ClearVector();
 
 	// 配置の読込
-	assert(m_vecSelect.empty());
 	if (FAILED(LoadArray(typeChar)))
 	{ // 読込に失敗した場合
 
@@ -130,9 +188,6 @@ HRESULT CNamingManager::ChangeChar(const ETypeChar typeChar)
 		return E_FAIL;
 	}
 
-	// 現在の選択文字を初期化
-	m_oldSelect = m_curSelect = GRID2_ZERO;	// 左上がnullptrだと壊れる
-
 	// 成功を返す
 	return S_OK;
 }
@@ -140,10 +195,10 @@ HRESULT CNamingManager::ChangeChar(const ETypeChar typeChar)
 //============================================================
 //	生成処理
 //============================================================
-CNamingManager *CNamingManager::Create(void)
+CNamingManager *CNamingManager::Create(CStartStateCreateName *pParent)
 {
 	// 命名マネージャーの生成
-	CNamingManager *pNamingManager = new CNamingManager;
+	CNamingManager *pNamingManager = new CNamingManager(pParent);
 	if (pNamingManager == nullptr)
 	{ // 生成に失敗した場合
 
@@ -221,19 +276,13 @@ void CNamingManager::UpdateSelect(void)
 		} while (m_vecSelect[m_curSelect.y][m_curSelect.x] == nullptr);
 	}
 
-	// TODO：ここどうにかしない？
-	//if (m_oldSelect.y != YSELECT_TOP)
-	{
-		// 前回の選択要素の色を白色に設定
-		assert(m_vecSelect[m_oldSelect.y][m_oldSelect.x] != nullptr);
-		m_vecSelect[m_oldSelect.y][m_oldSelect.x]->SetColor(select::COL_DEFAULT);
-	}
-	//if (m_curSelect.y != YSELECT_TOP)
-	{
-		// 現在の選択要素の色を黄色に設定
-		assert(m_vecSelect[m_curSelect.y][m_curSelect.x] != nullptr);
-		m_vecSelect[m_curSelect.y][m_curSelect.x]->SetColor(select::COL_CHOICE);
-	}
+	assert(m_vecSelect[m_oldSelect.y][m_oldSelect.x] != nullptr);
+
+	// 前回の選択要素の色を白色に設定
+	m_vecSelect[m_oldSelect.y][m_oldSelect.x]->SetColor(select::COL_DEFAULT);
+
+	// 現在の選択要素の色を黄色に設定
+	m_vecSelect[m_curSelect.y][m_curSelect.x]->SetColor(select::COL_CHOICE);
 }
 
 //============================================================
@@ -265,10 +314,10 @@ void CNamingManager::UpdateDecide(void)
 //============================================================
 void CNamingManager::ClearVector(void)
 {
-	for (int i = 0; i < GetSelectHeight(); i++)
+	for (int i = 2; i < (int)m_vecSelect.size(); i++)
 	{ // 縦の文字数分繰り返す
 
-		for (int j = 0; j < GetSelectWidth(); j++)
+		for (int j = 0; j < (int)m_vecSelect[i].size(); j++)
 		{ // 横の文字数分繰り返す
 
 			// 選択文字の終了
@@ -277,7 +326,7 @@ void CNamingManager::ClearVector(void)
 	}
 
 	// 選択文字配列をクリア
-	m_vecSelect.clear();
+	m_vecSelect.resize(2);
 }
 
 //============================================================
