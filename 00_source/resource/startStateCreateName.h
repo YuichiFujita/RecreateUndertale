@@ -66,6 +66,7 @@ public:
 
 private:
 	// メンバ関数
+	void ControlSelect(void);	// 選択操作
 	void UpdateSelect(void);	// 選択更新
 	void UpdateDecide(void);	// 決定更新
 	HRESULT ChangeChar(const ETypeChar typeChar);	// 文字変更

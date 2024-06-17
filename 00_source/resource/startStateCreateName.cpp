@@ -24,6 +24,7 @@ namespace
 		"data\\CSV\\char_katakana.csv",	// カタカナ配置情報
 		"data\\CSV\\char_alphabet.csv",	// アルファベット配置情報
 	};
+
 	const char *PASS = "data\\TEXT\\start.txt";	// テキストパス
 	const int PRIORITY = 6;	// 優先順位
 
@@ -213,79 +214,100 @@ void CStartStateCreateName::Update(const float fDeltaTime)
 }
 
 //============================================================
-//	選択の更新処理
+//	選択の操作処理
 //============================================================
-void CStartStateCreateName::UpdateSelect(void)
+void CStartStateCreateName::ControlSelect(void)
 {
 	CInputKeyboard *pKey = GET_INPUTKEY;	// キーボード情報
-
-	// 前回の選択肢を保存
-	m_oldSelect = m_curSelect;
-
-	// 選択肢操作
 	if (pKey->IsTrigger(DIK_LEFT))
 	{
-		do {
-			int nMaxWidth = (int)m_vecSelect[m_curSelect.y].size();
+		do { // 選択先がない場合さらに動かす
 
 			// 左に選択をずらす
+			int nMaxWidth = (int)m_vecSelect[m_curSelect.y].size();	// 列の最大数
 			m_curSelect.x = (m_curSelect.x + (nMaxWidth - 1)) % nMaxWidth;
+
 		} while (m_vecSelect[m_curSelect.y][m_curSelect.x] == nullptr);
 	}
 	if (pKey->IsTrigger(DIK_RIGHT))
 	{
-		do {
-			int nMaxWidth = (int)m_vecSelect[m_curSelect.y].size();
+		do { // 選択先がない場合さらに動かす
 
 			// 右に選択をずらす
+			int nMaxWidth = (int)m_vecSelect[m_curSelect.y].size();	// 列の最大数
 			m_curSelect.x = (m_curSelect.x + 1) % nMaxWidth;
+
 		} while (m_vecSelect[m_curSelect.y][m_curSelect.x] == nullptr);
 	}
 	if (pKey->IsTrigger(DIK_UP))
 	{
-		do {
-			int nMaxHeight = (int)m_vecSelect.size();
+		do { // 選択先がない場合さらに動かす
 
 			// 上に選択をずらす
+			int nMaxHeight = (int)m_vecSelect.size();	// 行の最大数
 			m_curSelect.y = (m_curSelect.y + (nMaxHeight - 1)) % nMaxHeight;
 
-			int nnnnn = (m_curSelect.y + 1) % nMaxHeight;
-			if (m_vecSelect[m_curSelect.y].size() < m_vecSelect[nnnnn].size())
-			{
+			// 列が増減した場合に列インデックスを補正
+			int nPrevSelectY = (m_curSelect.y + 1) % nMaxHeight;
+			if (m_vecSelect[m_curSelect.y].size() < m_vecSelect[nPrevSelectY].size())
+			{ // 列が減少した場合
+
+				// 列インデックスを小さい方の最大値で補正
 				m_curSelect.x /= m_vecSelect[m_oldSelect.y].size() / XSELECT_MAX;
 			}
-			else if (m_vecSelect[m_curSelect.y].size() > m_vecSelect[nnnnn].size())
-			{
+			else if (m_vecSelect[m_curSelect.y].size() > m_vecSelect[nPrevSelectY].size())
+			{ // 列が増加した場合
+
+				// 列インデックスを大きい方の最大値で補正
 				m_curSelect.x *= m_vecSelect[m_curSelect.y].size() / XSELECT_MAX;
 			}
+
 		} while (m_vecSelect[m_curSelect.y][m_curSelect.x] == nullptr);
 	}
 	if (pKey->IsTrigger(DIK_DOWN))
 	{
-		do {
-			int nMaxHeight = (int)m_vecSelect.size();
+		do { // 選択先がない場合さらに動かす
 
 			// 下に選択をずらす
+			int nMaxHeight = (int)m_vecSelect.size();	// 行の最大数
 			m_curSelect.y = (m_curSelect.y + 1) % nMaxHeight;
 
-			int nnnnn = (m_curSelect.y + (nMaxHeight - 1)) % nMaxHeight;
-			if (m_vecSelect[m_curSelect.y].size() < m_vecSelect[nnnnn].size())
-			{
+			// 列が増減した場合に列インデックスを補正
+			int nPrevSelectY = (m_curSelect.y + (nMaxHeight - 1)) % nMaxHeight;	// 一つ上の行選択インデックス
+			if (m_vecSelect[m_curSelect.y].size() < m_vecSelect[nPrevSelectY].size())
+			{ // 列が減少した場合
+
+				// 列インデックスを小さい方の最大値で補正
 				m_curSelect.x /= m_vecSelect[m_oldSelect.y].size() / XSELECT_MAX;
 			}
-			else if (m_vecSelect[m_curSelect.y].size() > m_vecSelect[nnnnn].size())
-			{
+			else if (m_vecSelect[m_curSelect.y].size() > m_vecSelect[nPrevSelectY].size())
+			{ // 列が増加した場合
+
+				// 列インデックスを大きい方の最大値で補正
 				m_curSelect.x *= m_vecSelect[m_curSelect.y].size() / XSELECT_MAX;
 			}
+
 		} while (m_vecSelect[m_curSelect.y][m_curSelect.x] == nullptr);
 	}
+}
 
-	assert(m_vecSelect[m_oldSelect.y][m_oldSelect.x] != nullptr);
+//============================================================
+//	選択の更新処理
+//============================================================
+void CStartStateCreateName::UpdateSelect(void)
+{
+	// 前回の選択肢を保存
+	m_oldSelect = m_curSelect;
+
+	// 選択の操作
+	ControlSelect();
 
 	// 前回の選択要素の色を白色に設定
+	assert(m_vecSelect[m_oldSelect.y][m_oldSelect.x] != nullptr);
 	m_vecSelect[m_oldSelect.y][m_oldSelect.x]->SetColor(select::COL_DEFAULT);
 
 	// 現在の選択要素の色を黄色に設定
+	assert(m_vecSelect[m_curSelect.y][m_curSelect.x] != nullptr);
 	m_vecSelect[m_curSelect.y][m_curSelect.x]->SetColor(select::COL_CHOICE);
 }
 
