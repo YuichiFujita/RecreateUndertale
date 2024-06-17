@@ -125,12 +125,14 @@ HRESULT CStartStateCreateName::Init(void)
 	loadtext::BindString(m_pTitle, loadtext::LoadText(PASS, CStartManager::TEXT_NAMING));
 
 	for (int i = 0; i < YSELECT_MAX; i++)
-	{
+	{ // 行の固定選択肢の総数分繰り返す
+
 		// 横一行分の配列を拡張
 		m_vecSelect.emplace_back();
 
 		for (int j = 0; j < XSELECT_MAX; j++)
-		{
+		{ // 列の固定選択肢の総数分繰り返す
+
 			// 選択肢の生成
 			CString2D *pSelect = CString2D::Create
 			( // 引数
@@ -155,7 +157,8 @@ HRESULT CStartStateCreateName::Init(void)
 			pSelect->SetPriority(PRIORITY);
 
 			// 文字列を割当
-			loadtext::BindString(pSelect, loadtext::LoadText(PASS, CStartManager::TEXT_HIRAGANA + (i * XSELECT_MAX) + j));
+			int nTextID = CStartManager::TEXT_HIRAGANA + j + (i * XSELECT_MAX);	// テキストインデックス
+			loadtext::BindString(pSelect, loadtext::LoadText(PASS, nTextID));
 
 			// 現在の行列の最後尾に生成した文字を追加
 			m_vecSelect.back().push_back(pSelect);
@@ -184,10 +187,10 @@ void CStartStateCreateName::Uninit(void)
 	SAFE_UNINIT(m_pTitle);
 
 	for (int i = 0; i < (int)m_vecSelect.size(); i++)
-	{ // 縦の文字数分繰り返す
+	{ // 行の総数分繰り返す
 
 		for (int j = 0; j < (int)m_vecSelect[i].size(); j++)
-		{ // 横の文字数分繰り返す
+		{ // 列の総数分繰り返す
 
 			// 選択文字の終了
 			SAFE_UNINIT(m_vecSelect[i][j]);
@@ -371,19 +374,19 @@ HRESULT CStartStateCreateName::ChangeChar(const ETypeChar typeChar)
 	// 文字種類が不明な値の場合抜ける
 	if (typeChar <= NONE_IDX || typeChar >= TYPECHAR_MAX) { assert(false); return E_FAIL; }
 
-	// TODO
+	// 選択文字ポリゴンの終了
 	for (int i = YSELECT_MAX; i < (int)m_vecSelect.size(); i++)
-	{ // 縦の文字数分繰り返す
+	{ // 固定選択肢を除く行の総数分繰り返す
 
 		for (int j = 0; j < (int)m_vecSelect[i].size(); j++)
-		{ // 横の文字数分繰り返す
+		{ // 列の総数分繰り返す
 
 			// 選択文字の終了
 			SAFE_UNINIT(m_vecSelect[i][j]);
 		}
 	}
 
-	// 選択文字配列をクリア
+	// 固定選択肢を除いた選択文字配列をクリア
 	m_vecSelect.erase(m_vecSelect.begin() + YSELECT_MAX, m_vecSelect.end());
 
 	// 配置の読込
