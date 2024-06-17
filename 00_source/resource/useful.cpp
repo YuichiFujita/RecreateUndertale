@@ -296,6 +296,23 @@ std::wstring useful::MultiByteToWide(const std::string *pSrcStr)
 }
 
 //============================================================
+//	ワイド文字列のマルチバイト文字列変換
+//============================================================
+std::string useful::WideToMultiByte(const std::wstring *pSrcStr)
+{
+	int nSrcSize = pSrcStr->size();		// 変換前の文字列のサイズ
+	if (nSrcSize <= 0) { return ""; }	// 文字列がない場合抜ける
+
+	// 文字列を変換
+	std::string wsDest(nSrcSize, '\0');	// 変換後の文字列
+
+	// TODO：ここに変換を作成
+
+	// 変換後の文字列を返す
+	return wsDest;
+}
+
+//============================================================
 //	ベクトルの向き変換
 //============================================================
 void useful::VecToRot(const D3DXVECTOR3& rVec, float *pPhi, float *pTheta)

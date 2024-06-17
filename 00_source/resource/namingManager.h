@@ -33,7 +33,7 @@ public:
 	};
 
 	// コンストラクタ
-	CNamingManager(CStartStateCreateName *pParent);
+	CNamingManager();
 
 	// デストラクタ
 	~CNamingManager();
@@ -45,7 +45,7 @@ public:
 	HRESULT ChangeChar(const ETypeChar typeChar);	// 文字変更
 
 	// 静的メンバ関数
-	static CNamingManager *Create(CStartStateCreateName *pParent);	// 生成
+	static CNamingManager *Create(void);	// 生成
 	static void Release(CNamingManager *&prNamingManager);	// 破棄
 
 private:
@@ -54,12 +54,10 @@ private:
 	int GetSelectHeight(void)	{ return (int)m_vecSelect.size(); }		// 縦の文字数取得
 	void UpdateSelect(void);	// 選択更新
 	void UpdateDecide(void);	// 決定更新
-	void ClearVector(void);		// 選択文字の動的配列クリア
 	HRESULT LoadArray(const ETypeChar typeChar);	// 配置読込
 
 	// メンバ変数
 	std::vector<std::vector<CString2D*>> m_vecSelect;	// 選択文字
-	CStartStateCreateName *m_pParent;	// 自身を管理する親
 	POSGRID2 m_curSelect;	// 現在の選択文字
 	POSGRID2 m_oldSelect;	// 前回の選択文字
 };

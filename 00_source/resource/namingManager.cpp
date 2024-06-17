@@ -56,8 +56,7 @@ namespace
 //============================================================
 //	コンストラクタ
 //============================================================
-CNamingManager::CNamingManager(CStartStateCreateName *pParent) :
-	m_pParent	(pParent),		// 自身を管理する親
+CNamingManager::CNamingManager() :
 	m_curSelect	(GRID2_ZERO),	// 現在の選択文字
 	m_oldSelect	(GRID2_ZERO)	// 前回の選択文字
 {
@@ -176,8 +175,20 @@ HRESULT CNamingManager::ChangeChar(const ETypeChar typeChar)
 	// 文字種類が不明な値の場合抜ける
 	if (typeChar <= NONE_IDX || typeChar >= TYPECHAR_MAX) { assert(false); return E_FAIL; }
 
-	// 選択文字の動的配列のクリア
-	ClearVector();
+	// TODO
+	for (int i = 2; i < (int)m_vecSelect.size(); i++)
+	{ // 縦の文字数分繰り返す
+
+		for (int j = 0; j < (int)m_vecSelect[i].size(); j++)
+		{ // 横の文字数分繰り返す
+
+			// 選択文字の終了
+			SAFE_UNINIT(m_vecSelect[i][j]);
+		}
+	}
+
+	// 選択文字配列をクリア
+	m_vecSelect.erase(m_vecSelect.begin() + 2, m_vecSelect.end());
 
 	// 配置の読込
 	if (FAILED(LoadArray(typeChar)))
@@ -195,10 +206,10 @@ HRESULT CNamingManager::ChangeChar(const ETypeChar typeChar)
 //============================================================
 //	生成処理
 //============================================================
-CNamingManager *CNamingManager::Create(CStartStateCreateName *pParent)
+CNamingManager *CNamingManager::Create(void)
 {
 	// 命名マネージャーの生成
-	CNamingManager *pNamingManager = new CNamingManager(pParent);
+	CNamingManager *pNamingManager = new CNamingManager;
 	if (pNamingManager == nullptr)
 	{ // 生成に失敗した場合
 
@@ -307,26 +318,6 @@ void CNamingManager::UpdateDecide(void)
 		}
 	}
 #endif
-}
-
-//============================================================
-//	選択文字の動的配列のクリア処理
-//============================================================
-void CNamingManager::ClearVector(void)
-{
-	for (int i = 2; i < (int)m_vecSelect.size(); i++)
-	{ // 縦の文字数分繰り返す
-
-		for (int j = 0; j < (int)m_vecSelect[i].size(); j++)
-		{ // 横の文字数分繰り返す
-
-			// 選択文字の終了
-			SAFE_UNINIT(m_vecSelect[i][j]);
-		}
-	}
-
-	// 選択文字配列をクリア
-	m_vecSelect.resize(2);
 }
 
 //============================================================

@@ -66,7 +66,6 @@ private:
 	void UpdateDecide(void);	// 決定更新
 
 	// メンバ変数
-	CString2D *m_apSelect[YSELECT_POLY_MAX][XSELECT_MAX];	// 選択肢
 	CString2D *m_pTitle;		// タイトル
 	CNamingManager *m_pNaming;	// 命名マネージャー
 	POSGRID2 m_curSelect;		// 現在の選択肢

@@ -65,8 +65,7 @@ CStartStateCreateName::CStartStateCreateName() :
 	m_curSelect	(GRID2_ZERO),	// 現在の選択肢
 	m_oldSelect	(GRID2_ZERO)	// 前回の選択肢
 {
-	// メンバ変数をクリア
-	memset(&m_apSelect[0][0], 0, sizeof(m_apSelect));	// 選択肢
+
 }
 
 //============================================================
@@ -83,14 +82,13 @@ CStartStateCreateName::~CStartStateCreateName()
 HRESULT CStartStateCreateName::Init(void)
 {
 	// メンバ変数を初期化
-	memset(&m_apSelect[0][0], 0, sizeof(m_apSelect));	// 選択肢
 	m_pTitle	= nullptr;		// タイトル
 	m_pNaming	= nullptr;		// 命名マネージャー
 	m_curSelect	= GRID2_ZERO;	// 現在の選択肢
 	m_oldSelect	= GRID2_ZERO;	// 前回の選択肢
 
 	// 命名マネージャーの生成
-	m_pNaming = CNamingManager::Create(this);
+	m_pNaming = CNamingManager::Create();
 	if (m_pNaming == nullptr)
 	{ // 生成に失敗した場合
 
@@ -125,7 +123,6 @@ HRESULT CStartStateCreateName::Init(void)
 	// 文字列を割当
 	loadtext::BindString(m_pTitle, loadtext::LoadText(PASS, CStartManager::TEXT_NAMING));
 
-
 	// 成功を返す
 	return S_OK;
 }
@@ -140,15 +137,6 @@ void CStartStateCreateName::Uninit(void)
 
 	// タイトルの終了
 	SAFE_UNINIT(m_pTitle);
-
-	for (int i = 0; i < YSELECT_POLY_MAX; i++)
-	{
-		for (int j = 0; j < XSELECT_MAX; j++)
-		{
-			// 選択肢の終了
-			SAFE_UNINIT(m_apSelect[i][j]);
-		}
-	}
 
 	// 自身の破棄
 	delete this;
