@@ -75,6 +75,7 @@ private:
 	// メンバ変数
 	std::vector<std::vector<CString2D*>> m_vecSelect;	// 選択文字
 	CString2D *m_pTitle;	// タイトル
+	CString2D *m_pName;		// 名前
 	POSGRID2 m_curSelect;	// 現在の選択肢
 	POSGRID2 m_oldSelect;	// 前回の選択肢
 };

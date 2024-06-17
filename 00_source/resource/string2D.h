@@ -87,6 +87,7 @@ public:
 	float GetCharHeight(void) const	{ return m_fCharHeight; }		// 文字の縦幅取得
 	EAlignX GetAlignX(void) const	{ return m_alignX; }			// 横配置取得
 	int GetNumChar(void) const		{ return (int)m_wsStr.size(); }	// 文字数取得
+	std::wstring GetStr(void) const { return m_wsStr; }				// 文字列取得
 
 private:
 	// オーバーライド関数

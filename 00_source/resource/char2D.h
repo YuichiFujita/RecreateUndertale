@@ -58,8 +58,10 @@ public:
 	void SetCharHeight(const float fHeight);	// 文字の縦幅設定
 	D3DXVECTOR2 GetOffsetBlackBoxLU(void);		// ブラックボックスの左上オフセット取得
 	D3DXVECTOR2 GetOffsetBlackBoxRD(void);		// ブラックボックスの右下オフセット取得
-	float GetOffsetOrigin(void);				// 原点のオフセット取得
-	float GetNext(void);						// 次の文字までの距離取得
+
+	wchar_t GetChar(void) const { return m_wcChar; }	// 文字列取得
+	float GetOffsetOrigin(void);	// 原点のオフセット取得
+	float GetNext(void);			// 次の文字までの距離取得
 
 private:
 	// メンバ変数

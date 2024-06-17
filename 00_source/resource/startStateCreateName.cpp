@@ -25,8 +25,9 @@ namespace
 		"data\\CSV\\char_alphabet.csv",	// アルファベット配置情報
 	};
 
-	const char *PASS = "data\\TEXT\\start.txt";	// テキストパス
-	const int PRIORITY = 6;	// 優先順位
+	const char *PASS		= "data\\TEXT\\start.txt";	// テキストパス
+	const int PRIORITY		= 6;	// 優先順位
+	const int MAX_STR_NAME	= 6;	// 名前の最大文字数
 
 	namespace title
 	{	
@@ -40,6 +41,18 @@ namespace
 		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
 	}
 	
+	namespace name
+	{
+		const char	*FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
+		const bool	ITALIC = false;	// イタリック
+		const float	HEIGHT = 42.0f;	// 文字縦幅
+
+		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_CENTER;		// 横配置
+		const D3DXVECTOR3	POS = D3DXVECTOR3(SCREEN_CENT.x, 155.0f, 0.0f);	// 位置
+		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
+		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
+	}
+
 	namespace select
 	{	
 		const D3DXVECTOR3 POS[CStartStateCreateName::YSELECT_MAX][CStartStateCreateName::XSELECT_MAX] =	// 位置配列
@@ -70,6 +83,7 @@ namespace
 //============================================================
 CStartStateCreateName::CStartStateCreateName() :
 	m_pTitle	(nullptr),		// タイトル
+	m_pName		(nullptr),		// 名前
 	m_curSelect	(GRID2_ZERO),	// 現在の選択肢
 	m_oldSelect	(GRID2_ZERO)	// 前回の選択肢
 {
@@ -92,6 +106,7 @@ HRESULT CStartStateCreateName::Init(void)
 {
 	// メンバ変数を初期化
 	m_pTitle	= nullptr;				// タイトル
+	m_pName		= nullptr;				// 名前
 	m_curSelect	= select::INIT_SELECT;	// 現在の選択肢
 	m_oldSelect	= select::INIT_SELECT;	// 前回の選択肢
 
@@ -123,6 +138,29 @@ HRESULT CStartStateCreateName::Init(void)
 
 	// 文字列を割当
 	loadtext::BindString(m_pTitle, loadtext::LoadText(PASS, CStartManager::TEXT_NAMING));
+
+	// 名前の生成
+	m_pName = CString2D::Create
+	( // 引数
+		name::FONT,		// フォントパス
+		name::ITALIC,	// イタリック
+		L"",			// 指定文字列
+		name::POS,		// 原点位置
+		name::HEIGHT,	// 文字縦幅
+		name::ALIGN_X,	// 横配置
+		name::ROT,		// 原点向き
+		name::COL		// 色
+	);
+	if (m_pName == nullptr)
+	{ // 生成に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
+
+	// 優先順位を設定
+	m_pName->SetPriority(PRIORITY);
 
 	for (int i = 0; i < YSELECT_MAX; i++)
 	{ // 行の固定選択肢の総数分繰り返す
@@ -185,6 +223,9 @@ void CStartStateCreateName::Uninit(void)
 {
 	// タイトルの終了
 	SAFE_UNINIT(m_pTitle);
+
+	// 名前の終了
+	SAFE_UNINIT(m_pName);
 
 	for (int i = 0; i < (int)m_vecSelect.size(); i++)
 	{ // 行の総数分繰り返す
@@ -322,9 +363,27 @@ void CStartStateCreateName::UpdateDecide(void)
 	CInputKeyboard *pKey = GET_INPUTKEY;	// キーボード情報
 	if (pKey->IsTrigger(DIK_Z) || pKey->IsTrigger(DIK_RETURN))
 	{
+		std::wstring wsName = m_pName->GetStr();	// 名前の文字列
+
 		// 選択肢に応じて操作を変更
 		switch (m_curSelect.y)
 		{ // 現在の行選択肢ごとの処理
+		default:	// 文字選択
+
+			if ((int)wsName.size() < MAX_STR_NAME)
+			{ // 文字数が最大ではない場合
+
+				// 追加する文字列を取得
+				std::wstring wsAddChar = m_vecSelect[m_curSelect.y][m_curSelect.x]->GetStr();
+
+				// 最後尾に文字を追加
+				wsName.push_back(wsAddChar.front());	// 文字列として管理してるので先頭文字を取得
+
+				// 文字列を再設定
+				m_pName->SetString(wsName);
+			}
+			break;
+
 		case YSELECT_CHAR_CHANGE:	// 文字変更
 
 			// 選択中の文字に変更
@@ -343,8 +402,15 @@ void CStartStateCreateName::UpdateDecide(void)
 
 			case XSELECT_CENTER:	// 削除
 
-				// 最後尾を一文字削除
-				//m_pNaming->DeleteBackName();	// TODO
+				if (!wsName.empty())
+				{ // 文字がまだある場合
+
+					// 最後尾を一文字削除
+					wsName.erase(wsName.end() - 1);
+
+					// 文字列を再設定
+					m_pName->SetString(wsName);
+				}
 				break;
 
 			case XSELECT_RIGHT:		// 確定
@@ -357,10 +423,6 @@ void CStartStateCreateName::UpdateDecide(void)
 				assert(false);
 				break;
 			}
-			break;
-
-		default:
-			assert(false);
 			break;
 		}
 	}
