@@ -273,8 +273,8 @@ void useful::StandardizePathPart(std::string *pPath)
 //============================================================
 std::wstring useful::MultiByteToWide(const std::string *pSrcStr)
 {
-	int nSrcSize = pSrcStr->size();		// 変換前の文字列のサイズ
-	if (nSrcSize <= 0) { return L""; }	// 文字列がない場合抜ける
+	int nSrcSize = (int)pSrcStr->size();	// 変換前の文字列のサイズ
+	if (nSrcSize <= 0) { return L""; }		// 文字列がない場合抜ける
 
 	// 文字列を変換
 	std::wstring wsDest(nSrcSize, L'\0');	// 変換後の文字列
@@ -283,9 +283,9 @@ std::wstring useful::MultiByteToWide(const std::string *pSrcStr)
 		CP_UTF8,			// 変換コードページ
 		0,					// 変換フラグ
 		&pSrcStr->front(),	// 変換前文字列の先頭アドレス
-		(int)nSrcSize,		// 変換前文字列のサイズ
+		nSrcSize,			// 変換前文字列のサイズ
 		&wsDest.front(),	// 変換後文字列の先頭アドレス
-		(int)wsDest.size()	// 変換前文字列のサイズ
+		(int)wsDest.size()	// 変換後文字列のサイズ
 	);
 
 	// 文字列サイズを修正
@@ -300,16 +300,38 @@ std::wstring useful::MultiByteToWide(const std::string *pSrcStr)
 //============================================================
 std::string useful::WideToMultiByte(const std::wstring *pSrcStr)
 {
-	int nSrcSize = pSrcStr->size();		// 変換前の文字列のサイズ
-	if (nSrcSize <= 0) { return ""; }	// 文字列がない場合抜ける
+	int nSrcSize = (int)pSrcStr->size();	// 変換前の文字列のサイズ
+	if (nSrcSize <= 0) { return ""; }		// 文字列がない場合抜ける
+
+	// 変換後の文字列サイズを取得
+	int nDestSize = WideCharToMultiByte
+	( // 引数
+		CP_ACP,				// 変換コードページ
+		0,					// 変換フラグ
+		&pSrcStr->front(),	// 変換前文字列の先頭アドレス
+		nSrcSize,			// 変換前文字列のサイズ
+		nullptr,			// 変換後文字列の先頭アドレス
+		0,					// 変換後文字列のサイズ
+		nullptr,			// 変換不可時の置換文字
+		nullptr				// 変換不可な文字が存在したか
+	);
 
 	// 文字列を変換
-	std::string wsDest(nSrcSize, '\0');	// 変換後の文字列
-
-	// TODO：ここに変換を作成
+	std::string sDest(nDestSize, '\0');	// 変換後の文字列
+	WideCharToMultiByte
+	( // 引数
+		CP_ACP,				// 変換コードページ
+		0,					// 変換フラグ
+		&pSrcStr->front(),	// 変換前文字列の先頭アドレス
+		nSrcSize,			// 変換前文字列のサイズ
+		&sDest.front(),		// 変換後文字列の先頭アドレス
+		(int)sDest.size(),	// 変換後文字列のサイズ
+		nullptr,			// 変換不可時の置換文字
+		nullptr				// 変換不可な文字が存在したか
+	);
 
 	// 変換後の文字列を返す
-	return wsDest;
+	return sDest;
 }
 
 //============================================================
