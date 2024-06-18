@@ -11,6 +11,7 @@
 #include "startManager.h"
 #include "manager.h"
 #include "string2D.h"
+#include "shakeString2D.h"
 #include "loadtext.h"
 
 //************************************************************
@@ -47,8 +48,8 @@ namespace
 		const bool	ITALIC = false;	// イタリック
 		const float	HEIGHT = 42.0f;	// 文字縦幅
 
-		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_CENTER;		// 横配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(SCREEN_CENT.x, 155.0f, 0.0f);	// 位置
+		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;		// 横配置
+		const D3DXVECTOR3	POS = D3DXVECTOR3(360.0f, 155.0f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
 		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
 	}
@@ -64,9 +65,11 @@ namespace
 		const CStartStateCreateName::ETypeChar INIT_TYPE = CStartStateCreateName::TYPECHAR_HIRAGANA;	// 初期文字セット
 		const POSGRID2 INIT_SELECT = POSGRID2(0, 2);	// 初期選択位置
 
-		const char	*FONT	= "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
-		const bool	ITALIC	= false;	// イタリック
-		const float	HEIGHT	= 42.0f;	// 文字縦幅
+		const char	*FONT		= "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
+		const bool	ITALIC		= false;	// イタリック
+		const float	HEIGHT		= 42.0f;	// 文字縦幅
+		const float	NEXT_TIME	= 0.035f;	// 文字振動の待機時間
+		const float	MOVE		= 1.0f;		// 振動移動量
 
 		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_CENTER;	// 横配置
 		const D3DXVECTOR3	ROT			= VEC3_ZERO;	// 向き
@@ -416,7 +419,7 @@ void CStartStateCreateName::UpdateDecide(void)
 			case XSELECT_RIGHT:		// 確定
 
 				// 名前決定状態にする
-				//m_pContext->ChangeState(new CStartStateDecideName(m_pNaming->GetName()));	// TODO
+				m_pContext->ChangeState(new CStartStateDecideName);
 				break;
 
 			default:
@@ -549,12 +552,14 @@ HRESULT CStartStateCreateName::LoadArray(const ETypeChar typeChar)
 						{ // 特殊操作ではない場合
 
 							// 読み込んだ文字の生成
-							CString2D *pChar = CString2D::Create
+							CString2D *pChar = CShakeString2D::Create
 							( // 引数
 								select::FONT,					// フォントパス
 								select::ITALIC,					// イタリック
 								useful::MultiByteToWide(&str),	// 指定文字列
 								posOffset,						// 原点位置
+								select::NEXT_TIME,				// 文字振動の待機時間
+								select::MOVE,					// 振動移動量
 								select::HEIGHT,					// 文字縦幅
 								select::ALIGN_X,				// 横配置
 								select::ROT,					// 原点向き

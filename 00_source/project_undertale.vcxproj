@@ -250,6 +250,7 @@
     <ClCompile Include="resource\shaderMono.cpp" />
     <ClCompile Include="resource\shaderToon.cpp" />
     <ClCompile Include="resource\shadow.cpp" />
+    <ClCompile Include="resource\shakeString2D.cpp" />
     <ClCompile Include="resource\sky.cpp" />
     <ClCompile Include="resource\sound.cpp" />
     <ClCompile Include="resource\stage.cpp" />
@@ -369,6 +370,7 @@
     <ClInclude Include="resource\shaderMono.h" />
     <ClInclude Include="resource\shaderToon.h" />
     <ClInclude Include="resource\shadow.h" />
+    <ClInclude Include="resource\shakeString2D.h" />
     <ClInclude Include="resource\sky.h" />
     <ClInclude Include="resource\sound.h" />
     <ClInclude Include="resource\stage.h" />
