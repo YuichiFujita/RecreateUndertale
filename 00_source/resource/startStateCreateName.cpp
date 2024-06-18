@@ -87,6 +87,7 @@ namespace
 CStartStateCreateName::CStartStateCreateName() :
 	m_pTitle	(nullptr),		// タイトル
 	m_pName		(nullptr),		// 名前
+	m_typeChar	((ETypeChar)0),	// 文字種類
 	m_curSelect	(GRID2_ZERO),	// 現在の選択肢
 	m_oldSelect	(GRID2_ZERO)	// 前回の選択肢
 {
@@ -110,6 +111,7 @@ HRESULT CStartStateCreateName::Init(void)
 	// メンバ変数を初期化
 	m_pTitle	= nullptr;				// タイトル
 	m_pName		= nullptr;				// 名前
+	m_typeChar	= (ETypeChar)0;			// 文字種類
 	m_curSelect	= select::INIT_SELECT;	// 現在の選択肢
 	m_oldSelect	= select::INIT_SELECT;	// 前回の選択肢
 
@@ -389,8 +391,12 @@ void CStartStateCreateName::UpdateDecide(void)
 
 		case YSELECT_CHAR_CHANGE:	// 文字変更
 
-			// 選択中の文字に変更
-			ChangeChar((ETypeChar)m_curSelect.x);
+			if ((ETypeChar)m_curSelect.x != m_typeChar)
+			{ // 変更先が別の文字形式な場合
+
+				// 選択中の文字に変更
+				ChangeChar((ETypeChar)m_curSelect.x);
+			}
 			break;
 
 		case YSELECT_CHAR_DECIDE:	// 文字決定
@@ -418,8 +424,12 @@ void CStartStateCreateName::UpdateDecide(void)
 
 			case XSELECT_RIGHT:		// 確定
 
-				// 名前決定状態にする
-				m_pContext->ChangeState(new CStartStateDecideName);
+				if (!wsName.empty())
+				{ // 文字が設定されている場合
+
+					// 名前決定状態にする
+					m_pContext->ChangeState(new CStartStateDecideName);
+				}
 				break;
 
 			default:
@@ -462,6 +472,9 @@ HRESULT CStartStateCreateName::ChangeChar(const ETypeChar typeChar)
 		assert(false);
 		return E_FAIL;
 	}
+
+	// 設定した文字種類を保存
+	m_typeChar = typeChar;
 
 	// 成功を返す
 	return S_OK;
