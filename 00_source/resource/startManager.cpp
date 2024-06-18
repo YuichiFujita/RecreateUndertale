@@ -87,6 +87,9 @@ HRESULT CStartManager::ChangeState(CStartState *pState)
 	assert(m_pState == nullptr);
 	m_pState = pState;
 
+	// 状態にコンテキストを設定
+	m_pState->SetContext(this);
+
 	// 状態インスタンスを初期化
 	if (FAILED(m_pState->Init()))
 	{ // 初期化に失敗した場合
@@ -95,9 +98,6 @@ HRESULT CStartManager::ChangeState(CStartState *pState)
 		assert(false);
 		return E_FAIL;
 	}
-
-	// 状態にコンテキストを設定
-	m_pState->SetContext(this);
 
 	// 成功を返す
 	return S_OK;

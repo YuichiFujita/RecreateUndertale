@@ -67,7 +67,7 @@ std::vector<std::wstring> loadtext::LoadText(const char *pFilePass, const int nT
 					std::getline(file, sStr);		// 一行全て読み込む
 
 					// 文字列を最後尾に追加
-					vecStr.push_back(useful::MultiByteToWide(&sStr));	// ワイド文字列に変換
+					vecStr.push_back(useful::MultiByteToWide(sStr));	// ワイド文字列に変換
 				}
 			} while (sStr != "END_TEXT");	// END_TEXTを読み込むまでループ
 		}

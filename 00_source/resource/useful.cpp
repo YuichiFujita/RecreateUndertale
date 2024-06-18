@@ -271,10 +271,10 @@ void useful::StandardizePathPart(std::string *pPath)
 //============================================================
 //	マルチバイト文字列のワイド文字列変換
 //============================================================
-std::wstring useful::MultiByteToWide(const std::string *pSrcStr)
+std::wstring useful::MultiByteToWide(const std::string &rSrcStr)
 {
-	int nSrcSize = (int)pSrcStr->size();	// 変換前の文字列のサイズ
-	if (nSrcSize <= 0) { return L""; }		// 文字列がない場合抜ける
+	int nSrcSize = (int)rSrcStr.size();	// 変換前の文字列のサイズ
+	if (nSrcSize <= 0) { return L""; }	// 文字列がない場合抜ける
 
 	// 文字列を変換
 	std::wstring wsDest(nSrcSize, L'\0');	// 変換後の文字列
@@ -282,7 +282,7 @@ std::wstring useful::MultiByteToWide(const std::string *pSrcStr)
 	( // 引数
 		CP_UTF8,			// 変換コードページ
 		0,					// 変換フラグ
-		&pSrcStr->front(),	// 変換前文字列の先頭アドレス
+		&rSrcStr.front(),	// 変換前文字列の先頭アドレス
 		nSrcSize,			// 変換前文字列のサイズ
 		&wsDest.front(),	// 変換後文字列の先頭アドレス
 		(int)wsDest.size()	// 変換後文字列のサイズ
@@ -298,17 +298,17 @@ std::wstring useful::MultiByteToWide(const std::string *pSrcStr)
 //============================================================
 //	ワイド文字列のマルチバイト文字列変換
 //============================================================
-std::string useful::WideToMultiByte(const std::wstring *pSrcStr)
+std::string useful::WideToMultiByte(const std::wstring &rSrcStr)
 {
-	int nSrcSize = (int)pSrcStr->size();	// 変換前の文字列のサイズ
-	if (nSrcSize <= 0) { return ""; }		// 文字列がない場合抜ける
+	int nSrcSize = (int)rSrcStr.size();	// 変換前の文字列のサイズ
+	if (nSrcSize <= 0) { return ""; }	// 文字列がない場合抜ける
 
 	// 変換後の文字列サイズを取得
 	int nDestSize = WideCharToMultiByte
 	( // 引数
 		CP_ACP,				// 変換コードページ
 		0,					// 変換フラグ
-		&pSrcStr->front(),	// 変換前文字列の先頭アドレス
+		&rSrcStr.front(),	// 変換前文字列の先頭アドレス
 		nSrcSize,			// 変換前文字列のサイズ
 		nullptr,			// 変換後文字列の先頭アドレス
 		0,					// 変換後文字列のサイズ
@@ -322,7 +322,7 @@ std::string useful::WideToMultiByte(const std::wstring *pSrcStr)
 	( // 引数
 		CP_ACP,				// 変換コードページ
 		0,					// 変換フラグ
-		&pSrcStr->front(),	// 変換前文字列の先頭アドレス
+		&rSrcStr.front(),	// 変換前文字列の先頭アドレス
 		nSrcSize,			// 変換前文字列のサイズ
 		&sDest.front(),		// 変換後文字列の先頭アドレス
 		(int)sDest.size(),	// 変換後文字列のサイズ

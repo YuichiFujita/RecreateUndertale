@@ -167,6 +167,9 @@ HRESULT CStartStateCreateName::Init(void)
 	// 優先順位を設定
 	m_pName->SetPriority(PRIORITY);
 
+	// 保存中の名前を設定
+	m_pName->SetString(useful::MultiByteToWide(m_pContext->GetName()));
+
 	for (int i = 0; i < YSELECT_MAX; i++)
 	{ // 行の固定選択肢の総数分繰り返す
 
@@ -569,7 +572,7 @@ HRESULT CStartStateCreateName::LoadArray(const ETypeChar typeChar)
 							( // 引数
 								select::FONT,					// フォントパス
 								select::ITALIC,					// イタリック
-								useful::MultiByteToWide(&str),	// 指定文字列
+								useful::MultiByteToWide(str),	// 指定文字列
 								posOffset,						// 原点位置
 								select::NEXT_TIME,				// 文字振動の待機時間
 								select::MOVE,					// 振動移動量

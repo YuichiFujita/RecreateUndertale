@@ -34,6 +34,9 @@ CIntroStateScroll::~CIntroStateScroll()
 //============================================================
 HRESULT CIntroStateScroll::Init(void)
 {
+	// 物語のスクロールを開始する
+	m_pContext->StartScrollStory();
+
 	// 成功を返す
 	return S_OK;
 }
@@ -58,16 +61,4 @@ void CIntroStateScroll::Update(const float fDeltaTime)
 		// 終了状態にする
 		m_pContext->ChangeState(new CIntroStateEnd);
 	}
-}
-
-//============================================================
-//	コンテキスト設定処理
-//============================================================
-void CIntroStateScroll::SetContext(CIntroManager *pContext)
-{
-	// コンテキストを設定
-	CIntroState::SetContext(pContext);
-
-	// 物語のスクロールを開始する
-	m_pContext->StartScrollStory();
 }
