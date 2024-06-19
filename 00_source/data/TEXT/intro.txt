@@ -1,46 +1,46 @@
 #==============================================================================
 #
-#	イントロ画面テキスト [intro.txt]
-#	Author : 藤田 勇一
+#	�C���g����ʃe�L�X�g [intro.txt]
+#	Author : ���c �E��
 #
 #==============================================================================
 
 TEXT_0
-	STR = むかしむかし　ちきゅうには
-	STR = ニンゲンと　モンスターという
-	STR = 2つのしゅぞくが　いました。
+	STR = �ނ����ނ����@�����イ�ɂ�
+	STR = �j���Q���Ɓ@�����X�^�[�Ƃ���
+	STR = 2�̂��ゼ�����@���܂����B
 END_TEXT
 
 TEXT_1
-	STR = ところが　あるとき
-	STR = 2つのしゅぞくの　あいだに
-	STR = せんそうが　おきました。
+	STR = �Ƃ��낪�@����Ƃ�
+	STR = 2�̂��ゼ���́@��������
+	STR = ���񂻂����@�����܂����B
 END_TEXT
 
 TEXT_2
-	STR = そして　ながい
-	STR = たたかいのすえ　ニンゲンが
-	STR = しょうりしました。
+	STR = �����ā@�Ȃ���
+	STR = ���������̂����@�j���Q����
+	STR = ���傤�肵�܂����B
 END_TEXT
 
 TEXT_3
-	STR = ニンゲンは　まほうのちからで
-	STR = モンスターたちを
-	STR = ちかに　とじこめました。
+	STR = �j���Q���́@�܂ق��̂������
+	STR = �����X�^�[������
+	STR = �����Ɂ@�Ƃ����߂܂����B
 END_TEXT
 
 TEXT_4
-	STR = それから　さらに
-	STR = ながい　ときが　ながれ………
+	STR = ���ꂩ��@�����
+	STR = �Ȃ����@�Ƃ����@�Ȃ���c�c�c
 END_TEXT
 
 TEXT_5
-	STR = 　　　　イビト山
-	STR = 　　　　　 201X年
+	STR = �@�@�@�@�C�r�g�R
+	STR = �@�@�@�@�@ 201X�N
 END_TEXT
 
 TEXT_6
-	STR = それは　「のぼったものは
-	STR = にどと　もどらない」といわれる
-	STR = でんせつの山でした。
+	STR = ����́@�u�̂ڂ������̂�
+	STR = �ɂǂƁ@���ǂ�Ȃ��v�Ƃ�����
+	STR = �ł񂹂̎R�ł����B
 END_TEXT

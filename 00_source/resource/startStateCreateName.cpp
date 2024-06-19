@@ -389,6 +389,9 @@ void CStartStateCreateName::UpdateDecide(void)
 
 				// •¶Žš—ñ‚ðÄÝ’è
 				m_pName->SetString(wsName);
+
+				// Ý’è’†‚Ì–¼‘O‚ð•Û‘¶
+				m_pContext->SetName(useful::WideToMultiByte(wsName));
 			}
 			break;
 
@@ -422,6 +425,9 @@ void CStartStateCreateName::UpdateDecide(void)
 
 					// •¶Žš—ñ‚ðÄÝ’è
 					m_pName->SetString(wsName);
+
+					// Ý’è’†‚Ì–¼‘O‚ð•Û‘¶
+					m_pContext->SetName(useful::WideToMultiByte(wsName));
 				}
 				break;
 

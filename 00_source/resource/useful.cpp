@@ -280,7 +280,7 @@ std::wstring useful::MultiByteToWide(const std::string &rSrcStr)
 	std::wstring wsDest(nSrcSize, L'\0');	// 変換後の文字列
 	int nDestSize = MultiByteToWideChar
 	( // 引数
-		CP_UTF8,			// 変換コードページ
+		CP_ACP,				// 変換コードページ
 		0,					// 変換フラグ
 		&rSrcStr.front(),	// 変換前文字列の先頭アドレス
 		nSrcSize,			// 変換前文字列のサイズ
