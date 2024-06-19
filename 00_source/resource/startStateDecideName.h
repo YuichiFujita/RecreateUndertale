@@ -51,11 +51,13 @@ private:
 	// メンバ関数
 	void UpdateSelect(void);	// 選択更新
 	void UpdateDecide(void);	// 決定更新
+	void MoveName(const float fDeltaTime);	// 名前移動
 
 	// メンバ変数
 	CString2D *m_apSelect[SELECT_MAX];	// 選択肢
 	CText2D *m_pTitle;	// タイトル
 	CString2D *m_pName;	// 名前
+	float m_fCurTime;	// 現在の経過時間
 	int m_nCurSelect;	// 現在の選択肢
 	int m_nOldSelect;	// 前回の選択肢
 };
