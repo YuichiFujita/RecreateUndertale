@@ -176,12 +176,12 @@ void CStartStateOption::UpdateSelect(void)
 	if (pKey->IsTrigger(DIK_DOWN))
 	{
 		// 上に選択をずらす
-		m_nCurSelect = (m_nCurSelect + (SELECT_MAX - 1)) % SELECT_MAX;
+		m_nCurSelect = (m_nCurSelect + 1) % SELECT_MAX;
 	}
 	if (pKey->IsTrigger(DIK_UP))
 	{
 		// 下に選択をずらす
-		m_nCurSelect = (m_nCurSelect + 1) % SELECT_MAX;
+		m_nCurSelect = (m_nCurSelect + (SELECT_MAX - 1)) % SELECT_MAX;
 	}
 
 	// 前回の選択要素の色を白色に設定

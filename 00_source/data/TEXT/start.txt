@@ -74,18 +74,9 @@ TEXT_15
 END_TEXT
 
 TEXT_16
-	STR = Ç±ÇÃÇ»Ç‹Ç¶Ç≈
-	STR = ÇÊÇÎÇµÇ¢Ç≈Ç∑Ç©ÅH
-END_TEXT
-
-TEXT_17
 	STR = Ç¢Ç¢Ç¶
 END_TEXT
 
-TEXT_18
-	STR = ÇÕÇ¢
-END_TEXT
-
-TEXT_19
+TEXT_17
 	STR = ÇÕÇ¢
 END_TEXT

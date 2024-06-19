@@ -123,8 +123,11 @@ HRESULT CStartStateDecideName::Init(void)
 	// 優先順位を設定
 	m_pTitle->SetPriority(PRIORITY);
 
+	// TODO：ここの文字設定は名前ごとに変えないとね
+#if 0
 	// テキストを割当
 	loadtext::BindText(m_pTitle, loadtext::LoadText(PASS, CStartManager::TEXT_DESIDE_CHECK));
+#endif
 
 	// 名前の生成
 	m_pName = CString2D::Create
@@ -261,7 +264,7 @@ void CStartStateDecideName::UpdateDecide(void)
 			break;
 
 		case SELECT_YES:
-			// TODO
+			// TODO：名前確定時の演出！
 			break;
 
 		default:

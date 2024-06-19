@@ -41,7 +41,6 @@ public:
 		TEXT_NAMING_QUIT,	// ‚â‚ß‚é
 		TEXT_NAMING_DEL,	// ‚³‚­‚¶‚å
 		TEXT_NAMING_DEC,	// ‚©‚­‚Ä‚¢
-		TEXT_DESIDE_CHECK,	// ‚æ‚ë‚µ‚¢‚Å‚·‚©H
 		TEXT_DESIDE_NO,		// ‚¢‚¢‚¦
 		TEXT_DESIDE_YES,	// ‚Í‚¢
 		TEXT_MAX			// ‚±‚Ì—ñ‹“Œ^‚Ì‘”
