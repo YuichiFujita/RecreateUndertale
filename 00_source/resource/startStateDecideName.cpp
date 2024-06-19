@@ -9,13 +9,58 @@
 //************************************************************
 #include "startStateDecideName.h"
 #include "startManager.h"
+#include "manager.h"
+#include "string2D.h"
+#include "text2D.h"
+#include "loadtext.h"
 
 //************************************************************
 //	定数宣言
 //************************************************************
 namespace
 {
+	const char *PASS = "data\\TEXT\\start.txt";	// テキストパス
+	const int PRIORITY = 6;	// 優先順位
 
+	namespace title
+	{	
+		const char	*FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
+		const bool	ITALIC		= false;	// イタリック
+		const float	CHAR_HEIGHT	= 42.0f;	// 文字縦幅
+		const float	LINE_HEIGHT	= 54.0f;	// 行間縦幅
+
+		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
+		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_CENTER;	// 縦配置
+		const D3DXVECTOR3	POS = D3DXVECTOR3(270.0f, 130.0f, 0.0f);	// 位置
+		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
+		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
+	}
+
+	namespace name
+	{
+		const char	*FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
+		const bool	ITALIC = false;	// イタリック
+		const float	HEIGHT = 42.0f;	// 文字縦幅
+
+		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;		// 横配置
+		const D3DXVECTOR3	POS = D3DXVECTOR3(360.0f, 360.0f, 0.0f);	// 位置
+		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
+		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
+	}
+
+	namespace select
+	{
+		const char	*FONT		= "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
+		const bool	ITALIC		= false;	// イタリック
+		const float	CHAR_HEIGHT	= 42.0f;	// 文字縦幅
+		const float	LINE_WIDTH	= 500.0f;	// 列間縦幅
+
+		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
+		const D3DXVECTOR3 POS = D3DXVECTOR3(180.0f, 615.0f, 0.0f);	// 位置
+		const D3DXVECTOR3 ROT = VEC3_ZERO;			// 向き
+		const D3DXCOLOR COL_DEFAULT	= XCOL_WHITE;	// 通常色
+		const D3DXCOLOR COL_CHOICE	= XCOL_YELLOW;	// 選択色
+	}
 }
 
 //************************************************************
@@ -24,9 +69,14 @@ namespace
 //============================================================
 //	コンストラクタ
 //============================================================
-CStartStateDecideName::CStartStateDecideName()
+CStartStateDecideName::CStartStateDecideName() :
+	m_pTitle		(nullptr),	// タイトル
+	m_pName			(nullptr),	// 名前
+	m_nCurSelect	(0),		// 現在の選択肢
+	m_nOldSelect	(0)			// 前回の選択肢
 {
-
+	// メンバ変数をクリア
+	memset(&m_apSelect[0], 0, sizeof(m_apSelect));	// 選択肢
 }
 
 //============================================================
@@ -42,6 +92,92 @@ CStartStateDecideName::~CStartStateDecideName()
 //============================================================
 HRESULT CStartStateDecideName::Init(void)
 {
+	// メンバ変数を初期化
+	memset(&m_apSelect[0], 0, sizeof(m_apSelect));	// 選択肢
+	m_pTitle		= nullptr;	// タイトル
+	m_pName			= nullptr;	// 名前
+	m_nCurSelect	= 0;		// 現在の選択肢
+	m_nOldSelect	= 0;		// 前回の選択肢
+
+	// タイトルの生成
+	m_pTitle = CText2D::Create
+	( // 引数
+		title::FONT,		// フォントパス
+		title::ITALIC,		// イタリック
+		title::POS,			// 原点位置
+		title::CHAR_HEIGHT,	// 文字縦幅
+		title::LINE_HEIGHT,	// 行間縦幅
+		title::ALIGN_X,		// 横配置
+		title::ALIGN_Y,		// 縦配置
+		title::ROT,			// 原点向き
+		title::COL			// 色
+	);
+	if (m_pTitle == nullptr)
+	{ // 生成に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
+
+	// 優先順位を設定
+	m_pTitle->SetPriority(PRIORITY);
+
+	// テキストを割当
+	loadtext::BindText(m_pTitle, loadtext::LoadText(PASS, CStartManager::TEXT_DESIDE_CHECK));
+
+	// 名前の生成
+	m_pName = CString2D::Create
+	( // 引数
+		name::FONT,		// フォントパス
+		name::ITALIC,	// イタリック
+		L"",			// 指定文字列
+		name::POS,		// 原点位置
+		name::HEIGHT,	// 文字縦幅
+		name::ALIGN_X,	// 横配置
+		name::ROT,		// 原点向き
+		name::COL		// 色
+	);
+	if (m_pName == nullptr)
+	{ // 生成に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
+
+	// 優先順位を設定
+	m_pName->SetPriority(PRIORITY);
+
+	// 保存中の名前を設定
+	m_pName->SetString(useful::MultiByteToWide(m_pContext->GetName()));
+
+	for (int i = 0; i < SELECT_MAX; i++)
+	{ // 選択肢の総数分繰り返す
+
+		// 文字位置オフセット
+		D3DXVECTOR3 offset = D3DXVECTOR3(select::LINE_WIDTH * i, 0.0f, 0.0f);
+
+		// 選択肢の生成
+		m_apSelect[i] = CString2D::Create
+		( // 引数
+			select::FONT,			// フォントパス
+			select::ITALIC,			// イタリック
+			L"",					// 指定文字列
+			select::POS + offset,	// 原点位置
+			select::CHAR_HEIGHT,	// 文字縦幅
+			select::ALIGN_X,		// 横配置
+			select::ROT,			// 原点向き
+			select::COL_DEFAULT		// 色
+		);
+
+		// 優先順位を設定
+		m_apSelect[i]->SetPriority(PRIORITY);
+
+		// 文字列を割当
+		loadtext::BindString(m_apSelect[i], loadtext::LoadText(PASS, CStartManager::TEXT_DESIDE_NO + i));
+	}
+
 	// 成功を返す
 	return S_OK;
 }
@@ -51,6 +187,19 @@ HRESULT CStartStateDecideName::Init(void)
 //============================================================
 void CStartStateDecideName::Uninit(void)
 {
+	// タイトルの終了
+	SAFE_UNINIT(m_pTitle);
+
+	// 名前の終了
+	SAFE_UNINIT(m_pName);
+
+	for (int i = 0; i < SELECT_MAX; i++)
+	{ // 選択肢の総数分繰り返す
+
+		// 選択肢の終了
+		SAFE_UNINIT(m_apSelect[i]);
+	}
+
 	// 自身の破棄
 	delete this;
 }
@@ -60,5 +209,64 @@ void CStartStateDecideName::Uninit(void)
 //============================================================
 void CStartStateDecideName::Update(const float fDeltaTime)
 {
+	// 選択の更新
+	UpdateSelect();
 
+	// 決定の更新
+	UpdateDecide();
+}
+
+//============================================================
+//	選択の更新処理
+//============================================================
+void CStartStateDecideName::UpdateSelect(void)
+{
+	CInputKeyboard *pKey = GET_INPUTKEY;	// キーボード情報
+
+	// 前回の選択肢を保存
+	m_nOldSelect = m_nCurSelect;
+
+	// 選択肢操作
+	if (pKey->IsTrigger(DIK_LEFT))
+	{
+		// 左に選択をずらす
+		m_nCurSelect = (m_nCurSelect + (SELECT_MAX - 1)) % SELECT_MAX;
+	}
+	if (pKey->IsTrigger(DIK_RIGHT))
+	{
+		// 右に選択をずらす
+		m_nCurSelect = (m_nCurSelect + 1) % SELECT_MAX;
+	}
+
+	// 前回の選択要素の色を白色に設定
+	m_apSelect[m_nOldSelect]->SetColor(select::COL_DEFAULT);
+
+	// 現在の選択要素の色を黄色に設定
+	m_apSelect[m_nCurSelect]->SetColor(select::COL_CHOICE);
+}
+
+//============================================================
+//	決定の更新処理
+//============================================================
+void CStartStateDecideName::UpdateDecide(void)
+{
+	CInputKeyboard *pKey = GET_INPUTKEY;	// キーボード情報
+	if (pKey->IsTrigger(DIK_Z) || pKey->IsTrigger(DIK_RETURN))
+	{
+		// 選択肢に応じて遷移先を変更
+		switch (m_nCurSelect)
+		{ // 現在の選択肢ごとの処理
+		case SELECT_NO:
+			m_pContext->ChangeState(new CStartStateCreateName);	// 命名状態
+			break;
+
+		case SELECT_YES:
+			// TODO
+			break;
+
+		default:
+			assert(false);
+			break;
+		}
+	}
 }

@@ -72,3 +72,20 @@ END_TEXT
 TEXT_15
 	STR = Ç©Ç≠ÇƒÇ¢
 END_TEXT
+
+TEXT_16
+	STR = Ç±ÇÃÇ»Ç‹Ç¶Ç≈
+	STR = ÇÊÇÎÇµÇ¢Ç≈Ç∑Ç©ÅH
+END_TEXT
+
+TEXT_17
+	STR = Ç¢Ç¢Ç¶
+END_TEXT
+
+TEXT_18
+	STR = ÇÕÇ¢
+END_TEXT
+
+TEXT_19
+	STR = ÇÕÇ¢
+END_TEXT
