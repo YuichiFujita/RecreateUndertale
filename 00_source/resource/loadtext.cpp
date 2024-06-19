@@ -12,15 +12,16 @@
 #include "string2D.h"
 
 //============================================================
-//	テキストの読込処理
+//	テキストの読込処理 (文字列)
 //============================================================
-std::vector<std::wstring> loadtext::LoadText(const char *pFilePass, const int nTextID)
+std::vector<std::wstring> loadtext::LoadText(const char *pFilePass, const char *pTextStr)
 {
 	std::vector<std::wstring> vecStr;	// 文字列の動的配列
 	std::string sLoadStart;				// 読込開始の文字列
 
 	// 読込の開始文字列を作成
-	sLoadStart = "TEXT_" + std::to_string(nTextID);	// 引数のインデックスと合わせる
+	sLoadStart = "TEXT_";			// 認識用の先頭文字を設定
+	sLoadStart.append(pTextStr);	// 引数の認識用文字列と連結
 
 	// ファイルを開く
 	std::ifstream file(pFilePass);	// ファイルストリーム
@@ -70,6 +71,34 @@ std::vector<std::wstring> loadtext::LoadText(const char *pFilePass, const int nT
 					vecStr.push_back(useful::MultiByteToWide(sStr));	// ワイド文字列に変換
 				}
 			} while (sStr != "END_TEXT");	// END_TEXTを読み込むまでループ
+
+			break;	// ELSEを読み込まないよう繰り返しから抜ける
+		}
+		else if (sStr == "TEXT_ELSE")
+		{ // 汎用的な読込開始の文字列と一致した場合
+
+			do
+			{ // END_TEXTを読み込むまでループ
+
+				// 文字列を読み込む
+				file >> sStr;
+
+				if (sStr.front() == '#')
+				{ // コメントアウトされている場合
+
+					// 一行全て読み込む
+					std::getline(file, sStr);
+				}
+				else if (sStr == "STR")
+				{
+					file >> sStr;					// ＝を読込
+					file.seekg(1, std::ios::cur);	// 読込位置を空白分ずらす
+					std::getline(file, sStr);		// 一行全て読み込む
+
+					// 文字列を最後尾に追加
+					vecStr.push_back(useful::MultiByteToWide(sStr));	// ワイド文字列に変換
+				}
+			} while (sStr != "END_TEXT");	// END_TEXTを読み込むまでループ
 		}
 	}
 
@@ -78,6 +107,15 @@ std::vector<std::wstring> loadtext::LoadText(const char *pFilePass, const int nT
 
 	// 文字列の動的配列を返す
 	return vecStr;
+}
+
+//============================================================
+//	テキストの読込処理 (インデックス)
+//============================================================
+std::vector<std::wstring> loadtext::LoadText(const char *pFilePass, const int nTextID)
+{
+	// テキストの読込
+	return LoadText(pFilePass, std::to_string(nTextID).c_str());
 }
 
 //============================================================

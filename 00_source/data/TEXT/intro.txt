@@ -44,3 +44,7 @@ TEXT_6
 	STR = にどと　もどらない」といわれる
 	STR = でんせつの山でした。
 END_TEXT
+
+TEXT_ELSE
+	STR = 読込エラー
+END_TEXT

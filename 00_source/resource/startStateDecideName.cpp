@@ -27,6 +27,7 @@ namespace
 	namespace title
 	{	
 		const char	*FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
+		const char	*PASS = "data\\TEXT\\naming.txt";	// テキストパス
 		const bool	ITALIC		= false;	// イタリック
 		const float	CHAR_HEIGHT	= 42.0f;	// 文字縦幅
 		const float	LINE_HEIGHT	= 54.0f;	// 行間縦幅
@@ -131,14 +132,8 @@ HRESULT CStartStateDecideName::Init(void)
 	// 優先順位を設定
 	m_pTitle->SetPriority(PRIORITY);
 
-	// TODO：ここの文字設定は名前ごとに変えないとね
-#if 0
 	// テキストを割当
-	loadtext::BindText(m_pTitle, loadtext::LoadText(PASS, CStartManager::TEXT_DESIDE_CHECK));
-#else
-	m_pTitle->AddString(L"このなまえで");
-	m_pTitle->AddString(L"よろしいですか？");
-#endif
+	loadtext::BindText(m_pTitle, loadtext::LoadText(title::PASS, m_pContext->GetName().c_str()));
 
 	// 名前の生成
 	m_pName = CShakeString2D::Create
