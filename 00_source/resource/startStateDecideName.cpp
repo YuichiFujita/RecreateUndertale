@@ -44,11 +44,13 @@ namespace
 		const char	*FONT	= "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
 		const bool	ITALIC	= false;		// イタリック
 		const float	INIT_HEIGHT	= 42.0f;	// 初期文字縦幅
-		const float	DEST_HEIGHT	= 148.0f - INIT_HEIGHT;	// 目標文字縦幅
+		const float	DEST_HEIGHT	= 148.0f;	// 目標文字縦幅
+		const float	NEXT_TIME	= 0.035f;	// 文字振動の待機時間
+		const float	MOVE		= 1.5f;		// 振動移動量
 
-		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;				// 横配置
-		const D3DXVECTOR3	INIT_POS = D3DXVECTOR3(60.0f, 155.0f, 0.0f);	// 初期位置
-		const D3DXVECTOR3	DEST_POS = D3DXVECTOR3(60.0f, 385.0f, 0.0f) - INIT_POS;	// 目標位置
+		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;			// 横配置
+		const D3DXVECTOR3	INIT_POS = D3DXVECTOR3(360.0f, 155.0f, 0.0f);	// 初期位置
+		const D3DXVECTOR3	DEST_POS = D3DXVECTOR3(60.0f, 385.0f, 0.0f);	// 目標位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
 		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
 	}
@@ -59,8 +61,6 @@ namespace
 		const bool	ITALIC		= false;	// イタリック
 		const float	CHAR_HEIGHT	= 42.0f;	// 文字縦幅
 		const float	LINE_WIDTH	= 500.0f;	// 列間縦幅
-		const float	NEXT_TIME	= 0.035f;	// 文字振動の待機時間
-		const float	MOVE		= 1.0f;		// 振動移動量
 
 		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
 		const D3DXVECTOR3 POS = D3DXVECTOR3(180.0f, 615.0f, 0.0f);	// 位置
@@ -77,11 +77,13 @@ namespace
 //	コンストラクタ
 //============================================================
 CStartStateDecideName::CStartStateDecideName() :
-	m_pTitle	 (nullptr),	// タイトル
-	m_pName		 (nullptr),	// 名前
-	m_fCurTime	 (0.0f),	// 現在の経過時間
-	m_nCurSelect (0),		// 現在の選択肢
-	m_nOldSelect (0)		// 前回の選択肢
+	m_pTitle		(nullptr),		// タイトル
+	m_pName			(nullptr),		// 名前
+	m_state			((EState)0),	// 状態
+	m_nCurSelect	(0),			// 現在の選択肢
+	m_nOldSelect	(0),			// 前回の選択肢
+	m_fCurTimeShake	(0.0f),			// 現在の振動の経過時間
+	m_fCurTimeMove	(0.0f)			// 現在の移動の経過時間
 {
 	// メンバ変数をクリア
 	memset(&m_apSelect[0], 0, sizeof(m_apSelect));	// 選択肢
@@ -102,11 +104,13 @@ HRESULT CStartStateDecideName::Init(void)
 {
 	// メンバ変数を初期化
 	memset(&m_apSelect[0], 0, sizeof(m_apSelect));	// 選択肢
-	m_pTitle	 = nullptr;	// タイトル
-	m_pName		 = nullptr;	// 名前
-	m_fCurTime	 = 0.0f;	// 現在の経過時間
-	m_nCurSelect = 0;		// 現在の選択肢
-	m_nOldSelect = 0;		// 前回の選択肢
+	m_pTitle		= nullptr;		// タイトル
+	m_pName			= nullptr;		// 名前
+	m_state			= STATE_MOVE;	// 状態
+	m_nCurSelect	= 0;			// 現在の選択肢
+	m_nOldSelect	= 0;			// 前回の選択肢
+	m_fCurTimeShake	= 0.0f;			// 現在の振動の経過時間
+	m_fCurTimeMove	= 0.0f;			// 現在の移動の経過時間
 
 	// タイトルの生成
 	m_pTitle = CText2D::Create
@@ -142,8 +146,8 @@ HRESULT CStartStateDecideName::Init(void)
 		name::ITALIC,		// イタリック
 		L"",				// 指定文字列
 		name::INIT_POS,		// 原点位置
-		select::NEXT_TIME,	// 文字振動の待機時間
-		select::MOVE,		// 振動移動量
+		name::NEXT_TIME,	// 文字振動の待機時間
+		name::MOVE,			// 振動移動量
 		name::INIT_HEIGHT,	// 文字縦幅
 		name::ALIGN_X,		// 横配置
 		name::ROT,			// 原点向き
@@ -162,6 +166,8 @@ HRESULT CStartStateDecideName::Init(void)
 
 	// 保存中の名前を設定
 	m_pName->SetString(useful::MultiByteToWide(m_pContext->GetName()));
+
+	f = m_pName->GetStrWidth() * (name::DEST_HEIGHT / name::INIT_HEIGHT);
 
 	for (int i = 0; i < SELECT_MAX; i++)
 	{ // 選択肢の総数分繰り返す
@@ -220,8 +226,12 @@ void CStartStateDecideName::Uninit(void)
 //============================================================
 void CStartStateDecideName::Update(const float fDeltaTime)
 {
-	// 名前の移動
-	MoveName(fDeltaTime);
+	// 状態ごとの更新
+	assert(m_state > NONE_IDX && m_state < STATE_MAX);
+	(this->*(FUNC_STATE[m_state]))(fDeltaTime);
+
+	// 名前振動の更新
+	UpdateShakeName(fDeltaTime);
 
 	// 選択の更新
 	UpdateSelect();
@@ -286,39 +296,56 @@ void CStartStateDecideName::UpdateDecide(void)
 }
 
 //============================================================
-//	名前の移動処理
+//	名前振動の更新処理
 //============================================================
-void CStartStateDecideName::MoveName(const float fDeltaTime)
+void CStartStateDecideName::UpdateShakeName(const float fDeltaTime)
 {
-	// TODO：雑だけどいい感じ
-#if 0
-	// 経過時刻を進める
-	m_fCurTime += fDeltaTime;
-	useful::LimitMaxNum(m_fCurTime, MOVE_TIME);
-
-	// 経過時刻の割合を計算
-	float fRate = easeing::Liner(m_fCurTime, 0.0f, MOVE_TIME);
-
-	m_pName->SetVec3Position(name::INIT_POS + name::DEST_POS * fRate);
-	m_pName->SetCharHeight(name::INIT_HEIGHT + name::DEST_HEIGHT * fRate);
-#endif
-
-	m_pName->SetVec3Position(name::INIT_POS + name::DEST_POS);
-	m_pName->SetCharHeight(name::INIT_HEIGHT + name::DEST_HEIGHT);
-
 	// 現在の待機時間を加算
-	m_fCurTime += fDeltaTime;
-	if (m_fCurTime >= 0.018f)
+	m_fCurTimeShake += fDeltaTime;
+	if (m_fCurTimeShake >= 0.018f)
 	{ // 待機し終わった場合
 
 		// 現在の待機時間を初期化
-		m_fCurTime = 0.0f;
+		m_fCurTimeShake = 0.0f;
 
 		// 向きをぶんぶん動かす
 		D3DXVECTOR3 rot = m_pName->GetVec3Rotation();
-
-		rot.z = 0.0f + 0.0085f * (float)(rand() % 3 - 1);
-
+		rot.z = 0.011f * (float)(rand() % 3 - 1);
 		m_pName->SetVec3Rotation(rot);
 	}
+}
+
+//============================================================
+//	何もしない状態の更新処理
+//============================================================
+void CStartStateDecideName::StateUpdateNone(const float fDeltaTime)
+{
+
+}
+
+//============================================================
+//	名前の移動状態の更新処理
+//============================================================
+void CStartStateDecideName::StateUpdateMove(const float fDeltaTime)
+{
+	// 経過時刻を進める
+	m_fCurTimeMove += fDeltaTime;
+	if (useful::LimitMaxNum(m_fCurTimeMove, MOVE_TIME))
+	{ // 経過しきった場合
+
+		// 何もしない状態にする
+		m_state = STATE_NONE;
+	}
+
+	// 経過時刻の割合を計算
+	float fRate = easeing::Liner(m_fCurTimeMove, 0.0f, MOVE_TIME);
+
+	D3DXVECTOR3 posDest = name::DEST_POS;
+	posDest.x = SCREEN_CENT.x - f * 0.75f;
+
+	D3DXVECTOR3 pos = posDest - name::INIT_POS;
+	m_pName->SetVec3Position(name::INIT_POS + pos * fRate);
+
+	float fHeight = name::DEST_HEIGHT - name::INIT_HEIGHT;
+	m_pName->SetCharHeight(name::INIT_HEIGHT + fHeight * fRate);
 }
