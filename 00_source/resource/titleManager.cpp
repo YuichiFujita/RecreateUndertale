@@ -491,7 +491,7 @@ void CTitleManager::UpdateStart(void)
 		else
 		{ // 遷移待機状態の場合
 
-			if (GET_MANAGER->GetFade()->GetState() == CFade::FADE_NONE)
+			if (!GET_MANAGER->GetFade()->IsFade())
 			{ // フェード中ではない場合
 
 				switch (m_nSelect)
@@ -529,9 +529,9 @@ void CTitleManager::ActSelect(void)
 {
 	// ポインタを宣言
 	CInputKeyboard	*pKeyboard	= GET_INPUTKEY;	// キーボード
-	CInputPad		*pPad		= GET_INPUTPAD;		// パッド
+	CInputPad		*pPad		= GET_INPUTPAD;	// パッド
 
-	if (GET_MANAGER->GetFade()->GetState() == CFade::FADE_NONE)
+	if (!GET_MANAGER->GetFade()->IsFade())
 	{ // フェード中ではない場合
 
 		if (pKeyboard->IsTrigger(DIK_A)

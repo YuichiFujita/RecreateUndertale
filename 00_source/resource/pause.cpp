@@ -157,7 +157,7 @@ void CPause::Uninit(void)
 //============================================================
 void CPause::Update(const float fDeltaTime)
 {
-	if (GET_MANAGER->GetFade()->GetState() == CFade::FADE_NONE)
+	if (!GET_MANAGER->GetFade()->IsFade())
 	{ // フェードしていない場合
 
 		if (GET_INPUTKEY->IsTrigger(DIK_P)
@@ -324,7 +324,7 @@ void CPause::Select(void)
 	CInputKeyboard	*pKeyboard	= GET_INPUTKEY;	// キーボード
 	CInputPad		*pPad		= GET_INPUTPAD;	// パッド
 
-	if (GET_MANAGER->GetFade()->GetState() == CFade::FADE_NONE)
+	if (!GET_MANAGER->GetFade()->IsFade())
 	{ // フェードしていない場合
 
 		if (pKeyboard->IsTrigger(DIK_W)

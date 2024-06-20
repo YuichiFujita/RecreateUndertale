@@ -23,6 +23,8 @@ namespace
 	const char *PASS		= "data\\TEXT\\start.txt";	// テキストパス
 	const int	PRIORITY	= 6;	// 優先順位
 	const float	MOVE_TIME	= 4.0f;	// 移動時間
+	const float FADE_ADDOUT	= 0.2f;	// アウトのα値増加量
+	const float FADE_SUBIN	= 3.0f;	// インのα値減少量
 
 	namespace title
 	{	
@@ -238,11 +240,15 @@ void CStartStateDecideName::Update(const float fDeltaTime)
 	// 名前の振動
 	ShakeName(fDeltaTime);
 
-	// 選択の更新
-	UpdateSelect();
+	if (!GET_MANAGER->GetFade()->IsFade())
+	{ // フェードしていない場合
 
-	// 決定の更新
-	UpdateDecide();
+		// 選択の更新
+		UpdateSelect();
+
+		// 決定の更新
+		UpdateDecide();
+	}
 }
 
 //============================================================
@@ -290,7 +296,20 @@ void CStartStateDecideName::UpdateDecide(void)
 			break;
 
 		case SELECT_YES:
-			// TODO：名前確定時の演出！
+
+			// タイトルの終了
+			SAFE_UNINIT(m_pTitle);
+
+			for (int i = 0; i < SELECT_MAX; i++)
+			{ // 選択肢の総数分繰り返す
+
+				// 選択肢の終了
+				SAFE_UNINIT(m_apSelect[i]);
+			}
+
+			// タイトル画面に遷移する
+			GET_MANAGER->SetFadeScene(CScene::MODE_TITLE, 0.0f, FADE_ADDOUT, FADE_SUBIN, XCOL_AWHITE);
+
 			break;
 
 		default:

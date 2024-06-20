@@ -54,14 +54,15 @@ public:
 	static CFade *Create(void);	// 生成
 
 	// メンバ関数
-	EFade GetState(void) const { return m_fade; }	// フェード状態取得
+	EFade GetState(void) const	{ return m_fade; }				// フェード状態取得
+	bool IsFade(void) const		{ return m_fade != FADE_NONE; }	// フェード状況取得
 
 	void SetFade	// フェード開始設定
 	( // 引数
 		const float fAddOut		= DEF_LEVEL,	// アウトのα値増加量
 		const float fSubIn		= DEF_LEVEL,	// インのα値減少量
 		const int nPriority		= PRIORITY,		// 優先順位
-		const D3DXCOLOR colFade	= XCOL_BLACK	// フェード色
+		const D3DXCOLOR colFade	= XCOL_ABLACK	// フェード色
 	);
 	void SetModeFade	// 次シーン設定 (フェードのみ)
 	( // 引数
@@ -69,7 +70,7 @@ public:
 		const float fWaitTime	= 0.0f,			// 余韻時間
 		const float fAddOut		= DEF_LEVEL,	// アウトのα値増加量
 		const float fSubIn		= DEF_LEVEL,	// インのα値減少量
-		const D3DXCOLOR colFade	= XCOL_BLACK	// フェード色
+		const D3DXCOLOR colFade	= XCOL_ABLACK	// フェード色
 	);
 	void SetLoadFade	// 次シーン設定 (ロード画面付き)
 	( // 引数
@@ -77,7 +78,7 @@ public:
 		const float fWaitTime	= 0.0f,			// 余韻時間
 		const float fAddOut		= DEF_LEVEL,	// アウトのα値増加量
 		const float fSubIn		= DEF_LEVEL,	// インのα値減少量
-		const D3DXCOLOR colFade	= XCOL_BLACK	// フェード色
+		const D3DXCOLOR colFade	= XCOL_ABLACK	// フェード色
 	);
 
 private:
