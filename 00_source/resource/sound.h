@@ -28,6 +28,7 @@ public:
 	{
 		LABEL_BGM_GENERAL = 0,	// BGM (汎用)
 		LABEL_SE_INTRONOISE,	// イントロノイズ
+		LABEL_SE_BALLCHIME,		// BALL入力効果音
 		LABEL_MAX				// この列挙型の総数
 	};
 

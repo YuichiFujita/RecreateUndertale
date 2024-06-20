@@ -21,10 +21,11 @@
 //************************************************************
 namespace
 {
-	const char *TEXTURE		= "data\\TEXTURE\\logo000.png";	// ロゴテクスチャ
+	const char	*TEXTURE	= "data\\TEXTURE\\logo000.png";	// ロゴテクスチャ
 	const int	PRIORITY	= 6;		// 優先順位
 	const float	DISP_TIME	= 3.0f;		// ロゴ表示時間
 	const float	TRANS_TIME	= 17.0f;	// イントロ遷移の余韻時間
+	const char	*CMD_BALL	= "ball";	// BALL効果音を鳴らすコマンド入力
 
 	namespace str
 	{
@@ -49,7 +50,8 @@ namespace
 CStartStateLogo::CStartStateLogo() :
 	m_pLogo		(nullptr),	// タイトルロゴ
 	m_pCont		(nullptr),	// 操作説明
-	m_fCurTime	(0.0f)		// 現在の待機時間
+	m_fCurTime	(0.0f),		// 現在の待機時間
+	m_bSndBall	(false)		// BALLコマンド再生フラグ
 {
 
 }
@@ -71,6 +73,7 @@ HRESULT CStartStateLogo::Init(void)
 	m_pLogo		= nullptr;	// タイトルロゴ
 	m_pCont		= nullptr;	// 操作説明
 	m_fCurTime	= 0.0f;		// 現在の待機時間
+	m_bSndBall	= false;	// BALLコマンド再生フラグ
 
 	// タイトルロゴの生成
 	m_pLogo = CObject2D::Create(SCREEN_CENT, SCREEN_SIZE);
@@ -114,6 +117,25 @@ void CStartStateLogo::Uninit(void)
 //	更新処理
 //============================================================
 void CStartStateLogo::Update(const float fDeltaTime)
+{
+	// 操作表示・遷移の更新
+	UpdateDispTrans(fDeltaTime);
+
+	// コマンド入力の更新
+	UpdateCommand();
+
+	// 進行操作
+	if (GET_INPUTKEY->IsTrigger(DIK_RETURN) || GET_INPUTKEY->IsTrigger(DIK_Z))
+	{
+		// チュートリアル状態にする
+		m_pContext->ChangeState(new CStartStateTutorial);
+	}
+}
+
+//============================================================
+//	操作表示・遷移の更新処理
+//============================================================
+void CStartStateLogo::UpdateDispTrans(const float fDeltaTime)
 {
 	if (m_pCont == nullptr)
 	{ // 操作説明が非表示の場合
@@ -164,11 +186,40 @@ void CStartStateLogo::Update(const float fDeltaTime)
 			GET_MANAGER->SetScene(CScene::MODE_INTRO);
 		}
 	}
+}
 
-	// 進行操作
-	if (GET_INPUTKEY->IsTrigger(DIK_RETURN) || GET_INPUTKEY->IsTrigger(DIK_Z))
+//============================================================
+//	コマンド入力の更新処理
+//============================================================
+void CStartStateLogo::UpdateCommand(void)
+{
+	// BALL効果音が再生済みの場合抜ける
+	if (m_bSndBall) { return; }
+
+	CInputKeyboard *pKey = GET_INPUTKEY;	// キーボード情報
+
+	// 最後尾に入力キーのフラグを追加
+	if (pKey->IsTrigger(DIK_B))
 	{
-		// チュートリアル状態にする
-		m_pContext->ChangeState(new CStartStateTutorial);
+		m_sFragInput.push_back('b');
+	}
+	if (pKey->IsTrigger(DIK_A))
+	{
+		m_sFragInput.push_back('a');
+	}
+	if (pKey->IsTrigger(DIK_L))
+	{
+		m_sFragInput.push_back('l');
+	}
+
+	// 入力フラグ群にコマンドが成立している瞬間があるかを確認
+	if (m_sFragInput.find(CMD_BALL) != std::string::npos)
+	{ // コマンド文字列が存在した場合
+
+		// BALL入力効果音を再生
+		PLAY_SOUND(CSound::LABEL_SE_BALLCHIME);
+
+		// BALL効果音を再生済みにする
+		m_bSndBall = true;
 	}
 }
