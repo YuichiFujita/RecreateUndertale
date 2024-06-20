@@ -9,6 +9,7 @@
 //************************************************************
 #include "startStateLogo.h"
 #include "startManager.h"
+#include "introManager.h"
 #include "manager.h"
 #include "sound.h"
 #include "object2D.h"
@@ -21,8 +22,9 @@
 namespace
 {
 	const char *TEXTURE		= "data\\TEXTURE\\logo000.png";	// ロゴテクスチャ
-	const int	PRIORITY	= 6;	// 優先順位
-	const float	DISP_TIME	= 3.0f;	// ロゴ表示時間
+	const int	PRIORITY	= 6;		// 優先順位
+	const float	DISP_TIME	= 3.0f;		// ロゴ表示時間
+	const float	TRANS_TIME	= 17.0f;	// イントロ遷移の余韻時間
 
 	namespace str
 	{
@@ -114,7 +116,7 @@ void CStartStateLogo::Uninit(void)
 void CStartStateLogo::Update(const float fDeltaTime)
 {
 	if (m_pCont == nullptr)
-	{ // 操作説明が生成されていない場合
+	{ // 操作説明が非表示の場合
 
 		// 待機時刻を進める
 		m_fCurTime += fDeltaTime;
@@ -142,6 +144,24 @@ void CStartStateLogo::Update(const float fDeltaTime)
 
 			// 文字列を割当
 			loadtext::BindString(m_pCont, loadtext::LoadText(str::PASS, CStartManager::TEXT_PRESS_Z));
+		}
+	}
+	else
+	{ // 操作説明が表示済みの場合
+
+		// 待機時刻を進める
+		m_fCurTime += fDeltaTime;
+		if (m_fCurTime >= TRANS_TIME)
+		{ // 待機終了した場合
+
+			// 待機時間を初期化
+			m_fCurTime = 0.0f;
+
+			// ロゴ表示をスキップする
+			CIntroManager::SetEnableLogoSkip(true);
+
+			// イントロ画面に遷移する
+			GET_MANAGER->SetScene(CScene::MODE_INTRO);
 		}
 	}
 
