@@ -393,9 +393,6 @@
     <ClCompile Include="resource\startStateLogo.cpp">
       <Filter>08_state\state_start</Filter>
     </ClCompile>
-    <ClCompile Include="resource\startStateNone.cpp">
-      <Filter>08_state\state_start</Filter>
-    </ClCompile>
     <ClCompile Include="resource\startStateOption.cpp">
       <Filter>08_state\state_start</Filter>
     </ClCompile>
@@ -747,9 +744,6 @@
       <Filter>08_state\state_start</Filter>
     </ClInclude>
     <ClInclude Include="resource\startStateLogo.h">
-      <Filter>08_state\state_start</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\startStateNone.h">
       <Filter>08_state\state_start</Filter>
     </ClInclude>
     <ClInclude Include="resource\startStateOption.h">

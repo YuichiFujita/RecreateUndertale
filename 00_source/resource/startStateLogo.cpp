@@ -10,6 +10,7 @@
 #include "startStateLogo.h"
 #include "startManager.h"
 #include "manager.h"
+#include "sound.h"
 #include "object2D.h"
 #include "string2D.h"
 #include "loadtext.h"
@@ -84,6 +85,9 @@ HRESULT CStartStateLogo::Init(void)
 
 	// 優先順位を設定
 	m_pLogo->SetPriority(PRIORITY);
+
+	// イントロノイズを再生
+	PLAY_SOUND(CSound::LABEL_SE_INTRONOISE);
 
 	// 成功を返す
 	return S_OK;

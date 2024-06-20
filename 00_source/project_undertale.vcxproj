@@ -259,7 +259,6 @@
     <ClCompile Include="resource\startStateCreateName.cpp" />
     <ClCompile Include="resource\startStateDecideName.cpp" />
     <ClCompile Include="resource\startStateLogo.cpp" />
-    <ClCompile Include="resource\startStateNone.cpp" />
     <ClCompile Include="resource\startStateOption.cpp" />
     <ClCompile Include="resource\startStateTutorial.cpp" />
     <ClCompile Include="resource\string2D.cpp" />
@@ -379,7 +378,6 @@
     <ClInclude Include="resource\startStateCreateName.h" />
     <ClInclude Include="resource\startStateDecideName.h" />
     <ClInclude Include="resource\startStateLogo.h" />
-    <ClInclude Include="resource\startStateNone.h" />
     <ClInclude Include="resource\startStateOption.h" />
     <ClInclude Include="resource\startStateTutorial.h" />
     <ClInclude Include="resource\string2D.h" />

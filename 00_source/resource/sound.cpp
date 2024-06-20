@@ -16,8 +16,8 @@ namespace
 {
 	const CSound::SSoundInfo SOUND_FILE[] =	// サウンドファイル
 	{
-		{ "data\\BGM\\bgm_general.wav", -1 },	// BGM (汎用)
-		{ "data\\SE\\action000.wav", 0 },		// プレイヤーのアクション音
+		{ "data\\BGM\\bgm_general.wav", -1 },			// BGM
+		{ "data\\SE\\INTRO\\mus_intronoise.wav", 0 },	// イントロノイズ
 	};
 }
 

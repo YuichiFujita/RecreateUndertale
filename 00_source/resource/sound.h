@@ -27,7 +27,7 @@ public:
 	enum ELabel
 	{
 		LABEL_BGM_GENERAL = 0,	// BGM (汎用)
-		LABEL_SE_PLAYER_ACTION,	// プレイヤーのアクション音
+		LABEL_SE_INTRONOISE,	// イントロノイズ
 		LABEL_MAX				// この列挙型の総数
 	};
 
