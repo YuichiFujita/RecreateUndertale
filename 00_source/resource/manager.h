@@ -71,14 +71,16 @@ public:
 		const CScene::EMode mode,		// 次シーン
 		const float fWaitTime	= 0.0f,	// 余韻時間
 		const float fAddOut		= CFade::DEF_LEVEL,	// アウトのα値増加量
-		const float fSubIn		= CFade::DEF_LEVEL	// インのα値減少量
+		const float fSubIn		= CFade::DEF_LEVEL,	// インのα値減少量
+		const D3DXCOLOR colFade	= XCOL_BLACK		// フェード色
 	);
 	void SetLoadScene	// シーン設定 (フェード･ロード：ON)
 	( // 引数
 		const CScene::EMode mode,		// 次シーン
 		const float fWaitTime	= 0.0f,	// 余韻時間
 		const float fAddOut		= CFade::DEF_LEVEL,	// アウトのα値増加量
-		const float fSubIn		= CFade::DEF_LEVEL	// インのα値減少量
+		const float fSubIn		= CFade::DEF_LEVEL,	// インのα値減少量
+		const D3DXCOLOR colFade	= XCOL_BLACK		// フェード色
 	);
 
 	HRESULT SetMode(const CScene::EMode mode);		// モード設定 (ロード：OFF)

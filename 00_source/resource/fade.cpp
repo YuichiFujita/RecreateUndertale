@@ -213,7 +213,8 @@ void CFade::SetFade
 (
 	const float fAddOut,	// アウトのα値増加量
 	const float fSubIn,		// インのα値減少量
-	const int nPriority		// 優先順位
+	const int nPriority,	// 優先順位
+	const D3DXCOLOR colFade	// フェード色
 )
 {
 	// フェード中の場合抜ける
@@ -225,6 +226,9 @@ void CFade::SetFade
 
 	// 優先順位を設定
 	SetPriority(nPriority);
+
+	// 色を設定
+	SetColor(colFade);
 
 	// モード設定関数ポインタを初期化
 	m_pFuncSetMode = nullptr;
@@ -241,7 +245,8 @@ void CFade::SetModeFade
 	const CScene::EMode mode,	// 次シーン
 	const float fWaitTime,		// 余韻時間
 	const float fAddOut,		// アウトのα値増加量
-	const float fSubIn			// インのα値減少量
+	const float fSubIn,			// インのα値減少量
+	const D3DXCOLOR colFade		// フェード色
 )
 {
 	// フェード中の場合抜ける
@@ -259,6 +264,9 @@ void CFade::SetModeFade
 	// α値加減量を設定
 	m_fSubIn  = fSubIn;
 	m_fAddOut = fAddOut;
+
+	// 色を設定
+	SetColor(colFade);
 
 	// 優先順位を設定
 	SetPriority(PRIORITY);
@@ -288,7 +296,8 @@ void CFade::SetLoadFade
 	const CScene::EMode mode,	// 次シーン
 	const float fWaitTime,		// 余韻時間
 	const float fAddOut,		// アウトのα値増加量
-	const float fSubIn			// インのα値減少量
+	const float fSubIn,			// インのα値減少量
+	const D3DXCOLOR colFade		// フェード色
 )
 {
 	// フェード中の場合抜ける
@@ -306,6 +315,9 @@ void CFade::SetLoadFade
 	// α値加減量を設定
 	m_fSubIn  = fSubIn;
 	m_fAddOut = fAddOut;
+
+	// 色を設定
+	SetColor(colFade);
 
 	// 優先順位を設定
 	SetPriority(PRIORITY);
