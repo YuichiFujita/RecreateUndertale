@@ -155,7 +155,7 @@ HRESULT CSceneGame::Init(void)
 	//	‰ŠúÝ’è
 	//--------------------------------------------------------
 	// BGM‚ÌÄ¶
-	PLAY_SOUND(CSound::LABEL_BGM_GAME);
+	PLAY_SOUND(CSound::LABEL_BGM_GENERAL);
 
 	// ¬Œ÷‚ð•Ô‚·
 	return S_OK;

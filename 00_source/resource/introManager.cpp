@@ -23,17 +23,17 @@ namespace
 	{
 		const char *TEXTURE[] =	// 物語のテクスチャ
 		{
-			"data\\TEXTURE\\story000.png",	// むかしむかし
-			"data\\TEXTURE\\story001.png",	// ところがあるとき
-			"data\\TEXTURE\\story002.png",	// ニンゲンしょうり
-			"data\\TEXTURE\\story003.png",	// ちかにとじこめました
-			"data\\TEXTURE\\story004.png",	// ながいときがながれ
-			"data\\TEXTURE\\story005.png",	// イビト山
-			"data\\TEXTURE\\story006.png",	// でんせつの山
-			"data\\TEXTURE\\story007.png",	// 見下ろし
-			"data\\TEXTURE\\story008.png",	// 引っ掛かり
-			"data\\TEXTURE\\story009.png",	// 落下
-			"data\\TEXTURE\\story010.png",	// 着地
+			"data\\TEXTURE\\INTRO\\story000.png",	// むかしむかし
+			"data\\TEXTURE\\INTRO\\story001.png",	// ところがあるとき
+			"data\\TEXTURE\\INTRO\\story002.png",	// ニンゲンしょうり
+			"data\\TEXTURE\\INTRO\\story003.png",	// ちかにとじこめました
+			"data\\TEXTURE\\INTRO\\story004.png",	// ながいときがながれ
+			"data\\TEXTURE\\INTRO\\story005.png",	// イビト山
+			"data\\TEXTURE\\INTRO\\story006.png",	// でんせつの山
+			"data\\TEXTURE\\INTRO\\story007.png",	// 見下ろし
+			"data\\TEXTURE\\INTRO\\story008.png",	// 引っ掛かり
+			"data\\TEXTURE\\INTRO\\story009.png",	// 落下
+			"data\\TEXTURE\\INTRO\\story010.png",	// 着地
 		};
 
 		const int	PRIORITY		= 4;		// 物語表示ポリゴンの優先順位

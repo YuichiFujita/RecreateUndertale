@@ -519,9 +519,6 @@ void CRankingManager::UpdateLogo(void)
 
 		// 状態を変更
 		m_state = STATE_RANK;	// 順位表示状態
-
-		// サウンドの再生
-		PLAY_SOUND(CSound::LABEL_SE_DECISION_001);	// 決定音01
 	}
 }
 
@@ -646,9 +643,6 @@ void CRankingManager::UpdateTime(void)
 
 		// 状態を変更
 		m_state = STATE_TIME_WAIT;	// クリアタイム表示待機状態
-
-		// サウンドの再生
-		PLAY_SOUND(CSound::LABEL_SE_DECISION_001);	// 決定音01
 	}
 }
 
@@ -690,9 +684,6 @@ void CRankingManager::UpdateTransition(void)
 
 			// 演出スキップ
 			SkipStaging();
-
-			// サウンドの再生
-			PLAY_SOUND(CSound::LABEL_SE_DECISION_001);	// 決定音01
 		}
 		else
 		{ // 遷移待機状態の場合
@@ -702,9 +693,6 @@ void CRankingManager::UpdateTransition(void)
 
 				// シーンの設定
 				GET_MANAGER->SetFadeScene(CScene::MODE_TITLE);	// タイトル画面
-
-				// サウンドの再生
-				PLAY_SOUND(CSound::LABEL_SE_DECISION_000);	// 決定音00
 			}
 		}
 	}

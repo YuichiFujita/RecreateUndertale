@@ -68,7 +68,7 @@ HRESULT CSceneTutorial::Init(void)
 	//	‰Šúİ’è
 	//--------------------------------------------------------
 	// BGM‚ÌÄ¶
-	PLAY_SOUND(CSound::LABEL_BGM_TUTORIAL);
+	PLAY_SOUND(CSound::LABEL_BGM_GENERAL);
 
 	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;

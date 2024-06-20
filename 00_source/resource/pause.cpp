@@ -174,9 +174,6 @@ void CPause::Update(const float fDeltaTime)
 
 			// 描画状況の設定
 			SetEnableDraw(m_bPause);
-
-			// サウンドの再生
-			PLAY_SOUND(CSound::LABEL_SE_DECISION_000);	// 決定音00
 		}
 	}
 
@@ -334,9 +331,6 @@ void CPause::Select(void)
 
 			// 上に選択をずらす
 			m_nSelect = (m_nSelect + (SELECT_MAX - 1)) % SELECT_MAX;
-
-			// サウンドの再生
-			PLAY_SOUND(CSound::LABEL_SE_SELECT_000);	// 選択操作音00
 		}
 		if (pKeyboard->IsTrigger(DIK_S)
 		||  pKeyboard->IsTrigger(DIK_DOWN)
@@ -345,18 +339,12 @@ void CPause::Select(void)
 
 			// 下に選択をずらす
 			m_nSelect = (m_nSelect + 1) % SELECT_MAX;
-
-			// サウンドの再生
-			PLAY_SOUND(CSound::LABEL_SE_SELECT_000);	// 選択操作音00
 		}
 
 		if (pKeyboard->IsTrigger(DIK_RETURN)  || pKeyboard->IsTrigger(DIK_SPACE)
 		||  pPad->IsTrigger(CInputPad::KEY_A) || pPad->IsTrigger(CInputPad::KEY_B)
 		||  pPad->IsTrigger(CInputPad::KEY_X) || pPad->IsTrigger(CInputPad::KEY_Y))
 		{ // 決定の操作が行われた場合
-
-			// サウンドの再生
-			PLAY_SOUND(CSound::LABEL_SE_DECISION_000);	// 決定音00
 
 			switch (m_nSelect)
 			{ // 選択ごとの処理

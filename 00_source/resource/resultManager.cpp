@@ -608,9 +608,6 @@ void CResultManager::UpdateResult(void)
 
 			break;
 		}
-
-		// サウンドの再生
-		PLAY_SOUND(CSound::LABEL_SE_DECISION_001);	// 決定音01
 	}
 }
 
@@ -643,9 +640,6 @@ void CResultManager::UpdateTime(void)
 
 		// 状態を変更
 		m_state = STATE_CONTINUE_WAIT;	// コンテニュー表示待機状態
-
-		// サウンドの再生
-		PLAY_SOUND(CSound::LABEL_SE_DECISION_001);	// 決定音01
 	}
 }
 
@@ -688,9 +682,6 @@ void CResultManager::UpdateContinue(void)
 
 		// 状態を変更
 		m_state = STATE_WAIT;	// 遷移待機状態
-
-		// サウンドの再生
-		PLAY_SOUND(CSound::LABEL_SE_DECISION_001);	// 決定音01
 	}
 }
 
@@ -710,9 +701,6 @@ void CResultManager::UpdateSelect(void)
 
 		// 左に選択をずらす
 		m_nSelect = (m_nSelect + (SELECT_MAX - 1)) % SELECT_MAX;
-
-		// サウンドの再生
-		PLAY_SOUND(CSound::LABEL_SE_SELECT_000);	// 選択操作音00
 	}
 	if (pKeyboard->IsTrigger(DIK_D)
 	||  pKeyboard->IsTrigger(DIK_RIGHT)
@@ -721,9 +709,6 @@ void CResultManager::UpdateSelect(void)
 
 		// 右に選択をずらす
 		m_nSelect = (m_nSelect + 1) % SELECT_MAX;
-
-		// サウンドの再生
-		PLAY_SOUND(CSound::LABEL_SE_SELECT_000);	// 選択操作音00
 	}
 
 	// 前回の選択要素の色を黒に設定
@@ -758,9 +743,6 @@ void CResultManager::UpdateTransition(void)
 
 			// 演出スキップ
 			SkipStaging();
-
-			// サウンドの再生
-			PLAY_SOUND(CSound::LABEL_SE_DECISION_001);	// 決定音01
 		}
 		else
 		{ // 遷移待機状態の場合
@@ -784,9 +766,6 @@ void CResultManager::UpdateTransition(void)
 
 					break;
 				}
-
-				// サウンドの再生
-				PLAY_SOUND(CSound::LABEL_SE_DECISION_000);	// 決定音00
 			}
 		}
 	}

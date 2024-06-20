@@ -456,9 +456,6 @@ void CTitleManager::UpdateMove(void)
 
 		// カメラの更新を再開
 		GET_MANAGER->GetCamera()->SetEnableUpdate(true);
-
-		// サウンドの再生
-		GET_MANAGER->GetSound()->Play(CSound::LABEL_SE_DECISION_001);	// 決定音01
 	}
 }
 
@@ -484,9 +481,6 @@ void CTitleManager::UpdateStart(void)
 
 			// 演出スキップ
 			SkipStaging();
-
-			// サウンドの再生
-			GET_MANAGER->GetSound()->Play(CSound::LABEL_SE_DECISION_001);	// 決定音01
 		}
 		else
 		{ // 遷移待機状態の場合
@@ -514,9 +508,6 @@ void CTitleManager::UpdateStart(void)
 					assert(false);
 					break;
 				}
-
-				// サウンドの再生
-				GET_MANAGER->GetSound()->Play(CSound::LABEL_SE_DECISION_000);	// 決定音00
 			}
 		}
 	}
@@ -541,9 +532,6 @@ void CTitleManager::ActSelect(void)
 
 			// 左に選択をずらす
 			m_nSelect = (m_nSelect + (SELECT_MAX - 1)) % SELECT_MAX;
-
-			// サウンドの再生
-			GET_MANAGER->GetSound()->Play(CSound::LABEL_SE_SELECT_000);	// 選択操作音00
 		}
 		if (pKeyboard->IsTrigger(DIK_D)
 		||  pKeyboard->IsTrigger(DIK_RIGHT)
@@ -552,9 +540,6 @@ void CTitleManager::ActSelect(void)
 
 			// 右に選択をずらす
 			m_nSelect = (m_nSelect + 1) % SELECT_MAX;
-
-			// サウンドの再生
-			GET_MANAGER->GetSound()->Play(CSound::LABEL_SE_SELECT_000);	// 選択操作音00
 		}
 
 		// 前回の選択要素の色を黒に設定

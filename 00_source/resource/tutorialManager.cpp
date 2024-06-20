@@ -345,9 +345,6 @@ void CTutorialManager::AddLessonCounter(void)
 
 			// ó‘Ô‚ğİ’è
 			m_state = STATE_NEXTWAIT;	// ŸƒŒƒbƒXƒ“‘Ò‹@ó‘Ô
-
-			// Œˆ’è‰¹01‚ÌÄ¶
-			PLAY_SOUND(CSound::LABEL_SE_DECISION_001);
 		}
 	}
 }
