@@ -22,6 +22,7 @@ class CString2D;	// 文字列2Dクラス
 // テキスト読込空間
 namespace loadtext
 {
+	void LoadVector(std::ifstream *pFile, std::vector<std::wstring> *pVecStr);			// 文字列配列の読込
 	std::vector<std::wstring> LoadText(const char *pFilePass, const char *pTextStr);	// テキスト読込 (文字列)
 	std::vector<std::wstring> LoadText(const char *pFilePass, const int nTextID);		// テキスト読込 (インデックス)
 	void BindText(CText2D *pText2D, const std::vector<std::wstring> &rVecStr);			// テキスト割当

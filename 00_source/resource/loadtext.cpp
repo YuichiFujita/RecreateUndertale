@@ -12,6 +12,45 @@
 #include "string2D.h"
 
 //============================================================
+//	文字列配列の読込処理
+//============================================================
+void loadtext::LoadVector(std::ifstream *pFile, std::vector<std::wstring> *pVecStr)
+{
+	// 動的配列ポインタがない場合抜ける
+	if (pVecStr == nullptr) { assert(false); return; }
+
+	// ファイルポインタがない場合抜ける
+	if (pFile == nullptr)	{ assert(false); return; }
+
+	// 開けてないファイルの場合抜ける
+	if (!pFile->is_open())	{ assert(false); return; }
+
+	std::string sStr;	// 読込文字列
+	do { // END_TEXTを読み込むまでループ
+
+		// 文字列を読み込む
+		*pFile >> sStr;
+
+		if (sStr.front() == '#')
+		{ // コメントアウトされている場合
+
+			// 一行全て読み込む
+			std::getline(*pFile, sStr);
+		}
+		else if (sStr == "STR")
+		{
+			*pFile >> sStr;					// ＝を読込
+			pFile->seekg(1, std::ios::cur);	// 読込位置を空白分ずらす
+			std::getline(*pFile, sStr);		// 一行全て読み込む
+
+			// 文字列を最後尾に追加
+			pVecStr->push_back(useful::MultiByteToWide(sStr));	// ワイド文字列に変換
+		}
+
+	} while (sStr != "END_TEXT");	// END_TEXTを読み込むまでループ
+}
+
+//============================================================
 //	テキストの読込処理 (文字列)
 //============================================================
 std::vector<std::wstring> loadtext::LoadText(const char *pFilePass, const char *pTextStr)
@@ -46,59 +85,19 @@ std::vector<std::wstring> loadtext::LoadText(const char *pFilePass, const char *
 			// 一行全て読み込む
 			std::getline(file, sStr);
 		}
-		else if (sStr == sLoadStart)
-		{ // 読込開始の文字列と一致した場合
-
-			do
-			{ // END_TEXTを読み込むまでループ
-
-				// 文字列を読み込む
-				file >> sStr;
-
-				if (sStr.front() == '#')
-				{ // コメントアウトされている場合
-
-					// 一行全て読み込む
-					std::getline(file, sStr);
-				}
-				else if (sStr == "STR")
-				{
-					file >> sStr;					// ＝を読込
-					file.seekg(1, std::ios::cur);	// 読込位置を空白分ずらす
-					std::getline(file, sStr);		// 一行全て読み込む
-
-					// 文字列を最後尾に追加
-					vecStr.push_back(useful::MultiByteToWide(sStr));	// ワイド文字列に変換
-				}
-			} while (sStr != "END_TEXT");	// END_TEXTを読み込むまでループ
-
-			break;	// ELSEを読み込まないよう繰り返しから抜ける
-		}
 		else if (sStr == "TEXT_ELSE")
 		{ // 汎用的な読込開始の文字列と一致した場合
 
-			do
-			{ // END_TEXTを読み込むまでループ
+			// 文字列の動的配列を読込
+			LoadVector(&file, &vecStr);
+		}
+		else if (sStr == sLoadStart)
+		{ // 読込開始の文字列と一致した場合
 
-				// 文字列を読み込む
-				file >> sStr;
+			// 文字列の動的配列を読込
+			LoadVector(&file, &vecStr);
 
-				if (sStr.front() == '#')
-				{ // コメントアウトされている場合
-
-					// 一行全て読み込む
-					std::getline(file, sStr);
-				}
-				else if (sStr == "STR")
-				{
-					file >> sStr;					// ＝を読込
-					file.seekg(1, std::ios::cur);	// 読込位置を空白分ずらす
-					std::getline(file, sStr);		// 一行全て読み込む
-
-					// 文字列を最後尾に追加
-					vecStr.push_back(useful::MultiByteToWide(sStr));	// ワイド文字列に変換
-				}
-			} while (sStr != "END_TEXT");	// END_TEXTを読み込むまでループ
+			break;	// ELSEを読み込まないよう繰り返しから抜ける
 		}
 	}
 
