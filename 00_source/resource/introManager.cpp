@@ -9,6 +9,7 @@
 //************************************************************
 #include "introManager.h"
 #include "manager.h"
+#include "sound.h"
 #include "object2D.h"
 #include "scroll2D.h"
 #include "introState.h"
@@ -149,6 +150,9 @@ HRESULT CIntroManager::Init(void)
 
 	// 優先順位をフェードより上にする
 	m_pText->SetPriority(text::PRIORITY);
+
+	// 文字送り時の再生SEを設定
+	m_pText->SetScrollSE(CSound::LABEL_SE_TEXT01);
 
 	//--------------------------------------------------------
 	//	状態の初期化

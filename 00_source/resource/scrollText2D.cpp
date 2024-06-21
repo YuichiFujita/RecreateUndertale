@@ -8,6 +8,7 @@
 //	インクルードファイル
 //************************************************************
 #include "scrollText2D.h"
+#include "manager.h"
 #include "string2D.h"
 #include "char2D.h"
 
@@ -18,6 +19,7 @@
 //	コンストラクタ
 //============================================================
 CScrollText2D::CScrollText2D() :
+	m_labelSE	(CSound::LABEL_NONE),	// 文字送り再生SEラベル
 	m_nNextID	(0),	// 次表示する文字インデックス
 	m_fNextTime	(0.0f),	// 次表示するまでの時間
 	m_fCurTime	(0.0f),	// 現在の待機時間
@@ -41,6 +43,7 @@ CScrollText2D::~CScrollText2D()
 HRESULT CScrollText2D::Init(void)
 {
 	// メンバ変数を初期化
+	m_labelSE	= CSound::LABEL_NONE;	// 文字送り再生SEラベル
 	m_nNextID	= 0;		// 次表示する文字インデックス
 	m_fNextTime	= 0.0f;		// 次表示するまでの時間
 	m_fCurTime	= 0.0f;		// 現在の待機時間
@@ -280,6 +283,9 @@ void CScrollText2D::UpdateScroll(const float fDeltaTime)
 		// 現在の待機時間から待機時間を減算
 		m_fCurTime -= m_fNextTime;
 
+		// 文字送り中の効果音を再生
+		PlayScrollSE(m_vecChar[m_nNextID]);
+
 		// 次の文字インデックスに移行
 		m_nNextID++;
 
@@ -294,5 +300,22 @@ void CScrollText2D::UpdateScroll(const float fDeltaTime)
 
 			break;
 		}
+	}
+}
+
+//============================================================
+//	文字送り効果音の再生処理
+//============================================================
+void CScrollText2D::PlayScrollSE(CChar2D *pChar2D)
+{
+	// ラベルが指定なしの場合抜ける
+	if (m_labelSE == CSound::LABEL_NONE) { return; }
+
+	if (pChar2D->GetChar() != L'　'
+	&&  pChar2D->GetChar() != L' ')
+	{ // 空白ではない場合
+
+		// 指定ラベルのSEを再生
+		PLAY_SOUND(m_labelSE);
 	}
 }

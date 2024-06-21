@@ -216,10 +216,10 @@ void CStartStateLogo::UpdateCommand(void)
 	if (m_sFragInput.find(CMD_BALL) != std::string::npos)
 	{ // ƒRƒ}ƒ“ƒh•¶š—ñ‚ª‘¶İ‚µ‚½ê‡
 
-		// BALL“ü—ÍŒø‰Ê‰¹‚ğÄ¶
-		PLAY_SOUND(CSound::LABEL_SE_BALLCHIME);
-
 		// BALLŒø‰Ê‰¹‚ğÄ¶Ï‚İ‚É‚·‚é
 		m_bSndBall = true;
+
+		// BALL“ü—ÍŒø‰Ê‰¹‚ğÄ¶
+		PLAY_SOUND(CSound::LABEL_SE_BALLCHIME);
 	}
 }

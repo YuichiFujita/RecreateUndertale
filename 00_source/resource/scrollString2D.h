@@ -14,6 +14,7 @@
 //	インクルードファイル
 //************************************************************
 #include "string2D.h"
+#include "sound.h"
 
 //************************************************************
 //	クラス定義
@@ -51,16 +52,22 @@ public:
 	);
 
 	// メンバ関数
-	void SetNextTime(const float fNextTime)		{ m_fNextTime = fNextTime; }	// 文字表示の待機時間設定
-	float GetNextTime(void) const				{ return m_fNextTime; }			// 文字表示の待機時間取得
-	void SetEnableScroll(const bool bScroll)	{ m_bScroll = bScroll; }		// 文字送り状況設定
-	bool IsScroll(void) const					{ return m_bScroll; }			// 文字送り状況取得
+	void SetNextTime(const float fNextTime)			{ m_fNextTime = fNextTime; }	// 文字表示の待機時間設定
+	float GetNextTime(void) const					{ return m_fNextTime; }			// 文字表示の待機時間取得
+	void SetEnableScroll(const bool bScroll)		{ m_bScroll = bScroll; }		// 文字送り状況設定
+	bool IsScroll(void) const						{ return m_bScroll; }			// 文字送り状況取得
+	void SetScrollSE(const CSound::ELabel labelSE)	{ m_labelSE = labelSE; }		// 文字送り時の効果音設定
+	CSound::ELabel GetScrollSE(void) const			{ return m_labelSE; }			// 文字送り時の効果音取得
+	int GetNextCharID(void)			{ return m_nNextID; }				// 次の表示文字インデックス取得
+	CChar2D *GetNextChar2D(void)	{ return GetChar2D(m_nNextID); }	// 次の表示文字取得
 
 private:
 	// メンバ関数
 	void UpdateScroll(const float fDeltaTime);	// 文字送り更新
+	void PlayScrollSE(CChar2D *pChar2D);		// 文字送り効果音の再生
 
 	// メンバ変数
+	CSound::ELabel m_labelSE;	// 文字送り再生SEラベル
 	int m_nNextID;		// 次表示する文字インデックス
 	float m_fNextTime;	// 次表示までの待機時間
 	float m_fCurTime;	// 現在の待機時間
