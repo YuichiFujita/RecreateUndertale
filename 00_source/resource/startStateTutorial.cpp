@@ -10,6 +10,7 @@
 #include "startStateTutorial.h"
 #include "startManager.h"
 #include "manager.h"
+#include "sound.h"
 #include "string2D.h"
 #include "text2D.h"
 #include "loadtext.h"
@@ -236,6 +237,9 @@ HRESULT CStartStateTutorial::Init(void)
 
 	// 文字列を割当
 	loadtext::BindString(m_pVersion, loadtext::LoadText(PASS, CStartManager::TEXT_VIRSION));
+
+	// イントロノイズを停止
+	GET_MANAGER->GetSound()->Stop(CSound::LABEL_SE_INTRONOISE);
 
 	// 成功を返す
 	return S_OK;
