@@ -29,6 +29,7 @@ public:
 		LABEL_NONE = NONE_IDX,	// ラベル無し
 		LABEL_BGM_GENERAL,		// BGM (汎用)
 		LABEL_SE_INTRONOISE,	// イントロノイズ
+		LABEL_SE_CYMBAL,		// 逆シンバル
 		LABEL_SE_BALLCHIME,		// BALL入力効果音
 		LABEL_SE_TEXT00,		// 文字送り表示音 (インゲーム)
 		LABEL_SE_TEXT01,		// 文字送り表示音 (イントロ)

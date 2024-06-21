@@ -10,6 +10,7 @@
 #include "startStateDecideName.h"
 #include "startManager.h"
 #include "manager.h"
+#include "sound.h"
 #include "shakeString2D.h"
 #include "string2D.h"
 #include "text2D.h"
@@ -292,24 +293,15 @@ void CStartStateDecideName::UpdateDecide(void)
 		switch (m_nCurSelect)
 		{ // 現在の選択肢ごとの処理
 		case SELECT_NO:
-			m_pContext->ChangeState(new CStartStateCreateName);	// 命名状態
+
+			// 命名状態にする
+			m_pContext->ChangeState(new CStartStateCreateName);
 			break;
 
 		case SELECT_YES:
 
-			// タイトルの終了
-			SAFE_UNINIT(m_pTitle);
-
-			for (int i = 0; i < SELECT_MAX; i++)
-			{ // 選択肢の総数分繰り返す
-
-				// 選択肢の終了
-				SAFE_UNINIT(m_apSelect[i]);
-			}
-
-			// タイトル画面に遷移する
-			GET_MANAGER->SetFadeScene(CScene::MODE_TITLE, 0.0f, FADE_ADDOUT, FADE_SUBIN, XCOL_AWHITE);
-
+			// ゲーム画面に遷移する
+			TransGame();
 			break;
 
 		default:
@@ -317,6 +309,28 @@ void CStartStateDecideName::UpdateDecide(void)
 			break;
 		}
 	}
+}
+
+//============================================================
+//	ゲーム画面の遷移処理
+//============================================================
+void CStartStateDecideName::TransGame(void)
+{
+	// タイトルの終了
+	SAFE_UNINIT(m_pTitle);
+
+	for (int i = 0; i < SELECT_MAX; i++)
+	{ // 選択肢の総数分繰り返す
+
+		// 選択肢の終了
+		SAFE_UNINIT(m_apSelect[i]);
+	}
+
+	// 逆シンバルを再生
+	PLAY_SOUND(CSound::LABEL_SE_CYMBAL);
+
+	// タイトル画面に遷移する
+	GET_MANAGER->SetFadeScene(CScene::MODE_TITLE, 0.0f, FADE_ADDOUT, FADE_SUBIN, XCOL_AWHITE);
 }
 
 //============================================================

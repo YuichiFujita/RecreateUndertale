@@ -18,6 +18,7 @@ namespace
 	{
 		{ "data\\BGM\\bgm_general.wav", -1 },			// BGM
 		{ "data\\SE\\INTRO\\mus_intronoise.wav", 0 },	// イントロノイズ
+		{ "data\\SE\\INTRO\\mus_cymbal.wav", 0 },		// 逆シンバル
 		{ "data\\SE\\snd_ballchime.wav", 0 },			// BALL入力効果音
 		{ "data\\SE\\TEXT\\snd_txt1.wav", 0 },			// 文字送り表示音 (インゲーム)
 		{ "data\\SE\\TEXT\\snd_txt2.wav", 0 },			// 文字送り表示音 (イントロ)

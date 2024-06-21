@@ -51,6 +51,7 @@ private:
 	// メンバ関数
 	void UpdateSelect(void);	// 選択更新
 	void UpdateDecide(void);	// 決定更新
+	void TransGame(void);		// ゲーム画面遷移
 	void ShakeName(const float fDeltaTime);	// 名前振動
 	void MoveName(const float fDeltaTime);	// 名前移動
 
