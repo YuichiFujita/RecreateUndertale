@@ -59,13 +59,6 @@ HRESULT CSceneRanking::Init(void)
 	// シーンの初期化
 	CScene::Init();
 
-	//--------------------------------------------------------
-	//	初期設定
-	//--------------------------------------------------------
-	// カメラを設定
-	GET_MANAGER->GetCamera()->SetState(CCamera::STATE_ROTATE);	// カメラを回転状態に設定
-	GET_MANAGER->GetCamera()->SetDestRotate();	// 目標位置を設定
-
 	// BGMの再生
 	PLAY_SOUND(CSound::LABEL_BGM_GENERAL);
 

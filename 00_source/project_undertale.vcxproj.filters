@@ -228,9 +228,6 @@
     <ClCompile Include="resource\multiValue.cpp">
       <Filter>05_2D</Filter>
     </ClCompile>
-    <ClCompile Include="resource\modelUI.cpp">
-      <Filter>05_2D</Filter>
-    </ClCompile>
     <ClCompile Include="resource\screen.cpp">
       <Filter>00_system</Filter>
     </ClCompile>
@@ -591,9 +588,6 @@
       <Filter>05_2D</Filter>
     </ClInclude>
     <ClInclude Include="resource\flash.h">
-      <Filter>05_2D</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\modelUI.h">
       <Filter>05_2D</Filter>
     </ClInclude>
     <ClInclude Include="resource\blur.h">

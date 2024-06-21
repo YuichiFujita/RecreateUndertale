@@ -59,15 +59,6 @@ HRESULT CSceneTitle::Init(void)
 	// シーンの初期化
 	CScene::Init();
 
-	//--------------------------------------------------------
-	//	初期設定
-	//--------------------------------------------------------
-	// カメラを設定
-	CCamera *pCamera = GET_MANAGER->GetCamera();	// カメラ情報
-	pCamera->SetState(CCamera::STATE_ROTATE);		// カメラを回転状態に設定
-	pCamera->SetDestRotate();						// 目標位置を設定
-	pCamera->SetEnableUpdate(false);				// 更新を停止
-
 	// BGMの再生
 	PLAY_SOUND(CSound::LABEL_BGM_GENERAL);
 

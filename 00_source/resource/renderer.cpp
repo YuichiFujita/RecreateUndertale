@@ -212,7 +212,7 @@ void CRenderer::Draw(void)
 
 		// カメラの設定
 		assert(pCamera != nullptr);
-		pCamera->SetCamera(CCamera::TYPE_MAIN);
+		pCamera->SetCamera();
 
 		// オブジェクトの全描画
 		CObject::DrawAll();
@@ -248,7 +248,7 @@ void CRenderer::Draw(void)
 
 		// カメラの設定
 		assert(pCamera != nullptr);
-		pCamera->SetCamera(CCamera::TYPE_MAIN);
+		pCamera->SetCamera();
 
 		// スクリーン描画ポリゴンの描画
 		assert(m_pDrawScreen != nullptr);
