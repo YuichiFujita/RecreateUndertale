@@ -31,7 +31,8 @@ CChar2D::CChar2D() : CObject2D(CObject::LABEL_UI, CObject::DIM_2D, PRIORITY),
 	m_wcChar		(0),		// 指定文字
 	m_fCharHeight	(0.0f),		// 文字の縦幅
 	m_fSizeRate		(0.0f),		// 縦幅の割合
-	m_fAbsOriginX	(0.0f)		// X原点オフセットの絶対値
+	m_fAbsOriginX	(0.0f),		// X原点オフセットの絶対値
+	m_bTexEmpty		(false)		// テクスチャ透明フラグ
 {
 
 }
@@ -55,6 +56,7 @@ HRESULT CChar2D::Init(void)
 	m_fCharHeight	= 0.0f;		// 文字の縦幅
 	m_fSizeRate		= 1.0f;		// 縦幅の割合
 	m_fAbsOriginX	= 0.0f;		// X原点オフセットの絶対値
+	m_bTexEmpty		= false;	// テクスチャ透明フラグ
 
 	// オブジェクト2Dの初期化
 	if (FAILED(CObject2D::Init()))
@@ -196,6 +198,9 @@ void CChar2D::SetChar(const wchar_t wcChar)
 
 	// X原点オフセットの絶対値を保存
 	m_fAbsOriginX = fabsf((float)infoChar.glyph.gmptGlyphOrigin.x);
+
+	// テクスチャ透明フラグを保存
+	m_bTexEmpty = infoChar.bEmpty;
 
 	// テクスチャを登録・割当
 	BindTexture(infoChar.nTexID);

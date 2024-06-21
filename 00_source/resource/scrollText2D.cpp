@@ -311,11 +311,9 @@ void CScrollText2D::PlayScrollSE(CChar2D *pChar2D)
 	// ラベルが指定なしの場合抜ける
 	if (m_labelSE == CSound::LABEL_NONE) { return; }
 
-	if (pChar2D->GetChar() != L'　'
-	&&  pChar2D->GetChar() != L' ')
-	{ // 空白ではない場合
+	// テクスチャが透明な場合抜ける
+	if (pChar2D->IsTexEmpty()) { return; }
 
-		// 指定ラベルのSEを再生
-		PLAY_SOUND(m_labelSE);
-	}
+	// 指定ラベルのSEを再生
+	PLAY_SOUND(m_labelSE);
 }

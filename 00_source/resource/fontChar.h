@@ -42,6 +42,7 @@ public:
 		TEXTMETRIC text;			// フォントテキストの情報
 		SRectangle offsetBlackBox;	// ブラックボックスの中心からのオフセット
 		int nTexID;					// テクスチャインデックス
+		bool bEmpty;				// テクスチャ透明フラグ
 	};
 
 	// メンバ関数

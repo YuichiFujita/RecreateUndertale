@@ -59,7 +59,8 @@ public:
 	D3DXVECTOR2 GetOffsetBlackBoxLU(void);		// ブラックボックスの左上オフセット取得
 	D3DXVECTOR2 GetOffsetBlackBoxRD(void);		// ブラックボックスの右下オフセット取得
 
-	wchar_t GetChar(void) const { return m_wcChar; }	// 文字列取得
+	wchar_t GetChar(void) const	{ return m_wcChar; }	// 文字列取得
+	bool IsTexEmpty(void) const	{ return m_bTexEmpty; }	// テクスチャ透明フラグ取得
 	float GetOffsetOrigin(void);	// 原点のオフセット取得
 	float GetNext(void);			// 次の文字までの距離取得
 
@@ -70,6 +71,7 @@ private:
 	float m_fCharHeight;	// 文字の縦幅
 	float m_fSizeRate;		// 縦幅の割合
 	float m_fAbsOriginX;	// X原点オフセットの絶対値
+	bool m_bTexEmpty;		// テクスチャ透明フラグ
 };
 
 #endif	// _CHAR2D_H_

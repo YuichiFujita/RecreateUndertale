@@ -280,7 +280,10 @@ HRESULT CFontChar::CreateTexture(SChar *pChar, BYTE *pBitMap)
 	pChar->offsetBlackBox.rd = offsetOrigin + sizeBlackBox - centerTexture;	// 右下オフセット
 
 	// ブラックボックスが小さすぎる場合書き込みを行わない
-	if (sizeAlignBlackBox.x <= MIN_BLACKBOX) { return S_OK; }
+	if (sizeAlignBlackBox.x <= MIN_BLACKBOX) { pChar->bEmpty = true; return S_OK; }
+
+	// テクスチャが透明でないことを保存
+	pChar->bEmpty = false;
 
 	// 生成したテクスチャのポインタを取得
 	LPDIRECT3DTEXTURE9 pTexChar = pTexture->GetPtr(pChar->nTexID);
