@@ -8,7 +8,6 @@
 //	インクルードファイル
 //************************************************************
 #include "retentionManager.h"
-#include "manager.h"
 
 //************************************************************
 //	親クラス [CRetentionManager] のメンバ関数
@@ -18,8 +17,7 @@
 //============================================================
 CRetentionManager::CRetentionManager()
 {
-	// メンバ変数をクリア
-	memset(&m_result, 0, sizeof(m_result));	// リザルト情報
+
 }
 
 //============================================================
@@ -35,10 +33,6 @@ CRetentionManager::~CRetentionManager()
 //============================================================
 HRESULT CRetentionManager::Init(void)
 {
-	// メンバ変数を初期化
-	m_result.win	= WIN_NONE;	// 勝利状況
-	m_result.fTime	= 0;		// 経過タイム
-
 	// 成功を返す
 	return S_OK;
 }
@@ -91,18 +85,4 @@ void CRetentionManager::Release(CRetentionManager *&prRetentionManager)
 
 	// メモリ開放
 	SAFE_DELETE(prRetentionManager);
-}
-
-//============================================================
-//	リザルト情報の設定処理
-//============================================================
-void CRetentionManager::SetResult(const EWin win, const float fTime)
-{
-	if (win <= WIN_NONE || win >= WIN_MAX) { assert(false); return; }	// 勝利が正規ではない
-
-	// 引数のクリア状況を設定
-	m_result.win = win;
-
-	// 引数の経過タイムを設定
-	m_result.fTime = fTime;
 }

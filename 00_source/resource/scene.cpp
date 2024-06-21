@@ -16,8 +16,6 @@
 #include "sceneStart.h"
 #include "sceneTitle.h"
 #include "sceneGame.h"
-#include "sceneResult.h"
-#include "sceneRanking.h"
 
 //************************************************************
 //	親クラス [CScene] のメンバ関数
@@ -102,14 +100,6 @@ CScene *CScene::Create(EMode mode)
 
 	case MODE_GAME:
 		pScene = new CSceneGame(mode);
-		break;
-
-	case MODE_RESULT:
-		pScene = new CSceneResult(mode);
-		break;
-
-	case MODE_RANKING:
-		pScene = new CSceneRanking(mode);
 		break;
 
 	default:	// 例外処理

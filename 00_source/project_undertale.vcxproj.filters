@@ -43,12 +43,6 @@
     <Filter Include="02_scene\game">
       <UniqueIdentifier>{7014a010-61a7-43fe-8ac9-3a929ebe0be9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02_scene\result">
-      <UniqueIdentifier>{26712b7c-8e08-4a87-8c45-aa8f621d490a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02_scene\ranking">
-      <UniqueIdentifier>{70eb08c3-c7f5-4242-81b3-418bdf43e655}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02_scene\start">
       <UniqueIdentifier>{5c36d1ae-73a8-46a5-bf20-5980ba427f6c}</UniqueIdentifier>
     </Filter>
@@ -293,18 +287,6 @@
     </ClCompile>
     <ClCompile Include="resource\gameManager.cpp">
       <Filter>02_scene\game</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\sceneResult.cpp">
-      <Filter>02_scene\result</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\resultManager.cpp">
-      <Filter>02_scene\result</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\sceneRanking.cpp">
-      <Filter>02_scene\ranking</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\rankingManager.cpp">
-      <Filter>02_scene\ranking</Filter>
     </ClCompile>
     <ClCompile Include="resource\loadtext.cpp">
       <Filter>07_utility</Filter>
@@ -586,18 +568,6 @@
     </ClInclude>
     <ClInclude Include="resource\gameManager.h">
       <Filter>02_scene\game</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\sceneResult.h">
-      <Filter>02_scene\result</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\resultManager.h">
-      <Filter>02_scene\result</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\sceneRanking.h">
-      <Filter>02_scene\ranking</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\rankingManager.h">
-      <Filter>02_scene\ranking</Filter>
     </ClInclude>
     <ClInclude Include="resource\loadtext.h">
       <Filter>07_utility</Filter>

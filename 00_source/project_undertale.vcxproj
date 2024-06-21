@@ -214,16 +214,12 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="resource\random.cpp" />
-    <ClCompile Include="resource\rankingManager.cpp" />
     <ClCompile Include="resource\renderer.cpp" />
     <ClCompile Include="resource\renderState.cpp" />
-    <ClCompile Include="resource\resultManager.cpp" />
     <ClCompile Include="resource\retentionManager.cpp" />
     <ClCompile Include="resource\scene.cpp" />
     <ClCompile Include="resource\sceneGame.cpp" />
     <ClCompile Include="resource\sceneIntro.cpp" />
-    <ClCompile Include="resource\sceneRanking.cpp" />
-    <ClCompile Include="resource\sceneResult.cpp" />
     <ClCompile Include="resource\sceneStart.cpp" />
     <ClCompile Include="resource\sceneTitle.cpp" />
     <ClCompile Include="resource\screen.cpp" />
@@ -312,17 +308,13 @@
     <ClInclude Include="resource\pause.h" />
     <ClInclude Include="resource\precompile.h" />
     <ClInclude Include="resource\random.h" />
-    <ClInclude Include="resource\rankingManager.h" />
     <ClInclude Include="resource\renderer.h" />
     <ClInclude Include="resource\renderState.h" />
     <ClInclude Include="resource\resource.h" />
-    <ClInclude Include="resource\resultManager.h" />
     <ClInclude Include="resource\retentionManager.h" />
     <ClInclude Include="resource\scene.h" />
     <ClInclude Include="resource\sceneGame.h" />
     <ClInclude Include="resource\sceneIntro.h" />
-    <ClInclude Include="resource\sceneRanking.h" />
-    <ClInclude Include="resource\sceneResult.h" />
     <ClInclude Include="resource\sceneStart.h" />
     <ClInclude Include="resource\sceneTitle.h" />
     <ClInclude Include="resource\screen.h" />
