@@ -12,11 +12,8 @@
 #include "fade.h"
 #include "scene.h"
 #include "sceneGame.h"
-#include "cinemaScope.h"
-#include "timerUI.h"
 #include "retentionManager.h"
 #include "camera.h"
-#include "player.h"
 #include "multiModel.h"
 
 //************************************************************
@@ -104,24 +101,6 @@ CGameManager::EState CGameManager::GetState(void) const
 {
 	// 状態を返す
 	return m_state;
-}
-
-//============================================================
-//	リザルト画面遷移処理
-//============================================================
-void CGameManager::TransitionResult(const CRetentionManager::EWin win)
-{
-	// フェード中の場合抜ける
-	if (GET_MANAGER->GetFade()->IsFade()) { return; }
-
-	// タイマーの計測終了
-	CSceneGame::GetTimerUI()->End();
-
-	// リザルト情報を保存
-	GET_RETENTION->SetResult(win, CSceneGame::GetTimerUI()->GetTime());
-
-	// リザルト画面に遷移
-	GET_MANAGER->SetFadeScene(CScene::MODE_RESULT, GAMEEND_WAIT_FRAME);
 }
 
 //============================================================

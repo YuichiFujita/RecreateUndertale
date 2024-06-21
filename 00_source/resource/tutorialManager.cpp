@@ -15,7 +15,6 @@
 #include "texture.h"
 #include "gauge2D.h"
 #include "object2D.h"
-#include "player.h"
 
 //************************************************************
 //	’è”éŒ¾

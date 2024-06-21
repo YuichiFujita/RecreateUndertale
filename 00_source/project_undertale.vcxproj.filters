@@ -43,9 +43,6 @@
     <Filter Include="02_scene\game">
       <UniqueIdentifier>{7014a010-61a7-43fe-8ac9-3a929ebe0be9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02_scene\tutorial">
-      <UniqueIdentifier>{b1ad6d40-0181-4991-a789-5721c3d75823}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02_scene\result">
       <UniqueIdentifier>{26712b7c-8e08-4a87-8c45-aa8f621d490a}</UniqueIdentifier>
     </Filter>
@@ -234,61 +231,13 @@
     <ClCompile Include="resource\pause.cpp">
       <Filter>05_2D</Filter>
     </ClCompile>
-    <ClCompile Include="resource\cinemaScope.cpp">
-      <Filter>05_2D</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\flash.cpp">
-      <Filter>05_2D</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\blur.cpp">
-      <Filter>06_3D</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\effect3D.cpp">
-      <Filter>06_3D</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\field.cpp">
-      <Filter>06_3D</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\gauge3D.cpp">
-      <Filter>06_3D</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\impact.cpp">
-      <Filter>06_3D</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\liquid.cpp">
-      <Filter>06_3D</Filter>
-    </ClCompile>
     <ClCompile Include="resource\multiModel.cpp">
-      <Filter>06_3D</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\orbit.cpp">
-      <Filter>06_3D</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\particle3D.cpp">
-      <Filter>06_3D</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\player.cpp">
-      <Filter>06_3D</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\scenery.cpp">
       <Filter>06_3D</Filter>
     </ClCompile>
     <ClCompile Include="resource\scrollMeshField.cpp">
       <Filter>06_3D</Filter>
     </ClCompile>
     <ClCompile Include="resource\scrollMeshRing.cpp">
-      <Filter>06_3D</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\shadow.cpp">
-      <Filter>06_3D</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\sky.cpp">
-      <Filter>06_3D</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\wall.cpp">
-      <Filter>06_3D</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\wave.cpp">
       <Filter>06_3D</Filter>
     </ClCompile>
     <ClCompile Include="resource\collision.cpp">
@@ -304,9 +253,6 @@
       <Filter>07_utility</Filter>
     </ClCompile>
     <ClCompile Include="resource\random.cpp">
-      <Filter>07_utility</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\stage.cpp">
       <Filter>07_utility</Filter>
     </ClCompile>
     <ClCompile Include="resource\timer.cpp">
@@ -347,12 +293,6 @@
     </ClCompile>
     <ClCompile Include="resource\gameManager.cpp">
       <Filter>02_scene\game</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\sceneTutorial.cpp">
-      <Filter>02_scene\tutorial</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\tutorialManager.cpp">
-      <Filter>02_scene\tutorial</Filter>
     </ClCompile>
     <ClCompile Include="resource\sceneResult.cpp">
       <Filter>02_scene\result</Filter>
@@ -584,61 +524,13 @@
     <ClInclude Include="resource\multiValue.h">
       <Filter>05_2D</Filter>
     </ClInclude>
-    <ClInclude Include="resource\cinemaScope.h">
-      <Filter>05_2D</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\flash.h">
-      <Filter>05_2D</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\blur.h">
-      <Filter>06_3D</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\effect3D.h">
-      <Filter>06_3D</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\field.h">
-      <Filter>06_3D</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\gauge3D.h">
-      <Filter>06_3D</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\impact.h">
-      <Filter>06_3D</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\liquid.h">
-      <Filter>06_3D</Filter>
-    </ClInclude>
     <ClInclude Include="resource\multiModel.h">
-      <Filter>06_3D</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\orbit.h">
-      <Filter>06_3D</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\particle3D.h">
-      <Filter>06_3D</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\player.h">
-      <Filter>06_3D</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\scenery.h">
       <Filter>06_3D</Filter>
     </ClInclude>
     <ClInclude Include="resource\scrollMeshField.h">
       <Filter>06_3D</Filter>
     </ClInclude>
     <ClInclude Include="resource\scrollMeshRing.h">
-      <Filter>06_3D</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\shadow.h">
-      <Filter>06_3D</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\sky.h">
-      <Filter>06_3D</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\wall.h">
-      <Filter>06_3D</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\wave.h">
       <Filter>06_3D</Filter>
     </ClInclude>
     <ClInclude Include="resource\collision.h">
@@ -654,9 +546,6 @@
       <Filter>07_utility</Filter>
     </ClInclude>
     <ClInclude Include="resource\random.h">
-      <Filter>07_utility</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\stage.h">
       <Filter>07_utility</Filter>
     </ClInclude>
     <ClInclude Include="resource\timer.h">
@@ -697,12 +586,6 @@
     </ClInclude>
     <ClInclude Include="resource\gameManager.h">
       <Filter>02_scene\game</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\tutorialManager.h">
-      <Filter>02_scene\tutorial</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\sceneTutorial.h">
-      <Filter>02_scene\tutorial</Filter>
     </ClInclude>
     <ClInclude Include="resource\sceneResult.h">
       <Filter>02_scene\result</Filter>

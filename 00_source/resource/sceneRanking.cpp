@@ -43,21 +43,24 @@ CSceneRanking::~CSceneRanking()
 //============================================================
 HRESULT CSceneRanking::Init(void)
 {
-	//--------------------------------------------------------
-	//	ランキングの初期化
-	//--------------------------------------------------------
-	// ランキングマネージャーの生成
-	m_pRankingManager = CRankingManager::Create();
-	if (m_pRankingManager == nullptr)
-	{ // 非使用中の場合
+	// シーンの初期化
+	if (FAILED(CScene::Init()))
+	{ // 初期化に失敗した場合
 
 		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
 
-	// シーンの初期化
-	CScene::Init();
+	// ランキングマネージャーの生成
+	m_pRankingManager = CRankingManager::Create();
+	if (m_pRankingManager == nullptr)
+	{ // 生成に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
 
 	// BGMの再生
 	PLAY_SOUND(CSound::LABEL_BGM_GENERAL);

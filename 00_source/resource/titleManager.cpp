@@ -498,10 +498,6 @@ void CTitleManager::UpdateStart(void)
 					break;
 
 				case SELECT_TUTORIAL:
-
-					// シーンの設定
-					GET_MANAGER->SetFadeScene(CScene::MODE_TUTORIAL);	// チュートリアル画面
-
 					break;
 
 				default:

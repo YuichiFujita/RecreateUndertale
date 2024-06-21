@@ -166,8 +166,8 @@ void CPause::Update(const float fDeltaTime)
 			// ポーズ状況を切り替え
 			m_bPause = !m_bPause;
 
-			// タイムの計測状況を切り替え
-			CSceneGame::GetTimerUI()->EnableStop(m_bPause);
+			// 全タイマーの計測状況の設定
+			EnableTimerStopAll(m_bPause);
 
 			// 現在の選択を初期化
 			m_nSelect = SELECT_RESUME;
@@ -317,7 +317,6 @@ bool CPause::IsDebugDisp(void) const
 //============================================================
 void CPause::Select(void)
 {
-	// ポインタを宣言
 	CInputKeyboard	*pKeyboard	= GET_INPUTKEY;	// キーボード
 	CInputPad		*pPad		= GET_INPUTPAD;	// パッド
 
@@ -353,31 +352,45 @@ void CPause::Select(void)
 				// ポーズを終了する
 				m_bPause = false;
 
-				// タイムの計測を再開する
-				CSceneGame::GetTimerUI()->EnableStop(m_bPause);
+				// 全タイマーの計測状況の設定
+				EnableTimerStopAll(m_bPause);
 
 				// 描画状況の設定
 				SetEnableDraw(m_bPause);
-
-				// 処理を抜ける
 				break;
 
 			case SELECT_RETRY:	// リトライ
 
-				// シーンの設定
-				GET_MANAGER->SetFadeScene(CScene::MODE_GAME);	// ゲーム画面
-
-				// 処理を抜ける
+				// ゲーム画面に遷移
+				GET_MANAGER->SetFadeScene(CScene::MODE_GAME);
 				break;
 
 			case SELECT_EXIT:	// 終了
 
-				// シーンの設定
-				GET_MANAGER->SetFadeScene(CScene::MODE_TITLE);	// タイトル画面
-
-				// 処理を抜ける
+				// タイトル画面に遷移
+				GET_MANAGER->SetFadeScene(CScene::MODE_TITLE);
 				break;
 			}
 		}
+	}
+}
+
+//============================================================
+//	全タイマーの計測状況の設定処理
+//============================================================
+void CPause::EnableTimerStopAll(const bool bStop)
+{
+	// タイマーからリストマネージャーを取得
+	CListManager<CTimer> *pList = CTimer::GetList();
+	if (pList == nullptr) { return; }	// タイマーがないなら抜ける
+
+	// リストマネージャーからリストを取得
+	std::list<CTimer*> listTimer = pList->GetList();
+
+	// 全タイマーオブジェクトの計測状況を設定
+	for (auto& rList : listTimer)
+	{ // リスト内の要素数分繰り返す
+
+		rList->EnableStop(bStop);
 	}
 }

@@ -43,21 +43,24 @@ CSceneStart::~CSceneStart()
 //============================================================
 HRESULT CSceneStart::Init(void)
 {
-	//--------------------------------------------------------
-	//	スタートの初期化
-	//--------------------------------------------------------
-	// スタートマネージャーの生成
-	m_pStartManager = CStartManager::Create();
-	if (m_pStartManager == nullptr)
-	{ // 非使用中の場合
+	// シーンの初期化
+	if (FAILED(CScene::Init()))
+	{ // 初期化に失敗した場合
 
 		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
 
-	// シーンの初期化
-	CScene::Init();
+	// スタートマネージャーの生成
+	m_pStartManager = CStartManager::Create();
+	if (m_pStartManager == nullptr)
+	{ // 生成に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
 
 	// 成功を返す
 	return S_OK;

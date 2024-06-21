@@ -15,18 +15,9 @@
 #include "sceneIntro.h"
 #include "sceneStart.h"
 #include "sceneTitle.h"
-#include "sceneTutorial.h"
 #include "sceneGame.h"
 #include "sceneResult.h"
 #include "sceneRanking.h"
-
-#include "stage.h"
-#include "player.h"
-
-//************************************************************
-//	静的メンバ変数宣言
-//************************************************************
-CStage *CScene::m_pStage = nullptr;	// ステージの情報
 
 //************************************************************
 //	親クラス [CScene] のメンバ関数
@@ -52,19 +43,6 @@ CScene::~CScene()
 //============================================================
 HRESULT CScene::Init(void)
 {
-	// ステージの生成
-	m_pStage = CStage::Create(m_mode);
-	if (m_pStage == nullptr)
-	{ // 非使用中の場合
-
-		// 失敗を返す
-		assert(false);
-		return E_FAIL;
-	}
-
-	// プレイヤーの生成
-	CPlayer::Create(m_mode);
-
 	// 成功を返す
 	return S_OK;
 }
@@ -74,8 +52,7 @@ HRESULT CScene::Init(void)
 //============================================================
 void CScene::Uninit(void)
 {
-	// ステージの破棄
-	SAFE_REF_RELEASE(m_pStage);
+
 }
 
 //============================================================
@@ -88,10 +65,6 @@ void CScene::Update(const float fDeltaTime)
 	CLight		*pLight		= pManager->GetLight();		// ライト
 	CCamera		*pCamera	= pManager->GetCamera();	// カメラ
 	CRenderer	*pRenderer	= pManager->GetRenderer();	// レンダラー
-
-	// ステージの更新
-	assert(m_pStage != nullptr);
-	m_pStage->Update(fDeltaTime);
 
 	// ライトの更新
 	assert(pLight != nullptr);
@@ -127,10 +100,6 @@ CScene *CScene::Create(EMode mode)
 		pScene = new CSceneTitle(mode);
 		break;
 
-	case MODE_TUTORIAL:
-		pScene = new CSceneTutorial(mode);
-		break;
-
 	case MODE_GAME:
 		pScene = new CSceneGame(mode);
 		break;
@@ -164,32 +133,6 @@ void CScene::Release(CScene *&prScene)
 
 	// メモリ開放
 	SAFE_DELETE(prScene);
-}
-
-//============================================================
-//	ステージ取得処理
-//============================================================
-CStage *CScene::GetStage(void)
-{
-	// インスタンス未使用
-	assert(m_pStage != nullptr);
-
-	// ステージのポインタを返す
-	return m_pStage;
-}
-
-//============================================================
-//	プレイヤー取得処理
-//============================================================
-CPlayer *CScene::GetPlayer(void)
-{
-	CListManager<CPlayer> *pListManager = CPlayer::GetList();	// プレイヤーリストマネージャー
-	if (pListManager == nullptr)		{ return nullptr; }		// リスト未使用の場合抜ける
-	if (pListManager->GetNumAll() != 1)	{ return nullptr; }		// プレイヤーが1人ではない場合抜ける
-	CPlayer *pPlayer = pListManager->GetList().front();			// プレイヤーの情報
-
-	// プレイヤーのポインタを返す
-	return pPlayer;
 }
 
 //============================================================

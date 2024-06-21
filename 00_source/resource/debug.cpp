@@ -238,9 +238,6 @@ void CDebug::UpdateDebugControl(void)
 	case CScene::MODE_TITLE:
 		break;
 
-	case CScene::MODE_TUTORIAL:
-		break;
-
 	case CScene::MODE_GAME:
 
 		// エディターモード変更
@@ -299,9 +296,6 @@ void CDebug::DrawDebugControl(void)
 		break;
 
 	case CScene::MODE_TITLE:
-		break;
-
-	case CScene::MODE_TUTORIAL:
 		break;
 
 	case CScene::MODE_GAME:
