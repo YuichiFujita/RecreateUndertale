@@ -102,9 +102,6 @@
     <ClCompile Include="resource\texture.cpp">
       <Filter>01_flyweight</Filter>
     </ClCompile>
-    <ClCompile Include="resource\retentionManager.cpp">
-      <Filter>02_scene</Filter>
-    </ClCompile>
     <ClCompile Include="resource\scene.cpp">
       <Filter>02_scene</Filter>
     </ClCompile>
@@ -327,6 +324,9 @@
     <ClCompile Include="resource\shakeString2D.cpp">
       <Filter>05_2D</Filter>
     </ClCompile>
+    <ClCompile Include="resource\retention.cpp">
+      <Filter>02_scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h">
@@ -424,9 +424,6 @@
     </ClInclude>
     <ClInclude Include="resource\shaderMono.h">
       <Filter>03_shader</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\retentionManager.h">
-      <Filter>02_scene</Filter>
     </ClInclude>
     <ClInclude Include="resource\scene.h">
       <Filter>02_scene</Filter>
@@ -607,6 +604,9 @@
     </ClInclude>
     <ClInclude Include="resource\shakeString2D.h">
       <Filter>05_2D</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\retention.h">
+      <Filter>02_scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

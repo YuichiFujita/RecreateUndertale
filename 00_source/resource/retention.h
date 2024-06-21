@@ -1,35 +1,35 @@
 //============================================================
 //
-//	データ保存マネージャーヘッダー [retentionManager.h]
+//	データ保存ヘッダー [retention.h]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	二重インクルード防止
 //************************************************************
-#ifndef _RETENTION_MANAGER_H_
-#define _RETENTION_MANAGER_H_
+#ifndef _RETENTION_H_
+#define _RETENTION_H_
 
 //************************************************************
 //	クラス定義
 //************************************************************
-// データ保存マネージャークラス
-class CRetentionManager
+// データ保存クラス
+class CRetention
 {
 public:
 	// コンストラクタ
-	CRetentionManager();
+	CRetention();
 
 	// デストラクタ
-	~CRetentionManager();
+	~CRetention();
 
 	// メンバ関数
 	HRESULT Init(void);	// 初期化
 	void Uninit(void);	// 終了
 
 	// 静的メンバ関数
-	static CRetentionManager *Create(void);	// 生成
-	static void Release(CRetentionManager *&prRetentionManager);	// 破棄
+	static CRetention *Create(void);	// 生成
+	static void Release(CRetention *&prRetention);	// 破棄
 };
 
-#endif	// _RETENTION_MANAGER_H_
+#endif	// _RETENTION_H_

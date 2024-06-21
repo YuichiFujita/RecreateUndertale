@@ -8,25 +8,6 @@
 //	インクルードファイル
 //************************************************************
 #include "gameManager.h"
-#include "manager.h"
-#include "fade.h"
-#include "scene.h"
-#include "sceneGame.h"
-#include "retentionManager.h"
-#include "camera.h"
-#include "multiModel.h"
-
-//************************************************************
-//	定数宣言
-//************************************************************
-namespace
-{
-	const D3DXVECTOR3 POS_NAME	 = D3DXVECTOR3(0.0f, 60.0f, 400.0f);	// 名前の表示位置
-	const D3DXVECTOR3 POS_SKIP	 = D3DXVECTOR3(1092.0f, 673.0f, 0.0f);	// スキップ操作の表示位置
-	const D3DXVECTOR3 SIZE_SKIP	 = D3DXVECTOR3(381.0f, 77.0f, 0.0f);	// スキップ操作の表示大きさ
-	const int CHANGE_UI_PRIORITY = 5;	// シネマスコープ終了時のUI優先順位
-	const int GAMEEND_WAIT_FRAME = 180;	// リザルト画面への遷移余韻フレーム
-}
 
 //************************************************************
 //	親クラス [CGameManager] のメンバ関数

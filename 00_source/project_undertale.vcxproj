@@ -216,7 +216,7 @@
     <ClCompile Include="resource\random.cpp" />
     <ClCompile Include="resource\renderer.cpp" />
     <ClCompile Include="resource\renderState.cpp" />
-    <ClCompile Include="resource\retentionManager.cpp" />
+    <ClCompile Include="resource\retention.cpp" />
     <ClCompile Include="resource\scene.cpp" />
     <ClCompile Include="resource\sceneGame.cpp" />
     <ClCompile Include="resource\sceneIntro.cpp" />
@@ -311,7 +311,7 @@
     <ClInclude Include="resource\renderer.h" />
     <ClInclude Include="resource\renderState.h" />
     <ClInclude Include="resource\resource.h" />
-    <ClInclude Include="resource\retentionManager.h" />
+    <ClInclude Include="resource\retention.h" />
     <ClInclude Include="resource\scene.h" />
     <ClInclude Include="resource\sceneGame.h" />
     <ClInclude Include="resource\sceneIntro.h" />

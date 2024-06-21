@@ -20,7 +20,7 @@
 #include "font.h"
 #include "character.h"
 #include "shader.h"
-#include "retentionManager.h"
+#include "retention.h"
 #include "debug.h"
 
 //************************************************************
@@ -179,8 +179,8 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 		return E_FAIL;
 	}
 
-	// データ保存マネージャーの生成
-	m_pRetention = CRetentionManager::Create();
+	// データ保存の生成
+	m_pRetention = CRetention::Create();
 	if (m_pRetention == nullptr)
 	{ // 非使用中の場合
 
@@ -401,7 +401,7 @@ void CManager::Uninit(void)
 	//--------------------------------------------------------
 	//	システムの破棄
 	//--------------------------------------------------------
-	// データ保存マネージャーの破棄
+	// データ保存の破棄
 	SAFE_REF_RELEASE(m_pRetention);
 
 	// シーンの破棄
@@ -994,9 +994,9 @@ CScene *CManager::GetScene(void)
 }
 
 //============================================================
-//	データ保存マネージャー取得処理
+//	データ保存取得処理
 //============================================================
-CRetentionManager *CManager::GetRetention(void)
+CRetention *CManager::GetRetention(void)
 {
 	// インスタンス未使用
 	assert(m_pRetention != nullptr);

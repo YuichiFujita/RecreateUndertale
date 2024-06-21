@@ -1,21 +1,21 @@
 //============================================================
 //
-//	データ保存マネージャー処理 [retentionManager.cpp]
+//	データ保存処理 [retention.cpp]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	インクルードファイル
 //************************************************************
-#include "retentionManager.h"
+#include "retention.h"
 
 //************************************************************
-//	親クラス [CRetentionManager] のメンバ関数
+//	親クラス [CRetention] のメンバ関数
 //************************************************************
 //============================================================
 //	コンストラクタ
 //============================================================
-CRetentionManager::CRetentionManager()
+CRetention::CRetention()
 {
 
 }
@@ -23,7 +23,7 @@ CRetentionManager::CRetentionManager()
 //============================================================
 //	デストラクタ
 //============================================================
-CRetentionManager::~CRetentionManager()
+CRetention::~CRetention()
 {
 
 }
@@ -31,7 +31,7 @@ CRetentionManager::~CRetentionManager()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CRetentionManager::Init(void)
+HRESULT CRetention::Init(void)
 {
 	// 成功を返す
 	return S_OK;
@@ -40,7 +40,7 @@ HRESULT CRetentionManager::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CRetentionManager::Uninit(void)
+void CRetention::Uninit(void)
 {
 
 }
@@ -48,11 +48,11 @@ void CRetentionManager::Uninit(void)
 //============================================================
 //	生成処理
 //============================================================
-CRetentionManager *CRetentionManager::Create(void)
+CRetention *CRetention::Create(void)
 {
-	// データ保存マネージャーの生成
-	CRetentionManager *pRetentionManager = new CRetentionManager;
-	if (pRetentionManager == nullptr)
+	// データ保存の生成
+	CRetention *pRetention = new CRetention;
+	if (pRetention == nullptr)
 	{ // 生成に失敗した場合
 
 		return nullptr;
@@ -60,29 +60,29 @@ CRetentionManager *CRetentionManager::Create(void)
 	else
 	{ // 生成に成功した場合
 
-		// データ保存マネージャーの初期化
-		if (FAILED(pRetentionManager->Init()))
+		// データ保存の初期化
+		if (FAILED(pRetention->Init()))
 		{ // 初期化に失敗した場合
 
-			// データ保存マネージャーの破棄
-			SAFE_DELETE(pRetentionManager);
+			// データ保存の破棄
+			SAFE_DELETE(pRetention);
 			return nullptr;
 		}
 
 		// 確保したアドレスを返す
-		return pRetentionManager;
+		return pRetention;
 	}
 }
 
 //============================================================
 //	破棄処理
 //============================================================
-void CRetentionManager::Release(CRetentionManager *&prRetentionManager)
+void CRetention::Release(CRetention *&prRetention)
 {
-	// データ保存マネージャーの終了
-	assert(prRetentionManager != nullptr);
-	prRetentionManager->Uninit();
+	// データ保存の終了
+	assert(prRetention != nullptr);
+	prRetention->Uninit();
 
 	// メモリ開放
-	SAFE_DELETE(prRetentionManager);
+	SAFE_DELETE(prRetention);
 }
