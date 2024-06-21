@@ -42,14 +42,13 @@ public:
 	public:
 		// コンストラクタ
 		SSwing() {}
-		SSwing(const float ShiftLength, const float SubAngle, const float SubLength)
-		{
-			shiftPos		= VEC3_ZERO;	// 位置ずれ量
-			fShiftAngle		= 0.0f;			// 位置をずらす角度
-			fShiftLength	= ShiftLength;	// 位置をずらす距離
-			fSubAngle		= SubAngle;		// ずらす角度の減算量
-			fSubLength		= SubLength;	// ずらす距離の減算量
-		}
+		SSwing(const float ShiftLength, const float SubAngle, const float SubLength) :
+			shiftPos	 (VEC3_ZERO),	// 位置ずれ量
+			fShiftAngle	 (0.0f),		// 位置をずらす角度
+			fShiftLength (ShiftLength),	// 位置をずらす距離
+			fSubAngle	 (SubAngle),	// ずらす角度の減算量
+			fSubLength	 (SubLength)	// ずらす距離の減算量
+		{}
 
 		// デストラクタ
 		~SSwing() {}
@@ -110,11 +109,11 @@ public:
 
 private:
 	// メンバ関数
-	void Control(void);		// カメラの更新 (操作)
-	void Move(void);		// 位置の更新 (操作)
-	void Distance(void);	// 距離の更新 (操作)
-	void Rotation(void);	// 向きの更新 (操作)
-	void Swing(void);		// カメラ揺れの更新
+	void UpdateControl(void);	// カメラ操作更新
+	void UpdateMove(void);		// 位置更新
+	void UpdateDistance(void);	// 距離更新
+	void UpdateRotation(void);	// 向き更新
+	void UpdateSwing(void);		// カメラ揺れ更新
 
 	// メンバ変数
 	SCamera	m_camera;	// カメラの情報

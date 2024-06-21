@@ -134,8 +134,8 @@ void CCamera::Update(const float fDeltaTime)
 
 	case STATE_CONTROL:	// 操作状態
 
-		// カメラの更新 (操作)
-		Control();
+		// カメラ操作の更新
+		UpdateControl();
 		break;
 
 	default:	// 例外処理
@@ -144,7 +144,7 @@ void CCamera::Update(const float fDeltaTime)
 	}
 
 	// カメラ揺れの更新
-	Swing();
+	UpdateSwing();
 }
 
 //============================================================
@@ -378,24 +378,24 @@ void CCamera::Release(CCamera *&prCamera)
 }
 
 //============================================================
-//	カメラの更新処理 (操作)
+//	カメラ操作の更新処理
 //============================================================
-void CCamera::Control(void)
+void CCamera::UpdateControl(void)
 {
 	// 位置の更新
-	Move();
+	UpdateMove();
 
 	// 距離の更新
-	Distance();
+	UpdateDistance();
 
 	// 向きの更新
-	Rotation();
+	UpdateRotation();
 }
 
 //============================================================
-//	位置の更新処理 (操作)
+//	位置の更新処理
 //============================================================
-void CCamera::Move(void)
+void CCamera::UpdateMove(void)
 {
 	CInputMouse	*pMouse = GET_INPUTMOUSE;		// マウスの取得
 	D3DXVECTOR3 mouseMove = pMouse->GetMove();	// マウスの移動量
@@ -419,9 +419,9 @@ void CCamera::Move(void)
 }
 
 //============================================================
-//	距離の更新処理 (操作)
+//	距離の更新処理
 //============================================================
-void CCamera::Distance(void)
+void CCamera::UpdateDistance(void)
 {
 	CInputMouse	*pMouse = GET_INPUTMOUSE;		// マウスの取得
 	D3DXVECTOR3 mouseMove = pMouse->GetMove();	// マウスの移動量
@@ -439,9 +439,9 @@ void CCamera::Distance(void)
 }
 
 //============================================================
-//	向きの更新処理 (操作)
+//	向きの更新処理
 //============================================================
-void CCamera::Rotation(void)
+void CCamera::UpdateRotation(void)
 {
 	CInputMouse	*pMouse = GET_INPUTMOUSE;		// マウスの取得
 	D3DXVECTOR3 mouseMove = pMouse->GetMove();	// マウスの移動量
@@ -490,7 +490,7 @@ void CCamera::Rotation(void)
 //============================================================
 //	カメラ揺れの更新処理
 //============================================================
-void CCamera::Swing(void)
+void CCamera::UpdateSwing(void)
 {
 	// カメラ操作状態の場合抜ける
 	if (m_state == STATE_CONTROL) { return; }
