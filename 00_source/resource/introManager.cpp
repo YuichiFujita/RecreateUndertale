@@ -201,8 +201,24 @@ void CIntroManager::Update(const float fDeltaTime)
 	// スキップ操作
 	if (GET_INPUTKEY->IsTrigger(DIK_RETURN) || GET_INPUTKEY->IsTrigger(DIK_Z))
 	{
-		// タイトル画面に遷移する
+		// TODO：ここでセーブデータがあるかの確認
+#if 0
+		if ()
+		{ // セーブデータがある場合
+
+			// タイトル画面に遷移する
+			GET_MANAGER->SetFadeScene(CScene::MODE_TITLE, 0.0f, CFade::DEF_LEVEL, CFade::SKIP_LEVEL);
+		}
+		else
+		{ // セーブデータがない場合
+
+			// スタート画面に遷移する
+			GET_MANAGER->SetFadeScene(CScene::MODE_START, 0.0f, CFade::DEF_LEVEL, CFade::SKIP_LEVEL);
+		}
+#else
+		// スタート画面に遷移する
 		GET_MANAGER->SetFadeScene(CScene::MODE_START, 0.0f, CFade::DEF_LEVEL, CFade::SKIP_LEVEL);
+#endif
 	}
 }
 

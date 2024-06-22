@@ -329,8 +329,8 @@ void CStartStateDecideName::TransGame(void)
 	// ‹tƒVƒ“ƒoƒ‹‚ðÄ¶
 	PLAY_SOUND(CSound::LABEL_SE_CYMBAL);
 
-	// ƒ^ƒCƒgƒ‹‰æ–Ê‚É‘JˆÚ‚·‚é
-	GET_MANAGER->SetFadeScene(CScene::MODE_TITLE, 0.0f, FADE_ADDOUT, FADE_SUBIN, XCOL_AWHITE);
+	// ƒQ[ƒ€‰æ–Ê‚É‘JˆÚ‚·‚é
+	GET_MANAGER->SetFadeScene(CScene::MODE_GAME, 0.0f, FADE_ADDOUT, FADE_SUBIN, XCOL_AWHITE);
 }
 
 //============================================================

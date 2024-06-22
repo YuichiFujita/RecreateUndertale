@@ -82,22 +82,13 @@ public:
 		LABEL_NONE = 0,		// なし
 		LABEL_UI,			// UI
 		LABEL_TIMER,		// タイマー
-		LABEL_WAVE,			// 波動
-		LABEL_FIRE,			// 炎
-		LABEL_THUNDER,		// 雷
-		LABEL_BLUR,			// ブラー
 		LABEL_EFFECT,		// エフェクト
 		LABEL_PARTICLE,		// パーティクル
 		LABEL_PLAYER,		// プレイヤー
-		LABEL_ENEMY,		// 敵
-		LABEL_MAGIC_CIRCLE,	// 魔法陣
-		LABEL_MAP,			// マップ
-		LABEL_FIELD,		// 地面
-		LABEL_WALL,			// 壁
-		LABEL_SCENERY,		// 景色
-		LABEL_SKY,			// 空
-		LABEL_LIQUID,		// 液体
+		LABEL_MAPTILE,		// マップタイル
+#ifdef _DEBUG
 		LABEL_DEBUG,		// デバッグ
+#endif // _DEBUG
 		LABEL_MAX			// この列挙型の総数
 	};
 

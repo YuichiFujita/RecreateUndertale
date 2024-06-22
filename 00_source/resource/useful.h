@@ -25,6 +25,7 @@
 #define MAX_FILENAME	(256)	// ファイル名の最大文字数
 #define NONE_IDX		(-1)	// インデックス非使用
 #define NONE_STRING		("\0")	// 文字列非使用
+#define SIZE_TILE		(60)	// マップタイルの大きさ
 
 #define HALF_PI	(D3DX_PI * 0.5f)	// 二分の一の円周率 (π/２)
 #define QRTR_PI	(D3DX_PI * 0.25f)	// 四分の一の円周率 (π/４)
@@ -47,9 +48,8 @@
 #define GET_INPUTPAD	(CManager::GetInstance()->GetPad())			// パッド情報取得
 #define GET_RETENTION	(CManager::GetInstance()->GetRetention())	// データ保存情報取得
 #define GET_RENDERER	(CManager::GetInstance()->GetRenderer())	// レンダラー情報取得
-#define GET_DEVICE		(CManager::GetInstance()->GetRenderer()->GetDevice())	// デバイス情報取得
 
-#define GET_EFFECT			(CEffekseer::GetInstance())	// エフェクシアインスタンス取得
+#define GET_DEVICE			(CManager::GetInstance()->GetRenderer()->GetDevice())					// デバイス情報取得
 #define PLAY_SOUND(label)	(CManager::GetInstance()->GetSound()->Play((CSound::ELabel)(label)))	// サウンド再生
 
 // D3DXVECTOR2関係

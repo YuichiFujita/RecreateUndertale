@@ -26,6 +26,7 @@ public:
 	enum EState
 	{
 		STATE_NONE = 0,	// なにもしない状態
+		STATE_FOLLOW,	// 追従状態
 		STATE_CONTROL,	// 操作状態
 		STATE_MAX		// この列挙型の総数
 	};
@@ -64,29 +65,31 @@ public:
 	// カメラ構造体
 	struct SCamera
 	{
-		D3DXVECTOR3		posV;			// 現在の視点
-		D3DXVECTOR3		posR;			// 現在の注視点
-		D3DXVECTOR3		destPosV;		// 目標の視点
-		D3DXVECTOR3		destPosR;		// 目標の注視点
-		D3DXVECTOR3		vecU;			// 上方向ベクトル
-		D3DXVECTOR3		rot;			// 現在の向き
-		D3DXVECTOR3		destRot;		// 目標の向き
-		float			fDis;			// 現在の視点と注視点の距離
-		float			fDestDis;		// 目標の視点と注視点の距離
-		SSwing			swingInfo;		// カメラ揺れ情報
-		D3DVIEWPORT9	viewportInfo;	// ビューポート情報
-		D3DXMATRIX		mtxProjection;	// プロジェクションマトリックス
-		D3DXMATRIX		mtxView;		// ビューマトリックス
+		D3DXVECTOR3	 posV;		// 現在の視点
+		D3DXVECTOR3	 posR;		// 現在の注視点
+		D3DXVECTOR3	 destPosV;	// 目標の視点
+		D3DXVECTOR3	 destPosR;	// 目標の注視点
+		D3DXVECTOR3	 vecU;		// 上方向ベクトル
+		D3DXVECTOR3	 rot;		// 現在の向き
+		D3DXVECTOR3	 destRot;	// 目標の向き
+		float		 fDis;		// 現在の視点と注視点の距離
+		float		 fDestDis;	// 目標の視点と注視点の距離
+		SSwing		 swing;		// カメラ揺れ情報
+		D3DVIEWPORT9 viewport;	// ビューポート情報
+		D3DXMATRIX	 mtxProj;	// プロジェクションマトリックス
+		D3DXMATRIX	 mtxView;	// ビューマトリックス
 	};
 
 	// メンバ関数
 	HRESULT Init(void);	// 初期化
 	void Uninit(void);	// 終了
-	void Update(const float fDeltaTime);		// 更新
-	void Reset(void);							// 再設定
-	void SetCamera(void);						// カメラ設定
-	SCamera GetCamera(void);					// カメラ取得
-	void SetState(const EState state);			// カメラ状態設定
+	void Update(const float fDeltaTime);	// 更新
+	void SwingReset(void);		// カメラ揺れリセット
+	void SetCamera(void);		// カメラ設定
+	SCamera GetCamera(void);	// カメラ取得
+	void InitFollow(void);		// 追従カメラ初期化
+
+	void SetState(const EState state, const bool bInit = true);	// カメラ状態設定
 	EState GetState(void) const;				// カメラ状態取得
 	void SetSwing(const SSwing swing);			// カメラ揺れ設定
 	void SetEnableUpdate(const bool bUpdate);	// 更新状況設定
@@ -109,6 +112,7 @@ public:
 
 private:
 	// メンバ関数
+	void UpdateFollow(void);	// カメラ追従更新
 	void UpdateControl(void);	// カメラ操作更新
 	void UpdateMove(void);		// 位置更新
 	void UpdateDistance(void);	// 距離更新

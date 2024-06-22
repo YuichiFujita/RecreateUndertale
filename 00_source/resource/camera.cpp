@@ -20,9 +20,8 @@ namespace
 	namespace basic
 	{
 		const D3DXVECTOR3 INIT_VECU = D3DXVECTOR3(0.0f, 1.0f, 0.0f);	// 上方向ベクトルの初期値
-		const D3DXVECTOR3 INIT_POSV = D3DXVECTOR3(0.0f, 0.0f, -600.0f);	// 視点の初期値
 		const float VIEW_NEAR	= 10.0f;	// モデルが見えるZ軸の最小値
-		const float VIEW_FAR	= 50000.0f;	// モデルが見えるZ軸の最大値
+		const float VIEW_FAR	= 10000.0f;	// モデルが見えるZ軸の最大値
 		const float MIN_DIS		= 1.0f;		// カメラの視点から注視点への距離の最小
 		const float MAX_DIS		= 10000.0f;	// カメラの視点から注視点への距離の最大
 
@@ -36,6 +35,16 @@ namespace
 	namespace swing
 	{
 		const float REV_DIS = 0.001f;	// カメラ揺れ計算時のカメラ距離の補正係数
+	}
+
+	// 追従カメラ情報
+	namespace follow
+	{
+		const D3DXVECTOR3 POS_R	= D3DXVECTOR3(0.0f, SCREEN_CENT.y, 0.0f);	// 注視点位置
+		const D3DXVECTOR3 ROT	= D3DXVECTOR3(HALF_PI, 0.0f, 0.0f);			// 向き
+		const float DISTANCE	= 100.0f;	// 追従カメラの距離
+		const float REV_POS		= 0.25f;	// カメラ位置の補正係数
+		const float REV_ROT		= 0.045f;	// カメラ向きの補正係数
 	}
 
 	// 操作カメラ情報
@@ -93,19 +102,22 @@ HRESULT CCamera::Init(void)
 	m_camera.fDestDis	= 0.0f;				// 目標の視点と注視点の距離
 
 	// カメラ揺れ情報を初期化
-	m_camera.swingInfo.shiftPos		= VEC3_ZERO;	// 位置ずれ量
-	m_camera.swingInfo.fShiftAngle	= 0.0f;			// 位置をずらす角度
-	m_camera.swingInfo.fShiftLength	= 0.0f;			// 位置をずらす距離
-	m_camera.swingInfo.fSubAngle	= 0.0f;			// ずらす角度の減算量
-	m_camera.swingInfo.fSubLength	= 0.0f;			// ずらす距離の減算量
+	m_camera.swing.shiftPos		= VEC3_ZERO;	// 位置ずれ量
+	m_camera.swing.fShiftAngle	= 0.0f;			// 位置をずらす角度
+	m_camera.swing.fShiftLength	= 0.0f;			// 位置をずらす距離
+	m_camera.swing.fSubAngle	= 0.0f;			// ずらす角度の減算量
+	m_camera.swing.fSubLength	= 0.0f;			// ずらす距離の減算量
 
 	// ビューポート情報を初期化
-	m_camera.viewportInfo.X		 = 0;				// 左上隅のピクセル座標X
-	m_camera.viewportInfo.Y		 = 0;				// 左上隅のピクセル座標Y
-	m_camera.viewportInfo.Width	 = SCREEN_WIDTH;	// 描画する画面の横幅
-	m_camera.viewportInfo.Height = SCREEN_HEIGHT;	// 描画する画面の縦幅
-	m_camera.viewportInfo.MinZ	 = 0.0f;
-	m_camera.viewportInfo.MaxZ	 = 1.0f;
+	m_camera.viewport.X		 = 0;				// 左上隅のピクセル座標X
+	m_camera.viewport.Y		 = 0;				// 左上隅のピクセル座標Y
+	m_camera.viewport.Width	 = SCREEN_WIDTH;	// 描画する画面の横幅
+	m_camera.viewport.Height = SCREEN_HEIGHT;	// 描画する画面の縦幅
+	m_camera.viewport.MinZ	 = 0.0f;
+	m_camera.viewport.MaxZ	 = 1.0f;
+
+	// 追従カメラにする
+	SetState(CCamera::STATE_FOLLOW);
 
 	// 成功を返す
 	return S_OK;
@@ -132,6 +144,12 @@ void CCamera::Update(const float fDeltaTime)
 	case STATE_NONE:	// なにもしない状態
 		break;
 
+	case STATE_FOLLOW:	// 追従状態
+
+		// カメラ追従の更新
+		UpdateFollow();
+		break;
+
 	case STATE_CONTROL:	// 操作状態
 
 		// カメラ操作の更新
@@ -148,12 +166,12 @@ void CCamera::Update(const float fDeltaTime)
 }
 
 //============================================================
-//	再設定処理
+//	カメラ揺れリセット処理
 //============================================================
-void CCamera::Reset(void)
+void CCamera::SwingReset(void)
 {
 	// カメラ揺れ情報を初期化
-	SSwing *pSwing = &m_camera.swingInfo;
+	SSwing *pSwing = &m_camera.swing;
 	pSwing->shiftPos	 = VEC3_ZERO;	// 位置ずれ量
 	pSwing->fShiftAngle	 = 0.0f;		// 位置をずらす角度
 	pSwing->fShiftLength = 0.0f;		// 位置をずらす距離
@@ -169,40 +187,40 @@ void CCamera::SetCamera(void)
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// ビューポートの設定
-	pDevice->SetViewport(&m_camera.viewportInfo);
+	pDevice->SetViewport(&m_camera.viewport);
 
 	// プロジェクションマトリックスの初期化
-	D3DXMatrixIdentity(&m_camera.mtxProjection);
+	D3DXMatrixIdentity(&m_camera.mtxProj);
 
-	if (m_state == STATE_NONE)
-	{ // 固定カメラの場合
+	if (m_state == STATE_CONTROL)
+	{ // 操作カメラの場合
+
+		// 透視投影でプロジェクションマトリックスを作成
+		D3DXMatrixPerspectiveFovLH
+		( // 引数
+			&m_camera.mtxProj,	// プロジェクションマトリックス
+			basic::VIEW_ANGLE,	// 視野角
+			basic::VIEW_ASPECT,	// 画面のアスペクト比
+			basic::VIEW_NEAR,	// Z軸の最小値
+			basic::VIEW_FAR		// Z軸の最大値
+		);
+	}
+	else
+	{ // 別カメラの場合
 
 		// 平行投影でプロジェクションマトリックスを作成
 		D3DXMatrixOrthoLH
 		( // 引数
-			&m_camera.mtxProjection,	// プロジェクションマトリックス
-			(float)SCREEN_WIDTH,		// 投影する横幅
-			(float)SCREEN_HEIGHT,		// 投影する縦幅
-			basic::VIEW_NEAR,			// Z軸の最小値
-			basic::VIEW_FAR				// Z軸の最大値
-		);
-	}
-	else
-	{ // 操作カメラの場合
-
-		// プロジェクションマトリックスを作成
-		D3DXMatrixPerspectiveFovLH
-		( // 引数
-			&m_camera.mtxProjection,	// プロジェクションマトリックス
-			basic::VIEW_ANGLE,			// 視野角
-			basic::VIEW_ASPECT,			// 画面のアスペクト比
-			basic::VIEW_NEAR,			// Z軸の最小値
-			basic::VIEW_FAR				// Z軸の最大値
+			&m_camera.mtxProj,		// プロジェクションマトリックス
+			(float)SCREEN_WIDTH,	// 投影する横幅
+			(float)SCREEN_HEIGHT,	// 投影する縦幅
+			basic::VIEW_NEAR,		// Z軸の最小値
+			basic::VIEW_FAR			// Z軸の最大値
 		);
 	}
 
 	// プロジェクションマトリックスの設定
-	pDevice->SetTransform(D3DTS_PROJECTION, &m_camera.mtxProjection);
+	pDevice->SetTransform(D3DTS_PROJECTION, &m_camera.mtxProj);
 
 	// ビューマトリックスの初期化
 	D3DXMatrixIdentity(&m_camera.mtxView);
@@ -294,15 +312,70 @@ CCamera::SCamera CCamera::GetCamera(void)
 }
 
 //============================================================
+//	追従カメラ初期化処理
+//============================================================
+void CCamera::InitFollow(void)
+{
+	// カメラ追従状態の場合抜ける
+	if (m_state != STATE_FOLLOW) { return; }
+
+	//----------------------------------------------------
+	//	向きの更新
+	//----------------------------------------------------
+	// 向きの設定
+	m_camera.rot = m_camera.destRot = follow::ROT;
+	useful::NormalizeRot(m_camera.rot);		// 現在向きを正規化
+	useful::NormalizeRot(m_camera.destRot);	// 目標向きを正規化
+
+	//----------------------------------------------------
+	//	距離の更新
+	//----------------------------------------------------
+	// 距離の設定
+	m_camera.fDis = m_camera.fDestDis = follow::DISTANCE;
+
+	//----------------------------------------------------
+	//	位置の更新
+	//----------------------------------------------------
+	// 注視点の設定
+	m_camera.posR = m_camera.destPosR = VEC3_ZERO;	// TODO：プレイヤー基準にしよう
+
+	// 視点の設定
+	m_camera.posV.x = m_camera.destPosV.x = m_camera.destPosR.x + ((-m_camera.fDis * sinf(m_camera.rot.x)) * sinf(m_camera.rot.y));
+	m_camera.posV.y = m_camera.destPosV.y = m_camera.destPosR.y + ((-m_camera.fDis * cosf(m_camera.rot.x)));
+	m_camera.posV.z = m_camera.destPosV.z = m_camera.destPosR.z + ((-m_camera.fDis * sinf(m_camera.rot.x)) * cosf(m_camera.rot.y));
+}
+
+//============================================================
 //	カメラ状態の設定処理
 //============================================================
-void CCamera::SetState(const EState state)
+void CCamera::SetState(const EState state, const bool bInit)
 {
-	// 状態を設定
+	// 状態の設定
 	m_state = state;
 
-	// 再設定
-	Reset();
+	// カメラ揺れのリセット
+	SwingReset();
+
+	if (bInit)
+	{ // カメラ初期化がONの場合
+
+		switch (m_state)
+		{ // 状態ごとの処理
+		case STATE_NONE:	// なにもしない状態
+		case STATE_CONTROL:	// 操作状態
+			break;
+
+		case STATE_FOLLOW:	// 追従状態
+
+			// カメラ追従の初期化
+			InitFollow();
+			break;
+
+		default:	// 例外処理
+			assert(false);
+			break;
+		}
+	}
 }
 
 //============================================================
@@ -323,7 +396,7 @@ void CCamera::SetSwing(const SSwing swing)
 	if (m_state == STATE_CONTROL) { return; }
 
 	// 引数のカメラ揺れ情報を設定
-	m_camera.swingInfo = swing;
+	m_camera.swing = swing;
 }
 
 //============================================================
@@ -378,6 +451,60 @@ void CCamera::Release(CCamera *&prCamera)
 }
 
 //============================================================
+//	カメラ追従の更新処理
+//============================================================
+void CCamera::UpdateFollow(void)
+{
+	// カメラ追従状態の場合抜ける
+	if (m_state != STATE_FOLLOW) { return; }
+
+	//----------------------------------------------------
+	//	向きの更新
+	//----------------------------------------------------
+	D3DXVECTOR3 diffRot = VEC3_ZERO;	// 差分向き
+
+	// 目標向きの設定
+	m_camera.destRot = follow::ROT;
+	useful::NormalizeRot(m_camera.destRot);	// 目標向きを正規化
+
+	// 差分向きの計算
+	diffRot = m_camera.destRot - m_camera.rot;
+	useful::NormalizeRot(diffRot);			// 差分向きを正規化
+
+	// 現在向きの更新
+	m_camera.rot += diffRot * follow::REV_ROT;
+	useful::NormalizeRot(m_camera.rot);		// 現在向きを正規化
+
+	//----------------------------------------------------
+	//	距離の更新
+	//----------------------------------------------------
+	// 距離の設定
+	m_camera.fDis = m_camera.fDestDis = follow::DISTANCE;
+
+	//----------------------------------------------------
+	//	位置の更新
+	//----------------------------------------------------
+	D3DXVECTOR3 diffPosV = VEC3_ZERO;	// 視点の差分位置
+	D3DXVECTOR3 diffPosR = VEC3_ZERO;	// 注視点の差分位置
+
+	// 注視点の更新
+	m_camera.destPosR = VEC3_ZERO;	// TODO：プレイヤー基準にしよう
+
+	// 視点の更新
+	m_camera.destPosV.x = m_camera.destPosR.x + ((-m_camera.fDis * sinf(m_camera.rot.x)) * sinf(m_camera.rot.y));
+	m_camera.destPosV.y = m_camera.destPosR.y + ((-m_camera.fDis * cosf(m_camera.rot.x)));
+	m_camera.destPosV.z = m_camera.destPosR.z + ((-m_camera.fDis * sinf(m_camera.rot.x)) * cosf(m_camera.rot.y));
+
+	// 差分位置を計算
+	diffPosR = m_camera.destPosR - m_camera.posR;	// 注視点
+	diffPosV = m_camera.destPosV - m_camera.posV;	// 視点
+
+	// 現在位置を更新
+	m_camera.posR += diffPosR * follow::REV_POS;	// 注視点
+	m_camera.posV += diffPosV * follow::REV_POS;	// 視点
+}
+
+//============================================================
 //	カメラ操作の更新処理
 //============================================================
 void CCamera::UpdateControl(void)
@@ -397,8 +524,8 @@ void CCamera::UpdateControl(void)
 //============================================================
 void CCamera::UpdateMove(void)
 {
-	CInputMouse	*pMouse = GET_INPUTMOUSE;		// マウスの取得
-	D3DXVECTOR3 mouseMove = pMouse->GetMove();	// マウスの移動量
+	CInputMouse *pMouse = GET_INPUTMOUSE;		// マウス情報
+	D3DXVECTOR3 mouseMove = pMouse->GetMove();	// マウス移動量
 
 	// マウス操作の更新
 	if (pMouse->IsPress(CInputMouse::KEY_LEFT) && pMouse->IsPress(CInputMouse::KEY_RIGHT))
@@ -423,8 +550,8 @@ void CCamera::UpdateMove(void)
 //============================================================
 void CCamera::UpdateDistance(void)
 {
-	CInputMouse	*pMouse = GET_INPUTMOUSE;		// マウスの取得
-	D3DXVECTOR3 mouseMove = pMouse->GetMove();	// マウスの移動量
+	CInputMouse *pMouse = GET_INPUTMOUSE;		// マウス情報
+	D3DXVECTOR3 mouseMove = pMouse->GetMove();	// マウス移動量
 
 	// マウス操作の更新
 	if (mouseMove.z != 0.0f)
@@ -443,8 +570,8 @@ void CCamera::UpdateDistance(void)
 //============================================================
 void CCamera::UpdateRotation(void)
 {
-	CInputMouse	*pMouse = GET_INPUTMOUSE;		// マウスの取得
-	D3DXVECTOR3 mouseMove = pMouse->GetMove();	// マウスの移動量
+	CInputMouse *pMouse = GET_INPUTMOUSE;		// マウス情報
+	D3DXVECTOR3 mouseMove = pMouse->GetMove();	// マウス移動量
 
 	// マウス操作の更新
 	if (pMouse->IsPress(CInputMouse::KEY_LEFT) && !pMouse->IsPress(CInputMouse::KEY_RIGHT))
@@ -496,7 +623,7 @@ void CCamera::UpdateSwing(void)
 	if (m_state == STATE_CONTROL) { return; }
 
 	SCamera *pCamera = &m_camera;			// カメラ情報
-	SSwing  *pSwing  = &m_camera.swingInfo;	// カメラ揺れ情報
+	SSwing  *pSwing  = &m_camera.swing;	// カメラ揺れ情報
 
 	if (pSwing->fShiftLength > 0.0f)
 	{ // 注視点のずらし量が設定されている場合

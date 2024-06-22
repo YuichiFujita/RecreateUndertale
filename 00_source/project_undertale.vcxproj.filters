@@ -330,6 +330,7 @@
     <ClCompile Include="resource\pause.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="resource\mapTile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h">
@@ -611,6 +612,7 @@
     <ClInclude Include="resource\pause.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="resource\mapTile.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource\resource.rc">

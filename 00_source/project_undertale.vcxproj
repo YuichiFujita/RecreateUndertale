@@ -186,6 +186,7 @@
     <ClCompile Include="resource\loadtext.cpp" />
     <ClCompile Include="resource\main.cpp" />
     <ClCompile Include="resource\manager.cpp" />
+    <ClCompile Include="resource\mapTile.cpp" />
     <ClCompile Include="resource\model.cpp" />
     <ClCompile Include="resource\motion.cpp" />
     <ClCompile Include="resource\multiModel.cpp" />
@@ -283,6 +284,7 @@
     <ClInclude Include="resource\loadtext.h" />
     <ClInclude Include="resource\main.h" />
     <ClInclude Include="resource\manager.h" />
+    <ClInclude Include="resource\mapTile.h" />
     <ClInclude Include="resource\model.h" />
     <ClInclude Include="resource\motion.h" />
     <ClInclude Include="resource\multiModel.h" />

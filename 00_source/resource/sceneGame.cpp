@@ -16,6 +16,9 @@
 #include "pause.h"
 #include "hitStop.h"
 
+// TODO
+#include "mapTile.h"
+
 //************************************************************
 //	Ã“Iƒƒ“ƒo•Ï”éŒ¾
 //************************************************************
@@ -92,6 +95,9 @@ HRESULT CSceneGame::Init(void)
 	//--------------------------------------------------------
 	//	‰Šúİ’è
 	//--------------------------------------------------------
+	// TODO
+	CMapTile::Create(CMapTile::TYPE_NONE, VEC3_ZERO);
+
 	// BGM‚ÌÄ¶
 	PLAY_SOUND(CSound::LABEL_BGM_GENERAL);
 
