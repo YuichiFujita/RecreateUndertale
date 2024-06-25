@@ -17,9 +17,6 @@
 namespace
 {
 	const char *LOAD_FOLDER = "data\\TEXTURE";	// テクスチャフォルダ相対パス
-
-	const D3DXVECTOR3 INIT_VTXMIN = D3DXVECTOR3( 9999.0f,  9999.0f,  9999.0f);	// モデルの最小の頂点座標の初期値
-	const D3DXVECTOR3 INIT_VTXMAX = D3DXVECTOR3(-9999.0f, -9999.0f, -9999.0f);	// モデルの最大の頂点座標の初期値
 }
 
 //************************************************************
@@ -185,13 +182,23 @@ int CTexture::Regist(std::string sFilePass)
 		nCntTexture++;
 	}
 
+	// 画像情報の取得
+	D3DXIMAGE_INFO size;	// テクスチャステータス
+	if (FAILED(D3DXGetImageInfoFromFile(sFilePass.c_str(), &size)))
+	{ // 画像情報の取得に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return NONE_IDX;
+	}
+
 	// テクスチャの読込
 	hr = D3DXCreateTextureFromFileEx
 	( // 引数
 		GET_DEVICE,			// Direct3Dデバイス
 		sFilePass.c_str(),	// テクスチャファイルパス
-		D3DX_DEFAULT,		// テクスチャ横幅
-		D3DX_DEFAULT,		// テクスチャ縦幅
+		size.Width,			// テクスチャ横幅
+		size.Height,		// テクスチャ縦幅
 		0,					// ミップマップレベル
 		0,					// 性質・確保オプション
 		D3DFMT_A8R8G8B8,	// ピクセルフォーマット
