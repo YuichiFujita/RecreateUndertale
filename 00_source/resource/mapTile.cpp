@@ -17,6 +17,7 @@ namespace
 	const char *TEXTURE_FILE[] =	// テクスチャファイル
 	{
 		nullptr,	// テクスチャなし
+		"data\\TEXTURE\\RUINS\\spr_fallpoint.png",	// 初期落下地点
 	};
 	const int PRIORITY = 3;	// マップタイルの優先順位
 }
@@ -142,4 +143,10 @@ void CMapTile::SetType(const EType type)
 
 	// テクスチャを割当
 	BindTexture(TEXTURE_FILE[type]);
+
+	if (m_type == TYPE_FALL_POINT)
+	{
+		// 大きさを設定
+		SetVec3Sizing(D3DXVECTOR3(SIZE_TILE * 34.0f, SIZE_TILE * 13.0f, 0.0f));	// TODO：どうにかしよう
+	}
 }

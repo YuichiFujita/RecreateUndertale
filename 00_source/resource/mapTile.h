@@ -25,8 +25,9 @@ public:
 	// 種類列挙
 	enum EType
 	{
-		TYPE_NONE = 0,	// テクスチャ無し
-		TYPE_MAX		// この列挙型の総数
+		TYPE_NONE = 0,		// テクスチャ無し
+		TYPE_FALL_POINT,	// 初期落下地点
+		TYPE_MAX			// この列挙型の総数
 	};
 
 	// コンストラクタ

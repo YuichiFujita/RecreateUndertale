@@ -96,7 +96,7 @@ HRESULT CSceneGame::Init(void)
 	//	èâä˙ê›íË
 	//--------------------------------------------------------
 	// TODO
-	CMapTile::Create(CMapTile::TYPE_NONE, VEC3_ZERO);
+	CMapTile::Create(CMapTile::TYPE_FALL_POINT, VEC3_ZERO);
 
 	// BGMÇÃçƒê∂
 	PLAY_SOUND(CSound::LABEL_BGM_GENERAL);
