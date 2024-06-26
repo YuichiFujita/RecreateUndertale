@@ -337,6 +337,9 @@
     <ClCompile Include="resource\objectChara2D.cpp">
       <Filter>object</Filter>
     </ClCompile>
+    <ClCompile Include="resource\motion2D.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h">
@@ -624,6 +627,9 @@
     </ClInclude>
     <ClInclude Include="resource\objectChara2D.h">
       <Filter>object</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\motion2D.h">
+      <Filter>utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
