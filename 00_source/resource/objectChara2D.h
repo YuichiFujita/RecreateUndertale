@@ -14,7 +14,7 @@
 //	インクルードファイル
 //************************************************************
 #include "anim3D.h"
-#include "motion.h"
+#include "motion2D.h"
 #include "character.h"
 
 //************************************************************
@@ -51,9 +51,9 @@ class CObjectChara2D : public CAnim3D
 	void BindCharaData(const char *pCharaPass);				// キャラクター情報割当
 	void SetPartsInfo(CCharacter::SPartsInfo& rInfo);		// パーツ情報設定
 	void SetMotion(const int nType);						// モーション設定
-	CMotion *GetMotion(void) const	{ return m_pMotion; }	// モーション取得
+	CMotion2D *GetMotion(void) const { return m_pMotion; }	// モーション取得
 
-	void AddMotionInfo(const CMotion::SMotion& rInfo)	{ m_pMotion->AddInfo(rInfo); }					// モーション情報追加
+	void AddMotionInfo(const CMotion2D::SMotion& rInfo)	{ m_pMotion->AddInfo(rInfo); }					// モーション情報追加
 	void SetEnableMotionUpdate(const bool bUpdate)		{ m_pMotion->SetEnableUpdate(bUpdate); }		// 更新状況設定
 	int GetMotionType(void) const			{ return m_pMotion->GetType(); }							// モーション種類取得
 	int GetMotionNumType(void) const		{ return m_pMotion->GetNumType(); }							// モーション種類総数取得
@@ -71,7 +71,7 @@ class CObjectChara2D : public CAnim3D
 
 private:
 	// メンバ変数
-	CMotion *m_pMotion;	// モーション情報
+	CMotion2D *m_pMotion;	// モーション2D情報
 };
 
 #endif	// _OBJECTCHARA2D_H_

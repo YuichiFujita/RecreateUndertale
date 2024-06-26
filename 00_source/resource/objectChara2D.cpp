@@ -10,8 +10,7 @@
 #include "objectChara2D.h"
 #include "manager.h"
 #include "renderer.h"
-#include "multiModel.h"
-#include "motion.h"
+#include "motion2D.h"
 
 //************************************************************
 //	子クラス [CObjectChara2D] のメンバ関数
@@ -20,7 +19,7 @@
 //	コンストラクタ
 //============================================================
 CObjectChara2D::CObjectChara2D(const CObject::ELabel label, const CObject::EDim dimension, const int nPriority) : CAnim3D(label, dimension, nPriority),
-	m_pMotion	(nullptr)	// モーション情報
+	m_pMotion	(nullptr)	// モーション2D情報
 {
 
 }
@@ -39,10 +38,10 @@ CObjectChara2D::~CObjectChara2D()
 HRESULT CObjectChara2D::Init(void)
 {
 	// メンバ変数を初期化
-	m_pMotion = nullptr;	// モーション情報
+	m_pMotion = nullptr;	// モーション2D情報
 
-	// モーションの生成
-	//m_pMotion = CMotion::Create(this);	// TODO
+	// モーション2Dの生成
+	m_pMotion = CMotion2D::Create(this);
 	if (m_pMotion == nullptr)
 	{ // 生成に失敗した場合
 
@@ -60,7 +59,7 @@ HRESULT CObjectChara2D::Init(void)
 //============================================================
 void CObjectChara2D::Uninit(void)
 {
-	// モーションの破棄
+	// モーション2Dの破棄
 	SAFE_REF_RELEASE(m_pMotion);
 }
 
@@ -69,7 +68,7 @@ void CObjectChara2D::Uninit(void)
 //============================================================
 void CObjectChara2D::Update(const float fDeltaTime)
 {
-	// モーションの更新
+	// モーション2Dの更新
 	assert(m_pMotion != nullptr);
 	m_pMotion->Update(fDeltaTime);
 }

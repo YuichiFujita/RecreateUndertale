@@ -1,6 +1,6 @@
 //============================================================
 //
-//	モーション処理 [motion2D.cpp]
+//	モーション2D処理 [motion2D.cpp]
 //	Author：藤田勇一
 //
 //============================================================
@@ -220,7 +220,7 @@ bool CMotion2D::IsCombo(const int nType) const
 //============================================================
 CMotion2D *CMotion2D::Create(CObjectChara2D *pChara2D)
 {
-	// モーションの生成
+	// モーション2Dの生成
 	CMotion2D *pMotion = new CMotion2D;
 	if (pMotion == nullptr)
 	{ // 生成に失敗した場合
@@ -230,11 +230,11 @@ CMotion2D *CMotion2D::Create(CObjectChara2D *pChara2D)
 	else
 	{ // 生成に成功した場合
 
-		// モーションの初期化
+		// モーション2Dの初期化
 		if (FAILED(pMotion->Init()))
 		{ // 初期化に失敗した場合
 
-			// モーションの破棄
+			// モーション2Dの破棄
 			SAFE_DELETE(pMotion);
 			return nullptr;
 		}
@@ -252,7 +252,7 @@ CMotion2D *CMotion2D::Create(CObjectChara2D *pChara2D)
 //============================================================
 void CMotion2D::Release(CMotion2D *&prMotion2D)
 {
-	// モーションの終了
+	// モーション2Dの終了
 	assert(prMotion2D != nullptr);
 	prMotion2D->Uninit();
 
@@ -265,9 +265,9 @@ void CMotion2D::Release(CMotion2D *&prMotion2D)
 //============================================================
 void CMotion2D::UpdateMove(void)
 {
-	if (m_pChara == nullptr) { return; }	// オブジェクトキャラクター未設定
+	// オブジェクトキャラクター2Dが未設定の場合抜ける
+	if (m_pChara == nullptr) { return; }
 
-	// 変数を宣言
 	D3DXMATRIX  mtxChara	= m_pChara->GetMtxWorld();				// キャラマトリックス
 	D3DXVECTOR3 posSetChara	= m_pChara->GetVec3Position();			// キャラ設定位置
 	D3DXVECTOR3 posOldChara	= useful::GetMatrixPosition(mtxChara);	// キャラ過去位置
