@@ -331,6 +331,9 @@
       <Filter>UI</Filter>
     </ClCompile>
     <ClCompile Include="resource\mapTile.cpp" />
+    <ClCompile Include="resource\anim3D.cpp">
+      <Filter>3D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h">
@@ -613,6 +616,9 @@
       <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="resource\mapTile.h" />
+    <ClInclude Include="resource\anim3D.h">
+      <Filter>3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource\resource.rc">

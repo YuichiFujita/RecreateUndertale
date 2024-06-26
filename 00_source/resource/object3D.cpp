@@ -602,6 +602,73 @@ void CObject3D::SetVtx(void)
 }
 
 //============================================================
+//	アニメーションのテクスチャ座標の設定処理
+//============================================================
+void CObject3D::SetAnimTex
+(
+	const int nPattern,		// アニメーションパターン
+	const int nWidthPtrn,	// テクスチャの横の分割数
+	const int nHeightPtrn	// テクスチャの縦の分割数
+)
+{
+	// 変数を宣言
+	float fWidthRate	= 1.0f / nWidthPtrn;	// 横の分割数の割合
+	float fHeightRate	= 1.0f / nHeightPtrn;	// 縦の分割数の割合
+	int nWidthCurrent	= nPattern % nWidthPtrn;					// 現在の横のパターン
+	int nHeightCurrent	= (nPattern / nWidthPtrn) % nHeightPtrn;	// 現在の縦のパターン
+
+	// ポインタを宣言
+	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
+
+	if (m_pVtxBuff != nullptr)
+	{ // 使用中の場合
+
+		// 頂点バッファをロックし、頂点情報へのポインタを取得
+		m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
+
+		// テクスチャ座標の設定
+		pVtx[0].tex = D3DXVECTOR2(fWidthRate *  nWidthCurrent,		fHeightRate *  nHeightCurrent);
+		pVtx[1].tex = D3DXVECTOR2(fWidthRate * (nWidthCurrent + 1),	fHeightRate *  nHeightCurrent);
+		pVtx[2].tex = D3DXVECTOR2(fWidthRate *  nWidthCurrent,		fHeightRate * (nHeightCurrent + 1));
+		pVtx[3].tex = D3DXVECTOR2(fWidthRate * (nWidthCurrent + 1),	fHeightRate * (nHeightCurrent + 1));
+
+		// 頂点バッファをアンロックする
+		m_pVtxBuff->Unlock();
+	}
+}
+
+//============================================================
+//	スクロールのテクスチャ座標の設定処理
+//============================================================
+void CObject3D::SetScrollTex
+(
+	const float fTexU,		// テクスチャの横座標の開始位置
+	const float fTexV,		// テクスチャの縦座標の開始位置
+	const float fOffsetU,	// テクスチャの横座標のオフセット位置
+	const float fOffsetV	// テクスチャの縦座標のオフセット位置
+)
+{
+	// ポインタを宣言
+	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
+
+	if (m_pVtxBuff != nullptr)
+	{ // 使用中の場合
+
+		// 頂点バッファをロックし、頂点情報へのポインタを取得
+		m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
+
+		// テクスチャ座標の設定
+		pVtx[0].tex = D3DXVECTOR2(fTexU,			fTexV);
+		pVtx[1].tex = D3DXVECTOR2(fTexU + fOffsetU,	fTexV);
+		pVtx[2].tex = D3DXVECTOR2(fTexU,			fTexV + fOffsetV);
+		pVtx[3].tex = D3DXVECTOR2(fTexU + fOffsetU,	fTexV + fOffsetV);
+
+		// 頂点バッファをアンロックする
+		m_pVtxBuff->Unlock();
+	}
+}
+
+//============================================================
 //	通常描画処理
 //============================================================
 void CObject3D::DrawNormal(void)

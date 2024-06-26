@@ -18,6 +18,7 @@
 
 // TODO
 #include "mapTile.h"
+#include "anim3D.h"
 
 //************************************************************
 //	ê√ìIÉÅÉìÉoïœêîêÈåæ
@@ -97,6 +98,10 @@ HRESULT CSceneGame::Init(void)
 	//--------------------------------------------------------
 	// TODO
 	CMapTile::Create(CMapTile::TYPE_FALL_POINT, VEC3_ZERO);
+	CAnim3D *p = CAnim3D::Create(4, 1, D3DXVECTOR3(0.0f, 0.0f, -1.0f), D3DXVECTOR3(60.0f, 90.0f, 0.0f));
+	p->BindTexture("data\\TEXTURE\\CAST\\MAIN\\FRISK\\spr_f_mainchara_d.png");
+	p->SetLabel(CObject::LABEL_DEBUG);
+	p->SetCounter(14);
 
 	// BGMÇÃçƒê∂
 	PLAY_SOUND(CSound::LABEL_BGM_GENERAL);

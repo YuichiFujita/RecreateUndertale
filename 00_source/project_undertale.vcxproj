@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="resource\anim2D.cpp" />
+    <ClCompile Include="resource\anim3D.cpp" />
     <ClCompile Include="resource\camera.cpp" />
     <ClCompile Include="resource\char2D.cpp" />
     <ClCompile Include="resource\character.cpp" />
@@ -254,6 +255,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h" />
+    <ClInclude Include="resource\anim3D.h" />
     <ClInclude Include="resource\camera.h" />
     <ClInclude Include="resource\char2D.h" />
     <ClInclude Include="resource\character.h" />
