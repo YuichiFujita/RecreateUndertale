@@ -334,6 +334,9 @@
     <ClCompile Include="resource\anim3D.cpp">
       <Filter>3D</Filter>
     </ClCompile>
+    <ClCompile Include="resource\objectChara2D.cpp">
+      <Filter>object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h">
@@ -618,6 +621,9 @@
     <ClInclude Include="resource\mapTile.h" />
     <ClInclude Include="resource\anim3D.h">
       <Filter>3D</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\objectChara2D.h">
+      <Filter>object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

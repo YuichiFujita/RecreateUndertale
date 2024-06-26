@@ -197,6 +197,7 @@
     <ClCompile Include="resource\object3D.cpp" />
     <ClCompile Include="resource\objectBillboard.cpp" />
     <ClCompile Include="resource\objectChara.cpp" />
+    <ClCompile Include="resource\objectChara2D.cpp" />
     <ClCompile Include="resource\objectDivChara.cpp" />
     <ClCompile Include="resource\objectMeshCircle.cpp" />
     <ClCompile Include="resource\objectMeshCube.cpp" />
@@ -296,6 +297,7 @@
     <ClInclude Include="resource\object3D.h" />
     <ClInclude Include="resource\objectBillboard.h" />
     <ClInclude Include="resource\objectChara.h" />
+    <ClInclude Include="resource\objectChara2D.h" />
     <ClInclude Include="resource\objectDivChara.h" />
     <ClInclude Include="resource\objectMeshCircle.h" />
     <ClInclude Include="resource\objectMeshCube.h" />
