@@ -49,8 +49,8 @@ HRESULT CMotion2D::Init(void)
 //============================================================
 void CMotion2D::Uninit(void)
 {
-	// モーション情報の動的配列のクリア
-	ClearVector();
+	// モーション情報をクリア
+	m_info.vecMotion.clear();
 }
 
 //============================================================
@@ -64,25 +64,11 @@ void CMotion2D::Update(const float fDeltaTime)
 	// モーションがない場合抜ける
 	if (m_info.vecMotion.empty()) { return; }
 
-	// キー数が未設定の場合抜ける
-	if (m_info.vecMotion[m_info.nType].GetNumKey() <= 0) { return; }
-
 	// モーションの更新
 	UpdateMotion();
 
 	// 移動の更新
 	UpdateMove();
-}
-
-//============================================================
-//	パーツ情報の設定処理
-//============================================================
-void CMotion2D::BindPartsData(/*CMultiModel **ppModel*/)
-{
-#if 0
-	// 引数のモデル情報を設定
-	m_ppModel = ppModel;
-#endif
 }
 
 //============================================================
@@ -111,7 +97,8 @@ void CMotion2D::AddInfo(const SMotion& rMotion)
 	// 引数のモーション情報を設定
 	m_info.vecMotion[nSetMotionID] = rMotion;
 
-	// モーション全体フレーム数を設定
+	// モーション全体フレーム数を設定	// TODO
+#if 0
 	int nSubKey = (m_info.vecMotion[nSetMotionID].bLoop) ? 0 : 1;		// ループしない場合最後のキーは含まない
 	int nLoop = m_info.vecMotion[nSetMotionID].GetNumKey() - nSubKey;	// 繰り返し数を求める
 	for (int nCntKey = 0; nCntKey < nLoop; nCntKey++)
@@ -120,6 +107,7 @@ void CMotion2D::AddInfo(const SMotion& rMotion)
 		// キーのフレーム数を加算
 		m_info.vecMotion[nSetMotionID].nWholeFrame += m_info.vecMotion[nSetMotionID].vecKey[nCntKey].nFrame;
 	}
+#endif
 }
 
 //============================================================
@@ -129,22 +117,6 @@ void CMotion2D::SetEnableUpdate(const bool bUpdate)
 {
 	// 引数の更新状況を設定
 	m_bUpdate = bUpdate;
-}
-
-//============================================================
-//	モーション情報の動的配列のクリア処理
-//============================================================
-void CMotion2D::ClearVector(void)
-{
-	for (auto& rMotionInfo : m_info.vecMotion)
-	{ // モーション情報の要素数分繰り返す
-
-		// キー情報をクリア
-		rMotionInfo.vecKey.clear();
-	}
-
-	// モーション情報をクリア
-	m_info.vecMotion.clear();
 }
 
 //============================================================
@@ -159,10 +131,8 @@ void CMotion2D::Set(const int nType)
 	m_info.nType = nType;
 
 	// モーション情報を初期化
-	m_info.nKey			 = 0;		// モーションキー番号
-	m_info.nKeyCounter	 = 0;		// モーションキーカウンター
-	m_info.nWholeCounter = 0;		// モーション全体カウンター
-	m_info.bFinish		 = false;	// モーション終了状況
+	m_info.fCurTime	= 0.0f;		// 現在のモーション全体時間
+	m_info.bFinish	= false;	// モーション終了状況
 
 	// TODO：ここで変更後のドット絵に遷移
 }
@@ -177,25 +147,15 @@ int CMotion2D::GetNumType(void)
 }
 
 //============================================================
-//	キーの総数取得処理
-//============================================================
-int CMotion2D::GetNumKey(const int nType)
-{
-	// 引数モーションのキーの総数を返す
-	int nSubKey = (m_info.vecMotion[m_info.GetNumMotion()].bLoop) ? 0 : 1;	// ループしない場合最後のキーは含まない
-	return m_info.vecMotion[nType].GetNumKey() - nSubKey;
-}
-
-//============================================================
 //	キャンセル取得処理
 //============================================================
 bool CMotion2D::IsCancel(const int nType) const
 {
-	if (m_info.vecMotion[nType].nCancelFrame != NONE_IDX)
+	if (m_info.vecMotion[nType].fCancelTime >= 0.0f)
 	{ // キャンセルフレームが設定されている場合
 
 		// 引数モーションのキャンセル状況を返す
-		return (m_info.nWholeCounter >= m_info.vecMotion[nType].nCancelFrame);
+		return (m_info.fCurTime >= m_info.vecMotion[nType].fCancelTime);
 	}
 
 	// キャンセル不可を返す
@@ -207,11 +167,11 @@ bool CMotion2D::IsCancel(const int nType) const
 //============================================================
 bool CMotion2D::IsCombo(const int nType) const
 {
-	if (m_info.vecMotion[nType].nComboFrame != NONE_IDX)
+	if (m_info.vecMotion[nType].fComboTime >= 0.0f)
 	{ // コンボフレームが設定されている場合
 
 		// 引数モーションのコンボ状況を返す
-		return (m_info.nWholeCounter >= m_info.vecMotion[nType].nComboFrame);
+		return (m_info.fCurTime >= m_info.vecMotion[nType].fComboTime);
 	}
 
 	// コンボ不可を返す
@@ -261,42 +221,6 @@ void CMotion2D::Release(CMotion2D *&prMotion2D)
 
 	// メモリ開放
 	SAFE_DELETE(prMotion2D);
-}
-
-//============================================================
-//	移動の更新処理
-//============================================================
-void CMotion2D::UpdateMove(void)
-{
-	// オブジェクトキャラクター2Dが未設定の場合抜ける
-	if (m_pChara == nullptr) { return; }
-
-	D3DXMATRIX  mtxChara	= m_pChara->GetMtxWorld();				// キャラマトリックス
-	D3DXVECTOR3 posSetChara	= m_pChara->GetVec3Position();			// キャラ設定位置
-	D3DXVECTOR3 posOldChara	= useful::GetMatrixPosition(mtxChara);	// キャラ過去位置
-	D3DXVECTOR3 posCurChara	= VEC3_ZERO;							// キャラ現在位置
-
-	// 移動量を求める
-	float fRate = 1.0f / (float)m_info.vecMotion[m_info.nType].vecKey[m_info.nKey].nFrame;	// キーフレーム割合
-	D3DXVECTOR3 moveRate = m_info.vecMotion[m_info.nType].vecKey[m_info.nKey].move * fRate;	// フレーム移動量
-
-	if (m_info.vecMotion[m_info.nType].vecKey[m_info.nKey].nFrame > 0)
-	{ // フレームが設定されている場合
-
-		// 移動量をマトリックスに反映
-		D3DXMATRIX mtxMove;	// マトリックス計算用
-		D3DXMatrixTranslation(&mtxMove, moveRate.x, moveRate.y, moveRate.z);
-		D3DXMatrixMultiply(&mtxChara, &mtxMove, &mtxChara);
-
-		// 移動量を与えたマトリックスのワールド座標を求める
-		posCurChara = useful::GetMatrixPosition(mtxChara);
-
-		// 過去と現在の位置から移動量を求め、位置に与える
-		posSetChara += posOldChara - posCurChara;
-
-		// 位置を反映
-		m_pChara->SetVec3Position(posSetChara);
-	}
 }
 
 //============================================================

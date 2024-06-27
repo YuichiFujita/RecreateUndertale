@@ -1,4 +1,4 @@
-#if 0
+#if 1
 //============================================================
 //
 //	キャラクター2Dヘッダー [character2D.h]
@@ -29,23 +29,22 @@ public:
 	// デストラクタ
 	~CCharacter2D();
 
-#if 0
-	// パーツ情報構造体
-	struct SPartsInfo
+	// アニメーション情報構造体
+	struct SAnimInfo
 	{
 		// コンストラクタ
-		SPartsInfo()
+		SAnimInfo() :
+			ptrnTexture	(GRID2_ONE),	// テクスチャ分割数
+			sizeChara	(VEC3_ZERO)		// キャラクター大きさ
 		{
-			vecParts.clear();	// パーツ情報をクリア
+			sPassTexture.clear();	// テクスチャパスをクリア
 		}
 
-		// メンバ関数
-		int GetNumParts(void) { return vecParts.size(); }	// パーツ情報の総数取得
-
 		// メンバ変数
-		std::vector<SParts> vecParts;	// パーツ情報
+		std::string sPassTexture;	// テクスチャパス
+		POSGRID2 ptrnTexture;		// テクスチャ分割数
+		D3DXVECTOR3 sizeChara;		// キャラクター大きさ
 	};
-#endif
 
 	// キャラクター情報構造体
 	struct SCharaData
@@ -54,7 +53,7 @@ public:
 		SCharaData() {}
 
 		// メンバ変数
-		std::string sPassTexture;		// テクスチャパス
+		SAnimInfo infoAnim;				// アニメーション情報
 		CMotion2D::SInfo infoMotion;	// モーション情報
 	};
 
@@ -73,8 +72,8 @@ private:
 	HRESULT SearchFolderAll(std::string sFolderPath);	// フォルダ全検索
 
 	// メンバ関数
-	HRESULT LoadSetup(SCharaData *pInfoChara, const char *pCharaPass);	// キャラクター情報セットアップ
-	//HRESULT LoadMotionSetup(CMotion::SInfo *pInfoMotion, const SPartsInfo *pInfoParts, const char *pMotionPass);	// モーション情報セットアップ
+	HRESULT LoadSetup(SCharaData *pInfoChara, const char *pCharaPass);			// キャラクター情報セットアップ
+	HRESULT LoadMotionSetup(SCharaData *pInfoChara, const char *pMotionPass);	// モーション情報セットアップ
 
 	// メンバ変数
 	std::map<std::string, SCharaData> m_mapCharacter;	// キャラクター2D連想配列
