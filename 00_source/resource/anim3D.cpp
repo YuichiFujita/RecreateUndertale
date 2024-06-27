@@ -26,7 +26,7 @@ namespace
 CAnim3D::CAnim3D(const CObject::ELabel label, const EDim dimension, const int nPriority) : CObject3D(label, dimension, nPriority),
 	m_funcNext	(nullptr),		// パターン変更関数ポインタ
 	m_ptrn		(GRID2_ZERO),	// テクスチャ分割数
-	m_fNextTime	(0.0f),			// パターン変更時間
+	m_pNextTime	(nullptr),		// パターン変更時間
 	m_fCurTime	(0.0f),			// 現在の待機時間
 	m_nCurPtrn	(0),			// 現在のパターン
 	m_nMaxPtrn	(0),			// パターンの総数
@@ -53,7 +53,7 @@ HRESULT CAnim3D::Init(void)
 	// メンバ変数を初期化
 	m_funcNext	= nullptr;		// パターン変更関数ポインタ
 	m_ptrn		= INIT_PTRN;	// テクスチャ分割数
-	m_fNextTime	= 0.0f;			// パターン変更時間
+	m_pNextTime	= nullptr;		// パターン変更時間
 	m_fCurTime	= 0.0f;			// 現在の待機時間
 	m_nCurPtrn	= 0;			// 現在のパターン
 	m_nMaxPtrn	= 0;			// パターン総数
@@ -85,6 +85,9 @@ HRESULT CAnim3D::Init(void)
 //============================================================
 void CAnim3D::Uninit(void)
 {
+	// パターン変更時間の破棄
+	SAFE_DEL_ARRAY(m_pNextTime);
+
 	// オブジェクト3Dの終了
 	CObject3D::Uninit();
 }
@@ -99,11 +102,11 @@ void CAnim3D::Update(const float fDeltaTime)
 
 	// 現在の待機時間を加算
 	m_fCurTime += fDeltaTime;
-	while (m_fCurTime >= m_fNextTime)
+	while (m_fCurTime >= m_pNextTime[m_nCurPtrn])
 	{ // 待機し終わった場合
 
 		// 現在の待機時間から今回の待機時間を減算
-		m_fCurTime -= m_fNextTime;
+		m_fCurTime -= m_pNextTime[m_nCurPtrn];
 
 		// 現在のパターンを変更
 		assert(m_funcNext != nullptr);
@@ -285,18 +288,6 @@ void CAnim3D::SetTexPtrnHeight(const int nTexPtrnH)
 }
 
 //============================================================
-//	パターン変更時間の設定処理
-//============================================================
-void CAnim3D::SetNextTime(const float fNextTime)
-{
-	// 変更時間がプラスではない場合抜ける
-	if (fNextTime <= 0.0f) { assert(false); return; }
-
-	// 引数のパターン変更時間を設定
-	m_fNextTime = fNextTime;
-}
-
-//============================================================
 //	再生フラグの設定処理
 //============================================================
 void CAnim3D::SetEnablePlay(const bool bPlay)
@@ -331,15 +322,65 @@ void CAnim3D::SetEnablePlayBack(const bool bPlayBack)
 }
 
 //============================================================
+//	パターン変更時間の設定処理 (パターン指定)
+//============================================================
+void CAnim3D::SetNextTime(const int nPtrnID, const float fNextTime)
+{
+	// パターンインデックスが範囲外の場合抜ける
+	if (nPtrnID <= NONE_IDX || nPtrnID >= m_nMaxPtrn) { assert(false); return; }
+
+	// 変更時間がプラスではない場合抜ける
+	if (fNextTime <= 0.0f) { assert(false); return; }
+
+	// 引数のパターン変更時間を設定
+	m_pNextTime[nPtrnID] = fNextTime;
+}
+
+//============================================================
+//	パターン変更時間の設定処理 (全パターン)
+//============================================================
+void CAnim3D::SetNextTime(const float fNextTime)
+{
+	// 変更時間がプラスではない場合抜ける
+	if (fNextTime <= 0.0f) { assert(false); return; }
+
+	for (int i = 0; i < m_nMaxPtrn; i++)
+	{ // パターンの総数分繰り返す
+
+		// 引数のパターン変更時間を設定
+		m_pNextTime[i] = fNextTime;
+	}
+}
+
+//============================================================
 //	パターン総数の設定処理
 //============================================================
-void CAnim3D::SetMaxPtrn(const int nMaxPtrn)
+HRESULT CAnim3D::SetMaxPtrn(const int nMaxPtrn)
 {
 	// 引数のパターンの総数を代入
 	m_nMaxPtrn = nMaxPtrn;
 
+	// パターン変更時間の破棄
+	SAFE_DEL_ARRAY(m_pNextTime);
+
+	// パターン変更時間の再生成
+	m_pNextTime = new float[m_nMaxPtrn];
+	if (m_pNextTime == nullptr)
+	{ // 生成に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
+
+	// パターン変更時間を初期化
+	SetNextTime(DEF_NEXT);
+
 	// アニメーションのテクスチャ座標の設定
 	CObject3D::SetAnimTex(m_nCurPtrn, m_ptrn.x, m_ptrn.y);
+
+	// 成功を返す
+	return S_OK;
 }
 
 //============================================================
