@@ -289,6 +289,9 @@ void CAnim3D::SetTexPtrnHeight(const int nTexPtrnH)
 //============================================================
 void CAnim3D::SetNextTime(const float fNextTime)
 {
+	// 変更時間がプラスではない場合抜ける
+	if (fNextTime <= 0.0f) { assert(false); return; }
+
 	// 引数のパターン変更時間を設定
 	m_fNextTime = fNextTime;
 }
