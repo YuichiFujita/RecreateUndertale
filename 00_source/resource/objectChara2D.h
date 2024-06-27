@@ -23,6 +23,7 @@
 // オブジェクトキャラクター2Dクラス
 class CObjectChara2D : public CAnim3D
 {
+public:
 	// コンストラクタ
 	explicit CObjectChara2D(const CObject::ELabel label = LABEL_NONE, const CObject::EDim dimension = DIM_3D, const int nPriority = object::DEFAULT_PRIO);
 

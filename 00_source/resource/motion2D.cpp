@@ -61,6 +61,9 @@ void CMotion2D::Update(const float fDeltaTime)
 	// 更新停止中の場合抜ける
 	if (!m_bUpdate) { return; }
 
+	// モーションがない場合抜ける
+	if (m_info.vecMotion.empty()) { return; }
+
 	// キー数が未設定の場合抜ける
 	if (m_info.vecMotion[m_info.nType].GetNumKey() <= 0) { return; }
 

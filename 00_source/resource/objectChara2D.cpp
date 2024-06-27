@@ -40,7 +40,14 @@ HRESULT CObjectChara2D::Init(void)
 	// メンバ変数を初期化
 	m_pMotion = nullptr;	// モーション2D情報
 
-	// TODO：Anim3Dの初期化終了更新描画かけ！
+	// アニメーション3Dの初期化
+	if (FAILED(CAnim3D::Init()))
+	{ // 初期化に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
 
 	// モーション2Dの生成
 	m_pMotion = CMotion2D::Create(this);
@@ -63,6 +70,9 @@ void CObjectChara2D::Uninit(void)
 {
 	// モーション2Dの破棄
 	SAFE_REF_RELEASE(m_pMotion);
+
+	// アニメーション3Dの終了
+	CAnim3D::Uninit();
 }
 
 //============================================================
@@ -73,6 +83,9 @@ void CObjectChara2D::Update(const float fDeltaTime)
 	// モーション2Dの更新
 	assert(m_pMotion != nullptr);
 	m_pMotion->Update(fDeltaTime);
+
+	// アニメーション3Dの更新
+	CAnim3D::Update(fDeltaTime);
 }
 
 //============================================================
@@ -80,7 +93,8 @@ void CObjectChara2D::Update(const float fDeltaTime)
 //============================================================
 void CObjectChara2D::Draw(CShader *pShader)
 {
-
+	// アニメーション3Dの描画
+	CAnim3D::Draw(pShader);
 }
 
 //============================================================

@@ -1,4 +1,5 @@
-﻿//============================================================
+﻿#if 0
+// ============================================================
 //
 //	キャラクター処理 [character.cpp]
 //	Author：藤田勇一
@@ -524,3 +525,4 @@ HRESULT CCharacter::LoadMotionSetup(CMotion::SInfo *pInfoMotion, const SPartsInf
 	// 成功を返す
 	return S_OK;
 }
+#endif
