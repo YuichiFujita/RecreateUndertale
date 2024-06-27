@@ -10,21 +10,29 @@
 #include "anim3D.h"
 
 //************************************************************
+//	定数宣言
+//************************************************************
+namespace
+{
+	const POSGRID2 INIT_PTRN = GRID2_ONE;	// テクスチャ分割数の初期値
+}
+
+//************************************************************
 //	子クラス [CAnim3D] のメンバ関数
 //************************************************************
 //============================================================
 //	コンストラクタ
 //============================================================
 CAnim3D::CAnim3D(const CObject::ELabel label, const EDim dimension, const int nPriority) : CObject3D(label, dimension, nPriority),
-	m_nCounter		(0),	// アニメーションカウンター
-	m_nCntChange	(0),	// パターン変更カウント
-	m_nPattern		(0),	// アニメーションパターン
-	m_nMaxPtrn		(0),	// パターンの総数
-	m_nWidthPtrn	(0),	// テクスチャの横の分割数
-	m_nHeightPtrn	(0),	// テクスチャの縦の分割数
-	m_nNumLoop		(0),	// パターン繰り返し数
-	m_bStop		(false),	// 停止状況
-	m_bPlayBack	(false)		// 逆再生状況
+	m_funcNext	(nullptr),		// パターン変更関数ポインタ
+	m_ptrn		(GRID2_ZERO),	// テクスチャ分割数
+	m_fNextTime	(0.0f),			// パターン変更時間
+	m_fCurTime	(0.0f),			// 現在の待機時間
+	m_nCurPtrn	(0),			// 現在のパターン
+	m_nMaxPtrn	(0),			// パターンの総数
+	m_nNumLoop	(0),			// パターン繰り返し数
+	m_bPlay		(false),		// 再生状況
+	m_bPlayBack	(false)			// 逆再生状況
 {
 
 }
@@ -43,15 +51,18 @@ CAnim3D::~CAnim3D()
 HRESULT CAnim3D::Init(void)
 {
 	// メンバ変数を初期化
-	m_nCounter		= 0;	// アニメーションカウンター
-	m_nCntChange	= 0;	// パターン変更カウント
-	m_nPattern		= 0;	// アニメーションパターン
-	m_nMaxPtrn		= 0;	// パターンの総数
-	m_nWidthPtrn	= 1;	// テクスチャの横の分割数
-	m_nHeightPtrn	= 1;	// テクスチャの縦の分割数
-	m_nNumLoop		= 0;	// パターン繰り返し数
-	m_bStop		= false;	// 停止状況
-	m_bPlayBack	= false;	// 逆再生状況
+	m_funcNext	= nullptr;		// パターン変更関数ポインタ
+	m_ptrn		= INIT_PTRN;	// テクスチャ分割数
+	m_fNextTime	= 0.0f;			// パターン変更時間
+	m_fCurTime	= 0.0f;			// 現在の待機時間
+	m_nCurPtrn	= 0;			// 現在のパターン
+	m_nMaxPtrn	= 0;			// パターン総数
+	m_nNumLoop	= 0;			// パターン繰り返し数
+	m_bPlay		= true;			// 再生状況
+	m_bPlayBack	= false;		// 逆再生状況
+
+	// 通常再生を設定
+	SetEnablePlayBack(false);
 
 	// オブジェクト3Dの初期化
 	if (FAILED(CObject3D::Init()))
@@ -63,7 +74,7 @@ HRESULT CAnim3D::Init(void)
 	}
 
 	// アニメーションのテクスチャ座標の設定
-	CObject3D::SetAnimTex(m_nPattern, m_nWidthPtrn, m_nHeightPtrn);
+	CObject3D::SetAnimTex(m_nCurPtrn, m_ptrn.x, m_ptrn.y);
 
 	// 成功を返す
 	return S_OK;
@@ -84,39 +95,25 @@ void CAnim3D::Uninit(void)
 void CAnim3D::Update(const float fDeltaTime)
 {
 	// 停止中の場合抜ける
-	if (m_bStop) { return; }
+	if (!m_bPlay) { return; }
 
-	if (m_nCntChange > 0)
-	{ // 変更カウントが 0より大きい場合
+	// 現在の待機時間を加算
+	m_fCurTime += fDeltaTime;
+	while (m_fCurTime >= m_fNextTime)
+	{ // 待機し終わった場合
 
-		// カウンターを加算
-		m_nCounter++;
+		// 現在の待機時間から今回の待機時間を減算
+		m_fCurTime -= m_fNextTime;
 
-		if (m_nCounter % m_nCntChange == 0)
-		{ // カウンターが変更カウントになった場合
+		// 現在のパターンを変更
+		assert(m_funcNext != nullptr);
+		m_funcNext();
 
-			// カウンターを初期化
-			m_nCounter = 0;
+		if (m_nCurPtrn == 0)
+		{ // パターン数が一枚目の場合
 
-			if (!m_bPlayBack)
-			{ // 通常再生の場合
-
-				// パターンを加算
-				m_nPattern = (m_nPattern + 1) % m_nMaxPtrn;
-			}
-			else
-			{ // 逆再生の場合
-
-				// パターンを減算
-				m_nPattern = (m_nPattern + (m_nMaxPtrn - 1)) % m_nMaxPtrn;
-			}
-
-			if (m_nPattern == 0)
-			{ // パターン数が一枚目の場合
-
-				// 繰り返し数を加算
-				m_nNumLoop++;
-			}
+			// 繰り返し数を加算
+			m_nNumLoop++;
 		}
 	}
 
@@ -124,7 +121,7 @@ void CAnim3D::Update(const float fDeltaTime)
 	CObject3D::Update(fDeltaTime);
 
 	// アニメーションのテクスチャ座標の設定
-	CObject3D::SetAnimTex(m_nPattern, m_nWidthPtrn, m_nHeightPtrn);
+	CObject3D::SetAnimTex(m_nCurPtrn, m_ptrn.x, m_ptrn.y);
 }
 
 //============================================================
@@ -139,7 +136,15 @@ void CAnim3D::Draw(CShader *pShader)
 //============================================================
 //	生成処理
 //============================================================
-CAnim3D *CAnim3D::Create(const int nWidthPtrn, const int nHeightPtrn, const D3DXVECTOR3& rPos, const D3DXVECTOR3& rSize, const D3DXVECTOR3& rRot, const D3DXCOLOR& rCol)
+CAnim3D *CAnim3D::Create
+(
+	const POSGRID2& rPtrn,		// テクスチャ分割数
+	const D3DXVECTOR3& rPos,	// 位置
+	const float fNextTime,		// パターン変更時間
+	const D3DXVECTOR3& rSize,	// 大きさ
+	const D3DXVECTOR3& rRot,	// 向き
+	const D3DXCOLOR& rCol		// 色
+)
 {
 	// アニメーション3Dの生成
 	CAnim3D *pAnim3D = new CAnim3D;
@@ -160,11 +165,11 @@ CAnim3D *CAnim3D::Create(const int nWidthPtrn, const int nHeightPtrn, const D3DX
 			return nullptr;
 		}
 
-		// テクスチャ横分割数を設定
-		pAnim3D->SetWidthPattern(nWidthPtrn);
+		// テクスチャ分割数を設定
+		pAnim3D->SetTexPtrn(rPtrn);
 
-		// テクスチャ縦分割数を設定
-		pAnim3D->SetHeightPattern(nHeightPtrn);
+		// パターン変更時間を設定
+		pAnim3D->SetNextTime(fNextTime);
 
 		// 位置を設定
 		pAnim3D->SetVec3Position(rPos);
@@ -192,7 +197,7 @@ void CAnim3D::SetVec3Position(const D3DXVECTOR3& rPos)
 	CObject3D::SetVec3Position(rPos);
 
 	// アニメーションのテクスチャ座標の設定
-	CObject3D::SetAnimTex(m_nPattern, m_nWidthPtrn, m_nHeightPtrn);
+	CObject3D::SetAnimTex(m_nCurPtrn, m_ptrn.x, m_ptrn.y);
 }
 
 //============================================================
@@ -204,7 +209,7 @@ void CAnim3D::SetVec3Rotation(const D3DXVECTOR3& rRot)
 	CObject3D::SetVec3Rotation(rRot);
 
 	// アニメーションのテクスチャ座標の設定
-	CObject3D::SetAnimTex(m_nPattern, m_nWidthPtrn, m_nHeightPtrn);
+	CObject3D::SetAnimTex(m_nCurPtrn, m_ptrn.x, m_ptrn.y);
 }
 
 //============================================================
@@ -216,7 +221,7 @@ void CAnim3D::SetVec3Sizing(const D3DXVECTOR3& rSize)
 	CObject3D::SetVec3Sizing(rSize);
 
 	// アニメーションのテクスチャ座標の設定
-	CObject3D::SetAnimTex(m_nPattern, m_nWidthPtrn, m_nHeightPtrn);
+	CObject3D::SetAnimTex(m_nCurPtrn, m_ptrn.x, m_ptrn.y);
 }
 
 //============================================================
@@ -228,93 +233,126 @@ void CAnim3D::SetColor(const D3DXCOLOR& rCol)
 	CObject3D::SetColor(rCol);
 
 	// アニメーションのテクスチャ座標の設定
-	CObject3D::SetAnimTex(m_nPattern, m_nWidthPtrn, m_nHeightPtrn);
+	CObject3D::SetAnimTex(m_nCurPtrn, m_ptrn.x, m_ptrn.y);
 }
 
 //============================================================
-//	パターンの設定処理
+//	現在パターンの設定処理
 //============================================================
-void CAnim3D::SetPattern(const int nPattern)
+void CAnim3D::SetCurPtrn(const int nPtrn)
 {
 	// 引数のパターン数を代入
-	m_nPattern = nPattern;
+	m_nCurPtrn = nPtrn;
 
 	// アニメーションのテクスチャ座標の設定
-	CObject3D::SetAnimTex(m_nPattern, m_nWidthPtrn, m_nHeightPtrn);
+	CObject3D::SetAnimTex(m_nCurPtrn, m_ptrn.x, m_ptrn.y);
 }
 
 //============================================================
-//	パターンの総数の設定処理
+//	テクスチャ分割数の設定処理
 //============================================================
-void CAnim3D::SetMaxPattern(const int nMaxPtrn)
+void CAnim3D::SetTexPtrn(const POSGRID2& rPtrn)
+{
+	// 引数のテクスチャ分割数を設定
+	m_ptrn = rPtrn;
+
+	// パターン総数を設定
+	SetMaxPtrn(m_ptrn.x * m_ptrn.y);
+}
+
+//============================================================
+//	テクスチャ横分割数の設定処理
+//============================================================
+void CAnim3D::SetTexPtrnWidth(const int nTexPtrnW)
+{
+	// 引数のテクスチャ横分割数を設定
+	m_ptrn.x = nTexPtrnW;
+
+	// パターン総数を設定
+	SetMaxPtrn(m_ptrn.x * m_ptrn.y);
+}
+
+//============================================================
+//	テクスチャ縦分割数の設定処理
+//============================================================
+void CAnim3D::SetTexPtrnHeight(const int nTexPtrnH)
+{
+	// 引数のテクスチャ縦分割数を設定
+	m_ptrn.y = nTexPtrnH;
+
+	// パターン総数を設定
+	SetMaxPtrn(m_ptrn.x * m_ptrn.y);
+}
+
+//============================================================
+//	パターン変更時間の設定処理
+//============================================================
+void CAnim3D::SetNextTime(const float fNextTime)
+{
+	// 引数のパターン変更時間を設定
+	m_fNextTime = fNextTime;
+}
+
+//============================================================
+//	再生フラグの設定処理
+//============================================================
+void CAnim3D::SetEnablePlay(const bool bPlay)
+{
+	// 引数の再生状況を設定
+	m_bPlay = bPlay;
+
+	// 停止した場合にパターン繰り返し数を初期化
+	if (!m_bPlay) { m_nNumLoop = 0; }
+}
+
+//============================================================
+//	逆再生フラグの設定処理
+//============================================================
+void CAnim3D::SetEnablePlayBack(const bool bPlayBack)
+{
+	// 引数の逆再生状況を設定
+	m_bPlayBack = bPlayBack;
+
+	if (!m_bPlayBack)
+	{ // 通常再生の場合
+
+		// パターン加算関数を設定
+		m_funcNext = std::bind(&CAnim3D::NextPtrn, this);
+	}
+	else
+	{ // 逆再生の場合
+
+		// パターン減算関数を設定
+		m_funcNext = std::bind(&CAnim3D::BackPtrn, this);
+	}
+}
+
+//============================================================
+//	パターン総数の設定処理
+//============================================================
+void CAnim3D::SetMaxPtrn(const int nMaxPtrn)
 {
 	// 引数のパターンの総数を代入
 	m_nMaxPtrn = nMaxPtrn;
 
 	// アニメーションのテクスチャ座標の設定
-	CObject3D::SetAnimTex(m_nPattern, m_nWidthPtrn, m_nHeightPtrn);
+	CObject3D::SetAnimTex(m_nCurPtrn, m_ptrn.x, m_ptrn.y);
 }
 
 //============================================================
-//	テクスチャの横分割数の設定処理
+//	パターン加算処理
 //============================================================
-void CAnim3D::SetWidthPattern(const int nWidthPtrn)
+void CAnim3D::NextPtrn(void)
 {
-	// 引数のテクスチャ横分割数を設定
-	m_nWidthPtrn = nWidthPtrn;
-
-	// パターンの総数を設定
-	m_nMaxPtrn = m_nWidthPtrn * m_nHeightPtrn;
-
-	// アニメーションのテクスチャ座標の設定
-	CObject3D::SetAnimTex(m_nPattern, m_nWidthPtrn, m_nHeightPtrn);
+	// パターンを加算
+	m_nCurPtrn = (m_nCurPtrn + 1) % m_nMaxPtrn;
 }
 
 //============================================================
-//	テクスチャの縦分割数の設定処理
+//	パターン減算処理
 //============================================================
-void CAnim3D::SetHeightPattern(const int nHeightPtrn)
+void CAnim3D::BackPtrn(void)
 {
-	// 引数のテクスチャ縦分割数を設定
-	m_nHeightPtrn = nHeightPtrn;
-
-	// パターンの総数を設定
-	m_nMaxPtrn = m_nWidthPtrn * m_nHeightPtrn;
-
-	// アニメーションのテクスチャ座標の設定
-	CObject3D::SetAnimTex(m_nPattern, m_nWidthPtrn, m_nHeightPtrn);
-}
-
-//============================================================
-//	カウンターの設定処理
-//============================================================
-void CAnim3D::SetCounter(const int nCntChange)
-{
-	// 引数のパターン変更カウントを代入
-	m_nCntChange = nCntChange;
-}
-
-//============================================================
-//	停止状況の設定処理
-//============================================================
-void CAnim3D::SetEnableStop(const bool bStop)
-{
-	// 引数の停止状況を代入
-	m_bStop = bStop;
-
-	if (m_bStop)
-	{ // 停止された場合
-
-		// 繰り返し数を初期化
-		m_nNumLoop = 0;
-	}
-}
-
-//============================================================
-//	逆再生状況の設定処理
-//============================================================
-void CAnim3D::SetEnablePlayBack(const bool bPlayBack)
-{
-	// 引数の逆再生状況を代入
-	m_bPlayBack = bPlayBack;
+	// パターンを減算
+	m_nCurPtrn = (m_nCurPtrn + (m_nMaxPtrn - 1)) % m_nMaxPtrn;
 }

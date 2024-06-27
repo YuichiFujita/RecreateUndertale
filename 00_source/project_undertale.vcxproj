@@ -160,6 +160,7 @@
     <ClCompile Include="resource\camera.cpp" />
     <ClCompile Include="resource\char2D.cpp" />
     <ClCompile Include="resource\character.cpp" />
+    <ClCompile Include="resource\character2D.cpp" />
     <ClCompile Include="resource\collision.cpp" />
     <ClCompile Include="resource\debug.cpp" />
     <ClCompile Include="resource\debugproc.cpp" />
@@ -261,6 +262,7 @@
     <ClInclude Include="resource\camera.h" />
     <ClInclude Include="resource\char2D.h" />
     <ClInclude Include="resource\character.h" />
+    <ClInclude Include="resource\character2D.h" />
     <ClInclude Include="resource\collision.h" />
     <ClInclude Include="resource\debug.h" />
     <ClInclude Include="resource\debugproc.h" />

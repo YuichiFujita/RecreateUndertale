@@ -340,6 +340,9 @@
     <ClCompile Include="resource\motion2D.cpp">
       <Filter>utility</Filter>
     </ClCompile>
+    <ClCompile Include="resource\character2D.cpp">
+      <Filter>flyweight</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h">
@@ -630,6 +633,9 @@
     </ClInclude>
     <ClInclude Include="resource\motion2D.h">
       <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\character2D.h">
+      <Filter>flyweight</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

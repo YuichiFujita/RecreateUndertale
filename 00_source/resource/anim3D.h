@@ -40,36 +40,41 @@ public:
 	// 静的メンバ関数
 	static CAnim3D *Create	// 生成
 	( // 引数
-		const int nWidthPtrn,		// テクスチャの横の分割数
-		const int nHeightPtrn,		// テクスチャの縦の分割数
+		const POSGRID2& rPtrn,		// テクスチャ分割数
 		const D3DXVECTOR3& rPos,	// 位置
+		const float fNextTime = 1.0f,			// パターン変更時間
 		const D3DXVECTOR3& rSize = VEC3_ONE,	// 大きさ
 		const D3DXVECTOR3& rRot = VEC3_ZERO,	// 向き
 		const D3DXCOLOR& rCol = XCOL_WHITE		// 色
 	);
 
 	// メンバ関数
-	void SetColor(const D3DXCOLOR& rCol);			// 色設定
-	void SetPattern(const int nPattern);			// パターンの設定
-	void SetMaxPattern(const int nMaxPtrn);			// パターンの総数の設定
-	void SetWidthPattern(const int nWidthPtrn);		// テクスチャの横分割数の設定
-	void SetHeightPattern(const int nHeightPtrn);	// テクスチャの縦分割数の設定
-	void SetCounter(const int nCntChange);			// カウンターの設定
-	void SetEnableStop(const bool bStop);			// 停止状況の設定
-	void SetEnablePlayBack(const bool bPlayBack);	// 逆再生状況の設定
-	int GetPattern(void) const			{ return m_nPattern; }	// パターンの取得
-	int GetLoopAnimation(void) const	{ return m_nNumLoop; }	// パターン繰り返し数の取得
+	void SetColor(const D3DXCOLOR& rCol);				// 色設定
+	void SetCurPtrn(const int nPtrn);					// 現在パターン設定
+	void SetTexPtrn(const POSGRID2& rPtrn);				// テクスチャ分割数設定
+	void SetTexPtrnWidth(const int nTexPtrnW);			// テクスチャ横分割数設定
+	void SetTexPtrnHeight(const int nTexPtrnH);			// テクスチャ縦分割数設定
+	void SetNextTime(const float fNextTime);			// パターン変更時間設定
+	void SetEnablePlay(const bool bPlay);				// 再生フラグ設定
+	void SetEnablePlayBack(const bool bPlayBack);		// 逆再生フラグ設定
+	int GetPattern(void) const	{ return m_nCurPtrn; }	// パターン取得
+	int GetLoopAnim(void) const	{ return m_nNumLoop; }	// パターン繰り返し数取得
 
 private:
+	// メンバ関数
+	void SetMaxPtrn(const int nMaxPtrn);	// パターン総数設定
+	void NextPtrn(void);	// パターン加算
+	void BackPtrn(void);	// パターン減算
+
 	// メンバ変数
-	int m_nCounter;		// アニメーションカウンター
-	int m_nCntChange;	// パターン変更カウント
-	int m_nPattern;		// アニメーションパターン
-	int m_nMaxPtrn;		// パターンの総数
-	int m_nWidthPtrn;	// テクスチャの横の分割数
-	int m_nHeightPtrn;	// テクスチャの縦の分割数
+	std::function<void(void)> m_funcNext;	// パターン変更関数ポインタ
+	POSGRID2 m_ptrn;	// テクスチャ分割数
+	float m_fNextTime;	// パターン変更時間
+	float m_fCurTime;	// 現在の待機時間
+	int m_nCurPtrn;		// 現在のパターン
+	int m_nMaxPtrn;		// パターン総数
 	int m_nNumLoop;		// パターン繰り返し数
-	bool m_bStop;		// 停止状況
+	bool m_bPlay;		// 再生状況
 	bool m_bPlayBack;	// 逆再生状況
 };
 

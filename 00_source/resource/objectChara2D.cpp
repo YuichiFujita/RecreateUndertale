@@ -40,6 +40,8 @@ HRESULT CObjectChara2D::Init(void)
 	// メンバ変数を初期化
 	m_pMotion = nullptr;	// モーション2D情報
 
+	// TODO：Anim3Dの初期化終了更新描画かけ！
+
 	// モーション2Dの生成
 	m_pMotion = CMotion2D::Create(this);
 	if (m_pMotion == nullptr)
