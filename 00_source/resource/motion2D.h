@@ -28,6 +28,25 @@ public:
 	// デストラクタ
 	~CMotion2D();
 
+	// キャラクター管理構造体
+	struct SChara
+	{
+		// コンストラクタ
+		SChara() :
+			ptrnTexture	(GRID2_ZERO),	// テクスチャ分割数
+			sizeChara	(VEC3_ZERO),	// キャラクター大きさ
+			fNextTime	(0.0f)			// パターン変更時間
+		{
+			sPassTexture.clear();	// テクスチャパスをクリア
+		}
+
+		// メンバ変数
+		std::string sPassTexture;	// テクスチャパス
+		POSGRID2 ptrnTexture;		// テクスチャ分割数
+		D3DXVECTOR3 sizeChara;		// キャラクター大きさ
+		float fNextTime;			// パターン変更時間
+	};
+
 	// モーション管理構造体
 	struct SMotion
 	{
@@ -40,6 +59,7 @@ public:
 		{}
 
 		// メンバ変数
+		SChara infoChara;	// キャラクター情報
 		float fWholeTime;	// モーション全体時間
 		float fCancelTime;	// キャンセル可能時間
 		float fComboTime;	// コンボ可能時間
@@ -52,8 +72,8 @@ public:
 		// コンストラクタ
 		SInfo() :
 			fCurTime	(0.0f),	// 現在のモーション全体時間
-			nType		(0),	// モーション種類
-			bFinish		(true)	// モーション終了状況
+			bFinish		(true),	// モーション終了状況
+			nType		(0)		// モーション種類
 		{
 			vecMotion.clear();	// モーション情報をクリア
 		}
@@ -64,8 +84,8 @@ public:
 		// メンバ変数
 		std::vector<SMotion> vecMotion;	// モーション情報
 		float fCurTime;	// 現在のモーション全体時間
-		int nType;		// モーション種類
 		bool bFinish;	// モーション終了状況
+		int nType;		// モーション種類
 	};
 
 	// メンバ関数

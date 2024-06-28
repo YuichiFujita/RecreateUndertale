@@ -115,7 +115,7 @@ HRESULT CLoading::Init(void)
 void CLoading::Uninit(void)
 {
 	if (m_func.joinable())
-	{ // 読込関数の処理が終了していないい場合
+	{ // 読込関数の処理が終了していない場合
 
 		// 処理終了を待機
 		m_func.join();

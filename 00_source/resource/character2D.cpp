@@ -61,7 +61,7 @@ void CCharacter2D::Uninit(void)
 	{ // キャラクター数分繰り返す
 
 		// モーション情報をクリア
-		rMap.second.infoMotion.vecMotion.clear();
+		rMap.second.vecMotion.clear();
 	}
 
 	// キャラクター連想配列をクリア
@@ -278,21 +278,12 @@ HRESULT CCharacter2D::LoadMotionSetup(SCharaData *pInfoChara, const char *pMotio
 	}
 
 	// 最後尾にモーション情報を追加
-	int nCurMotionID = pInfoChara->infoMotion.GetNumMotion();	// 現在の最後尾インデックス
-	pInfoChara->infoMotion.vecMotion.emplace_back();			// 空の要素を最後尾に追加
+	int nCurMotionID = pInfoChara->GetNumMotion();	// 現在の最後尾インデックス
+	pInfoChara->vecMotion.emplace_back();			// 空の要素を最後尾に追加
 
-	// 現在のモーション情報を保存
-	CMotion2D::SMotion *pMotion = &pInfoChara->infoMotion.vecMotion[nCurMotionID];
-
-	// 最後尾にアニメーション情報を追加
-	int nCurAnimID = pInfoChara->infoAnim.GetNumAnim();	// 現在の最後尾インデックス
-	pInfoChara->infoAnim.vecAnim.emplace_back();		// 空の要素を最後尾に追加
-
-	// 現在のアニメーション情報を保存
-	SAnim *pAnim = &pInfoChara->infoAnim.vecAnim[nCurAnimID];
-
-	// モーション数とアニメーション数が一致しない場合抜ける
-	if (nCurMotionID != nCurAnimID) { assert(false); return E_FAIL; }
+	// 変数をポインタ化し簡略化
+	CMotion2D::SMotion *pMotion = &pInfoChara->vecMotion[nCurMotionID];			// モーション情報
+	CMotion2D::SChara *pChara = &pInfoChara->vecMotion[nCurMotionID].infoChara;	// キャラクター情報
 
 	// ファイルを読込
 	std::string str;	// 読込文字列
@@ -308,29 +299,29 @@ HRESULT CCharacter2D::LoadMotionSetup(SCharaData *pInfoChara, const char *pMotio
 		else if (str == "TEXTURE_PASS")
 		{
 			file >> str;					// ＝を読込
-			file >> pAnim->sPassTexture;	// テクスチャパスを読込
+			file >> pChara->sPassTexture;	// テクスチャパスを読込
 		}
 		else if (str == "TEXPTRN_W")
 		{
 			file >> str;					// ＝を読込
-			file >> pAnim->ptrnTexture.x;	// テクスチャ横分割を読込
+			file >> pChara->ptrnTexture.x;	// テクスチャ横分割を読込
 		}
 		else if (str == "TEXPTRN_H")
 		{
 			file >> str;					// ＝を読込
-			file >> pAnim->ptrnTexture.y;	// テクスチャ縦分割を読込
+			file >> pChara->ptrnTexture.y;	// テクスチャ縦分割を読込
 		}
 		else if (str == "CHARA_SIZE")
 		{
 			file >> str;					// ＝を読込
-			file >> pAnim->sizeChara.x;		// キャラクター大きさXを読込
-			file >> pAnim->sizeChara.y;		// キャラクター大きさYを読込
-			file >> pAnim->sizeChara.z;		// キャラクター大きさZを読込
+			file >> pChara->sizeChara.x;	// キャラクター大きさXを読込
+			file >> pChara->sizeChara.y;	// キャラクター大きさYを読込
+			file >> pChara->sizeChara.z;	// キャラクター大きさZを読込
 		}
 		else if (str == "NEXT_TIME")
 		{
-			file >> str;					// ＝を読込
-			file >> pAnim->fNextTime;		// パターン変更時間を読込
+			file >> str;				// ＝を読込
+			file >> pChara->fNextTime;	// パターン変更時間を読込
 		}
 		else if (str == "LOOP")
 		{
