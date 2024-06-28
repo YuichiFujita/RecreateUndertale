@@ -187,22 +187,22 @@ void CSceneGame::Update(const float fDeltaTime)
 	D3DXVECTOR3 posChara = g_pChara->GetVec3Position();
 	if (GET_INPUTKEY->IsPress(DIK_LEFT))
 	{
-		posChara.x -= 2.0f;
+		posChara.x -= 3.0f;
 		g_pChara->SetMotion(2);
 	}
 	if (GET_INPUTKEY->IsPress(DIK_RIGHT))
 	{
-		posChara.x += 2.0f;
+		posChara.x += 3.0f;
 		g_pChara->SetMotion(3);
 	}
 	if (GET_INPUTKEY->IsPress(DIK_UP))
 	{
-		posChara.y += 2.0f;
+		posChara.y += 3.0f;
 		g_pChara->SetMotion(0);
 	}
 	if (GET_INPUTKEY->IsPress(DIK_DOWN))
 	{
-		posChara.y -= 2.0f;
+		posChara.y -= 3.0f;
 		g_pChara->SetMotion(1);
 	}
 	g_pChara->SetVec3Position(posChara);

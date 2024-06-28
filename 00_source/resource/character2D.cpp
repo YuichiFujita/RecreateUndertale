@@ -17,7 +17,6 @@
 namespace
 {
 	const char *LOAD_FOLDER = "data\\CHARACTER";	// キャラクターフォルダ相対パス
-	const CMotion2D::SInfo ZERO_CHARADATA;			// キャラクター情報初期値
 }
 
 //************************************************************
@@ -107,7 +106,7 @@ CMotion2D::SInfo CCharacter2D::Regist(const char *pCharaPass)
 
 		// 初期値を返す
 		assert(false);
-		return ZERO_CHARADATA;
+		return {};
 	}
 
 	// キャラクター情報を保存
@@ -263,8 +262,6 @@ HRESULT CCharacter2D::LoadSetup(CMotion2D::SInfo *pInfoChara, const char *pChara
 //============================================================
 HRESULT CCharacter2D::LoadMotionSetup(CMotion2D::SInfo *pInfoChara, const char *pMotionPass)
 {
-	int nCastBool = 0;	// bool型変換
-
 	// ファイルを開く
 	std::ifstream file(pMotionPass);	// ファイルストリーム
 	if (file.fail())
@@ -324,6 +321,7 @@ HRESULT CCharacter2D::LoadMotionSetup(CMotion2D::SInfo *pInfoChara, const char *
 		}
 		else if (str == "LOOP")
 		{
+			int nCastBool = 0;	// bool型変換
 			file >> str;		// ＝を読込
 			file >> nCastBool;	// ループのON/OFFを読込
 
