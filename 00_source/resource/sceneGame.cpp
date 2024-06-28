@@ -20,6 +20,9 @@
 #include "mapTile.h"
 #include "objectChara2D.h"
 
+// TODO
+CObjectChara2D *g_pChara;
+
 //************************************************************
 //	Ã“Iƒƒ“ƒo•Ï”éŒ¾
 //************************************************************
@@ -100,14 +103,10 @@ HRESULT CSceneGame::Init(void)
 	CMapTile::Create(CMapTile::TYPE_FALL_POINT, VEC3_ZERO);
 
 	// TODO
-	CObjectChara2D *pChara = CObjectChara2D::Create(D3DXVECTOR3(0.0f, 0.0f, -1.0f));
-
-	pChara->BindTexture("data\\TEXTURE\\CAST\\MAIN\\FRISK\\spr_f_mainchara_d.png");
-	pChara->SetLabel(CObject::LABEL_DEBUG);
-
-	pChara->SetTexPtrn(POSGRID2(4, 1));
-	pChara->SetNextTime(0.25f);
-	pChara->SetVec3Sizing(D3DXVECTOR3(60.0f, 90.0f, 0.0f));
+	g_pChara = CObjectChara2D::Create(D3DXVECTOR3(0.0f, 0.0f, -1.0f));
+	g_pChara->SetLabel(CObject::LABEL_DEBUG);
+	g_pChara->BindCharaData("data\\CHARACTER\\frisk.txt");
+	g_pChara->SetMotion(3);
 
 	// BGM‚ÌÄ¶
 	PLAY_SOUND(CSound::LABEL_BGM_GENERAL);
@@ -183,6 +182,30 @@ void CSceneGame::Update(const float fDeltaTime)
 	}
 
 #endif	// _DEBUG
+
+	// TODO
+	D3DXVECTOR3 posChara = g_pChara->GetVec3Position();
+	if (GET_INPUTKEY->IsPress(DIK_LEFT))
+	{
+		posChara.x -= 2.0f;
+		g_pChara->SetMotion(2);
+	}
+	if (GET_INPUTKEY->IsPress(DIK_RIGHT))
+	{
+		posChara.x += 2.0f;
+		g_pChara->SetMotion(3);
+	}
+	if (GET_INPUTKEY->IsPress(DIK_UP))
+	{
+		posChara.y += 2.0f;
+		g_pChara->SetMotion(0);
+	}
+	if (GET_INPUTKEY->IsPress(DIK_DOWN))
+	{
+		posChara.y -= 2.0f;
+		g_pChara->SetMotion(1);
+	}
+	g_pChara->SetVec3Position(posChara);
 }
 
 //============================================================

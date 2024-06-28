@@ -69,45 +69,6 @@ void CMotion2D::Update(const float fDeltaTime)
 }
 
 //============================================================
-//	モーション情報全設定処理
-//============================================================
-void CMotion2D::SetAllInfo(const SInfo& rInfo)
-{
-	for (auto& rVec : rInfo.vecMotion)
-	{ // 読み込んだモーション数分繰り返す
-
-		// モーション情報の追加
-		AddInfo(rVec);
-	}
-}
-
-//============================================================
-//	モーション情報の追加処理
-//============================================================
-void CMotion2D::AddInfo(const SMotion& rMotion)
-{
-	int nSetMotionID = m_info.GetNumMotion();	// モーションを設定する配列番号
-
-	// 空の要素を最後尾に追加
-	m_info.vecMotion.emplace_back();
-
-	// 引数のモーション情報を設定
-	m_info.vecMotion[nSetMotionID] = rMotion;
-
-	// モーション全体時間を設定	// TODO
-#if 0
-	int nSubKey = (m_info.vecMotion[nSetMotionID].bLoop) ? 0 : 1;		// ループしない場合最後のキーは含まない
-	int nLoop = m_info.vecMotion[nSetMotionID].GetNumKey() - nSubKey;	// 繰り返し数を求める
-	for (int nCntKey = 0; nCntKey < nLoop; nCntKey++)
-	{ // キーの総数分繰り返す
-
-		// キーのフレーム数を加算
-		m_info.vecMotion[nSetMotionID].nWholeFrame += m_info.vecMotion[nSetMotionID].vecKey[nCntKey].nFrame;
-	}
-#endif
-}
-
-//============================================================
 //	更新状況の設定処理
 //============================================================
 void CMotion2D::SetEnableUpdate(const bool bUpdate)
@@ -131,7 +92,51 @@ void CMotion2D::Set(const int nType)
 	m_info.fCurTime	= 0.0f;		// 現在のモーション全体時間
 	m_info.bFinish	= false;	// モーション終了状況
 
-	// TODO：ここで変更後のドット絵に遷移
+	// キャラクター情報を設定	// TODO：これで大丈夫？
+	SChara *pInfoChara = &m_info.vecMotion[nType].infoChara;	// キャラクター情報
+	m_pChara->BindTexture(pInfoChara->sPassTexture.c_str());	// テクスチャを割当
+	m_pChara->SetTexPtrn(pInfoChara->ptrnTexture);				// テクスチャ分割数を設定
+	m_pChara->SetNextTime(pInfoChara->fNextTime);				// パターン変更時間を設定
+	m_pChara->SetVec3Sizing(pInfoChara->sizeChara);				// 大きさを設定
+}
+
+//============================================================
+//	モーション情報の追加処理
+//============================================================
+void CMotion2D::AddInfo(const SMotion& rMotion)
+{
+	int nSetMotionID = m_info.GetNumMotion();	// モーションを設定する配列番号
+
+	// 空の要素を最後尾に追加
+	m_info.vecMotion.emplace_back();
+
+	// 引数のモーション情報を設定
+	m_info.vecMotion[nSetMotionID] = rMotion;
+
+	// モーション全体時間を設定	// TODO：ここできてる？
+	int nLoop = m_info.vecMotion[nSetMotionID].infoChara.nMaxPtrn;	// 繰り返し数
+	for (int nCntPtrn = 0; nCntPtrn < nLoop; nCntPtrn++)
+	{ // パターンの総数分繰り返す
+
+		// パターンの変更時間を加算
+		m_info.vecMotion[nSetMotionID].fWholeTime += m_info.vecMotion[nSetMotionID].infoChara.fNextTime;
+	}
+}
+
+//============================================================
+//	モーション情報全設定処理
+//============================================================
+void CMotion2D::SetAllInfo(const SInfo& rInfo)
+{
+	// モーション情報をクリア
+	m_info.vecMotion.clear();
+
+	for (auto& rVec : rInfo.vecMotion)
+	{ // 読み込んだモーション数分繰り返す
+
+		// モーション情報の追加
+		AddInfo(rVec);
+	}
 }
 
 //============================================================

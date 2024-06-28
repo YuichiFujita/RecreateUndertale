@@ -34,6 +34,7 @@ public:
 		// コンストラクタ
 		SChara() :
 			ptrnTexture	(GRID2_ZERO),	// テクスチャ分割数
+			nMaxPtrn	(0),			// 最大パターン数
 			sizeChara	(VEC3_ZERO),	// キャラクター大きさ
 			fNextTime	(0.0f)			// パターン変更時間
 		{
@@ -43,6 +44,7 @@ public:
 		// メンバ変数
 		std::string sPassTexture;	// テクスチャパス
 		POSGRID2 ptrnTexture;		// テクスチャ分割数
+		int nMaxPtrn;				// 最大パターン数
 		D3DXVECTOR3 sizeChara;		// キャラクター大きさ
 		float fNextTime;			// パターン変更時間
 	};
@@ -92,10 +94,10 @@ public:
 	HRESULT Init(void);	// 初期化
 	void Uninit(void);	// 終了
 	void Update(const float fDeltaTime);		// 更新
-	void SetAllInfo(const SInfo& rInfo);		// モーション情報全設定
-	void AddInfo(const SMotion& rMotion);		// モーション情報追加
 	void SetEnableUpdate(const bool bUpdate);	// 更新状況設定
 	void Set(const int nType);					// 設定
+	void AddInfo(const SMotion& rMotion);		// モーション情報追加
+	void SetAllInfo(const SInfo& rInfo);		// モーション情報全設定
 
 	bool IsCancel(const int nType) const;	// キャンセル取得
 	bool IsCombo(const int nType) const;	// コンボ取得

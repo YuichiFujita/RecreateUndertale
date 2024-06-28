@@ -15,7 +15,7 @@
 //************************************************************
 #include "anim3D.h"
 #include "motion2D.h"
-#include "character.h"
+#include "character2D.h"
 
 //************************************************************
 //	クラス定義
@@ -40,17 +40,7 @@ public:
 	static CObjectChara2D *Create(const D3DXVECTOR3 &rPos, const D3DXVECTOR3 &rRot = VEC3_ZERO);	// 生成
 
 	// メンバ関数
-	void SetPartsInfo	// パーツ情報設定
-	( // 引数
-		const int nID,				// パーツインデックス
-		const int nParentID,		// 親インデックス
-		const D3DXVECTOR3& rPos,	// 位置
-		const D3DXVECTOR3& rRot,	// 向き
-		const char *pFileName		// ファイル名
-	);
-
 	void BindCharaData(const char *pCharaPass);				// キャラクター情報割当
-	void SetPartsInfo(CCharacter::SPartsInfo& rInfo);		// パーツ情報設定
 	void SetMotion(const int nType);						// モーション設定
 	CMotion2D *GetMotion(void) const { return m_pMotion; }	// モーション取得
 

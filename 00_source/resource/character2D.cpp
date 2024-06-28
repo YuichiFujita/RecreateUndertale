@@ -17,7 +17,7 @@
 namespace
 {
 	const char *LOAD_FOLDER = "data\\CHARACTER";	// キャラクターフォルダ相対パス
-	const CCharacter2D::SCharaData ZERO_CHARADATA;	// キャラクター情報初期値
+	const CMotion2D::SInfo ZERO_CHARADATA;			// キャラクター情報初期値
 }
 
 //************************************************************
@@ -89,7 +89,7 @@ HRESULT CCharacter2D::LoadAll(void)
 //============================================================
 //	キャラクター登録
 //============================================================
-CCharacter2D::SCharaData CCharacter2D::Regist(const char *pCharaPass)
+CMotion2D::SInfo CCharacter2D::Regist(const char *pCharaPass)
 {
 	// 既に生成済みかを検索
 	auto itr = m_mapCharacter.find(pCharaPass);	// 引数のキャラクター情報を検索
@@ -101,7 +101,7 @@ CCharacter2D::SCharaData CCharacter2D::Regist(const char *pCharaPass)
 	}
 
 	// キャラクター情報を読込
-	SCharaData tempCharaData;	// キャラクター情報
+	CMotion2D::SInfo tempCharaData;	// キャラクター情報
 	if (FAILED(LoadSetup(&tempCharaData, pCharaPass)))
 	{ // 読込に失敗した場合
 
@@ -216,7 +216,7 @@ HRESULT CCharacter2D::SearchFolderAll(std::string sFolderPath)
 //============================================================
 //	キャラクター情報セットアップ処理
 //============================================================
-HRESULT CCharacter2D::LoadSetup(SCharaData *pInfoChara, const char *pCharaPass)
+HRESULT CCharacter2D::LoadSetup(CMotion2D::SInfo *pInfoChara, const char *pCharaPass)
 {
 	// ファイルを開く
 	std::ifstream file(pCharaPass);	// ファイルストリーム
@@ -261,7 +261,7 @@ HRESULT CCharacter2D::LoadSetup(SCharaData *pInfoChara, const char *pCharaPass)
 //============================================================
 //	モーション情報セットアップ処理
 //============================================================
-HRESULT CCharacter2D::LoadMotionSetup(SCharaData *pInfoChara, const char *pMotionPass)
+HRESULT CCharacter2D::LoadMotionSetup(CMotion2D::SInfo *pInfoChara, const char *pMotionPass)
 {
 	int nCastBool = 0;	// bool型変換
 
@@ -301,15 +301,14 @@ HRESULT CCharacter2D::LoadMotionSetup(SCharaData *pInfoChara, const char *pMotio
 			file >> str;					// ＝を読込
 			file >> pChara->sPassTexture;	// テクスチャパスを読込
 		}
-		else if (str == "TEXPTRN_W")
+		else if (str == "TEX_PATTERN")
 		{
 			file >> str;					// ＝を読込
 			file >> pChara->ptrnTexture.x;	// テクスチャ横分割を読込
-		}
-		else if (str == "TEXPTRN_H")
-		{
-			file >> str;					// ＝を読込
 			file >> pChara->ptrnTexture.y;	// テクスチャ縦分割を読込
+
+			// 最大パターン数を求める
+			pChara->nMaxPtrn = pChara->ptrnTexture.x * pChara->ptrnTexture.y;
 		}
 		else if (str == "CHARA_SIZE")
 		{
