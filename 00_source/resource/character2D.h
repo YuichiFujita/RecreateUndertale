@@ -34,7 +34,8 @@ public:
 		// コンストラクタ
 		SAnim() :
 			ptrnTexture	(GRID2_ZERO),	// テクスチャ分割数
-			sizeChara	(VEC3_ZERO)		// キャラクター大きさ
+			sizeChara	(VEC3_ZERO),	// キャラクター大きさ
+			fNextTime	(0.0f)			// パターン変更時間
 		{
 			sPassTexture.clear();	// テクスチャパスをクリア
 		}
