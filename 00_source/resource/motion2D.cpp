@@ -66,9 +66,6 @@ void CMotion2D::Update(const float fDeltaTime)
 
 	// モーションの更新
 	UpdateMotion();
-
-	// 移動の更新
-	UpdateMove();
 }
 
 //============================================================
@@ -97,7 +94,7 @@ void CMotion2D::AddInfo(const SMotion& rMotion)
 	// 引数のモーション情報を設定
 	m_info.vecMotion[nSetMotionID] = rMotion;
 
-	// モーション全体フレーム数を設定	// TODO
+	// モーション全体時間を設定	// TODO
 #if 0
 	int nSubKey = (m_info.vecMotion[nSetMotionID].bLoop) ? 0 : 1;		// ループしない場合最後のキーは含まない
 	int nLoop = m_info.vecMotion[nSetMotionID].GetNumKey() - nSubKey;	// 繰り返し数を求める
@@ -135,15 +132,6 @@ void CMotion2D::Set(const int nType)
 	m_info.bFinish	= false;	// モーション終了状況
 
 	// TODO：ここで変更後のドット絵に遷移
-}
-
-//============================================================
-//	種類の総数取得処理
-//============================================================
-int CMotion2D::GetNumType(void)
-{
-	// モーションの種類の総数を返す
-	return m_info.GetNumMotion();
 }
 
 //============================================================

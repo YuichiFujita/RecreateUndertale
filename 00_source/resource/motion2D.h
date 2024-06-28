@@ -33,10 +33,10 @@ public:
 	{
 		// コンストラクタ
 		SMotion() :
-			fWholeTime	(0.0f),	// モーション全体時間
-			fCancelTime	(1.0f),	// キャンセル可能時間
-			fComboTime	(1.0f),	// コンボ可能時間
-			bLoop		(false)	// ループON/OFF
+			fWholeTime	(0.0f),		// モーション全体時間
+			fCancelTime	(-1.0f),	// キャンセル可能時間
+			fComboTime	(-1.0f),	// コンボ可能時間
+			bLoop		(false)		// ループON/OFF
 		{}
 
 		// メンバ変数
@@ -77,12 +77,16 @@ public:
 	void SetEnableUpdate(const bool bUpdate);	// 更新状況設定
 	void Set(const int nType);					// 設定
 
-	int GetNumType(void);						// 種類総数取得
-	bool IsCancel(const int nType) const;		// キャンセル取得
-	bool IsCombo(const int nType) const;		// コンボ取得
-	int GetType(void) const				{ return m_info.nType; }	// 種類取得
-	bool IsFinish(void) const			{ return m_info.bFinish; }	// 終了取得
+	bool IsCancel(const int nType) const;	// キャンセル取得
+	bool IsCombo(const int nType) const;	// コンボ取得
+	bool IsFinish(void) const			{ return m_info.bFinish; }					// 終了取得
 	bool IsLoop(const int nType) const	{ return m_info.vecMotion[nType].bLoop; }	// ループ取得
+	int GetNumType(void)				{ return m_info.GetNumMotion(); }			// 種類総数取得
+	int GetType(void) const				{ return m_info.nType; }					// 種類取得
+	float GetCurWholeTime(void) const	{ return m_info.fCurTime; }					// 現在モーション全体時間取得
+	float GetWholeTime(const int nType) const	{ return m_info.vecMotion[nType].fWholeTime; }	// モーション全体時間取得
+	float GetCancelTime(const int nType) const	{ return m_info.vecMotion[nType].fCancelTime; }	// モーションキャンセル時間取得
+	float GetComboTime(const int nType) const	{ return m_info.vecMotion[nType].fComboTime; }	// モーションコンボ時間取得
 
 	// 静的メンバ関数
 	static CMotion2D *Create(CObjectChara2D *pChara);	// 生成

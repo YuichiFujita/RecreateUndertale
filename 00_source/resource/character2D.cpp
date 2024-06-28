@@ -1,5 +1,4 @@
-﻿#if 1
-//============================================================
+﻿//============================================================
 //
 //	キャラクター2D処理 [character2D.cpp]
 //	Author：藤田勇一
@@ -219,10 +218,6 @@ HRESULT CCharacter2D::SearchFolderAll(std::string sFolderPath)
 //============================================================
 HRESULT CCharacter2D::LoadSetup(SCharaData *pInfoChara, const char *pCharaPass)
 {
-	D3DXVECTOR3 pos = VEC3_ZERO;	// 位置の代入用
-	D3DXVECTOR3 rot = VEC3_ZERO;	// 向きの代入用
-	int nID = 0;	// インデックスの代入用
-
 	// ファイルを開く
 	std::ifstream file(pCharaPass);	// ファイルストリーム
 	if (file.fail())
@@ -246,74 +241,13 @@ HRESULT CCharacter2D::LoadSetup(SCharaData *pInfoChara, const char *pCharaPass)
 			// 一行全て読み込む
 			std::getline(file, str);
 		}
-		else if (str == "CHARACTERSET")
-		{
-			do
-			{ // END_CHARACTERSETを読み込むまでループ
-
-				// 文字列を読み込む
-				file >> str;
-
-				if (str.front() == '#')
-				{ // コメントアウトされている場合
-
-					// 一行全て読み込む
-					std::getline(file, str);
-				}
-				else if (str == "PARTSSET")
-				{
-					do
-					{ // END_PARTSSETを読み込むまでループ
-
-						// 文字列を読み込む
-						file >> str;
-
-						if (str == "INDEX")
-						{
-							file >> str;	// ＝を読込
-							file >> nID;	// モデルのインデックスを読込
-
-							// 空の要素を最後尾に追加
-							pInfoParts->vecParts.emplace_back();
-						}
-						else if (str == "PARENT")
-						{
-							file >> str;									// ＝を読込
-							file >> pInfoParts->vecParts[nID].nParentID;	// モデルの親インデックスを読込
-						}
-						else if (str == "POS")
-						{
-							file >> str;								// ＝を読込
-							file >> pInfoParts->vecParts[nID].pos.x;	// X位置オフセットを読込
-							file >> pInfoParts->vecParts[nID].pos.y;	// Y位置オフセットを読込
-							file >> pInfoParts->vecParts[nID].pos.z;	// Z位置オフセットを読込
-						}
-						else if (str == "ROT")
-						{
-							file >> str;								// ＝を読込
-							file >> pInfoParts->vecParts[nID].rot.x;	// X向きオフセットを読込
-							file >> pInfoParts->vecParts[nID].rot.y;	// Y向きオフセットを読込
-							file >> pInfoParts->vecParts[nID].rot.z;	// Z向きオフセットを読込
-						}
-						else if (str == "FILEPASS")
-						{
-							file >> str;								// ＝を読込
-							file >> pInfoParts->vecParts[nID].strPass;	// モデルパスを読込
-
-							// モデルパスを標準化
-							useful::StandardizePathPart(&pInfoParts->vecParts[nID].strPass);
-						}
-					} while (str != "END_PARTSSET");	// END_PARTSSETを読み込むまでループ
-				}
-			} while (str != "END_CHARACTERSET");	// END_CHARACTERSETを読み込むまでループ
-		}
 		else if (str == "MOTIONPASS")
 		{
 			file >> str;	// ＝を読込
 			file >> str;	// モーションパスを読込
 
 			// モーションパスを読み込む
-			LoadMotionSetup(&pInfoChara->infoMotion, pInfoParts, str.c_str());
+			LoadMotionSetup(pInfoChara, str.c_str());
 		}
 	}
 
@@ -329,11 +263,7 @@ HRESULT CCharacter2D::LoadSetup(SCharaData *pInfoChara, const char *pCharaPass)
 //============================================================
 HRESULT CCharacter2D::LoadMotionSetup(SCharaData *pInfoChara, const char *pMotionPass)
 {
-	D3DXVECTOR3 pos = VEC3_ZERO;	// 読込位置
-	D3DXVECTOR3 rot = VEC3_ZERO;	// 読込向き
-	int nCurKey		= 0;			// 現在のキー番号
-	int nCurParts	= 0;			// 現在のパーツ番号
-	int nCastBool	= 0;			// bool型変換
+	int nCastBool = 0;	// bool型変換
 
 	// ファイルを開く
 	std::ifstream file(pMotionPass);	// ファイルストリーム
@@ -347,6 +277,23 @@ HRESULT CCharacter2D::LoadMotionSetup(SCharaData *pInfoChara, const char *pMotio
 		return E_FAIL;
 	}
 
+	// 最後尾にモーション情報を追加
+	int nCurMotionID = pInfoChara->infoMotion.GetNumMotion();	// 現在の最後尾インデックス
+	pInfoChara->infoMotion.vecMotion.emplace_back();			// 空の要素を最後尾に追加
+
+	// 現在のモーション情報を保存
+	CMotion2D::SMotion *pMotion = &pInfoChara->infoMotion.vecMotion[nCurMotionID];
+
+	// 最後尾にアニメーション情報を追加
+	int nCurAnimID = pInfoChara->infoAnim.GetNumAnim();	// 現在の最後尾インデックス
+	pInfoChara->infoAnim.vecAnim.emplace_back();		// 空の要素を最後尾に追加
+
+	// 現在のアニメーション情報を保存
+	SAnim *pAnim = &pInfoChara->infoAnim.vecAnim[nCurAnimID];
+
+	// モーション数とアニメーション数が一致しない場合抜ける
+	if (nCurMotionID != nCurAnimID) { assert(false); return E_FAIL; }
+
 	// ファイルを読込
 	std::string str;	// 読込文字列
 	while (file >> str)
@@ -358,146 +305,40 @@ HRESULT CCharacter2D::LoadMotionSetup(SCharaData *pInfoChara, const char *pMotio
 			// 一行全て読み込む
 			std::getline(file, str);
 		}
-		else if (str == "MOTIONSET")
+		else if (str == "TEXTURE_PASS")
 		{
-			int nType = pInfoMotion->GetNumMotion();	// 現在のモーション数
-			pInfoMotion->vecMotion.emplace_back();		// 空の要素を最後尾に追加
-			CMotion::SMotion *pMotion = &pInfoMotion->vecMotion[nType];	// 現在のモーション情報
+			file >> str;					// ＝を読込
+			file >> pAnim->sPassTexture;	// テクスチャパスを読込
+		}
+		else if (str == "TEXPTRN_W")
+		{
+			file >> str;					// ＝を読込
+			file >> pAnim->ptrnTexture.x;	// テクスチャ横分割を読込
+		}
+		else if (str == "TEXPTRN_H")
+		{
+			file >> str;					// ＝を読込
+			file >> pAnim->ptrnTexture.y;	// テクスチャ縦分割を読込
+		}
+		else if (str == "CHARA_SIZE")
+		{
+			file >> str;					// ＝を読込
+			file >> pAnim->sizeChara.x;		// キャラクター大きさXを読込
+			file >> pAnim->sizeChara.y;		// キャラクター大きさYを読込
+			file >> pAnim->sizeChara.z;		// キャラクター大きさZを読込
+		}
+		else if (str == "NEXT_TIME")
+		{
+			file >> str;					// ＝を読込
+			file >> pAnim->fNextTime;		// パターン変更時間を読込
+		}
+		else if (str == "LOOP")
+		{
+			file >> str;		// ＝を読込
+			file >> nCastBool;	// ループのON/OFFを読込
 
-			// 現在のキー番号を初期化
-			nCurKey = 0;
-
-			do
-			{ // END_MOTIONSETを読み込むまでループ
-
-				// 文字列を読み込む
-				file >> str;
-
-				if (str.front() == '#')
-				{ // コメントアウトされている場合
-
-					// 一行全て読み込む
-					std::getline(file, str);
-				}
-				else if (str == "WEAPON")
-				{
-					file >> str;		// ＝を読込
-					file >> nCastBool;	// 武器表示のON/OFFを読込
-
-					// 読み込んだ値をbool型に変換
-					pMotion->bWeaponDisp = (nCastBool != 0);
-				}
-				else if (str == "LOOP")
-				{
-					file >> str;		// ＝を読込
-					file >> nCastBool;	// ループのON/OFFを読込
-
-					// 読み込んだ値をbool型に変換
-					pMotion->bLoop = (nCastBool != 0);
-				}
-				else if (str == "CANCEL")
-				{
-					file >> str;					// ＝を読込
-					file >> pMotion->nCancelFrame;	// キャンセル可能フレームを読込
-				}
-				else if (str == "COMBO")
-				{
-					file >> str;					// ＝を読込
-					file >> pMotion->nComboFrame;	// コンボ可能フレームを読込
-				}
-				else if (str == "LEFT_COLL")
-				{
-					file >> str;						// ＝を読込
-					file >> pMotion->collLeft.nMin;		// 判定を出す開始フレームを読込
-					file >> pMotion->collLeft.nMax;		// 判定を消す終了フレームを読込
-				}
-				else if (str == "RIGHT_COLL")
-				{
-					file >> str;						// ＝を読込
-					file >> pMotion->collRight.nMin;	// 判定を出す開始フレームを読込
-					file >> pMotion->collRight.nMax;	// 判定を消す終了フレームを読込
-				}
-				else if (str == "KEYSET")
-				{
-					pMotion->vecKey.emplace_back();	// 空の要素を最後尾に追加
-					CMotion::SKey *pKey = &pMotion->vecKey[nCurKey];	// 現在のキー情報
-
-					// 現在のパーツ番号を初期化
-					nCurParts = 0;
-
-					do
-					{ // END_KEYSETを読み込むまでループ
-
-						// 文字列を読み込む
-						file >> str;
-
-						if (str.front() == '#')
-						{ // コメントアウトされている場合
-
-							// 一行全て読み込む
-							std::getline(file, str);
-						}
-						else if (str == "FRAME")
-						{
-							file >> str;			// ＝を読込
-							file >> pKey->nFrame;	// キーが切り替わるまでのフレーム数を読込
-						}
-						else if (str == "MOVE")
-						{
-							file >> str;			// ＝を読込
-							file >> pKey->move.x;	// キーの移動量Xを読込
-							file >> pKey->move.y;	// キーの移動量Yを読込
-							file >> pKey->move.z;	// キーの移動量Xを読込
-						}
-						else if (str == "KEY")
-						{
-							pKey->vecParts.emplace_back();	// 空の要素を最後尾に追加
-							CMotion::SParts *pParts = &pKey->vecParts[nCurParts];	// 現在のパーツ情報
-
-							do
-							{ // END_KEYを読み込むまでループ
-
-								// 文字列を読み込む
-								file >> str;
-
-								if (str.front() == '#')
-								{ // コメントアウトされている場合
-
-									// 一行全て読み込む
-									std::getline(file, str);
-								}
-								else if (str == "POS")
-								{
-									file >> str;			// ＝を読込
-									file >> pParts->pos.x;	// X位置を読込
-									file >> pParts->pos.y;	// Y位置を読込
-									file >> pParts->pos.z;	// Z位置を読込
-
-									// 読み込んだ位置にパーツの初期位置を加算
-									pParts->pos += pInfoParts->vecParts[nCurParts].pos;
-								}
-								else if (str == "ROT")
-								{
-									file >> str;			// ＝を読込
-									file >> pParts->rot.x;	// X向きを読込
-									file >> pParts->rot.y;	// Y向きを読込
-									file >> pParts->rot.z;	// Z向きを読込
-
-									// 読み込んだ向きにパーツの初期向きを加算
-									pParts->rot += pInfoParts->vecParts[nCurParts].rot;
-									useful::NormalizeRot(pParts->rot);	// 向き正規化
-								}
-							} while (str != "END_KEY");	// END_KEYを読み込むまでループ
-
-							// 現在のパーツ番号を加算
-							nCurParts++;
-						}
-					} while (str != "END_KEYSET");	// END_KEYSETを読み込むまでループ
-
-					// 現在のキー番号を加算
-					nCurKey++;
-				}
-			} while (str != "END_MOTIONSET");	// END_MOTIONSETを読み込むまでループ
+			// 読み込んだ値をbool型に変換
+			pMotion->bLoop = (nCastBool != 0);
 		}
 	}
 
@@ -507,4 +348,3 @@ HRESULT CCharacter2D::LoadMotionSetup(SCharaData *pInfoChara, const char *pMotio
 	// 成功を返す
 	return S_OK;
 }
-#endif

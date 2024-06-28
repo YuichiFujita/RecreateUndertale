@@ -1,4 +1,3 @@
-#if 1
 //============================================================
 //
 //	キャラクター2Dヘッダー [character2D.h]
@@ -29,12 +28,12 @@ public:
 	// デストラクタ
 	~CCharacter2D();
 
-	// アニメーション情報構造体
-	struct SAnimInfo
+	// アニメーション構造体
+	struct SAnim
 	{
 		// コンストラクタ
-		SAnimInfo() :
-			ptrnTexture	(GRID2_ONE),	// テクスチャ分割数
+		SAnim() :
+			ptrnTexture	(GRID2_ZERO),	// テクスチャ分割数
 			sizeChara	(VEC3_ZERO)		// キャラクター大きさ
 		{
 			sPassTexture.clear();	// テクスチャパスをクリア
@@ -44,6 +43,23 @@ public:
 		std::string sPassTexture;	// テクスチャパス
 		POSGRID2 ptrnTexture;		// テクスチャ分割数
 		D3DXVECTOR3 sizeChara;		// キャラクター大きさ
+		float fNextTime;			// パターン変更時間
+	};
+
+	// アニメーション情報構造体
+	struct SAnimInfo
+	{
+		// コンストラクタ
+		SAnimInfo()
+		{
+			vecAnim.clear();	// アニメーション情報をクリア
+		}
+
+		// メンバ関数
+		int GetNumAnim(void) { return vecAnim.size(); }	// アニメーション情報の総数取得
+
+		// メンバ変数
+		std::vector<SAnim> vecAnim;	// アニメーション情報
 	};
 
 	// キャラクター情報構造体
@@ -53,8 +69,8 @@ public:
 		SCharaData() {}
 
 		// メンバ変数
-		SAnimInfo infoAnim;				// アニメーション情報
 		CMotion2D::SInfo infoMotion;	// モーション情報
+		SAnimInfo infoAnim;				// アニメーション情報
 	};
 
 	// メンバ関数
@@ -80,4 +96,3 @@ private:
 };
 
 #endif	// _CHARACTER2D_H_
-#endif

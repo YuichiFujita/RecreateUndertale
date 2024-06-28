@@ -58,13 +58,10 @@ public:
 	void SetEnableMotionUpdate(const bool bUpdate)		{ m_pMotion->SetEnableUpdate(bUpdate); }		// 更新状況設定
 	int GetMotionType(void) const			{ return m_pMotion->GetType(); }							// モーション種類取得
 	int GetMotionNumType(void) const		{ return m_pMotion->GetNumType(); }							// モーション種類総数取得
-	int GetMotionKey(void) const			{ return m_pMotion->GetKey();}								// モーションキー番号取得
-	int GetMotionNumKey(void) const			{ return m_pMotion->GetNumKey(m_pMotion->GetType()); }		// モーションキー総数取得
-	int GetMotionKeyCounter(void) const		{ return m_pMotion->GetKeyCounter(); }						// モーションキーカウンター取得
-	int GetMotionWholeCounter(void) const	{ return m_pMotion->GetWholeCounter(); }					// モーション全体カウンター取得
-	int GetMotionWholeFrame(void) const		{ return m_pMotion->GetWholeFrame(m_pMotion->GetType()); }	// モーション全体フレーム数取得
-	int GetMotionCancelFrame(void) const	{ return m_pMotion->GetCancelFrame(m_pMotion->GetType()); }	// モーションキャンセルフレーム取得
-	int GetMotionComboFrame(void) const		{ return m_pMotion->GetComboFrame(m_pMotion->GetType()); }	// モーションコンボフレーム取得
+	float GetMotionCurWholeTime(void) const	{ return m_pMotion->GetCurWholeTime(); }					// 現在モーション全体時間取得
+	float GetMotionWholeTime(void) const	{ return m_pMotion->GetWholeTime(m_pMotion->GetType()); }	// モーション全体時間取得
+	float GetMotionCancelTime(void) const	{ return m_pMotion->GetCancelTime(m_pMotion->GetType()); }	// モーションキャンセル時間取得
+	float GetMotionComboTime(void) const	{ return m_pMotion->GetComboTime(m_pMotion->GetType()); }	// モーションコンボ時間取得
 	bool IsMotionFinish(void) const			{ return m_pMotion->IsFinish(); }							// モーション終了取得
 	bool IsMotionLoop(void) const			{ return m_pMotion->IsLoop(m_pMotion->GetType()); }			// モーションループ取得
 	bool IsMotionCancel(void) const			{ return m_pMotion->IsCancel(m_pMotion->GetType()); }		// モーションキャンセル取得

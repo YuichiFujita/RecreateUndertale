@@ -19,6 +19,7 @@
 #include "model.h"
 #include "font.h"
 #include "character.h"
+#include "character2D.h"
 #include "shader.h"
 #include "retention.h"
 #include "debug.h"
@@ -49,6 +50,7 @@ CManager::CManager() :
 	m_pModel		(nullptr),	// モデルインスタンス
 	m_pFont			(nullptr),	// フォントインスタンス
 	m_pCharacter	(nullptr),	// キャラクターインスタンス
+	m_pCharacter2D	(nullptr),	// キャラクター2Dインスタンス
 	m_pFade			(nullptr),	// フェードインスタンス
 	m_pLoading		(nullptr),	// ローディングインスタンス
 	m_pScene		(nullptr),	// シーンインスタンス
@@ -89,6 +91,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	m_pModel		= nullptr;		// モデルインスタンス
 	m_pFont			= nullptr;		// フォントインスタンス
 	m_pCharacter	= nullptr;		// キャラクターインスタンス
+	m_pCharacter2D	= nullptr;		// キャラクター2Dインスタンス
 	m_pFade			= nullptr;		// フェードインスタンス
 	m_pLoading		= nullptr;		// ローディングインスタンス
 	m_pScene		= nullptr;		// シーンインスタンス
@@ -102,7 +105,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	// デルタタイムの生成
 	m_pDeltaTime = CDeltaTime::Create();
 	if (m_pDeltaTime == nullptr)
-	{ // 非使用中の場合
+	{ // 生成に失敗した場合
 
 		// 失敗を返す
 		assert(false);
@@ -112,7 +115,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	// レンダラーの生成
 	m_pRenderer = CRenderer::Create(hWnd, bWindow);
 	if (m_pRenderer == nullptr)
-	{ // 非使用中の場合
+	{ // 生成に失敗した場合
 
 		// 失敗を返す
 		assert(false);
@@ -122,7 +125,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	// キーボードの生成
 	m_pKeyboard = CInputKeyboard::Create(hInstance, hWnd);
 	if (m_pKeyboard == nullptr)
-	{ // 非使用中の場合
+	{ // 生成に失敗した場合
 
 		// 失敗を返す
 		assert(false);
@@ -132,7 +135,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	// マウスの生成
 	m_pMouse = CInputMouse::Create(hInstance, hWnd);
 	if (m_pMouse == nullptr)
-	{ // 非使用中の場合
+	{ // 生成に失敗した場合
 
 		// 失敗を返す
 		assert(false);
@@ -142,7 +145,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	// パッドの生成
 	m_pPad = CInputPad::Create();
 	if (m_pPad == nullptr)
-	{ // 非使用中の場合
+	{ // 生成に失敗した場合
 
 		// 失敗を返す
 		assert(false);
@@ -152,7 +155,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	// サウンドの生成
 	m_pSound = CSound::Create(hWnd);
 	if (m_pSound == nullptr)
-	{ // 非使用中の場合
+	{ // 生成に失敗した場合
 
 		// 失敗を返す
 		assert(false);
@@ -162,7 +165,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	// カメラの生成
 	m_pCamera = CCamera::Create();
 	if (m_pCamera == nullptr)
-	{ // 非使用中の場合
+	{ // 生成に失敗した場合
 
 		// 失敗を返す
 		assert(false);
@@ -172,7 +175,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	// ライトの生成
 	m_pLight = CLight::Create();
 	if (m_pLight == nullptr)
-	{ // 非使用中の場合
+	{ // 生成に失敗した場合
 
 		// 失敗を返す
 		assert(false);
@@ -182,7 +185,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	// データ保存の生成
 	m_pRetention = CRetention::Create();
 	if (m_pRetention == nullptr)
-	{ // 非使用中の場合
+	{ // 生成に失敗した場合
 
 		// 失敗を返す
 		assert(false);
@@ -195,7 +198,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	// テクスチャの生成
 	m_pTexture = CTexture::Create();
 	if (m_pTexture == nullptr)
-	{ // 非使用中の場合
+	{ // 生成に失敗した場合
 
 		// 失敗を返す
 		assert(false);
@@ -205,7 +208,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	// モデルの生成
 	m_pModel = CModel::Create();
 	if (m_pModel == nullptr)
-	{ // 非使用中の場合
+	{ // 生成に失敗した場合
 
 		// 失敗を返す
 		assert(false);
@@ -215,7 +218,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	// フォントの生成
 	m_pFont = CFont::Create();
 	if (m_pFont == nullptr)
-	{ // 非使用中の場合
+	{ // 生成に失敗した場合
 
 		// 失敗を返す
 		assert(false);
@@ -225,7 +228,17 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	// キャラクターの生成
 	m_pCharacter = CCharacter::Create();
 	if (m_pCharacter == nullptr)
-	{ // 非使用中の場合
+	{ // 生成に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
+
+	// キャラクター2Dの生成
+	m_pCharacter2D = CCharacter2D::Create();
+	if (m_pCharacter2D == nullptr)
+	{ // 生成に失敗した場合
 
 		// 失敗を返す
 		assert(false);
@@ -253,7 +266,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	// ローディングの生成
 	m_pLoading = CLoading::Create();
 	if (m_pLoading == nullptr)
-	{ // 非使用中の場合
+	{ // 生成に失敗した場合
 
 		// 失敗を返す
 		assert(false);
@@ -263,7 +276,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	// フェードの生成・シーンの設定
 	m_pFade = CFade::Create();
 	if (m_pFade == nullptr)
-	{ // 非使用中の場合
+	{ // 生成に失敗した場合
 
 		// 失敗を返す
 		assert(false);
@@ -276,7 +289,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	// デバッグ表示の生成
 	m_pDebugProc = CDebugProc::Create();
 	if (m_pDebugProc == nullptr)
-	{ // 非使用中の場合
+	{ // 生成に失敗した場合
 
 		// 失敗を返す
 		assert(false);
@@ -286,7 +299,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	// デバッグの生成
 	m_pDebug = CDebug::Create();
 	if (m_pDebug == nullptr)
-	{ // 非使用中の場合
+	{ // 生成に失敗した場合
 
 		// 失敗を返す
 		assert(false);
@@ -302,7 +315,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 //============================================================
 HRESULT CManager::Load(void)
 {
-#if NDEBUG	// Release版以外では全読込を行わない
+//#if NDEBUG	// Release版以外では全読込を行わない	// TODO：後でコメントアウト撤廃
 
 	// テクスチャの全読込
 	assert(m_pTexture != nullptr);
@@ -334,7 +347,17 @@ HRESULT CManager::Load(void)
 		return E_FAIL;
 	}
 
-#endif	// NDEBUG
+	// キャラクター2Dの全読込
+	assert(m_pCharacter2D != nullptr);
+	if (FAILED(m_pCharacter2D->LoadAll()))
+	{ // 全読込に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
+
+//#endif	// NDEBUG
 
 	// フォントの全読込
 	assert(m_pFont != nullptr);
@@ -375,30 +398,6 @@ void CManager::Uninit(void)
 	SAFE_REF_RELEASE(m_pDebug);
 
 	//--------------------------------------------------------
-	//	スレッドの破棄
-	//--------------------------------------------------------
-	// ローディングの破棄
-	SAFE_REF_RELEASE(m_pLoading);
-
-	//--------------------------------------------------------
-	//	情報の破棄
-	//--------------------------------------------------------
-	// テクスチャの破棄
-	SAFE_REF_RELEASE(m_pTexture);
-
-	// モデルの破棄
-	SAFE_REF_RELEASE(m_pModel);
-
-	// フォントの破棄
-	SAFE_REF_RELEASE(m_pFont);
-
-	// キャラクターの破棄
-	SAFE_REF_RELEASE(m_pCharacter);
-
-	// シェーダーの破棄
-	CShader::Release();
-
-	//--------------------------------------------------------
 	//	システムの破棄
 	//--------------------------------------------------------
 	// データ保存の破棄
@@ -434,8 +433,35 @@ void CManager::Uninit(void)
 	// デルタタイムの破棄
 	SAFE_REF_RELEASE(m_pDeltaTime);
 
+	//--------------------------------------------------------
+	//	スレッドの破棄
+	//--------------------------------------------------------
+	// ローディングの破棄
+	SAFE_REF_RELEASE(m_pLoading);
+
 	// オブジェクトの全破棄
 	CObject::ReleaseAll();
+
+	//--------------------------------------------------------
+	//	情報の破棄
+	//--------------------------------------------------------
+	// テクスチャの破棄
+	SAFE_REF_RELEASE(m_pTexture);
+
+	// モデルの破棄
+	SAFE_REF_RELEASE(m_pModel);
+
+	// フォントの破棄
+	SAFE_REF_RELEASE(m_pFont);
+
+	// キャラクターの破棄
+	SAFE_REF_RELEASE(m_pCharacter);
+
+	// キャラクター2Dの破棄
+	SAFE_REF_RELEASE(m_pCharacter2D);
+
+	// シェーダーの破棄
+	CShader::Release();
 
 	// 例外処理
 	assert(CObject::GetNumAll() == 0);	// 破棄の失敗
@@ -955,6 +981,18 @@ CCharacter *CManager::GetCharacter(void)
 
 	// キャラクターを返す
 	return m_pCharacter;
+}
+
+//============================================================
+//	キャラクター2D取得処理
+//============================================================
+CCharacter2D *CManager::GetCharacter2D(void)
+{
+	// インスタンス未使用
+	assert(m_pCharacter2D != nullptr);
+
+	// キャラクター2Dを返す
+	return m_pCharacter2D;
 }
 
 //============================================================
