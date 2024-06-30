@@ -35,7 +35,8 @@ CAnim3D::CAnim3D(const CObject::ELabel label, const EDim dimension, const int nP
 	m_nNumLoop		(0),			// パターン繰り返し数
 	m_bPlay			(false),		// 再生状況
 	m_bPlayBack		(false),		// 逆再生状況
-	m_bLoop			(false)			// ループ状況
+	m_bLoop			(false),		// ループ状況
+	m_bFinish		(false)			// 終了状況
 {
 
 }
@@ -66,6 +67,7 @@ HRESULT CAnim3D::Init(void)
 	m_bPlay			= true;			// 再生状況
 	m_bPlayBack		= false;		// 逆再生状況
 	m_bLoop			= true;			// ループ状況
+	m_bFinish		= false;		// 終了状況
 
 	// 通常再生を設定
 	SetEnablePlayBack(false);
@@ -237,6 +239,9 @@ void CAnim3D::SetCurPtrn(const int nPtrn)
 	// 引数のパターン数を設定
 	m_nCurPtrn = nPtrn;
 
+	// 終了フラグをOFFにする
+	m_bFinish = false;
+
 	// 全体時間の初期化
 	m_fCurWholeTime = 0.0f;
 
@@ -295,8 +300,8 @@ void CAnim3D::SetTexPtrnHeight(const int nTexPtrnH)
 //============================================================
 void CAnim3D::SetEnablePlay(const bool bPlay)
 {
-	// 停止した場合にパターン繰り返し数を初期化
-	if (!m_bPlay) { m_nNumLoop = 0; }
+	// 停止した場合に繰り返し数を初期化
+	if (!bPlay) { m_nNumLoop = 0; }
 
 	// 引数の再生状況を設定
 	m_bPlay = bPlay;
@@ -307,8 +312,8 @@ void CAnim3D::SetEnablePlay(const bool bPlay)
 //============================================================
 void CAnim3D::SetEnablePlayBack(const bool bPlayBack)
 {
-	// 再生/逆再生が反転した場合にパターン繰り返し数を初期化
-	if (m_bPlayBack != bPlayBack) { m_nNumLoop = 0; }
+	// 再生/逆再生が反転した場合に繰り返し数と終了フラグを初期化
+	if (m_bPlayBack != bPlayBack) { m_nNumLoop = 0; m_bFinish = false; }
 
 	// 引数の逆再生状況を設定
 	m_bPlayBack = bPlayBack;
@@ -328,10 +333,25 @@ void CAnim3D::SetEnablePlayBack(const bool bPlayBack)
 }
 
 //============================================================
+//	ループフラグの設定処理
+//============================================================
+void CAnim3D::SetEnableLoop(const bool bLoop)
+{
+	// ループする場合終了フラグを初期化
+	if (bLoop) { m_bFinish = false; }
+
+	// 引数のループ状況を設定
+	m_bLoop = bLoop;
+}
+
+//============================================================
 //	現在パターンの初期化処理
 //============================================================
 void CAnim3D::ResetCurPtrn(void)
 {
+	// 終了フラグをOFFにする
+	m_bFinish = false;
+
 	if (!m_bPlayBack)
 	{ // 通常再生の場合
 
@@ -431,6 +451,9 @@ HRESULT CAnim3D::SetMaxPtrn(const int nMaxPtrn)
 //============================================================
 void CAnim3D::NextPtrn(const float fDeltaTime)
 {
+	// アニメーションが終了している場合抜ける
+	if (m_bFinish) { return; }
+
 	// 現在の待機時間を加算
 	m_fCurTime += fDeltaTime;
 	m_fCurWholeTime += fDeltaTime;
@@ -443,15 +466,30 @@ void CAnim3D::NextPtrn(const float fDeltaTime)
 
 		// パターンを加算
 		m_nCurPtrn = (m_nCurPtrn + 1) % m_nMaxPtrn;
-
 		if (m_nCurPtrn == 0)
-		{ // パターン数が先頭の場合
+		{ // 先頭パターンの場合
 
-			// 繰り返し数を加算
-			m_nNumLoop++;
+			if (m_bLoop)
+			{ // ループする場合
 
-			// 全体時間を初期化
-			m_fCurWholeTime = 0.0f;
+				// 繰り返し数を加算
+				m_nNumLoop++;
+
+				// 全体時間を初期化
+				m_fCurWholeTime = 0.0f;
+			}
+			else
+			{ // ループしない場合
+
+				// パターンを補正
+				m_nCurPtrn = m_nMaxPtrn - 1;
+
+				// 全体時間を初期化
+				m_fCurWholeTime = m_fMaxWholeTime;
+
+				// アニメーション終了を保存
+				m_bFinish = true;
+			}
 		}
 	}
 }
@@ -461,6 +499,9 @@ void CAnim3D::NextPtrn(const float fDeltaTime)
 //============================================================
 void CAnim3D::BackPtrn(const float fDeltaTime)
 {
+	// アニメーションが終了している場合抜ける
+	if (m_bFinish) { return; }
+
 	// 現在の待機時間を加算
 	m_fCurTime -= fDeltaTime;
 	m_fCurWholeTime -= fDeltaTime;
@@ -475,13 +516,29 @@ void CAnim3D::BackPtrn(const float fDeltaTime)
 		m_nCurPtrn = (m_nCurPtrn + (m_nMaxPtrn - 1)) % m_nMaxPtrn;
 
 		if (m_nCurPtrn == m_nMaxPtrn - 1)
-		{ // パターン数が最後の場合
+		{ // 最終パターンの場合
 
-			// 繰り返し数を加算
-			m_nNumLoop++;
+			if (m_bLoop)
+			{ // ループする場合
 
-			// 全体時間を初期化
-			m_fCurWholeTime = m_fMaxWholeTime;
+				// 繰り返し数を加算
+				m_nNumLoop++;
+
+				// 全体時間を初期化
+				m_fCurWholeTime = m_fMaxWholeTime;
+			}
+			else
+			{ // ループしない場合
+
+				// パターンを補正
+				m_nCurPtrn = 0;
+
+				// 全体時間を初期化
+				m_fCurWholeTime = 0.0f;
+
+				// アニメーション終了を保存
+				m_bFinish = true;
+			}
 		}
 	}
 }
