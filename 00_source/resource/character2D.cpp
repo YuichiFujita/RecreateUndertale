@@ -306,7 +306,13 @@ HRESULT CCharacter2D::LoadMotionSetup(AMotion *pInfoChara, const char *pMotionPa
 			file >> ptrnTexture.y;	// テクスチャ縦分割を読込
 
 			// テクスチャ分割数・パターン総数を設定
-			pChara->SetTexPtrn(ptrnTexture);
+			if (FAILED(pChara->SetTexPtrn(ptrnTexture)))
+			{ // 設定に失敗した場合
+
+				// 失敗を返す
+				assert(false);
+				return E_FAIL;
+			}
 		}
 		else if (str == "CHARA_SIZE")
 		{
@@ -322,7 +328,13 @@ HRESULT CCharacter2D::LoadMotionSetup(AMotion *pInfoChara, const char *pMotionPa
 			file >> fNextTime;		// パターン変更時間を読込
 
 			// パターン変更時間を設定
-			pChara->SetNextTime(fNextTime);
+			if (FAILED(pChara->SetNextTime(fNextTime)))
+			{ // 設定に失敗した場合
+
+				// 失敗を返す
+				assert(false);
+				return E_FAIL;
+			}
 		}
 		else if (str == "LOOP")
 		{

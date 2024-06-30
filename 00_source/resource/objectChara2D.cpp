@@ -148,11 +148,11 @@ void CObjectChara2D::SetMotion(const int nType)
 	SetEnableLoop(pInfoChara->bLoop);		// ループON/OFF
 	SetVec3Sizing(pInfoChara->sizeChara);	// 大きさ
 
-	assert(pInfoChara->pNextTime != nullptr);
+	assert((int)pInfoChara->vecNextTime.size() == pInfoChara->nMaxPtrn);
 	for (int i = 0; i < pInfoChara->nMaxPtrn; i++)
 	{
 		// パターン変更時間を設定
-		SetNextTime(pInfoChara->pNextTime[i]);
+		SetNextTime(pInfoChara->vecNextTime[i]);
 	}
 
 	// キャラクター情報を初期化

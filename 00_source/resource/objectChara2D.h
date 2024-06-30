@@ -36,16 +36,13 @@ public:
 			ptrnTexture	(GRID2_ZERO),	// テクスチャ分割数
 			nMaxPtrn	(0),			// 最大パターン数
 			sizeChara	(VEC3_ZERO),	// キャラクター大きさ
-			pNextTime	(nullptr),		// パターン変更時間
 			bLoop		(false)			// ループON/OFF
 		{
+			vecNextTime.clear();	// パターン変更時間配列をクリア
 			sPassTexture.clear();	// テクスチャパスをクリア
 		}
 
-		// デストラクタ
-		~SChara() { SAFE_DEL_ARRAY(pNextTime); }	// TODO：なぜダメ？
-
-		// テクスチャ分割数・パターン総数の設定処理
+		// テクスチャ分割数・パターン総数の設定
 		HRESULT SetTexPtrn(const POSGRID2& rPtrn)
 		{
 			// テクスチャ分割数・パターン総数を設定
@@ -53,41 +50,36 @@ public:
 			nMaxPtrn = rPtrn.x * rPtrn.y;
 
 			// パターン変更時間の破棄
-			SAFE_DEL_ARRAY(pNextTime);
+			vecNextTime.clear();
 
 			// パターン変更時間の生成
-			pNextTime = new float[nMaxPtrn];
-			if (pNextTime == nullptr)
-			{
-				// 失敗を返す
-				return E_FAIL;
-			}
+			vecNextTime.resize(nMaxPtrn);
 
 			// パターン変更時間を初期化
-			SetNextTime(DEF_NEXT);
+			if (FAILED(SetNextTime(DEF_NEXT))) { return E_FAIL; }
 			return S_OK;
 		}
 
-		// パターン変更時間の設定処理
+		// パターン変更時間の設定
 		HRESULT SetNextTime(const float fNextTime)
 		{
-			// 変更時間がプラスではない場合失敗
-			if (fNextTime <= 0.0f) { return E_FAIL; }
+			if (fNextTime <= 0.0f)					 { return E_FAIL; }	// 変更時間がプラスではない場合失敗
+			if (nMaxPtrn != (int)vecNextTime.size()) { return E_FAIL; }	// パターン最大数と同じサイズではない場合失敗
 			for (int i = 0; i < nMaxPtrn; i++)
 			{
 				// 引数のパターン変更時間を設定
-				pNextTime[i] = fNextTime;
+				vecNextTime[i] = fNextTime;
 			}
 			return S_OK;
 		}
 
 		// メンバ変数
-		std::string sPassTexture;	// テクスチャパス
-		POSGRID2 ptrnTexture;		// テクスチャ分割数
-		int nMaxPtrn;				// 最大パターン数
-		D3DXVECTOR3 sizeChara;		// キャラクター大きさ
-		float *pNextTime;			// パターン変更時間
-		bool bLoop;					// ループON/OFF
+		std::vector<float> vecNextTime;	// パターン変更時間配列
+		std::string sPassTexture;		// テクスチャパス
+		POSGRID2 ptrnTexture;			// テクスチャ分割数
+		int nMaxPtrn;					// 最大パターン数
+		D3DXVECTOR3 sizeChara;			// キャラクター大きさ
+		bool bLoop;						// ループON/OFF
 	};
 
 	// モーション管理構造体
