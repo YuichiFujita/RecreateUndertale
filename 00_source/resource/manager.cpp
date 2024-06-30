@@ -315,7 +315,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 //============================================================
 HRESULT CManager::Load(void)
 {
-//#if NDEBUG	// Release版以外では全読込を行わない	// TODO：後でコメントアウト撤廃
+#if NDEBUG	// Release版以外では全読込を行わない
 
 	// テクスチャの全読込
 	assert(m_pTexture != nullptr);
@@ -357,7 +357,7 @@ HRESULT CManager::Load(void)
 		return E_FAIL;
 	}
 
-//#endif	// NDEBUG
+#endif	// NDEBUG
 
 	// フォントの全読込
 	assert(m_pFont != nullptr);
