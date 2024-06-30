@@ -44,15 +44,12 @@ public:
 	CMotion2D *GetMotion(void) const { return m_pMotion; }	// モーション取得
 
 	void AddMotionInfo(const CMotion2D::SMotion& rInfo)	{ m_pMotion->AddInfo(rInfo); }					// モーション情報追加
-	void SetEnableMotionUpdate(const bool bUpdate)		{ m_pMotion->SetEnableUpdate(bUpdate); }		// 更新状況設定
 	float GetMotionCancelTime(void) const	{ return m_pMotion->GetCancelTime(m_pMotion->GetType()); }	// モーションキャンセル時間取得
 	float GetMotionComboTime(void) const	{ return m_pMotion->GetComboTime(m_pMotion->GetType()); }	// モーションコンボ時間取得
-	int GetMotionType(void) const		{ return m_pMotion->GetType(); }					// モーション種類取得
-	int GetMotionNumType(void) const	{ return m_pMotion->GetNumType(); }					// モーション種類総数取得
-	bool IsMotionFinish(void) const		{ return m_pMotion->IsFinish(); }					// モーション終了取得
-	bool IsMotionLoop(void) const		{ return m_pMotion->IsLoop(m_pMotion->GetType()); }	// モーションループ取得
-	bool IsMotionCancel(void) const		{ return m_pMotion->IsCancel(); }					// モーションキャンセル取得
-	bool IsMotionCombo(void) const		{ return m_pMotion->IsCombo(); }					// モーションコンボ取得
+	int GetMotionType(void) const			{ return m_pMotion->GetType(); }	// モーション種類取得
+	int GetMotionNumType(void) const		{ return m_pMotion->GetNumType(); }	// モーション種類総数取得
+	bool IsMotionCancel(void) const			{ return m_pMotion->IsCancel(); }	// モーションキャンセル取得
+	bool IsMotionCombo(void) const			{ return m_pMotion->IsCombo(); }	// モーションコンボ取得
 
 private:
 	// メンバ変数

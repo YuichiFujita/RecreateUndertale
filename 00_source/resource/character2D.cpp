@@ -319,6 +319,15 @@ HRESULT CCharacter2D::LoadMotionSetup(CMotion2D::SInfo *pInfoChara, const char *
 			file >> str;					// ＝を読込
 			file >> pChara->fNextTime;		// パターン変更時間を読込
 		}
+		else if (str == "LOOP")
+		{
+			int nCastBool = 0;	// bool型変換
+			file >> str;		// ＝を読込
+			file >> nCastBool;	// ループのON/OFFを読込
+
+			// 読み込んだ値をbool型に変換
+			pChara->bLoop = (nCastBool != 0);
+		}
 		else if (str == "CANCEL_TIME")
 		{
 			file >> str;					// ＝を読込
@@ -328,15 +337,6 @@ HRESULT CCharacter2D::LoadMotionSetup(CMotion2D::SInfo *pInfoChara, const char *
 		{
 			file >> str;					// ＝を読込
 			file >> pMotion->fComboTime;	// コンボ可能時間を読込
-		}
-		else if (str == "LOOP")
-		{
-			int nCastBool = 0;	// bool型変換
-			file >> str;		// ＝を読込
-			file >> nCastBool;	// ループのON/OFFを読込
-
-			// 読み込んだ値をbool型に変換
-			pMotion->bLoop = (nCastBool != 0);
 		}
 	}
 

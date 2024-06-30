@@ -24,7 +24,7 @@ namespace
 //	コンストラクタ
 //============================================================
 CAnim3D::CAnim3D(const CObject::ELabel label, const EDim dimension, const int nPriority) : CObject3D(label, dimension, nPriority),
-	m_funcNext		(nullptr),		// パターン変更関数ポインタ
+	m_funcPattern	(nullptr),		// パターン変更関数ポインタ
 	m_ptrn			(GRID2_ZERO),	// テクスチャ分割数
 	m_pNextTime		(nullptr),		// パターン変更時間
 	m_fCurTime		(0.0f),			// 現在の待機時間
@@ -55,7 +55,7 @@ CAnim3D::~CAnim3D()
 HRESULT CAnim3D::Init(void)
 {
 	// メンバ変数を初期化
-	m_funcNext		= nullptr;		// パターン変更関数ポインタ
+	m_funcPattern	= nullptr;		// パターン変更関数ポインタ
 	m_ptrn			= INIT_PTRN;	// テクスチャ分割数
 	m_pNextTime		= nullptr;		// パターン変更時間
 	m_fCurTime		= 0.0f;			// 現在の待機時間
@@ -109,8 +109,8 @@ void CAnim3D::Update(const float fDeltaTime)
 	if (!m_bPlay) { return; }
 
 	// パターンの更新
-	assert(m_funcNext != nullptr);
-	m_funcNext(fDeltaTime);
+	assert(m_funcPattern != nullptr);
+	m_funcPattern(fDeltaTime);
 
 	// オブジェクト3Dの更新
 	CObject3D::Update(fDeltaTime);
@@ -322,13 +322,13 @@ void CAnim3D::SetEnablePlayBack(const bool bPlayBack)
 	{ // 通常再生の場合
 
 		// パターン加算関数を設定
-		m_funcNext = std::bind(&CAnim3D::NextPtrn, this, std::placeholders::_1);
+		m_funcPattern = std::bind(&CAnim3D::NextPtrn, this, std::placeholders::_1);
 	}
 	else
 	{ // 逆再生の場合
 
 		// パターン減算関数を設定
-		m_funcNext = std::bind(&CAnim3D::BackPtrn, this, std::placeholders::_1);
+		m_funcPattern = std::bind(&CAnim3D::BackPtrn, this, std::placeholders::_1);
 	}
 }
 

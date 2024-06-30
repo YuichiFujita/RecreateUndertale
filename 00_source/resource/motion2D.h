@@ -36,7 +36,8 @@ public:
 			ptrnTexture	(GRID2_ZERO),	// テクスチャ分割数
 			nMaxPtrn	(0),			// 最大パターン数
 			sizeChara	(VEC3_ZERO),	// キャラクター大きさ
-			fNextTime	(0.0f)			// パターン変更時間
+			fNextTime	(0.0f),			// パターン変更時間
+			bLoop		(false)			// ループON/OFF
 		{
 			sPassTexture.clear();	// テクスチャパスをクリア
 		}
@@ -47,6 +48,7 @@ public:
 		int nMaxPtrn;				// 最大パターン数
 		D3DXVECTOR3 sizeChara;		// キャラクター大きさ
 		float fNextTime;			// パターン変更時間
+		bool bLoop;					// ループON/OFF
 	};
 
 	// モーション管理構造体
@@ -55,15 +57,13 @@ public:
 		// コンストラクタ
 		SMotion() :
 			fCancelTime	(-1.0f),	// キャンセル可能時間
-			fComboTime	(-1.0f),	// コンボ可能時間
-			bLoop		(false)		// ループON/OFF
+			fComboTime	(-1.0f)		// コンボ可能時間
 		{}
 
 		// メンバ変数
 		SChara infoChara;	// キャラクター情報
 		float fCancelTime;	// キャンセル可能時間
 		float fComboTime;	// コンボ可能時間
-		bool bLoop;			// ループON/OFF
 	};
 
 	// モーション情報構造体
@@ -71,8 +71,7 @@ public:
 	{
 		// コンストラクタ
 		SInfo() :
-			bFinish	(true),	// モーション終了状況
-			nType	(0)		// モーション種類
+			nType	(0)	// モーション種類
 		{
 			vecMotion.clear();	// モーション情報をクリア
 		}
@@ -82,25 +81,21 @@ public:
 
 		// メンバ変数
 		std::vector<SMotion> vecMotion;	// モーション情報
-		bool bFinish;	// モーション終了状況
-		int nType;		// モーション種類
+		int nType;	// モーション種類
 	};
 
 	// メンバ関数
 	HRESULT Init(void);	// 初期化
 	void Uninit(void);	// 終了
-	void Update(const float fDeltaTime);		// 更新
-	void SetEnableUpdate(const bool bUpdate);	// 更新状況設定
-	void Set(const int nType);					// 設定
-	void AddInfo(const SMotion& rMotion);		// モーション情報追加
-	void SetAllInfo(const SInfo& rInfo);		// モーション情報全設定
+	void Update(const float fDeltaTime);	// 更新
+	void Set(const int nType);				// 設定
+	void AddInfo(const SMotion& rMotion);	// モーション情報追加
+	void SetAllInfo(const SInfo& rInfo);	// モーション情報全設定
 
 	bool IsCancel(void) const;	// キャンセル取得
 	bool IsCombo(void) const;	// コンボ取得
-	bool IsFinish(void) const			{ return m_info.bFinish; }					// 終了取得
-	bool IsLoop(const int nType) const	{ return m_info.vecMotion[nType].bLoop; }	// ループ取得
-	int GetNumType(void)				{ return m_info.GetNumMotion(); }			// 種類総数取得
-	int GetType(void) const				{ return m_info.nType; }					// 種類取得
+	int GetNumType(void)		{ return m_info.GetNumMotion(); }	// 種類総数取得
+	int GetType(void) const		{ return m_info.nType; }			// 種類取得
 	float GetCancelTime(const int nType) const	{ return m_info.vecMotion[nType].fCancelTime; }	// モーションキャンセル時間取得
 	float GetComboTime(const int nType) const	{ return m_info.vecMotion[nType].fComboTime; }	// モーションコンボ時間取得
 
@@ -109,13 +104,9 @@ public:
 	static void Release(CMotion2D *&prMotion);			// 破棄
 
 private:
-	// メンバ関数
-	void UpdateMotion(const float fDeltaTime);	// モーション更新
-
 	// メンバ変数
 	CObjectChara2D *m_pChara;	// オブジェクトキャラクター2D情報
 	SInfo m_info;	// モーション情報
-	bool m_bUpdate;	// 更新状況
 };
 
 #endif	// _MOTION2D_H_

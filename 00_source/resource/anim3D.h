@@ -82,7 +82,7 @@ private:
 	void BackPtrn(const float fDeltaTime);	// パターン減算
 
 	// メンバ変数
-	std::function<void(float)> m_funcNext;	// パターン変更関数ポインタ
+	std::function<void(float)> m_funcPattern;	// パターン変更関数ポインタ
 	POSGRID2 m_ptrn;		// テクスチャ分割数
 	float *m_pNextTime;		// パターン変更時間
 	float m_fCurTime;		// 現在の待機時間
