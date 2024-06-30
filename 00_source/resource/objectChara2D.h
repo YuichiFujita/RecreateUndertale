@@ -36,10 +36,49 @@ public:
 			ptrnTexture	(GRID2_ZERO),	// テクスチャ分割数
 			nMaxPtrn	(0),			// 最大パターン数
 			sizeChara	(VEC3_ZERO),	// キャラクター大きさ
-			fNextTime	(0.0f),			// パターン変更時間
+			pNextTime	(nullptr),		// パターン変更時間
 			bLoop		(false)			// ループON/OFF
 		{
 			sPassTexture.clear();	// テクスチャパスをクリア
+		}
+
+		// デストラクタ
+		~SChara() { SAFE_DEL_ARRAY(pNextTime); }	// TODO：なぜダメ？
+
+		// テクスチャ分割数・パターン総数の設定処理
+		HRESULT SetTexPtrn(const POSGRID2& rPtrn)
+		{
+			// テクスチャ分割数・パターン総数を設定
+			ptrnTexture = rPtrn;
+			nMaxPtrn = rPtrn.x * rPtrn.y;
+
+			// パターン変更時間の破棄
+			SAFE_DEL_ARRAY(pNextTime);
+
+			// パターン変更時間の生成
+			pNextTime = new float[nMaxPtrn];
+			if (pNextTime == nullptr)
+			{
+				// 失敗を返す
+				return E_FAIL;
+			}
+
+			// パターン変更時間を初期化
+			SetNextTime(DEF_NEXT);
+			return S_OK;
+		}
+
+		// パターン変更時間の設定処理
+		HRESULT SetNextTime(const float fNextTime)
+		{
+			// 変更時間がプラスではない場合失敗
+			if (fNextTime <= 0.0f) { return E_FAIL; }
+			for (int i = 0; i < nMaxPtrn; i++)
+			{
+				// 引数のパターン変更時間を設定
+				pNextTime[i] = fNextTime;
+			}
+			return S_OK;
 		}
 
 		// メンバ変数
@@ -47,7 +86,7 @@ public:
 		POSGRID2 ptrnTexture;		// テクスチャ分割数
 		int nMaxPtrn;				// 最大パターン数
 		D3DXVECTOR3 sizeChara;		// キャラクター大きさ
-		float fNextTime;			// パターン変更時間
+		float *pNextTime;			// パターン変更時間
 		bool bLoop;					// ループON/OFF
 	};
 

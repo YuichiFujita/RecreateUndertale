@@ -300,12 +300,13 @@ HRESULT CCharacter2D::LoadMotionSetup(AMotion *pInfoChara, const char *pMotionPa
 		}
 		else if (str == "TEX_PATTERN")
 		{
-			file >> str;					// ＝を読込
-			file >> pChara->ptrnTexture.x;	// テクスチャ横分割を読込
-			file >> pChara->ptrnTexture.y;	// テクスチャ縦分割を読込
+			POSGRID2 ptrnTexture;	// テクスチャ分割数
+			file >> str;			// ＝を読込
+			file >> ptrnTexture.x;	// テクスチャ横分割を読込
+			file >> ptrnTexture.y;	// テクスチャ縦分割を読込
 
-			// 最大パターン数を求める
-			pChara->nMaxPtrn = pChara->ptrnTexture.x * pChara->ptrnTexture.y;
+			// テクスチャ分割数・パターン総数を設定
+			pChara->SetTexPtrn(ptrnTexture);
 		}
 		else if (str == "CHARA_SIZE")
 		{
@@ -316,8 +317,12 @@ HRESULT CCharacter2D::LoadMotionSetup(AMotion *pInfoChara, const char *pMotionPa
 		}
 		else if (str == "NEXT_TIME")
 		{
-			file >> str;					// ＝を読込
-			file >> pChara->fNextTime;		// パターン変更時間を読込
+			float fNextTime = 0.0f;	// パターン変更時間
+			file >> str;			// ＝を読込
+			file >> fNextTime;		// パターン変更時間を読込
+
+			// パターン変更時間を設定
+			pChara->SetNextTime(fNextTime);
 		}
 		else if (str == "LOOP")
 		{

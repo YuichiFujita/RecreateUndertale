@@ -145,9 +145,15 @@ void CObjectChara2D::SetMotion(const int nType)
 
 	// キャラクター情報を設定
 	SetTexPtrn(pInfoChara->ptrnTexture);	// テクスチャ分割数
-	SetNextTime(pInfoChara->fNextTime);		// パターン変更時間
 	SetEnableLoop(pInfoChara->bLoop);		// ループON/OFF
 	SetVec3Sizing(pInfoChara->sizeChara);	// 大きさ
+
+	assert(pInfoChara->pNextTime != nullptr);
+	for (int i = 0; i < pInfoChara->nMaxPtrn; i++)
+	{
+		// パターン変更時間を設定
+		SetNextTime(pInfoChara->pNextTime[i]);
+	}
 
 	// キャラクター情報を初期化
 	ResetCurPtrn();	// 開始パターン

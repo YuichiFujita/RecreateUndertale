@@ -423,7 +423,7 @@ void CAnim3D::SetNextTime(const float fNextTime)
 //============================================================
 HRESULT CAnim3D::SetMaxPtrn(const int nMaxPtrn)
 {
-	// 引数のパターンの総数を代入
+	// 引数のパターンの総数を設定
 	m_nMaxPtrn = nMaxPtrn;
 
 	// パターン変更時間の破棄
