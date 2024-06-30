@@ -65,7 +65,7 @@ void CMotion2D::Update(const float fDeltaTime)
 	if (m_info.vecMotion.empty()) { return; }
 
 	// モーションの更新
-	UpdateMotion();
+	UpdateMotion(fDeltaTime);
 }
 
 //============================================================
@@ -88,16 +88,23 @@ void CMotion2D::Set(const int nType)
 	// 引数のモーションの種類を設定
 	m_info.nType = nType;
 
-	// モーション情報を初期化
-	m_info.fCurTime	= 0.0f;		// 現在のモーション全体時間
-	m_info.bFinish	= false;	// モーション終了状況
-
-	// キャラクター情報を設定	// TODO：これで大丈夫？
+	// 変数をポインタ化し簡略化
 	SChara *pInfoChara = &m_info.vecMotion[nType].infoChara;	// キャラクター情報
-	m_pChara->BindTexture(pInfoChara->sPassTexture.c_str());	// テクスチャを割当
-	m_pChara->SetTexPtrn(pInfoChara->ptrnTexture);				// テクスチャ分割数を設定
-	m_pChara->SetNextTime(pInfoChara->fNextTime);				// パターン変更時間を設定
-	m_pChara->SetVec3Sizing(pInfoChara->sizeChara);				// 大きさを設定
+
+	// 指定テクスチャの割当
+	m_pChara->BindTexture(pInfoChara->sPassTexture.c_str());
+
+	// キャラクター情報を設定
+	m_pChara->SetTexPtrn(pInfoChara->ptrnTexture);	// テクスチャ分割数
+	m_pChara->SetNextTime(pInfoChara->fNextTime);	// パターン変更時間
+	m_pChara->SetVec3Sizing(pInfoChara->sizeChara);	// 大きさ
+
+	// キャラクター情報を初期化
+	m_pChara->ResetCurPtrn();	// 開始パターン
+	m_pChara->ResetNumLoop();	// 繰り返し数
+
+	// モーション終了フラグを初期化
+	m_info.bFinish = false;
 }
 
 //============================================================
@@ -112,15 +119,6 @@ void CMotion2D::AddInfo(const SMotion& rMotion)
 
 	// 引数のモーション情報を設定
 	m_info.vecMotion[nSetMotionID] = rMotion;
-
-	// モーション全体時間を設定	// TODO：ここできてる？
-	int nLoop = m_info.vecMotion[nSetMotionID].infoChara.nMaxPtrn;	// 繰り返し数
-	for (int nCntPtrn = 0; nCntPtrn < nLoop; nCntPtrn++)
-	{ // パターンの総数分繰り返す
-
-		// パターンの変更時間を加算
-		m_info.vecMotion[nSetMotionID].fWholeTime += m_info.vecMotion[nSetMotionID].infoChara.fNextTime;
-	}
 }
 
 //============================================================
@@ -142,13 +140,14 @@ void CMotion2D::SetAllInfo(const SInfo& rInfo)
 //============================================================
 //	キャンセル取得処理
 //============================================================
-bool CMotion2D::IsCancel(const int nType) const
+bool CMotion2D::IsCancel(void) const
 {
-	if (m_info.vecMotion[nType].fCancelTime >= 0.0f)
-	{ // キャンセルフレームが設定されている場合
+	float fCancelTime = m_info.vecMotion[m_info.nType].fCancelTime;	// キャンセル可能時間
+	if (fCancelTime >= 0.0f)
+	{ // キャンセル可能時間が設定されている場合
 
-		// 引数モーションのキャンセル状況を返す
-		return (m_info.fCurTime >= m_info.vecMotion[nType].fCancelTime);
+		// モーションのキャンセル状況を返す
+		return (m_pChara->GetCurWholeTime() >= fCancelTime);
 	}
 
 	// キャンセル不可を返す
@@ -158,13 +157,14 @@ bool CMotion2D::IsCancel(const int nType) const
 //============================================================
 //	コンボ取得処理
 //============================================================
-bool CMotion2D::IsCombo(const int nType) const
+bool CMotion2D::IsCombo(void) const
 {
-	if (m_info.vecMotion[nType].fComboTime >= 0.0f)
-	{ // コンボフレームが設定されている場合
+	float fComboTime = m_info.vecMotion[m_info.nType].fComboTime;	// コンボ可能時間
+	if (fComboTime >= 0.0f)
+	{ // コンボ可能時間が設定されている場合
 
-		// 引数モーションのコンボ状況を返す
-		return (m_info.fCurTime >= m_info.vecMotion[nType].fComboTime);
+		// モーションのコンボ状況を返す
+		return (m_pChara->GetCurWholeTime() >= fComboTime);
 	}
 
 	// コンボ不可を返す
@@ -219,7 +219,7 @@ void CMotion2D::Release(CMotion2D *&prMotion2D)
 //============================================================
 //	モーションの更新処理
 //============================================================
-void CMotion2D::UpdateMotion(void)
+void CMotion2D::UpdateMotion(const float fDeltaTime)
 {
 #if 0
 	int nType = m_info.nType;	// モーション種類
@@ -291,5 +291,94 @@ void CMotion2D::UpdateMotion(void)
 			}
 		}
 	}
+#else
+	int nType = m_info.nType;	// モーション種類
+	int nKey  = 0;				// モーションキー番号
+
+#if 0
+	// 次のモーションキー番号を求める
+	int nNextKey = (nKey + 1) % m_info.vecMotion[nType].GetNumKey();
+
+	// パーツの位置の更新
+	for (int nCntParts = 0; nCntParts < m_funcGetNumParts(); nCntParts++)
+	{ // パーツ数分繰り返す
+
+		// 位置・向きの差分を求める
+		D3DXVECTOR3 diffPos = m_info.vecMotion[nType].vecKey[nNextKey].vecParts[nCntParts].pos - m_info.vecMotion[nType].vecKey[nKey].vecParts[nCntParts].pos;
+		D3DXVECTOR3 diffRot = m_info.vecMotion[nType].vecKey[nNextKey].vecParts[nCntParts].rot - m_info.vecMotion[nType].vecKey[nKey].vecParts[nCntParts].rot;
+		useful::NormalizeRot(diffRot);	// 差分向きの正規化
+
+		// 現在のパーツの位置・向きを更新
+		float fRate = (float)m_info.nKeyCounter / (float)m_info.vecMotion[nType].vecKey[nKey].nFrame;	// キーフレーム割合
+		m_ppModel[nCntParts]->SetVec3Position(m_info.vecMotion[nType].vecKey[nKey].vecParts[nCntParts].pos + diffPos * fRate);
+		m_ppModel[nCntParts]->SetVec3Rotation(m_info.vecMotion[nType].vecKey[nKey].vecParts[nCntParts].rot + diffRot * fRate);
+	}
+#endif
+
+#if 0
+	if ()
+	{ // TODO：ここにアニメーションワンループが終わったかの確認処理
+
+		if (!m_info.vecMotion[nType].bLoop)
+		{ // モーションがループしない場合
+
+			// モーションを終了状態にする
+			m_info.bFinish = true;
+		}
+	}
+
+#if 0
+	// モーションの遷移の更新
+	if (m_info.nKeyCounter < m_info.vecMotion[nType].vecKey[nKey].nFrame)
+	{ // 現在のキーの再生が終了していない場合
+
+		// カウンターを加算
+		m_info.nKeyCounter++;
+		m_info.nWholeCounter++;
+	}
+	else
+	{ // 現在のキーの再生が終了した場合
+
+		// 次のキーに移行
+		if (m_info.vecMotion[nType].bLoop)
+		{ // モーションがループする場合
+
+			// キーカウンターを初期化
+			m_info.nKeyCounter = 0;
+
+			// キーカウントを加算
+			m_info.nKey = (m_info.nKey + 1) % m_info.vecMotion[nType].GetNumKey();	// 最大値で0に戻す
+
+			if (m_info.nKey == 0)
+			{ // キーが最初に戻った場合
+
+				// 全体カウンターを初期化
+				m_info.nWholeCounter = 0;
+			}
+		}
+		else
+		{ // モーションがループしない場合
+
+			if (m_info.nKey < m_info.vecMotion[nType].GetNumKey() - 2)
+			{ // 現在のキーが最終のキーではない場合
+
+				// キーカウンターを初期化
+				m_info.nKeyCounter = 0;
+
+				// キーカウントを加算
+				m_info.nKey++;
+			}
+			else
+			{ // 現在のキーが最終のキーの場合
+
+				// モーションを終了状態にする
+				m_info.bFinish = true;
+			}
+		}
+	}
+#endif
+
+#endif
+
 #endif
 }

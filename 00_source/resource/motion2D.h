@@ -54,7 +54,6 @@ public:
 	{
 		// コンストラクタ
 		SMotion() :
-			fWholeTime	(0.0f),		// モーション全体時間
 			fCancelTime	(-1.0f),	// キャンセル可能時間
 			fComboTime	(-1.0f),	// コンボ可能時間
 			bLoop		(false)		// ループON/OFF
@@ -62,7 +61,6 @@ public:
 
 		// メンバ変数
 		SChara infoChara;	// キャラクター情報
-		float fWholeTime;	// モーション全体時間
 		float fCancelTime;	// キャンセル可能時間
 		float fComboTime;	// コンボ可能時間
 		bool bLoop;			// ループON/OFF
@@ -73,9 +71,8 @@ public:
 	{
 		// コンストラクタ
 		SInfo() :
-			fCurTime	(0.0f),	// 現在のモーション全体時間
-			bFinish		(true),	// モーション終了状況
-			nType		(0)		// モーション種類
+			bFinish	(true),	// モーション終了状況
+			nType	(0)		// モーション種類
 		{
 			vecMotion.clear();	// モーション情報をクリア
 		}
@@ -85,7 +82,6 @@ public:
 
 		// メンバ変数
 		std::vector<SMotion> vecMotion;	// モーション情報
-		float fCurTime;	// 現在のモーション全体時間
 		bool bFinish;	// モーション終了状況
 		int nType;		// モーション種類
 	};
@@ -99,14 +95,12 @@ public:
 	void AddInfo(const SMotion& rMotion);		// モーション情報追加
 	void SetAllInfo(const SInfo& rInfo);		// モーション情報全設定
 
-	bool IsCancel(const int nType) const;	// キャンセル取得
-	bool IsCombo(const int nType) const;	// コンボ取得
+	bool IsCancel(void) const;	// キャンセル取得
+	bool IsCombo(void) const;	// コンボ取得
 	bool IsFinish(void) const			{ return m_info.bFinish; }					// 終了取得
 	bool IsLoop(const int nType) const	{ return m_info.vecMotion[nType].bLoop; }	// ループ取得
 	int GetNumType(void)				{ return m_info.GetNumMotion(); }			// 種類総数取得
 	int GetType(void) const				{ return m_info.nType; }					// 種類取得
-	float GetCurWholeTime(void) const	{ return m_info.fCurTime; }					// 現在モーション全体時間取得
-	float GetWholeTime(const int nType) const	{ return m_info.vecMotion[nType].fWholeTime; }	// モーション全体時間取得
 	float GetCancelTime(const int nType) const	{ return m_info.vecMotion[nType].fCancelTime; }	// モーションキャンセル時間取得
 	float GetComboTime(const int nType) const	{ return m_info.vecMotion[nType].fComboTime; }	// モーションコンボ時間取得
 
@@ -116,7 +110,7 @@ public:
 
 private:
 	// メンバ関数
-	void UpdateMotion(void);	// モーション更新
+	void UpdateMotion(const float fDeltaTime);	// モーション更新
 
 	// メンバ変数
 	CObjectChara2D *m_pChara;	// オブジェクトキャラクター2D情報

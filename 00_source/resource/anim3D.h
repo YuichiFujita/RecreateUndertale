@@ -59,28 +59,36 @@ public:
 	void SetTexPtrnHeight(const int nTexPtrnH);			// テクスチャ縦分割数設定
 	void SetEnablePlay(const bool bPlay);				// 再生フラグ設定
 	void SetEnablePlayBack(const bool bPlayBack);		// 逆再生フラグ設定
-	int GetPattern(void) const	{ return m_nCurPtrn; }	// パターン取得
+	void ResetCurPtrn(void);							// 現在パターン初期化
+	int GetCurPtrn(void) const	{ return m_nCurPtrn; }	// 現在パターン取得
+	void ResetNumLoop(void)		{ m_nNumLoop = 0; }		// パターン繰り返し数初期化
 	int GetLoopAnim(void) const	{ return m_nNumLoop; }	// パターン繰り返し数取得
 
-	void SetNextTime(const int nPtrnID, const float fNextTime);	// パターン変更時間設定 (パターン指定)
-	void SetNextTime(const float fNextTime);					// パターン変更時間設定 (全パターン)
+	float GetCurTime(void) const		{ return m_fCurTime; }		// 現在の待機時間
+	float GetCurWholeTime(void) const	{ return m_fCurWholeTime; }	// 現在の全体時間
+	float GetMaxWholeTime(void) const	{ return m_fMaxWholeTime; }	// 総全体時間
+	void SetNextTime(const int nPtrnID, const float fNextTime);		// パターン変更時間設定 (パターン指定)
+	void SetNextTime(const float fNextTime);						// パターン変更時間設定 (全パターン)
 
 private:
 	// メンバ関数
 	HRESULT SetMaxPtrn(const int nMaxPtrn);	// パターン総数設定
-	void NextPtrn(void);	// パターン加算
-	void BackPtrn(void);	// パターン減算
+	void NextPtrn(const float fDeltaTime);	// パターン加算
+	void BackPtrn(const float fDeltaTime);	// パターン減算
 
 	// メンバ変数
-	std::function<void(void)> m_funcNext;	// パターン変更関数ポインタ
-	POSGRID2 m_ptrn;	// テクスチャ分割数
-	float *m_pNextTime;	// パターン変更時間
-	float m_fCurTime;	// 現在の待機時間
-	int m_nCurPtrn;		// 現在のパターン
-	int m_nMaxPtrn;		// パターン総数
-	int m_nNumLoop;		// パターン繰り返し数
-	bool m_bPlay;		// 再生状況
-	bool m_bPlayBack;	// 逆再生状況
+	std::function<void(float)> m_funcNext;	// パターン変更関数ポインタ
+	POSGRID2 m_ptrn;		// テクスチャ分割数
+	float *m_pNextTime;		// パターン変更時間
+	float m_fCurTime;		// 現在の待機時間
+	float m_fCurWholeTime;	// 現在の全体時間
+	float m_fMaxWholeTime;	// 総全体時間
+	int m_nCurPtrn;			// 現在のパターン
+	int m_nMaxPtrn;			// パターン総数
+	int m_nNumLoop;			// パターン繰り返し数
+	bool m_bPlay;			// 再生状況
+	bool m_bPlayBack;		// 逆再生状況
+	bool m_bLoop;			// ループ状況
 };
 
 #endif	// _ANIM3D_H_

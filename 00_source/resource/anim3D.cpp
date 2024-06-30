@@ -24,15 +24,18 @@ namespace
 //	コンストラクタ
 //============================================================
 CAnim3D::CAnim3D(const CObject::ELabel label, const EDim dimension, const int nPriority) : CObject3D(label, dimension, nPriority),
-	m_funcNext	(nullptr),		// パターン変更関数ポインタ
-	m_ptrn		(GRID2_ZERO),	// テクスチャ分割数
-	m_pNextTime	(nullptr),		// パターン変更時間
-	m_fCurTime	(0.0f),			// 現在の待機時間
-	m_nCurPtrn	(0),			// 現在のパターン
-	m_nMaxPtrn	(0),			// パターンの総数
-	m_nNumLoop	(0),			// パターン繰り返し数
-	m_bPlay		(false),		// 再生状況
-	m_bPlayBack	(false)			// 逆再生状況
+	m_funcNext		(nullptr),		// パターン変更関数ポインタ
+	m_ptrn			(GRID2_ZERO),	// テクスチャ分割数
+	m_pNextTime		(nullptr),		// パターン変更時間
+	m_fCurTime		(0.0f),			// 現在の待機時間
+	m_fCurWholeTime	(0.0f),			// 現在の全体時間
+	m_fMaxWholeTime	(0.0f),			// 総全体時間
+	m_nCurPtrn		(0),			// 現在のパターン
+	m_nMaxPtrn		(0),			// パターンの総数
+	m_nNumLoop		(0),			// パターン繰り返し数
+	m_bPlay			(false),		// 再生状況
+	m_bPlayBack		(false),		// 逆再生状況
+	m_bLoop			(false)			// ループ状況
 {
 
 }
@@ -51,15 +54,18 @@ CAnim3D::~CAnim3D()
 HRESULT CAnim3D::Init(void)
 {
 	// メンバ変数を初期化
-	m_funcNext	= nullptr;		// パターン変更関数ポインタ
-	m_ptrn		= INIT_PTRN;	// テクスチャ分割数
-	m_pNextTime	= nullptr;		// パターン変更時間
-	m_fCurTime	= 0.0f;			// 現在の待機時間
-	m_nCurPtrn	= 0;			// 現在のパターン
-	m_nMaxPtrn	= 0;			// パターン総数
-	m_nNumLoop	= 0;			// パターン繰り返し数
-	m_bPlay		= true;			// 再生状況
-	m_bPlayBack	= false;		// 逆再生状況
+	m_funcNext		= nullptr;		// パターン変更関数ポインタ
+	m_ptrn			= INIT_PTRN;	// テクスチャ分割数
+	m_pNextTime		= nullptr;		// パターン変更時間
+	m_fCurTime		= 0.0f;			// 現在の待機時間
+	m_fCurWholeTime	= 0.0f;			// 現在の全体時間
+	m_fMaxWholeTime	= 0.0f;			// 総全体時間
+	m_nCurPtrn		= 0;			// 現在のパターン
+	m_nMaxPtrn		= 0;			// パターン総数
+	m_nNumLoop		= 0;			// パターン繰り返し数
+	m_bPlay			= true;			// 再生状況
+	m_bPlayBack		= false;		// 逆再生状況
+	m_bLoop			= true;			// ループ状況
 
 	// 通常再生を設定
 	SetEnablePlayBack(false);
@@ -100,25 +106,9 @@ void CAnim3D::Update(const float fDeltaTime)
 	// 停止中の場合抜ける
 	if (!m_bPlay) { return; }
 
-	// 現在の待機時間を加算
-	m_fCurTime += fDeltaTime;
-	while (m_fCurTime >= m_pNextTime[m_nCurPtrn])
-	{ // 待機し終わった場合
-
-		// 現在の待機時間から今回の待機時間を減算
-		m_fCurTime -= m_pNextTime[m_nCurPtrn];
-
-		// 現在のパターンを変更
-		assert(m_funcNext != nullptr);
-		m_funcNext();
-
-		if (m_nCurPtrn == 0)
-		{ // パターン数が一枚目の場合
-
-			// 繰り返し数を加算
-			m_nNumLoop++;
-		}
-	}
+	// パターンの更新
+	assert(m_funcNext != nullptr);
+	m_funcNext(fDeltaTime);
 
 	// オブジェクト3Dの更新
 	CObject3D::Update(fDeltaTime);
@@ -244,8 +234,21 @@ void CAnim3D::SetColor(const D3DXCOLOR& rCol)
 //============================================================
 void CAnim3D::SetCurPtrn(const int nPtrn)
 {
-	// 引数のパターン数を代入
+	// 引数のパターン数を設定
 	m_nCurPtrn = nPtrn;
+
+	// 全体時間の初期化
+	m_fCurWholeTime = 0.0f;
+
+	// 全体時間をパターンの開始時間に設定
+	int nAddTime = (!m_bPlayBack) ? 0 : 1;	// 逆再生の場合は現在パターンの待機時間も含む
+	int nLoop = m_nCurPtrn + nAddTime;		// 繰り返し数を求める
+	for (int i = 0; i < nLoop; i++)
+	{ // 開始パターンまで繰り返す
+
+		// 待機時間を加算
+		m_fCurWholeTime += m_pNextTime[i];
+	}
 
 	// アニメーションのテクスチャ座標の設定
 	CObject3D::SetAnimTex(m_nCurPtrn, m_ptrn.x, m_ptrn.y);
@@ -292,11 +295,11 @@ void CAnim3D::SetTexPtrnHeight(const int nTexPtrnH)
 //============================================================
 void CAnim3D::SetEnablePlay(const bool bPlay)
 {
-	// 引数の再生状況を設定
-	m_bPlay = bPlay;
-
 	// 停止した場合にパターン繰り返し数を初期化
 	if (!m_bPlay) { m_nNumLoop = 0; }
+
+	// 引数の再生状況を設定
+	m_bPlay = bPlay;
 }
 
 //============================================================
@@ -304,6 +307,9 @@ void CAnim3D::SetEnablePlay(const bool bPlay)
 //============================================================
 void CAnim3D::SetEnablePlayBack(const bool bPlayBack)
 {
+	// 再生/逆再生が反転した場合にパターン繰り返し数を初期化
+	if (m_bPlayBack != bPlayBack) { m_nNumLoop = 0; }
+
 	// 引数の逆再生状況を設定
 	m_bPlayBack = bPlayBack;
 
@@ -311,13 +317,40 @@ void CAnim3D::SetEnablePlayBack(const bool bPlayBack)
 	{ // 通常再生の場合
 
 		// パターン加算関数を設定
-		m_funcNext = std::bind(&CAnim3D::NextPtrn, this);
+		m_funcNext = std::bind(&CAnim3D::NextPtrn, this, std::placeholders::_1);
 	}
 	else
 	{ // 逆再生の場合
 
 		// パターン減算関数を設定
-		m_funcNext = std::bind(&CAnim3D::BackPtrn, this);
+		m_funcNext = std::bind(&CAnim3D::BackPtrn, this, std::placeholders::_1);
+	}
+}
+
+//============================================================
+//	現在パターンの初期化処理
+//============================================================
+void CAnim3D::ResetCurPtrn(void)
+{
+	if (!m_bPlayBack)
+	{ // 通常再生の場合
+
+		// 開始パターンの初期化
+		m_nCurPtrn = 0;
+
+		// 待機時間の初期化
+		m_fCurTime = 0.0f;
+		m_fCurWholeTime = 0.0f;
+	}
+	else
+	{ // 逆再生の場合
+
+		// 開始パターンの初期化
+		m_nCurPtrn = m_nMaxPtrn - 1;
+
+		// 待機時間の初期化
+		m_fCurTime = m_pNextTime[m_nCurPtrn];
+		m_fCurWholeTime = m_fMaxWholeTime;
 	}
 }
 
@@ -332,8 +365,15 @@ void CAnim3D::SetNextTime(const int nPtrnID, const float fNextTime)
 	// 変更時間がプラスではない場合抜ける
 	if (fNextTime <= 0.0f) { assert(false); return; }
 
+	// 変更前のパターン変更時間を保存
+	float fOldNextTime = m_pNextTime[nPtrnID];
+
 	// 引数のパターン変更時間を設定
 	m_pNextTime[nPtrnID] = fNextTime;
+
+	// 総全体時間を変更
+	m_fMaxWholeTime -= fOldNextTime;
+	m_fMaxWholeTime += fNextTime;
 }
 
 //============================================================
@@ -350,6 +390,9 @@ void CAnim3D::SetNextTime(const float fNextTime)
 		// 引数のパターン変更時間を設定
 		m_pNextTime[i] = fNextTime;
 	}
+
+	// 総全体時間を変更
+	m_fMaxWholeTime = fNextTime * (float)m_nMaxPtrn;
 }
 
 //============================================================
@@ -386,17 +429,59 @@ HRESULT CAnim3D::SetMaxPtrn(const int nMaxPtrn)
 //============================================================
 //	パターン加算処理
 //============================================================
-void CAnim3D::NextPtrn(void)
+void CAnim3D::NextPtrn(const float fDeltaTime)
 {
-	// パターンを加算
-	m_nCurPtrn = (m_nCurPtrn + 1) % m_nMaxPtrn;
+	// 現在の待機時間を加算
+	m_fCurTime += fDeltaTime;
+	m_fCurWholeTime += fDeltaTime;
+
+	while (m_fCurTime >= m_pNextTime[m_nCurPtrn])
+	{ // 待機し終わった場合
+
+		// 現在の待機時間から今回の待機時間を減算
+		m_fCurTime -= m_pNextTime[m_nCurPtrn];
+
+		// パターンを加算
+		m_nCurPtrn = (m_nCurPtrn + 1) % m_nMaxPtrn;
+
+		if (m_nCurPtrn == 0)
+		{ // パターン数が先頭の場合
+
+			// 繰り返し数を加算
+			m_nNumLoop++;
+
+			// 全体時間を初期化
+			m_fCurWholeTime = 0.0f;
+		}
+	}
 }
 
 //============================================================
 //	パターン減算処理
 //============================================================
-void CAnim3D::BackPtrn(void)
+void CAnim3D::BackPtrn(const float fDeltaTime)
 {
-	// パターンを減算
-	m_nCurPtrn = (m_nCurPtrn + (m_nMaxPtrn - 1)) % m_nMaxPtrn;
+	// 現在の待機時間を加算
+	m_fCurTime -= fDeltaTime;
+	m_fCurWholeTime -= fDeltaTime;
+
+	while (m_fCurTime <= 0.0f)
+	{ // 待機し終わった場合
+
+		// 現在の待機時間から今回の待機時間を減算
+		m_fCurTime += m_pNextTime[m_nCurPtrn];
+
+		// パターンを減算
+		m_nCurPtrn = (m_nCurPtrn + (m_nMaxPtrn - 1)) % m_nMaxPtrn;
+
+		if (m_nCurPtrn == m_nMaxPtrn - 1)
+		{ // パターン数が最後の場合
+
+			// 繰り返し数を加算
+			m_nNumLoop++;
+
+			// 全体時間を初期化
+			m_fCurWholeTime = m_fMaxWholeTime;
+		}
+	}
 }

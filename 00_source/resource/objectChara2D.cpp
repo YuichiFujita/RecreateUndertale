@@ -10,7 +10,7 @@
 #include "objectChara2D.h"
 #include "manager.h"
 #include "renderer.h"
-#include "motion2D.h"
+#include "character2D.h"
 
 //************************************************************
 //	子クラス [CObjectChara2D] のメンバ関数

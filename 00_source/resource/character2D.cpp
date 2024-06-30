@@ -316,8 +316,18 @@ HRESULT CCharacter2D::LoadMotionSetup(CMotion2D::SInfo *pInfoChara, const char *
 		}
 		else if (str == "NEXT_TIME")
 		{
-			file >> str;				// ＝を読込
-			file >> pChara->fNextTime;	// パターン変更時間を読込
+			file >> str;					// ＝を読込
+			file >> pChara->fNextTime;		// パターン変更時間を読込
+		}
+		else if (str == "CANCEL_TIME")
+		{
+			file >> str;					// ＝を読込
+			file >> pMotion->fCancelTime;	// キャンセル可能時間を読込
+		}
+		else if (str == "COMBO_TIME")
+		{
+			file >> str;					// ＝を読込
+			file >> pMotion->fComboTime;	// コンボ可能時間を読込
 		}
 		else if (str == "LOOP")
 		{
