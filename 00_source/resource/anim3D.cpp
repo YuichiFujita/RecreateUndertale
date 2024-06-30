@@ -56,7 +56,7 @@ HRESULT CAnim3D::Init(void)
 {
 	// メンバ変数を初期化
 	m_funcPattern	= nullptr;		// パターン変更関数ポインタ
-	m_ptrn			= INIT_PTRN;	// テクスチャ分割数
+	m_ptrn			= GRID2_ZERO;	// テクスチャ分割数
 	m_pNextTime		= nullptr;		// パターン変更時間
 	m_fCurTime		= 0.0f;			// 現在の待機時間
 	m_fCurWholeTime	= 0.0f;			// 現在の全体時間
@@ -69,7 +69,10 @@ HRESULT CAnim3D::Init(void)
 	m_bLoop			= true;			// ループフラグ
 	m_bFinish		= false;		// 終了フラグ
 
-	// 通常再生を設定
+	// テクスチャ分割数を初期化
+	SetTexPtrn(INIT_PTRN);
+
+	// 通常再生を初期化
 	SetEnablePlayBack(false);
 
 	// オブジェクト3Dの初期化

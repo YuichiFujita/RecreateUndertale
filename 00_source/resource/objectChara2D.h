@@ -14,7 +14,6 @@
 //	インクルードファイル
 //************************************************************
 #include "anim3D.h"
-#include "motion2D.h"
 
 //************************************************************
 //	クラス定義
@@ -29,6 +28,62 @@ public:
 	// デストラクタ
 	~CObjectChara2D() override;
 
+	// キャラクター管理構造体
+	struct SChara
+	{
+		// コンストラクタ
+		SChara() :
+			ptrnTexture	(GRID2_ZERO),	// テクスチャ分割数
+			nMaxPtrn	(0),			// 最大パターン数
+			sizeChara	(VEC3_ZERO),	// キャラクター大きさ
+			fNextTime	(0.0f),			// パターン変更時間
+			bLoop		(false)			// ループON/OFF
+		{
+			sPassTexture.clear();	// テクスチャパスをクリア
+		}
+
+		// メンバ変数
+		std::string sPassTexture;	// テクスチャパス
+		POSGRID2 ptrnTexture;		// テクスチャ分割数
+		int nMaxPtrn;				// 最大パターン数
+		D3DXVECTOR3 sizeChara;		// キャラクター大きさ
+		float fNextTime;			// パターン変更時間
+		bool bLoop;					// ループON/OFF
+	};
+
+	// モーション管理構造体
+	struct SMotion
+	{
+		// コンストラクタ
+		SMotion() :
+			fCancelTime	(-1.0f),	// キャンセル可能時間
+			fComboTime	(-1.0f)		// コンボ可能時間
+		{}
+
+		// メンバ変数
+		SChara infoChara;	// キャラクター情報
+		float fCancelTime;	// キャンセル可能時間
+		float fComboTime;	// コンボ可能時間
+	};
+
+	// モーション情報構造体
+	struct SInfo
+	{
+		// コンストラクタ
+		SInfo() :
+			nType	(0)	// モーション種類
+		{
+			vecMotion.clear();	// モーション情報をクリア
+		}
+
+		// メンバ関数
+		int GetNumMotion(void) { return (int)vecMotion.size(); }	// モーション情報の総数取得
+
+		// メンバ変数
+		std::vector<SMotion> vecMotion;	// モーション情報
+		int nType;	// モーション種類
+	};
+
 	// オーバーライド関数
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
@@ -39,21 +94,21 @@ public:
 	static CObjectChara2D *Create(const D3DXVECTOR3& rPos, const D3DXVECTOR3& rRot = VEC3_ZERO);	// 生成
 
 	// メンバ関数
-	void BindCharaData(const char *pCharaPass);				// キャラクター情報割当
-	void SetMotion(const int nType);						// モーション設定
-	CMotion2D *GetMotion(void) const { return m_pMotion; }	// モーション取得
+	void BindCharaData(const char *pCharaPass);	// キャラクター情報割当
+	void SetMotion(const int nType);			// モーション設定
+	void AddInfo(const SMotion& rMotion);		// モーション情報追加
+	void SetAllInfo(const SInfo& rInfo);		// モーション情報全設定
 
-	void AddMotionInfo(const CMotion2D::SMotion& rInfo)	{ m_pMotion->AddInfo(rInfo); }					// モーション情報追加
-	float GetMotionCancelTime(void) const	{ return m_pMotion->GetCancelTime(m_pMotion->GetType()); }	// モーションキャンセル時間取得
-	float GetMotionComboTime(void) const	{ return m_pMotion->GetComboTime(m_pMotion->GetType()); }	// モーションコンボ時間取得
-	int GetMotionType(void) const			{ return m_pMotion->GetType(); }	// モーション種類取得
-	int GetMotionNumType(void) const		{ return m_pMotion->GetNumType(); }	// モーション種類総数取得
-	bool IsMotionCancel(void) const			{ return m_pMotion->IsCancel(); }	// モーションキャンセル取得
-	bool IsMotionCombo(void) const			{ return m_pMotion->IsCombo(); }	// モーションコンボ取得
+	bool IsCancel(void) const;	// キャンセル取得
+	bool IsCombo(void) const;	// コンボ取得
+	int GetMotion(void) const	{ return m_info.nType; }			// モーション取得
+	int GetNumType(void)		{ return m_info.GetNumMotion(); }	// 種類総数取得
+	float GetCancelTime(const int nType) const	{ return m_info.vecMotion[nType].fCancelTime; }	// キャンセル時間取得
+	float GetComboTime(const int nType) const	{ return m_info.vecMotion[nType].fComboTime; }	// コンボ時間取得
 
 private:
 	// メンバ変数
-	CMotion2D *m_pMotion;	// モーション2D情報
+	SInfo m_info;	// モーション情報
 };
 
 #endif	// _OBJECTCHARA2D_H_

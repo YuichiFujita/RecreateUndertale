@@ -337,9 +337,6 @@
     <ClCompile Include="resource\objectChara2D.cpp">
       <Filter>object</Filter>
     </ClCompile>
-    <ClCompile Include="resource\motion2D.cpp">
-      <Filter>utility</Filter>
-    </ClCompile>
     <ClCompile Include="resource\character2D.cpp">
       <Filter>flyweight</Filter>
     </ClCompile>
@@ -630,9 +627,6 @@
     </ClInclude>
     <ClInclude Include="resource\objectChara2D.h">
       <Filter>object</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\motion2D.h">
-      <Filter>utility</Filter>
     </ClInclude>
     <ClInclude Include="resource\character2D.h">
       <Filter>flyweight</Filter>

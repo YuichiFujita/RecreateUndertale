@@ -106,7 +106,7 @@ HRESULT CSceneGame::Init(void)
 	g_pChara = CObjectChara2D::Create(D3DXVECTOR3(0.0f, 0.0f, -1.0f));
 	g_pChara->SetLabel(CObject::LABEL_DEBUG);
 	g_pChara->BindCharaData("data\\CHARACTER\\frisk.txt");
-	g_pChara->SetMotion(3);
+	g_pChara->SetMotion(0);
 
 	// BGM‚ÌÄ¶
 	PLAY_SOUND(CSound::LABEL_BGM_GENERAL);
@@ -189,28 +189,28 @@ void CSceneGame::Update(const float fDeltaTime)
 	{
 		posChara.x -= 180.0f * fDeltaTime;
 
-		if (g_pChara->GetMotionType() != 2)
+		if (g_pChara->GetMotion() != 2)
 		g_pChara->SetMotion(2);
 	}
 	if (GET_INPUTKEY->IsPress(DIK_RIGHT))
 	{
 		posChara.x += 180.0f * fDeltaTime;
 
-		if (g_pChara->GetMotionType() != 3)
+		if (g_pChara->GetMotion() != 3)
 		g_pChara->SetMotion(3);
 	}
 	if (GET_INPUTKEY->IsPress(DIK_UP))
 	{
 		posChara.y += 180.0f * fDeltaTime;
 
-		if (g_pChara->GetMotionType() != 0)
+		if (g_pChara->GetMotion() != 0)
 		g_pChara->SetMotion(0);
 	}
 	if (GET_INPUTKEY->IsPress(DIK_DOWN))
 	{
 		posChara.y -= 180.0f * fDeltaTime;
 
-		if (g_pChara->GetMotionType() != 1)
+		if (g_pChara->GetMotion() != 1)
 		g_pChara->SetMotion(1);
 	}
 	g_pChara->SetVec3Position(posChara);

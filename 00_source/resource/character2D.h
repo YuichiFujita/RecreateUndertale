@@ -13,7 +13,7 @@
 //************************************************************
 //	インクルードファイル
 //************************************************************
-#include "motion2D.h"
+#include "objectChara2D.h"
 
 //************************************************************
 //	クラス定義
@@ -29,7 +29,7 @@ public:
 	~CCharacter2D();
 
 	// モーション情報型エイリアス定義
-	using AMotion = CMotion2D::SInfo;
+	using AMotion = CObjectChara2D::SInfo;
 
 	// メンバ関数
 	HRESULT Init(void);		// キャラクター初期化
@@ -46,7 +46,7 @@ private:
 	HRESULT SearchFolderAll(std::string sFolderPath);	// フォルダ全検索
 
 	// メンバ関数
-	HRESULT LoadSetup(AMotion *pInfoChara, const char *pCharaPass);		// キャラクター情報セットアップ
+	HRESULT LoadSetup(AMotion *pInfoChara, const char *pCharaPass);			// キャラクター情報セットアップ
 	HRESULT LoadMotionSetup(AMotion *pInfoChara, const char *pMotionPass);	// モーション情報セットアップ
 
 	// メンバ変数
