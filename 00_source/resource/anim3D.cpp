@@ -33,10 +33,10 @@ CAnim3D::CAnim3D(const CObject::ELabel label, const EDim dimension, const int nP
 	m_nCurPtrn		(0),			// 現在のパターン
 	m_nMaxPtrn		(0),			// パターンの総数
 	m_nNumLoop		(0),			// パターン繰り返し数
-	m_bPlay			(false),		// 再生状況
-	m_bPlayBack		(false),		// 逆再生状況
-	m_bLoop			(false),		// ループ状況
-	m_bFinish		(false)			// 終了状況
+	m_bPlay			(false),		// 再生フラグ
+	m_bPlayBack		(false),		// 逆再生フラグ
+	m_bLoop			(false),		// ループフラグ
+	m_bFinish		(false)			// 終了フラグ
 {
 
 }
@@ -64,10 +64,10 @@ HRESULT CAnim3D::Init(void)
 	m_nCurPtrn		= 0;			// 現在のパターン
 	m_nMaxPtrn		= 0;			// パターン総数
 	m_nNumLoop		= 0;			// パターン繰り返し数
-	m_bPlay			= true;			// 再生状況
-	m_bPlayBack		= false;		// 逆再生状況
-	m_bLoop			= true;			// ループ状況
-	m_bFinish		= false;		// 終了状況
+	m_bPlay			= true;			// 再生フラグ
+	m_bPlayBack		= false;		// 逆再生フラグ
+	m_bLoop			= true;			// ループフラグ
+	m_bFinish		= false;		// 終了フラグ
 
 	// 通常再生を設定
 	SetEnablePlayBack(false);

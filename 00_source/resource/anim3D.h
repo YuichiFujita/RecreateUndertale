@@ -64,8 +64,10 @@ public:
 	int GetCurPtrn(void) const	{ return m_nCurPtrn; }	// 現在パターン取得
 	void ResetNumLoop(void)		{ m_nNumLoop = 0; }		// パターン繰り返し数初期化
 	int GetLoopAnim(void) const	{ return m_nNumLoop; }	// パターン繰り返し数取得
-	bool IsLoop(void) const		{ return m_bLoop; }		// ループ状況取得
-	bool IsFinish(void) const	{ return m_bFinish; }	// 終了状況取得
+	bool IsPlay(void) const		{ return m_bPlay; }		// 再生フラグ取得
+	bool IsPlayBack(void) const	{ return m_bPlayBack; }	// 逆再生フラグ取得
+	bool IsLoop(void) const		{ return m_bLoop; }		// ループフラグ取得
+	bool IsFinish(void) const	{ return m_bFinish; }	// 終了フラグ取得
 
 	float GetCurTime(void) const		{ return m_fCurTime; }		// 現在の待機時間
 	float GetCurWholeTime(void) const	{ return m_fCurWholeTime; }	// 現在の全体時間
@@ -89,10 +91,10 @@ private:
 	int m_nCurPtrn;			// 現在のパターン
 	int m_nMaxPtrn;			// パターン総数
 	int m_nNumLoop;			// パターン繰り返し数
-	bool m_bPlay;			// 再生状況
-	bool m_bPlayBack;		// 逆再生状況
-	bool m_bLoop;			// ループ状況
-	bool m_bFinish;			// 終了状況
+	bool m_bPlay;			// 再生フラグ
+	bool m_bPlayBack;		// 逆再生フラグ
+	bool m_bLoop;			// ループフラグ
+	bool m_bFinish;			// 終了フラグ
 };
 
 #endif	// _ANIM3D_H_
