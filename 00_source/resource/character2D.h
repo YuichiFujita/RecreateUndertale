@@ -28,11 +28,14 @@ public:
 	// デストラクタ
 	~CCharacter2D();
 
+	// モーション情報型エイリアス定義
+	using AMotion = CMotion2D::SInfo;
+
 	// メンバ関数
 	HRESULT Init(void);		// キャラクター初期化
 	void Uninit(void);		// キャラクター終了
 	HRESULT LoadAll(void);	// キャラクター全読込
-	CMotion2D::SInfo Regist(const char *pCharaPass);	// キャラクター登録
+	AMotion Regist(const char *pCharaPass);	// キャラクター登録
 
 	// 静的メンバ関数
 	static CCharacter2D *Create(void);	// 生成
@@ -43,11 +46,11 @@ private:
 	HRESULT SearchFolderAll(std::string sFolderPath);	// フォルダ全検索
 
 	// メンバ関数
-	HRESULT LoadSetup(CMotion2D::SInfo *pInfoChara, const char *pCharaPass);		// キャラクター情報セットアップ
-	HRESULT LoadMotionSetup(CMotion2D::SInfo *pInfoChara, const char *pMotionPass);	// モーション情報セットアップ
+	HRESULT LoadSetup(AMotion *pInfoChara, const char *pCharaPass);		// キャラクター情報セットアップ
+	HRESULT LoadMotionSetup(AMotion *pInfoChara, const char *pMotionPass);	// モーション情報セットアップ
 
 	// メンバ変数
-	std::map<std::string, CMotion2D::SInfo> m_mapCharacter;	// キャラクター2D連想配列
+	std::map<std::string, AMotion> m_mapCharacter;	// キャラクター2D連想配列
 };
 
 #endif	// _CHARACTER2D_H_

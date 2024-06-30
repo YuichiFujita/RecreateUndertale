@@ -88,7 +88,7 @@ HRESULT CCharacter2D::LoadAll(void)
 //============================================================
 //	キャラクター登録
 //============================================================
-CMotion2D::SInfo CCharacter2D::Regist(const char *pCharaPass)
+CCharacter2D::AMotion CCharacter2D::Regist(const char *pCharaPass)
 {
 	// 既に生成済みかを検索
 	auto itr = m_mapCharacter.find(pCharaPass);	// 引数のキャラクター情報を検索
@@ -100,7 +100,7 @@ CMotion2D::SInfo CCharacter2D::Regist(const char *pCharaPass)
 	}
 
 	// キャラクター情報を読込
-	CMotion2D::SInfo tempCharaData;	// キャラクター情報
+	AMotion tempCharaData;	// キャラクター情報
 	if (FAILED(LoadSetup(&tempCharaData, pCharaPass)))
 	{ // 読込に失敗した場合
 
@@ -215,7 +215,7 @@ HRESULT CCharacter2D::SearchFolderAll(std::string sFolderPath)
 //============================================================
 //	キャラクター情報セットアップ処理
 //============================================================
-HRESULT CCharacter2D::LoadSetup(CMotion2D::SInfo *pInfoChara, const char *pCharaPass)
+HRESULT CCharacter2D::LoadSetup(AMotion *pInfoChara, const char *pCharaPass)
 {
 	// ファイルを開く
 	std::ifstream file(pCharaPass);	// ファイルストリーム
@@ -260,7 +260,7 @@ HRESULT CCharacter2D::LoadSetup(CMotion2D::SInfo *pInfoChara, const char *pChara
 //============================================================
 //	モーション情報セットアップ処理
 //============================================================
-HRESULT CCharacter2D::LoadMotionSetup(CMotion2D::SInfo *pInfoChara, const char *pMotionPass)
+HRESULT CCharacter2D::LoadMotionSetup(AMotion *pInfoChara, const char *pMotionPass)
 {
 	// ファイルを開く
 	std::ifstream file(pMotionPass);	// ファイルストリーム
