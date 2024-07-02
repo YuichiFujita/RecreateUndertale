@@ -21,6 +21,11 @@ namespace
 }
 
 //************************************************************
+//	静的メンバ変数宣言
+//************************************************************
+CListManager<CPlayer> *CPlayer::m_pList = nullptr;	// オブジェクトリスト
+
+//************************************************************
 //	子クラス [CPlayer] のメンバ関数
 //************************************************************
 //============================================================
@@ -65,6 +70,23 @@ HRESULT CPlayer::Init(void)
 	// キャラクター情報の割当
 	BindCharaData(SETUP_TXT);
 
+	if (m_pList == nullptr)
+	{ // リストマネージャーが存在しない場合
+
+		// リストマネージャーの生成
+		m_pList = CListManager<CPlayer>::Create();
+		if (m_pList == nullptr)
+		{ // 生成に失敗した場合
+
+			// 失敗を返す
+			assert(false);
+			return E_FAIL;
+		}
+	}
+
+	// リストに自身のオブジェクトを追加・イテレーターを取得
+	m_iterator = m_pList->AddList(this);
+
 	// 成功を返す
 	return S_OK;
 }
@@ -76,6 +98,16 @@ void CPlayer::Uninit(void)
 {
 	// 状態の終了
 	SAFE_UNINIT(m_pState);
+
+	// リストから自身のオブジェクトを削除
+	m_pList->DelList(m_iterator);
+
+	if (m_pList->GetNumAll() == 0)
+	{ // オブジェクトが一つもない場合
+
+		// リストマネージャーの破棄
+		m_pList->Release(m_pList);
+	}
 
 	// オブジェクトキャラクター2Dの終了
 	CObjectChara2D::Uninit();
@@ -167,6 +199,15 @@ CPlayer *CPlayer::Create(const D3DXVECTOR3& rPos)
 		// 確保したアドレスを返す
 		return pPlayer;
 	}
+}
+
+//============================================================
+//	リスト取得処理
+//============================================================
+CListManager<CPlayer> *CPlayer::GetList(void)
+{
+	// オブジェクトリストを返す
+	return m_pList;
 }
 
 //============================================================

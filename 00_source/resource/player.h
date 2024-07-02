@@ -56,13 +56,18 @@ public:
 
 	// 静的メンバ関数
 	static CPlayer *Create(const D3DXVECTOR3& rPos);	// 生成
+	static CListManager<CPlayer> *GetList(void);		// リスト取得
 
 private:
 	// メンバ関数
 	void UpdateOldPosition(void);	// 過去位置の更新
 	void UpdateMotion(int nCurMotion, const float fDeltaTime);	// モーション・キャラクター2Dの更新
 
+	// 静的メンバ変数
+	static CListManager<CPlayer> *m_pList;	// オブジェクトリスト
+
 	// メンバ変数
+	CListManager<CPlayer>::AIterator m_iterator;	// イテレーター
 	CPlayerState *m_pState;	// 状態
 	D3DXVECTOR3	m_oldPos;	// 過去位置
 };

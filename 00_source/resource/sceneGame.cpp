@@ -18,6 +18,7 @@
 
 // TODO
 #include "mapTile.h"
+#include "collTile.h"
 #include "player.h"
 
 //************************************************************
@@ -99,6 +100,10 @@ HRESULT CSceneGame::Init(void)
 	// TODO
 	CMapTile::Create(CMapTile::TYPE_FALL_POINT, VEC3_ZERO);
 	CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, -1.0f));
+
+	CCollTile::Create(CCollTile::TYPE_TRIANGLE, D3DXVECTOR3(SIZE_TILE * 0.0f, SIZE_TILE * 3.0f, -2.0f));
+	CCollTile::Create(CCollTile::TYPE_BOX, D3DXVECTOR3(SIZE_TILE * 1.0f, SIZE_TILE * 3.0f, -2.0f));
+	CCollTile::Create(CCollTile::TYPE_TRIANGLE, D3DXVECTOR3(SIZE_TILE * 2.0f, SIZE_TILE * 3.0f, -2.0f));
 
 	// BGMÇÃçƒê∂
 	PLAY_SOUND(CSound::LABEL_BGM_GENERAL);

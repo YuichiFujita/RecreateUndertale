@@ -162,6 +162,7 @@
     <ClCompile Include="resource\character.cpp" />
     <ClCompile Include="resource\character2D.cpp" />
     <ClCompile Include="resource\collision.cpp" />
+    <ClCompile Include="resource\collTile.cpp" />
     <ClCompile Include="resource\debug.cpp" />
     <ClCompile Include="resource\debugproc.cpp" />
     <ClCompile Include="resource\deltaTime.cpp" />
@@ -266,6 +267,7 @@
     <ClInclude Include="resource\character.h" />
     <ClInclude Include="resource\character2D.h" />
     <ClInclude Include="resource\collision.h" />
+    <ClInclude Include="resource\collTile.h" />
     <ClInclude Include="resource\debug.h" />
     <ClInclude Include="resource\debugproc.h" />
     <ClInclude Include="resource\deltaTime.h" />

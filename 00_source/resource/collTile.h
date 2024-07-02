@@ -1,0 +1,62 @@
+//============================================================
+//
+//	判定タイルヘッダー [collTile.h]
+//	Author：藤田勇一
+//
+//============================================================
+//************************************************************
+//	二重インクルード防止
+//************************************************************
+#ifndef _COLLTILE_H_
+#define _COLLTILE_H_
+
+//************************************************************
+//	インクルードファイル
+//************************************************************
+#include "object3D.h"
+
+//************************************************************
+//	クラス定義
+//************************************************************
+// 判定タイルクラス
+class CCollTile : public CObject3D
+{
+public:
+	// 種類列挙
+	enum EType
+	{
+		TYPE_BOX = 0,	// 矩形
+		TYPE_TRIANGLE,	// 三角
+		TYPE_MAX		// この列挙型の総数
+	};
+
+	// コンストラクタ
+	CCollTile();
+
+	// デストラクタ
+	~CCollTile();
+
+	// オーバーライド関数
+	HRESULT Init(void) override;	// 初期化
+	void Uninit(void) override;		// 終了
+	void Update(const float fDeltaTime) override;	// 更新
+	void Draw(CShader *pShader = nullptr) override;	// 描画
+
+	// 静的メンバ関数
+	static CCollTile *Create(const EType type, const D3DXVECTOR3& rPos);	// 生成
+	static CListManager<CCollTile> *GetList(void);	// リスト取得
+
+	// メンバ関数
+	void SetType(const EType type);					// 種類設定
+	EType GetType(void) const { return m_type; }	// 種類取得
+
+private:
+	// 静的メンバ変数
+	static CListManager<CCollTile> *m_pList;	// オブジェクトリスト
+
+	// メンバ変数
+	CListManager<CCollTile>::AIterator m_iterator;	// イテレーター
+	EType m_type;	// 種類
+};
+
+#endif	// _COLLTILE_H_
