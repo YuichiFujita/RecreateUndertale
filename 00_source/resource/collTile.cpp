@@ -9,6 +9,10 @@
 //************************************************************
 #include "collTile.h"
 
+// TODO
+#include "manager.h"
+#include "collision.h"
+
 //************************************************************
 //	定数宣言
 //************************************************************
@@ -172,6 +176,50 @@ CListManager<CCollTile> *CCollTile::GetList(void)
 {
 	// オブジェクトリストを返す
 	return m_pList;
+}
+
+//============================================================
+//	判定タイルとの当たり判定処理
+//============================================================
+bool CCollTile::CollisionTile
+(
+	D3DXVECTOR3& rPos,			// 位置
+	const D3DXVECTOR3& rPosOld,	// 過去位置
+	const D3DXVECTOR3& rSize	// 大きさ
+)
+{
+	// 判定タイルがない場合抜ける
+	if (m_pList == nullptr) { return false; }
+
+	std::list<CCollTile*> list = m_pList->GetList();	// 内部リスト
+	for (const auto& rList : list)
+	{ // 要素数分繰り返す
+
+#if 1
+		D3DXVECTOR3 posTile = rList->GetVec3Position();
+		D3DXVECTOR3 sizeTile = (rList->GetVec3Sizing() + D3DXVECTOR3(0.0f, 0.0f, 50.0f)) * 0.5f;
+
+		bool bHit = collision::ResponseBox3D
+		( // 引数
+			rPos,
+			rPosOld,
+			posTile,
+			rSize,
+			rSize,
+			sizeTile,
+			sizeTile
+		);
+		if (bHit)
+		{ // 当たっている場合
+
+			GET_MANAGER->GetDebugProc()->Print(CDebugProc::POINT_CENTER, "[当たってるよ]");
+		}
+#else
+
+#endif
+	}
+
+	return false;
 }
 
 //============================================================

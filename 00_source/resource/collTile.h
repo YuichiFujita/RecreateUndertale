@@ -45,6 +45,12 @@ public:
 	// 静的メンバ関数
 	static CCollTile *Create(const EType type, const D3DXVECTOR3& rPos);	// 生成
 	static CListManager<CCollTile> *GetList(void);	// リスト取得
+	static bool CollisionTile	// 判定タイルとの当たり判定
+	( // 引数
+		D3DXVECTOR3& rPos,			// 位置
+		const D3DXVECTOR3& rPosOld,	// 過去位置
+		const D3DXVECTOR3& rSize	// 大きさ
+	);
 
 	// メンバ関数
 	void SetType(const EType type);					// 種類設定

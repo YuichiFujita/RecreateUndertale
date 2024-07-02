@@ -10,6 +10,7 @@
 #include "camera.h"
 #include "manager.h"
 #include "renderer.h"
+#include "player.h"
 
 //************************************************************
 //	定数宣言
@@ -43,8 +44,8 @@ namespace
 		const D3DXVECTOR3 POS_R	= D3DXVECTOR3(0.0f, SCREEN_CENT.y, 0.0f);	// 注視点位置
 		const D3DXVECTOR3 ROT	= D3DXVECTOR3(HALF_PI, 0.0f, 0.0f);			// 向き
 		const float DISTANCE	= 100.0f;	// 追従カメラの距離
-		const float REV_POS		= 0.25f;	// カメラ位置の補正係数
-		const float REV_ROT		= 0.045f;	// カメラ向きの補正係数
+		const float REV_POS		= 1.0f;		// カメラ位置の補正係数
+		const float REV_ROT		= 1.0f;		// カメラ向きの補正係数
 	}
 
 	// 操作カメラ情報
@@ -117,7 +118,7 @@ HRESULT CCamera::Init(void)
 	m_camera.viewport.MaxZ	 = 1.0f;
 
 	// 追従カメラにする
-	SetState(CCamera::STATE_FOLLOW);
+	//SetState(CCamera::STATE_FOLLOW);	// TODO：固定カメラとかの作成もしよう
 
 	// 成功を返す
 	return S_OK;
@@ -319,6 +320,10 @@ void CCamera::InitFollow(void)
 	// カメラ追従状態の場合抜ける
 	if (m_state != STATE_FOLLOW) { return; }
 
+	// プレイヤーが存在しない場合抜ける
+	CPlayer *pPlayer = CScene::GetPlayer();	// プレイヤー情報
+	if (pPlayer == nullptr) { assert(false); return; }
+
 	//----------------------------------------------------
 	//	向きの更新
 	//----------------------------------------------------
@@ -337,7 +342,7 @@ void CCamera::InitFollow(void)
 	//	位置の更新
 	//----------------------------------------------------
 	// 注視点の設定
-	m_camera.posR = m_camera.destPosR = VEC3_ZERO;	// TODO：プレイヤー基準にしよう
+	m_camera.posR = m_camera.destPosR = pPlayer->GetVec3Position();	// プレイヤーを視界の中心に
 
 	// 視点の設定
 	m_camera.posV.x = m_camera.destPosV.x = m_camera.destPosR.x + ((-m_camera.fDis * sinf(m_camera.rot.x)) * sinf(m_camera.rot.y));
@@ -458,6 +463,10 @@ void CCamera::UpdateFollow(void)
 	// カメラ追従状態の場合抜ける
 	if (m_state != STATE_FOLLOW) { return; }
 
+	// プレイヤーが存在しない場合抜ける
+	CPlayer *pPlayer = CScene::GetPlayer();	// プレイヤー情報
+	if (pPlayer == nullptr) { assert(false); return; }
+
 	//----------------------------------------------------
 	//	向きの更新
 	//----------------------------------------------------
@@ -488,7 +497,7 @@ void CCamera::UpdateFollow(void)
 	D3DXVECTOR3 diffPosR = VEC3_ZERO;	// 注視点の差分位置
 
 	// 注視点の更新
-	m_camera.destPosR = VEC3_ZERO;	// TODO：プレイヤー基準にしよう
+	m_camera.destPosR = pPlayer->GetVec3Position();	// プレイヤーを視界の中心に
 
 	// 視点の更新
 	m_camera.destPosV.x = m_camera.destPosR.x + ((-m_camera.fDis * sinf(m_camera.rot.x)) * sinf(m_camera.rot.y));

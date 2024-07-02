@@ -102,8 +102,13 @@ HRESULT CSceneGame::Init(void)
 	CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, -1.0f));
 
 	CCollTile::Create(CCollTile::TYPE_TRIANGLE, D3DXVECTOR3(SIZE_TILE * 0.0f, SIZE_TILE * 3.0f, -2.0f));
-	CCollTile::Create(CCollTile::TYPE_BOX, D3DXVECTOR3(SIZE_TILE * 1.0f, SIZE_TILE * 3.0f, -2.0f));
-	CCollTile::Create(CCollTile::TYPE_TRIANGLE, D3DXVECTOR3(SIZE_TILE * 2.0f, SIZE_TILE * 3.0f, -2.0f));
+	//CCollTile::Create(CCollTile::TYPE_BOX, D3DXVECTOR3(SIZE_TILE * 1.0f, SIZE_TILE * 3.0f, -2.0f));
+	//CCollTile::Create(CCollTile::TYPE_TRIANGLE, D3DXVECTOR3(SIZE_TILE * 2.0f, SIZE_TILE * 3.0f, -2.0f));
+
+	// í«è]ÉJÉÅÉâÇ…Ç∑ÇÈ
+	CCamera *pCamera = GET_MANAGER->GetCamera();	// ÉJÉÅÉâèÓïÒ
+	assert(pCamera != nullptr);
+	pCamera->SetState(CCamera::STATE_FOLLOW);
 
 	// BGMÇÃçƒê∂
 	PLAY_SOUND(CSound::LABEL_BGM_GENERAL);

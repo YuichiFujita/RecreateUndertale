@@ -58,6 +58,9 @@ public:
 	static CPlayer *Create(const D3DXVECTOR3& rPos);	// 生成
 	static CListManager<CPlayer> *GetList(void);		// リスト取得
 
+	// メンバ関数
+	D3DXVECTOR3 GetOldPosition(void) const { return m_oldPos; }	// 過去位置取得
+
 private:
 	// メンバ関数
 	void UpdateOldPosition(void);	// 過去位置の更新

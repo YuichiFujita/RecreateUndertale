@@ -11,6 +11,9 @@
 #include "player.h"
 #include "manager.h"
 
+// TODO
+#include "collTile.h"
+
 //************************************************************
 //	定数宣言
 //************************************************************
@@ -68,11 +71,20 @@ void CPlayerStateNormal::Uninit(void)
 //============================================================
 int CPlayerStateNormal::Update(const float fDeltaTime)
 {
+	// プレイヤー位置を取得
+	D3DXVECTOR3 posPlayer = m_pContext->GetVec3Position();
+
 	// 移動の操作
 	int nCurMotion = ControlMove();	// 現在のモーション取得
 
 	// 位置の更新
-	UpdatePosition(fDeltaTime);
+	UpdatePosition(posPlayer, fDeltaTime);
+
+	// TODO
+	CCollTile::CollisionTile(posPlayer, m_pContext->GetOldPosition(), (m_pContext->GetVec3Sizing() + D3DXVECTOR3(0.0f, 0.0f, 50.0f)) * 0.5f);
+
+	// プレイヤー位置を反映
+	m_pContext->SetVec3Position(posPlayer);
 
 	// 現在のモーションを返す
 	return nCurMotion;
@@ -185,17 +197,11 @@ int CPlayerStateNormal::ControlMove(void)
 //============================================================
 //	位置の更新処理
 //============================================================
-void CPlayerStateNormal::UpdatePosition(const float fDeltaTime)
+void CPlayerStateNormal::UpdatePosition(D3DXVECTOR3& rPosPlayer, const float fDeltaTime)
 {
-	// プレイヤー位置を取得
-	D3DXVECTOR3 posPlayer = m_pContext->GetVec3Position();
-
 	// プレイヤーを移動させる
-	posPlayer += m_move * fDeltaTime;
+	rPosPlayer += m_move * fDeltaTime;
 
 	// 移動量を初期化
 	m_move = VEC3_ZERO;
-
-	// プレイヤー位置を反映
-	m_pContext->SetVec3Position(posPlayer);
 }
