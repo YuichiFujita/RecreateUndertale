@@ -213,6 +213,9 @@
     <ClCompile Include="resource\objectTornado.cpp" />
     <ClCompile Include="resource\particle2D.cpp" />
     <ClCompile Include="resource\pause.cpp" />
+    <ClCompile Include="resource\player.cpp" />
+    <ClCompile Include="resource\playerState.cpp" />
+    <ClCompile Include="resource\playerStateNormal.cpp" />
     <ClCompile Include="resource\precompile.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -314,6 +317,9 @@
     <ClInclude Include="resource\objectTornado.h" />
     <ClInclude Include="resource\particle2D.h" />
     <ClInclude Include="resource\pause.h" />
+    <ClInclude Include="resource\player.h" />
+    <ClInclude Include="resource\playerState.h" />
+    <ClInclude Include="resource\playerStateNormal.h" />
     <ClInclude Include="resource\precompile.h" />
     <ClInclude Include="resource\random.h" />
     <ClInclude Include="resource\renderer.h" />

@@ -52,6 +52,9 @@
     <Filter Include="UI">
       <UniqueIdentifier>{fe84aab8-8421-49dd-b4d2-9db8f62f3ba5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="state\state_player">
+      <UniqueIdentifier>{8f0b4680-be3d-4759-b180-c03d52e50cb4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="resource\camera.cpp">
@@ -339,6 +342,13 @@
     </ClCompile>
     <ClCompile Include="resource\character2D.cpp">
       <Filter>flyweight</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\player.cpp" />
+    <ClCompile Include="resource\playerState.cpp">
+      <Filter>state\state_player</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\playerStateNormal.cpp">
+      <Filter>state\state_player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -630,6 +640,13 @@
     </ClInclude>
     <ClInclude Include="resource\character2D.h">
       <Filter>flyweight</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\player.h" />
+    <ClInclude Include="resource\playerState.h">
+      <Filter>state\state_player</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\playerStateNormal.h">
+      <Filter>state\state_player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

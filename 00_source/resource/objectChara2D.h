@@ -57,6 +57,7 @@ public:
 
 			// パターン変更時間を初期化
 			if (FAILED(SetNextTime(DEF_NEXT))) { return E_FAIL; }
+
 			return S_OK;
 		}
 
@@ -65,11 +66,13 @@ public:
 		{
 			if (fNextTime <= 0.0f)					 { return E_FAIL; }	// 変更時間がプラスではない場合失敗
 			if (nMaxPtrn != (int)vecNextTime.size()) { return E_FAIL; }	// パターン最大数と同じサイズではない場合失敗
+
 			for (int i = 0; i < nMaxPtrn; i++)
 			{
 				// 引数のパターン変更時間を設定
 				vecNextTime[i] = fNextTime;
 			}
+
 			return S_OK;
 		}
 
