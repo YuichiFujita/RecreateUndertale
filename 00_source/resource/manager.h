@@ -69,7 +69,7 @@ public:
 
 	void SetFadeScene	// シーン設定 (フェード：ON, ロード：OFF)
 	( // 引数
-		const CScene::EMode mode,		// 次シーン
+		const CScene::EMode mode,		// 遷移先モード
 		const float fWaitTime	= 0.0f,	// 余韻時間
 		const float fAddOut		= CFade::DEF_LEVEL,	// アウトのα値増加量
 		const float fSubIn		= CFade::DEF_LEVEL,	// インのα値減少量
@@ -77,7 +77,7 @@ public:
 	);
 	void SetLoadScene	// シーン設定 (フェード･ロード：ON)
 	( // 引数
-		const CScene::EMode mode,		// 次シーン
+		const CScene::EMode mode,		// 遷移先モード
 		const float fWaitTime	= 0.0f,	// 余韻時間
 		const float fAddOut		= CFade::DEF_LEVEL,	// アウトのα値増加量
 		const float fSubIn		= CFade::DEF_LEVEL,	// インのα値減少量

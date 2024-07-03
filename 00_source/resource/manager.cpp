@@ -699,7 +699,7 @@ HRESULT CManager::SetScene(const CScene::EMode mode)
 //============================================================
 void CManager::SetFadeScene
 (
-	const CScene::EMode mode,	// 次シーン
+	const CScene::EMode mode,	// 遷移先モード
 	const float fWaitTime,		// 余韻時間
 	const float fAddOut,		// アウトのα値増加量
 	const float fSubIn,			// インのα値減少量
@@ -718,7 +718,7 @@ void CManager::SetFadeScene
 //============================================================
 void CManager::SetLoadScene
 (
-	const CScene::EMode mode,	// 次シーン
+	const CScene::EMode mode,	// 遷移先モード
 	const float fWaitTime,		// 余韻時間
 	const float fAddOut,		// アウトのα値増加量
 	const float fSubIn,			// インのα値減少量

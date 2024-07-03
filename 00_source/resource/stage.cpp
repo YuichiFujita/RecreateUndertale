@@ -349,7 +349,7 @@ HRESULT CStage::LoadSpawn(std::ifstream *pFile, std::string& rString)
 	if (rString == "SPAWNSET")
 	{
 		std::string str;	// 読込文字列
-		std::string pass;	// 遷移前ルームパス
+		std::string pass;	// 遷移元ルームパス
 		D3DXVECTOR3 pos = VEC3_ZERO;	// 位置
 
 		do { // END_SPAWNSETを読み込むまでループ
