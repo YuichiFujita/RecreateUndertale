@@ -869,23 +869,57 @@ bool collision::ResponseSingleZ
 }
 
 //============================================================
-//	角柱の内側制限
+//	XY平面角柱の内側制限
 //============================================================
-bool collision::InBoxPillar
+bool collision::InBoxPillarXY
 (
-	D3DXVECTOR3& rCenterPos,	// 判定位置
-	D3DXVECTOR3 originPos,		// 判定原点位置
-	D3DXVECTOR3 centerSizeUp,	// 判定サイズ(右・上・後)
-	D3DXVECTOR3 centerSizeDown,	// 判定サイズ(左・下・前)
-	D3DXVECTOR3 originSizeUp,	// 判定原点サイズ(右・上・後)
-	D3DXVECTOR3 originSizeDown	// 判定原点サイズ(左・下・前)
+	D3DXVECTOR3& rCenterPos,			// 判定位置
+	const D3DXVECTOR3& rOriginPos,		// 判定原点位置
+	const D3DXVECTOR3& rCenterSizeUp,	// 判定サイズ(右・上・後)
+	const D3DXVECTOR3& rCenterSizeDown,	// 判定サイズ(左・下・前)
+	const D3DXVECTOR3& rOriginSizeUp,	// 判定原点サイズ(右・上・後)
+	const D3DXVECTOR3& rOriginSizeDown	// 判定原点サイズ(左・下・前)
 )
 {
-	// 変数を宣言
 	bool bHit = false;	// 判定結果
 
 	// 左右の補正
-	if (useful::LimitNum(rCenterPos.x, originPos.x - originSizeDown.x + centerSizeUp.x, originPos.x + originSizeUp.x - centerSizeDown.x))
+	if (useful::LimitNum(rCenterPos.x, rOriginPos.x - rOriginSizeDown.x + rCenterSizeUp.x, rOriginPos.x + rOriginSizeUp.x - rCenterSizeDown.x))
+	{ // 補正が行われた場合
+
+		// 判定した状態にする
+		bHit = true;
+	}
+
+	// 上下の補正
+	if (useful::LimitNum(rCenterPos.y, rOriginPos.y - rOriginSizeDown.y + rCenterSizeUp.y, rOriginPos.y + rOriginSizeUp.y - rCenterSizeDown.y))
+	{ // 補正が行われた場合
+
+		// 判定した状態にする
+		bHit = true;
+	}
+
+	// 判定結果を返す
+	return bHit;
+}
+
+//============================================================
+//	XZ平面角柱の内側制限
+//============================================================
+bool collision::InBoxPillarXZ
+(
+	D3DXVECTOR3& rCenterPos,			// 判定位置
+	const D3DXVECTOR3& rOriginPos,		// 判定原点位置
+	const D3DXVECTOR3& rCenterSizeUp,	// 判定サイズ(右・上・後)
+	const D3DXVECTOR3& rCenterSizeDown,	// 判定サイズ(左・下・前)
+	const D3DXVECTOR3& rOriginSizeUp,	// 判定原点サイズ(右・上・後)
+	const D3DXVECTOR3& rOriginSizeDown	// 判定原点サイズ(左・下・前)
+)
+{
+	bool bHit = false;	// 判定結果
+
+	// 左右の補正
+	if (useful::LimitNum(rCenterPos.x, rOriginPos.x - rOriginSizeDown.x + rCenterSizeUp.x, rOriginPos.x + rOriginSizeUp.x - rCenterSizeDown.x))
 	{ // 補正が行われた場合
 
 		// 判定した状態にする
@@ -893,7 +927,7 @@ bool collision::InBoxPillar
 	}
 
 	// 前後の補正
-	if (useful::LimitNum(rCenterPos.z, originPos.z - originSizeDown.z + centerSizeUp.z, originPos.z + originSizeUp.z - centerSizeDown.z))
+	if (useful::LimitNum(rCenterPos.z, rOriginPos.z - rOriginSizeDown.z + rCenterSizeUp.z, rOriginPos.z + rOriginSizeUp.z - rCenterSizeDown.z))
 	{ // 補正が行われた場合
 
 		// 判定した状態にする

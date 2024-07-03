@@ -351,6 +351,7 @@
       <Filter>state\state_player</Filter>
     </ClCompile>
     <ClCompile Include="resource\collTile.cpp" />
+    <ClCompile Include="resource\stage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h">
@@ -650,6 +651,7 @@
       <Filter>state\state_player</Filter>
     </ClInclude>
     <ClInclude Include="resource\collTile.h" />
+    <ClInclude Include="resource\stage.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource\resource.rc">

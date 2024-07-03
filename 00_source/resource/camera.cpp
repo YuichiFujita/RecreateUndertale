@@ -10,7 +10,9 @@
 #include "camera.h"
 #include "manager.h"
 #include "renderer.h"
+#include "sceneGame.h"
 #include "player.h"
+#include "stage.h"
 
 //************************************************************
 //	定数宣言
@@ -321,8 +323,12 @@ void CCamera::InitFollow(void)
 	if (m_state != STATE_FOLLOW) { return; }
 
 	// プレイヤーが存在しない場合抜ける
-	CPlayer *pPlayer = CScene::GetPlayer();	// プレイヤー情報
+	CPlayer *pPlayer = CSceneGame::GetPlayer();	// プレイヤー情報
 	if (pPlayer == nullptr) { assert(false); return; }
+
+	// ステージが存在しない場合抜ける
+	CStage *pStage = CSceneGame::GetStage();	// ステージ情報
+	if (pStage == nullptr) { assert(false); return; }
 
 	//----------------------------------------------------
 	//	向きの更新
@@ -341,8 +347,13 @@ void CCamera::InitFollow(void)
 	//----------------------------------------------------
 	//	位置の更新
 	//----------------------------------------------------
+	D3DXVECTOR3 posLook = pPlayer->GetVec3Position();	// 視界中心座標
+
+	// 視界の中心座標をステージ範囲に抑える
+	pStage->LimitPosition(posLook, 0.0f);
+
 	// 注視点の設定
-	m_camera.posR = m_camera.destPosR = pPlayer->GetVec3Position();	// プレイヤーを視界の中心に
+	m_camera.posR = m_camera.destPosR = posLook;	// プレイヤーを視界の中心に
 
 	// 視点の設定
 	m_camera.posV.x = m_camera.destPosV.x = m_camera.destPosR.x + ((-m_camera.fDis * sinf(m_camera.rot.x)) * sinf(m_camera.rot.y));
@@ -464,8 +475,12 @@ void CCamera::UpdateFollow(void)
 	if (m_state != STATE_FOLLOW) { return; }
 
 	// プレイヤーが存在しない場合抜ける
-	CPlayer *pPlayer = CScene::GetPlayer();	// プレイヤー情報
+	CPlayer *pPlayer = CSceneGame::GetPlayer();	// プレイヤー情報
 	if (pPlayer == nullptr) { assert(false); return; }
+
+	// ステージが存在しない場合抜ける
+	CStage *pStage = CSceneGame::GetStage();	// ステージ情報
+	if (pStage == nullptr) { assert(false); return; }
 
 	//----------------------------------------------------
 	//	向きの更新
@@ -498,6 +513,9 @@ void CCamera::UpdateFollow(void)
 
 	// 注視点の更新
 	m_camera.destPosR = pPlayer->GetVec3Position();	// プレイヤーを視界の中心に
+
+	// 注視点をステージ範囲に抑える
+	pStage->LimitPosition(m_camera.destPosR, 0.0f);
 
 	// 視点の更新
 	m_camera.destPosV.x = m_camera.destPosR.x + ((-m_camera.fDis * sinf(m_camera.rot.x)) * sinf(m_camera.rot.y));

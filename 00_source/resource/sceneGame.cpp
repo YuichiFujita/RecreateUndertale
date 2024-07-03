@@ -14,19 +14,19 @@
 
 #include "gameManager.h"
 #include "pause.h"
-#include "hitStop.h"
+#include "stage.h"
+#include "player.h"
 
 // TODO
 #include "mapTile.h"
 #include "collTile.h"
-#include "player.h"
 
 //************************************************************
 //	静的メンバ変数宣言
 //************************************************************
 CGameManager	*CSceneGame::m_pGameManager	= nullptr;	// ゲームマネージャー
-CPause			*CSceneGame::m_pPause		= nullptr;	// ポーズ
-CHitStop		*CSceneGame::m_pHitStop		= nullptr;	// ヒットストップ
+CPause			*CSceneGame::m_pPause		= nullptr;	// ポーズ情報
+CStage			*CSceneGame::m_pStage		= nullptr;	// ステージ情報
 
 //************************************************************
 //	子クラス [CSceneGame] のメンバ関数
@@ -84,9 +84,9 @@ HRESULT CSceneGame::Init(void)
 		return E_FAIL;
 	}
 
-	// ヒットストップの生成
-	m_pHitStop = CHitStop::Create();
-	if (m_pHitStop == nullptr)
+	// ステージの生成
+	m_pStage = CStage::Create();
+	if (m_pStage == nullptr)
 	{ // 生成に失敗した場合
 
 		// 失敗を返す
@@ -107,8 +107,7 @@ HRESULT CSceneGame::Init(void)
 
 	// 追従カメラにする
 	CCamera *pCamera = GET_MANAGER->GetCamera();	// カメラ情報
-	assert(pCamera != nullptr);
-	pCamera->SetState(CCamera::STATE_FOLLOW);
+	pCamera->SetState(CCamera::STATE_FOLLOW);		// 追従状態を設定
 
 	// BGMの再生
 	PLAY_SOUND(CSound::LABEL_BGM_GENERAL);
@@ -128,8 +127,8 @@ void CSceneGame::Uninit(void)
 	// ポーズの破棄
 	SAFE_REF_RELEASE(m_pPause);
 
-	// ヒットストップの破棄
-	SAFE_REF_RELEASE(m_pHitStop);
+	// ステージの破棄
+	SAFE_REF_RELEASE(m_pStage);
 
 	// シーンの終了
 	CScene::Uninit();
@@ -144,11 +143,7 @@ void CSceneGame::Update(const float fDeltaTime)
 	assert(m_pGameManager != nullptr);
 	m_pGameManager->Update(fDeltaTime);
 
-	// ヒットストップの更新
-	assert(m_pHitStop != nullptr);
-	m_pHitStop->Update(fDeltaTime);
-
-	if (m_pGameManager->GetState() == CGameManager::STATE_NORMAL && !m_pHitStop->IsStop())
+	if (m_pGameManager->GetState() == CGameManager::STATE_NORMAL)
 	{ // ゲームが通常状態の場合
 
 		// ポーズの更新
@@ -156,18 +151,11 @@ void CSceneGame::Update(const float fDeltaTime)
 		m_pPause->Update(fDeltaTime);
 	}
 
-	if (!m_pPause->IsPause()
-	&&  !m_pHitStop->IsStop())
-	{ // ポーズ中・ヒットストップ中ではない場合
+	if (!m_pPause->IsPause())
+	{ // ポーズ中ではない場合
 
 		// シーンの更新
 		CScene::Update(fDeltaTime);
-	}
-	else if (m_pHitStop->IsStop())
-	{ // ヒットストップ中の場合
-
-		// カメラの更新
-		GET_MANAGER->GetCamera()->Update(fDeltaTime);
 	}
 
 #ifdef _DEBUG
@@ -211,13 +199,30 @@ CPause *CSceneGame::GetPause(void)
 }
 
 //============================================================
-//	ヒットストップ取得処理
+//	ステージ取得処理
 //============================================================
-CHitStop *CSceneGame::GetHitStop(void)
+CStage *CSceneGame::GetStage(void)
 {
 	// インスタンス未使用
-	assert(m_pHitStop != nullptr);
+	assert(m_pStage != nullptr);
 
-	// ヒットストップのポインタを返す
-	return m_pHitStop;
+	// ステージのポインタを返す
+	return m_pStage;
+}
+
+//============================================================
+//	プレイヤー取得処理
+//============================================================
+CPlayer *CSceneGame::GetPlayer(void)
+{
+	CListManager<CPlayer> *pListManager = CPlayer::GetList();	// プレイヤーリストマネージャー
+	if (pListManager == nullptr)		{ return nullptr; }		// リスト未使用の場合抜ける
+	if (pListManager->GetNumAll() != 1)	{ return nullptr; }		// プレイヤーが1人ではない場合抜ける
+	CPlayer *pPlayer = pListManager->GetList().front();			// プレイヤー情報
+
+	// インスタンス未使用
+	assert(pPlayer != nullptr);
+
+	// プレイヤーのポインタを返す
+	return pPlayer;
 }

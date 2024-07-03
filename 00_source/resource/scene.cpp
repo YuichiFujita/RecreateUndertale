@@ -12,7 +12,6 @@
 #include "renderer.h"
 #include "light.h"
 #include "camera.h"
-#include "player.h"
 #include "sceneIntro.h"
 #include "sceneStart.h"
 #include "sceneTitle.h"
@@ -124,36 +123,4 @@ void CScene::Release(CScene *&prScene)
 
 	// メモリ開放
 	SAFE_DELETE(prScene);
-}
-
-//============================================================
-//	プレイヤー取得処理
-//============================================================
-CPlayer *CScene::GetPlayer(void)
-{
-	CListManager<CPlayer> *pListManager = CPlayer::GetList();	// プレイヤーリストマネージャー
-	if (pListManager == nullptr)		{ return nullptr; }		// リスト未使用の場合抜ける
-	if (pListManager->GetNumAll() != 1)	{ return nullptr; }		// プレイヤーが1人ではない場合抜ける
-	CPlayer *pPlayer = pListManager->GetList().front();			// プレイヤー情報
-
-	// プレイヤーのポインタを返す
-	return pPlayer;
-}
-
-//============================================================
-//	モードの設定処理
-//============================================================
-void CScene::SetMode(const EMode mode)
-{
-	// 引数のモードを設定
-	m_mode = mode;
-}
-
-//============================================================
-//	モード取得処理
-//============================================================
-CScene::EMode CScene::GetMode(void) const
-{
-	// 現在のモードを返す
-	return m_mode;
 }

@@ -11,11 +11,6 @@
 #define _SCENE_H_
 
 //************************************************************
-//	前方宣言
-//************************************************************
-class CPlayer;	// プレイヤークラス
-
-//************************************************************
 //	クラス定義
 //************************************************************
 // シーンクラス
@@ -46,11 +41,10 @@ public:
 	// 静的メンバ関数
 	static CScene *Create(EMode mode);		// 生成
 	static void Release(CScene *&prScene);	// 破棄
-	static CPlayer *GetPlayer(void);		// プレイヤー取得
 
 	// メンバ関数
-	void SetMode(const EMode mode);	// モード設定
-	EMode GetMode(void) const;		// モード取得
+	void SetMode(const EMode mode)	{ m_mode = mode; }	// モード設定
+	EMode GetMode(void) const		{ return m_mode; }	// モード取得
 
 private:
 	// メンバ変数

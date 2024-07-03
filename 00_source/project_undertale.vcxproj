@@ -241,6 +241,7 @@
     <ClCompile Include="resource\shaderToon.cpp" />
     <ClCompile Include="resource\shakeString2D.cpp" />
     <ClCompile Include="resource\sound.cpp" />
+    <ClCompile Include="resource\stage.cpp" />
     <ClCompile Include="resource\startManager.cpp" />
     <ClCompile Include="resource\startState.cpp" />
     <ClCompile Include="resource\startStateCreateName.cpp" />
@@ -344,6 +345,7 @@
     <ClInclude Include="resource\shaderToon.h" />
     <ClInclude Include="resource\shakeString2D.h" />
     <ClInclude Include="resource\sound.h" />
+    <ClInclude Include="resource\stage.h" />
     <ClInclude Include="resource\startManager.h" />
     <ClInclude Include="resource\startState.h" />
     <ClInclude Include="resource\startStateCreateName.h" />

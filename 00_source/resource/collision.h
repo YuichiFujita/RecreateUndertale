@@ -147,14 +147,23 @@ namespace collision
 		bool *pAfter = nullptr			// 後からの判定
 	);
 
-	bool InBoxPillar	// 角柱の内側制限
+	bool InBoxPillarXY	// XY平面角柱の内側制限
 	( // 引数
-		D3DXVECTOR3& rCenterPos,	// 判定位置
-		D3DXVECTOR3 originPos,		// 判定原点位置
-		D3DXVECTOR3 centerSizeUp,	// 判定サイズ(右・上・後)
-		D3DXVECTOR3 centerSizeDown,	// 判定サイズ(左・下・前)
-		D3DXVECTOR3 originSizeUp,	// 判定原点サイズ(右・上・後)
-		D3DXVECTOR3 originSizeDown	// 判定原点サイズ(左・下・前)
+		D3DXVECTOR3& rCenterPos,			// 判定位置
+		const D3DXVECTOR3& rOriginPos,		// 判定原点位置
+		const D3DXVECTOR3& rCenterSizeUp,	// 判定サイズ(右・上・後)
+		const D3DXVECTOR3& rCenterSizeDown,	// 判定サイズ(左・下・前)
+		const D3DXVECTOR3& rOriginSizeUp,	// 判定原点サイズ(右・上・後)
+		const D3DXVECTOR3& rOriginSizeDown	// 判定原点サイズ(左・下・前)
+	);
+	bool InBoxPillarXZ	// XZ平面角柱の内側制限
+	( // 引数
+		D3DXVECTOR3& rCenterPos,			// 判定位置
+		const D3DXVECTOR3& rOriginPos,		// 判定原点位置
+		const D3DXVECTOR3& rCenterSizeUp,	// 判定サイズ(右・上・後)
+		const D3DXVECTOR3& rCenterSizeDown,	// 判定サイズ(左・下・前)
+		const D3DXVECTOR3& rOriginSizeUp,	// 判定原点サイズ(右・上・後)
+		const D3DXVECTOR3& rOriginSizeDown	// 判定原点サイズ(左・下・前)
 	);
 	bool InCirclePillar	// 円柱の内側制限
 	( // 引数
