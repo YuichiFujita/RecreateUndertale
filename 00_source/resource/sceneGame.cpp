@@ -18,7 +18,7 @@
 #include "player.h"
 
 // TODO
-#include "mapTile.h"
+#include "tileMap.h"
 #include "tileColl.h"
 
 //************************************************************
@@ -98,7 +98,7 @@ HRESULT CSceneGame::Init(void)
 	//	èâä˙ê›íË
 	//--------------------------------------------------------
 	// TODO
-	CMapTile::Create(CMapTile::TYPE_FALL_POINT, VEC3_ZERO);
+	CTileMap::Create(CTileMap::TYPE_FALL_POINT, VEC3_ZERO);
 	CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, -1.0f));
 
 	CTileColl::Create(CTileColl::TYPE_TRIANGLE, D3DXVECTOR3(SIZE_TILE * 0.0f, SIZE_TILE * 3.0f, -2.0f));

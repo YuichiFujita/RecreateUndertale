@@ -188,7 +188,6 @@
     <ClCompile Include="resource\loadtext.cpp" />
     <ClCompile Include="resource\main.cpp" />
     <ClCompile Include="resource\manager.cpp" />
-    <ClCompile Include="resource\mapTile.cpp" />
     <ClCompile Include="resource\model.cpp" />
     <ClCompile Include="resource\motion.cpp" />
     <ClCompile Include="resource\multiModel.cpp" />
@@ -252,6 +251,7 @@
     <ClCompile Include="resource\text2D.cpp" />
     <ClCompile Include="resource\texture.cpp" />
     <ClCompile Include="resource\tileColl.cpp" />
+    <ClCompile Include="resource\tileMap.cpp" />
     <ClCompile Include="resource\tileSpawn.cpp" />
     <ClCompile Include="resource\tileTrans.cpp" />
     <ClCompile Include="resource\timer.cpp" />
@@ -296,7 +296,6 @@
     <ClInclude Include="resource\loadtext.h" />
     <ClInclude Include="resource\main.h" />
     <ClInclude Include="resource\manager.h" />
-    <ClInclude Include="resource\mapTile.h" />
     <ClInclude Include="resource\model.h" />
     <ClInclude Include="resource\motion.h" />
     <ClInclude Include="resource\multiModel.h" />
@@ -358,6 +357,7 @@
     <ClInclude Include="resource\text2D.h" />
     <ClInclude Include="resource\texture.h" />
     <ClInclude Include="resource\tileColl.h" />
+    <ClInclude Include="resource\tileMap.h" />
     <ClInclude Include="resource\tileSpawn.h" />
     <ClInclude Include="resource\tileTrans.h" />
     <ClInclude Include="resource\timer.h" />

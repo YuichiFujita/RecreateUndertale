@@ -1,13 +1,13 @@
 //============================================================
 //
-//	マップタイル処理 [mapTile.cpp]
+//	マップタイル処理 [tileMap.cpp]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	インクルードファイル
 //************************************************************
-#include "mapTile.h"
+#include "tileMap.h"
 
 //************************************************************
 //	定数宣言
@@ -25,15 +25,15 @@ namespace
 //************************************************************
 //	スタティックアサート
 //************************************************************
-static_assert(NUM_ARRAY(TEXTURE_FILE) == CMapTile::TYPE_MAX, "ERROR : Type Count Mismatch");
+static_assert(NUM_ARRAY(TEXTURE_FILE) == CTileMap::TYPE_MAX, "ERROR : Type Count Mismatch");
 
 //************************************************************
-//	子クラス [CMapTile] のメンバ関数
+//	子クラス [CTileMap] のメンバ関数
 //************************************************************
 //============================================================
 //	コンストラクタ
 //============================================================
-CMapTile::CMapTile() : CObject3D(CObject::LABEL_TILE, CObject::DIM_3D, PRIORITY),
+CTileMap::CTileMap() : CObject3D(CObject::LABEL_TILE, CObject::DIM_3D, PRIORITY),
 	m_type((EType)0)	// 種類
 {
 
@@ -42,7 +42,7 @@ CMapTile::CMapTile() : CObject3D(CObject::LABEL_TILE, CObject::DIM_3D, PRIORITY)
 //============================================================
 //	デストラクタ
 //============================================================
-CMapTile::~CMapTile()
+CTileMap::~CTileMap()
 {
 
 }
@@ -50,7 +50,7 @@ CMapTile::~CMapTile()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CMapTile::Init(void)
+HRESULT CTileMap::Init(void)
 {
 	// メンバ変数を初期化
 	m_type = TYPE_NONE;	// 種類
@@ -74,7 +74,7 @@ HRESULT CMapTile::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CMapTile::Uninit(void)
+void CTileMap::Uninit(void)
 {
 	// オブジェクト3Dの終了
 	CObject3D::Uninit();
@@ -83,7 +83,7 @@ void CMapTile::Uninit(void)
 //============================================================
 //	更新処理
 //============================================================
-void CMapTile::Update(const float fDeltaTime)
+void CTileMap::Update(const float fDeltaTime)
 {
 	// オブジェクト3Dの更新
 	CObject3D::Update(fDeltaTime);
@@ -92,7 +92,7 @@ void CMapTile::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CMapTile::Draw(CShader *pShader)
+void CTileMap::Draw(CShader *pShader)
 {
 	// オブジェクト3Dの描画
 	CObject3D::Draw(pShader);
@@ -101,11 +101,11 @@ void CMapTile::Draw(CShader *pShader)
 //============================================================
 //	生成処理
 //============================================================
-CMapTile *CMapTile::Create(const EType type, const D3DXVECTOR3& rPos)
+CTileMap *CTileMap::Create(const EType type, const D3DXVECTOR3& rPos)
 {
 	// マップタイルの生成
-	CMapTile *pMapTile = new CMapTile;
-	if (pMapTile == nullptr)
+	CTileMap *pTileMap = new CTileMap;
+	if (pTileMap == nullptr)
 	{ // 生成に失敗した場合
 
 		return nullptr;
@@ -114,29 +114,29 @@ CMapTile *CMapTile::Create(const EType type, const D3DXVECTOR3& rPos)
 	{ // 生成に成功した場合
 
 		// マップタイルの初期化
-		if (FAILED(pMapTile->Init()))
+		if (FAILED(pTileMap->Init()))
 		{ // 初期化に失敗した場合
 
 			// マップタイルの破棄
-			SAFE_DELETE(pMapTile);
+			SAFE_DELETE(pTileMap);
 			return nullptr;
 		}
 
 		// 種類を設定
-		pMapTile->SetType(type);
+		pTileMap->SetType(type);
 
 		// 位置を設定
-		pMapTile->SetVec3Position(rPos);
+		pTileMap->SetVec3Position(rPos);
 
 		// 確保したアドレスを返す
-		return pMapTile;
+		return pTileMap;
 	}
 }
 
 //============================================================
 //	種類設定処理
 //============================================================
-void CMapTile::SetType(const EType type)
+void CTileMap::SetType(const EType type)
 {
 	// 種類を保存
 	m_type = type;

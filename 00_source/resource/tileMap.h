@@ -1,14 +1,14 @@
 //============================================================
 //
-//	マップタイルヘッダー [mapTile.h]
+//	マップタイルヘッダー [tileMap.h]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	二重インクルード防止
 //************************************************************
-#ifndef _MAPTILE_H_
-#define _MAPTILE_H_
+#ifndef _TILE_MAP_H_
+#define _TILE_MAP_H_
 
 //************************************************************
 //	インクルードファイル
@@ -19,7 +19,7 @@
 //	クラス定義
 //************************************************************
 // マップタイルクラス
-class CMapTile : public CObject3D
+class CTileMap : public CObject3D
 {
 public:
 	// 種類列挙
@@ -31,10 +31,10 @@ public:
 	};
 
 	// コンストラクタ
-	CMapTile();
+	CTileMap();
 
 	// デストラクタ
-	~CMapTile();
+	~CTileMap();
 
 	// オーバーライド関数
 	HRESULT Init(void) override;	// 初期化
@@ -43,7 +43,7 @@ public:
 	void Draw(CShader *pShader = nullptr) override;	// 描画
 
 	// 静的メンバ関数
-	static CMapTile *Create(const EType type, const D3DXVECTOR3& rPos);	// 生成
+	static CTileMap *Create(const EType type, const D3DXVECTOR3& rPos);	// 生成
 
 	// メンバ関数
 	void SetType(const EType type);					// 種類設定
@@ -54,4 +54,4 @@ private:
 	EType m_type;	// 種類
 };
 
-#endif	// _MAPTILE_H_
+#endif	// _TILE_MAP_H_
