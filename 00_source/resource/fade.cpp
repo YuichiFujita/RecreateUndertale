@@ -11,7 +11,8 @@
 #include "manager.h"
 #include "renderer.h"
 #include "loading.h"
-#include "object2D.h"
+#include "sceneGame.h"
+#include "stage.h"
 
 //************************************************************
 //	定数宣言
@@ -28,8 +29,8 @@ namespace
 
 #endif	// _DEBUG
 
-	const int	PRIORITY = 7;		// フェードの優先順位
-	const float	LEVEL	 = 1.0f;	// フェードのα値加減量
+	const int	PRIORITY		= 7;	// フェードの優先順位
+	const float	LEVEL_ROOMTRANS	= 2.5f;	// ルーム遷移時のフェードのα値加減量
 }
 
 //************************************************************
@@ -40,7 +41,7 @@ namespace
 //============================================================
 CFade::CFade() :
 	m_pFuncSetMode	(nullptr),		// モード設定関数ポインタ
-	m_modeNext		(INIT_SCENE),	// 次シーン
+	m_modeNext		(INIT_SCENE),	// 遷移先モード
 	m_fade			(FADE_NONE),	// フェード状態
 	m_fWaitTime		(0.0f),			// 現在の余韻時間
 	m_fSubIn		(0.0f),			// インのα値減少量
@@ -64,7 +65,7 @@ HRESULT CFade::Init(void)
 {
 	// メンバ変数を初期化
 	m_pFuncSetMode	= nullptr;		// モード設定関数ポインタ
-	m_modeNext		= INIT_SCENE;	// 次シーン
+	m_modeNext		= INIT_SCENE;	// 遷移先モード
 	m_fade			= FADE_IN;		// フェード状態
 	m_fWaitTime		= 0.0f;			// 現在の余韻時間
 	m_fSubIn		= SKIP_LEVEL;	// インのα値減少量
@@ -179,7 +180,7 @@ void CFade::Update(const float fDeltaTime)
 			{ // モード設定関数が指定されている場合
 
 				// モードの設定
-				m_pFuncSetMode(m_modeNext);
+				m_pFuncSetMode();
 			}
 		}
 
@@ -238,11 +239,11 @@ void CFade::SetFade
 }
 
 //============================================================
-//	次シーンの設定処理 (フェードのみ)
+//	遷移先モードの設定処理 (フェードのみ)
 //============================================================
 void CFade::SetModeFade
 (
-	const CScene::EMode mode,	// 次シーン
+	const CScene::EMode mode,	// 遷移先モード
 	const float fWaitTime,		// 余韻時間
 	const float fAddOut,		// アウトのα値増加量
 	const float fSubIn,			// インのα値減少量
@@ -272,7 +273,7 @@ void CFade::SetModeFade
 	SetPriority(PRIORITY);
 
 	// ロード画面を挟まないモード設定関数を設定
-	m_pFuncSetMode = std::bind(&CManager::SetMode, GET_MANAGER, std::placeholders::_1);
+	m_pFuncSetMode = std::bind(&CManager::SetMode, GET_MANAGER);
 
 	if (m_fWaitTime <= 0.0f)
 	{ // カウンターが未設定の場合
@@ -289,11 +290,11 @@ void CFade::SetModeFade
 }
 
 //============================================================
-//	次シーンの設定処理 (ロード画面付き)
+//	遷移先モードの設定処理 (ロード画面付き)
 //============================================================
 void CFade::SetLoadFade
 (
-	const CScene::EMode mode,	// 次シーン
+	const CScene::EMode mode,	// 遷移先モード
 	const float fWaitTime,		// 余韻時間
 	const float fAddOut,		// アウトのα値増加量
 	const float fSubIn,			// インのα値減少量
@@ -323,7 +324,7 @@ void CFade::SetLoadFade
 	SetPriority(PRIORITY);
 
 	// ロード画面を挟むモード設定関数を設定
-	m_pFuncSetMode = std::bind(&CManager::SetLoadMode, GET_MANAGER, std::placeholders::_1);
+	m_pFuncSetMode = std::bind(&CManager::SetLoadMode, GET_MANAGER);
 
 	if (m_fWaitTime <= 0.0f)
 	{ // カウンターが未設定の場合
@@ -337,6 +338,31 @@ void CFade::SetLoadFade
 		// フェード余韻状態にする
 		m_fade = FADE_WAIT;
 	}
+}
+
+//============================================================
+//	遷移先ルームの設定処理
+//============================================================
+void CFade::SetRoomFade(void)
+{
+	// フェード中の場合抜ける
+	if (m_fade != FADE_NONE) { return; }
+
+	// α値加減量を設定
+	m_fSubIn  = LEVEL_ROOMTRANS;
+	m_fAddOut = LEVEL_ROOMTRANS;
+
+	// 優先順位を設定
+	SetPriority(PRIORITY);
+
+	// 色を設定
+	SetColor(XCOL_ABLACK);
+
+	// 遷移先ルームの割当関数を設定
+	m_pFuncSetMode = std::bind(&CStage::BindNextRoom, CSceneGame::GetStage());
+
+	// フェードアウト状態にする
+	m_fade = FADE_OUT;
 }
 
 //============================================================

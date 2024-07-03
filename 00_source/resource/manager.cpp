@@ -667,6 +667,9 @@ HRESULT CManager::SetScene(const CScene::EMode mode)
 	// オブジェクトの全破棄
 	CObject::ReleaseAll();
 
+	// 遷移先モードの保存
+	m_pFade->SetNextMode(mode);
+
 	// シーンの生成
 	assert(m_pScene == nullptr);
 	m_pScene = CScene::Create(mode);
@@ -732,7 +735,7 @@ void CManager::SetLoadScene
 //============================================================
 //	モードの設定処理 (ロード：OFF)
 //============================================================
-HRESULT CManager::SetMode(const CScene::EMode mode)
+HRESULT CManager::SetMode(void)
 {
 	// サウンドの停止
 	assert(m_pSound != nullptr);
@@ -746,7 +749,7 @@ HRESULT CManager::SetMode(const CScene::EMode mode)
 
 	// シーンの生成
 	assert(m_pScene == nullptr);
-	m_pScene = CScene::Create(mode);
+	m_pScene = CScene::Create(m_pFade->GetNextMode());
 	if (m_pScene == nullptr)
 	{ // 非使用中の場合
 
@@ -771,7 +774,7 @@ HRESULT CManager::SetMode(const CScene::EMode mode)
 //============================================================
 //	モードの設定処理 (ロード：ON)
 //============================================================
-HRESULT CManager::SetLoadMode(const CScene::EMode mode)
+HRESULT CManager::SetLoadMode(void)
 {
 	// サウンドの停止
 	assert(m_pSound != nullptr);
@@ -785,7 +788,7 @@ HRESULT CManager::SetLoadMode(const CScene::EMode mode)
 
 	// シーンの生成
 	assert(m_pScene == nullptr);
-	m_pScene = CScene::Create(mode);
+	m_pScene = CScene::Create(m_pFade->GetNextMode());
 	if (m_pScene == nullptr)
 	{ // 非使用中の場合
 

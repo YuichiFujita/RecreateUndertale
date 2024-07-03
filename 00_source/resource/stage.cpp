@@ -9,6 +9,8 @@
 //************************************************************
 #include "stage.h"
 #include "manager.h"
+#include "fade.h"
+#include "camera.h"
 #include "collision.h"
 
 #include "tileMap.h"
@@ -74,6 +76,80 @@ HRESULT CStage::Init(void)
 void CStage::Uninit(void)
 {
 
+}
+
+//============================================================
+//	位置の補正処理
+//============================================================
+void CStage::LimitPosition(D3DXVECTOR3& rPos, const float fRadius)
+{
+	// XY平面角柱の内側制限
+	collision::InBoxPillarXY
+	( // 引数
+		rPos,				// 判定位置
+		VEC3_ZERO,			// 判定原点位置
+		VEC3_ALL(fRadius),	// 判定サイズ(右・上・後)
+		VEC3_ALL(fRadius),	// 判定サイズ(左・下・前)
+		D3DXVECTOR3(fabsf(m_limit.fRight), fabsf(m_limit.fUp), 0.0f),	// 判定原点サイズ(右・上・後)
+		D3DXVECTOR3(fabsf(m_limit.fLeft), fabsf(m_limit.fDown), 0.0f)	// 判定原点サイズ(左・下・前)
+	);
+}
+
+//============================================================
+//	遷移先ルームの設定処理
+//============================================================
+void CStage::SetFadeRoom(const char *pRoomPass)
+{
+	CFade *pFade = GET_MANAGER->GetFade();	// フェード情報
+
+	// ルームパスの保存
+	m_sPrevRoomPass = m_sNextRoomPass;	// 遷移元	// TODO：初期化時に次のルームを初期ルームにしてあげないと壊れる
+	m_sNextRoomPass = pRoomPass;		// 遷移先
+
+	// 遷移先ルームの設定
+	pFade->SetRoomFade();
+}
+
+//============================================================
+//	生成処理
+//============================================================
+CStage *CStage::Create(void)
+{
+	// ステージの生成
+	CStage *pStage = new CStage;
+	if (pStage == nullptr)
+	{ // 生成に失敗した場合
+
+		return nullptr;
+	}
+	else
+	{ // 生成に成功した場合
+
+		// ステージの初期化
+		if (FAILED(pStage->Init()))
+		{ // 初期化に失敗した場合
+
+			// ステージの破棄
+			SAFE_DELETE(pStage);
+			return nullptr;
+		}
+
+		// 確保したアドレスを返す
+		return pStage;
+	}
+}
+
+//============================================================
+//	破棄処理
+//============================================================
+void CStage::Release(CStage *&prStage)
+{
+	// ステージの終了
+	assert(prStage != nullptr);
+	prStage->Uninit();
+
+	// メモリ開放
+	SAFE_DELETE(prStage);
 }
 
 //============================================================
@@ -150,65 +226,6 @@ HRESULT CStage::BindStage(const char *pStagePass)
 
 	// 成功を返す
 	return S_OK;
-}
-
-//============================================================
-//	位置の補正処理
-//============================================================
-void CStage::LimitPosition(D3DXVECTOR3& rPos, const float fRadius)
-{
-	// XY平面角柱の内側制限
-	collision::InBoxPillarXY
-	( // 引数
-		rPos,				// 判定位置
-		VEC3_ZERO,			// 判定原点位置
-		VEC3_ALL(fRadius),	// 判定サイズ(右・上・後)
-		VEC3_ALL(fRadius),	// 判定サイズ(左・下・前)
-		D3DXVECTOR3(fabsf(m_limit.fRight), fabsf(m_limit.fUp), 0.0f),	// 判定原点サイズ(右・上・後)
-		D3DXVECTOR3(fabsf(m_limit.fLeft), fabsf(m_limit.fDown), 0.0f)	// 判定原点サイズ(左・下・前)
-	);
-}
-
-//============================================================
-//	生成処理
-//============================================================
-CStage *CStage::Create(void)
-{
-	// ステージの生成
-	CStage *pStage = new CStage;
-	if (pStage == nullptr)
-	{ // 生成に失敗した場合
-
-		return nullptr;
-	}
-	else
-	{ // 生成に成功した場合
-
-		// ステージの初期化
-		if (FAILED(pStage->Init()))
-		{ // 初期化に失敗した場合
-
-			// ステージの破棄
-			SAFE_DELETE(pStage);
-			return nullptr;
-		}
-
-		// 確保したアドレスを返す
-		return pStage;
-	}
-}
-
-//============================================================
-//	破棄処理
-//============================================================
-void CStage::Release(CStage *&prStage)
-{
-	// ステージの終了
-	assert(prStage != nullptr);
-	prStage->Uninit();
-
-	// メモリ開放
-	SAFE_DELETE(prStage);
 }
 
 //============================================================
@@ -349,7 +366,7 @@ HRESULT CStage::LoadSpawn(std::ifstream *pFile, std::string& rString)
 			else if (str == "PREV_ROOMPASS")
 			{
 				*pFile >> str;		// ＝を読込
-				*pFile >> pass;		// 遷移前のルームパスを読込
+				*pFile >> pass;		// 遷移元のルームパスを読込
 
 				// ルームパスを標準化
 				useful::StandardizePathPart(&pass);
@@ -372,11 +389,14 @@ HRESULT CStage::LoadSpawn(std::ifstream *pFile, std::string& rString)
 			return E_FAIL;
 		}
 
-		if (pass == INIT_PASS)
-		{ // 
+		// プレイヤー出現先の設定
+		if (pass == m_sPrevRoomPass)
+		{ // タイルの読込パスとルームの遷移元パスが同じ場合
 
 			// TODO
 			CSceneGame::GetPlayer()->SetVec3Position(pos);
+
+			GET_MANAGER->GetCamera()->InitFollow();
 		}
 	}
 

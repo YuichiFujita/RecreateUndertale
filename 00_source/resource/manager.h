@@ -84,9 +84,9 @@ public:
 		const D3DXCOLOR colFade	= XCOL_ABLACK		// フェード色
 	);
 
-	HRESULT SetMode(const CScene::EMode mode);		// モード設定 (ロード：OFF)
-	HRESULT SetLoadMode(const CScene::EMode mode);	// モード設定 (ロード：ON)
-	CScene::EMode GetMode(void);					// モード取得
+	HRESULT SetMode(void);			// モード設定 (ロード：OFF)
+	HRESULT SetLoadMode(void);		// モード設定 (ロード：ON)
+	CScene::EMode GetMode(void);	// モード取得
 
 	CDeltaTime		*GetDeltaTime(void);	// デルタタイム取得
 	CRenderer		*GetRenderer(void);		// レンダラー取得

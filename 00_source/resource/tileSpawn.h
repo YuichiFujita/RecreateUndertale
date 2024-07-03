@@ -39,7 +39,7 @@ public:
 
 private:
 	// メンバ変数
-	const std::string m_sPrevStagePass;	// 遷移前ステージパス
+	const std::string m_sPrevStagePass;	// 遷移元ステージパス
 };
 
 #endif	// _TILE_SPAWN_H_

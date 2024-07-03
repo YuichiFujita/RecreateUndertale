@@ -203,7 +203,7 @@ bool CTileTrans::CollisionTile
 			GET_MANAGER->GetDebugProc()->Print(CDebugProc::POINT_CENTER, "[“–‚½‚Á‚Ä‚é‚æ]");
 
 			// TODO
-			CSceneGame::GetStage()->BindStage(rList->m_sNextStagePass.c_str());
+			CSceneGame::GetStage()->SetFadeRoom(rList->m_sNextStagePass.c_str());
 			return true;
 		}
 	}
