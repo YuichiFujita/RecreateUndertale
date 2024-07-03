@@ -14,9 +14,14 @@
 //************************************************************
 namespace
 {
-	//const char *TEXTURE_FILE = "data\\TEXTURE\\DEBUG\\exit000.png";
+	const char *TEXTURE_FILE = "data\\TEXTURE\\DEBUG\\trans000.png";
 	const int PRIORITY = 3;	// 遷移タイルの優先順位
 }
+
+//************************************************************
+//	静的メンバ変数宣言
+//************************************************************
+CListManager<CTileTrans> *CTileTrans::m_pList = nullptr;	// オブジェクトリスト
 
 //************************************************************
 //	子クラス [CTileTrans] のメンバ関数
@@ -55,6 +60,23 @@ HRESULT CTileTrans::Init(void)
 	// 大きさを設定
 	SetVec3Sizing(D3DXVECTOR3(SIZE_TILE, SIZE_TILE, 0.0f));
 
+	if (m_pList == nullptr)
+	{ // リストマネージャーが存在しない場合
+
+		// リストマネージャーの生成
+		m_pList = CListManager<CTileTrans>::Create();
+		if (m_pList == nullptr)
+		{ // 生成に失敗した場合
+
+			// 失敗を返す
+			assert(false);
+			return E_FAIL;
+		}
+	}
+
+	// リストに自身のオブジェクトを追加・イテレーターを取得
+	m_iterator = m_pList->AddList(this);
+
 	// 成功を返す
 	return S_OK;
 }
@@ -64,6 +86,16 @@ HRESULT CTileTrans::Init(void)
 //============================================================
 void CTileTrans::Uninit(void)
 {
+	// リストから自身のオブジェクトを削除
+	m_pList->DelList(m_iterator);
+
+	if (m_pList->GetNumAll() == 0)
+	{ // オブジェクトが一つもない場合
+
+		// リストマネージャーの破棄
+		m_pList->Release(m_pList);
+	}
+
 	// オブジェクト3Dの終了
 	CObject3D::Uninit();
 }
@@ -116,4 +148,13 @@ CTileTrans *CTileTrans::Create(const char *pNextPass, const D3DXVECTOR3& rPos)
 		// 確保したアドレスを返す
 		return pTileTrans;
 	}
+}
+
+//============================================================
+//	リスト取得処理
+//============================================================
+CListManager<CTileTrans> *CTileTrans::GetList(void)
+{
+	// オブジェクトリストを返す
+	return m_pList;
 }

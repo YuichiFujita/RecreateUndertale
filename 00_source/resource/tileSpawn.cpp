@@ -14,7 +14,7 @@
 //************************************************************
 namespace
 {
-	//const char *TEXTURE_FILE = "data\\TEXTURE\\DEBUG\\spawn000.png";
+	const char *TEXTURE_FILE = "data\\TEXTURE\\DEBUG\\spawn000.png";
 	const int PRIORITY = 3;	// oŒ»ƒ^ƒCƒ‹‚Ì—Dæ‡ˆÊ
 }
 

@@ -36,9 +36,14 @@ public:
 
 	// 静的メンバ関数
 	static CTileTrans *Create(const char *pNextPass, const D3DXVECTOR3& rPos);	// 生成
+	static CListManager<CTileTrans> *GetList(void);	// リスト取得
 
 private:
+	// 静的メンバ変数
+	static CListManager<CTileTrans> *m_pList;	// オブジェクトリスト
+
 	// メンバ変数
+	CListManager<CTileTrans>::AIterator m_iterator;	// イテレーター
 	const char *m_pNextStagePass;	// 遷移先ステージパス
 };
 

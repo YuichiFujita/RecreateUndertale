@@ -20,8 +20,8 @@ namespace
 {
 	const char *TEXTURE_FILE[] =	// テクスチャファイル
 	{
-		"data\\TEXTURE\\collision000.png",	// 矩形
-		"data\\TEXTURE\\collision001.png",	// 三角
+		"data\\TEXTURE\\DEBUG\\collision000.png",	// 矩形
+		"data\\TEXTURE\\DEBUG\\collision001.png",	// 三角
 	};
 	const int PRIORITY = 3;	// 判定タイルの優先順位
 }
