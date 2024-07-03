@@ -8,6 +8,13 @@
 //	インクルードファイル
 //************************************************************
 #include "tileTrans.h"
+#include "collision.h"
+#include "sceneGame.h"
+#include "stage.h"
+
+// TODO
+#include "manager.h"
+#include "collision.h"
 
 //************************************************************
 //	定数宣言
@@ -30,7 +37,7 @@ CListManager<CTileTrans> *CTileTrans::m_pList = nullptr;	// オブジェクトリスト
 //	コンストラクタ
 //============================================================
 CTileTrans::CTileTrans(const char *pNextPass) : CObject3D(CObject::LABEL_TILE, CObject::DIM_3D, PRIORITY),
-	m_pNextStagePass	(pNextPass)	// 遷移先ステージパス
+	m_sNextStagePass	(pNextPass)	// 遷移先ステージパス
 {
 
 }
@@ -160,4 +167,46 @@ CListManager<CTileTrans> *CTileTrans::GetList(void)
 {
 	// オブジェクトリストを返す
 	return m_pList;
+}
+
+//============================================================
+//	遷移タイルとの当たり判定処理
+//============================================================
+bool CTileTrans::CollisionTile
+(
+	D3DXVECTOR3& rPos,			// 位置
+	const D3DXVECTOR3& rSize	// 大きさ
+)
+{
+	// 遷移タイルがない場合抜ける
+	if (m_pList == nullptr) { return false; }
+
+	std::list<CTileTrans*> list = m_pList->GetList();	// 内部リスト
+	for (const auto& rList : list)
+	{ // 要素数分繰り返す
+
+		D3DXVECTOR3 posTile = rList->GetVec3Position();
+		D3DXVECTOR3 sizeTile = (rList->GetVec3Sizing() + D3DXVECTOR3(0.0f, 0.0f, 50.0f)) * 0.5f;
+
+		bool bHit = collision::Box3D
+		( // 引数
+			rPos,
+			posTile,
+			rSize,
+			rSize,
+			sizeTile,
+			sizeTile
+		);
+		if (bHit)
+		{ // 当たっている場合
+
+			GET_MANAGER->GetDebugProc()->Print(CDebugProc::POINT_CENTER, "[当たってるよ]");
+
+			// TODO
+			CSceneGame::GetStage()->BindStage(rList->m_sNextStagePass.c_str());
+			return true;
+		}
+	}
+
+	return false;
 }

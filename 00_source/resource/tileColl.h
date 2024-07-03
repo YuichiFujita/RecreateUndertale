@@ -45,6 +45,7 @@ public:
 	// 静的メンバ関数
 	static CTileColl *Create(const EType type, const D3DXVECTOR3& rPos);	// 生成
 	static CListManager<CTileColl> *GetList(void);	// リスト取得
+
 	static bool CollisionTile	// 判定タイルとの当たり判定
 	( // 引数
 		D3DXVECTOR3& rPos,			// 位置

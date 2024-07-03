@@ -127,7 +127,8 @@ public:
 	virtual D3DXMATRIX GetMtxWorld(void) const;				// マトリックス取得
 
 	// 静的メンバ関数
-	static void	ReleaseAll(const std::vector<ELabel> label);	// 全破棄 (ラベル指定)
+	static void	ReleaseAll(const std::vector<ELabel> label);	// 全破棄 (複数ラベル指定)
+	static void	ReleaseAll(const ELabel label);			// 全破棄 (ラベル指定)
 	static void	ReleaseAll(void);						// 全破棄
 	static void	UpdateAll(const float fDeltaTime);		// 全更新
 	static void	DrawAll(void);							// 全描画

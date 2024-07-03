@@ -9,9 +9,10 @@
 //************************************************************
 #include "stage.h"
 #include "manager.h"
-#include "texture.h"
 #include "collision.h"
 
+#include "tileMap.h"
+#include "tileColl.h"
 #include "tileSpawn.h"
 #include "tileTrans.h"
 
@@ -80,6 +81,9 @@ void CStage::Uninit(void)
 //============================================================
 HRESULT CStage::BindStage(const char *pStagePass)
 {
+	// ラベルタイルのオブジェクト全破棄
+	CObject::ReleaseAll(CObject::LABEL_TILE);
+
 	// ファイルを開く
 	std::ifstream file(pStagePass);	// ファイルストリーム
 	if (file.fail())
@@ -106,6 +110,15 @@ HRESULT CStage::BindStage(const char *pStagePass)
 
 		// ステージ範囲情報の読込
 		else if (FAILED(LoadLimit(&file, str)))
+		{ // 読込に失敗した場合
+
+			// 失敗を返す
+			assert(false);
+			return E_FAIL;
+		}
+
+		// マップタイル情報の読込
+		else if (FAILED(LoadMap(&file, str)))
 		{ // 読込に失敗した場合
 
 			// 失敗を返す
@@ -254,6 +267,60 @@ HRESULT CStage::LoadLimit(std::ifstream *pFile, std::string& rString)
 }
 
 //============================================================
+//	マップタイル情報の読込処理
+//============================================================
+HRESULT CStage::LoadMap(std::ifstream *pFile, std::string& rString)
+{
+	// ファイルストリームが未設定の場合抜ける
+	if (pFile == nullptr) { assert(false); return E_FAIL; }
+
+	// マップタイルの設定
+	if (rString == "MAPSET")
+	{
+		std::string str;	// 読込文字列
+		int nType = 0;		// 種類
+		D3DXVECTOR3 pos = VEC3_ZERO;	// 位置
+
+		do { // END_MAPSETを読み込むまでループ
+
+			// 文字列を読み込む
+			*pFile >> str;
+
+			if (str.front() == '#')
+			{ // コメントアウトされている場合
+
+				// 一行全て読み込む
+				std::getline(*pFile, str);
+			}
+			else if (str == "TYPE")
+			{
+				*pFile >> str;		// ＝を読込
+				*pFile >> nType;	// 種類を読込
+			}
+			else if (str == "POS")
+			{
+				*pFile >> str;		// ＝を読込
+				*pFile >> pos.x;	// 位置Xを読込
+				*pFile >> pos.y;	// 位置Yを読込
+				*pFile >> pos.z;	// 位置Zを読込
+			}
+		} while (str != "END_MAPSET");	// END_MAPSETを読み込むまでループ
+
+		// マップタイルの生成
+		if (CTileMap::Create((CTileMap::EType)nType, pos) == nullptr)
+		{ // 生成に失敗した場合
+
+			// 失敗を返す
+			assert(false);
+			return E_FAIL;
+		}
+	}
+
+	// 成功を返す
+	return S_OK;
+}
+
+//============================================================
 //	出現タイル情報の読込処理
 //============================================================
 HRESULT CStage::LoadSpawn(std::ifstream *pFile, std::string& rString)
@@ -266,7 +333,7 @@ HRESULT CStage::LoadSpawn(std::ifstream *pFile, std::string& rString)
 	{
 		std::string str;	// 読込文字列
 		std::string pass;	// 遷移前ルームパス
-		D3DXVECTOR3 pos;	// 位置
+		D3DXVECTOR3 pos = VEC3_ZERO;	// 位置
 
 		do { // END_SPAWNSETを読み込むまでループ
 
@@ -305,8 +372,9 @@ HRESULT CStage::LoadSpawn(std::ifstream *pFile, std::string& rString)
 			return E_FAIL;
 		}
 
-		if (INIT_PASS == pass)
-		{
+		if (pass == INIT_PASS)
+		{ // 
+
 			// TODO
 			CSceneGame::GetPlayer()->SetVec3Position(pos);
 		}
@@ -329,7 +397,7 @@ HRESULT CStage::LoadTrans(std::ifstream *pFile, std::string& rString)
 	{
 		std::string str;	// 読込文字列
 		std::string pass;	// 遷移先ルームパス
-		D3DXVECTOR3 pos;	// 位置
+		D3DXVECTOR3 pos = VEC3_ZERO;	// 位置
 
 		do { // END_TRANSSETを読み込むまでループ
 

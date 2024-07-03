@@ -47,6 +47,7 @@ public:
 private:
 	// メンバ関数
 	HRESULT LoadLimit(std::ifstream *pFile, std::string& rString);	// ステージ範囲情報の読込
+	HRESULT LoadMap(std::ifstream *pFile, std::string& rString);	// マップタイル情報の読込
 	HRESULT LoadSpawn(std::ifstream *pFile, std::string& rString);	// 出現タイル情報の読込
 	HRESULT LoadTrans(std::ifstream *pFile, std::string& rString);	// 遷移タイル情報の読込
 

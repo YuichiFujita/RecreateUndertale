@@ -17,7 +17,7 @@
 namespace
 {
 	const char* SETUP_TXT	= "data\\CHARACTER\\frisk.txt";	// プレイヤーセットアップテキスト
-	const int	PRIORITY	= 3;	// プレイヤーの優先順位
+	const int	PRIORITY	= 4;	// プレイヤーの優先順位
 }
 
 //************************************************************

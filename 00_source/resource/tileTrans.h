@@ -38,13 +38,19 @@ public:
 	static CTileTrans *Create(const char *pNextPass, const D3DXVECTOR3& rPos);	// 生成
 	static CListManager<CTileTrans> *GetList(void);	// リスト取得
 
+	static bool CollisionTile	// 遷移タイルとの当たり判定
+	( // 引数
+		D3DXVECTOR3& rPos,			// 位置
+		const D3DXVECTOR3& rSize	// 大きさ
+	);
+
 private:
 	// 静的メンバ変数
 	static CListManager<CTileTrans> *m_pList;	// オブジェクトリスト
 
 	// メンバ変数
 	CListManager<CTileTrans>::AIterator m_iterator;	// イテレーター
-	const char *m_pNextStagePass;	// 遷移先ステージパス
+	const std::string m_sNextStagePass;	// 遷移先ステージパス
 };
 
 #endif	// _TILE_TRANS_H_

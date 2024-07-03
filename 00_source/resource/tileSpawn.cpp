@@ -25,7 +25,7 @@ namespace
 //	コンストラクタ
 //============================================================
 CTileSpawn::CTileSpawn(const char *pPrevPass) : CObject3D(CObject::LABEL_TILE, CObject::DIM_3D, PRIORITY),
-	m_pPrevStagePass	(pPrevPass)	// 遷移前ステージパス
+	m_sPrevStagePass	(pPrevPass)	// 遷移前ステージパス
 {
 
 }
