@@ -42,7 +42,7 @@ CListManager<CCollTile> *CCollTile::m_pList = nullptr;	// オブジェクトリスト
 //============================================================
 //	コンストラクタ
 //============================================================
-CCollTile::CCollTile() : CObject3D(CObject::LABEL_MAPTILE, CObject::DIM_3D, PRIORITY),
+CCollTile::CCollTile() : CObject3D(CObject::LABEL_TILE, CObject::DIM_3D, PRIORITY),
 	m_type	((EType)0)	// 種類
 {
 

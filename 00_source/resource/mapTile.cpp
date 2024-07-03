@@ -33,7 +33,7 @@ static_assert(NUM_ARRAY(TEXTURE_FILE) == CMapTile::TYPE_MAX, "ERROR : Type Count
 //============================================================
 //	コンストラクタ
 //============================================================
-CMapTile::CMapTile() : CObject3D(CObject::LABEL_MAPTILE, CObject::DIM_3D, PRIORITY),
+CMapTile::CMapTile() : CObject3D(CObject::LABEL_TILE, CObject::DIM_3D, PRIORITY),
 	m_type((EType)0)	// 種類
 {
 

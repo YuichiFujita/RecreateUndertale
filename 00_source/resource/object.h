@@ -85,7 +85,7 @@ public:
 		LABEL_EFFECT,		// エフェクト
 		LABEL_PARTICLE,		// パーティクル
 		LABEL_PLAYER,		// プレイヤー
-		LABEL_MAPTILE,		// マップタイル
+		LABEL_TILE,			// タイル
 #ifdef _DEBUG
 		LABEL_DEBUG,		// デバッグ
 #endif // _DEBUG

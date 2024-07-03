@@ -55,6 +55,12 @@
     <Filter Include="state\state_player">
       <UniqueIdentifier>{8f0b4680-be3d-4759-b180-c03d52e50cb4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ingame">
+      <UniqueIdentifier>{b06a5a0f-755e-465b-ada1-cd07cde8f5d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ingame\tile">
+      <UniqueIdentifier>{120eef5b-5f9c-47a4-8629-9fb2acd7e3aa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="resource\camera.cpp">
@@ -333,7 +339,6 @@
     <ClCompile Include="resource\pause.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="resource\mapTile.cpp" />
     <ClCompile Include="resource\anim3D.cpp">
       <Filter>3D</Filter>
     </ClCompile>
@@ -343,15 +348,24 @@
     <ClCompile Include="resource\character2D.cpp">
       <Filter>flyweight</Filter>
     </ClCompile>
-    <ClCompile Include="resource\player.cpp" />
     <ClCompile Include="resource\playerState.cpp">
       <Filter>state\state_player</Filter>
     </ClCompile>
     <ClCompile Include="resource\playerStateNormal.cpp">
       <Filter>state\state_player</Filter>
     </ClCompile>
-    <ClCompile Include="resource\collTile.cpp" />
-    <ClCompile Include="resource\stage.cpp" />
+    <ClCompile Include="resource\player.cpp">
+      <Filter>ingame</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\stage.cpp">
+      <Filter>ingame</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\collTile.cpp">
+      <Filter>ingame\tile</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\mapTile.cpp">
+      <Filter>ingame\tile</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h">
@@ -633,7 +647,6 @@
     <ClInclude Include="resource\pause.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="resource\mapTile.h" />
     <ClInclude Include="resource\anim3D.h">
       <Filter>3D</Filter>
     </ClInclude>
@@ -643,15 +656,24 @@
     <ClInclude Include="resource\character2D.h">
       <Filter>flyweight</Filter>
     </ClInclude>
-    <ClInclude Include="resource\player.h" />
     <ClInclude Include="resource\playerState.h">
       <Filter>state\state_player</Filter>
     </ClInclude>
     <ClInclude Include="resource\playerStateNormal.h">
       <Filter>state\state_player</Filter>
     </ClInclude>
-    <ClInclude Include="resource\collTile.h" />
-    <ClInclude Include="resource\stage.h" />
+    <ClInclude Include="resource\player.h">
+      <Filter>ingame</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\stage.h">
+      <Filter>ingame</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\collTile.h">
+      <Filter>ingame\tile</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\mapTile.h">
+      <Filter>ingame\tile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource\resource.rc">
