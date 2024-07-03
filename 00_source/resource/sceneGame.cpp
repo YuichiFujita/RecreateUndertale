@@ -84,6 +84,16 @@ HRESULT CSceneGame::Init(void)
 		return E_FAIL;
 	}
 
+#if 1
+	// TODO
+	CTileMap::Create(CTileMap::TYPE_FALL_POINT, VEC3_ZERO);
+	CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, -1.0f));
+
+	CTileColl::Create(CTileColl::TYPE_TRIANGLE, D3DXVECTOR3(SIZE_TILE * 0.0f, SIZE_TILE * 4.0f, -2.0f));
+	//CTileColl::Create(CTileColl::TYPE_BOX, D3DXVECTOR3(SIZE_TILE * 1.0f, SIZE_TILE * 3.0f, -2.0f));
+	//CTileColl::Create(CTileColl::TYPE_TRIANGLE, D3DXVECTOR3(SIZE_TILE * 2.0f, SIZE_TILE * 3.0f, -2.0f));
+#endif
+
 	// ステージの生成
 	m_pStage = CStage::Create();
 	if (m_pStage == nullptr)
@@ -93,17 +103,6 @@ HRESULT CSceneGame::Init(void)
 		assert(false);
 		return E_FAIL;
 	}
-
-	//--------------------------------------------------------
-	//	初期設定
-	//--------------------------------------------------------
-	// TODO
-	CTileMap::Create(CTileMap::TYPE_FALL_POINT, VEC3_ZERO);
-	CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, -1.0f));
-
-	CTileColl::Create(CTileColl::TYPE_TRIANGLE, D3DXVECTOR3(SIZE_TILE * 0.0f, SIZE_TILE * 3.0f, -2.0f));
-	//CTileColl::Create(CTileColl::TYPE_BOX, D3DXVECTOR3(SIZE_TILE * 1.0f, SIZE_TILE * 3.0f, -2.0f));
-	//CTileColl::Create(CTileColl::TYPE_TRIANGLE, D3DXVECTOR3(SIZE_TILE * 2.0f, SIZE_TILE * 3.0f, -2.0f));
 
 	// 追従カメラにする
 	CCamera *pCamera = GET_MANAGER->GetCamera();	// カメラ情報

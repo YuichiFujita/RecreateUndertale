@@ -57,6 +57,9 @@ HRESULT CTileTrans::Init(void)
 		return E_FAIL;
 	}
 
+	// テクスチャを割当
+	BindTexture(TEXTURE_FILE);
+
 	// 大きさを設定
 	SetVec3Sizing(D3DXVECTOR3(SIZE_TILE, SIZE_TILE, 0.0f));
 

@@ -127,6 +127,9 @@ void CPlayer::Update(const float fDeltaTime)
 
 	// モーション・キャラクター2Dの更新
 	UpdateMotion(nCurMotion, fDeltaTime);
+
+	// 位置表示
+	GET_MANAGER->GetDebugProc()->Print(CDebugProc::POINT_LEFT, "[プレイヤー位置]：%f %f %f", GetVec3Position().x, GetVec3Position().y, GetVec3Position().z);
 }
 
 //============================================================

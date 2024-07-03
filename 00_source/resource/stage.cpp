@@ -12,12 +12,18 @@
 #include "texture.h"
 #include "collision.h"
 
+#include "tileSpawn.h"
+#include "tileTrans.h"
+
+#include "sceneGame.h"
+#include "player.h"
+
 //************************************************************
 //	定数宣言
 //************************************************************
 namespace
 {
-	const char *INIT_PASS = "data\\STAGE\\stage.txt";	// セットアップテキスト相対パス
+	const char *INIT_PASS = "data\\ROOM\\room004.txt";	// セットアップテキスト相対パス
 }
 
 //************************************************************
@@ -98,9 +104,27 @@ HRESULT CStage::BindStage(const char *pStagePass)
 			std::getline(file, str);
 		}
 
-		// 範囲情報の読込
+		// ステージ範囲情報の読込
 		else if (FAILED(LoadLimit(&file, str)))
-		{ // 読み込みに失敗した場合
+		{ // 読込に失敗した場合
+
+			// 失敗を返す
+			assert(false);
+			return E_FAIL;
+		}
+
+		// 出現タイル情報の読込
+		else if (FAILED(LoadSpawn(&file, str)))
+		{ // 読込に失敗した場合
+
+			// 失敗を返す
+			assert(false);
+			return E_FAIL;
+		}
+
+		// 遷移タイル情報の読込
+		else if (FAILED(LoadTrans(&file, str)))
+		{ // 読込に失敗した場合
 
 			// 失敗を返す
 			assert(false);
@@ -175,7 +199,7 @@ void CStage::Release(CStage *&prStage)
 }
 
 //============================================================
-//	範囲情報の読込処理
+//	ステージ範囲情報の読込処理
 //============================================================
 HRESULT CStage::LoadLimit(std::ifstream *pFile, std::string& rString)
 {
@@ -223,6 +247,126 @@ HRESULT CStage::LoadLimit(std::ifstream *pFile, std::string& rString)
 
 		// ステージ範囲の設定
 		SetLimit(limit);
+	}
+
+	// 成功を返す
+	return S_OK;
+}
+
+//============================================================
+//	出現タイル情報の読込処理
+//============================================================
+HRESULT CStage::LoadSpawn(std::ifstream *pFile, std::string& rString)
+{
+	// ファイルストリームが未設定の場合抜ける
+	if (pFile == nullptr) { assert(false); return E_FAIL; }
+
+	// 出現タイルの設定
+	if (rString == "SPAWNSET")
+	{
+		std::string str;	// 読込文字列
+		std::string pass;	// 遷移前ルームパス
+		D3DXVECTOR3 pos;	// 位置
+
+		do { // END_SPAWNSETを読み込むまでループ
+
+			// 文字列を読み込む
+			*pFile >> str;
+
+			if (str.front() == '#')
+			{ // コメントアウトされている場合
+
+				// 一行全て読み込む
+				std::getline(*pFile, str);
+			}
+			else if (str == "PREV_ROOMPASS")
+			{
+				*pFile >> str;		// ＝を読込
+				*pFile >> pass;		// 遷移前のルームパスを読込
+
+				// ルームパスを標準化
+				useful::StandardizePathPart(&pass);
+			}
+			else if (str == "POS")
+			{
+				*pFile >> str;		// ＝を読込
+				*pFile >> pos.x;	// 位置Xを読込
+				*pFile >> pos.y;	// 位置Yを読込
+				*pFile >> pos.z;	// 位置Zを読込
+			}
+		} while (str != "END_SPAWNSET");	// END_SPAWNSETを読み込むまでループ
+
+		// 出現タイルの生成
+		if (CTileSpawn::Create(pass.c_str(), pos) == nullptr)
+		{ // 生成に失敗した場合
+
+			// 失敗を返す
+			assert(false);
+			return E_FAIL;
+		}
+
+		if (INIT_PASS == pass)
+		{
+			// TODO
+			CSceneGame::GetPlayer()->SetVec3Position(pos);
+		}
+	}
+
+	// 成功を返す
+	return S_OK;
+}
+
+//============================================================
+//	遷移タイル情報の読込処理
+//============================================================
+HRESULT CStage::LoadTrans(std::ifstream *pFile, std::string& rString)
+{
+	// ファイルストリームが未設定の場合抜ける
+	if (pFile == nullptr) { assert(false); return E_FAIL; }
+
+	// 遷移タイルの設定
+	if (rString == "TRANSSET")
+	{
+		std::string str;	// 読込文字列
+		std::string pass;	// 遷移先ルームパス
+		D3DXVECTOR3 pos;	// 位置
+
+		do { // END_TRANSSETを読み込むまでループ
+
+			// 文字列を読み込む
+			*pFile >> str;
+
+			if (str.front() == '#')
+			{ // コメントアウトされている場合
+
+				// 一行全て読み込む
+				std::getline(*pFile, str);
+			}
+			else if (str == "NEXT_ROOMPASS")
+			{
+				*pFile >> str;		// ＝を読込
+				*pFile >> pass;		// 遷移先のルームパスを読込
+
+				// ルームパスを標準化
+				useful::StandardizePathPart(&pass);
+			}
+			else if (str == "POS")
+			{
+				*pFile >> str;		// ＝を読込
+				*pFile >> pos.x;	// 位置Xを読込
+				*pFile >> pos.y;	// 位置Yを読込
+				*pFile >> pos.z;	// 位置Zを読込
+			}
+		} while (str != "END_TRANSSET");	// END_TRANSSETを読み込むまでループ
+
+		// 遷移タイルの生成
+		if (CTileTrans::Create(pass.c_str(), pos) == nullptr)
+		{ // 生成に失敗した場合
+
+			// 失敗を返す
+			assert(false);
+			return E_FAIL;
+		}
 	}
 
 	// 成功を返す
