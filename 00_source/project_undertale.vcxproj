@@ -162,7 +162,6 @@
     <ClCompile Include="resource\character.cpp" />
     <ClCompile Include="resource\character2D.cpp" />
     <ClCompile Include="resource\collision.cpp" />
-    <ClCompile Include="resource\collTile.cpp" />
     <ClCompile Include="resource\debug.cpp" />
     <ClCompile Include="resource\debugproc.cpp" />
     <ClCompile Include="resource\deltaTime.cpp" />
@@ -252,6 +251,7 @@
     <ClCompile Include="resource\string2D.cpp" />
     <ClCompile Include="resource\text2D.cpp" />
     <ClCompile Include="resource\texture.cpp" />
+    <ClCompile Include="resource\tileColl.cpp" />
     <ClCompile Include="resource\tileSpawn.cpp" />
     <ClCompile Include="resource\tileTrans.cpp" />
     <ClCompile Include="resource\timer.cpp" />
@@ -270,7 +270,6 @@
     <ClInclude Include="resource\character.h" />
     <ClInclude Include="resource\character2D.h" />
     <ClInclude Include="resource\collision.h" />
-    <ClInclude Include="resource\collTile.h" />
     <ClInclude Include="resource\debug.h" />
     <ClInclude Include="resource\debugproc.h" />
     <ClInclude Include="resource\deltaTime.h" />
@@ -358,6 +357,7 @@
     <ClInclude Include="resource\string2D.h" />
     <ClInclude Include="resource\text2D.h" />
     <ClInclude Include="resource\texture.h" />
+    <ClInclude Include="resource\tileColl.h" />
     <ClInclude Include="resource\tileSpawn.h" />
     <ClInclude Include="resource\tileTrans.h" />
     <ClInclude Include="resource\timer.h" />

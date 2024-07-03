@@ -12,7 +12,7 @@
 #include "manager.h"
 
 // TODO
-#include "collTile.h"
+#include "tileColl.h"
 
 //************************************************************
 //	定数宣言
@@ -81,7 +81,7 @@ int CPlayerStateNormal::Update(const float fDeltaTime)
 	UpdatePosition(posPlayer, fDeltaTime);
 
 	// TODO
-	CCollTile::CollisionTile(posPlayer, m_pContext->GetOldPosition(), (m_pContext->GetVec3Sizing() + D3DXVECTOR3(0.0f, 0.0f, 50.0f)) * 0.5f);
+	CTileColl::CollisionTile(posPlayer, m_pContext->GetOldPosition(), (m_pContext->GetVec3Sizing() + D3DXVECTOR3(0.0f, 0.0f, 50.0f)) * 0.5f);
 
 	// プレイヤー位置を反映
 	m_pContext->SetVec3Position(posPlayer);

@@ -360,9 +360,6 @@
     <ClCompile Include="resource\stage.cpp">
       <Filter>ingame</Filter>
     </ClCompile>
-    <ClCompile Include="resource\collTile.cpp">
-      <Filter>ingame\tile</Filter>
-    </ClCompile>
     <ClCompile Include="resource\mapTile.cpp">
       <Filter>ingame\tile</Filter>
     </ClCompile>
@@ -370,6 +367,9 @@
       <Filter>ingame\tile</Filter>
     </ClCompile>
     <ClCompile Include="resource\tileTrans.cpp">
+      <Filter>ingame\tile</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\tileColl.cpp">
       <Filter>ingame\tile</Filter>
     </ClCompile>
   </ItemGroup>
@@ -674,9 +674,6 @@
     <ClInclude Include="resource\stage.h">
       <Filter>ingame</Filter>
     </ClInclude>
-    <ClInclude Include="resource\collTile.h">
-      <Filter>ingame\tile</Filter>
-    </ClInclude>
     <ClInclude Include="resource\mapTile.h">
       <Filter>ingame\tile</Filter>
     </ClInclude>
@@ -684,6 +681,9 @@
       <Filter>ingame\tile</Filter>
     </ClInclude>
     <ClInclude Include="resource\tileTrans.h">
+      <Filter>ingame\tile</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\tileColl.h">
       <Filter>ingame\tile</Filter>
     </ClInclude>
   </ItemGroup>

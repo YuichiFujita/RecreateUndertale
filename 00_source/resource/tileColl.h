@@ -1,14 +1,14 @@
 //============================================================
 //
-//	判定タイルヘッダー [collTile.h]
+//	判定タイルヘッダー [tileColl.h]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	二重インクルード防止
 //************************************************************
-#ifndef _COLLTILE_H_
-#define _COLLTILE_H_
+#ifndef _TILE_COLL_H_
+#define _TILE_COLL_H_
 
 //************************************************************
 //	インクルードファイル
@@ -19,7 +19,7 @@
 //	クラス定義
 //************************************************************
 // 判定タイルクラス
-class CCollTile : public CObject3D
+class CTileColl : public CObject3D
 {
 public:
 	// 種類列挙
@@ -31,10 +31,10 @@ public:
 	};
 
 	// コンストラクタ
-	CCollTile();
+	CTileColl();
 
 	// デストラクタ
-	~CCollTile();
+	~CTileColl();
 
 	// オーバーライド関数
 	HRESULT Init(void) override;	// 初期化
@@ -43,8 +43,8 @@ public:
 	void Draw(CShader *pShader = nullptr) override;	// 描画
 
 	// 静的メンバ関数
-	static CCollTile *Create(const EType type, const D3DXVECTOR3& rPos);	// 生成
-	static CListManager<CCollTile> *GetList(void);	// リスト取得
+	static CTileColl *Create(const EType type, const D3DXVECTOR3& rPos);	// 生成
+	static CListManager<CTileColl> *GetList(void);	// リスト取得
 	static bool CollisionTile	// 判定タイルとの当たり判定
 	( // 引数
 		D3DXVECTOR3& rPos,			// 位置
@@ -58,11 +58,11 @@ public:
 
 private:
 	// 静的メンバ変数
-	static CListManager<CCollTile> *m_pList;	// オブジェクトリスト
+	static CListManager<CTileColl> *m_pList;	// オブジェクトリスト
 
 	// メンバ変数
-	CListManager<CCollTile>::AIterator m_iterator;	// イテレーター
+	CListManager<CTileColl>::AIterator m_iterator;	// イテレーター
 	EType m_type;	// 種類
 };
 
-#endif	// _COLLTILE_H_
+#endif	// _TILE_COLL_H_

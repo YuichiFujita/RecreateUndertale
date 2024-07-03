@@ -1,13 +1,13 @@
 //============================================================
 //
-//	判定タイル処理 [collTile.cpp]
+//	判定タイル処理 [tileColl.cpp]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	インクルードファイル
 //************************************************************
-#include "collTile.h"
+#include "tileColl.h"
 
 // TODO
 #include "manager.h"
@@ -29,20 +29,20 @@ namespace
 //************************************************************
 //	スタティックアサート
 //************************************************************
-static_assert(NUM_ARRAY(TEXTURE_FILE) == CCollTile::TYPE_MAX, "ERROR : Type Count Mismatch");
+static_assert(NUM_ARRAY(TEXTURE_FILE) == CTileColl::TYPE_MAX, "ERROR : Type Count Mismatch");
 
 //************************************************************
 //	静的メンバ変数宣言
 //************************************************************
-CListManager<CCollTile> *CCollTile::m_pList = nullptr;	// オブジェクトリスト
+CListManager<CTileColl> *CTileColl::m_pList = nullptr;	// オブジェクトリスト
 
 //************************************************************
-//	子クラス [CCollTile] のメンバ関数
+//	子クラス [CTileColl] のメンバ関数
 //************************************************************
 //============================================================
 //	コンストラクタ
 //============================================================
-CCollTile::CCollTile() : CObject3D(CObject::LABEL_TILE, CObject::DIM_3D, PRIORITY),
+CTileColl::CTileColl() : CObject3D(CObject::LABEL_TILE, CObject::DIM_3D, PRIORITY),
 	m_type	((EType)0)	// 種類
 {
 
@@ -51,7 +51,7 @@ CCollTile::CCollTile() : CObject3D(CObject::LABEL_TILE, CObject::DIM_3D, PRIORIT
 //============================================================
 //	デストラクタ
 //============================================================
-CCollTile::~CCollTile()
+CTileColl::~CTileColl()
 {
 
 }
@@ -59,10 +59,10 @@ CCollTile::~CCollTile()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CCollTile::Init(void)
+HRESULT CTileColl::Init(void)
 {
 	// メンバ変数を初期化
-	m_type = TYPE_TRIANGLE;	// 種類	// TODO
+	m_type = TYPE_BOX;	// 種類
 
 	// オブジェクト3Dの初期化
 	if (FAILED(CObject3D::Init()))
@@ -80,7 +80,7 @@ HRESULT CCollTile::Init(void)
 	{ // リストマネージャーが存在しない場合
 
 		// リストマネージャーの生成
-		m_pList = CListManager<CCollTile>::Create();
+		m_pList = CListManager<CTileColl>::Create();
 		if (m_pList == nullptr)
 		{ // 生成に失敗した場合
 
@@ -100,7 +100,7 @@ HRESULT CCollTile::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CCollTile::Uninit(void)
+void CTileColl::Uninit(void)
 {
 	// リストから自身のオブジェクトを削除
 	m_pList->DelList(m_iterator);
@@ -119,7 +119,7 @@ void CCollTile::Uninit(void)
 //============================================================
 //	更新処理
 //============================================================
-void CCollTile::Update(const float fDeltaTime)
+void CTileColl::Update(const float fDeltaTime)
 {
 	// オブジェクト3Dの更新
 	CObject3D::Update(fDeltaTime);
@@ -128,7 +128,7 @@ void CCollTile::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CCollTile::Draw(CShader *pShader)
+void CTileColl::Draw(CShader *pShader)
 {
 	// オブジェクト3Dの描画
 	CObject3D::Draw(pShader);
@@ -137,11 +137,11 @@ void CCollTile::Draw(CShader *pShader)
 //============================================================
 //	生成処理
 //============================================================
-CCollTile *CCollTile::Create(const EType type, const D3DXVECTOR3& rPos)
+CTileColl *CTileColl::Create(const EType type, const D3DXVECTOR3& rPos)
 {
 	// 判定タイルの生成
-	CCollTile *pCollTile = new CCollTile;
-	if (pCollTile == nullptr)
+	CTileColl *pTileColl = new CTileColl;
+	if (pTileColl == nullptr)
 	{ // 生成に失敗した場合
 
 		return nullptr;
@@ -150,29 +150,29 @@ CCollTile *CCollTile::Create(const EType type, const D3DXVECTOR3& rPos)
 	{ // 生成に成功した場合
 
 		// 判定タイルの初期化
-		if (FAILED(pCollTile->Init()))
+		if (FAILED(pTileColl->Init()))
 		{ // 初期化に失敗した場合
 
 			// 判定タイルの破棄
-			SAFE_DELETE(pCollTile);
+			SAFE_DELETE(pTileColl);
 			return nullptr;
 		}
 
 		// 種類を設定
-		pCollTile->SetType(type);
+		pTileColl->SetType(type);
 
 		// 位置を設定
-		pCollTile->SetVec3Position(rPos);
+		pTileColl->SetVec3Position(rPos);
 
 		// 確保したアドレスを返す
-		return pCollTile;
+		return pTileColl;
 	}
 }
 
 //============================================================
 //	リスト取得処理
 //============================================================
-CListManager<CCollTile> *CCollTile::GetList(void)
+CListManager<CTileColl> *CTileColl::GetList(void)
 {
 	// オブジェクトリストを返す
 	return m_pList;
@@ -181,7 +181,7 @@ CListManager<CCollTile> *CCollTile::GetList(void)
 //============================================================
 //	判定タイルとの当たり判定処理
 //============================================================
-bool CCollTile::CollisionTile
+bool CTileColl::CollisionTile
 (
 	D3DXVECTOR3& rPos,			// 位置
 	const D3DXVECTOR3& rPosOld,	// 過去位置
@@ -191,7 +191,7 @@ bool CCollTile::CollisionTile
 	// 判定タイルがない場合抜ける
 	if (m_pList == nullptr) { return false; }
 
-	std::list<CCollTile*> list = m_pList->GetList();	// 内部リスト
+	std::list<CTileColl*> list = m_pList->GetList();	// 内部リスト
 	for (const auto& rList : list)
 	{ // 要素数分繰り返す
 
@@ -225,7 +225,7 @@ bool CCollTile::CollisionTile
 //============================================================
 //	種類設定処理
 //============================================================
-void CCollTile::SetType(const EType type)
+void CTileColl::SetType(const EType type)
 {
 	// 種類を保存
 	m_type = type;
