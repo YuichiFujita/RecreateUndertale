@@ -27,6 +27,7 @@ namespace
 		const float VIEW_FAR	= 10000.0f;	// モデルが見えるZ軸の最大値
 		const float MIN_DIS		= 1.0f;		// カメラの視点から注視点への距離の最小
 		const float MAX_DIS		= 10000.0f;	// カメラの視点から注視点への距離の最大
+		const float REV_DIS		= 0.001f;	// カメラ揺れ計算時のカメラ距離の補正係数
 
 		const float VIEW_ASPECT		= (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT;	// アスペクト比
 		const float VIEW_ANGLE		= D3DXToRadian(45.0f);	// 視野角
@@ -34,17 +35,20 @@ namespace
 		const float LIMIT_ROT_LOW	= 0.04f;				// X下回転の制限値
 	}
 
-	// カメラ揺れ情報
-	namespace swing
+	// 固定カメラ情報
+	namespace none
 	{
-		const float REV_DIS = 0.001f;	// カメラ揺れ計算時のカメラ距離の補正係数
+		const D3DXVECTOR3 POSR	= D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 注視点位置
+		const D3DXVECTOR3 ROT	= D3DXVECTOR3(HALF_PI, 0.0f, 0.0f);	// 向き
+		const float DISTANCE	= 100.0f;	// 追従カメラの距離
+		const float REV_POS		= 1.0f;		// カメラ位置の補正係数
+		const float REV_ROT		= 1.0f;		// カメラ向きの補正係数
 	}
 
 	// 追従カメラ情報
 	namespace follow
 	{
-		const D3DXVECTOR3 POS_R	= D3DXVECTOR3(0.0f, SCREEN_CENT.y, 0.0f);	// 注視点位置
-		const D3DXVECTOR3 ROT	= D3DXVECTOR3(HALF_PI, 0.0f, 0.0f);			// 向き
+		const D3DXVECTOR3 ROT	= D3DXVECTOR3(HALF_PI, 0.0f, 0.0f);	// 向き
 		const float DISTANCE	= 100.0f;	// 追従カメラの距離
 		const float REV_POS		= 1.0f;		// カメラ位置の補正係数
 		const float REV_ROT		= 1.0f;		// カメラ向きの補正係数
@@ -119,8 +123,8 @@ HRESULT CCamera::Init(void)
 	m_camera.viewport.MinZ	 = 0.0f;
 	m_camera.viewport.MaxZ	 = 1.0f;
 
-	// 追従カメラにする
-	//SetState(CCamera::STATE_FOLLOW);	// TODO：固定カメラとかの作成もしよう
+	// 固定カメラにする
+	SetState(CCamera::STATE_NONE);
 
 	// 成功を返す
 	return S_OK;
@@ -144,18 +148,21 @@ void CCamera::Update(const float fDeltaTime)
 
 	switch (m_state)
 	{ // 状態ごとの処理
-	case STATE_NONE:	// なにもしない状態
+	case STATE_NONE:	// 固定状態
+
+		// 固定カメラの更新
+		UpdateFollow();
 		break;
 
 	case STATE_FOLLOW:	// 追従状態
 
-		// カメラ追従の更新
+		// 追従カメラの更新
 		UpdateFollow();
 		break;
 
 	case STATE_CONTROL:	// 操作状態
 
-		// カメラ操作の更新
+		// 操作カメラの更新
 		UpdateControl();
 		break;
 
@@ -166,20 +173,6 @@ void CCamera::Update(const float fDeltaTime)
 
 	// カメラ揺れの更新
 	UpdateSwing();
-}
-
-//============================================================
-//	カメラ揺れリセット処理
-//============================================================
-void CCamera::SwingReset(void)
-{
-	// カメラ揺れ情報を初期化
-	SSwing *pSwing = &m_camera.swing;
-	pSwing->shiftPos	 = VEC3_ZERO;	// 位置ずれ量
-	pSwing->fShiftAngle	 = 0.0f;		// 位置をずらす角度
-	pSwing->fShiftLength = 0.0f;		// 位置をずらす距離
-	pSwing->fSubAngle	 = 0.0f;		// ずらす角度の減算量
-	pSwing->fSubLength	 = 0.0f;		// ずらす距離の減算量
 }
 
 //============================================================
@@ -315,11 +308,45 @@ CCamera::SCamera CCamera::GetCamera(void)
 }
 
 //============================================================
+//	固定カメラ初期化処理
+//============================================================
+void CCamera::InitNone(void)
+{
+	// カメラ固定状態ではない場合抜ける
+	if (m_state != STATE_NONE) { return; }
+
+	//----------------------------------------------------
+	//	向きの更新
+	//----------------------------------------------------
+	// 向きの設定
+	m_camera.rot = m_camera.destRot = none::ROT;
+	useful::NormalizeRot(m_camera.rot);		// 現在向きを正規化
+	useful::NormalizeRot(m_camera.destRot);	// 目標向きを正規化
+
+	//----------------------------------------------------
+	//	距離の更新
+	//----------------------------------------------------
+	// 距離の設定
+	m_camera.fDis = m_camera.fDestDis = none::DISTANCE;
+
+	//----------------------------------------------------
+	//	位置の更新
+	//----------------------------------------------------
+	// 注視点の設定
+	m_camera.posR = m_camera.destPosR = none::POSR;
+
+	// 視点の設定
+	m_camera.posV.x = m_camera.destPosV.x = m_camera.destPosR.x + ((-m_camera.fDis * sinf(m_camera.rot.x)) * sinf(m_camera.rot.y));
+	m_camera.posV.y = m_camera.destPosV.y = m_camera.destPosR.y + ((-m_camera.fDis * cosf(m_camera.rot.x)));
+	m_camera.posV.z = m_camera.destPosV.z = m_camera.destPosR.z + ((-m_camera.fDis * sinf(m_camera.rot.x)) * cosf(m_camera.rot.y));
+}
+
+//============================================================
 //	追従カメラ初期化処理
 //============================================================
 void CCamera::InitFollow(void)
 {
-	// カメラ追従状態の場合抜ける
+	// カメラ追従状態ではない場合抜ける
 	if (m_state != STATE_FOLLOW) { return; }
 
 	// プレイヤーが存在しない場合抜ける
@@ -362,6 +389,20 @@ void CCamera::InitFollow(void)
 }
 
 //============================================================
+//	カメラ揺れの初期化処理
+//============================================================
+void CCamera::ResetSwing(void)
+{
+	// カメラ揺れ情報を初期化
+	SSwing *pSwing = &m_camera.swing;
+	pSwing->shiftPos	 = VEC3_ZERO;	// 位置ずれ量
+	pSwing->fShiftAngle	 = 0.0f;		// 位置をずらす角度
+	pSwing->fShiftLength = 0.0f;		// 位置をずらす距離
+	pSwing->fSubAngle	 = 0.0f;		// ずらす角度の減算量
+	pSwing->fSubLength	 = 0.0f;		// ずらす距離の減算量
+}
+
+//============================================================
 //	カメラ状態の設定処理
 //============================================================
 void CCamera::SetState(const EState state, const bool bInit)
@@ -369,22 +410,27 @@ void CCamera::SetState(const EState state, const bool bInit)
 	// 状態の設定
 	m_state = state;
 
-	// カメラ揺れのリセット
-	SwingReset();
+	// カメラ揺れの初期化
+	ResetSwing();
 
 	if (bInit)
 	{ // カメラ初期化がONの場合
 
 		switch (m_state)
 		{ // 状態ごとの処理
-		case STATE_NONE:	// なにもしない状態
-		case STATE_CONTROL:	// 操作状態
+		case STATE_NONE:	// 固定状態
+
+			// 固定カメラの初期化
+			InitNone();
 			break;
 
 		case STATE_FOLLOW:	// 追従状態
 
-			// カメラ追従の初期化
+			// 追従カメラの初期化
 			InitFollow();
+			break;
+
+		case STATE_CONTROL:	// 操作状態
 			break;
 
 		default:	// 例外処理
@@ -467,11 +513,65 @@ void CCamera::Release(CCamera *&prCamera)
 }
 
 //============================================================
-//	カメラ追従の更新処理
+//	固定カメラの更新処理
+//============================================================
+void CCamera::UpdateNone(void)
+{
+	// カメラ固定状態ではない場合抜ける
+	if (m_state != STATE_NONE) { return; }
+
+	//----------------------------------------------------
+	//	向きの更新
+	//----------------------------------------------------
+	D3DXVECTOR3 diffRot = VEC3_ZERO;	// 差分向き
+
+	// 目標向きの設定
+	m_camera.destRot = none::ROT;
+	useful::NormalizeRot(m_camera.destRot);	// 目標向きを正規化
+
+	// 差分向きの計算
+	diffRot = m_camera.destRot - m_camera.rot;
+	useful::NormalizeRot(diffRot);			// 差分向きを正規化
+
+	// 現在向きの更新
+	m_camera.rot += diffRot * none::REV_ROT;
+	useful::NormalizeRot(m_camera.rot);		// 現在向きを正規化
+
+	//----------------------------------------------------
+	//	距離の更新
+	//----------------------------------------------------
+	// 距離の設定
+	m_camera.fDis = m_camera.fDestDis = none::DISTANCE;
+
+	//----------------------------------------------------
+	//	位置の更新
+	//----------------------------------------------------
+	D3DXVECTOR3 diffPosV = VEC3_ZERO;	// 視点の差分位置
+	D3DXVECTOR3 diffPosR = VEC3_ZERO;	// 注視点の差分位置
+
+	// 注視点の更新
+	m_camera.destPosR = none::POSR;
+
+	// 視点の更新
+	m_camera.destPosV.x = m_camera.destPosR.x + ((-m_camera.fDis * sinf(m_camera.rot.x)) * sinf(m_camera.rot.y));
+	m_camera.destPosV.y = m_camera.destPosR.y + ((-m_camera.fDis * cosf(m_camera.rot.x)));
+	m_camera.destPosV.z = m_camera.destPosR.z + ((-m_camera.fDis * sinf(m_camera.rot.x)) * cosf(m_camera.rot.y));
+
+	// 差分位置を計算
+	diffPosR = m_camera.destPosR - m_camera.posR;	// 注視点
+	diffPosV = m_camera.destPosV - m_camera.posV;	// 視点
+
+	// 現在位置を更新
+	m_camera.posR += diffPosR * none::REV_POS;	// 注視点
+	m_camera.posV += diffPosV * none::REV_POS;	// 視点
+}
+
+//============================================================
+//	追従カメラ追従の更新処理
 //============================================================
 void CCamera::UpdateFollow(void)
 {
-	// カメラ追従状態の場合抜ける
+	// カメラ追従状態ではない場合抜ける
 	if (m_state != STATE_FOLLOW) { return; }
 
 	// プレイヤーが存在しない場合抜ける
@@ -532,7 +632,7 @@ void CCamera::UpdateFollow(void)
 }
 
 //============================================================
-//	カメラ操作の更新処理
+//	操作カメラの更新処理
 //============================================================
 void CCamera::UpdateControl(void)
 {
@@ -672,7 +772,7 @@ void CCamera::UpdateSwing(void)
 		fRotY = atan2f(-vecAxis.z, vecAxis.x);
 
 		// 位置ずれオフセットを設定
-		float fCalcTemp = pSwing->fShiftLength * (fabsf(pCamera->fDis) * swing::REV_DIS);
+		float fCalcTemp = pSwing->fShiftLength * (fabsf(pCamera->fDis) * basic::REV_DIS);
 		offset = D3DXVECTOR3(sinf(fRotY) * fCalcTemp, 0.0f, cosf(fRotY) * fCalcTemp);
 
 		// オフセットを反映した回転マトリックスを座標変換

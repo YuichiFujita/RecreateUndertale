@@ -25,7 +25,7 @@ public:
 	// 状態列挙
 	enum EState
 	{
-		STATE_NONE = 0,	// なにもしない状態
+		STATE_NONE = 0,	// 固定状態
 		STATE_FOLLOW,	// 追従状態
 		STATE_CONTROL,	// 操作状態
 		STATE_MAX		// この列挙型の総数
@@ -84,10 +84,11 @@ public:
 	HRESULT Init(void);	// 初期化
 	void Uninit(void);	// 終了
 	void Update(const float fDeltaTime);	// 更新
-	void SwingReset(void);		// カメラ揺れリセット
 	void SetCamera(void);		// カメラ設定
 	SCamera GetCamera(void);	// カメラ取得
+	void InitNone(void);		// 固定カメラ初期化
 	void InitFollow(void);		// 追従カメラ初期化
+	void ResetSwing(void);		// カメラ揺れ初期化
 
 	void SetState(const EState state, const bool bInit = true);	// カメラ状態設定
 	EState GetState(void) const;				// カメラ状態取得
@@ -112,8 +113,9 @@ public:
 
 private:
 	// メンバ関数
-	void UpdateFollow(void);	// カメラ追従更新
-	void UpdateControl(void);	// カメラ操作更新
+	void UpdateNone(void);		// 固定カメラ更新
+	void UpdateFollow(void);	// 追従カメラ更新
+	void UpdateControl(void);	// 操作カメラ更新
 	void UpdateMove(void);		// 位置更新
 	void UpdateDistance(void);	// 距離更新
 	void UpdateRotation(void);	// 向き更新

@@ -62,6 +62,10 @@ HRESULT CSceneIntro::Init(void)
 		return E_FAIL;
 	}
 
+	// ŒÅ’èƒJƒƒ‰‚É‚·‚é
+	CCamera *pCamera = GET_MANAGER->GetCamera();	// ƒJƒƒ‰î•ñ
+	pCamera->SetState(CCamera::STATE_NONE);			// ŒÅ’èó‘Ô‚ğİ’è
+
 	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
