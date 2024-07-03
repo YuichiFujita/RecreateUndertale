@@ -252,6 +252,8 @@
     <ClCompile Include="resource\string2D.cpp" />
     <ClCompile Include="resource\text2D.cpp" />
     <ClCompile Include="resource\texture.cpp" />
+    <ClCompile Include="resource\tileSpawn.cpp" />
+    <ClCompile Include="resource\tileTrans.cpp" />
     <ClCompile Include="resource\timer.cpp" />
     <ClCompile Include="resource\timerUI.cpp" />
     <ClCompile Include="resource\timeUI.cpp" />
@@ -356,6 +358,8 @@
     <ClInclude Include="resource\string2D.h" />
     <ClInclude Include="resource\text2D.h" />
     <ClInclude Include="resource\texture.h" />
+    <ClInclude Include="resource\tileSpawn.h" />
+    <ClInclude Include="resource\tileTrans.h" />
     <ClInclude Include="resource\timer.h" />
     <ClInclude Include="resource\timerUI.h" />
     <ClInclude Include="resource\timeUI.h" />

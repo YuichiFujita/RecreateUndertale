@@ -366,6 +366,12 @@
     <ClCompile Include="resource\mapTile.cpp">
       <Filter>ingame\tile</Filter>
     </ClCompile>
+    <ClCompile Include="resource\tileSpawn.cpp">
+      <Filter>ingame\tile</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\tileTrans.cpp">
+      <Filter>ingame\tile</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h">
@@ -672,6 +678,12 @@
       <Filter>ingame\tile</Filter>
     </ClInclude>
     <ClInclude Include="resource\mapTile.h">
+      <Filter>ingame\tile</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\tileSpawn.h">
+      <Filter>ingame\tile</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\tileTrans.h">
       <Filter>ingame\tile</Filter>
     </ClInclude>
   </ItemGroup>
