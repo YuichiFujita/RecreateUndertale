@@ -22,16 +22,6 @@
 class CPlayerStateNormal : public CPlayerState
 {
 public:
-	// 角度列挙
-	enum EAngle
-	{
-		ANGLE_UP = 0,	// 上
-		ANGLE_DOWN,		// 下
-		ANGLE_LEFT,		// 左
-		ANGLE_RIGHT,	// 右
-		ANGLE_MAX		// この列挙型の総数
-	};
-
 	// コンストラクタ
 	CPlayerStateNormal();
 

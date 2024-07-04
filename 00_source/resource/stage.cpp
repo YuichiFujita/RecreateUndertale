@@ -364,8 +364,9 @@ HRESULT CStage::LoadSpawn(std::ifstream *pFile, std::string& rString)
 
 		if (str == "SPAWN")
 		{
-			D3DXVECTOR3 pos = VEC3_ZERO;	// 位置
 			std::string passPrev;			// 遷移元ルームパス
+			D3DXVECTOR3 pos = VEC3_ZERO;	// 位置
+			EAngle angle = (EAngle)0;		// 角度
 			do { // END_SPAWNを読み込むまでループ
 
 				// 文字列を読み込む
@@ -392,6 +393,17 @@ HRESULT CStage::LoadSpawn(std::ifstream *pFile, std::string& rString)
 					*pFile >> pos.y;	// 位置Yを読込
 					*pFile >> pos.z;	// 位置Zを読込
 				}
+				else if (str == "ANGLE")
+				{
+					*pFile >> str;	// ＝を読込
+					*pFile >> str;	// 角度を読込
+
+					// 読み込んだ角度を保存
+					if		(str == "UP")	 { angle = ANGLE_UP; }		// 上角度
+					else if	(str == "DOWN")	 { angle = ANGLE_DOWN; }	// 下角度
+					else if	(str == "LEFT")	 { angle = ANGLE_LEFT; }	// 左角度
+					else if	(str == "RIGHT") { angle = ANGLE_RIGHT; }	// 右角度
+				}
 			} while (str != "END_SPAWN");	// END_SPAWNを読み込むまでループ
 
 			// 出現タイルの生成
@@ -407,9 +419,8 @@ HRESULT CStage::LoadSpawn(std::ifstream *pFile, std::string& rString)
 			if (passPrev == m_sPrevRoomPass)
 			{ // タイルの読込パスとルームの遷移元パスが同じ場合
 
-				// TODO
-				CSceneGame::GetPlayer()->SetVec3Position(pos);
-				GET_MANAGER->GetCamera()->InitFollow();
+				// プレイヤーの部屋遷移
+				CSceneGame::GetPlayer()->TransRoom(pos, angle);
 			}
 		}
 	} while (str != "END_SPAWNSET");	// END_SPAWNSETを読み込むまでループ
@@ -438,8 +449,8 @@ HRESULT CStage::LoadTrans(std::ifstream *pFile, std::string& rString)
 
 		if (str == "TRANS")
 		{
-			D3DXVECTOR3 pos = VEC3_ZERO;	// 位置
 			std::string passNext;			// 遷移先ルームパス
+			D3DXVECTOR3 pos = VEC3_ZERO;	// 位置
 			do { // END_TRANSを読み込むまでループ
 
 				// 文字列を読み込む

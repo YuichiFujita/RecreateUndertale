@@ -59,7 +59,8 @@ public:
 	static CListManager<CPlayer> *GetList(void);		// リスト取得
 
 	// メンバ関数
-	D3DXVECTOR3 GetOldPosition(void) const { return m_oldPos; }	// 過去位置取得
+	void TransRoom(const D3DXVECTOR3& rPos, const EAngle angle);	// 部屋遷移
+	D3DXVECTOR3 GetOldPosition(void) const	{ return m_oldPos; }	// 過去位置取得
 
 private:
 	// メンバ関数

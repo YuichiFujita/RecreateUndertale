@@ -9,6 +9,7 @@
 //************************************************************
 #include "player.h"
 #include "manager.h"
+#include "camera.h"
 #include "playerState.h"
 
 //************************************************************
@@ -211,6 +212,21 @@ CListManager<CPlayer> *CPlayer::GetList(void)
 {
 	// オブジェクトリストを返す
 	return m_pList;
+}
+
+//============================================================
+//	部屋の遷移処理
+//============================================================
+void CPlayer::TransRoom(const D3DXVECTOR3& rPos, const EAngle angle)
+{
+	// 引数位置を設定
+	SetVec3Position(rPos);
+
+	// 引数方向の待機モーションを設定
+	SetMotion(angle);
+
+	// 追従カメラの初期化
+	GET_MANAGER->GetCamera()->InitFollow();
 }
 
 //============================================================
