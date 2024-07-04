@@ -220,6 +220,7 @@ CListManager<CPlayer> *CPlayer::GetList(void)
 void CPlayer::TransRoom(const D3DXVECTOR3& rPos, const EAngle angle)
 {
 	// 引数位置を設定
+	m_oldPos = rPos;
 	SetVec3Position(rPos);
 
 	// 引数方向の待機モーションを設定

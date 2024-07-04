@@ -399,10 +399,10 @@ HRESULT CStage::LoadSpawn(std::ifstream *pFile, std::string& rString)
 					*pFile >> str;	// 角度を読込
 
 					// 読み込んだ角度を保存
-					if		(str == "UP")	 { angle = ANGLE_UP; }		// 上角度
-					else if	(str == "DOWN")	 { angle = ANGLE_DOWN; }	// 下角度
-					else if	(str == "LEFT")	 { angle = ANGLE_LEFT; }	// 左角度
-					else if	(str == "RIGHT") { angle = ANGLE_RIGHT; }	// 右角度
+					if		(str == "UP")	 { angle = ANGLE_UP; }		// 上
+					else if	(str == "DOWN")	 { angle = ANGLE_DOWN; }	// 下
+					else if	(str == "LEFT")	 { angle = ANGLE_LEFT; }	// 左
+					else if	(str == "RIGHT") { angle = ANGLE_RIGHT; }	// 右
 				}
 			} while (str != "END_SPAWN");	// END_SPAWNを読み込むまでループ
 
