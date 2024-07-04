@@ -13,10 +13,10 @@
 #	RIGHT	ÅFêßå¿à íu (âE)
 #------------------------------------------------------------------------------
 LIMITSET
-	UP = 30.0
-	DOWN = -30.0
-	LEFT = -540.0
-	RIGHT = 540.0
+	UP = -30.0
+	DOWN = -390.0
+	LEFT = 0.0
+	RIGHT = 0.0
 END_LIMITSET
 
 #------------------------------------------------------------------------------
@@ -25,7 +25,7 @@ END_LIMITSET
 MAPSET
 	
 	MAP
-		TYPE = 1
+		TYPE = 2
 		POS = 0 0 0
 	END_MAP
 	
@@ -38,7 +38,12 @@ SPAWNSET
 	
 	SPAWN
 		PREV_ROOMPASS = data\ROOM\room004.txt
-		POS = -60 0 -1
+		POS = 0 -660 -1
+	END_SPAWN
+	
+	SPAWN
+		PREV_ROOMPASS = data\ROOM\room006.txt
+		POS = 0 -60 -1
 	END_SPAWN
 	
 END_SPAWNSET
@@ -50,7 +55,32 @@ TRANSSET
 	
 	TRANS
 		NEXT_ROOMPASS = data\ROOM\room004.txt
-		POS = 60 0 -1
+		POS = -90 -750 -1
+	END_TRANS
+	
+	TRANS
+		NEXT_ROOMPASS = data\ROOM\room004.txt
+		POS = -30 -750 -1
+	END_TRANS
+	
+	TRANS
+		NEXT_ROOMPASS = data\ROOM\room004.txt
+		POS = 30 -750 -1
+	END_TRANS
+	
+	TRANS
+		NEXT_ROOMPASS = data\ROOM\room004.txt
+		POS = 90 -750 -1
+	END_TRANS
+	
+	TRANS
+		NEXT_ROOMPASS = data\ROOM\room006.txt
+		POS = -30 30 -1
+	END_TRANS
+	
+	TRANS
+		NEXT_ROOMPASS = data\ROOM\room006.txt
+		POS = 30 30 -1
 	END_TRANS
 	
 END_TRANSSET

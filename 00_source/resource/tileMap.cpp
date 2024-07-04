@@ -17,7 +17,9 @@ namespace
 	const char *TEXTURE_FILE[] =	// テクスチャファイル
 	{
 		nullptr,	// テクスチャなし
-		"data\\TEXTURE\\RUINS\\spr_fallpoint.png",	// 初期落下地点
+		"data\\TEXTURE\\RUINS\\spr_fallpoint.png",		// 初期落下地点
+		"data\\TEXTURE\\RUINS\\spr_ruinsgate.png",		// ルインズ入口前
+		"data\\TEXTURE\\RUINS\\spr_ruinsstairs.png",	// ルインズ大階段
 	};
 	const int PRIORITY = 3;	// マップタイルの優先順位
 }
@@ -34,7 +36,7 @@ static_assert(NUM_ARRAY(TEXTURE_FILE) == CTileMap::TYPE_MAX, "ERROR : Type Count
 //	コンストラクタ
 //============================================================
 CTileMap::CTileMap() : CObject3D(CObject::LABEL_TILE, CObject::DIM_3D, PRIORITY),
-	m_type((EType)0)	// 種類
+	m_type	((EType)0)	// 種類
 {
 
 }
@@ -148,5 +150,15 @@ void CTileMap::SetType(const EType type)
 	{
 		// 大きさを設定
 		SetVec3Sizing(D3DXVECTOR3(SIZE_TILE * 34.0f, SIZE_TILE * 13.0f, 0.0f));	// TODO：どうにかしよう
+	}
+	if (m_type == TYPE_RUINS_GATE)
+	{
+		// 大きさを設定
+		SetVec3Sizing(D3DXVECTOR3(SIZE_TILE * 16.0f, SIZE_TILE * 17.0f, 0.0f));	// TODO：どうにかしよう
+	}
+	if (m_type == TYPE_RUINS_STAIRS)
+	{
+		// 大きさを設定
+		SetVec3Sizing(D3DXVECTOR3(SIZE_TILE * 14.0f, SIZE_TILE * 6.4f, 0.0f));	// TODO：どうにかしよう
 	}
 }

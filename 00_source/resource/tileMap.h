@@ -27,6 +27,8 @@ public:
 	{
 		TYPE_NONE = 0,		// テクスチャ無し
 		TYPE_FALL_POINT,	// 初期落下地点
+		TYPE_RUINS_GATE,	// ルインズ入口前
+		TYPE_RUINS_STAIRS,	// ルインズ大階段
 		TYPE_MAX			// この列挙型の総数
 	};
 

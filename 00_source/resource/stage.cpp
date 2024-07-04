@@ -236,48 +236,47 @@ HRESULT CStage::LoadLimit(std::ifstream *pFile, std::string& rString)
 	// ファイルストリームが未設定の場合抜ける
 	if (pFile == nullptr) { assert(false); return E_FAIL; }
 
+	// 読込開始位置ではない場合抜ける
+	if (rString != "LIMITSET") { return S_OK; }
+
 	// ステージ範囲の設定
-	if (rString == "LIMITSET")
-	{
-		SLimit limit;		// ステージ範囲の代入用
-		std::string str;	// 読込文字列
+	std::string str;	// 読込文字列
+	SLimit limit;		// ステージ範囲の代入用
+	do { // END_LIMITSETを読み込むまでループ
 
-		do { // END_LIMITSETを読み込むまでループ
+		// 文字列を読み込む
+		*pFile >> str;
 
-			// 文字列を読み込む
-			*pFile >> str;
+		if (str.front() == '#')
+		{ // コメントアウトされている場合
 
-			if (str.front() == '#')
-			{ // コメントアウトされている場合
+			// 一行全て読み込む
+			std::getline(*pFile, str);
+		}
+		else if (str == "UP")
+		{
+			*pFile >> str;			// ＝を読込
+			*pFile >> limit.fUp;	// 上位置を読込
+		}
+		else if (str == "DOWN")
+		{
+			*pFile >> str;			// ＝を読込
+			*pFile >> limit.fDown;	// 下位置を読込
+		}
+		else if (str == "LEFT")
+		{
+			*pFile >> str;			// ＝を読込
+			*pFile >> limit.fLeft;	// 左位置を読込
+		}
+		else if (str == "RIGHT")
+		{
+			*pFile >> str;			// ＝を読込
+			*pFile >> limit.fRight;	// 右位置を読込
+		}
+	} while (str != "END_LIMITSET");	// END_LIMITSETを読み込むまでループ
 
-				// 一行全て読み込む
-				std::getline(*pFile, str);
-			}
-			else if (str == "UP")
-			{
-				*pFile >> str;			// ＝を読込
-				*pFile >> limit.fUp;	// 上位置を読込
-			}
-			else if (str == "DOWN")
-			{
-				*pFile >> str;			// ＝を読込
-				*pFile >> limit.fDown;	// 下位置を読込
-			}
-			else if (str == "LEFT")
-			{
-				*pFile >> str;			// ＝を読込
-				*pFile >> limit.fLeft;	// 左位置を読込
-			}
-			else if (str == "RIGHT")
-			{
-				*pFile >> str;			// ＝を読込
-				*pFile >> limit.fRight;	// 右位置を読込
-			}
-		} while (str != "END_LIMITSET");	// END_LIMITSETを読み込むまでループ
-
-		// ステージ範囲の設定
-		SetLimit(limit);
-	}
+	// ステージ範囲の設定
+	SetLimit(limit);
 
 	// 成功を返す
 	return S_OK;
@@ -291,47 +290,55 @@ HRESULT CStage::LoadMap(std::ifstream *pFile, std::string& rString)
 	// ファイルストリームが未設定の場合抜ける
 	if (pFile == nullptr) { assert(false); return E_FAIL; }
 
+	// 読込開始位置ではない場合抜ける
+	if (rString != "MAPSET") { return S_OK; }
+
 	// マップタイルの設定
-	if (rString == "MAPSET")
-	{
-		std::string str;	// 読込文字列
-		int nType = 0;		// 種類
-		D3DXVECTOR3 pos = VEC3_ZERO;	// 位置
+	std::string str;	// 読込文字列
+	do { // END_MAPSETを読み込むまでループ
 
-		do { // END_MAPSETを読み込むまでループ
+		// 文字列を読み込む
+		*pFile >> str;
 
-			// 文字列を読み込む
-			*pFile >> str;
+		if (str == "MAP")
+		{
+			D3DXVECTOR3 pos = VEC3_ZERO;	// 位置
+			int nType = 0;					// 種類
+			do { // END_MAPを読み込むまでループ
 
-			if (str.front() == '#')
-			{ // コメントアウトされている場合
+				// 文字列を読み込む
+				*pFile >> str;
 
-				// 一行全て読み込む
-				std::getline(*pFile, str);
+				if (str.front() == '#')
+				{ // コメントアウトされている場合
+
+					// 一行全て読み込む
+					std::getline(*pFile, str);
+				}
+				else if (str == "TYPE")
+				{
+					*pFile >> str;		// ＝を読込
+					*pFile >> nType;	// 種類を読込
+				}
+				else if (str == "POS")
+				{
+					*pFile >> str;		// ＝を読込
+					*pFile >> pos.x;	// 位置Xを読込
+					*pFile >> pos.y;	// 位置Yを読込
+					*pFile >> pos.z;	// 位置Zを読込
+				}
+			} while (str != "END_MAP");	// END_MAPを読み込むまでループ
+
+			// マップタイルの生成
+			if (CTileMap::Create((CTileMap::EType)nType, pos) == nullptr)
+			{ // 生成に失敗した場合
+
+				// 失敗を返す
+				assert(false);
+				return E_FAIL;
 			}
-			else if (str == "TYPE")
-			{
-				*pFile >> str;		// ＝を読込
-				*pFile >> nType;	// 種類を読込
-			}
-			else if (str == "POS")
-			{
-				*pFile >> str;		// ＝を読込
-				*pFile >> pos.x;	// 位置Xを読込
-				*pFile >> pos.y;	// 位置Yを読込
-				*pFile >> pos.z;	// 位置Zを読込
-			}
-		} while (str != "END_MAPSET");	// END_MAPSETを読み込むまでループ
-
-		// マップタイルの生成
-		if (CTileMap::Create((CTileMap::EType)nType, pos) == nullptr)
-		{ // 生成に失敗した場合
-
-			// 失敗を返す
-			assert(false);
-			return E_FAIL;
 		}
-	}
+	} while (str != "END_MAPSET");	// END_MAPSETを読み込むまでループ
 
 	// 成功を返す
 	return S_OK;
@@ -345,60 +352,67 @@ HRESULT CStage::LoadSpawn(std::ifstream *pFile, std::string& rString)
 	// ファイルストリームが未設定の場合抜ける
 	if (pFile == nullptr) { assert(false); return E_FAIL; }
 
+	// 読込開始位置ではない場合抜ける
+	if (rString != "SPAWNSET") { return S_OK; }
+
 	// 出現タイルの設定
-	if (rString == "SPAWNSET")
-	{
-		std::string str;	// 読込文字列
-		std::string pass;	// 遷移元ルームパス
-		D3DXVECTOR3 pos = VEC3_ZERO;	// 位置
+	std::string str;	// 読込文字列
+	do { // END_SPAWNSETを読み込むまでループ
 
-		do { // END_SPAWNSETを読み込むまでループ
+		// 文字列を読み込む
+		*pFile >> str;
 
-			// 文字列を読み込む
-			*pFile >> str;
+		if (str == "SPAWN")
+		{
+			D3DXVECTOR3 pos = VEC3_ZERO;	// 位置
+			std::string passPrev;			// 遷移元ルームパス
+			do { // END_SPAWNを読み込むまでループ
 
-			if (str.front() == '#')
-			{ // コメントアウトされている場合
+				// 文字列を読み込む
+				*pFile >> str;
 
-				// 一行全て読み込む
-				std::getline(*pFile, str);
+				if (str.front() == '#')
+				{ // コメントアウトされている場合
+
+					// 一行全て読み込む
+					std::getline(*pFile, str);
+				}
+				else if (str == "PREV_ROOMPASS")
+				{
+					*pFile >> str;		// ＝を読込
+					*pFile >> passPrev;	// 遷移元のルームパスを読込
+
+					// ルームパスを標準化
+					useful::StandardizePathPart(&passPrev);
+				}
+				else if (str == "POS")
+				{
+					*pFile >> str;		// ＝を読込
+					*pFile >> pos.x;	// 位置Xを読込
+					*pFile >> pos.y;	// 位置Yを読込
+					*pFile >> pos.z;	// 位置Zを読込
+				}
+			} while (str != "END_SPAWN");	// END_SPAWNを読み込むまでループ
+
+			// 出現タイルの生成
+			if (CTileSpawn::Create(passPrev.c_str(), pos) == nullptr)
+			{ // 生成に失敗した場合
+
+				// 失敗を返す
+				assert(false);
+				return E_FAIL;
 			}
-			else if (str == "PREV_ROOMPASS")
-			{
-				*pFile >> str;		// ＝を読込
-				*pFile >> pass;		// 遷移元のルームパスを読込
 
-				// ルームパスを標準化
-				useful::StandardizePathPart(&pass);
+			// プレイヤー出現先の設定
+			if (passPrev == m_sPrevRoomPass)
+			{ // タイルの読込パスとルームの遷移元パスが同じ場合
+
+				// TODO
+				CSceneGame::GetPlayer()->SetVec3Position(pos);
+				GET_MANAGER->GetCamera()->InitFollow();
 			}
-			else if (str == "POS")
-			{
-				*pFile >> str;		// ＝を読込
-				*pFile >> pos.x;	// 位置Xを読込
-				*pFile >> pos.y;	// 位置Yを読込
-				*pFile >> pos.z;	// 位置Zを読込
-			}
-		} while (str != "END_SPAWNSET");	// END_SPAWNSETを読み込むまでループ
-
-		// 出現タイルの生成
-		if (CTileSpawn::Create(pass.c_str(), pos) == nullptr)
-		{ // 生成に失敗した場合
-
-			// 失敗を返す
-			assert(false);
-			return E_FAIL;
 		}
-
-		// プレイヤー出現先の設定
-		if (pass == m_sPrevRoomPass)
-		{ // タイルの読込パスとルームの遷移元パスが同じ場合
-
-			// TODO
-			CSceneGame::GetPlayer()->SetVec3Position(pos);
-
-			GET_MANAGER->GetCamera()->InitFollow();
-		}
-	}
+	} while (str != "END_SPAWNSET");	// END_SPAWNSETを読み込むまでループ
 
 	// 成功を返す
 	return S_OK;
@@ -412,50 +426,58 @@ HRESULT CStage::LoadTrans(std::ifstream *pFile, std::string& rString)
 	// ファイルストリームが未設定の場合抜ける
 	if (pFile == nullptr) { assert(false); return E_FAIL; }
 
+	// 読込開始位置ではない場合抜ける
+	if (rString != "TRANSSET") { return S_OK; }
+
 	// 遷移タイルの設定
-	if (rString == "TRANSSET")
-	{
-		std::string str;	// 読込文字列
-		std::string pass;	// 遷移先ルームパス
-		D3DXVECTOR3 pos = VEC3_ZERO;	// 位置
+	std::string str;	// 読込文字列
+	do { // END_TRANSSETを読み込むまでループ
 
-		do { // END_TRANSSETを読み込むまでループ
+		// 文字列を読み込む
+		*pFile >> str;
 
-			// 文字列を読み込む
-			*pFile >> str;
+		if (str == "TRANS")
+		{
+			D3DXVECTOR3 pos = VEC3_ZERO;	// 位置
+			std::string passNext;			// 遷移先ルームパス
+			do { // END_TRANSを読み込むまでループ
 
-			if (str.front() == '#')
-			{ // コメントアウトされている場合
+				// 文字列を読み込む
+				*pFile >> str;
 
-				// 一行全て読み込む
-				std::getline(*pFile, str);
+				if (str.front() == '#')
+				{ // コメントアウトされている場合
+
+					// 一行全て読み込む
+					std::getline(*pFile, str);
+				}
+				else if (str == "NEXT_ROOMPASS")
+				{
+					*pFile >> str;		// ＝を読込
+					*pFile >> passNext;	// 遷移先のルームパスを読込
+
+					// ルームパスを標準化
+					useful::StandardizePathPart(&passNext);
+				}
+				else if (str == "POS")
+				{
+					*pFile >> str;		// ＝を読込
+					*pFile >> pos.x;	// 位置Xを読込
+					*pFile >> pos.y;	// 位置Yを読込
+					*pFile >> pos.z;	// 位置Zを読込
+				}
+			} while (str != "END_TRANS");	// END_TRANSを読み込むまでループ
+
+			// 遷移タイルの生成
+			if (CTileTrans::Create(passNext.c_str(), pos) == nullptr)
+			{ // 生成に失敗した場合
+
+				// 失敗を返す
+				assert(false);
+				return E_FAIL;
 			}
-			else if (str == "NEXT_ROOMPASS")
-			{
-				*pFile >> str;		// ＝を読込
-				*pFile >> pass;		// 遷移先のルームパスを読込
-
-				// ルームパスを標準化
-				useful::StandardizePathPart(&pass);
-			}
-			else if (str == "POS")
-			{
-				*pFile >> str;		// ＝を読込
-				*pFile >> pos.x;	// 位置Xを読込
-				*pFile >> pos.y;	// 位置Yを読込
-				*pFile >> pos.z;	// 位置Zを読込
-			}
-		} while (str != "END_TRANSSET");	// END_TRANSSETを読み込むまでループ
-
-		// 遷移タイルの生成
-		if (CTileTrans::Create(pass.c_str(), pos) == nullptr)
-		{ // 生成に失敗した場合
-
-			// 失敗を返す
-			assert(false);
-			return E_FAIL;
 		}
-	}
+	} while (str != "END_TRANSSET");	// END_TRANSSETを読み込むまでループ
 
 	// 成功を返す
 	return S_OK;
