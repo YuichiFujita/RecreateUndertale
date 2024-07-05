@@ -71,6 +71,9 @@ public:
 	static void Release(CInputKeyboard *&pKeyboard);				// 破棄
 
 	// メンバ関数
+	void InitPress(void);		// プレス初期化
+	void InitTrigger(void);		// トリガー初期化
+	void InitRelease(void);		// リリース初期化
 	bool IsPress(int nKey);		// プレス取得
 	bool IsTrigger(int nKey);	// トリガー取得
 	bool IsRelease(int nKey);	// リリース取得
@@ -203,7 +206,6 @@ public:
 	bool IsAnyPress(int nPadID = 0);	// 全プレス取得		(ボタン)
 	bool IsAnyTrigger(int nPadID = 0);	// 全トリガー取得	(ボタン)
 	bool IsAnyRelease(int nPadID = 0);	// 全リリース取得	(ボタン)
-
 	void InitPress(int nPadID = 0);		// プレス初期化		(ボタン)
 	void InitTrigger(int nPadID = 0);	// トリガー初期化	(ボタン)
 	void InitRelease(int nPadID = 0);	// リリース初期化	(ボタン)

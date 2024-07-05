@@ -26,7 +26,7 @@
 //************************************************************
 namespace
 {
-	const char *INIT_PASS = "data\\ROOM\\room004.txt";	// セットアップテキスト相対パス
+	const char *INIT_PASS = "data\\ROOM\\room004.txt";	// セットアップテキスト相対パス	// TODO：この定数を外部読み込みできるようにしないと
 }
 
 //************************************************************
@@ -66,6 +66,9 @@ HRESULT CStage::Init(void)
 		return E_FAIL;
 	}
 
+	// 割り当てたステージを保存
+	m_sNextRoomPass = INIT_PASS;
+
 	// 成功を返す
 	return S_OK;
 }
@@ -103,7 +106,7 @@ void CStage::SetFadeRoom(const char *pRoomPass)
 	CFade *pFade = GET_MANAGER->GetFade();	// フェード情報
 
 	// ルームパスの保存
-	m_sPrevRoomPass = m_sNextRoomPass;	// 遷移元	// TODO：初期化時に次のルームを初期ルームにしてあげないと壊れる
+	m_sPrevRoomPass = m_sNextRoomPass;	// 遷移元
 	m_sNextRoomPass = pRoomPass;		// 遷移先
 
 	// 遷移先ルームの設定
@@ -159,6 +162,11 @@ HRESULT CStage::BindStage(const char *pStagePass)
 {
 	// ラベルタイルのオブジェクト全破棄
 	CObject::ReleaseAll(CObject::LABEL_TILE);
+
+	// TODO：後で消す
+	CTileColl::Create(CTileColl::TYPE_TRIANGLE,	D3DXVECTOR3(SIZE_TILE * -2.0f, SIZE_TILE * 2.0f, -1.0f));
+	CTileColl::Create(CTileColl::TYPE_BOX,		D3DXVECTOR3(SIZE_TILE *  0.0f, SIZE_TILE * 2.0f, -1.0f));
+	CTileColl::Create(CTileColl::TYPE_TRIANGLE,	D3DXVECTOR3(SIZE_TILE *  2.0f, SIZE_TILE * 2.0f, -1.0f));
 
 	// ファイルを開く
 	std::ifstream file(pStagePass);	// ファイルストリーム
@@ -366,7 +374,7 @@ HRESULT CStage::LoadSpawn(std::ifstream *pFile, std::string& rString)
 		{
 			std::string passPrev;			// 遷移元ルームパス
 			D3DXVECTOR3 pos = VEC3_ZERO;	// 位置
-			EAngle angle = (EAngle)0;		// 角度
+			CPlayer::EAngle angle = (CPlayer::EAngle)0;	// 角度
 			do { // END_SPAWNを読み込むまでループ
 
 				// 文字列を読み込む
@@ -399,10 +407,10 @@ HRESULT CStage::LoadSpawn(std::ifstream *pFile, std::string& rString)
 					*pFile >> str;	// 角度を読込
 
 					// 読み込んだ角度を保存
-					if		(str == "UP")	 { angle = ANGLE_UP; }		// 上
-					else if	(str == "DOWN")	 { angle = ANGLE_DOWN; }	// 下
-					else if	(str == "LEFT")	 { angle = ANGLE_LEFT; }	// 左
-					else if	(str == "RIGHT") { angle = ANGLE_RIGHT; }	// 右
+					if		(str == "UP")	 { angle = CPlayer::ANGLE_UP; }		// 上
+					else if	(str == "DOWN")	 { angle = CPlayer::ANGLE_DOWN; }	// 下
+					else if	(str == "LEFT")	 { angle = CPlayer::ANGLE_LEFT; }	// 左
+					else if	(str == "RIGHT") { angle = CPlayer::ANGLE_RIGHT; }	// 右
 				}
 			} while (str != "END_SPAWN");	// END_SPAWNを読み込むまでループ
 

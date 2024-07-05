@@ -27,6 +27,16 @@ class CPlayerState;	// プレイヤー状態クラス
 class CPlayer : public CObjectChara2D
 {
 public:
+	// 角度列挙
+	enum EAngle
+	{
+		ANGLE_UP = 0,	// 上
+		ANGLE_DOWN,		// 下
+		ANGLE_LEFT,		// 左
+		ANGLE_RIGHT,	// 右
+		ANGLE_MAX		// この列挙型の総数
+	};
+
 	// モーション列挙
 	enum EMotion
 	{
@@ -61,6 +71,8 @@ public:
 	// メンバ関数
 	void TransRoom(const D3DXVECTOR3& rPos, const EAngle angle);	// 部屋遷移
 	D3DXVECTOR3 GetOldPosition(void) const	{ return m_oldPos; }	// 過去位置取得
+	void SetAngle(const EAngle angle)		{ m_angle = angle; }	// 向き設定
+	EAngle GetAngle(void) const				{ return m_angle; }		// 向き取得
 
 private:
 	// メンバ関数
@@ -74,6 +86,7 @@ private:
 	CListManager<CPlayer>::AIterator m_iterator;	// イテレーター
 	CPlayerState *m_pState;	// 状態
 	D3DXVECTOR3	m_oldPos;	// 過去位置
+	EAngle m_angle;			// 向き
 };
 
 #endif	// _PLAYER_H_

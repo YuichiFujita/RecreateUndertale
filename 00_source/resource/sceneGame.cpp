@@ -87,10 +87,6 @@ HRESULT CSceneGame::Init(void)
 #if 1
 	// TODO
 	CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, -1.0f));
-
-	CTileColl::Create(CTileColl::TYPE_TRIANGLE, D3DXVECTOR3(SIZE_TILE * 0.0f, SIZE_TILE * 4.0f, -2.0f));
-	//CTileColl::Create(CTileColl::TYPE_BOX, D3DXVECTOR3(SIZE_TILE * 1.0f, SIZE_TILE * 3.0f, -2.0f));
-	//CTileColl::Create(CTileColl::TYPE_TRIANGLE, D3DXVECTOR3(SIZE_TILE * 2.0f, SIZE_TILE * 3.0f, -2.0f));
 #endif
 
 	// ステージの生成

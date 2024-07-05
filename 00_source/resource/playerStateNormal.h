@@ -39,8 +39,7 @@ private:
 	void UpdatePosition(D3DXVECTOR3& rPos, const float fDeltaTime);	// 位置更新
 
 	// メンバ変数
-	D3DXVECTOR3	m_move;	// 移動量
-	EAngle m_moveAngle;	// 移動方向
+	D3DXVECTOR3 m_move;	// 移動量
 };
 
 #endif	// _PLAYER_STATE_NORMAL_H_

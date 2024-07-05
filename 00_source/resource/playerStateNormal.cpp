@@ -30,9 +30,7 @@ namespace
 //	コンストラクタ
 //============================================================
 CPlayerStateNormal::CPlayerStateNormal() :
-	m_move		(VEC3_ZERO),	// 移動量
-	m_moveAngle	((EAngle)0)		// 移動方向
-
+	m_move	(VEC3_ZERO)	// 移動量
 {
 
 }
@@ -51,8 +49,7 @@ CPlayerStateNormal::~CPlayerStateNormal()
 HRESULT CPlayerStateNormal::Init(void)
 {
 	// メンバ変数を初期化
-	m_move		= VEC3_ZERO;	// 移動量
-	m_moveAngle	= ANGLE_DOWN;	// 移動方向
+	m_move = VEC3_ZERO;	// 移動量
 
 	// 成功を返す
 	return S_OK;
@@ -101,6 +98,9 @@ int CPlayerStateNormal::Update(const float fDeltaTime)
 //============================================================
 int CPlayerStateNormal::ControlMove(void)
 {
+	CPlayer::EAngle angle = m_pContext->GetAngle();			// 向き
+	CPlayer::EMotion curMotion = (CPlayer::EMotion)angle;	// 現在のモーション
+
 	if (GET_INPUTKEY->IsPress(DIK_UP))
 	{
 		if (GET_INPUTKEY->IsPress(DIK_LEFT))
@@ -109,9 +109,9 @@ int CPlayerStateNormal::ControlMove(void)
 			m_move.x += sinf(-D3DX_PI * 0.25f) * MOVE;
 			m_move.y += cosf(-D3DX_PI * 0.25f) * MOVE;
 
-			// 前回の移動方向に応じてモーションを返す
-			if (m_moveAngle == ANGLE_LEFT)	{ return CPlayer::MOTION_MOVE_L; }	// 前回が左移動なら左移動モーション
-			else							{ return CPlayer::MOTION_MOVE_U; }	// それ以外なら上移動モーション
+			// 前回の移動方向に応じてモーションを保存
+			if (angle == CPlayer::ANGLE_LEFT)	{ curMotion = CPlayer::MOTION_MOVE_L; }	// 前回が左移動なら左移動モーション
+			else								{ curMotion = CPlayer::MOTION_MOVE_U; }	// それ以外なら上移動モーション
 		}
 		else if (GET_INPUTKEY->IsPress(DIK_RIGHT))
 		{
@@ -119,9 +119,9 @@ int CPlayerStateNormal::ControlMove(void)
 			m_move.x -= sinf(-D3DX_PI * 0.75f) * MOVE;
 			m_move.y -= cosf(-D3DX_PI * 0.75f) * MOVE;
 
-			// 前回の移動方向に応じてモーションを返す
-			if (m_moveAngle == ANGLE_RIGHT)	{ return CPlayer::MOTION_MOVE_R; }	// 前回が右移動なら右移動モーション
-			else							{ return CPlayer::MOTION_MOVE_U; }	// それ以外なら上移動モーション
+			// 前回の移動方向に応じてモーションを保存
+			if (angle == CPlayer::ANGLE_RIGHT)	{ curMotion = CPlayer::MOTION_MOVE_R; }	// 前回が右移動なら右移動モーション
+			else								{ curMotion = CPlayer::MOTION_MOVE_U; }	// それ以外なら上移動モーション
 		}
 		else
 		{
@@ -130,10 +130,10 @@ int CPlayerStateNormal::ControlMove(void)
 			m_move.y += cosf(0.0f) * MOVE;
 
 			// 上移動を保存
-			m_moveAngle = ANGLE_UP;
+			angle = CPlayer::ANGLE_UP;
 
-			// 上移動モーションを返す
-			return CPlayer::MOTION_MOVE_U;
+			// 上移動モーションを保存
+			curMotion = CPlayer::MOTION_MOVE_U;
 		}
 	}
 	else if (GET_INPUTKEY->IsPress(DIK_DOWN))
@@ -144,9 +144,9 @@ int CPlayerStateNormal::ControlMove(void)
 			m_move.x += sinf(-D3DX_PI * 0.75f) * MOVE;
 			m_move.y += cosf(-D3DX_PI * 0.75f) * MOVE;
 
-			// 前回の移動方向に応じてモーションを返す
-			if (m_moveAngle == ANGLE_LEFT)	{ return CPlayer::MOTION_MOVE_L; }	// 前回が左移動なら左移動モーション
-			else							{ return CPlayer::MOTION_MOVE_D; }	// それ以外なら下移動モーション
+			// 前回の移動方向に応じてモーションを保存
+			if (angle == CPlayer::ANGLE_LEFT)	{ curMotion = CPlayer::MOTION_MOVE_L; }	// 前回が左移動なら左移動モーション
+			else								{ curMotion = CPlayer::MOTION_MOVE_D; }	// それ以外なら下移動モーション
 		}
 		else if (GET_INPUTKEY->IsPress(DIK_RIGHT))
 		{
@@ -154,9 +154,9 @@ int CPlayerStateNormal::ControlMove(void)
 			m_move.x -= sinf(-D3DX_PI * 0.25f) * MOVE;
 			m_move.y -= cosf(-D3DX_PI * 0.25f) * MOVE;
 
-			// 前回の移動方向に応じてモーションを返す
-			if (m_moveAngle == ANGLE_RIGHT)	{ return CPlayer::MOTION_MOVE_R; }	// 前回が右移動なら右移動モーション
-			else							{ return CPlayer::MOTION_MOVE_D; }	// それ以外なら下移動モーション
+			// 前回の移動方向に応じてモーションを保存
+			if (angle == CPlayer::ANGLE_RIGHT)	{ curMotion = CPlayer::MOTION_MOVE_R; }	// 前回が右移動なら右移動モーション
+			else								{ curMotion = CPlayer::MOTION_MOVE_D; }	// それ以外なら下移動モーション
 		}
 		else
 		{
@@ -165,10 +165,10 @@ int CPlayerStateNormal::ControlMove(void)
 			m_move.y -= cosf(0.0f) * MOVE;
 
 			// 下移動を保存
-			m_moveAngle = ANGLE_DOWN;
+			angle = CPlayer::ANGLE_DOWN;
 
-			// 下移動モーションを返す
-			return CPlayer::MOTION_MOVE_D;
+			// 下移動モーションを保存
+			curMotion = CPlayer::MOTION_MOVE_D;
 		}
 	}
 	else if (GET_INPUTKEY->IsPress(DIK_LEFT))
@@ -178,10 +178,10 @@ int CPlayerStateNormal::ControlMove(void)
 		m_move.y += cosf(-D3DX_PI * 0.5f) * MOVE;
 
 		// 左移動を保存
-		m_moveAngle = ANGLE_LEFT;
+		angle = CPlayer::ANGLE_LEFT;
 
-		// 左移動モーションを返す
-		return CPlayer::MOTION_MOVE_L;
+		// 左移動モーションを保存
+		curMotion = CPlayer::MOTION_MOVE_L;
 	}
 	else if (GET_INPUTKEY->IsPress(DIK_RIGHT))
 	{
@@ -190,14 +190,17 @@ int CPlayerStateNormal::ControlMove(void)
 		m_move.y -= cosf(-D3DX_PI * 0.5f) * MOVE;
 
 		// 右移動を保存
-		m_moveAngle = ANGLE_RIGHT;
+		angle = CPlayer::ANGLE_RIGHT;
 
-		// 右移動モーションを返す
-		return CPlayer::MOTION_MOVE_R;
+		// 右移動モーションを保存
+		curMotion = CPlayer::MOTION_MOVE_R;
 	}
 
-	// 前回移動した方向の待機モーションを返す
-	return (CPlayer::EMotion)m_moveAngle;
+	// 向きを反映
+	m_pContext->SetAngle(angle);
+
+	// 現在のモーションを返す
+	return curMotion;
 }
 
 //============================================================

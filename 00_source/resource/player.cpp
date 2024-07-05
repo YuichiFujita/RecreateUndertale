@@ -33,8 +33,9 @@ CListManager<CPlayer> *CPlayer::m_pList = nullptr;	// オブジェクトリスト
 //	コンストラクタ
 //============================================================
 CPlayer::CPlayer() : CObjectChara2D(CObject::LABEL_PLAYER, CObject::DIM_3D, PRIORITY),
-	m_pState	(nullptr),	// 状態
-	m_oldPos	(VEC3_ZERO)	// 過去位置
+	m_pState	(nullptr),		// 状態
+	m_oldPos	(VEC3_ZERO),	// 過去位置
+	m_angle		((EAngle)0)		// 向き
 {
 
 }
@@ -55,6 +56,7 @@ HRESULT CPlayer::Init(void)
 	// メンバ変数を初期化
 	m_pState = nullptr;		// 状態
 	m_oldPos = VEC3_ZERO;	// 過去位置
+	m_angle  = ANGLE_DOWN;	// 向き
 
 	// 通常状態にする
 	ChangeState(new CPlayerStateNormal);
@@ -224,6 +226,7 @@ void CPlayer::TransRoom(const D3DXVECTOR3& rPos, const EAngle angle)
 	SetVec3Position(rPos);
 
 	// 引数方向の待機モーションを設定
+	m_angle = angle;
 	SetMotion(angle);
 
 	// 追従カメラの初期化
