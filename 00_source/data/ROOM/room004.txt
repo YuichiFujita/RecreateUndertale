@@ -44,7 +44,7 @@ SPAWNSET
 	
 	SPAWN
 		PREV_ROOMPASS = data\ROOM\room005.txt
-		POS = 830 -150 -1
+		POS = 830 -90 -1
 		ANGLE = DOWN
 	END_SPAWN
 	

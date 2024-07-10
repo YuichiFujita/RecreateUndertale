@@ -77,6 +77,9 @@ public:
 	float GetPositionHeight(const D3DXVECTOR3&rPos);				// ポリゴンの着地取得
 
 protected:
+	// 仮想関数
+	virtual void CalcDrawMatrix(void);	// 描画マトリックス計算
+
 	// メンバ関数
 	void SetVtx(void);	// 頂点情報の設定
 	void SetAnimTex		// アニメーションのテクスチャ座標の設定

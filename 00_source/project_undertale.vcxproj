@@ -166,6 +166,7 @@
     <ClCompile Include="resource\debugproc.cpp" />
     <ClCompile Include="resource\deltaTime.cpp" />
     <ClCompile Include="resource\effect2D.cpp" />
+    <ClCompile Include="resource\effect3D.cpp" />
     <ClCompile Include="resource\fade.cpp" />
     <ClCompile Include="resource\font.cpp" />
     <ClCompile Include="resource\fontChar.cpp" />
@@ -211,6 +212,7 @@
     <ClCompile Include="resource\objectModel.cpp" />
     <ClCompile Include="resource\objectTornado.cpp" />
     <ClCompile Include="resource\particle2D.cpp" />
+    <ClCompile Include="resource\particle3D.cpp" />
     <ClCompile Include="resource\pause.cpp" />
     <ClCompile Include="resource\player.cpp" />
     <ClCompile Include="resource\playerState.cpp" />
@@ -274,6 +276,7 @@
     <ClInclude Include="resource\debugproc.h" />
     <ClInclude Include="resource\deltaTime.h" />
     <ClInclude Include="resource\effect2D.h" />
+    <ClInclude Include="resource\effect3D.h" />
     <ClInclude Include="resource\fade.h" />
     <ClInclude Include="resource\font.h" />
     <ClInclude Include="resource\fontChar.h" />
@@ -319,6 +322,7 @@
     <ClInclude Include="resource\objectModel.h" />
     <ClInclude Include="resource\objectTornado.h" />
     <ClInclude Include="resource\particle2D.h" />
+    <ClInclude Include="resource\particle3D.h" />
     <ClInclude Include="resource\pause.h" />
     <ClInclude Include="resource\player.h" />
     <ClInclude Include="resource\playerState.h" />

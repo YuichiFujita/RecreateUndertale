@@ -151,25 +151,13 @@ void CObject3D::Update(const float fDeltaTime)
 //============================================================
 void CObject3D::Draw(CShader *pShader)
 {
-	// 変数を宣言
-	D3DXMATRIX mtxRot, mtxTrans;	// 計算用マトリックス
-
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// レンダーステートを設定
 	m_pRenderState->Set();
 
-	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&m_mtxWorld);
-
-	// 向きを反映
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
-
-	// 位置を反映
-	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
+	// 描画マトリックスの計算
+	CalcDrawMatrix();
 
 	// ワールドマトリックスの設定
 	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
@@ -535,6 +523,25 @@ float CObject3D::GetPositionHeight(const D3DXVECTOR3&rPos)
 
 	// 着地範囲外の場合現在のy座標を返す
 	return rPos.y;
+}
+
+//============================================================
+//	描画マトリックスの計算処理
+//============================================================
+void CObject3D::CalcDrawMatrix(void)
+{
+	D3DXMATRIX mtxRot, mtxTrans;	// 計算用マトリックス
+
+	// ワールドマトリックスの初期化
+	D3DXMatrixIdentity(&m_mtxWorld);
+
+	// 向きを反映
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
+	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
+
+	// 位置を反映
+	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
+	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
 }
 
 //============================================================

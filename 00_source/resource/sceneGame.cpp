@@ -85,7 +85,7 @@ HRESULT CSceneGame::Init(void)
 	}
 
 #if 1
-	// TODO
+	// TODO：プレイヤーの生成
 	CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, -1.0f));
 #endif
 

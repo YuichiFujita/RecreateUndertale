@@ -84,7 +84,7 @@ int CPlayerStateNormal::Update(const float fDeltaTime)
 
 	// TODO
 	// 遷移タイルとの当たり判定
-	CTileTrans::CollisionTile(posPlayer, (m_pContext->GetVec3Sizing() + D3DXVECTOR3(0.0f, 0.0f, 50.0f)) * 0.5f);
+	CTileTrans::CollisionTile(posPlayer, (m_pContext->GetVec3Sizing() + D3DXVECTOR3(0.0f, 0.0f, 50.0f)) * 0.5f);	// TODO：オーバーロードでthis渡すこともできるようにしよっか
 
 	// プレイヤー位置を反映
 	m_pContext->SetVec3Position(posPlayer);

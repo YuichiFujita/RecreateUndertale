@@ -372,6 +372,12 @@
     <ClCompile Include="resource\tileMap.cpp">
       <Filter>ingame\tile</Filter>
     </ClCompile>
+    <ClCompile Include="resource\effect3D.cpp">
+      <Filter>3D</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\particle3D.cpp">
+      <Filter>3D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h">
@@ -685,6 +691,12 @@
     </ClInclude>
     <ClInclude Include="resource\tileMap.h">
       <Filter>ingame\tile</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\effect3D.h">
+      <Filter>3D</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\particle3D.h">
+      <Filter>3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

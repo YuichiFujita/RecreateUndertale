@@ -12,6 +12,9 @@
 #include "renderer.h"
 #include "character2D.h"
 
+// TODO
+#include "effect3D.h"
+
 //************************************************************
 //	子クラス [CObjectChara2D] のメンバ関数
 //************************************************************
@@ -66,6 +69,20 @@ void CObjectChara2D::Update(const float fDeltaTime)
 	// モーションがない場合抜ける
 	if (m_info.vecMotion.empty()) { assert(false); return; }
 
+	// TODO：オフセット検証用
+#if 0
+	D3DXVECTOR3 r = GetVec3Rotation();
+	r.z += 0.01f;
+	SetVec3Rotation(r);
+#endif
+
+	// TODO：オフセット表示
+#if 1
+	CEffect3D::Create(GetVec3Position(), 15.0f);
+
+	CEffect3D::Create(GetOffsetPosition(), 5.0f);
+#endif
+
 	// アニメーション3Dの更新
 	CAnim3D::Update(fDeltaTime);
 }
@@ -75,8 +92,22 @@ void CObjectChara2D::Update(const float fDeltaTime)
 //============================================================
 void CObjectChara2D::Draw(CShader *pShader)
 {
+	// TODO：描画問題解決？
+#if 0
+	// オフセットを与えた位置を反映
+	D3DXVECTOR3 offsetON = GetVec3Position();	// 位置取得
+	SetVec3Position(offsetON + m_info.vecMotion[m_info.nType].infoChara.offsetOrigin);	// オフセットを加算し反映
+
 	// アニメーション3Dの描画
 	CAnim3D::Draw(pShader);
+
+	// 与えたオフセットを取り除き反映
+	D3DXVECTOR3 offsetOFF = GetVec3Position();	// 位置取得
+	SetVec3Position(offsetOFF - m_info.vecMotion[m_info.nType].infoChara.offsetOrigin);	// オフセットを減算し反映
+#else
+	// アニメーション3Dの描画
+	CAnim3D::Draw(pShader);
+#endif
 }
 
 //============================================================
@@ -222,4 +253,80 @@ bool CObjectChara2D::IsCombo(void) const
 
 	// コンボ不可を返す
 	return false;
+}
+
+// TODO
+void CObjectChara2D::SetOffsetPosition(const D3DXVECTOR3& rPos)
+{
+	D3DXVECTOR3 offset = m_info.vecMotion[m_info.nType].infoChara.offsetOrigin;	// オフセット
+	D3DXVECTOR3 rot = GetVec3Rotation();		// 向き
+	D3DXMATRIX mtxWorld, mtxRot, mtxOffset;		// 計算用マトリックス
+
+	// ワールドマトリックスの初期化
+	D3DXMatrixIdentity(&mtxWorld);
+
+	// オフセットを反映
+	D3DXMatrixTranslation(&mtxOffset, offset.x, offset.y, offset.z);
+	D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxOffset);
+
+	// 向きを反映
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, rot.y, rot.x, rot.z);
+	D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxRot);
+
+	// 設定位置からオフセットを
+	SetVec3Position(rPos - useful::GetMatrixPosition(mtxWorld));
+}
+
+// TODO
+D3DXVECTOR3 CObjectChara2D::GetOffsetPosition(void) const
+{
+	D3DXMATRIX mtxWorld, mtxRot, mtxTrans, mtxOffset;	// 計算用マトリックス
+	D3DXVECTOR3 offset = m_info.vecMotion[m_info.nType].infoChara.offsetOrigin;	// オフセット
+	D3DXVECTOR3 pos = GetVec3Position();	// 位置
+	D3DXVECTOR3 rot = GetVec3Rotation();	// 向き
+
+	// ワールドマトリックスの初期化
+	D3DXMatrixIdentity(&mtxWorld);
+
+	// オフセットを反映
+	D3DXMatrixTranslation(&mtxOffset, offset.x, offset.y, offset.z);
+	D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxOffset);
+
+	// 向きを反映
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, rot.y, rot.x, rot.z);
+	D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxRot);
+
+	// 位置を反映
+	D3DXMatrixTranslation(&mtxTrans, pos.x, pos.y, pos.z);
+	D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxTrans);
+
+	return useful::GetMatrixPosition(mtxWorld);
+}
+
+//============================================================
+//	描画マトリックスの計算処理
+//============================================================
+void CObjectChara2D::CalcDrawMatrix(void)
+{
+	D3DXMATRIX *pMtxWorld = GetPtrMtxWorld();	// ワールドマトリックス
+	D3DXMATRIX mtxRot, mtxTrans, mtxOffset;		// 計算用マトリックス
+
+	D3DXVECTOR3 offset = m_info.vecMotion[m_info.nType].infoChara.offsetOrigin;	// オフセット
+	D3DXVECTOR3 pos = GetVec3Position();	// 位置
+	D3DXVECTOR3 rot = GetVec3Rotation();	// 向き
+
+	// ワールドマトリックスの初期化
+	D3DXMatrixIdentity(pMtxWorld);
+
+	// オフセットを反映
+	D3DXMatrixTranslation(&mtxOffset, offset.x, offset.y, offset.z);
+	D3DXMatrixMultiply(pMtxWorld, pMtxWorld, &mtxOffset);
+
+	// 向きを反映
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, rot.y, rot.x, rot.z);
+	D3DXMatrixMultiply(pMtxWorld, pMtxWorld, &mtxRot);
+
+	// 位置を反映
+	D3DXMatrixTranslation(&mtxTrans, pos.x, pos.y, pos.z);
+	D3DXMatrixMultiply(pMtxWorld, pMtxWorld, &mtxTrans);
 }

@@ -314,6 +314,13 @@ HRESULT CCharacter2D::LoadMotionSetup(AMotion *pInfoChara, const char *pMotionPa
 				return E_FAIL;
 			}
 		}
+		else if (str == "OFFSET_ORIGIN")
+		{
+			file >> str;					// ＝を読込
+			file >> pChara->offsetOrigin.x;	// 原点オフセットXを読込
+			file >> pChara->offsetOrigin.y;	// 原点オフセットYを読込
+			file >> pChara->offsetOrigin.z;	// 原点オフセットZを読込
+		}
 		else if (str == "CHARA_SIZE")
 		{
 			file >> str;					// ＝を読込

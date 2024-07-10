@@ -33,10 +33,11 @@ public:
 	{
 		// コンストラクタ
 		SChara() :
-			ptrnTexture	(GRID2_ZERO),	// テクスチャ分割数
-			nMaxPtrn	(0),			// 最大パターン数
-			sizeChara	(VEC3_ZERO),	// キャラクター大きさ
-			bLoop		(false)			// ループON/OFF
+			ptrnTexture		(GRID2_ZERO),	// テクスチャ分割数
+			nMaxPtrn		(0),			// 最大パターン数
+			offsetOrigin	(VEC3_ZERO),	// 原点オフセット
+			sizeChara		(VEC3_ZERO),	// キャラクター大きさ
+			bLoop			(false)			// ループON/OFF
 		{
 			vecNextTime.clear();	// パターン変更時間配列をクリア
 			sPassTexture.clear();	// テクスチャパスをクリア
@@ -81,6 +82,7 @@ public:
 		std::string sPassTexture;		// テクスチャパス
 		POSGRID2 ptrnTexture;			// テクスチャ分割数
 		int nMaxPtrn;					// 最大パターン数
+		D3DXVECTOR3 offsetOrigin;		// 原点オフセット
 		D3DXVECTOR3 sizeChara;			// キャラクター大きさ
 		bool bLoop;						// ループON/OFF
 	};
@@ -140,7 +142,14 @@ public:
 	float GetCancelTime(const int nType) const	{ return m_info.vecMotion[nType].fCancelTime; }	// キャンセル時間取得
 	float GetComboTime(const int nType) const	{ return m_info.vecMotion[nType].fComboTime; }	// コンボ時間取得
 
+	// TODO
+	void SetOffsetPosition(const D3DXVECTOR3& rPos);	// 
+	D3DXVECTOR3 GetOffsetPosition(void) const;			// 
+
 private:
+	// オーバーライド関数
+	void CalcDrawMatrix(void) override;	// 描画マトリックス計算
+
 	// メンバ変数
 	SInfo m_info;	// モーション情報
 };
