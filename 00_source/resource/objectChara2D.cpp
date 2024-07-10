@@ -255,35 +255,13 @@ bool CObjectChara2D::IsCombo(void) const
 	return false;
 }
 
-// TODO
-void CObjectChara2D::SetOffsetPosition(const D3DXVECTOR3& rPos)
-{
-	D3DXVECTOR3 offset = m_info.vecMotion[m_info.nType].infoChara.offsetOrigin;	// オフセット
-	D3DXVECTOR3 rot = GetVec3Rotation();		// 向き
-	D3DXMATRIX mtxWorld, mtxRot, mtxOffset;		// 計算用マトリックス
-
-	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&mtxWorld);
-
-	// オフセットを反映
-	D3DXMatrixTranslation(&mtxOffset, offset.x, offset.y, offset.z);
-	D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxOffset);
-
-	// 向きを反映
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, rot.y, rot.x, rot.z);
-	D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxRot);
-
-	// 設定位置からオフセットを
-	SetVec3Position(rPos - useful::GetMatrixPosition(mtxWorld));
-}
-
-// TODO
-D3DXVECTOR3 CObjectChara2D::GetOffsetPosition(void) const
+//============================================================
+//	オフセット反映位置の計算処理
+//============================================================
+D3DXVECTOR3 CObjectChara2D::CalcOffsetPosition(const D3DXVECTOR3& rPos, const D3DXVECTOR3& rRot) const
 {
 	D3DXMATRIX mtxWorld, mtxRot, mtxTrans, mtxOffset;	// 計算用マトリックス
 	D3DXVECTOR3 offset = m_info.vecMotion[m_info.nType].infoChara.offsetOrigin;	// オフセット
-	D3DXVECTOR3 pos = GetVec3Position();	// 位置
-	D3DXVECTOR3 rot = GetVec3Rotation();	// 向き
 
 	// ワールドマトリックスの初期化
 	D3DXMatrixIdentity(&mtxWorld);
@@ -293,14 +271,27 @@ D3DXVECTOR3 CObjectChara2D::GetOffsetPosition(void) const
 	D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxOffset);
 
 	// 向きを反映
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, rot.y, rot.x, rot.z);
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, rRot.y, rRot.x, rRot.z);
 	D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxRot);
 
 	// 位置を反映
-	D3DXMatrixTranslation(&mtxTrans, pos.x, pos.y, pos.z);
+	D3DXMatrixTranslation(&mtxTrans, rPos.x, rPos.y, rPos.z);
 	D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxTrans);
 
+	// 算出したマトリックスの位置を返す
 	return useful::GetMatrixPosition(mtxWorld);
+}
+
+//============================================================
+//	オフセット反映位置の取得処理
+//============================================================
+D3DXVECTOR3 CObjectChara2D::GetOffsetPosition(void) const
+{
+	const D3DXVECTOR3& rPos = GetVec3Position();	// 位置
+	const D3DXVECTOR3& rRot = GetVec3Rotation();	// 向き
+
+	// オフセット反映位置の計算結果を返す
+	return CalcOffsetPosition(rPos, rRot);
 }
 
 //============================================================

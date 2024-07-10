@@ -142,9 +142,8 @@ public:
 	float GetCancelTime(const int nType) const	{ return m_info.vecMotion[nType].fCancelTime; }	// キャンセル時間取得
 	float GetComboTime(const int nType) const	{ return m_info.vecMotion[nType].fComboTime; }	// コンボ時間取得
 
-	// TODO
-	void SetOffsetPosition(const D3DXVECTOR3& rPos);	// 
-	D3DXVECTOR3 GetOffsetPosition(void) const;			// 
+	D3DXVECTOR3 CalcOffsetPosition(const D3DXVECTOR3& rPos, const D3DXVECTOR3& rRot) const;	// オフセット反映位置計算
+	D3DXVECTOR3 GetOffsetPosition(void) const;	// オフセット反映位置取得
 
 private:
 	// オーバーライド関数
