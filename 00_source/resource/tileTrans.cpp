@@ -12,10 +12,6 @@
 #include "sceneGame.h"
 #include "stage.h"
 
-// TODO
-#include "manager.h"
-#include "collision.h"
-
 //************************************************************
 //	定数宣言
 //************************************************************
@@ -174,8 +170,9 @@ CListManager<CTileTrans> *CTileTrans::GetList(void)
 //============================================================
 bool CTileTrans::CollisionTile
 (
-	D3DXVECTOR3& rPos,			// 位置
-	const D3DXVECTOR3& rSize	// 大きさ
+	D3DXVECTOR3& rPos,				// 位置
+	const D3DXVECTOR3& rSizeUp,		// 大きさ (右/上/後)
+	const D3DXVECTOR3& rSizeDown	// 大きさ (左/下/前)
 )
 {
 	// 遷移タイルがない場合抜ける
@@ -185,24 +182,23 @@ bool CTileTrans::CollisionTile
 	for (const auto& rList : list)
 	{ // 要素数分繰り返す
 
-		D3DXVECTOR3 posTile = rList->GetVec3Position();
-		D3DXVECTOR3 sizeTile = (rList->GetVec3Sizing() + D3DXVECTOR3(0.0f, 0.0f, 50.0f)) * 0.5f;
+		D3DXVECTOR3 posTile  = rList->GetVec3Position();		// タイル位置
+		D3DXVECTOR3 sizeTile = rList->GetVec3Sizing() * 0.5f;	// タイル大きさ
 
-		bool bHit = collision::Box3D
+		// XY平面の矩形の当たり判定
+		bool bHit = collision::BoxXY
 		( // 引数
-			rPos,
-			posTile,
-			rSize,
-			rSize,
-			sizeTile,
-			sizeTile
+			rPos,		// 判定位置
+			posTile,	// タイル位置
+			rSizeUp,	// 判定大きさ (右/上/後)
+			rSizeDown,	// 判定大きさ (左/下/前)
+			sizeTile,	// タイル大きさ (右/上/後)
+			sizeTile	// タイル大きさ (左/下/前)
 		);
 		if (bHit)
 		{ // 当たっている場合
 
-			GET_MANAGER->GetDebugProc()->Print(CDebugProc::POINT_CENTER, "[当たってるよ]");
-
-			// TODO
+			// 踏んだタイルのルームパスに遷移する
 			CSceneGame::GetStage()->SetFadeRoom(rList->m_sNextStagePass.c_str());
 			return true;
 		}

@@ -10,29 +10,52 @@
 #include "collision.h"
 
 //============================================================
-//	XZ平面の矩形の当たり判定
+//	XY平面の矩形の当たり判定
 //============================================================
-bool collision::Box2D
+bool collision::BoxXY
 (
-	D3DXVECTOR3 centerPos,		// 判定位置
-	D3DXVECTOR3 targetPos,		// 判定目標位置
-	D3DXVECTOR3 centerSizeUp,	// 判定サイズ(右・上・後)
-	D3DXVECTOR3 centerSizeDown,	// 判定サイズ(左・下・前)
-	D3DXVECTOR3 targetSizeUp,	// 判定目標サイズ(右・上・後)
-	D3DXVECTOR3 targetSizeDown	// 判定目標サイズ(左・下・前)
+	const D3DXVECTOR3& rCenterPos,		// 判定位置
+	const D3DXVECTOR3& rTargetPos,		// 判定目標位置
+	const D3DXVECTOR3& rCenterSizeUp,	// 判定大きさ (右/上/後)
+	const D3DXVECTOR3& rCenterSizeDown,	// 判定大きさ (左/下/前)
+	const D3DXVECTOR3& rTargetSizeUp,	// 判定目標大きさ (右/上/後)
+	const D3DXVECTOR3& rTargetSizeDown	// 判定目標大きさ (左/下/前)
 )
 {
-	if (centerPos.x + centerSizeUp.x   > targetPos.x - targetSizeDown.x
-	&&  centerPos.z + centerSizeUp.z   > targetPos.z - targetSizeDown.z
-	&&  centerPos.x - centerSizeDown.x < targetPos.x + targetSizeUp.x
-	&&  centerPos.z - centerSizeDown.z < targetPos.z + targetSizeUp.z)
+	if (rCenterPos.x + rCenterSizeUp.x   > rTargetPos.x - rTargetSizeDown.x
+	&&  rCenterPos.y + rCenterSizeUp.y   > rTargetPos.y - rTargetSizeDown.y
+	&&  rCenterPos.x - rCenterSizeDown.x < rTargetPos.x + rTargetSizeUp.x
+	&&  rCenterPos.y - rCenterSizeDown.y < rTargetPos.y + rTargetSizeUp.y)
 	{ // 判定内の場合
 
-		// 真を返す
 		return true;
 	}
 
-	// 偽を返す
+	return false;
+}
+
+//============================================================
+//	XZ平面の矩形の当たり判定
+//============================================================
+bool collision::BoxXZ
+(
+	const D3DXVECTOR3& rCenterPos,		// 判定位置
+	const D3DXVECTOR3& rTargetPos,		// 判定目標位置
+	const D3DXVECTOR3& rCenterSizeUp,	// 判定大きさ (右/上/後)
+	const D3DXVECTOR3& rCenterSizeDown,	// 判定大きさ (左/下/前)
+	const D3DXVECTOR3& rTargetSizeUp,	// 判定目標大きさ (右/上/後)
+	const D3DXVECTOR3& rTargetSizeDown	// 判定目標大きさ (左/下/前)
+)
+{
+	if (rCenterPos.x + rCenterSizeUp.x   > rTargetPos.x - rTargetSizeDown.x
+	&&  rCenterPos.z + rCenterSizeUp.z   > rTargetPos.z - rTargetSizeDown.z
+	&&  rCenterPos.x - rCenterSizeDown.x < rTargetPos.x + rTargetSizeUp.x
+	&&  rCenterPos.z - rCenterSizeDown.z < rTargetPos.z + rTargetSizeUp.z)
+	{ // 判定内の場合
+
+		return true;
+	}
+
 	return false;
 }
 

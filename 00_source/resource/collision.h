@@ -16,14 +16,23 @@
 // 判定空間
 namespace collision
 {
-	bool Box2D	// XZ平面の矩形の当たり判定
+	bool BoxXY	// XY平面の矩形の当たり判定
 	( // 引数
-		D3DXVECTOR3 centerPos,		// 判定位置
-		D3DXVECTOR3 targetPos,		// 判定目標位置
-		D3DXVECTOR3 centerSizeUp,	// 判定サイズ(右・上・後)
-		D3DXVECTOR3 centerSizeDown,	// 判定サイズ(左・下・前)
-		D3DXVECTOR3 targetSizeUp,	// 判定目標サイズ(右・上・後)
-		D3DXVECTOR3 targetSizeDown	// 判定目標サイズ(左・下・前)
+		const D3DXVECTOR3& rCenterPos,		// 判定位置
+		const D3DXVECTOR3& rTargetPos,		// 判定目標位置
+		const D3DXVECTOR3& rCenterSizeUp,	// 判定大きさ (右/上/後)
+		const D3DXVECTOR3& rCenterSizeDown,	// 判定大きさ (左/下/前)
+		const D3DXVECTOR3& rTargetSizeUp,	// 判定目標大きさ (右/上/後)
+		const D3DXVECTOR3& rTargetSizeDown	// 判定目標大きさ (左/下/前)
+	);
+	bool BoxXZ	// XZ平面の矩形の当たり判定
+	( // 引数
+		const D3DXVECTOR3& rCenterPos,		// 判定位置
+		const D3DXVECTOR3& rTargetPos,		// 判定目標位置
+		const D3DXVECTOR3& rCenterSizeUp,	// 判定大きさ (右/上/後)
+		const D3DXVECTOR3& rCenterSizeDown,	// 判定大きさ (左/下/前)
+		const D3DXVECTOR3& rTargetSizeUp,	// 判定目標大きさ (右/上/後)
+		const D3DXVECTOR3& rTargetSizeDown	// 判定目標大きさ (左/下/前)
 	);
 	bool Box3D	// 3軸の矩形の当たり判定
 	( // 引数

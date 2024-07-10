@@ -37,11 +37,11 @@ public:
 	// 静的メンバ関数
 	static CTileTrans *Create(const char *pNextPass, const D3DXVECTOR3& rPos);	// 生成
 	static CListManager<CTileTrans> *GetList(void);	// リスト取得
-
 	static bool CollisionTile	// 遷移タイルとの当たり判定
 	( // 引数
-		D3DXVECTOR3& rPos,			// 位置
-		const D3DXVECTOR3& rSize	// 大きさ
+		D3DXVECTOR3& rPos,				// 位置
+		const D3DXVECTOR3& rSizeUp,		// 大きさ (右/上/後)
+		const D3DXVECTOR3& rSizeDown	// 大きさ (左/下/前)
 	);
 
 private:
