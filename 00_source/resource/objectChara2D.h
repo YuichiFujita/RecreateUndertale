@@ -28,16 +28,30 @@ public:
 	// デストラクタ
 	~CObjectChara2D() override;
 
+	// 当たり判定管理構造体
+	struct SColl
+	{
+		// コンストラクタ
+		SColl() :
+			offset	(VEC3_ZERO),	// 判定原点オフセット
+			size	(VEC3_ZERO)		// 判定大きさ
+		{}
+
+		// メンバ変数
+		D3DXVECTOR3 offset;	// 判定原点オフセット
+		D3DXVECTOR3 size;	// 判定大きさ
+	};
+
 	// キャラクター管理構造体
 	struct SChara
 	{
 		// コンストラクタ
 		SChara() :
-			ptrnTexture		(GRID2_ZERO),	// テクスチャ分割数
-			nMaxPtrn		(0),			// 最大パターン数
-			offsetOrigin	(VEC3_ZERO),	// 原点オフセット
-			sizeChara		(VEC3_ZERO),	// キャラクター大きさ
-			bLoop			(false)			// ループON/OFF
+			ptrnTexture	(GRID2_ZERO),	// テクスチャ分割数
+			nMaxPtrn	(0),			// 最大パターン数
+			offset		(VEC3_ZERO),	// 原点オフセット
+			size		(VEC3_ZERO),	// キャラクター大きさ
+			bLoop		(false)			// ループON/OFF
 		{
 			vecNextTime.clear();	// パターン変更時間配列をクリア
 			sPassTexture.clear();	// テクスチャパスをクリア
@@ -81,10 +95,10 @@ public:
 		std::vector<float> vecNextTime;	// パターン変更時間配列
 		std::string sPassTexture;		// テクスチャパス
 		POSGRID2 ptrnTexture;			// テクスチャ分割数
-		int nMaxPtrn;					// 最大パターン数
-		D3DXVECTOR3 offsetOrigin;		// 原点オフセット
-		D3DXVECTOR3 sizeChara;			// キャラクター大きさ
-		bool bLoop;						// ループON/OFF
+		int nMaxPtrn;		// 最大パターン数
+		D3DXVECTOR3 offset;	// 原点オフセット
+		D3DXVECTOR3 size;	// キャラクター大きさ
+		bool bLoop;			// ループON/OFF
 	};
 
 	// モーション管理構造体
@@ -98,6 +112,7 @@ public:
 
 		// メンバ変数
 		SChara infoChara;	// キャラクター情報
+		SColl infoColl;		// 当たり判定情報
 		float fCancelTime;	// キャンセル可能時間
 		float fComboTime;	// コンボ可能時間
 	};
@@ -139,15 +154,26 @@ public:
 	bool IsCombo(void) const;	// コンボ取得
 	int GetMotion(void) const	{ return m_info.nType; }			// モーション取得
 	int GetNumType(void)		{ return m_info.GetNumMotion(); }	// 種類総数取得
-	float GetCancelTime(const int nType) const	{ return m_info.vecMotion[nType].fCancelTime; }	// キャンセル時間取得
-	float GetComboTime(const int nType) const	{ return m_info.vecMotion[nType].fComboTime; }	// コンボ時間取得
+	float GetCancelTime(const int nType) const	{ return m_info.vecMotion[nType].fCancelTime; }				// キャンセル時間取得
+	float GetComboTime(const int nType) const	{ return m_info.vecMotion[nType].fComboTime; }				// コンボ時間取得
+	D3DXVECTOR3 GetCollSizing(void) const		{ return m_info.vecMotion[m_info.nType].infoColl.size; }	// 判定大きさ取得
 
-	D3DXVECTOR3 CalcOffsetPosition(const D3DXVECTOR3& rPos, const D3DXVECTOR3& rRot) const;	// オフセット反映位置計算
-	D3DXVECTOR3 GetOffsetPosition(void) const;	// オフセット反映位置取得
+	D3DXVECTOR3 CalcOriginOffsetPosition(const D3DXVECTOR3& rPos, const D3DXVECTOR3& rRot) const;	// 原点オフセット反映位置計算
+	D3DXVECTOR3 CalcCollOffsetPosition(const D3DXVECTOR3& rPos, const D3DXVECTOR3& rRot) const;		// 判定原点オフセット反映位置計算
+	D3DXVECTOR3 GetOriginOffsetPosition(void) const;	// 原点オフセット反映位置取得
+	D3DXVECTOR3 GetCollOffsetPosition(void) const;		// 判定原点オフセット反映位置取得
 
 private:
 	// オーバーライド関数
 	void CalcDrawMatrix(void) override;	// 描画マトリックス計算
+
+	// メンバ関数
+	D3DXVECTOR3 CalcOffsetPosition	// オフセット反映位置計算
+	( // 引数
+		const D3DXVECTOR3& rPos,	// 位置
+		const D3DXVECTOR3& rRot,	// 向き
+		const D3DXVECTOR3& rOffset	// オフセット
+	) const;
 
 	// メンバ変数
 	SInfo m_info;	// モーション情報

@@ -281,6 +281,7 @@ HRESULT CCharacter2D::LoadMotionSetup(AMotion *pInfoChara, const char *pMotionPa
 	// 変数をポインタ化し簡略化
 	CObjectChara2D::SMotion *pMotion = &pInfoChara->vecMotion[nCurMotionID];			// モーション情報
 	CObjectChara2D::SChara *pChara = &pInfoChara->vecMotion[nCurMotionID].infoChara;	// キャラクター情報
+	CObjectChara2D::SColl *pColl = &pInfoChara->vecMotion[nCurMotionID].infoColl;		// 当たり判定情報
 
 	// ファイルを読込
 	std::string str;	// 読込文字列
@@ -316,17 +317,17 @@ HRESULT CCharacter2D::LoadMotionSetup(AMotion *pInfoChara, const char *pMotionPa
 		}
 		else if (str == "OFFSET_ORIGIN")
 		{
-			file >> str;					// ＝を読込
-			file >> pChara->offsetOrigin.x;	// 原点オフセットXを読込
-			file >> pChara->offsetOrigin.y;	// 原点オフセットYを読込
-			file >> pChara->offsetOrigin.z;	// 原点オフセットZを読込
+			file >> str;				// ＝を読込
+			file >> pChara->offset.x;	// 原点オフセットXを読込
+			file >> pChara->offset.y;	// 原点オフセットYを読込
+			file >> pChara->offset.z;	// 原点オフセットZを読込
 		}
 		else if (str == "CHARA_SIZE")
 		{
-			file >> str;					// ＝を読込
-			file >> pChara->sizeChara.x;	// キャラクター大きさXを読込
-			file >> pChara->sizeChara.y;	// キャラクター大きさYを読込
-			file >> pChara->sizeChara.z;	// キャラクター大きさZを読込
+			file >> str;			// ＝を読込
+			file >> pChara->size.x;	// キャラクター大きさXを読込
+			file >> pChara->size.y;	// キャラクター大きさYを読込
+			file >> pChara->size.z;	// キャラクター大きさZを読込
 		}
 		else if (str == "NEXT_TIME")
 		{
@@ -361,6 +362,20 @@ HRESULT CCharacter2D::LoadMotionSetup(AMotion *pInfoChara, const char *pMotionPa
 		{
 			file >> str;					// ＝を読込
 			file >> pMotion->fComboTime;	// コンボ可能時間を読込
+		}
+		else if (str == "OFFSET_COLL")
+		{
+			file >> str;				// ＝を読込
+			file >> pColl->offset.x;	// 判定原点オフセットXを読込
+			file >> pColl->offset.y;	// 判定原点オフセットYを読込
+			file >> pColl->offset.z;	// 判定原点オフセットZを読込
+		}
+		else if (str == "COLL_SIZE")
+		{
+			file >> str;			// ＝を読込
+			file >> pColl->size.x;	// 判定大きさXを読込
+			file >> pColl->size.y;	// 判定大きさYを読込
+			file >> pColl->size.z;	// 判定大きさZを読込
 		}
 	}
 

@@ -13,6 +13,9 @@
 #include "stage.h"
 #include "objectChara2D.h"
 
+// TODO
+#include "manager.h"
+
 //************************************************************
 //	定数宣言
 //************************************************************
@@ -179,11 +182,10 @@ bool CTileTrans::CollisionTile
 	// キャラクター2Dが存在しない場合抜ける
 	if (pChara2D == nullptr) { assert(false); return false; }
 
-	// 引数の位置・向きにオフセットを与えた位置を取得
-	D3DXVECTOR3 posOffset = pChara2D->CalcOffsetPosition(rPos, rRot);
-
 	// 遷移タイルとの当たり判定
-	return CollisionTile(posOffset, pChara2D->GetVec3Sizing() * 0.5f, pChara2D->GetVec3Sizing() * 0.5f);	// TODO：判定の大きさは外部から取得できるようにしよう
+	D3DXVECTOR3 posOffset = pChara2D->CalcCollOffsetPosition(rPos, rRot);	// 判定原点位置
+	D3DXVECTOR3 sizeColl  = pChara2D->GetCollSizing() * 0.5f;				// 判定大きさ
+	return CollisionTile(posOffset, sizeColl, sizeColl);
 }
 
 //============================================================
@@ -220,7 +222,8 @@ bool CTileTrans::CollisionTile
 		{ // 当たっている場合
 
 			// 踏んだタイルのルームパスに遷移する
-			CSceneGame::GetStage()->SetFadeRoom(rList->m_sNextStagePass.c_str());
+			//CSceneGame::GetStage()->SetFadeRoom(rList->m_sNextStagePass.c_str());
+			GET_MANAGER->GetDebugProc()->Print(CDebugProc::POINT_CENTER, "[当たってるよ]");	// TODO
 			return true;
 		}
 	}
