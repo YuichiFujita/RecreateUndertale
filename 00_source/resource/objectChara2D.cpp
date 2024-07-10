@@ -66,13 +66,6 @@ void CObjectChara2D::Update(const float fDeltaTime)
 	// モーションがない場合抜ける
 	if (m_info.vecMotion.empty()) { assert(false); return; }
 
-	// TODO：オフセット検証用
-#if 0
-	D3DXVECTOR3 r = GetVec3Rotation();
-	r.z += 0.01f;
-	SetVec3Rotation(r);
-#endif
-
 	// アニメーション3Dの更新
 	CAnim3D::Update(fDeltaTime);
 }

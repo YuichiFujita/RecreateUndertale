@@ -239,43 +239,116 @@ bool collision::Sector
 }
 
 //============================================================
-//	角柱の衝突判定
+//	XY平面の角柱の衝突判定
 //============================================================
-bool collision::BoxPillar
+bool collision::ResponseBoxPillarXY
 (
-	D3DXVECTOR3& rCenterPos,	// 判定位置
-	D3DXVECTOR3& rCenterPosOld,	// 判定過去位置
-	D3DXVECTOR3 targetPos,		// 判定目標位置
-	D3DXVECTOR3 centerSizeUp,	// 判定サイズ(右・上・後)
-	D3DXVECTOR3 centerSizeDown,	// 判定サイズ(左・下・前)
-	D3DXVECTOR3 targetSizeUp,	// 判定目標サイズ(右・上・後)
-	D3DXVECTOR3 targetSizeDown	// 判定目標サイズ(左・下・前)
+	D3DXVECTOR3& rCenterPos,			// 判定位置
+	const D3DXVECTOR3& rCenterPosOld,	// 判定過去位置
+	const D3DXVECTOR3& rTargetPos,		// 判定目標位置
+	const D3DXVECTOR3& rCenterSizeUp,	// 判定大きさ (右/上/後)
+	const D3DXVECTOR3& rCenterSizeDown,	// 判定大きさ (左/下/前)
+	const D3DXVECTOR3& rTargetSizeUp,	// 判定目標大きさ (右/上/後)
+	const D3DXVECTOR3& rTargetSizeDown	// 判定目標大きさ (左/下/前)
 )
 {
-	// 変数を宣言
 	bool bHit = false;	// 衝突判定結果
 
-	// 前後の当たり判定
-	if (rCenterPos.x + centerSizeUp.x > targetPos.x - targetSizeDown.x
-	&&  rCenterPos.x - centerSizeDown.x < targetPos.x + targetSizeUp.x)
-	{ // 左右の範囲内の場合
+	// 左右の当たり判定
+	if (rCenterPos.y + rCenterSizeUp.y > rTargetPos.y - rTargetSizeDown.y
+	&&  rCenterPos.y - rCenterSizeDown.y < rTargetPos.y + rTargetSizeUp.y)
+	{ // 前後の範囲内の場合
 
-		if (rCenterPos.z    + centerSizeUp.z >  targetPos.z - targetSizeDown.z
-		&&  rCenterPosOld.z + centerSizeUp.z <= targetPos.z - targetSizeDown.z)
-		{ // 前からの当たり判定
+		if (rCenterPos.x    + rCenterSizeUp.x >  rTargetPos.x - rTargetSizeDown.x
+		&&  rCenterPosOld.x + rCenterSizeUp.x <= rTargetPos.x - rTargetSizeDown.x)
+		{ // 左からの当たり判定
 
 			// 位置を補正
-			rCenterPos.z = targetPos.z - targetSizeDown.z - centerSizeUp.z;
+			rCenterPos.x = rTargetPos.x - rTargetSizeDown.x - rCenterSizeUp.x;
 
 			// 衝突状態にする
 			bHit = true;
 		}
-		else if (rCenterPos.z    - centerSizeDown.z <  targetPos.z + targetSizeUp.z
-		     &&  rCenterPosOld.z - centerSizeDown.z >= targetPos.z + targetSizeUp.z)
+		else if (rCenterPos.x    - rCenterSizeDown.x <  rTargetPos.x + rTargetSizeUp.x
+		     &&  rCenterPosOld.x - rCenterSizeDown.x >= rTargetPos.x + rTargetSizeUp.x)
+		{ // 右からの当たり判定
+			
+			// 位置を補正
+			rCenterPos.x = rTargetPos.x + rTargetSizeUp.x + rCenterSizeDown.x;
+
+			// 衝突状態にする
+			bHit = true;
+		}
+	}
+
+	// 上下の当たり判定
+	if (rCenterPos.x + rCenterSizeUp.x > rTargetPos.x - rTargetSizeDown.x
+	&&  rCenterPos.x - rCenterSizeDown.x < rTargetPos.x + rTargetSizeUp.x)
+	{ // 左右の範囲内の場合
+
+		if (rCenterPos.y    + rCenterSizeUp.y >  rTargetPos.y - rTargetSizeDown.y
+		&&  rCenterPosOld.y + rCenterSizeUp.y <= rTargetPos.y - rTargetSizeDown.y)
+		{ // 前からの当たり判定
+
+			// 位置を補正
+			rCenterPos.y = rTargetPos.y - rTargetSizeDown.y - rCenterSizeUp.y;
+
+			// 衝突状態にする
+			bHit = true;
+		}
+		else if (rCenterPos.y    - rCenterSizeDown.y <  rTargetPos.y + rTargetSizeUp.y
+		     &&  rCenterPosOld.y - rCenterSizeDown.y >= rTargetPos.y + rTargetSizeUp.y)
 		{ // 後からの当たり判定
 
 			// 位置を補正
-			rCenterPos.z = targetPos.z + targetSizeUp.z + centerSizeDown.z;
+			rCenterPos.y = rTargetPos.y + rTargetSizeUp.y + rCenterSizeDown.y;
+
+			// 衝突状態にする
+			bHit = true;
+		}
+	}
+
+	// 衝突判定を返す
+	return bHit;
+}
+
+//============================================================
+//	XZ平面の角柱の衝突判定
+//============================================================
+bool collision::ResponseBoxPillarXZ
+(
+	D3DXVECTOR3& rCenterPos,			// 判定位置
+	const D3DXVECTOR3& rCenterPosOld,	// 判定過去位置
+	const D3DXVECTOR3& rTargetPos,		// 判定目標位置
+	const D3DXVECTOR3& rCenterSizeUp,	// 判定大きさ (右/上/後)
+	const D3DXVECTOR3& rCenterSizeDown,	// 判定大きさ (左/下/前)
+	const D3DXVECTOR3& rTargetSizeUp,	// 判定目標大きさ (右/上/後)
+	const D3DXVECTOR3& rTargetSizeDown	// 判定目標大きさ (左/下/前)
+)
+{
+	bool bHit = false;	// 衝突判定結果
+
+	// 前後の当たり判定
+	if (rCenterPos.x + rCenterSizeUp.x > rTargetPos.x - rTargetSizeDown.x
+	&&  rCenterPos.x - rCenterSizeDown.x < rTargetPos.x + rTargetSizeUp.x)
+	{ // 左右の範囲内の場合
+
+		if (rCenterPos.z    + rCenterSizeUp.z >  rTargetPos.z - rTargetSizeDown.z
+		&&  rCenterPosOld.z + rCenterSizeUp.z <= rTargetPos.z - rTargetSizeDown.z)
+		{ // 前からの当たり判定
+
+			// 位置を補正
+			rCenterPos.z = rTargetPos.z - rTargetSizeDown.z - rCenterSizeUp.z;
+
+			// 衝突状態にする
+			bHit = true;
+		}
+		else if (rCenterPos.z    - rCenterSizeDown.z <  rTargetPos.z + rTargetSizeUp.z
+		     &&  rCenterPosOld.z - rCenterSizeDown.z >= rTargetPos.z + rTargetSizeUp.z)
+		{ // 後からの当たり判定
+
+			// 位置を補正
+			rCenterPos.z = rTargetPos.z + rTargetSizeUp.z + rCenterSizeDown.z;
 
 			// 衝突状態にする
 			bHit = true;
@@ -283,26 +356,26 @@ bool collision::BoxPillar
 	}
 
 	// 左右の当たり判定
-	if (rCenterPos.z + centerSizeUp.z > targetPos.z - targetSizeDown.z
-	&&  rCenterPos.z - centerSizeDown.z < targetPos.z + targetSizeUp.z)
+	if (rCenterPos.z + rCenterSizeUp.z > rTargetPos.z - rTargetSizeDown.z
+	&&  rCenterPos.z - rCenterSizeDown.z < rTargetPos.z + rTargetSizeUp.z)
 	{ // 前後の範囲内の場合
 
-		if (rCenterPos.x    + centerSizeUp.x >  targetPos.x - targetSizeDown.x
-		&&  rCenterPosOld.x + centerSizeUp.x <= targetPos.x - targetSizeDown.x)
+		if (rCenterPos.x    + rCenterSizeUp.x >  rTargetPos.x - rTargetSizeDown.x
+		&&  rCenterPosOld.x + rCenterSizeUp.x <= rTargetPos.x - rTargetSizeDown.x)
 		{ // 左からの当たり判定
 
 			// 位置を補正
-			rCenterPos.x = targetPos.x - targetSizeDown.x - centerSizeUp.x;
+			rCenterPos.x = rTargetPos.x - rTargetSizeDown.x - rCenterSizeUp.x;
 
 			// 衝突状態にする
 			bHit = true;
 		}
-		else if (rCenterPos.x    - centerSizeDown.x <  targetPos.x + targetSizeUp.x
-		     &&  rCenterPosOld.x - centerSizeDown.x >= targetPos.x + targetSizeUp.x)
+		else if (rCenterPos.x    - rCenterSizeDown.x <  rTargetPos.x + rTargetSizeUp.x
+		     &&  rCenterPosOld.x - rCenterSizeDown.x >= rTargetPos.x + rTargetSizeUp.x)
 		{ // 右からの当たり判定
 			
 			// 位置を補正
-			rCenterPos.x = targetPos.x + targetSizeUp.x + centerSizeDown.x;
+			rCenterPos.x = rTargetPos.x + rTargetSizeUp.x + rCenterSizeDown.x;
 
 			// 衝突状態にする
 			bHit = true;

@@ -11,9 +11,6 @@
 #include "collision.h"
 #include "objectChara2D.h"
 
-// TODO
-#include "manager.h"
-
 //************************************************************
 //	定数宣言
 //************************************************************
@@ -193,12 +190,18 @@ void CTileColl::CollisionTile
 	// キャラクター2Dが存在しない場合抜ける
 	if (pChara2D == nullptr) { assert(false); return; }
 
-	D3DXVECTOR3 posCur = pChara2D->CalcCollOffsetPosition(rPosCur, rRot);	// 判定原点位置
-	D3DXVECTOR3 posOld = pChara2D->CalcCollOffsetPosition(rPosOld, rRot);	// 判定原点位置
+	D3DXVECTOR3 posCur = pChara2D->CalcCollOffsetPosition(rPosCur, rRot);	// 判定原点の現在位置
+	D3DXVECTOR3 posOld = pChara2D->CalcCollOffsetPosition(rPosOld, rRot);	// 判定原点の過去位置
 	D3DXVECTOR3 sizeColl = pChara2D->GetCollSizing() * 0.5f;				// 判定大きさ
+
+	// 判定原点の現在位置を保存
+	D3DXVECTOR3 posSave = posCur;
 
 	// 遷移タイルとの当たり判定
 	CollisionTile(posCur, posOld, sizeColl, sizeColl);
+
+	// 判定後の補正量を現在位置に適応
+	rPosCur -= posSave - posCur;
 }
 
 //============================================================
@@ -222,19 +225,8 @@ void CTileColl::CollisionTile
 		D3DXVECTOR3 posTile  = rList->GetVec3Position();		// タイル位置
 		D3DXVECTOR3 sizeTile = rList->GetVec3Sizing() * 0.5f;	// タイル大きさ
 
-#if 1
-		// XY平面の矩形の当たり判定
-		bool bHit = collision::BoxXY
-		( // 引数
-			rPosCur,	// 判定位置
-			posTile,	// タイル位置
-			rSizeUp,	// 判定大きさ (右/上/後)
-			rSizeDown,	// 判定大きさ (左/下/前)
-			sizeTile,	// タイル大きさ (右/上/後)
-			sizeTile	// タイル大きさ (左/下/前)
-		);
-#else
-		bool bHit = collision::ResponseBox3D
+		// XY平面の角柱の衝突判定
+		collision::ResponseBoxPillarXY
 		( // 引数
 			rPosCur,	// 判定現在位置
 			rPosOld,	// 判定過去位置
@@ -244,12 +236,6 @@ void CTileColl::CollisionTile
 			sizeTile,	// タイル大きさ (右/上/後)
 			sizeTile	// タイル大きさ (左/下/前)
 		);
-#endif
-		if (bHit)
-		{ // 当たっている場合
-
-			GET_MANAGER->GetDebugProc()->Print(CDebugProc::POINT_CENTER, "[当たってるよ]");
-		}
 	}
 }
 
