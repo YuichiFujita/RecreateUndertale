@@ -13,9 +13,6 @@
 #include "stage.h"
 #include "objectChara2D.h"
 
-// TODO
-#include "manager.h"
-
 //************************************************************
 //	定数宣言
 //************************************************************
@@ -172,7 +169,7 @@ CListManager<CTileTrans> *CTileTrans::GetList(void)
 //============================================================
 //	遷移タイルとの当たり判定
 //============================================================
-bool CTileTrans::CollisionTile
+void CTileTrans::CollisionTile
 (
 	const D3DXVECTOR3& rPos,		// 位置
 	const D3DXVECTOR3& rRot,		// 向き
@@ -180,18 +177,19 @@ bool CTileTrans::CollisionTile
 )
 {
 	// キャラクター2Dが存在しない場合抜ける
-	if (pChara2D == nullptr) { assert(false); return false; }
+	if (pChara2D == nullptr) { assert(false); return; }
+
+	D3DXVECTOR3 posOffset = pChara2D->CalcCollOffsetPosition(rPos, rRot);	// 判定原点位置
+	D3DXVECTOR3 sizeColl = pChara2D->GetCollSizing() * 0.5f;				// 判定大きさ
 
 	// 遷移タイルとの当たり判定
-	D3DXVECTOR3 posOffset = pChara2D->CalcCollOffsetPosition(rPos, rRot);	// 判定原点位置
-	D3DXVECTOR3 sizeColl  = pChara2D->GetCollSizing() * 0.5f;				// 判定大きさ
-	return CollisionTile(posOffset, sizeColl, sizeColl);
+	CollisionTile(posOffset, sizeColl, sizeColl);
 }
 
 //============================================================
 //	遷移タイルとの当たり判定
 //============================================================
-bool CTileTrans::CollisionTile
+void CTileTrans::CollisionTile
 (
 	const D3DXVECTOR3& rPos,		// 位置
 	const D3DXVECTOR3& rSizeUp,		// 大きさ (右/上/後)
@@ -199,7 +197,7 @@ bool CTileTrans::CollisionTile
 )
 {
 	// 遷移タイルがない場合抜ける
-	if (m_pList == nullptr) { return false; }
+	if (m_pList == nullptr) { return; }
 
 	std::list<CTileTrans*> list = m_pList->GetList();	// 内部リスト
 	for (const auto& rList : list)
@@ -222,11 +220,8 @@ bool CTileTrans::CollisionTile
 		{ // 当たっている場合
 
 			// 踏んだタイルのルームパスに遷移する
-			//CSceneGame::GetStage()->SetFadeRoom(rList->m_sNextStagePass.c_str());
-			GET_MANAGER->GetDebugProc()->Print(CDebugProc::POINT_CENTER, "[当たってるよ]");	// TODO
-			return true;
+			CSceneGame::GetStage()->SetFadeRoom(rList->m_sNextStagePass.c_str());
+			return;
 		}
 	}
-
-	return false;
 }

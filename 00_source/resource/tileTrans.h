@@ -43,13 +43,13 @@ public:
 	static CTileTrans *Create(const char *pNextPass, const D3DXVECTOR3& rPos);	// 生成
 	static CListManager<CTileTrans> *GetList(void);	// リスト取得
 
-	static bool CollisionTile	// 遷移タイルとの当たり判定
+	static void CollisionTile	// 遷移タイルとの当たり判定
 	( // 引数
 		const D3DXVECTOR3& rPos,		// 位置
 		const D3DXVECTOR3& rRot,		// 向き
 		const CObjectChara2D *pChara2D	// キャラクター2D情報
 	);
-	static bool CollisionTile	// 遷移タイルとの当たり判定
+	static void CollisionTile	// 遷移タイルとの当たり判定
 	( // 引数
 		const D3DXVECTOR3& rPos,		// 位置
 		const D3DXVECTOR3& rSizeUp,		// 大きさ (右/上/後)

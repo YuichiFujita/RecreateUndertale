@@ -16,6 +16,11 @@
 #include "object3D.h"
 
 //************************************************************
+//	前方宣言
+//************************************************************
+class CObjectChara2D;	// オブジェクトキャラクター2Dクラス
+
+//************************************************************
 //	クラス定義
 //************************************************************
 // 判定タイルクラス
@@ -46,11 +51,19 @@ public:
 	static CTileColl *Create(const EType type, const D3DXVECTOR3& rPos);	// 生成
 	static CListManager<CTileColl> *GetList(void);	// リスト取得
 
-	static bool CollisionTile	// 判定タイルとの当たり判定
+	static void CollisionTile	// 判定タイルとの当たり判定
 	( // 引数
-		D3DXVECTOR3& rPos,			// 位置
-		const D3DXVECTOR3& rPosOld,	// 過去位置
-		const D3DXVECTOR3& rSize	// 大きさ
+		D3DXVECTOR3& rPosCur,			// 現在位置
+		const D3DXVECTOR3& rPosOld,		// 過去位置
+		const D3DXVECTOR3& rRot,		// 向き
+		const CObjectChara2D *pChara2D	// キャラクター2D情報
+	);
+	static void CollisionTile	// 判定タイルとの当たり判定
+	( // 引数
+		D3DXVECTOR3& rPosCur,			// 現在位置
+		const D3DXVECTOR3& rPosOld,		// 過去位置
+		const D3DXVECTOR3& rSizeUp,		// 大きさ (右/上/後)
+		const D3DXVECTOR3& rSizeDown	// 大きさ (左/下/前)
 	);
 
 	// メンバ関数

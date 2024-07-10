@@ -76,9 +76,8 @@ int CPlayerStateNormal::Update(const float fDeltaTime)
 	// 位置の更新
 	UpdatePosition(posPlayer, fDeltaTime);
 
-	// TODO：ここきもい
 	// 判定タイルとの当たり判定
-	CTileColl::CollisionTile(posPlayer, m_pContext->GetOldPosition(), (m_pContext->GetVec3Sizing() + D3DXVECTOR3(0.0f, 0.0f, 50.0f)) * 0.5f);
+	CTileColl::CollisionTile(posPlayer, m_pContext->GetOldPosition(), VEC3_ZERO, m_pContext);
 
 	// 遷移タイルとの当たり判定
 	CTileTrans::CollisionTile(posPlayer, VEC3_ZERO, m_pContext);

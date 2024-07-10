@@ -8,10 +8,11 @@
 //	インクルードファイル
 //************************************************************
 #include "tileColl.h"
+#include "collision.h"
+#include "objectChara2D.h"
 
 // TODO
 #include "manager.h"
-#include "collision.h"
 
 //************************************************************
 //	定数宣言
@@ -179,47 +180,77 @@ CListManager<CTileColl> *CTileColl::GetList(void)
 }
 
 //============================================================
-//	判定タイルとの当たり判定
+//	遷移タイルとの当たり判定
 //============================================================
-bool CTileColl::CollisionTile
+void CTileColl::CollisionTile
 (
-	D3DXVECTOR3& rPos,			// 位置
-	const D3DXVECTOR3& rPosOld,	// 過去位置
-	const D3DXVECTOR3& rSize	// 大きさ
+	D3DXVECTOR3& rPosCur,			// 現在位置
+	const D3DXVECTOR3& rPosOld,		// 過去位置
+	const D3DXVECTOR3& rRot,		// 向き
+	const CObjectChara2D *pChara2D	// キャラクター2D情報
 )
 {
-	// 判定タイルがない場合抜ける
-	if (m_pList == nullptr) { return false; }
+	// キャラクター2Dが存在しない場合抜ける
+	if (pChara2D == nullptr) { assert(false); return; }
+
+	D3DXVECTOR3 posCur = pChara2D->CalcCollOffsetPosition(rPosCur, rRot);	// 判定原点位置
+	D3DXVECTOR3 posOld = pChara2D->CalcCollOffsetPosition(rPosOld, rRot);	// 判定原点位置
+	D3DXVECTOR3 sizeColl = pChara2D->GetCollSizing() * 0.5f;				// 判定大きさ
+
+	// 遷移タイルとの当たり判定
+	CollisionTile(posCur, posOld, sizeColl, sizeColl);
+}
+
+//============================================================
+//	遷移タイルとの当たり判定
+//============================================================
+void CTileColl::CollisionTile
+(
+	D3DXVECTOR3& rPosCur,			// 現在位置
+	const D3DXVECTOR3& rPosOld,		// 過去位置
+	const D3DXVECTOR3& rSizeUp,		// 大きさ (右/上/後)
+	const D3DXVECTOR3& rSizeDown	// 大きさ (左/下/前)
+)
+{
+	// 遷移タイルがない場合抜ける
+	if (m_pList == nullptr) { return; }
 
 	std::list<CTileColl*> list = m_pList->GetList();	// 内部リスト
 	for (const auto& rList : list)
 	{ // 要素数分繰り返す
 
-#if 1
-		D3DXVECTOR3 posTile = rList->GetVec3Position();
-		D3DXVECTOR3 sizeTile = (rList->GetVec3Sizing() + D3DXVECTOR3(0.0f, 0.0f, 50.0f)) * 0.5f;
+		D3DXVECTOR3 posTile  = rList->GetVec3Position();		// タイル位置
+		D3DXVECTOR3 sizeTile = rList->GetVec3Sizing() * 0.5f;	// タイル大きさ
 
+#if 1
+		// XY平面の矩形の当たり判定
+		bool bHit = collision::BoxXY
+		( // 引数
+			rPosCur,	// 判定位置
+			posTile,	// タイル位置
+			rSizeUp,	// 判定大きさ (右/上/後)
+			rSizeDown,	// 判定大きさ (左/下/前)
+			sizeTile,	// タイル大きさ (右/上/後)
+			sizeTile	// タイル大きさ (左/下/前)
+		);
+#else
 		bool bHit = collision::ResponseBox3D
 		( // 引数
-			rPos,
-			rPosOld,
-			posTile,
-			rSize,
-			rSize,
-			sizeTile,
-			sizeTile
+			rPosCur,	// 判定現在位置
+			rPosOld,	// 判定過去位置
+			posTile,	// タイル位置
+			rSizeUp,	// 判定大きさ (右/上/後)
+			rSizeDown,	// 判定大きさ (左/下/前)
+			sizeTile,	// タイル大きさ (右/上/後)
+			sizeTile	// タイル大きさ (左/下/前)
 		);
+#endif
 		if (bHit)
 		{ // 当たっている場合
 
 			GET_MANAGER->GetDebugProc()->Print(CDebugProc::POINT_CENTER, "[当たってるよ]");
 		}
-#else
-
-#endif
 	}
-
-	return false;
 }
 
 //============================================================
