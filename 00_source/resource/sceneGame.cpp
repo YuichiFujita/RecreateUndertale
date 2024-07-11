@@ -17,16 +17,12 @@
 #include "stage.h"
 #include "player.h"
 
-// TODO
-#include "tileMap.h"
-#include "tileColl.h"
-
 //************************************************************
 //	静的メンバ変数宣言
 //************************************************************
-CGameManager	*CSceneGame::m_pGameManager	= nullptr;	// ゲームマネージャー
-CPause			*CSceneGame::m_pPause		= nullptr;	// ポーズ情報
-CStage			*CSceneGame::m_pStage		= nullptr;	// ステージ情報
+CGameManager *CSceneGame::m_pGameManager = nullptr;	// ゲームマネージャー
+CPause		 *CSceneGame::m_pPause		 = nullptr;	// ポーズ情報
+CStage		 *CSceneGame::m_pStage		 = nullptr;	// ステージ情報
 
 //************************************************************
 //	子クラス [CSceneGame] のメンバ関数
