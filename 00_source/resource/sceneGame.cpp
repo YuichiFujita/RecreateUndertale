@@ -17,6 +17,9 @@
 #include "stage.h"
 #include "player.h"
 
+// TODO
+#include "menuUI.h"
+
 //************************************************************
 //	静的メンバ変数宣言
 //************************************************************
@@ -83,6 +86,9 @@ HRESULT CSceneGame::Init(void)
 #if 1
 	// TODO：プレイヤーの生成
 	CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, -1.0f));
+
+	// TODO：フィールドメニューの生成
+	CMenuUI::Create();
 #endif
 
 	// ステージの生成

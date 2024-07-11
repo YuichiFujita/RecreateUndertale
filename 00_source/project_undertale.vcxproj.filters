@@ -61,6 +61,12 @@
     <Filter Include="ingame\tile">
       <UniqueIdentifier>{120eef5b-5f9c-47a4-8629-9fb2acd7e3aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ingame\menu">
+      <UniqueIdentifier>{ee8e864f-8519-45be-aaef-018a6b4187aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ingame\item">
+      <UniqueIdentifier>{6a3b0bd7-b98d-4e61-a194-0c682628b001}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="resource\camera.cpp">
@@ -380,6 +386,12 @@
     </ClCompile>
     <ClCompile Include="resource\frame2D.cpp">
       <Filter>2D</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\menuUI.cpp">
+      <Filter>ingame\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\menuStatusUI.cpp">
+      <Filter>ingame\menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -703,6 +715,12 @@
     </ClInclude>
     <ClInclude Include="resource\frame2D.h">
       <Filter>2D</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\menuUI.h">
+      <Filter>ingame\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\menuStatusUI.h">
+      <Filter>ingame\menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
