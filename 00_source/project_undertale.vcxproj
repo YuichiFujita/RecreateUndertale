@@ -190,6 +190,7 @@
     <ClCompile Include="resource\loadtext.cpp" />
     <ClCompile Include="resource\main.cpp" />
     <ClCompile Include="resource\manager.cpp" />
+    <ClCompile Include="resource\menuSelectUI.cpp" />
     <ClCompile Include="resource\menuStatusUI.cpp" />
     <ClCompile Include="resource\menuUI.cpp" />
     <ClCompile Include="resource\model.cpp" />
@@ -303,6 +304,7 @@
     <ClInclude Include="resource\loadtext.h" />
     <ClInclude Include="resource\main.h" />
     <ClInclude Include="resource\manager.h" />
+    <ClInclude Include="resource\menuSelectUI.h" />
     <ClInclude Include="resource\menuStatusUI.h" />
     <ClInclude Include="resource\menuUI.h" />
     <ClInclude Include="resource\model.h" />

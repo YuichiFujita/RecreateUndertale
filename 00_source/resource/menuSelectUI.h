@@ -1,14 +1,14 @@
 //============================================================
 //
-//	フィールドメニューヘッダー [menuUI.h]
+//	セレクトメニューヘッダー [menuSelectUI.h]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	二重インクルード防止
 //************************************************************
-#ifndef _MENU_UI_H_
-#define _MENU_UI_H_
+#ifndef _MENU_SELECT_UI_H_
+#define _MENU_SELECT_UI_H_
 
 //************************************************************
 //	インクルードファイル
@@ -18,31 +18,30 @@
 //************************************************************
 //	前方宣言
 //************************************************************
-class CMenuStatusUI;	// ステータスメニュークラス
-class CMenuSelectUI;	// セレクトメニュークラス
+class CFrame2D;		// フレーム2Dクラス
+class CString2D;	// 文字列2Dクラス
 
 //************************************************************
 //	クラス定義
 //************************************************************
-// フィールドメニュークラス
-class CMenuUI : public CObject
+// セレクトメニュークラス
+class CMenuSelectUI : public CObject
 {
 public:
-	// 表示テキスト列挙
-	enum EText
+	// 選択列挙
+	enum ESelect
 	{
-		TEXT_MINI_STATUS = 0,	// ミニステータス表示
-		TEXT_ITEM,				// ITEM
-		TEXT_STATUS,			// STAT
-		TEXT_PHONE,				// PHONE
-		TEXT_MAX				// この列挙型の総数
+		SELECT_ITEM = 0,	// アイテム
+		SELECT_STATUS,		// ステータス
+		SELECT_PHONE,		// 電話
+		SELECT_MAX			// この列挙型の総数
 	};
 
 	// コンストラクタ
-	CMenuUI();
+	CMenuSelectUI();
 
 	// デストラクタ
-	~CMenuUI() override;
+	~CMenuSelectUI() override;
 
 	// オーバーライド関数
 	HRESULT Init(void) override;	// 初期化
@@ -51,15 +50,15 @@ public:
 	void Draw(CShader *pShader = nullptr) override;	// 描画
 
 	// 静的メンバ関数
-	static CMenuUI *Create(void);	// 生成
+	static CMenuSelectUI *Create(void);	// 生成
 
 private:
 	// オーバーライド関数
 	void Release(void) override { CObject::Release(); }	// 破棄
 
 	// メンバ変数
-	CMenuStatusUI *m_pStatusMenu;	// ステータスメニュー情報
-	CMenuSelectUI *m_pSelectMenu;	// セレクトメニュー情報
+	CString2D *m_apSelect[SELECT_MAX];	// 選択肢情報
+	CFrame2D *m_pFrame;	// フレーム情報
 };
 
-#endif	// _MENU_UI_H_
+#endif	// _MENU_SELECT_UI_H_

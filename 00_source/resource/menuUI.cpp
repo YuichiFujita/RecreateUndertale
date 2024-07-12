@@ -9,6 +9,7 @@
 //************************************************************
 #include "menuUI.h"
 #include "menuStatusUI.h"
+#include "menuSelectUI.h"
 
 //************************************************************
 //	定数宣言
@@ -25,7 +26,8 @@ namespace
 //	コンストラクタ
 //============================================================
 CMenuUI::CMenuUI() : CObject(CObject::LABEL_UI, CObject::DIM_3D, PRIORITY),
-	m_pStatusMenu	(nullptr)	// ステータスメニュー情報
+	m_pStatusMenu	(nullptr),	// ステータスメニュー情報
+	m_pSelectMenu	(nullptr)	// セレクトメニュー情報
 {
 
 }
@@ -45,10 +47,21 @@ HRESULT CMenuUI::Init(void)
 {
 	// メンバ変数を初期化
 	m_pStatusMenu = nullptr;	// ステータスメニュー情報
+	m_pSelectMenu = nullptr;	// セレクトメニュー情報
 
 	// ステータスメニューの生成
 	m_pStatusMenu = CMenuStatusUI::Create();
 	if (m_pStatusMenu == nullptr)
+	{ // 生成に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
+
+	// セレクトメニューの生成
+	m_pSelectMenu = CMenuSelectUI::Create();
+	if (m_pSelectMenu == nullptr)
 	{ // 生成に失敗した場合
 
 		// 失敗を返す

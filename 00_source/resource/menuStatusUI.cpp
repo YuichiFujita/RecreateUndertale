@@ -25,7 +25,7 @@ namespace
 	{
 		const D3DXVECTOR3 POS	= D3DXVECTOR3(155.0f, 160.0f, 0.0f);	// フレーム位置
 		const D3DXVECTOR3 ROT	= VEC3_ZERO;							// フレーム向き
-		const D3DXVECTOR3 SIZE	= D3DXVECTOR3(200.0f, 140.0f, 0.0f);	// フレーム大きさ
+		const D3DXVECTOR3 SIZE	= D3DXVECTOR3(200.0f, 145.0f, 0.0f);	// フレーム大きさ
 	}
 
 	namespace name
@@ -50,7 +50,7 @@ namespace
 
 		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
 		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_BOTTOM;	// 縦配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(68.0f, 223.0f, 0.0f);		// 位置
+		const D3DXVECTOR3	POS = D3DXVECTOR3(68.0f, 225.5f, 0.0f);		// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
 		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
 	}
