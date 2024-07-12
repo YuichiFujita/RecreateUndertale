@@ -27,6 +27,13 @@ class CMenuStatusUI;	// ステータスメニュークラス
 class CMenuUI : public CObject
 {
 public:
+	// 表示テキスト列挙
+	enum EText
+	{
+		TEXT_MINI_STATUS = 0,	// ミニステータス表示
+		TEXT_MAX				// この列挙型の総数
+	};
+
 	// コンストラクタ
 	CMenuUI();
 
