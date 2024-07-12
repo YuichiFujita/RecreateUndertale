@@ -9,6 +9,7 @@
 //************************************************************
 #include "menuSelectUI.h"
 #include "menuUI.h"
+#include "manager.h"
 #include "frame2D.h"
 #include "string2D.h"
 #include "object2D.h"
@@ -57,8 +58,9 @@ namespace
 //	コンストラクタ
 //============================================================
 CMenuSelectUI::CMenuSelectUI() : CObject(CObject::LABEL_UI, CObject::DIM_3D, PRIORITY),
-	m_pFrame	(nullptr),	// フレーム情報
-	m_pSoul		(nullptr)	// ソウルカーソル情報
+	m_pFrame	 (nullptr),	// フレーム情報
+	m_pSoul		 (nullptr),	// ソウルカーソル情報
+	m_nCurSelect (0)		// 現在の選択肢
 {
 	// メンバ変数をクリア
 	memset(&m_apSelect[0], 0, sizeof(m_apSelect));	// 選択肢情報
@@ -79,8 +81,9 @@ HRESULT CMenuSelectUI::Init(void)
 {
 	// メンバ変数を初期化
 	memset(&m_apSelect[0], 0, sizeof(m_apSelect));	// 選択肢情報
-	m_pFrame = nullptr;	// フレーム情報
-	m_pSoul	 = nullptr;	// ソウルカーソル情報
+	m_pFrame	 = nullptr;	// フレーム情報
+	m_pSoul		 = nullptr;	// ソウルカーソル情報
+	m_nCurSelect = 0;		// 現在の選択肢
 
 	// フレームの生成
 	m_pFrame = CFrame2D::Create
@@ -187,7 +190,11 @@ void CMenuSelectUI::Uninit(void)
 //============================================================
 void CMenuSelectUI::Update(const float fDeltaTime)
 {
+	// 選択の更新
+	UpdateSelect();
 
+	// 決定の更新
+	UpdateDecide();
 }
 
 //============================================================
@@ -224,5 +231,56 @@ CMenuSelectUI *CMenuSelectUI::Create(void)
 
 		// 確保したアドレスを返す
 		return pMenuSelectUI;
+	}
+}
+
+//============================================================
+//	選択の更新処理
+//============================================================
+void CMenuSelectUI::UpdateSelect(void)
+{
+	// 選択肢操作
+	CInputKeyboard *pKey = GET_INPUTKEY;	// キーボード情報
+	if (pKey->IsTrigger(DIK_DOWN))
+	{
+		// 上に選択をずらす
+		m_nCurSelect = (m_nCurSelect + 1) % SELECT_MAX;
+	}
+	if (pKey->IsTrigger(DIK_UP))
+	{
+		// 下に選択をずらす
+		m_nCurSelect = (m_nCurSelect + (SELECT_MAX - 1)) % SELECT_MAX;
+	}
+
+	// 文字位置オフセットを計算
+	D3DXVECTOR3 offset = D3DXVECTOR3(0.0f, select::LINE_HEIGHT * m_nCurSelect, 0.0f);
+
+	// ソウルカーソルの位置を移動
+	m_pSoul->SetVec3Position(soul::POS + offset);
+}
+
+//============================================================
+//	決定の更新処理
+//============================================================
+void CMenuSelectUI::UpdateDecide(void)
+{
+	CInputKeyboard *pKey = GET_INPUTKEY;	// キーボード情報
+	if (pKey->IsTrigger(DIK_Z) || pKey->IsTrigger(DIK_RETURN))
+	{
+#if 0
+		// 選択肢に応じて遷移先を変更
+		switch (m_nCurSelect)
+		{ // 現在の選択肢ごとの処理
+		case SELECT_START:
+			break;
+
+		case SELECT_OPTION:
+			break;
+
+		default:
+			assert(false);
+			break;
+		}
+#endif
 	}
 }

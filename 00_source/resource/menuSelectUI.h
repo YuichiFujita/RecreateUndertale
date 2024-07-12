@@ -29,15 +29,6 @@ class CObject2D;	// オブジェクト2Dクラス
 class CMenuSelectUI : public CObject
 {
 public:
-	// 選択列挙
-	enum ESelect
-	{
-		SELECT_ITEM = 0,	// アイテム
-		SELECT_STATUS,		// ステータス
-		SELECT_PHONE,		// 電話
-		SELECT_MAX			// この列挙型の総数
-	};
-
 	// コンストラクタ
 	CMenuSelectUI();
 
@@ -54,13 +45,27 @@ public:
 	static CMenuSelectUI *Create(void);	// 生成
 
 private:
+	// 選択列挙
+	enum ESelect
+	{
+		SELECT_ITEM = 0,	// アイテム
+		SELECT_STATUS,		// ステータス
+		SELECT_PHONE,		// 電話
+		SELECT_MAX			// この列挙型の総数
+	};
+
 	// オーバーライド関数
 	void Release(void) override { CObject::Release(); }	// 破棄
+
+	// メンバ関数
+	void UpdateSelect(void);	// 選択更新
+	void UpdateDecide(void);	// 決定更新
 
 	// メンバ変数
 	CString2D *m_apSelect[SELECT_MAX];	// 選択肢情報
 	CFrame2D *m_pFrame;	// フレーム情報
 	CObject2D *m_pSoul;	// ソウルカーソル情報
+	int m_nCurSelect;	// 現在の選択肢
 };
 
 #endif	// _MENU_SELECT_UI_H_
