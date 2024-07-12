@@ -57,14 +57,14 @@ namespace
 
 	namespace value
 	{
-		const char	*FONT = "data\\FONT\\Crypt of Tomorrow.ttf";	// フォントパス
-		const bool	ITALIC		= false;	// イタリック
-		const float	CHAR_HEIGHT	= 22.0f;	// 文字縦幅
-		const float	LINE_HEIGHT	= 26.0f;	// 行間縦幅
+		const char	*FONT		= status::FONT;			// フォントパス
+		const bool	ITALIC		= status::ITALIC;		// イタリック
+		const float	CHAR_HEIGHT	= status::CHAR_HEIGHT;	// 文字縦幅
+		const float	LINE_HEIGHT = status::LINE_HEIGHT;	// 行間縦幅
 
-		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
-		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_BOTTOM;	// 縦配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(115.0f, 223.0f, 0.0f);	// 位置
+		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;		// 横配置
+		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_BOTTOM;		// 縦配置
+		const D3DXVECTOR3	POS = D3DXVECTOR3(115.0f, status::POS.y, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
 		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
 	}

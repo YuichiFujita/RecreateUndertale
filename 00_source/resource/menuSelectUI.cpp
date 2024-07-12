@@ -11,6 +11,7 @@
 #include "menuUI.h"
 #include "frame2D.h"
 #include "string2D.h"
+#include "object2D.h"
 #include "loadtext.h"
 
 //************************************************************
@@ -41,6 +42,12 @@ namespace
 		const D3DXCOLOR COL_DEFAULT	= XCOL_WHITE;	// 通常色
 		const D3DXCOLOR COL_CHOICE	= XCOL_YELLOW;	// 選択色
 	}
+
+	namespace soul
+	{
+		const D3DXVECTOR3 POS	= D3DXVECTOR3(97.5f, 308.5f, 0.0f);	// ソウルカーソル位置
+		const D3DXVECTOR3 SIZE	= D3DXVECTOR3(26.5f, 26.5f, 0.0f);	// ソウルカーソル大きさ
+	}
 }
 
 //************************************************************
@@ -50,7 +57,8 @@ namespace
 //	コンストラクタ
 //============================================================
 CMenuSelectUI::CMenuSelectUI() : CObject(CObject::LABEL_UI, CObject::DIM_3D, PRIORITY),
-	m_pFrame	(nullptr)	// フレーム情報
+	m_pFrame	(nullptr),	// フレーム情報
+	m_pSoul		(nullptr)	// ソウルカーソル情報
 {
 	// メンバ変数をクリア
 	memset(&m_apSelect[0], 0, sizeof(m_apSelect));	// 選択肢情報
@@ -72,6 +80,7 @@ HRESULT CMenuSelectUI::Init(void)
 	// メンバ変数を初期化
 	memset(&m_apSelect[0], 0, sizeof(m_apSelect));	// 選択肢情報
 	m_pFrame = nullptr;	// フレーム情報
+	m_pSoul	 = nullptr;	// ソウルカーソル情報
 
 	// フレームの生成
 	m_pFrame = CFrame2D::Create
@@ -124,6 +133,29 @@ HRESULT CMenuSelectUI::Init(void)
 		loadtext::BindString(m_apSelect[i], loadtext::LoadText(select::PASS, CMenuUI::TEXT_ITEM + i));
 	}
 
+	// ソウルカーソルの生成
+	m_pSoul = CObject2D::Create
+	( // 引数
+		soul::POS,	// 位置
+		soul::SIZE	// 大きさ
+	);
+	if (m_pSoul == nullptr)
+	{ // 生成に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
+
+	// ソウルテクスチャを割当
+	m_pSoul->BindTexture("data\\TEXTURE\\spr_heartsmall.png");
+
+	// ラベルを設定
+	m_pSoul->SetLabel(CObject::LABEL_UI);
+
+	// 優先順位を設定
+	m_pSoul->SetPriority(PRIORITY);
+
 	// 成功を返す
 	return S_OK;
 }
@@ -142,6 +174,9 @@ void CMenuSelectUI::Uninit(void)
 		// 選択肢の終了
 		SAFE_UNINIT(m_apSelect[i]);
 	}
+
+	// ソウルカーソルの終了
+	SAFE_UNINIT(m_pSoul);
 
 	// オブジェクトを破棄
 	Release();

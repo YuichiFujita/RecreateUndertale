@@ -20,6 +20,7 @@
 //************************************************************
 class CFrame2D;		// フレーム2Dクラス
 class CString2D;	// 文字列2Dクラス
+class CObject2D;	// オブジェクト2Dクラス
 
 //************************************************************
 //	クラス定義
@@ -59,6 +60,7 @@ private:
 	// メンバ変数
 	CString2D *m_apSelect[SELECT_MAX];	// 選択肢情報
 	CFrame2D *m_pFrame;	// フレーム情報
+	CObject2D *m_pSoul;	// ソウルカーソル情報
 };
 
 #endif	// _MENU_SELECT_UI_H_
