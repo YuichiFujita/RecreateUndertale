@@ -52,6 +52,7 @@ private:
 	CFrame2D *m_pFrame;	// フレーム情報
 	CString2D *m_pName;	// 名前情報
 	CText2D *m_pStatus;	// ステータス情報
+	CText2D *m_pValue;	// ステータス数値情報
 };
 
 #endif	// _MENU_STATUS_UI_H_
