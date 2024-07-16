@@ -1,6 +1,6 @@
 //============================================================
 //
-//	ステータスメニュー処理 [menuStatusUI.cpp]
+//	ミニステータスメニュー処理 [menuStatusUI.cpp]
 //	Author：藤田勇一
 //
 //============================================================
@@ -19,7 +19,7 @@
 //************************************************************
 namespace
 {
-	const int PRIORITY = 6;	// ステータスメニューの優先順位
+	const int PRIORITY = 6;	// ミニステータスメニューの優先順位
 
 	namespace frame
 	{
@@ -249,7 +249,7 @@ void CMenuStatusUI::Draw(CShader * /*pShader*/)
 //============================================================
 CMenuStatusUI *CMenuStatusUI::Create(void)
 {
-	// ステータスメニューの生成
+	// ミニステータスメニューの生成
 	CMenuStatusUI *pMenuStatusUI = new CMenuStatusUI;
 	if (pMenuStatusUI == nullptr)
 	{ // 生成に失敗した場合
@@ -259,11 +259,11 @@ CMenuStatusUI *CMenuStatusUI::Create(void)
 	else
 	{ // 生成に成功した場合
 
-		// ステータスメニューの初期化
+		// ミニステータスメニューの初期化
 		if (FAILED(pMenuStatusUI->Init()))
 		{ // 初期化に失敗した場合
 
-			// ステータスメニューの破棄
+			// ミニステータスメニューの破棄
 			SAFE_DELETE(pMenuStatusUI);
 			return nullptr;
 		}

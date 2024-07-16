@@ -10,10 +10,11 @@
 #include "menuSelectUI.h"
 #include "menuUI.h"
 #include "manager.h"
-#include "frame2D.h"
 #include "string2D.h"
 #include "object2D.h"
 #include "loadtext.h"
+
+#include "selectStatusUI.h"
 
 //************************************************************
 //	定数宣言
@@ -58,9 +59,10 @@ namespace
 //	コンストラクタ
 //============================================================
 CMenuSelectUI::CMenuSelectUI() : CObject(CObject::LABEL_UI, CObject::DIM_3D, PRIORITY),
-	m_pFrame	 (nullptr),	// フレーム情報
-	m_pSoul		 (nullptr),	// ソウルカーソル情報
-	m_nCurSelect (0)		// 現在の選択肢
+	m_pFrame		(nullptr),	// フレーム情報
+	m_pSoul			(nullptr),	// ソウルカーソル情報
+	m_pSelectMenu	(nullptr),	// 選択メニュー情報
+	m_nCurSelect	(0)			// 現在の選択肢
 {
 	// メンバ変数をクリア
 	memset(&m_apSelect[0], 0, sizeof(m_apSelect));	// 選択肢情報
@@ -81,9 +83,10 @@ HRESULT CMenuSelectUI::Init(void)
 {
 	// メンバ変数を初期化
 	memset(&m_apSelect[0], 0, sizeof(m_apSelect));	// 選択肢情報
-	m_pFrame	 = nullptr;	// フレーム情報
-	m_pSoul		 = nullptr;	// ソウルカーソル情報
-	m_nCurSelect = 0;		// 現在の選択肢
+	m_pFrame		= nullptr;	// フレーム情報
+	m_pSoul			= nullptr;	// ソウルカーソル情報
+	m_pSelectMenu	= nullptr;	// 選択メニュー情報
+	m_nCurSelect	= 0;		// 現在の選択肢
 
 	// フレームの生成
 	m_pFrame = CFrame2D::Create
@@ -267,20 +270,154 @@ void CMenuSelectUI::UpdateDecide(void)
 	CInputKeyboard *pKey = GET_INPUTKEY;	// キーボード情報
 	if (pKey->IsTrigger(DIK_Z) || pKey->IsTrigger(DIK_RETURN))
 	{
-#if 0
-		// 選択肢に応じて遷移先を変更
-		switch (m_nCurSelect)
-		{ // 現在の選択肢ごとの処理
-		case SELECT_START:
-			break;
+		// 現在選択中のメニューに変更
+		ChangeSelectMenu((ESelect)m_nCurSelect);
+	}
+}
 
-		case SELECT_OPTION:
-			break;
+//============================================================
+//	選択メニューの変更処理
+//============================================================
+HRESULT CMenuSelectUI::ChangeSelectMenu(const CMenuSelectUI::ESelect select)
+{
+	// 選択メニューの終了
+	SAFE_UNINIT(m_pSelectMenu);
 
-		default:
-			assert(false);
-			break;
+	// 選択肢に応じてメニューを生成
+	assert(m_pSelectMenu == nullptr);
+	m_pSelectMenu = CSelect::Create(m_pSoul, select);
+	if (m_pSelectMenu == nullptr)
+	{ // 生成に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
+}
+
+//************************************************************
+//	子クラス [CSelect] のメンバ関数
+//************************************************************
+//============================================================
+//	コンストラクタ
+//============================================================
+CSelect::CSelect(CObject2D *pSoul) : CObject(CObject::LABEL_UI, CObject::DIM_3D, PRIORITY),
+	m_pSoul	 (pSoul),	// ソウルカーソル情報
+	m_pFrame (nullptr)	// フレーム情報
+{
+
+}
+
+//============================================================
+//	デストラクタ
+//============================================================
+CSelect::~CSelect()
+{
+
+}
+
+//============================================================
+//	初期化処理
+//============================================================
+HRESULT CSelect::Init(void)
+{
+	// メンバ変数を初期化
+	m_pFrame = nullptr;	// フレーム情報
+
+	// フレームの生成
+	m_pFrame = CFrame2D::Create
+	( // 引数
+		VEC3_ZERO,	// 位置
+		VEC3_ZERO,	// 向き
+		VEC3_ZERO	// 大きさ
+	);
+	if (m_pFrame == nullptr)
+	{ // 生成に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
+
+	// 優先順位を設定
+	m_pFrame->SetPriority(PRIORITY);
+
+	// 成功を返す
+	return S_OK;
+}
+
+//============================================================
+//	終了処理
+//============================================================
+void CSelect::Uninit(void)
+{
+	// フレームの終了
+	SAFE_UNINIT(m_pFrame);
+
+	// オブジェクトを破棄
+	Release();
+}
+
+//============================================================
+//	更新処理
+//============================================================
+void CSelect::Update(const float fDeltaTime)
+{
+
+}
+
+//============================================================
+//	描画処理
+//============================================================
+void CSelect::Draw(CShader * /*pShader*/)
+{
+
+}
+
+//============================================================
+//	生成処理
+//============================================================
+CSelect *CSelect::Create(CObject2D *pSoul, const CMenuSelectUI::ESelect select)
+{
+	// セレクトの生成
+	CSelect *pSelect = nullptr;	// セレクト情報
+	switch (select)
+	{ // 選択肢ごとの処理
+	case CMenuSelectUI::SELECT_ITEM:
+		//pSelect = new CSelectItemUI(pSoul);	// TODO：アイテムUI作成
+		break;
+
+	case CMenuSelectUI::SELECT_STATUS:
+		pSelect = new CSelectStatusUI(pSoul);
+		break;
+
+	case CMenuSelectUI::SELECT_PHONE:
+		//pSelect = new CSelectPhoneUI(pSoul);	// TODO：電話UI作成
+		break;
+
+	default:	// 例外処理
+		assert(false);
+		break;
+	}
+
+	if (pSelect == nullptr)
+	{ // 生成に失敗した場合
+
+		return nullptr;
+	}
+	else
+	{ // 生成に成功した場合
+
+		// セレクトの初期化
+		if (FAILED(pSelect->Init()))
+		{ // 初期化に失敗した場合
+
+			// セレクトの破棄
+			SAFE_DELETE(pSelect);
+			return nullptr;
 		}
-#endif
+
+		// 確保したアドレスを返す
+		return pSelect;
 	}
 }
