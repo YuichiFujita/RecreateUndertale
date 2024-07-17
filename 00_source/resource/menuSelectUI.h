@@ -59,8 +59,9 @@ private:
 	void Release(void) override { CObject::Release(); }	// 破棄
 
 	// メンバ関数
-	void UpdateSelect(void);	// 選択更新
-	void UpdateDecide(void);	// 決定更新
+	void UpdateSelect(void);		// 選択更新
+	void UpdateDecide(void);		// 決定更新
+	void UninitSelectMenu(void);	// 選択メニュー終了
 	HRESULT ChangeSelectMenu(const CMenuSelectUI::ESelect select);	// 選択メニュー変更
 
 	// メンバ変数
@@ -76,7 +77,7 @@ class CSelect : public CObject
 {
 public:
 	// コンストラクタ
-	explicit CSelect(CObject2D *pSoul);
+	explicit CSelect(const std::function<void(void)> funcUninit);
 
 	// デストラクタ
 	~CSelect() override;
@@ -88,7 +89,12 @@ public:
 	void Draw(CShader *pShader = nullptr) override;	// 描画
 
 	// 静的メンバ関数
-	static CSelect *Create(CObject2D *pSoul, const CMenuSelectUI::ESelect select);	// 生成
+	static CSelect *Create	// 生成
+	( // 引数
+		const std::function<void(void)> funcUninit,	// 選択メニュー終了関数
+		CObject2D *pSoul,							// ソウルカーソル情報
+		const CMenuSelectUI::ESelect select			// 選択肢
+	);
 
 	// メンバ関数
 	void SetFramePosition(const D3DXVECTOR3& rPos)	{ m_pFrame->SetVec3Position(rPos); }	// フレーム位置設定
@@ -103,6 +109,7 @@ private:
 	void Release(void) override { CObject::Release(); }	// 破棄
 
 	// メンバ変数
+	const std::function<void(void)> m_funcUninitMenu;	// 選択メニュー終了関数ポインタ
 	CObject2D *m_pSoul;	// ソウルカーソル情報
 	CFrame2D *m_pFrame;	// フレーム情報
 };

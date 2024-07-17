@@ -28,7 +28,7 @@ class CSelectStatusUI : public CSelect
 {
 public:
 	// コンストラクタ
-	CSelectStatusUI(CObject2D *pSoul);
+	explicit CSelectStatusUI(const std::function<void(void)> funcUninit);
 
 	// デストラクタ
 	~CSelectStatusUI() override;

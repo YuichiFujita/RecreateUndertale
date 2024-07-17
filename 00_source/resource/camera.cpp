@@ -151,7 +151,7 @@ void CCamera::Update(const float fDeltaTime)
 	case STATE_NONE:	// 固定状態
 
 		// 固定カメラの更新
-		UpdateFollow();
+		UpdateNone();
 		break;
 
 	case STATE_FOLLOW:	// 追従状態

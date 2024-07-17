@@ -30,7 +30,7 @@ namespace
 //============================================================
 //	コンストラクタ
 //============================================================
-CSelectStatusUI::CSelectStatusUI(CObject2D *pSoul) : CSelect(pSoul)
+CSelectStatusUI::CSelectStatusUI(const std::function<void(void)> funcUninit) : CSelect(funcUninit)
 {
 
 }

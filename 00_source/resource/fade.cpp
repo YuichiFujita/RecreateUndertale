@@ -40,7 +40,7 @@ namespace
 //	コンストラクタ
 //============================================================
 CFade::CFade() :
-	m_pFuncSetMode	(nullptr),		// モード設定関数ポインタ
+	m_funcSetMode	(nullptr),		// モード設定関数ポインタ
 	m_modeNext		(INIT_SCENE),	// 遷移先モード
 	m_fade			(FADE_NONE),	// フェード状態
 	m_fWaitTime		(0.0f),			// 現在の余韻時間
@@ -64,7 +64,7 @@ CFade::~CFade()
 HRESULT CFade::Init(void)
 {
 	// メンバ変数を初期化
-	m_pFuncSetMode	= nullptr;		// モード設定関数ポインタ
+	m_funcSetMode	= nullptr;		// モード設定関数ポインタ
 	m_modeNext		= INIT_SCENE;	// 遷移先モード
 	m_fade			= FADE_IN;		// フェード状態
 	m_fWaitTime		= 0.0f;			// 現在の余韻時間
@@ -176,11 +176,11 @@ void CFade::Update(const float fDeltaTime)
 			// フェードイン状態にする
 			m_fade = FADE_IN;
 
-			if (m_pFuncSetMode != nullptr)
+			if (m_funcSetMode != nullptr)
 			{ // モード設定関数が指定されている場合
 
 				// モードの設定
-				m_pFuncSetMode();
+				m_funcSetMode();
 			}
 		}
 
@@ -232,7 +232,7 @@ void CFade::SetFade
 	SetColor(colFade);
 
 	// モード設定関数ポインタを初期化
-	m_pFuncSetMode = nullptr;
+	m_funcSetMode = nullptr;
 
 	// フェードアウト状態にする
 	m_fade = FADE_OUT;
@@ -273,7 +273,7 @@ void CFade::SetModeFade
 	SetPriority(PRIORITY);
 
 	// ロード画面を挟まないモード設定関数を設定
-	m_pFuncSetMode = std::bind(&CManager::SetMode, GET_MANAGER);
+	m_funcSetMode = std::bind(&CManager::SetMode, GET_MANAGER);
 
 	if (m_fWaitTime <= 0.0f)
 	{ // カウンターが未設定の場合
@@ -324,7 +324,7 @@ void CFade::SetLoadFade
 	SetPriority(PRIORITY);
 
 	// ロード画面を挟むモード設定関数を設定
-	m_pFuncSetMode = std::bind(&CManager::SetLoadMode, GET_MANAGER);
+	m_funcSetMode = std::bind(&CManager::SetLoadMode, GET_MANAGER);
 
 	if (m_fWaitTime <= 0.0f)
 	{ // カウンターが未設定の場合
@@ -359,7 +359,7 @@ void CFade::SetRoomFade(void)
 	SetColor(XCOL_ABLACK);
 
 	// 遷移先ルームの割当関数を設定
-	m_pFuncSetMode = std::bind(&CStage::BindNextRoom, CSceneGame::GetStage());
+	m_funcSetMode = std::bind(&CStage::BindNextRoom, CSceneGame::GetStage());
 
 	// フェードアウト状態にする
 	m_fade = FADE_OUT;

@@ -86,7 +86,7 @@ public:
 
 private:
 	// メンバ変数
-	std::function<HRESULT(void)> m_pFuncSetMode;	// モード設定関数ポインタ
+	std::function<HRESULT(void)> m_funcSetMode;	// モード設定関数ポインタ
 	CScene::EMode m_modeNext;	// 遷移先モード
 	EFade m_fade;		// フェード状態
 	float m_fWaitTime;	// 現在の余韻時間
