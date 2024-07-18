@@ -1,14 +1,14 @@
 //============================================================
 //
-//	フルステータスメニューヘッダー [selectStatusUI.h]
+//	電話メニューヘッダー [selectPhoneUI.h]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	二重インクルード防止
 //************************************************************
-#ifndef _SELECT_STATUS_UI_H_
-#define _SELECT_STATUS_UI_H_
+#ifndef _SELECT_PHONE_UI_H_
+#define _SELECT_PHONE_UI_H_
 
 //************************************************************
 //	インクルードファイル
@@ -23,15 +23,15 @@ class CString2D;	// 文字列2Dクラス
 //************************************************************
 //	クラス定義
 //************************************************************
-// フルステータスメニュークラス
-class CSelectStatusUI : public CSelect
+// 電話メニュークラス
+class CSelectPhoneUI : public CSelect
 {
 public:
 	// コンストラクタ
-	CSelectStatusUI(AFuncUninit funcUninit, CObject2D *pSoul);
+	explicit CSelectPhoneUI(AFuncUninit funcUninit, CObject2D *pSoul);
 
 	// デストラクタ
-	~CSelectStatusUI() override;
+	~CSelectPhoneUI() override;
 
 	// オーバーライド関数
 	HRESULT Init(void) override;	// 初期化
@@ -44,4 +44,4 @@ private:
 
 };
 
-#endif	// _SELECT_STATUS_UI_H_
+#endif	// _SELECT_PHONE_UI_H_

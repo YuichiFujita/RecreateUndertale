@@ -1,20 +1,20 @@
 //============================================================
 //
-//	フルステータスメニュー処理 [selectStatusUI.cpp]
+//	電話メニュー処理 [selectPhoneUI.cpp]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	インクルードファイル
 //************************************************************
-#include "selectStatusUI.h"
+#include "selectPhoneUI.h"
 
 //************************************************************
 //	定数宣言
 //************************************************************
 namespace
 {
-	const int PRIORITY = 6;	// フルステータスメニューの優先順位
+	const int PRIORITY = 6;	// 電話メニューの優先順位
 
 	namespace frame
 	{
@@ -25,12 +25,12 @@ namespace
 }
 
 //************************************************************
-//	子クラス [CSelectStatusUI] のメンバ関数
+//	子クラス [CSelectPhoneUI] のメンバ関数
 //************************************************************
 //============================================================
 //	コンストラクタ
 //============================================================
-CSelectStatusUI::CSelectStatusUI(AFuncUninit funcUninit, CObject2D *pSoul) : CSelect(funcUninit, pSoul)
+CSelectPhoneUI::CSelectPhoneUI(AFuncUninit funcUninit, CObject2D *pSoul) : CSelect(funcUninit, pSoul)
 {
 
 }
@@ -38,7 +38,7 @@ CSelectStatusUI::CSelectStatusUI(AFuncUninit funcUninit, CObject2D *pSoul) : CSe
 //============================================================
 //	デストラクタ
 //============================================================
-CSelectStatusUI::~CSelectStatusUI()
+CSelectPhoneUI::~CSelectPhoneUI()
 {
 
 }
@@ -46,7 +46,7 @@ CSelectStatusUI::~CSelectStatusUI()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CSelectStatusUI::Init(void)
+HRESULT CSelectPhoneUI::Init(void)
 {
 	// セレクトの初期化
 	if (FAILED(CSelect::Init()))
@@ -66,9 +66,6 @@ HRESULT CSelectStatusUI::Init(void)
 	// フレームの大きさを設定
 	SetFrameSizing(frame::SIZE);
 
-	// ソウルカーソルの描画をOFFにする
-	SetSoulCursorDraw(false);
-
 	// 成功を返す
 	return S_OK;
 }
@@ -76,11 +73,8 @@ HRESULT CSelectStatusUI::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CSelectStatusUI::Uninit(void)
+void CSelectPhoneUI::Uninit(void)
 {
-	// ソウルカーソルの描画をONにする
-	SetSoulCursorDraw(true);
-
 	// セレクトの終了
 	CSelect::Uninit();
 }
@@ -88,7 +82,7 @@ void CSelectStatusUI::Uninit(void)
 //============================================================
 //	更新処理
 //============================================================
-void CSelectStatusUI::Update(const float fDeltaTime)
+void CSelectPhoneUI::Update(const float fDeltaTime)
 {
 	// セレクトの更新
 	CSelect::Update(fDeltaTime);
@@ -97,7 +91,7 @@ void CSelectStatusUI::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CSelectStatusUI::Draw(CShader *pShader)
+void CSelectPhoneUI::Draw(CShader *pShader)
 {
 	// セレクトの描画
 	CSelect::Draw(pShader);

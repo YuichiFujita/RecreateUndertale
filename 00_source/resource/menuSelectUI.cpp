@@ -11,10 +11,10 @@
 #include "menuUI.h"
 #include "manager.h"
 #include "string2D.h"
-#include "object2D.h"
 #include "loadtext.h"
-
+#include "selectItemUI.h"
 #include "selectStatusUI.h"
+#include "selectPhoneUI.h"
 
 //************************************************************
 //	定数宣言
@@ -154,7 +154,7 @@ HRESULT CMenuSelectUI::Init(void)
 	}
 
 	// ソウルテクスチャを割当
-	m_pSoul->BindTexture("data\\TEXTURE\\spr_heartsmall.png");
+	m_pSoul->BindTexture("data\\TEXTURE\\spr_heartsmall.png");	// TODO：パス
 
 	// ラベルを設定
 	m_pSoul->SetLabel(CObject::LABEL_UI);
@@ -322,9 +322,9 @@ HRESULT CMenuSelectUI::ChangeSelectMenu(const CMenuSelectUI::ESelect select)
 //============================================================
 //	コンストラクタ
 //============================================================
-CSelect::CSelect(const std::function<void(void)> funcUninit) : CObject(CObject::LABEL_UI, CObject::DIM_3D, PRIORITY),
+CSelect::CSelect(AFuncUninit funcUninit, CObject2D *pSoul) : CObject(CObject::LABEL_UI, CObject::DIM_3D, PRIORITY),
 	m_funcUninitMenu (funcUninit),	// 選択メニュー終了関数ポインタ
-	m_pSoul			 (nullptr),		// ソウルカーソル情報
+	m_pSoul			 (pSoul),		// ソウルカーソル情報
 	m_pFrame		 (nullptr)		// フレーム情報
 {
 
@@ -406,9 +406,9 @@ void CSelect::Draw(CShader * /*pShader*/)
 //============================================================
 CSelect *CSelect::Create
 (
-	const std::function<void(void)> funcUninit,	// 選択メニュー終了関数
-	CObject2D *pSoul,							// ソウルカーソル情報
-	const CMenuSelectUI::ESelect select			// 選択肢
+	AFuncUninit funcUninit,	// 選択メニュー終了関数
+	CObject2D *pSoul,		// ソウルカーソル情報
+	const CMenuSelectUI::ESelect select	// 選択肢
 )
 {
 	// セレクトの生成
@@ -416,15 +416,15 @@ CSelect *CSelect::Create
 	switch (select)
 	{ // 選択肢ごとの処理
 	case CMenuSelectUI::SELECT_ITEM:
-		//pSelect = new CSelectItemUI(funcUninit);	// TODO：アイテムUI作成
+		pSelect = new CSelectItemUI(funcUninit, pSoul);
 		break;
 
 	case CMenuSelectUI::SELECT_STATUS:
-		pSelect = new CSelectStatusUI(funcUninit);
+		pSelect = new CSelectStatusUI(funcUninit, pSoul);
 		break;
 
 	case CMenuSelectUI::SELECT_PHONE:
-		//pSelect = new CSelectPhoneUI(funcUninit);	// TODO：電話UI作成
+		pSelect = new CSelectPhoneUI(funcUninit, pSoul);
 		break;
 
 	default:	// 例外処理
@@ -448,9 +448,6 @@ CSelect *CSelect::Create
 			SAFE_DELETE(pSelect);
 			return nullptr;
 		}
-
-		// ソウルカーソル情報の設定
-		pSelect->m_pSoul = pSoul;
 
 		// 確保したアドレスを返す
 		return pSelect;

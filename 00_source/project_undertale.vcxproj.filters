@@ -399,6 +399,12 @@
     <ClCompile Include="resource\selectStatusUI.cpp">
       <Filter>ingame\menu</Filter>
     </ClCompile>
+    <ClCompile Include="resource\selectItemUI.cpp">
+      <Filter>ingame\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\selectPhoneUI.cpp">
+      <Filter>ingame\menu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h">
@@ -732,6 +738,12 @@
       <Filter>ingame\menu</Filter>
     </ClInclude>
     <ClInclude Include="resource\selectStatusUI.h">
+      <Filter>ingame\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\selectItemUI.h">
+      <Filter>ingame\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\selectPhoneUI.h">
       <Filter>ingame\menu</Filter>
     </ClInclude>
   </ItemGroup>

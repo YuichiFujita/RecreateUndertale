@@ -240,6 +240,8 @@
     <ClCompile Include="resource\scrollMeshRing.cpp" />
     <ClCompile Include="resource\scrollString2D.cpp" />
     <ClCompile Include="resource\scrollText2D.cpp" />
+    <ClCompile Include="resource\selectItemUI.cpp" />
+    <ClCompile Include="resource\selectPhoneUI.cpp" />
     <ClCompile Include="resource\selectStatusUI.cpp" />
     <ClCompile Include="resource\shader.cpp" />
     <ClCompile Include="resource\shaderMono.cpp" />
@@ -353,6 +355,8 @@
     <ClInclude Include="resource\scrollMeshRing.h" />
     <ClInclude Include="resource\scrollString2D.h" />
     <ClInclude Include="resource\scrollText2D.h" />
+    <ClInclude Include="resource\selectItemUI.h" />
+    <ClInclude Include="resource\selectPhoneUI.h" />
     <ClInclude Include="resource\selectStatusUI.h" />
     <ClInclude Include="resource\shader.h" />
     <ClInclude Include="resource\shaderMono.h" />
