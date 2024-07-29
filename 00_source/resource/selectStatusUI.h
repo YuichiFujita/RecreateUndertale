@@ -19,6 +19,7 @@
 //	前方宣言
 //************************************************************
 class CString2D;	// 文字列2Dクラス
+class CText2D;		// テキスト2Dクラス
 
 //************************************************************
 //	クラス定義
@@ -41,7 +42,9 @@ public:
 
 private:
 	// メンバ変数
-
+	CString2D *m_pName;		// 名前情報
+	CText2D *m_pLvHpTitle;	// レベル/HPタイトル情報
+	CText2D *m_pLvHpValue;	// レベル/HP数値情報
 };
 
 #endif	// _SELECT_STATUS_UI_H_
