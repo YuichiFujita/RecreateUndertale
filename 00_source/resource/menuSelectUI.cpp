@@ -47,8 +47,9 @@ namespace
 
 	namespace soul
 	{
-		const D3DXVECTOR3 POS	= D3DXVECTOR3(97.5f, 308.5f, 0.0f);	// ソウルカーソル位置
-		const D3DXVECTOR3 SIZE	= D3DXVECTOR3(26.5f, 26.5f, 0.0f);	// ソウルカーソル大きさ
+		const char *PASS		= "data\\TEXTURE\\spr_heartsmall.png";	// ソウルカーソルテクスチャパス
+		const D3DXVECTOR3 POS	= D3DXVECTOR3(97.5f, 308.5f, 0.0f);		// ソウルカーソル位置
+		const D3DXVECTOR3 SIZE	= D3DXVECTOR3(26.5f, 26.5f, 0.0f);		// ソウルカーソル大きさ
 	}
 }
 
@@ -154,7 +155,7 @@ HRESULT CMenuSelectUI::Init(void)
 	}
 
 	// ソウルテクスチャを割当
-	m_pSoul->BindTexture("data\\TEXTURE\\spr_heartsmall.png");	// TODO：パス
+	m_pSoul->BindTexture(soul::PASS);
 
 	// ラベルを設定
 	m_pSoul->SetLabel(CObject::LABEL_UI);

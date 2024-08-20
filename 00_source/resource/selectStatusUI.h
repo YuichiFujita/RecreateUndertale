@@ -41,10 +41,20 @@ public:
 	void Draw(CShader *pShader = nullptr) override;	// 描画
 
 private:
+	// 表示テキスト列挙
+	enum EText
+	{
+		TEXT_LV_HP = 0,	// LV/HP
+		TEXT_ATK_DEF,	// ATK/DEF
+		TEXT_MAX		// この列挙型の総数
+	};
+
 	// メンバ変数
-	CString2D *m_pName;		// 名前情報
-	CText2D *m_pLvHpTitle;	// レベル/HPタイトル情報
-	CText2D *m_pLvHpValue;	// レベル/HP数値情報
+	CString2D *m_pName;			// 名前情報
+	CText2D *m_pLvHpTitle;		// LV/HPタイトル情報
+	CText2D *m_pLvHpValue;		// LV/HP数値情報
+	CText2D *m_pAtkDefTitle;	// ATK/DEFタイトル情報
+	CText2D *m_pAtkDefValue;	// ATK/DEF数値情報
 };
 
 #endif	// _SELECT_STATUS_UI_H_

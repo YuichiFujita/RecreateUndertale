@@ -196,7 +196,7 @@ HRESULT CMenuStatusUI::Init(void)
 	// TODO：ステータスの取得
 #if 1
 	m_pValue->AddString(L"1");
-	m_pValue->AddString(L"20/20");
+	m_pValue->AddString(useful::SandString(L"20", L"/", L"20"));
 	m_pValue->AddString(L"0");
 #endif
 

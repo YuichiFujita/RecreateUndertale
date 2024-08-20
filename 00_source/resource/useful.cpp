@@ -269,6 +269,19 @@ void useful::StandardizePathPart(std::string *pPath)
 }
 
 //============================================================
+//	文字列の左右追加
+//============================================================
+std::wstring useful::SandString(const std::wstring &rTop, const std::wstring &rMain, const std::wstring &rCur)
+{
+	// 左右に追加した文字列を作成し返す
+	std::wstring wsTemp;
+	wsTemp.append(rTop);	// 先頭に追加
+	wsTemp.append(rMain);	// 中心に追加
+	wsTemp.append(rCur);	// 最後尾に追加
+	return wsTemp;
+}
+
+//============================================================
 //	マルチバイト文字列のワイド文字列変換
 //============================================================
 std::wstring useful::MultiByteToWide(const std::string &rSrcStr)

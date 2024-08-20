@@ -18,7 +18,7 @@
 namespace
 {
 	const char	*FONT	 = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
-	const char	*PASS	 = "data\\TEXT\\start.txt";						// テキストパス	// TODO：パスどう分けるか
+	const char	*PASS	 = "data\\TEXT\\selectStatus.txt";				// テキストパス
 	const bool	ITALIC	 = false;	// イタリック
 	const float	HEIGHT	 = 42.0f;	// 文字縦幅
 	const int	PRIORITY = 6;		// フルステータスメニューの優先順位
@@ -52,7 +52,27 @@ namespace
 	{
 		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
 		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_TOP;		// 縦配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(415.0f, 205.5f, 0.0f);	// 位置
+		const D3DXVECTOR3	POS = D3DXVECTOR3(410.0f, 205.5f, 0.0f);	// 位置
+		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
+		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
+		const float	LINE_HEIGHT = 44.0f;		// 行間縦幅
+	}
+
+	namespace atkdef_title
+	{
+		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
+		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_TOP;		// 縦配置
+		const D3DXVECTOR3	POS = D3DXVECTOR3(320.0f, 335.5f, 0.0f);	// 位置
+		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
+		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
+		const float	LINE_HEIGHT = 44.0f;		// 行間縦幅
+	}
+
+	namespace atkdef_value
+	{
+		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
+		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_TOP;		// 縦配置
+		const D3DXVECTOR3	POS = D3DXVECTOR3(410.0f, 335.5f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
 		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
 		const float	LINE_HEIGHT = 44.0f;		// 行間縦幅
@@ -66,9 +86,11 @@ namespace
 //	コンストラクタ
 //============================================================
 CSelectStatusUI::CSelectStatusUI(AFuncUninit funcUninit, CObject2D *pSoul) : CSelect(funcUninit, pSoul),
-	m_pName		 (nullptr),	// 名前情報
-	m_pLvHpTitle (nullptr),	// レベル/HPタイトル情報
-	m_pLvHpValue (nullptr)	// レベル/HP数値情報
+	m_pName			(nullptr),	// 名前情報
+	m_pLvHpTitle	(nullptr),	// LV/HPタイトル情報
+	m_pLvHpValue	(nullptr),	// LV/HP数値情報
+	m_pAtkDefTitle	(nullptr),	// ATK/DEFタイトル情報
+	m_pAtkDefValue	(nullptr)	// ATK/DEF数値情報
 {
 
 }
@@ -87,9 +109,11 @@ CSelectStatusUI::~CSelectStatusUI()
 HRESULT CSelectStatusUI::Init(void)
 {
 	// メンバ変数を初期化
-	m_pName		 = nullptr;	// 名前情報
-	m_pLvHpTitle = nullptr;	// レベル/HPタイトル情報
-	m_pLvHpValue = nullptr;	// レベル/HP数値情報
+	m_pName			= nullptr;	// 名前情報
+	m_pLvHpTitle	= nullptr;	// LV/HPタイトル情報
+	m_pLvHpValue	= nullptr;	// LV/HP数値情報
+	m_pAtkDefTitle	= nullptr;	// ATK/DEFタイトル情報
+	m_pAtkDefValue	= nullptr;	// ATK/DEF数値情報
 
 	//--------------------------------------------------------
 	//	親クラスの初期化 / 設定
@@ -119,10 +143,7 @@ HRESULT CSelectStatusUI::Init(void)
 	//	名前の初期化 / 設定
 	//--------------------------------------------------------
 	// 表示する名前文字列を作成
-	std::wstring wsName;
-	wsName.append(L"\"");		// ”を先頭に追加
-	wsName.append(L"おぷおぷ");	// 名前を追加	// TODO：外部読込
-	wsName.append(L"\"");		// ”を最後尾に追加
+	std::wstring wsName = useful::SandString(L"\"", L"おぷおぷ", L"\"");	// TODO：名前の外部読込
 
 	// 名前の生成
 	m_pName = CString2D::Create
@@ -141,9 +162,9 @@ HRESULT CSelectStatusUI::Init(void)
 	m_pName->SetPriority(PRIORITY);
 
 	//--------------------------------------------------------
-	//	レベル / HPタイトルの初期化 / 設定
+	//	LV / HPタイトルの初期化 / 設定
 	//--------------------------------------------------------
-	// レベル/HPタイトルの生成
+	// LV/HPタイトルの生成
 	m_pLvHpTitle = CText2D::Create
 	( // 引数
 		FONT,						// フォントパス
@@ -167,16 +188,13 @@ HRESULT CSelectStatusUI::Init(void)
 	// 優先順位を設定
 	m_pLvHpTitle->SetPriority(PRIORITY);
 
-	// TODO：外部ファイル化
-#if 1
-	m_pLvHpTitle->AddString(L"LV");
-	m_pLvHpTitle->AddString(L"HP");
-#endif
+	// テキストを割当
+	loadtext::BindText(m_pLvHpTitle, loadtext::LoadText(PASS, TEXT_LV_HP));
 
 	//--------------------------------------------------------
-	//	レベル / HP数値の初期化 / 設定
+	//	LV / HP数値の初期化 / 設定
 	//--------------------------------------------------------
-	// レベル/HP数値の生成
+	// LV/HP数値の生成
 	m_pLvHpValue = CText2D::Create
 	( // 引数
 		FONT,						// フォントパス
@@ -203,7 +221,77 @@ HRESULT CSelectStatusUI::Init(void)
 	// TODO：ステータス情報読込
 #if 1
 	m_pLvHpValue->AddString(L"1");
-	m_pLvHpValue->AddString(L"20/20");
+	m_pLvHpValue->AddString(useful::SandString(L"20", L"/", L"20"));
+#endif
+
+	//--------------------------------------------------------
+	//	ATK / DEFタイトルの初期化 / 設定
+	//--------------------------------------------------------
+	// ATK/DEFタイトルの生成
+	m_pAtkDefTitle = CText2D::Create
+	( // 引数
+		FONT,						// フォントパス
+		ITALIC,						// イタリック
+		atkdef_title::POS,			// 原点位置
+		HEIGHT,						// 文字縦幅
+		atkdef_title::LINE_HEIGHT,	// 行間縦幅
+		atkdef_title::ALIGN_X,		// 横配置
+		atkdef_title::ALIGN_Y,		// 縦配置
+		atkdef_title::ROT,			// 原点向き
+		atkdef_title::COL			// 色
+	);
+	if (m_pAtkDefTitle == nullptr)
+	{ // 生成に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
+
+	// 優先順位を設定
+	m_pAtkDefTitle->SetPriority(PRIORITY);
+
+	// テキストを割当
+	loadtext::BindText(m_pAtkDefTitle, loadtext::LoadText(PASS, TEXT_ATK_DEF));
+
+	//--------------------------------------------------------
+	//	ATK / DEF数値の初期化 / 設定
+	//--------------------------------------------------------
+	// ATK/DEF数値の生成
+	m_pAtkDefValue = CText2D::Create
+	( // 引数
+		FONT,						// フォントパス
+		ITALIC,						// イタリック
+		atkdef_value::POS,			// 原点位置
+		HEIGHT,						// 文字縦幅
+		atkdef_value::LINE_HEIGHT,	// 行間縦幅
+		atkdef_value::ALIGN_X,		// 横配置
+		atkdef_value::ALIGN_Y,		// 縦配置
+		atkdef_value::ROT,			// 原点向き
+		atkdef_value::COL			// 色
+	);
+	if (m_pAtkDefValue == nullptr)
+	{ // 生成に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
+
+	// 優先順位を設定
+	m_pAtkDefValue->SetPriority(PRIORITY);
+
+	// TODO：ステータス情報 / 装備情報の読込
+#if 1
+	// 攻撃力のステータス文字列を追加
+	std::wstring wsAtk = std::to_wstring(0);							// 自前のステータスを文字列に追加
+	wsAtk.append(useful::SandString(L" (", std::to_wstring(3), L")"));	// 装備のプラスステータスを文字列に追加
+	m_pAtkDefValue->AddString(wsAtk);									// 作成した文字列を割当
+
+	// 防御力のステータス文字列を追加
+	std::wstring wsDef = std::to_wstring(0);							// 自前のステータスを文字列に追加
+	wsDef.append(useful::SandString(L" (", std::to_wstring(3), L")"));	// 装備のプラスステータスを文字列に追加
+	m_pAtkDefValue->AddString(wsDef);									// 作成した文字列を割当
 #endif
 
 	// 成功を返す
@@ -221,11 +309,17 @@ void CSelectStatusUI::Uninit(void)
 	// 名前の終了
 	SAFE_UNINIT(m_pName);
 
-	// レベル/HPタイトルの終了
+	// LV/HPタイトルの終了
 	SAFE_UNINIT(m_pLvHpTitle);
 
-	// レベル/HP数値の終了
+	// LV/HP数値の終了
 	SAFE_UNINIT(m_pLvHpValue);
+
+	// ATK/DEFタイトルの終了
+	SAFE_UNINIT(m_pAtkDefTitle);
+
+	// ATK/DEF数値の終了
+	SAFE_UNINIT(m_pAtkDefValue);
 
 	// セレクトの終了
 	CSelect::Uninit();
