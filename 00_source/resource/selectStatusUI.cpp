@@ -52,7 +52,7 @@ namespace
 	{
 		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
 		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_TOP;		// 縦配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(410.0f, 205.5f, 0.0f);	// 位置
+		const D3DXVECTOR3	POS = D3DXVECTOR3(402.0f, 205.5f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
 		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
 		const float	LINE_HEIGHT = 44.0f;		// 行間縦幅
@@ -72,7 +72,27 @@ namespace
 	{
 		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
 		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_TOP;		// 縦配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(410.0f, 335.5f, 0.0f);	// 位置
+		const D3DXVECTOR3	POS = D3DXVECTOR3(402.0f, 335.5f, 0.0f);	// 位置
+		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
+		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
+		const float	LINE_HEIGHT = 44.0f;		// 行間縦幅
+	}
+
+	namespace expnext_title
+	{
+		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
+		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_TOP;		// 縦配置
+		const D3DXVECTOR3	POS = D3DXVECTOR3(570.0f, 335.5f, 0.0f);	// 位置
+		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
+		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
+		const float	LINE_HEIGHT = 44.0f;		// 行間縦幅
+	}
+
+	namespace expnext_value
+	{
+		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
+		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_TOP;		// 縦配置
+		const D3DXVECTOR3	POS = D3DXVECTOR3(672.0f, 335.5f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
 		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
 		const float	LINE_HEIGHT = 44.0f;		// 行間縦幅
@@ -90,7 +110,9 @@ CSelectStatusUI::CSelectStatusUI(AFuncUninit funcUninit, CObject2D *pSoul) : CSe
 	m_pLvHpTitle	(nullptr),	// LV/HPタイトル情報
 	m_pLvHpValue	(nullptr),	// LV/HP数値情報
 	m_pAtkDefTitle	(nullptr),	// ATK/DEFタイトル情報
-	m_pAtkDefValue	(nullptr)	// ATK/DEF数値情報
+	m_pAtkDefValue	(nullptr),	// ATK/DEF数値情報
+	m_pExpNextTitle	(nullptr),	// EXP/NEXTタイトル情報
+	m_pExpNextValue	(nullptr)	// EXP/NEXT数値情報
 {
 
 }
@@ -114,6 +136,8 @@ HRESULT CSelectStatusUI::Init(void)
 	m_pLvHpValue	= nullptr;	// LV/HP数値情報
 	m_pAtkDefTitle	= nullptr;	// ATK/DEFタイトル情報
 	m_pAtkDefValue	= nullptr;	// ATK/DEF数値情報
+	m_pExpNextTitle	= nullptr;	// EXP/NEXTタイトル情報
+	m_pExpNextValue	= nullptr;	// EXP/NEXT数値情報
 
 	//--------------------------------------------------------
 	//	親クラスの初期化 / 設定
@@ -294,6 +318,69 @@ HRESULT CSelectStatusUI::Init(void)
 	m_pAtkDefValue->AddString(wsDef);									// 作成した文字列を割当
 #endif
 
+	//--------------------------------------------------------
+	//	EXP / NEXTタイトルの初期化 / 設定
+	//--------------------------------------------------------
+	// EXP/NEXTタイトルの生成
+	m_pExpNextTitle = CText2D::Create
+	( // 引数
+		FONT,						// フォントパス
+		ITALIC,						// イタリック
+		expnext_title::POS,			// 原点位置
+		HEIGHT,						// 文字縦幅
+		expnext_title::LINE_HEIGHT,	// 行間縦幅
+		expnext_title::ALIGN_X,		// 横配置
+		expnext_title::ALIGN_Y,		// 縦配置
+		expnext_title::ROT,			// 原点向き
+		expnext_title::COL			// 色
+	);
+	if (m_pExpNextTitle == nullptr)
+	{ // 生成に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
+
+	// 優先順位を設定
+	m_pExpNextTitle->SetPriority(PRIORITY);
+
+	// テキストを割当
+	loadtext::BindText(m_pExpNextTitle, loadtext::LoadText(PASS, TEXT_EXP_NEXT));
+
+	//--------------------------------------------------------
+	//	EXP / NEXT数値の初期化 / 設定
+	//--------------------------------------------------------
+	// EXP/NEXT数値の生成
+	m_pExpNextValue = CText2D::Create
+	( // 引数
+		FONT,						// フォントパス
+		ITALIC,						// イタリック
+		expnext_value::POS,			// 原点位置
+		HEIGHT,						// 文字縦幅
+		expnext_value::LINE_HEIGHT,	// 行間縦幅
+		expnext_value::ALIGN_X,		// 横配置
+		expnext_value::ALIGN_Y,		// 縦配置
+		expnext_value::ROT,			// 原点向き
+		expnext_value::COL			// 色
+	);
+	if (m_pExpNextValue == nullptr)
+	{ // 生成に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
+
+	// 優先順位を設定
+	m_pExpNextValue->SetPriority(PRIORITY);
+
+	// TODO：ステータス情報読込
+#if 1
+	m_pExpNextValue->AddString(L"0");
+	m_pExpNextValue->AddString(L"10");
+#endif
+
 	// 成功を返す
 	return S_OK;
 }
@@ -320,6 +407,12 @@ void CSelectStatusUI::Uninit(void)
 
 	// ATK/DEF数値の終了
 	SAFE_UNINIT(m_pAtkDefValue);
+
+	// EXP/NEXTタイトルの終了
+	SAFE_UNINIT(m_pExpNextTitle);
+
+	// EXP/NEXT数値の終了
+	SAFE_UNINIT(m_pExpNextValue);
 
 	// セレクトの終了
 	CSelect::Uninit();

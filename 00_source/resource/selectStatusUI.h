@@ -46,6 +46,10 @@ private:
 	{
 		TEXT_LV_HP = 0,	// LV/HP
 		TEXT_ATK_DEF,	// ATK/DEF
+		TEXT_EXP_NEXT,	// EXP/NEXT
+		TEXT_WPN_AMR,	// WPN/AMR
+		TEXT_GOLD,		// GOLD
+		TEXT_KILLS,		// KILLS
 		TEXT_MAX		// この列挙型の総数
 	};
 
@@ -55,6 +59,8 @@ private:
 	CText2D *m_pLvHpValue;		// LV/HP数値情報
 	CText2D *m_pAtkDefTitle;	// ATK/DEFタイトル情報
 	CText2D *m_pAtkDefValue;	// ATK/DEF数値情報
+	CText2D *m_pExpNextTitle;	// EXP/NEXTタイトル情報
+	CText2D *m_pExpNextValue;	// EXP/NEXT数値情報
 };
 
 #endif	// _SELECT_STATUS_UI_H_
