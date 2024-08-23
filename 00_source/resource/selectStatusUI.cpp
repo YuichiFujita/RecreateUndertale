@@ -42,60 +42,112 @@ namespace
 	{
 		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
 		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_TOP;		// 縦配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(320.0f, 205.5f, 0.0f);	// 位置
+		const D3DXVECTOR3	POS = D3DXVECTOR3(320.0f, 200.5f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
 		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
-		const float	LINE_HEIGHT = 44.0f;		// 行間縦幅
+		const float	LINE_HEIGHT = 53.0f;		// 行間縦幅
 	}
 
 	namespace lvhp_value
 	{
 		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
 		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_TOP;		// 縦配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(402.0f, 205.5f, 0.0f);	// 位置
+		const D3DXVECTOR3	POS = D3DXVECTOR3(402.0f, 200.5f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
 		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
-		const float	LINE_HEIGHT = 44.0f;		// 行間縦幅
+		const float	LINE_HEIGHT = 53.0f;		// 行間縦幅
 	}
 
 	namespace atkdef_title
 	{
 		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
 		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_TOP;		// 縦配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(320.0f, 335.5f, 0.0f);	// 位置
+		const D3DXVECTOR3	POS = D3DXVECTOR3(320.0f, 330.5f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
 		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
-		const float	LINE_HEIGHT = 44.0f;		// 行間縦幅
+		const float	LINE_HEIGHT = 53.0f;		// 行間縦幅
 	}
 
 	namespace atkdef_value
 	{
 		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
 		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_TOP;		// 縦配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(402.0f, 335.5f, 0.0f);	// 位置
+		const D3DXVECTOR3	POS = D3DXVECTOR3(402.0f, 330.5f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
 		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
-		const float	LINE_HEIGHT = 44.0f;		// 行間縦幅
+		const float	LINE_HEIGHT = 53.0f;		// 行間縦幅
 	}
 
 	namespace expnext_title
 	{
 		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
 		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_TOP;		// 縦配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(570.0f, 335.5f, 0.0f);	// 位置
+		const D3DXVECTOR3	POS = D3DXVECTOR3(570.0f, 330.5f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
 		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
-		const float	LINE_HEIGHT = 44.0f;		// 行間縦幅
+		const float	LINE_HEIGHT = 53.0f;		// 行間縦幅
 	}
 
 	namespace expnext_value
 	{
 		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
 		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_TOP;		// 縦配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(672.0f, 335.5f, 0.0f);	// 位置
+		const D3DXVECTOR3	POS = D3DXVECTOR3(672.0f, 330.5f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
 		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
-		const float	LINE_HEIGHT = 44.0f;		// 行間縦幅
+		const float	LINE_HEIGHT = 53.0f;		// 行間縦幅
+	}
+
+	namespace wpnamr_title
+	{
+		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
+		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_TOP;		// 縦配置
+		const D3DXVECTOR3	POS = D3DXVECTOR3(320.0f, 460.5f, 0.0f);	// 位置
+		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
+		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
+		const float	LINE_HEIGHT = 53.0f;		// 行間縦幅
+	}
+
+	namespace wpnamr_name
+	{
+		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
+		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_TOP;		// 縦配置
+		const D3DXVECTOR3	POS = D3DXVECTOR3(402.0f, 460.5f, 0.0f);	// 位置
+		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
+		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
+		const float	LINE_HEIGHT = 53.0f;		// 行間縦幅
+	}
+
+	namespace gold_title
+	{
+		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;		// 横配置
+		const D3DXVECTOR3	POS = D3DXVECTOR3(320.0f, 615.5f, 0.0f);	// 位置
+		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
+		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
+	}
+
+	namespace gold_value
+	{
+		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;		// 横配置
+		const D3DXVECTOR3	POS = D3DXVECTOR3(423.0f, 615.5f, 0.0f);	// 位置
+		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
+		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
+	}
+
+	namespace kills_title
+	{
+		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;		// 横配置
+		const D3DXVECTOR3	POS = D3DXVECTOR3(500.0f, 615.5f, 0.0f);	// 位置
+		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
+		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
+	}
+
+	namespace kills_value
+	{
+		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;		// 横配置
+		const D3DXVECTOR3	POS = D3DXVECTOR3(627.0f, 615.5f, 0.0f);	// 位置
+		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
+		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
 	}
 }
 
@@ -112,7 +164,13 @@ CSelectStatusUI::CSelectStatusUI(AFuncUninit funcUninit, CObject2D *pSoul) : CSe
 	m_pAtkDefTitle	(nullptr),	// ATK/DEFタイトル情報
 	m_pAtkDefValue	(nullptr),	// ATK/DEF数値情報
 	m_pExpNextTitle	(nullptr),	// EXP/NEXTタイトル情報
-	m_pExpNextValue	(nullptr)	// EXP/NEXT数値情報
+	m_pExpNextValue	(nullptr),	// EXP/NEXT数値情報
+	m_pWpnAmrTitle	(nullptr),	// WPN/AMRタイトル情報
+	m_pWpnAmrName	(nullptr),	// WPN/AMR名称情報
+	m_pGoldTitle	(nullptr),	// GOLDタイトル情報
+	m_pGoldValue	(nullptr),	// GOLD数値情報
+	m_pKillsTitle	(nullptr),	// KILLSタイトル情報
+	m_pKillsValue	(nullptr)	// KILLS数値情報
 {
 
 }
@@ -138,6 +196,12 @@ HRESULT CSelectStatusUI::Init(void)
 	m_pAtkDefValue	= nullptr;	// ATK/DEF数値情報
 	m_pExpNextTitle	= nullptr;	// EXP/NEXTタイトル情報
 	m_pExpNextValue	= nullptr;	// EXP/NEXT数値情報
+	m_pWpnAmrTitle	= nullptr;	// WPN/AMRタイトル情報
+	m_pWpnAmrName	= nullptr;	// WPN/AMR名称情報
+	m_pGoldTitle	= nullptr;	// GOLDタイトル情報
+	m_pGoldValue	= nullptr;	// GOLD数値情報
+	m_pKillsTitle	= nullptr;	// KILLSタイトル情報
+	m_pKillsValue	= nullptr;	// KILLS数値情報
 
 	//--------------------------------------------------------
 	//	親クラスの初期化 / 設定
@@ -381,6 +445,168 @@ HRESULT CSelectStatusUI::Init(void)
 	m_pExpNextValue->AddString(L"10");
 #endif
 
+	//--------------------------------------------------------
+	//	WPN / AMRタイトルの初期化 / 設定
+	//--------------------------------------------------------
+	// WPN/AMRタイトルの生成
+	m_pWpnAmrTitle = CText2D::Create
+	( // 引数
+		FONT,						// フォントパス
+		ITALIC,						// イタリック
+		wpnamr_title::POS,			// 原点位置
+		HEIGHT,						// 文字縦幅
+		wpnamr_title::LINE_HEIGHT,	// 行間縦幅
+		wpnamr_title::ALIGN_X,		// 横配置
+		wpnamr_title::ALIGN_Y,		// 縦配置
+		wpnamr_title::ROT,			// 原点向き
+		wpnamr_title::COL			// 色
+	);
+	if (m_pWpnAmrTitle == nullptr)
+	{ // 生成に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
+
+	// 優先順位を設定
+	m_pWpnAmrTitle->SetPriority(PRIORITY);
+
+	// テキストを割当
+	loadtext::BindText(m_pWpnAmrTitle, loadtext::LoadText(PASS, TEXT_WPN_AMR));
+
+	//--------------------------------------------------------
+	//	WPN / AMR名称の初期化 / 設定
+	//--------------------------------------------------------
+	// WPN/AMR名称の生成
+	m_pWpnAmrName = CText2D::Create
+	( // 引数
+		FONT,						// フォントパス
+		ITALIC,						// イタリック
+		wpnamr_name::POS,			// 原点位置
+		HEIGHT,						// 文字縦幅
+		wpnamr_name::LINE_HEIGHT,	// 行間縦幅
+		wpnamr_name::ALIGN_X,		// 横配置
+		wpnamr_name::ALIGN_Y,		// 縦配置
+		wpnamr_name::ROT,			// 原点向き
+		wpnamr_name::COL			// 色
+	);
+	if (m_pWpnAmrName == nullptr)
+	{ // 生成に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
+
+	// 優先順位を設定
+	m_pWpnAmrName->SetPriority(PRIORITY);
+
+	// TODO：装備情報から名称取得
+#if 1
+	m_pWpnAmrName->AddString(L"ぼうきれ");
+	m_pWpnAmrName->AddString(L"ほうたい");
+#endif
+
+	//--------------------------------------------------------
+	//	GOLDタイトルの初期化 / 設定
+	//--------------------------------------------------------
+	// GOLDタイトルの生成
+	m_pGoldTitle = CString2D::Create
+	( // 引数
+		FONT,					// フォントパス
+		ITALIC,					// イタリック
+		L"",					// 指定文字列
+		gold_title::POS,		// 原点位置
+		HEIGHT,					// 文字縦幅
+		gold_title::ALIGN_X,	// 横配置
+		gold_title::ROT,		// 原点向き
+		gold_title::COL			// 色
+	);
+
+	// 優先順位を設定
+	m_pGoldTitle->SetPriority(PRIORITY);
+
+	// 文字列を割当
+	loadtext::BindString(m_pGoldTitle, loadtext::LoadText(PASS, TEXT_GOLD));
+
+	//--------------------------------------------------------
+	//	GOLD数値の初期化 / 設定
+	//--------------------------------------------------------
+	// GOLD数値の生成
+	m_pGoldValue = CString2D::Create
+	( // 引数
+		FONT,					// フォントパス
+		ITALIC,					// イタリック
+		L"",					// 指定文字列
+		gold_value::POS,		// 原点位置
+		HEIGHT,					// 文字縦幅
+		gold_value::ALIGN_X,	// 横配置
+		gold_value::ROT,		// 原点向き
+		gold_value::COL			// 色
+	);
+
+	// 優先順位を設定
+	m_pGoldValue->SetPriority(PRIORITY);
+
+	// TODO：所持金取得
+#if 1
+	m_pGoldValue->SetString(L"0");
+#endif
+
+	// TODO：キル数取得
+#if 1
+	int nNumKill = 0;	// キル数
+#endif
+
+	if (nNumKill > 0)
+	{ // 一体でも殺したことがある場合
+
+		//----------------------------------------------------
+		//	KILLSタイトルの初期化 / 設定
+		//----------------------------------------------------
+		// KILLSタイトルの生成
+		m_pKillsTitle = CString2D::Create
+		( // 引数
+			FONT,					// フォントパス
+			ITALIC,					// イタリック
+			L"",					// 指定文字列
+			kills_title::POS,		// 原点位置
+			HEIGHT,					// 文字縦幅
+			kills_title::ALIGN_X,	// 横配置
+			kills_title::ROT,		// 原点向き
+			kills_title::COL		// 色
+		);
+
+		// 優先順位を設定
+		m_pKillsTitle->SetPriority(PRIORITY);
+
+		// 文字列を割当
+		loadtext::BindString(m_pKillsTitle, loadtext::LoadText(PASS, TEXT_KILLS));
+
+		//----------------------------------------------------
+		//	KILLS数値の初期化 / 設定
+		//----------------------------------------------------
+		// KILLS数値の生成
+		m_pKillsValue = CString2D::Create
+		( // 引数
+			FONT,					// フォントパス
+			ITALIC,					// イタリック
+			L"",					// 指定文字列
+			kills_value::POS,		// 原点位置
+			HEIGHT,					// 文字縦幅
+			kills_value::ALIGN_X,	// 横配置
+			kills_value::ROT,		// 原点向き
+			kills_value::COL		// 色
+		);
+
+		// 優先順位を設定
+		m_pKillsValue->SetPriority(PRIORITY);
+
+		// 表示文字列を指定
+		m_pKillsValue->SetString(std::to_wstring(nNumKill));
+	}
+
 	// 成功を返す
 	return S_OK;
 }
@@ -413,6 +639,24 @@ void CSelectStatusUI::Uninit(void)
 
 	// EXP/NEXT数値の終了
 	SAFE_UNINIT(m_pExpNextValue);
+
+	// WPN/AMRタイトルの終了
+	SAFE_UNINIT(m_pWpnAmrTitle);
+
+	// WPN/AMR名称の終了
+	SAFE_UNINIT(m_pWpnAmrName);
+
+	// GOLDタイトルの終了
+	SAFE_UNINIT(m_pGoldTitle);
+
+	// GOLD数値の終了
+	SAFE_UNINIT(m_pGoldValue);
+
+	// KILLSタイトルの終了
+	SAFE_UNINIT(m_pKillsTitle);
+
+	// KILLS数値の終了
+	SAFE_UNINIT(m_pKillsValue);
 
 	// セレクトの終了
 	CSelect::Uninit();
