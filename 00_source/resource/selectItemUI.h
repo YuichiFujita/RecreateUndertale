@@ -19,6 +19,7 @@
 //	前方宣言
 //************************************************************
 class CString2D;	// 文字列2Dクラス
+class CText2D;		// テキスト2Dクラス
 
 //************************************************************
 //	クラス定義
@@ -40,8 +41,43 @@ public:
 	void Draw(CShader *pShader = nullptr) override;	// 描画
 
 private:
-	// メンバ変数
+	// 選択列挙
+	enum ESelect
+	{
+		SELECT_USE = 0,	// 使用
+		SELECT_INFO,	// 情報
+		SELECT_DROP,	// 破棄
+		SELECT_MAX		// この列挙型の総数
+	};
 
+	// 表示テキスト列挙
+	enum EText
+	{
+		TEXT_USE = 0,	// USE
+		TEXT_INFO,		// INFO
+		TEXT_DROP,		// DROP
+		TEXT_MAX		// この列挙型の総数
+	};
+
+	// アイテム構造体
+	struct SItem
+	{
+		CString2D *m_pName;	// アイテム名情報
+		// TODO：ここにアイテムデータ構造体のデータを入れる
+	};
+
+	// メンバ関数
+	void UpdateSelectItem(void);	// アイテム選択更新
+	void UpdateDecideItem(void);	// アイテム決定更新
+	void UpdateSelect(void);		// 選択更新
+	void UpdateDecide(void);		// 決定更新
+
+	// メンバ変数
+	std::vector<SItem> m_vecItemName;	// アイテム情報
+	CString2D *m_apSelect[SELECT_MAX];	// 選択情報
+	SItem *m_pSelectItem;	// 選択中アイテム情報
+	int m_nCurSelectItem;	// 現在の選択アイテム
+	int m_nCurSelect;		// 現在の選択肢
 };
 
 #endif	// _SELECT_ITEM_UI_H_

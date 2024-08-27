@@ -405,6 +405,9 @@
     <ClCompile Include="resource\selectPhoneUI.cpp">
       <Filter>ingame\menu</Filter>
     </ClCompile>
+    <ClCompile Include="resource\inputManager.cpp">
+      <Filter>system</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h">
@@ -745,6 +748,9 @@
     </ClInclude>
     <ClInclude Include="resource\selectPhoneUI.h">
       <Filter>ingame\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\inputManager.h">
+      <Filter>system</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -201,13 +201,13 @@ void CInputKeyboard::Uninit(void)
 void CInputKeyboard::Update(void)
 {
 	// 変数配列を宣言
-	BYTE aKeyState[keyboard::MAX_KEY];	// キーボードの入力情報
+	BYTE aKeyState[MAX_KEY];	// キーボードの入力情報
 
 	// 入力デバイスからデータを取得
 	if (SUCCEEDED(m_pDevice->GetDeviceState(sizeof(aKeyState), &aKeyState[0])))
 	{ // 取得に成功した場合
 
-		for (int nCntKey = 0; nCntKey < keyboard::MAX_KEY; nCntKey++)
+		for (int nCntKey = 0; nCntKey < MAX_KEY; nCntKey++)
 		{ // キーの最大数分繰り返す
 
 			// キーボードのリリース情報を保存
@@ -287,7 +287,7 @@ bool CInputKeyboard::IsRelease(int nKey)
 //============================================================
 bool CInputKeyboard::IsAnyPress(void)
 {
-	for (int nCntKey = 0; nCntKey < keyboard::MAX_KEY; nCntKey++)
+	for (int nCntKey = 0; nCntKey < MAX_KEY; nCntKey++)
 	{ // キーの最大数分繰り返す
 
 		if (m_aKeyStatePress[nCntKey] & 0x80)
@@ -305,7 +305,7 @@ bool CInputKeyboard::IsAnyPress(void)
 //============================================================
 bool CInputKeyboard::IsAnyTrigger(void)
 {
-	for (int nCntKey = 0; nCntKey < keyboard::MAX_KEY; nCntKey++)
+	for (int nCntKey = 0; nCntKey < MAX_KEY; nCntKey++)
 	{ // キーの最大数分繰り返す
 
 		if (m_aKeyStateTrigger[nCntKey] & 0x80)
@@ -323,7 +323,7 @@ bool CInputKeyboard::IsAnyTrigger(void)
 //============================================================
 bool CInputKeyboard::IsAnyRelease(void)
 {
-	for (int nCntKey = 0; nCntKey < keyboard::MAX_KEY; nCntKey++)
+	for (int nCntKey = 0; nCntKey < MAX_KEY; nCntKey++)
 	{ // キーの最大数分繰り返す
 
 		if (m_aKeyStateRelease[nCntKey] & 0x80)
@@ -706,9 +706,9 @@ void CInputPad::Uninit(void)
 void CInputPad::Update(void)
 {
 	// 変数配列を宣言
-	XINPUT_STATE aKeyState[pad::MAX_NUM];	// パッドの入力情報
+	XINPUT_STATE aKeyState[MAX_NUM];	// パッドの入力情報
 
-	for (int nCntJoyKey = 0; nCntJoyKey < pad::MAX_NUM; nCntJoyKey++)
+	for (int nCntJoyKey = 0; nCntJoyKey < MAX_NUM; nCntJoyKey++)
 	{ // プレイヤーの最大人数分ループ
 
 		if (XInputGetState(nCntJoyKey, &aKeyState[nCntJoyKey]) == ERROR_SUCCESS)
@@ -1004,7 +1004,7 @@ void CInputPad::InitRelease(int nPadID)
 //============================================================
 bool CInputPad::IsPressAll(EKey joyKey)
 {
-	for (int nCntJoyKey = 0; nCntJoyKey < pad::MAX_NUM; nCntJoyKey++)
+	for (int nCntJoyKey = 0; nCntJoyKey < MAX_NUM; nCntJoyKey++)
 	{ // プレイヤーの最大人数分ループ
 
 		if (m_aKeyStatePress[nCntJoyKey].Gamepad.wButtons & (1 << joyKey))
@@ -1024,7 +1024,7 @@ bool CInputPad::IsPressAll(EKey joyKey)
 //============================================================
 bool CInputPad::IsTriggerAll(EKey joyKey)
 {
-	for (int nCntJoyKey = 0; nCntJoyKey < pad::MAX_NUM; nCntJoyKey++)
+	for (int nCntJoyKey = 0; nCntJoyKey < MAX_NUM; nCntJoyKey++)
 	{ // プレイヤーの最大人数分ループ
 
 		if (m_aKeyStateTrigger[nCntJoyKey].Gamepad.wButtons & (1 << joyKey))
@@ -1044,7 +1044,7 @@ bool CInputPad::IsTriggerAll(EKey joyKey)
 //============================================================
 bool CInputPad::IsReleaseAll(EKey joyKey)
 {
-	for (int nCntJoyKey = 0; nCntJoyKey < pad::MAX_NUM; nCntJoyKey++)
+	for (int nCntJoyKey = 0; nCntJoyKey < MAX_NUM; nCntJoyKey++)
 	{ // プレイヤーの最大人数分ループ
 
 		if (m_aKeyStateRelease[nCntJoyKey].Gamepad.wButtons & (1 << joyKey))

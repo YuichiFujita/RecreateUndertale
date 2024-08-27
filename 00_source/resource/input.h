@@ -11,20 +11,6 @@
 #define _INPUT_H_
 
 //************************************************************
-//	定数宣言
-//************************************************************
-namespace keyboard
-{
-	const int MAX_KEY = 256;	// キーの最大数
-}
-
-namespace pad
-{
-	const int	MAX_NUM		= 4;	// パッドの最大数
-	const float	DEAD_ZONE	= (float)USHRT_MAX * 0.1f;	// スティックの無視する傾き量
-}
-
-//************************************************************
 //	クラス定義
 //************************************************************
 // 入力クラス
@@ -55,6 +41,9 @@ protected:
 class CInputKeyboard : public CInput
 {
 public:
+	// 定数
+	static constexpr int MAX_KEY = 256;	// キーの最大数
+
 	// コンストラクタ
 	CInputKeyboard();
 
@@ -83,9 +72,9 @@ public:
 
 private:
 	// メンバ変数
-	BYTE m_aKeyStatePress[keyboard::MAX_KEY];	// プレス情報
-	BYTE m_aKeyStateTrigger[keyboard::MAX_KEY];	// トリガー情報
-	BYTE m_aKeyStateRelease[keyboard::MAX_KEY];	// リリース情報
+	BYTE m_aKeyStatePress[MAX_KEY];		// プレス情報
+	BYTE m_aKeyStateTrigger[MAX_KEY];	// トリガー情報
+	BYTE m_aKeyStateRelease[MAX_KEY];	// リリース情報
 };
 
 // マウスクラス
@@ -136,6 +125,9 @@ private:
 class CInputPad
 {
 public:
+	static constexpr int	MAX_NUM = 4;	// パッドの最大数
+	static constexpr float	DEAD_ZONE = (float)USHRT_MAX * 0.1f;	// スティックの無視する傾き量
+
 	// コンストラクタ
 	CInputPad();
 
@@ -224,10 +216,10 @@ private:
 	void UpdateVibration(SVibration *pVibration, int nPadID);	// バイブレーション更新
 
 	// メンバ変数
-	SVibration   m_aVibration[pad::MAX_NUM];		// バイブ情報
-	XINPUT_STATE m_aKeyStatePress[pad::MAX_NUM];	// プレス情報
-	XINPUT_STATE m_aKeyStateTrigger[pad::MAX_NUM];	// トリガー情報
-	XINPUT_STATE m_aKeyStateRelease[pad::MAX_NUM];	// リリース情報
+	SVibration   m_aVibration[MAX_NUM];			// バイブ情報
+	XINPUT_STATE m_aKeyStatePress[MAX_NUM];		// プレス情報
+	XINPUT_STATE m_aKeyStateTrigger[MAX_NUM];	// トリガー情報
+	XINPUT_STATE m_aKeyStateRelease[MAX_NUM];	// リリース情報
 };
 
 #endif	// _INPUT_H_

@@ -48,6 +48,7 @@
 #include "useful.h"			// 便利関数
 #include "listManager.h"	// リスト管理
 #include "input.h"			// 入力検知
+#include "inputManager.h"	// 入力マネージャー
 #include "debugproc.h"		// デバッグ表示
 
 //************************************************************

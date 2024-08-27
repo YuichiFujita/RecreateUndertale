@@ -196,8 +196,7 @@ void CStartStateOption::UpdateSelect(void)
 //============================================================
 void CStartStateOption::UpdateDecide(void)
 {
-	CInputKeyboard *pKey = GET_INPUTKEY;	// キーボード情報
-	if (pKey->IsTrigger(DIK_Z) || pKey->IsTrigger(DIK_RETURN))
+	if (input::Decide())
 	{
 		// 選択肢に応じて遷移先を変更
 		switch (m_nCurSelect)

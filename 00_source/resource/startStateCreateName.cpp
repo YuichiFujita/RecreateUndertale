@@ -368,8 +368,7 @@ void CStartStateCreateName::UpdateSelect(void)
 //============================================================
 void CStartStateCreateName::UpdateDecide(void)
 {
-	CInputKeyboard *pKey = GET_INPUTKEY;	// キーボード情報
-	if (pKey->IsTrigger(DIK_Z) || pKey->IsTrigger(DIK_RETURN))
+	if (input::Decide())
 	{
 		std::wstring wsName = m_pName->GetStr();	// 名前の文字列
 

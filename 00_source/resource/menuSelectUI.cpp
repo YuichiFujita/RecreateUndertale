@@ -21,7 +21,8 @@
 //************************************************************
 namespace
 {
-	const int PRIORITY = 6;	// セレクトメニューの優先順位
+	const int MENU_PRIO = 5;	// メニューの優先順位
+	const int SOUL_PRIO = 6;	// カーソルの優先順位
 
 	namespace frame
 	{
@@ -59,7 +60,7 @@ namespace
 //============================================================
 //	コンストラクタ
 //============================================================
-CMenuSelectUI::CMenuSelectUI() : CObject(CObject::LABEL_UI, CObject::DIM_3D, PRIORITY),
+CMenuSelectUI::CMenuSelectUI() : CObject(CObject::LABEL_UI, CObject::DIM_3D, MENU_PRIO),
 	m_pFrame		(nullptr),	// フレーム情報
 	m_pSoul			(nullptr),	// ソウルカーソル情報
 	m_pSelectMenu	(nullptr),	// 選択メニュー情報
@@ -105,7 +106,7 @@ HRESULT CMenuSelectUI::Init(void)
 	}
 
 	// 優先順位を設定
-	m_pFrame->SetPriority(PRIORITY);
+	m_pFrame->SetPriority(MENU_PRIO);
 
 	for (int i = 0; i < SELECT_MAX; i++)
 	{ // 選択肢の項目数分繰り返す
@@ -134,7 +135,7 @@ HRESULT CMenuSelectUI::Init(void)
 		}
 
 		// 優先順位を設定
-		m_apSelect[i]->SetPriority(PRIORITY);
+		m_apSelect[i]->SetPriority(MENU_PRIO);
 
 		// 文字列を割当
 		loadtext::BindString(m_apSelect[i], loadtext::LoadText(select::PASS, CMenuUI::TEXT_ITEM + i));
@@ -161,7 +162,7 @@ HRESULT CMenuSelectUI::Init(void)
 	m_pSoul->SetLabel(CObject::LABEL_UI);
 
 	// 優先順位を設定
-	m_pSoul->SetPriority(PRIORITY);
+	m_pSoul->SetPriority(SOUL_PRIO);
 
 	// 成功を返す
 	return S_OK;
@@ -272,8 +273,7 @@ void CMenuSelectUI::UpdateSelect(void)
 //============================================================
 void CMenuSelectUI::UpdateDecide(void)
 {
-	CInputKeyboard *pKey = GET_INPUTKEY;	// キーボード情報
-	if (pKey->IsTrigger(DIK_Z) || pKey->IsTrigger(DIK_RETURN))
+	if (input::Decide())
 	{
 		// 現在選択中のメニューに変更
 		ChangeSelectMenu((ESelect)m_nCurSelect);
@@ -323,7 +323,7 @@ HRESULT CMenuSelectUI::ChangeSelectMenu(const CMenuSelectUI::ESelect select)
 //============================================================
 //	コンストラクタ
 //============================================================
-CSelect::CSelect(AFuncUninit funcUninit, CObject2D *pSoul) : CObject(CObject::LABEL_UI, CObject::DIM_3D, PRIORITY),
+CSelect::CSelect(AFuncUninit funcUninit, CObject2D *pSoul) : CObject(CObject::LABEL_UI, CObject::DIM_3D, MENU_PRIO),
 	m_funcUninitMenu (funcUninit),	// 選択メニュー終了関数ポインタ
 	m_pSoul			 (pSoul),		// ソウルカーソル情報
 	m_pFrame		 (nullptr)		// フレーム情報
@@ -363,7 +363,7 @@ HRESULT CSelect::Init(void)
 	}
 
 	// 優先順位を設定
-	m_pFrame->SetPriority(PRIORITY);
+	m_pFrame->SetPriority(MENU_PRIO);
 
 	// 成功を返す
 	return S_OK;
@@ -386,8 +386,7 @@ void CSelect::Uninit(void)
 //============================================================
 void CSelect::Update(const float fDeltaTime)
 {
-	CInputKeyboard *pKey = GET_INPUTKEY;	// キーボード情報
-	if (pKey->IsTrigger(DIK_X) || pKey->IsTrigger(DIK_LSHIFT) || pKey->IsTrigger(DIK_RSHIFT))
+	if (input::Cancel())
 	{
 		// 選択メニューの終了
 		m_funcUninitMenu();
