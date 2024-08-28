@@ -13,17 +13,16 @@
 #include "camera.h"
 
 #include "gameManager.h"
+#include "menuManager.h"
 #include "pause.h"
 #include "stage.h"
 #include "player.h"
-
-// TODO
-#include "menuUI.h"
 
 //************************************************************
 //	静的メンバ変数宣言
 //************************************************************
 CGameManager *CSceneGame::m_pGameManager = nullptr;	// ゲームマネージャー
+CMenuManager *CSceneGame::m_pMenuManager = nullptr;	// メニューマネージャー
 CPause		 *CSceneGame::m_pPause		 = nullptr;	// ポーズ情報
 CStage		 *CSceneGame::m_pStage		 = nullptr;	// ステージ情報
 
@@ -73,6 +72,16 @@ HRESULT CSceneGame::Init(void)
 		return E_FAIL;
 	}
 
+	// メニューマネージャーの生成
+	m_pMenuManager = CMenuManager::Create();
+	if (m_pMenuManager == nullptr)
+	{ // 生成に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
+
 	// ポーズの生成
 	m_pPause = CPause::Create();
 	if (m_pPause == nullptr)
@@ -86,9 +95,6 @@ HRESULT CSceneGame::Init(void)
 #if 1
 	// TODO：プレイヤーの生成
 	CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, -1.0f));
-
-	// TODO：フィールドメニューの生成
-	CMenuUI::Create();
 #endif
 
 	// ステージの生成
@@ -120,6 +126,9 @@ void CSceneGame::Uninit(void)
 	// ゲームマネージャーの破棄
 	SAFE_REF_RELEASE(m_pGameManager);
 
+	// メニューマネージャーの破棄
+	SAFE_REF_RELEASE(m_pMenuManager);
+
 	// ポーズの破棄
 	SAFE_REF_RELEASE(m_pPause);
 
@@ -141,6 +150,10 @@ void CSceneGame::Update(const float fDeltaTime)
 	// ゲームマネージャーの更新
 	assert(m_pGameManager != nullptr);
 	m_pGameManager->Update(fDeltaTime);
+
+	// メニューマネージャーの更新
+	assert(m_pMenuManager != nullptr);
+	m_pMenuManager->Update(fDeltaTime);
 
 	if (m_pGameManager->GetState() == CGameManager::STATE_NORMAL)
 	{ // ゲームが通常状態の場合
@@ -183,6 +196,18 @@ CGameManager *CSceneGame::GetGameManager(void)
 
 	// ゲームマネージャーのポインタを返す
 	return m_pGameManager;
+}
+
+//============================================================
+//	メニューマネージャー取得処理
+//============================================================
+CMenuManager *CSceneGame::GetMenuManager(void)
+{
+	// インスタンス未使用
+	assert(m_pMenuManager != nullptr);
+
+	// メニューマネージャーのポインタを返す
+	return m_pMenuManager;
 }
 
 //============================================================

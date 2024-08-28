@@ -10,6 +10,8 @@
 #include "playerStateNormal.h"
 #include "player.h"
 #include "manager.h"
+#include "sceneGame.h"
+#include "menuManager.h"
 #include "tileColl.h"
 #include "tileTrans.h"
 
@@ -96,6 +98,9 @@ int CPlayerStateNormal::ControlMove(void)
 {
 	CPlayer::EAngle angle = m_pContext->GetAngle();			// 向き
 	CPlayer::EMotion curMotion = (CPlayer::EMotion)angle;	// 現在のモーション
+
+	// フィールドメニューが表示されている場合抜ける
+	if (CSceneGame::GetMenuManager()->IsDrawMenu()) { return curMotion; }
 
 	if (GET_INPUTKEY->IsPress(DIK_UP))
 	{

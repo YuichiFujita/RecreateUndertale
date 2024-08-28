@@ -19,7 +19,7 @@
 //************************************************************
 namespace
 {
-	const int PRIORITY = 6;	// ミニステータスメニューの優先順位
+	const int PRIORITY = 5;	// ミニステータスメニューの優先順位
 
 	namespace frame
 	{

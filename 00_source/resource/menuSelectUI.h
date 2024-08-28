@@ -54,6 +54,9 @@ public:
 	// 静的メンバ関数
 	static CMenuSelectUI *Create(void);	// 生成
 
+	// メンバ関数
+	bool IsChoiceSelect(void) const { return (m_pSelectMenu != nullptr); }	// 選択中状況取得
+
 private:
 	// オーバーライド関数
 	void Release(void) override { CObject::Release(); }	// 破棄

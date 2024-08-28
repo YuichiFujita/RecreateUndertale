@@ -186,6 +186,9 @@ void CMenuSelectUI::Uninit(void)
 	// ソウルカーソルの終了
 	SAFE_UNINIT(m_pSoul);
 
+	// 選択メニューの終了
+	SAFE_UNINIT(m_pSelectMenu);
+
 	// オブジェクトを破棄
 	Release();
 }

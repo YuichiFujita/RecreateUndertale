@@ -9,7 +9,6 @@
 //************************************************************
 #include "menuUI.h"
 #include "menuStatusUI.h"
-#include "menuSelectUI.h"
 
 //************************************************************
 //	定数宣言
@@ -78,6 +77,12 @@ HRESULT CMenuUI::Init(void)
 //============================================================
 void CMenuUI::Uninit(void)
 {
+	// ステータスメニューの終了
+	SAFE_UNINIT(m_pStatusMenu);
+
+	// セレクトメニューの終了
+	SAFE_UNINIT(m_pSelectMenu);
+
 	// オブジェクトを破棄
 	Release();
 }

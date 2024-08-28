@@ -191,6 +191,7 @@
     <ClCompile Include="resource\loadtext.cpp" />
     <ClCompile Include="resource\main.cpp" />
     <ClCompile Include="resource\manager.cpp" />
+    <ClCompile Include="resource\menuManager.cpp" />
     <ClCompile Include="resource\menuSelectUI.cpp" />
     <ClCompile Include="resource\menuStatusUI.cpp" />
     <ClCompile Include="resource\menuUI.cpp" />
@@ -204,7 +205,6 @@
     <ClCompile Include="resource\objectBillboard.cpp" />
     <ClCompile Include="resource\objectChara.cpp" />
     <ClCompile Include="resource\objectChara2D.cpp" />
-    <ClCompile Include="resource\objectDivChara.cpp" />
     <ClCompile Include="resource\objectMeshCircle.cpp" />
     <ClCompile Include="resource\objectMeshCube.cpp" />
     <ClCompile Include="resource\objectMeshCylinder.cpp" />
@@ -309,6 +309,7 @@
     <ClInclude Include="resource\loadtext.h" />
     <ClInclude Include="resource\main.h" />
     <ClInclude Include="resource\manager.h" />
+    <ClInclude Include="resource\menuManager.h" />
     <ClInclude Include="resource\menuSelectUI.h" />
     <ClInclude Include="resource\menuStatusUI.h" />
     <ClInclude Include="resource\menuUI.h" />
@@ -322,7 +323,6 @@
     <ClInclude Include="resource\objectBillboard.h" />
     <ClInclude Include="resource\objectChara.h" />
     <ClInclude Include="resource\objectChara2D.h" />
-    <ClInclude Include="resource\objectDivChara.h" />
     <ClInclude Include="resource\objectMeshCircle.h" />
     <ClInclude Include="resource\objectMeshCube.h" />
     <ClInclude Include="resource\objectMeshCylinder.h" />
