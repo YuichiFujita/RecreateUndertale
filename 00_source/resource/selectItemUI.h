@@ -63,7 +63,7 @@ private:
 	struct SItem
 	{
 		CString2D *m_pName;	// アイテム名情報
-		// TODO：ここにアイテムデータ構造体のデータを入れる
+		int nItemID;		// アイテムインデックス
 	};
 
 	// メンバ関数

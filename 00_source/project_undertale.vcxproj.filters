@@ -67,6 +67,9 @@
     <Filter Include="ingame\item">
       <UniqueIdentifier>{6a3b0bd7-b98d-4e61-a194-0c682628b001}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ingame\status">
+      <UniqueIdentifier>{65a66121-07e1-4063-be15-7dfa516d2192}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="resource\camera.cpp">
@@ -407,6 +410,9 @@
     </ClCompile>
     <ClCompile Include="resource\menuManager.cpp">
       <Filter>ingame\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\item.cpp">
+      <Filter>ingame\item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -751,6 +757,9 @@
     </ClInclude>
     <ClInclude Include="resource\menuManager.h">
       <Filter>ingame\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\item.h">
+      <Filter>ingame\item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

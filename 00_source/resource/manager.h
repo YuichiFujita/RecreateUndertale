@@ -32,6 +32,7 @@ class CModel;			// モデルクラス
 class CFont;			// フォントクラス
 class CCharacter;		// キャラクタークラス
 class CCharacter2D;		// キャラクター2Dクラス
+class CItem;			// アイテムクラス
 class CLoading;			// ローディングクラス
 class CRetention;		// データ保存クラス
 class CDebugProc;		// デバッグ表示クラス
@@ -101,6 +102,7 @@ public:
 	CFont			*GetFont(void);			// フォント取得
 	CCharacter		*GetCharacter(void);	// キャラクター取得
 	CCharacter2D	*GetCharacter2D(void);	// キャラクター2D取得
+	CItem			*GetItem(void);			// アイテム取得
 	CFade			*GetFade(void);			// フェード取得
 	CLoading		*GetLoading(void);		// ローディング取得
 	CScene			*GetScene(void);		// シーン取得
@@ -128,6 +130,7 @@ private:
 	CFont			*m_pFont;			// フォントインスタンス
 	CCharacter		*m_pCharacter;		// キャラクターインスタンス
 	CCharacter2D	*m_pCharacter2D;	// キャラクター2Dインスタンス
+	CItem			*m_pItem;			// アイテムインスタンス
 	CFade			*m_pFade;			// フェードインスタンス
 	CLoading		*m_pLoading;		// ローディングインスタンス
 	CScene			*m_pScene;			// シーンインスタンス

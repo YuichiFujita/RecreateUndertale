@@ -20,6 +20,7 @@
 #include "font.h"
 #include "character.h"
 #include "character2D.h"
+#include "item.h"
 #include "shader.h"
 #include "retention.h"
 #include "debug.h"
@@ -51,6 +52,7 @@ CManager::CManager() :
 	m_pFont			(nullptr),	// フォントインスタンス
 	m_pCharacter	(nullptr),	// キャラクターインスタンス
 	m_pCharacter2D	(nullptr),	// キャラクター2Dインスタンス
+	m_pItem			(nullptr),	// アイテムインスタンス
 	m_pFade			(nullptr),	// フェードインスタンス
 	m_pLoading		(nullptr),	// ローディングインスタンス
 	m_pScene		(nullptr),	// シーンインスタンス
@@ -92,6 +94,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	m_pFont			= nullptr;		// フォントインスタンス
 	m_pCharacter	= nullptr;		// キャラクターインスタンス
 	m_pCharacter2D	= nullptr;		// キャラクター2Dインスタンス
+	m_pItem			= nullptr;		// アイテムインスタンス
 	m_pFade			= nullptr;		// フェードインスタンス
 	m_pLoading		= nullptr;		// ローディングインスタンス
 	m_pScene		= nullptr;		// シーンインスタンス
@@ -245,6 +248,16 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 		return E_FAIL;
 	}
 
+	// アイテムの生成
+	m_pItem = CItem::Create();
+	if (m_pItem == nullptr)
+	{ // 生成に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
+
 	// レンダーテクスチャーの生成
 	if (FAILED(m_pRenderer->CreateRenderTexture()))
 	{ // 生成に失敗した場合
@@ -379,6 +392,16 @@ HRESULT CManager::Load(void)
 		return E_FAIL;
 	}
 
+	// アイテムの全読込
+	assert(m_pItem != nullptr);
+	if (FAILED(m_pItem->LoadAll()))
+	{ // 全読込に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
+
 	// 成功を返す
 	return S_OK;
 }
@@ -459,6 +482,9 @@ void CManager::Uninit(void)
 
 	// キャラクター2Dの破棄
 	SAFE_REF_RELEASE(m_pCharacter2D);
+
+	// アイテムの破棄
+	SAFE_REF_RELEASE(m_pItem);
 
 	// シェーダーの破棄
 	CShader::Release();
@@ -996,6 +1022,18 @@ CCharacter2D *CManager::GetCharacter2D(void)
 
 	// キャラクター2Dを返す
 	return m_pCharacter2D;
+}
+
+//============================================================
+//	アイテム取得処理
+//============================================================
+CItem *CManager::GetItem(void)
+{
+	// インスタンス未使用
+	assert(m_pItem != nullptr);
+
+	// アイテムを返す
+	return m_pItem;
 }
 
 //============================================================

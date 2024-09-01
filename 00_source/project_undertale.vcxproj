@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -185,6 +185,7 @@
     <ClCompile Include="resource\introStateText.cpp" />
     <ClCompile Include="resource\introStateTextSlow.cpp" />
     <ClCompile Include="resource\introStateWait.cpp" />
+    <ClCompile Include="resource\item.cpp" />
     <ClCompile Include="resource\light.cpp" />
     <ClCompile Include="resource\listManager.cpp" />
     <ClCompile Include="resource\loading.cpp" />
@@ -303,6 +304,7 @@
     <ClInclude Include="resource\introStateText.h" />
     <ClInclude Include="resource\introStateTextSlow.h" />
     <ClInclude Include="resource\introStateWait.h" />
+    <ClInclude Include="resource\item.h" />
     <ClInclude Include="resource\light.h" />
     <ClInclude Include="resource\listManager.h" />
     <ClInclude Include="resource\loading.h" />
