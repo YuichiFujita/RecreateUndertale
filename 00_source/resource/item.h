@@ -11,24 +11,64 @@
 #define _ITEM_H_
 
 //************************************************************
-//	前方宣言
-//************************************************************
-class CItemData;	// アイテム情報クラス
-
-//************************************************************
 //	クラス定義
 //************************************************************
-// アイテムクラス
-class CItem
+// アイテム情報クラス
+class CItemData
 {
 public:
 	// 種類列挙
 	enum EType
 	{
-		TYPE_CANDY_MONSTER = 0,	// モンスターあめ
-		TYPE_MAX				// この列挙型の総数
+		TYPE_NONE = 0,	// 特殊効果なし
+		TYPE_HEAL,		// HP関与
+		TYPE_MAX		// この列挙型の総数
 	};
 
+	// コンストラクタ
+	CItemData();
+
+	// デストラクタ
+	virtual ~CItemData();
+
+	// テキスト構造体
+	struct SText
+	{
+		// メンバ変数
+		std::vector<std::vector<std::string>> vec;	// テキスト動的配列
+	};
+
+	// 純粋仮想関数
+	virtual void Use(void)	= 0;	// アイテム使用
+	virtual void Info(void)	= 0;	// アイテム情報
+	virtual void Drop(void)	= 0;	// アイテム破棄
+
+	// 仮想関数
+	virtual HRESULT Init(void);	// 初期化
+	virtual void Uninit(void);	// 終了
+
+	// 静的メンバ関数
+	static CItemData *Create(const EType type);	// 生成
+
+	// メンバ関数
+	void SetName(const char* pName)		{ m_sName = pName; }		// アイテム名設定
+	const char* GetName(void) const		{ return m_sName.c_str(); }	// アイテム名取得
+	void SetUse(const SText& rVecUse)	{ m_vecUse = rVecUse; }		// 使用テキスト設定
+	const SText& GetUse(void) const		{ return m_vecUse; }		// 使用テキスト取得
+	void SetInfo(const SText& rVecInfo)	{ m_vecInfo = rVecInfo; }	// 情報テキスト設定
+	const SText& GetInfo(void) const	{ return m_vecInfo; }		// 情報テキスト取得
+
+private:
+	// メンバ変数
+	std::string m_sName;	// アイテム名
+	SText m_vecUse;			// 使用テキスト
+	SText m_vecInfo;		// 情報テキスト
+};
+
+// アイテムクラス
+class CItem
+{
+public:
 	// コンストラクタ
 	CItem();
 
@@ -48,40 +88,10 @@ public:
 private:
 	// メンバ関数
 	HRESULT LoadSetup(void);	// セットアップ
+	CItemData::SText LoadText(std::ifstream& rFile, const char *pEndStr);	// テキストセットアップ
 
 	// メンバ変数
-	CItemData *m_apItemData[TYPE_MAX];	// アイテム配列
-};
-
-// アイテム情報クラス
-class CItemData
-{
-public:
-	// コンストラクタ
-	CItemData();
-
-	// デストラクタ
-	virtual ~CItemData();
-
-	// 純粋仮想関数
-	virtual HRESULT Init(void)	= 0;	// 初期化
-	virtual void Uninit(void)	= 0;	// 終了
-	virtual void Use(void)		= 0;	// アイテム使用
-	virtual void Info(void)		= 0;	// アイテム情報
-	virtual void Drop(void)		= 0;	// アイテム破棄
-
-	// 静的メンバ関数
-	static CItemData *Create(void);				// 生成
-	static void Release(CItemData *&pItemData);	// 破棄
-
-	// メンバ関数
-	void SetName(const char* pName) { m_sName = pName; }	// アイテム名設定
-
-private:
-	// メンバ変数
-	std::string m_sName;	// アイテム名
-	std::vector<std::vector<std::string>> m_vecUse;		// 使用テキスト
-	std::vector<std::vector<std::string>> m_vecInfo;	// 情報テキスト
+	std::vector<CItemData*> m_vecItemData;	// アイテム動的配列
 };
 
 #endif	// _ITEM_H_

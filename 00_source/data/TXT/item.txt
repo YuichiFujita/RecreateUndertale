@@ -10,13 +10,13 @@ ITEMSET
 	NAME = モンスターあめ
 	
 	USE
-		TEXT_0
+		TEXT
 			STR =  ＊ モンスターあめを　たべた。
 		END_TEXT
 	END_USE
 	
 	INFO
-		TEXT_0
+		TEXT
 			STR =  ＊ ハッカとは　またちがった
 			STR =  　 どくとくな　ふうみ。
 		END_TEXT

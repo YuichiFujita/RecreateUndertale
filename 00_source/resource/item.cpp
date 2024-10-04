@@ -8,6 +8,7 @@
 //	インクルードファイル
 //************************************************************
 #include "item.h"
+#include "itemNone.h"
 #include "manager.h"
 #include "renderer.h"
 
@@ -20,6 +21,87 @@ namespace
 }
 
 //************************************************************
+//	親クラス [CItemData] のメンバ関数
+//************************************************************
+//============================================================
+//	コンストラクタ
+//============================================================
+CItemData::CItemData()
+{
+
+}
+
+//============================================================
+//	デストラクタ
+//============================================================
+CItemData::~CItemData()
+{
+
+}
+
+//============================================================
+//	初期化処理
+//============================================================
+HRESULT CItemData::Init(void)
+{
+	// 成功を返す
+	return S_OK;
+}
+
+//============================================================
+//	終了処理
+//============================================================
+void CItemData::Uninit(void)
+{
+	// 自身の破棄
+	delete this;
+}
+
+//============================================================
+//	生成処理
+//============================================================
+CItemData *CItemData::Create(const EType type)
+{
+	// アイテム情報の生成
+	CItemData *pItemData = nullptr;	// アイテム情報
+	switch (type)
+	{ // 種類ごとの処理
+	case TYPE_NONE:
+		pItemData = new CItemNone;
+		break;
+
+	case TYPE_HEAL:
+		//pItemData = new ;
+		break;
+
+	default:	// 例外処理
+		assert(false);
+		break;
+	}
+
+	if (pItemData == nullptr)
+	{ // 生成に失敗した場合
+
+		return nullptr;
+	}
+	else
+	{ // 生成に成功した場合
+
+		// アイテム情報の初期化
+		if (FAILED(pItemData->Init()))
+		{ // 初期化に失敗した場合
+
+			// アイテム情報の破棄
+			SAFE_DELETE(pItemData);
+			return nullptr;
+		}
+
+		// 確保したアドレスを返す
+		return pItemData;
+	}
+}
+
+//************************************************************
 //	親クラス [CItem] のメンバ関数
 //************************************************************
 //============================================================
@@ -27,8 +109,8 @@ namespace
 //============================================================
 CItem::CItem()
 {
-	// メンバ変数をクリア
-	memset(&m_apItemData[0], 0, sizeof(m_apItemData));	// アイテム配列
+	// アイテム動的配列をクリア
+	m_vecItemData.clear();
 }
 
 //============================================================
@@ -44,8 +126,8 @@ CItem::~CItem()
 //============================================================
 HRESULT CItem::Init(void)
 {
-	// メンバ変数を初期化
-	memset(&m_apItemData[0], 0, sizeof(m_apItemData));	// アイテム配列
+	// アイテム動的配列を初期化
+	m_vecItemData.clear();
 
 	// 成功を返す
 	return S_OK;
@@ -56,7 +138,15 @@ HRESULT CItem::Init(void)
 //============================================================
 void CItem::Uninit(void)
 {
+	for (auto& rVec : m_vecItemData)
+	{ // 要素数分繰り返す
 
+		// アイテム情報の終了
+		SAFE_UNINIT(rVec);
+	}
+
+	// アイテム動的配列をクリア
+	m_vecItemData.clear();
 }
 
 //============================================================
@@ -82,39 +172,17 @@ HRESULT CItem::LoadAll(void)
 //============================================================
 const CItemData& CItem::GetInfo(const int nID)
 {
-	// TODO：つくれ
-#if 0
-	int nArray = (int)m_mapItem.size();	// 配列要素数
+	int nArray = (int)m_vecItemData.size();	// 配列要素数
 	if (nID > NONE_IDX && nID < nArray)
 	{ // アイテムがある場合
 
 		// 引数のアイテム情報を返す
-		return m_mapItem.find(nID)->second.itemData;
+		return *m_vecItemData[nID];
 	}
-	else
-	{ // アイテムがない場合
 
-		// インデックスエラー
-		assert(false);
-
-		if (nArray > 0)
-		{ // アイテム生成がされている場合
-
-			// 先頭アイテムを返す
-			return m_mapItem.find(0)->second.itemData;
-		}
-		else
-		{ // アイテムが一つもない場合
-
-			// 空のアイテム情報を返す
-			SItem tempItem;
-			memset(&tempItem, 0, sizeof(tempItem));
-			return tempItem;
-		}
-	}
-#endif
-
-	return *m_apItemData[0];
+	// 空のアイテム情報を返す
+	assert(false);
+	return *m_vecItemData[0];
 }
 
 //============================================================
@@ -164,7 +232,8 @@ void CItem::Release(CItem *&prItem)
 //============================================================
 HRESULT CItem::LoadSetup(void)
 {
-	int nID = 0;	// インデックスの代入用
+	int nIdx = 0;			// アイテムインデックス
+	int nType = NONE_IDX;	// アイテム種類
 
 	// ファイルを開く
 	std::ifstream file(LOAD_TXT);	// ファイルストリーム
@@ -183,34 +252,26 @@ HRESULT CItem::LoadSetup(void)
 	while (file >> str)
 	{ // ファイルの終端ではない場合ループ
 
-		if (str.front() == '#')
-		{ // コメントアウトされている場合
-
-			// 一行全て読み込む
-			std::getline(file, str);
-		}
+		if (str.front() == '#') { std::getline(file, str); }	// コメントアウト
 		else if (str == "ITEMSET")
 		{
-			do { // END_PARTSSETを読み込むまでループ
+			// 空の要素を最後尾に追加
+			m_vecItemData.emplace_back();
+
+			do { // END_ITEMSETを読み込むまでループ
 
 				// 文字列を読み込む
 				file >> str;
 
-				if (str.front() == '#')
-				{ // コメントアウトされている場合
-
-					// 一行全て読み込む
-					std::getline(file, str);
-				}
+				if (str.front() == '#') { std::getline(file, str); }	// コメントアウト
 				else if (str == "TYPE")
 				{
 					file >> str;	// ＝を読込
-					file >> nID;	// インデックスを読込
+					file >> nType;	// アイテム種類を読込
 
 					// 空のアイテムデータを生成
-					assert(m_apItemData[nID] == nullptr);
-					m_apItemData[nID] = CItemData::Create();
-					if (m_apItemData[nID] == nullptr)
+					m_vecItemData[nIdx] = CItemData::Create((CItemData::EType)nType);
+					if (m_vecItemData[nIdx] == nullptr)
 					{ // 生成に失敗した場合
 
 						// 失敗を返す
@@ -224,9 +285,22 @@ HRESULT CItem::LoadSetup(void)
 					file >> str;	// アイテム名を読込
 
 					// アイテム名を保存
-					m_apItemData[nID]->SetName(str.c_str());
+					m_vecItemData[nIdx]->SetName(str.c_str());
 				}
-			} while (str != "END_PARTSSET");	// END_PARTSSETを読み込むまでループ
+				else if (str == "USE")
+				{
+					// 使用テキスト情報のセットアップ
+					m_vecItemData[nIdx]->SetUse(LoadText(file, "END_USE"));
+				}
+				else if (str == "INFO")
+				{
+					// 情報テキスト情報のセットアップ
+					m_vecItemData[nIdx]->SetInfo(LoadText(file, "END_INFO"));
+				}
+			} while (str != "END_ITEMSET");	// END_ITEMSETを読み込むまでループ
+
+			// アイテムインデックスを進める
+			nIdx++;
 		}
 	}
 
@@ -237,68 +311,49 @@ HRESULT CItem::LoadSetup(void)
 	return S_OK;
 }
 
-//************************************************************
-//	親クラス [CItemData] のメンバ関数
-//************************************************************
 //============================================================
-//	コンストラクタ
+//	テキスト情報のセットアップ処理
 //============================================================
-CItemData::CItemData()
+CItemData::SText CItem::LoadText(std::ifstream& rFile, const char *pEndStr)
 {
+	CItemData::SText text = {};	// 読込テキスト情報
+	int nBoxIdx = 0;	// テキストボックスインデックス
 
-}
+	// ファイルを読込
+	std::string str;	// 読込文字列
+	do { // 終了文字列を読み込むまでループ
 
-//============================================================
-//	デストラクタ
-//============================================================
-CItemData::~CItemData()
-{
+		// 文字列を読み込む
+		rFile >> str;
 
-}
+		if (str.front() == '#') { std::getline(rFile, str); }	// コメントアウト
+		else if (str == "TEXT")
+		{
+			// 空の要素を最後尾に追加
+			text.vec.emplace_back();
 
-//============================================================
-//	生成処理
-//============================================================
-CItemData *CItemData::Create(void)
-{
-	// TODO：アイテムによってクラス派生
-#if 0
-	// アイテム情報の生成
-	CItemData *pItemData = new CItemData;
-	if (pItemData == nullptr)
-	{ // 生成に失敗した場合
+			do { // END_TEXTを読み込むまでループ
 
-		return nullptr;
-	}
-	else
-	{ // 生成に成功した場合
+				// 文字列を読み込む
+				rFile >> str;
 
-		// アイテム情報の初期化
-		if (FAILED(pItemData->Init()))
-		{ // 初期化に失敗した場合
+				if (str.front() == '#') { std::getline(rFile, str); }	// コメントアウト
+				else if (str == "STR")
+				{
+					rFile >> str;					// ＝を読込
+					rFile.seekg(1, std::ios::cur);	// 読込位置を空白分ずらす
+					std::getline(rFile, str);		// 一行全て読み込む
 
-			// アイテム情報の破棄
-			SAFE_DELETE(pItemData);
-			return nullptr;
+					// 文字列を最後尾に追加
+					text.vec[nBoxIdx].push_back(str);
+				}
+			} while (str != "END_TEXT");	// END_TEXTを読み込むまでループ
+
+			// テキストボックスインデックスを進める
+			nBoxIdx++;
 		}
+	} while (str != pEndStr);	// 終了文字列を読み込むまでループ
 
-		// 確保したアドレスを返す
-		return pItemData;
-	}
-#else
-	return nullptr;
-#endif
-}
-
-//============================================================
-//	破棄処理
-//============================================================
-void CItemData::Release(CItemData *&prItemData)
-{
-	// アイテム情報の終了
-	assert(prItemData != nullptr);
-	prItemData->Uninit();
-
-	// メモリ開放
-	SAFE_DELETE(prItemData);
+	// 読み込んだテキストを返す
+	return text;
 }

@@ -414,6 +414,9 @@
     <ClCompile Include="resource\item.cpp">
       <Filter>ingame\item</Filter>
     </ClCompile>
+    <ClCompile Include="resource\itemNone.cpp">
+      <Filter>ingame\item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h">
@@ -759,6 +762,9 @@
       <Filter>ingame\menu</Filter>
     </ClInclude>
     <ClInclude Include="resource\item.h">
+      <Filter>ingame\item</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\itemNone.h">
       <Filter>ingame\item</Filter>
     </ClInclude>
   </ItemGroup>

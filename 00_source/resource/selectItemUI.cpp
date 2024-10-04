@@ -11,6 +11,7 @@
 #include "manager.h"
 #include "string2D.h"
 #include "text2D.h"
+#include "item.h"
 #include "loadtext.h"
 
 //************************************************************
@@ -147,13 +148,18 @@ HRESULT CSelectItemUI::Init(void)
 	//--------------------------------------------------------
 	//	アイテムの初期化 / 設定
 	//--------------------------------------------------------
+	CItem* pItem = GET_MANAGER->GetItem();	// アイテム情報
 	for (int i = 0; i < 8; i++)	// TODO：アイテム数に応じた回数指定
 	{ // 所持アイテム数分繰り返す
 
 		// 空の要素を最後尾に追加
 		m_vecItemName.emplace_back();
 
-		// TODO：ここでアイテムデータを保存する
+		// TODO：ここでアイテムデータのインデックスを保存する
+#if 1
+		// アイテムインデックスを保存
+		m_vecItemName[i].nItemID = 0;
+#endif
 
 		// 文字位置オフセットを計算
 		D3DXVECTOR3 offset = item::SPACE * (float)i;
@@ -181,8 +187,10 @@ HRESULT CSelectItemUI::Init(void)
 		// 優先順位を設定
 		m_vecItemName[i].m_pName->SetPriority(PRIORITY);
 
-		// TODO：アイテム名設定
-		m_vecItemName[i].m_pName->SetString(L"バタースコッチパイ");
+		// アイテム名設定
+		std::string sName = pItem->GetInfo(m_vecItemName[i].nItemID).GetName();	// アイテム名
+		std::wstring wsName = useful::MultiByteToWide(sName);	// ワイド変換アイテム名
+		m_vecItemName[i].m_pName->SetString(wsName);	// 文字列を設定
 	}
 
 	// 成功を返す
@@ -315,6 +323,11 @@ void CSelectItemUI::UpdateSelect(void)
 //============================================================
 void CSelectItemUI::UpdateDecide(void)
 {
+	if (input::Decide())
+	{
+		// TODO：ここにアイテムの詳細を表示
+	}
+
 	if (input::Cancel())
 	{
 		// 選択肢を初期化
