@@ -171,6 +171,7 @@
     <ClCompile Include="resource\font.cpp" />
     <ClCompile Include="resource\fontChar.cpp" />
     <ClCompile Include="resource\frame2D.cpp" />
+    <ClCompile Include="resource\frameText2D.cpp" />
     <ClCompile Include="resource\gameManager.cpp" />
     <ClCompile Include="resource\gauge2D.cpp" />
     <ClCompile Include="resource\hitStop.cpp" />
@@ -291,6 +292,7 @@
     <ClInclude Include="resource\font.h" />
     <ClInclude Include="resource\fontChar.h" />
     <ClInclude Include="resource\frame2D.h" />
+    <ClInclude Include="resource\frameText2D.h" />
     <ClInclude Include="resource\gameManager.h" />
     <ClInclude Include="resource\gauge2D.h" />
     <ClInclude Include="resource\hitStop.h" />

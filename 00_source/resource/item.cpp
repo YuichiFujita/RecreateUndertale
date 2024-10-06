@@ -314,9 +314,9 @@ HRESULT CItem::LoadSetup(void)
 //============================================================
 //	テキスト情報のセットアップ処理
 //============================================================
-CItemData::SText CItem::LoadText(std::ifstream& rFile, const char *pEndStr)
+ATextBox CItem::LoadText(std::ifstream& rFile, const char *pEndStr)
 {
-	CItemData::SText text = {};	// 読込テキスト情報
+	ATextBox text = {};	// 読込テキスト情報
 	int nBoxIdx = 0;	// テキストボックスインデックス
 
 	// ファイルを読込
@@ -330,7 +330,7 @@ CItemData::SText CItem::LoadText(std::ifstream& rFile, const char *pEndStr)
 		else if (str == "TEXT")
 		{
 			// 空の要素を最後尾に追加
-			text.vec.emplace_back();
+			text.emplace_back();
 
 			do { // END_TEXTを読み込むまでループ
 
@@ -345,7 +345,7 @@ CItemData::SText CItem::LoadText(std::ifstream& rFile, const char *pEndStr)
 					std::getline(rFile, str);		// 一行全て読み込む
 
 					// 文字列を最後尾に追加
-					text.vec[nBoxIdx].push_back(str);
+					text[nBoxIdx].push_back(str);
 				}
 			} while (str != "END_TEXT");	// END_TEXTを読み込むまでループ
 

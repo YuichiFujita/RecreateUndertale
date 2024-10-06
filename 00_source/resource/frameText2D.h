@@ -1,0 +1,56 @@
+//============================================================
+//
+//	フレームテキスト2Dヘッダー [frameText2D.h]
+//	Author：藤田勇一
+//
+//============================================================
+//************************************************************
+//	二重インクルード防止
+//************************************************************
+#ifndef _FRAME_TEXT2D_H_
+#define _FRAME_TEXT2D_H_
+
+//************************************************************
+//	インクルードファイル
+//************************************************************
+#include "frame2D.h"
+#include "scrollText2D.h"
+
+//************************************************************
+//	クラス定義
+//************************************************************
+// フレームテキスト2Dクラス
+class CFrameText2D : public CFrame2D
+{
+public:
+	// コンストラクタ
+	CFrameText2D();
+
+	// デストラクタ
+	~CFrameText2D() override;
+
+	// オーバーライド関数
+	HRESULT Init(void) override;	// 初期化
+	void Uninit(void) override;		// 終了
+	void Update(const float fDeltaTime) override;	// 更新
+	void Draw(CShader *pShader = nullptr) override;	// 描画
+
+	// 静的メンバ関数
+	static CFrameText2D *Create	// 生成
+	( // 引数
+		const D3DXVECTOR3& rPos,	// 位置
+		const D3DXVECTOR3& rRot,	// 向き
+		const D3DXVECTOR3& rSize	// 大きさ
+	);
+
+	// メンバ関数
+	void ChangeText(const AText& rText);		// テキスト変更
+	void SetTextEnableDraw(const bool bDraw)	{ return m_pText->SetEnableDraw(bDraw); };	// 描画状況設定
+	bool IsTextScroll(void) const				{ return m_pText->IsScroll(); }				// 文字送り状況取得
+
+private:
+	// メンバ変数
+	CScrollText2D *m_pText;	// テキスト情報
+};
+
+#endif	// _FRAME_TEXT2D_H_

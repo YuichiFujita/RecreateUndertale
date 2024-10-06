@@ -11,6 +11,7 @@
 #include "manager.h"
 #include "string2D.h"
 #include "text2D.h"
+#include "frameText2D.h"
 #include "item.h"
 #include "loadtext.h"
 
@@ -59,7 +60,9 @@ namespace
 //	コンストラクタ
 //============================================================
 CSelectItemUI::CSelectItemUI(AFuncUninit funcUninit, CObject2D *pSoul) : CSelect(funcUninit, pSoul),
+	m_pTextBox		 (nullptr),	// テキストボックス情報
 	m_pSelectItem	 (nullptr),	// 選択中アイテム情報
+	m_nCurTextIdx	 (0),		// 現在のテキストインデックス
 	m_nCurSelectItem (0),		// 現在の選択アイテム
 	m_nCurSelect	 (0)		// 現在の選択肢
 {
@@ -84,7 +87,9 @@ HRESULT CSelectItemUI::Init(void)
 	// メンバ変数を初期化
 	memset(&m_apSelect[0], 0, sizeof(m_apSelect));	// 選択情報
 	m_vecItemName.clear();		// アイテム情報
+	m_pTextBox		 = nullptr;	// テキストボックス情報
 	m_pSelectItem	 = nullptr;	// 選択中アイテム情報
+	m_nCurTextIdx	 = 0;		// 現在のテキストインデックス
 	m_nCurSelectItem = 0;		// 現在の選択アイテム
 	m_nCurSelect	 = 0;		// 現在の選択肢
 
@@ -158,7 +163,7 @@ HRESULT CSelectItemUI::Init(void)
 		// TODO：ここでアイテムデータのインデックスを保存する
 #if 1
 		// アイテムインデックスを保存
-		m_vecItemName[i].nItemID = 0;
+		m_vecItemName[i].nItemID = rand() % 2;
 #endif
 
 		// 文字位置オフセットを計算
@@ -291,7 +296,10 @@ void CSelectItemUI::UpdateDecideItem(void)
 	if (input::Decide())
 	{
 		// 現在選択中のアイテムを保存
-		m_pSelectItem = &m_vecItemName[m_nCurSelectItem];
+		m_pSelectItem = &m_vecItemName[m_nCurSelectItem];	// TODO：選択中かを確認する別の方法を模索しよう
+
+		// テキストインデックスを初期化
+		m_nCurTextIdx = 0;
 	}
 }
 
@@ -325,7 +333,119 @@ void CSelectItemUI::UpdateDecide(void)
 {
 	if (input::Decide())
 	{
-		// TODO：ここにアイテムの詳細を表示
+		if (m_pTextBox == nullptr)
+		{
+			// テキストボックスの生成
+			m_pTextBox = CFrameText2D::Create(SCREEN_CENT, VEC3_ZERO, D3DXVECTOR3(1000.0f, 1000.0f, 0.0f));
+		}
+
+		if (m_pTextBox->IsTextScroll())
+		{
+			m_pTextBox->SetTextEnableDraw(true);
+		}
+		else
+		{
+			int nItemIdx = m_vecItemName[m_nCurSelectItem].nItemID;	// 選択中アイテムインデックス
+			CItem* pItem = GET_MANAGER->GetItem();	// アイテム情報
+
+			// TODO：選択ごとに表示を切り替え
+			switch (m_nCurSelect)
+			{ // 選択ごとの処理
+			case SELECT_USE:
+			{
+				const ATextBox& rText = pItem->GetInfo(nItemIdx).GetUse();	// テキストボックス保存情報
+
+				if (m_nCurTextIdx >= (int)rText.size())
+				{ // テキストが終了した場合
+
+					// 選択中アイテムの使用
+					pItem->GetInfo(nItemIdx).Use();
+
+					// 選択肢を初期化
+					m_nCurSelect = 0;
+
+					// 現在選択中のアイテムを削除
+					m_pSelectItem = nullptr;
+
+					// テキストボックスの終了
+					SAFE_UNINIT(m_pTextBox);
+
+					break;
+				}
+
+				// 現在のテキスト進行度に合わせたテキストに変更
+				m_pTextBox->ChangeText(rText[m_nCurTextIdx]);
+
+				// テキスト進行度を進める
+				m_nCurTextIdx++;
+				break;
+			}
+			case SELECT_INFO:
+			{
+				const ATextBox& rText = pItem->GetInfo(nItemIdx).GetInfo();	// テキストボックス保存情報
+
+				if (m_nCurTextIdx >= (int)rText.size())
+				{ // テキストが終了した場合
+
+					// 選択中アイテムの情報
+					pItem->GetInfo(nItemIdx).Info();
+
+					// 選択肢を初期化
+					m_nCurSelect = 0;
+
+					// 現在選択中のアイテムを削除
+					m_pSelectItem = nullptr;
+
+					// テキストボックスの終了
+					SAFE_UNINIT(m_pTextBox);
+
+					break;
+				}
+
+				// 現在のテキスト進行度に合わせたテキストに変更
+				m_pTextBox->ChangeText(rText[m_nCurTextIdx]);
+
+				// テキスト進行度を進める
+				m_nCurTextIdx++;
+				break;
+			}
+			case SELECT_DROP:
+			{
+				// TODO：捨てるテキストはほんとにこれでいいの？
+#if 0
+				const ATextBox& rText = pItem->GetInfo(nItemIdx).GetDrop();	// テキストボックス保存情報
+
+				if (m_nCurTextIdx >= (int)rText.size())
+				{ // テキストが終了した場合
+
+					// 選択中アイテムの破棄
+					pItem->GetInfo(nItemIdx).Drop();
+
+					// 選択肢を初期化
+					m_nCurSelect = 0;
+
+					// 現在選択中のアイテムを削除
+					m_pSelectItem = nullptr;
+
+					// テキストボックスの終了
+					SAFE_UNINIT(m_pTextBox);
+
+					break;
+				}
+
+				// 現在のテキスト進行度に合わせたテキストに変更
+				m_pTextBox->ChangeText(rText[m_nCurTextIdx]);
+
+				// テキスト進行度を進める
+				m_nCurTextIdx++;
+#endif
+				break;
+			}
+			default:
+				assert(false);
+				break;
+			}
+		}
 	}
 
 	if (input::Cancel())

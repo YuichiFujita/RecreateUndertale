@@ -31,17 +31,10 @@ public:
 	// デストラクタ
 	virtual ~CItemData();
 
-	// テキスト構造体
-	struct SText
-	{
-		// メンバ変数
-		std::vector<std::vector<std::string>> vec;	// テキスト動的配列
-	};
-
 	// 純粋仮想関数
-	virtual void Use(void)	= 0;	// アイテム使用
-	virtual void Info(void)	= 0;	// アイテム情報
-	virtual void Drop(void)	= 0;	// アイテム破棄
+	virtual void Use(void) const	= 0;	// アイテム使用
+	virtual void Info(void) const	= 0;	// アイテム情報
+	virtual void Drop(void) const	= 0;	// アイテム破棄
 
 	// 仮想関数
 	virtual HRESULT Init(void);	// 初期化
@@ -51,18 +44,18 @@ public:
 	static CItemData *Create(const EType type);	// 生成
 
 	// メンバ関数
-	void SetName(const char* pName)		{ m_sName = pName; }		// アイテム名設定
-	const char* GetName(void) const		{ return m_sName.c_str(); }	// アイテム名取得
-	void SetUse(const SText& rVecUse)	{ m_vecUse = rVecUse; }		// 使用テキスト設定
-	const SText& GetUse(void) const		{ return m_vecUse; }		// 使用テキスト取得
-	void SetInfo(const SText& rVecInfo)	{ m_vecInfo = rVecInfo; }	// 情報テキスト設定
-	const SText& GetInfo(void) const	{ return m_vecInfo; }		// 情報テキスト取得
+	void SetName(const char* pName)			{ m_sName = pName; }		// アイテム名設定
+	const char* GetName(void) const			{ return m_sName.c_str(); }	// アイテム名取得
+	void SetUse(const ATextBox& rVecUse)	{ m_vecUse = rVecUse; }		// 使用テキスト設定
+	const ATextBox& GetUse(void) const		{ return m_vecUse; }		// 使用テキスト取得
+	void SetInfo(const ATextBox& rVecInfo)	{ m_vecInfo = rVecInfo; }	// 情報テキスト設定
+	const ATextBox& GetInfo(void) const		{ return m_vecInfo; }		// 情報テキスト取得
 
 private:
 	// メンバ変数
 	std::string m_sName;	// アイテム名
-	SText m_vecUse;			// 使用テキスト
-	SText m_vecInfo;		// 情報テキスト
+	ATextBox m_vecUse;		// 使用テキスト
+	ATextBox m_vecInfo;		// 情報テキスト
 };
 
 // アイテムクラス
@@ -88,7 +81,7 @@ public:
 private:
 	// メンバ関数
 	HRESULT LoadSetup(void);	// セットアップ
-	CItemData::SText LoadText(std::ifstream& rFile, const char *pEndStr);	// テキストセットアップ
+	ATextBox LoadText(std::ifstream& rFile, const char *pEndStr);	// テキストセットアップ
 
 	// メンバ変数
 	std::vector<CItemData*> m_vecItemData;	// アイテム動的配列

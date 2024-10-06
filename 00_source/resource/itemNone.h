@@ -31,9 +31,9 @@ public:
 	// オーバーライド関数
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
-	void Use(void) override;		// アイテム使用
-	void Info(void) override;		// アイテム情報
-	void Drop(void) override;		// アイテム破棄
+	void Use(void) const override;	// アイテム使用
+	void Info(void) const override;	// アイテム情報
+	void Drop(void) const override;	// アイテム破棄
 
 private:
 	// メンバ変数

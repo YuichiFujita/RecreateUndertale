@@ -18,8 +18,8 @@
 //************************************************************
 //	前方宣言
 //************************************************************
+class CFrameText2D;	// フレームテキスト2Dクラス
 class CString2D;	// 文字列2Dクラス
-class CText2D;		// テキスト2Dクラス
 
 //************************************************************
 //	クラス定義
@@ -75,7 +75,9 @@ private:
 	// メンバ変数
 	std::vector<SItem> m_vecItemName;	// アイテム情報
 	CString2D *m_apSelect[SELECT_MAX];	// 選択情報
-	SItem *m_pSelectItem;	// 選択中アイテム情報
+	CFrameText2D *m_pTextBox;			// テキストボックス情報
+	SItem *m_pSelectItem;	// 選択中アイテム情報		// TODO：アイテム選択中かはインデックスでの管理にしよう
+	int m_nCurTextIdx;		// 現在のテキストインデックス
 	int m_nCurSelectItem;	// 現在の選択アイテム
 	int m_nCurSelect;		// 現在の選択肢
 };

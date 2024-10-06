@@ -70,6 +70,9 @@
     <Filter Include="ingame\status">
       <UniqueIdentifier>{65a66121-07e1-4063-be15-7dfa516d2192}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ingame\frame">
+      <UniqueIdentifier>{1a9a45ab-739d-48c5-a222-ba9c5e3f9fc5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="resource\camera.cpp">
@@ -384,9 +387,6 @@
     <ClCompile Include="resource\particle3D.cpp">
       <Filter>3D</Filter>
     </ClCompile>
-    <ClCompile Include="resource\frame2D.cpp">
-      <Filter>2D</Filter>
-    </ClCompile>
     <ClCompile Include="resource\menuUI.cpp">
       <Filter>ingame\menu</Filter>
     </ClCompile>
@@ -416,6 +416,12 @@
     </ClCompile>
     <ClCompile Include="resource\itemNone.cpp">
       <Filter>ingame\item</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\frame2D.cpp">
+      <Filter>ingame\frame</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\frameText2D.cpp">
+      <Filter>ingame\frame</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -734,9 +740,6 @@
     <ClInclude Include="resource\particle3D.h">
       <Filter>3D</Filter>
     </ClInclude>
-    <ClInclude Include="resource\frame2D.h">
-      <Filter>2D</Filter>
-    </ClInclude>
     <ClInclude Include="resource\menuUI.h">
       <Filter>ingame\menu</Filter>
     </ClInclude>
@@ -766,6 +769,12 @@
     </ClInclude>
     <ClInclude Include="resource\itemNone.h">
       <Filter>ingame\item</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\frame2D.h">
+      <Filter>ingame\frame</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\frameText2D.h">
+      <Filter>ingame\frame</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
