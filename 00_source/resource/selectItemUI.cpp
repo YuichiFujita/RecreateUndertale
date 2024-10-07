@@ -59,12 +59,12 @@ namespace
 //============================================================
 //	コンストラクタ
 //============================================================
-CSelectItemUI::CSelectItemUI(AFuncUninit funcUninit, CObject2D *pSoul) : CSelect(funcUninit, pSoul),
-	m_pTextBox		 (nullptr),	// テキストボックス情報
-	m_pSelectItem	 (nullptr),	// 選択中アイテム情報
-	m_nCurTextIdx	 (0),		// 現在のテキストインデックス
-	m_nCurSelectItem (0),		// 現在の選択アイテム
-	m_nCurSelect	 (0)		// 現在の選択肢
+CSelectItemUI::CSelectItemUI(AFuncUninit funcUninit, CObject2D *pSoul) : CSelectUI(funcUninit, pSoul),
+	m_pTextBox		 (nullptr),		// テキストボックス情報
+	m_state			 (STATE_ITEM),	// 状態
+	m_nCurTextIdx	 (0),			// 現在のテキストインデックス
+	m_nCurSelectItem (0),			// 現在の選択アイテム
+	m_nCurSelect	 (0)			// 現在の選択肢
 {
 	// メンバ変数をクリア
 	memset(&m_apSelect[0], 0, sizeof(m_apSelect));	// 選択情報
@@ -86,18 +86,18 @@ HRESULT CSelectItemUI::Init(void)
 {
 	// メンバ変数を初期化
 	memset(&m_apSelect[0], 0, sizeof(m_apSelect));	// 選択情報
-	m_vecItemName.clear();		// アイテム情報
-	m_pTextBox		 = nullptr;	// テキストボックス情報
-	m_pSelectItem	 = nullptr;	// 選択中アイテム情報
-	m_nCurTextIdx	 = 0;		// 現在のテキストインデックス
-	m_nCurSelectItem = 0;		// 現在の選択アイテム
-	m_nCurSelect	 = 0;		// 現在の選択肢
+	m_vecItemName.clear();			// アイテム情報
+	m_pTextBox		 = nullptr;		// テキストボックス情報
+	m_state			 = STATE_ITEM;	// 状態
+	m_nCurTextIdx	 = 0;			// 現在のテキストインデックス
+	m_nCurSelectItem = 0;			// 現在の選択アイテム
+	m_nCurSelect	 = 0;			// 現在の選択肢
 
 	//--------------------------------------------------------
 	//	親クラスの初期化 / 設定
 	//--------------------------------------------------------
-	// セレクトの初期化
-	if (FAILED(CSelect::Init()))
+	// セレクトUIの初期化
+	if (FAILED(CSelectUI::Init()))
 	{ // 初期化に失敗した場合
 
 		// 失敗を返す
@@ -224,8 +224,8 @@ void CSelectItemUI::Uninit(void)
 	// アイテム情報のクリア
 	m_vecItemName.clear();
 
-	// セレクトの終了
-	CSelect::Uninit();
+	// セレクトUIの終了
+	CSelectUI::Uninit();
 }
 
 //============================================================
@@ -233,9 +233,9 @@ void CSelectItemUI::Uninit(void)
 //============================================================
 void CSelectItemUI::Update(const float fDeltaTime)
 {
-	// TODO：ここは状態管理にする
-	if (m_pSelectItem == nullptr)
-	{ // アイテムが選択されていない場合
+	switch (m_state)
+	{ // 状態ごとの処理
+	case STATE_ITEM:
 
 		// アイテム選択の更新
 		UpdateSelectItem();
@@ -243,17 +243,26 @@ void CSelectItemUI::Update(const float fDeltaTime)
 		// アイテム決定の更新
 		UpdateDecideItem();
 
-		// セレクトの更新
-		CSelect::Update(fDeltaTime);
-	}
-	else
-	{ // アイテムが選択されている場合
+		// セレクトUIの更新
+		CSelectUI::Update(fDeltaTime);
+		break;
+
+	case STATE_SELECT:
 
 		// 選択の更新
 		UpdateSelect();
 
 		// 決定の更新
 		UpdateDecide();
+		break;
+
+	case STATE_TEXT:
+
+		break;
+
+	default:
+		assert(false);
+		break;
 	}
 }
 
@@ -262,8 +271,8 @@ void CSelectItemUI::Update(const float fDeltaTime)
 //============================================================
 void CSelectItemUI::Draw(CShader *pShader)
 {
-	// セレクトの描画
-	CSelect::Draw(pShader);
+	// セレクトUIの描画
+	CSelectUI::Draw(pShader);
 }
 
 //============================================================
@@ -296,8 +305,8 @@ void CSelectItemUI::UpdateDecideItem(void)
 {
 	if (input::Decide())
 	{
-		// 現在選択中のアイテムを保存
-		m_pSelectItem = &m_vecItemName[m_nCurSelectItem];	// TODO：選択中かを確認する別の方法を模索しよう
+		// 選択状態にする
+		m_state = STATE_SELECT;
 
 		// テキストインデックスを初期化
 		m_nCurTextIdx = 0;
@@ -365,8 +374,8 @@ void CSelectItemUI::UpdateDecide(void)
 					// 選択肢を初期化
 					m_nCurSelect = 0;
 
-					// 現在選択中のアイテムを削除
-					m_pSelectItem = nullptr;
+					// アイテム選択状態にする
+					m_state = STATE_ITEM;
 
 					// テキストボックスの終了
 					SAFE_UNINIT(m_pTextBox);
@@ -394,8 +403,8 @@ void CSelectItemUI::UpdateDecide(void)
 					// 選択肢を初期化
 					m_nCurSelect = 0;
 
-					// 現在選択中のアイテムを削除
-					m_pSelectItem = nullptr;
+					// アイテム選択状態にする
+					m_state = STATE_ITEM;
 
 					// テキストボックスの終了
 					SAFE_UNINIT(m_pTextBox);
@@ -425,8 +434,8 @@ void CSelectItemUI::UpdateDecide(void)
 					// 選択肢を初期化
 					m_nCurSelect = 0;
 
-					// 現在選択中のアイテムを削除
-					m_pSelectItem = nullptr;
+					// アイテム選択状態にする
+					m_state = STATE_ITEM;
 
 					// テキストボックスの終了
 					SAFE_UNINIT(m_pTextBox);
@@ -454,7 +463,7 @@ void CSelectItemUI::UpdateDecide(void)
 		// 選択肢を初期化
 		m_nCurSelect = 0;
 
-		// 現在選択中のアイテムを削除
-		m_pSelectItem = nullptr;
+		// アイテム選択状態にする
+		m_state = STATE_ITEM;
 	}
 }

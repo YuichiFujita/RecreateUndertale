@@ -30,7 +30,7 @@ namespace
 //============================================================
 //	コンストラクタ
 //============================================================
-CSelectPhoneUI::CSelectPhoneUI(AFuncUninit funcUninit, CObject2D *pSoul) : CSelect(funcUninit, pSoul)
+CSelectPhoneUI::CSelectPhoneUI(AFuncUninit funcUninit, CObject2D *pSoul) : CSelectUI(funcUninit, pSoul)
 {
 
 }
@@ -48,8 +48,8 @@ CSelectPhoneUI::~CSelectPhoneUI()
 //============================================================
 HRESULT CSelectPhoneUI::Init(void)
 {
-	// セレクトの初期化
-	if (FAILED(CSelect::Init()))
+	// セレクトUIの初期化
+	if (FAILED(CSelectUI::Init()))
 	{ // 初期化に失敗した場合
 
 		// 失敗を返す
@@ -75,8 +75,8 @@ HRESULT CSelectPhoneUI::Init(void)
 //============================================================
 void CSelectPhoneUI::Uninit(void)
 {
-	// セレクトの終了
-	CSelect::Uninit();
+	// セレクトUIの終了
+	CSelectUI::Uninit();
 }
 
 //============================================================
@@ -84,8 +84,8 @@ void CSelectPhoneUI::Uninit(void)
 //============================================================
 void CSelectPhoneUI::Update(const float fDeltaTime)
 {
-	// セレクトの更新
-	CSelect::Update(fDeltaTime);
+	// セレクトUIの更新
+	CSelectUI::Update(fDeltaTime);
 }
 
 //============================================================
@@ -93,6 +93,6 @@ void CSelectPhoneUI::Update(const float fDeltaTime)
 //============================================================
 void CSelectPhoneUI::Draw(CShader *pShader)
 {
-	// セレクトの描画
-	CSelect::Draw(pShader);
+	// セレクトUIの描画
+	CSelectUI::Draw(pShader);
 }

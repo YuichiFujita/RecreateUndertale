@@ -25,7 +25,7 @@ class CString2D;	// 文字列2Dクラス
 //	クラス定義
 //************************************************************
 // アイテムメニュークラス
-class CSelectItemUI : public CSelect
+class CSelectItemUI : public CSelectUI
 {
 public:
 	// コンストラクタ
@@ -41,6 +41,15 @@ public:
 	void Draw(CShader *pShader = nullptr) override;	// 描画
 
 private:
+	// 状態列挙
+	enum EState
+	{
+		STATE_ITEM = 0,	// アイテム選択状態
+		STATE_SELECT,	// 選択状態
+		STATE_TEXT,		// テキスト表示状態
+		STATE_MAX		// この列挙型の総数
+	};
+
 	// 選択列挙
 	enum ESelect
 	{
@@ -76,7 +85,7 @@ private:
 	std::vector<SItem> m_vecItemName;	// アイテム情報
 	CString2D *m_apSelect[SELECT_MAX];	// 選択情報
 	CFrameText2D *m_pTextBox;			// テキストボックス情報
-	SItem *m_pSelectItem;	// 選択中アイテム情報		// TODO：アイテム選択中かはインデックスでの管理にしよう
+	EState m_state;			// 状態
 	int m_nCurTextIdx;		// 現在のテキストインデックス
 	int m_nCurSelectItem;	// 現在の選択アイテム
 	int m_nCurSelect;		// 現在の選択肢
@@ -88,15 +97,5 @@ private:
 //		 じゃないとスパゲッティだわ
 //		 クラス分けしなくていいわ。rTextの部分はコンストラクタで指定して、
 //		 Use, Info, Dropは関数ポインタでもとう。
-
-#if 0
-enum EState
-{
-	STATE_ITEM_SELECT = 0,	// アイテム選択状態
-	STATE_USE_SELECT,		// 使用選択状態
-	STATE_SCROLL_TEXT,		// テキスト表示状態
-	STATE_MAX				// この列挙型の総数
-};
-#endif
 
 #endif	// _SELECT_ITEM_UI_H_

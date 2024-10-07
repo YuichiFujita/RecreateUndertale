@@ -302,7 +302,7 @@ HRESULT CMenuSelectUI::ChangeSelectMenu(const CMenuSelectUI::ESelect select)
 
 	// 選択肢に応じてメニューを生成
 	assert(m_pSelectMenu == nullptr);
-	m_pSelectMenu = CSelect::Create
+	m_pSelectMenu = CSelectUI::Create
 	( // 引数
 		std::bind(&CMenuSelectUI::UninitSelectMenu, this),	// 選択メニュー終了関数
 		m_pSoul,	// ソウルカーソル情報
@@ -321,12 +321,12 @@ HRESULT CMenuSelectUI::ChangeSelectMenu(const CMenuSelectUI::ESelect select)
 }
 
 //************************************************************
-//	子クラス [CSelect] のメンバ関数
+//	子クラス [CSelectUI] のメンバ関数
 //************************************************************
 //============================================================
 //	コンストラクタ
 //============================================================
-CSelect::CSelect(AFuncUninit funcUninit, CObject2D *pSoul) : CObject(CObject::LABEL_UI, CObject::DIM_3D, MENU_PRIO),
+CSelectUI::CSelectUI(AFuncUninit funcUninit, CObject2D *pSoul) : CObject(CObject::LABEL_UI, CObject::DIM_3D, MENU_PRIO),
 	m_funcUninitMenu (funcUninit),	// 選択メニュー終了関数ポインタ
 	m_pSoul			 (pSoul),		// ソウルカーソル情報
 	m_pFrame		 (nullptr)		// フレーム情報
@@ -337,7 +337,7 @@ CSelect::CSelect(AFuncUninit funcUninit, CObject2D *pSoul) : CObject(CObject::LA
 //============================================================
 //	デストラクタ
 //============================================================
-CSelect::~CSelect()
+CSelectUI::~CSelectUI()
 {
 
 }
@@ -345,7 +345,7 @@ CSelect::~CSelect()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CSelect::Init(void)
+HRESULT CSelectUI::Init(void)
 {
 	// メンバ変数を初期化
 	m_pFrame = nullptr;	// フレーム情報
@@ -375,7 +375,7 @@ HRESULT CSelect::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CSelect::Uninit(void)
+void CSelectUI::Uninit(void)
 {
 	// フレームの終了
 	SAFE_UNINIT(m_pFrame);
@@ -387,7 +387,7 @@ void CSelect::Uninit(void)
 //============================================================
 //	更新処理
 //============================================================
-void CSelect::Update(const float fDeltaTime)
+void CSelectUI::Update(const float fDeltaTime)
 {
 	if (input::Cancel())
 	{
@@ -399,7 +399,7 @@ void CSelect::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CSelect::Draw(CShader * /*pShader*/)
+void CSelectUI::Draw(CShader * /*pShader*/)
 {
 
 }
@@ -407,27 +407,27 @@ void CSelect::Draw(CShader * /*pShader*/)
 //============================================================
 //	生成処理
 //============================================================
-CSelect *CSelect::Create
+CSelectUI *CSelectUI::Create
 (
 	AFuncUninit funcUninit,	// 選択メニュー終了関数
 	CObject2D *pSoul,		// ソウルカーソル情報
 	const CMenuSelectUI::ESelect select	// 選択肢
 )
 {
-	// セレクトの生成
-	CSelect *pSelect = nullptr;	// セレクト情報
+	// セレクトUIの生成
+	CSelectUI *pSelectUI = nullptr;	// セレクトUI情報
 	switch (select)
 	{ // 選択肢ごとの処理
 	case CMenuSelectUI::SELECT_ITEM:
-		pSelect = new CSelectItemUI(funcUninit, pSoul);
+		pSelectUI = new CSelectItemUI(funcUninit, pSoul);
 		break;
 
 	case CMenuSelectUI::SELECT_STATUS:
-		pSelect = new CSelectStatusUI(funcUninit, pSoul);
+		pSelectUI = new CSelectStatusUI(funcUninit, pSoul);
 		break;
 
 	case CMenuSelectUI::SELECT_PHONE:
-		pSelect = new CSelectPhoneUI(funcUninit, pSoul);
+		pSelectUI = new CSelectPhoneUI(funcUninit, pSoul);
 		break;
 
 	default:	// 例外処理
@@ -435,7 +435,7 @@ CSelect *CSelect::Create
 		break;
 	}
 
-	if (pSelect == nullptr)
+	if (pSelectUI == nullptr)
 	{ // 生成に失敗した場合
 
 		return nullptr;
@@ -444,15 +444,15 @@ CSelect *CSelect::Create
 	{ // 生成に成功した場合
 
 		// セレクトの初期化
-		if (FAILED(pSelect->Init()))
+		if (FAILED(pSelectUI->Init()))
 		{ // 初期化に失敗した場合
 
 			// セレクトの破棄
-			SAFE_DELETE(pSelect);
+			SAFE_DELETE(pSelectUI);
 			return nullptr;
 		}
 
 		// 確保したアドレスを返す
-		return pSelect;
+		return pSelectUI;
 	}
 }

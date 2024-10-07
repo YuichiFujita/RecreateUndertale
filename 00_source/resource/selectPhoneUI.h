@@ -24,7 +24,7 @@ class CString2D;	// 文字列2Dクラス
 //	クラス定義
 //************************************************************
 // 電話メニュークラス
-class CSelectPhoneUI : public CSelect
+class CSelectPhoneUI : public CSelectUI
 {
 public:
 	// コンストラクタ

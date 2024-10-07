@@ -25,7 +25,7 @@ class CText2D;		// テキスト2Dクラス
 //	クラス定義
 //************************************************************
 // フルステータスメニュークラス
-class CSelectStatusUI : public CSelect
+class CSelectStatusUI : public CSelectUI
 {
 public:
 	// コンストラクタ

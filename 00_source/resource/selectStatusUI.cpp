@@ -157,7 +157,7 @@ namespace
 //============================================================
 //	コンストラクタ
 //============================================================
-CSelectStatusUI::CSelectStatusUI(AFuncUninit funcUninit, CObject2D *pSoul) : CSelect(funcUninit, pSoul),
+CSelectStatusUI::CSelectStatusUI(AFuncUninit funcUninit, CObject2D *pSoul) : CSelectUI(funcUninit, pSoul),
 	m_pName			(nullptr),	// 名前情報
 	m_pLvHpTitle	(nullptr),	// LV/HPタイトル情報
 	m_pLvHpValue	(nullptr),	// LV/HP数値情報
@@ -206,8 +206,8 @@ HRESULT CSelectStatusUI::Init(void)
 	//--------------------------------------------------------
 	//	親クラスの初期化 / 設定
 	//--------------------------------------------------------
-	// セレクトの初期化
-	if (FAILED(CSelect::Init()))
+	// セレクトUIの初期化
+	if (FAILED(CSelectUI::Init()))
 	{ // 初期化に失敗した場合
 
 		// 失敗を返す
@@ -658,8 +658,8 @@ void CSelectStatusUI::Uninit(void)
 	// KILLS数値の終了
 	SAFE_UNINIT(m_pKillsValue);
 
-	// セレクトの終了
-	CSelect::Uninit();
+	// セレクトUIの終了
+	CSelectUI::Uninit();
 }
 
 //============================================================
@@ -667,8 +667,8 @@ void CSelectStatusUI::Uninit(void)
 //============================================================
 void CSelectStatusUI::Update(const float fDeltaTime)
 {
-	// セレクトの更新
-	CSelect::Update(fDeltaTime);
+	// セレクトUIの更新
+	CSelectUI::Update(fDeltaTime);
 }
 
 //============================================================
@@ -676,6 +676,6 @@ void CSelectStatusUI::Update(const float fDeltaTime)
 //============================================================
 void CSelectStatusUI::Draw(CShader *pShader)
 {
-	// セレクトの描画
-	CSelect::Draw(pShader);
+	// セレクトUIの描画
+	CSelectUI::Draw(pShader);
 }

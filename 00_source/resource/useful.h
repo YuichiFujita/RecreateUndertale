@@ -654,15 +654,77 @@ namespace color
 // マテリアル関数空間
 namespace material
 {
-	D3DXMATERIAL White(void);		// 白色マテリアル取得
-	D3DXMATERIAL Red(void);			// 赤色マテリアル取得
-	D3DXMATERIAL Green(void);		// 緑色マテリアル取得
-	D3DXMATERIAL Blue(void);		// 青色マテリアル取得
-	D3DXMATERIAL Yellow(void);		// 黄色マテリアル取得
-	D3DXMATERIAL Cyan(void);		// 水色マテリアル取得
-	D3DXMATERIAL DamageRed(void);	// ダメージ赤色マテリアル取得
-	D3DXMATERIAL GlowGreen(void);	// 発光緑色マテリアル取得
-	D3DXMATERIAL GlowCyan(void);	// 発光水色マテリアル取得
+	// 黒色マテリアル取得
+	inline D3DXMATERIAL Black(void)
+	{
+		D3DXMATERIAL mat;
+		ZeroMemory(&mat, sizeof(mat));
+		mat.MatD3D.Diffuse = color::Black();
+		return mat;
+	}
+
+	// 白色マテリアル取得
+	inline D3DXMATERIAL White(void)
+	{
+		D3DXMATERIAL mat;
+		ZeroMemory(&mat, sizeof(mat));
+		mat.MatD3D.Diffuse = color::White();
+		return mat;
+	}
+
+	// 赤色マテリアル取得
+	inline D3DXMATERIAL Red(void)
+	{
+		D3DXMATERIAL mat;
+		ZeroMemory(&mat, sizeof(mat));
+		mat.MatD3D.Diffuse = color::Red();
+		return mat;
+	}
+
+	// 緑色マテリアル取得
+	inline D3DXMATERIAL Green(void)
+	{
+		D3DXMATERIAL mat;
+		ZeroMemory(&mat, sizeof(mat));
+		mat.MatD3D.Diffuse = color::Green();
+		return mat;
+	}
+
+	// 青色マテリアル取得
+	inline D3DXMATERIAL Blue(void)
+	{
+		D3DXMATERIAL mat;
+		ZeroMemory(&mat, sizeof(mat));
+		mat.MatD3D.Diffuse = color::Blue();
+		return mat;
+	}
+
+	// 黄色マテリアル取得
+	inline D3DXMATERIAL Yellow(void)
+	{
+		D3DXMATERIAL mat;
+		ZeroMemory(&mat, sizeof(mat));
+		mat.MatD3D.Diffuse = color::Yellow();
+		return mat;
+	}
+
+	// 水色マテリアル取得
+	inline D3DXMATERIAL Cyan(void)
+	{
+		D3DXMATERIAL mat;
+		ZeroMemory(&mat, sizeof(mat));
+		mat.MatD3D.Diffuse = color::Cyan();
+		return mat;
+	}
+
+	// 紫色マテリアル取得
+	inline D3DXMATERIAL Purple(void)
+	{
+		D3DXMATERIAL mat;
+		ZeroMemory(&mat, sizeof(mat));
+		mat.MatD3D.Diffuse = color::Purple();
+		return mat;
+	}
 }
 
 //************************************************************

@@ -21,7 +21,7 @@
 //	前方宣言
 //************************************************************
 class CString2D;	// 文字列2Dクラス
-class CSelect;		// セレクトクラス
+class CSelectUI;	// セレクトUIクラス
 
 //************************************************************
 //	クラス定義
@@ -69,24 +69,24 @@ private:
 
 	// メンバ変数
 	CString2D *m_apSelect[SELECT_MAX];	// 選択肢情報
-	CFrame2D *m_pFrame;		// フレーム情報
-	CObject2D *m_pSoul;		// ソウルカーソル情報
-	CSelect *m_pSelectMenu;	// 選択メニュー情報
-	int m_nCurSelect;		// 現在の選択肢
+	CFrame2D *m_pFrame;			// フレーム情報
+	CObject2D *m_pSoul;			// ソウルカーソル情報
+	CSelectUI *m_pSelectMenu;	// 選択メニュー情報
+	int m_nCurSelect;			// 現在の選択肢
 };
 
-// セレクトクラス
-class CSelect : public CObject
+// セレクトUIクラス
+class CSelectUI : public CObject
 {
 public:
 	// エイリアス定義
 	using AFuncUninit = const std::function<void(void)>;	// 選択メニュー終了関数のポインタ型
 
 	// コンストラクタ
-	CSelect(AFuncUninit funcUninit, CObject2D *pSoul);
+	CSelectUI(AFuncUninit funcUninit, CObject2D *pSoul);
 
 	// デストラクタ
-	~CSelect() override;
+	~CSelectUI() override;
 
 	// オーバーライド関数
 	HRESULT Init(void) override;	// 初期化
@@ -95,7 +95,7 @@ public:
 	void Draw(CShader *pShader = nullptr) override;	// 描画
 
 	// 静的メンバ関数
-	static CSelect *Create	// 生成
+	static CSelectUI *Create	// 生成
 	( // 引数
 		AFuncUninit funcUninit,	// 選択メニュー終了関数
 		CObject2D *pSoul,		// ソウルカーソル情報
