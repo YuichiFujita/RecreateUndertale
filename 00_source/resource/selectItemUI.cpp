@@ -233,6 +233,7 @@ void CSelectItemUI::Uninit(void)
 //============================================================
 void CSelectItemUI::Update(const float fDeltaTime)
 {
+	// TODO：ここは状態管理にする
 	if (m_pSelectItem == nullptr)
 	{ // アイテムが選択されていない場合
 

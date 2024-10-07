@@ -82,4 +82,21 @@ private:
 	int m_nCurSelect;		// 現在の選択肢
 };
 
+// TODO：menuSelectUIを参考にアイテム使用後の更新をクラス分けしよう
+//		 itemUI, itemUseUI, itemInfoUI, itemDropUIってかんじで
+//		 そんでもってこのクラスの更新管理はstate管理にしよう
+//		 じゃないとスパゲッティだわ
+//		 クラス分けしなくていいわ。rTextの部分はコンストラクタで指定して、
+//		 Use, Info, Dropは関数ポインタでもとう。
+
+#if 0
+enum EState
+{
+	STATE_ITEM_SELECT = 0,	// アイテム選択状態
+	STATE_USE_SELECT,		// 使用選択状態
+	STATE_SCROLL_TEXT,		// テキスト表示状態
+	STATE_MAX				// この列挙型の総数
+};
+#endif
+
 #endif	// _SELECT_ITEM_UI_H_

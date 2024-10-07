@@ -13,12 +13,51 @@ ITEMSET
 		TEXT
 			STR =  ＊ モンスターあめを　たべた。
 		END_TEXT
+		TEXT
+			STR =  ＊ モンスターあめを　たべたよ。
+		END_TEXT
+		TEXT
+			STR =  ＊ モンスターあめを　たべたって。
+		END_TEXT
+		TEXT
+			STR =  ＊ モンスターあめを　たべたっつてるだろ！！！
+		END_TEXT
 	END_USE
 	
 	INFO
 		TEXT
 			STR =  ＊ ハッカとは　またちがった
 			STR =  　 どくとくな　ふうみ。
+		END_TEXT
+	END_INFO
+END_ITEMSET
+
+ITEMSET
+	TYPE = 0
+	NAME = じゃがいも
+	
+	USE
+		TEXT
+			STR =  ＊ え、生食するの？
+		END_TEXT
+		TEXT
+			STR =  ＊ いや...おなか壊すよ？
+		END_TEXT
+		TEXT
+			STR =  ＊ ま、まぁ...止めないけど。
+		END_TEXT
+		TEXT
+			STR =  ＊ あ～あ。
+		END_TEXT
+	END_USE
+	
+	INFO
+		TEXT
+			STR =  ＊ まず間違いなく
+			STR =  　 火を通した方がいい。
+		END_TEXT
+		TEXT
+			STR =  ＊ てか共食いで草
 		END_TEXT
 	END_INFO
 END_ITEMSET

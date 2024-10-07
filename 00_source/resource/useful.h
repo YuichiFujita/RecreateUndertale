@@ -100,48 +100,354 @@
 // 2整数座標
 struct POSGRID2
 {
-	// コンストラクタ
-	POSGRID2() {}
-	POSGRID2(const int nx, const int ny) { x = nx; y = ny; }	// 代入
+	// デフォルトコンストラクタ
+	POSGRID2() : x(0), y(0) {}
+
+	// 引数付きコンストラクタ
+	POSGRID2(const int XY) : x(XY), y(XY) {}
+	POSGRID2(const int X, const int Y) : x(X), y(Y) {}
 
 	// デストラクタ
 	~POSGRID2() {}
 
-	// 演算子オーバーロード
-	bool operator==(const POSGRID2& grid) const;
-	bool operator!=(const POSGRID2& grid) const;
-	POSGRID2 operator+(const POSGRID2& grid) const;
-	POSGRID2 operator-(const POSGRID2& grid) const;
-	POSGRID2 operator*(const int nVal) const;
-	POSGRID2 operator/(const int nVal) const;
-
 	// メンバ変数
 	int x;	// 方眼座標 (x)
 	int y;	// 方眼座標 (y)
+
+	//********************************************************
+	//	演算子オーバーロード
+	//********************************************************
+	// 加算
+	inline POSGRID2 operator+(const POSGRID2& grid) const	{ return POSGRID2(x + grid.x, y + grid.y); }
+	inline POSGRID2 operator+(const int nVal) const			{ return POSGRID2(x + nVal, y + nVal); }
+
+	// 減算
+	inline POSGRID2 operator-(const POSGRID2& grid) const	{ return POSGRID2(x - grid.x, y - grid.y); }
+	inline POSGRID2 operator-(const int nVal) const			{ return POSGRID2(x - nVal, y - nVal); }
+	inline POSGRID2 operator-(void) const					{ return POSGRID2(-x, -y); }
+
+	// 乗算
+	inline POSGRID2 operator*(const int nVal) const	{ return POSGRID2(x * nVal, y * nVal); }
+
+	// 除算
+	inline POSGRID2 operator/(const int nVal) const	{ return POSGRID2(x / nVal, y / nVal); }
+
+	// 加算代入
+	inline POSGRID2& operator+=(const int nVal)
+	{
+		x += nVal;
+		y += nVal;
+		return *this;
+	}
+	inline POSGRID2& operator+=(const POSGRID2& grid)
+	{
+		x += grid.x;
+		y += grid.y;
+		return *this;
+	}
+
+	// 減算代入
+	inline POSGRID2& operator-=(const int nVal)
+	{
+		x -= nVal;
+		y -= nVal;
+		return *this;
+	}
+	inline POSGRID2& operator-=(const POSGRID2& grid)
+	{
+		x -= grid.x;
+		y -= grid.y;
+		return *this;
+	}
+
+	// 乗算代入
+	inline POSGRID2& operator*=(const int nVal)
+	{
+		x *= nVal;
+		y *= nVal;
+		return *this;
+	}
+	inline POSGRID2& operator*=(const POSGRID2& grid)
+	{
+		x *= grid.x;
+		y *= grid.y;
+		return *this;
+	}
+
+	// 除算代入
+	inline POSGRID2& operator/=(const int nVal)
+	{
+		x /= nVal;
+		y /= nVal;
+		return *this;
+	}
+	inline POSGRID2& operator/=(const POSGRID2& grid)
+	{
+		x /= grid.x;
+		y /= grid.y;
+		return *this;
+	}
+
+	//********************************************************
+	//	メンバ関数
+	//********************************************************
+	/*
+		@brief	座標が一致するかの検証
+		@return	判定結果
+	*/
+	inline bool operator==(const POSGRID2& grid) const
+	{
+		if (grid.x == x && grid.y == y) { return true; }
+		return false;
+	}
+
+	/*
+		@brief	座標が一致しないかの検証
+		@return	判定結果
+	*/
+	inline bool operator!=(const POSGRID2& grid) const
+	{
+		if (grid.x != x || grid.y != y) { return true; }
+		return false;
+	}
+
+	/*
+		@brief	方眼座標の反転
+		@return	反転された方眼座標
+	*/
+	inline POSGRID2 Invert() { return POSGRID2(-x, -y); }
+
+	/*
+		@brief	要素がすべてゼロか
+		@return	判定結果
+	*/
+	inline bool IsZero() const
+	{
+		if (x == 0 && y == 0) { return true; }
+		return false;
+	}
 };
 
 // 3整数座標
 struct POSGRID3
 {
-	// コンストラクタ
-	POSGRID3() {}
-	POSGRID3(const int nx, const int ny, const int nz) { x = nx; y = ny; z = nz; }	// 代入
+	// デフォルトコンストラクタ
+	POSGRID3() : x(0), y(0), z(0) {}
+
+	// 引数付きコンストラクタ
+	POSGRID3(const int XYZ) : x(XYZ), y(XYZ), z(XYZ) {}
+	POSGRID3(const int X, const int Y, const int Z) : x(X), y(Y), z(Z) {}
 
 	// デストラクタ
 	~POSGRID3() {}
-
-	// メンバ関数
-	bool operator==(const POSGRID3& grid) const;
-	bool operator!=(const POSGRID3& grid) const;
-	POSGRID3 operator+(const POSGRID3& grid) const;
-	POSGRID3 operator-(const POSGRID3& grid) const;
-	POSGRID3 operator*(const int nVal) const;
-	POSGRID3 operator/(const int nVal) const;
 
 	// メンバ変数
 	int x;	// 方眼座標 (x)
 	int y;	// 方眼座標 (y)
 	int z;	// 方眼座標 (z)
+
+	//********************************************************
+	//	演算子オーバーロード
+	//********************************************************
+	// 加算
+	inline POSGRID3 operator+(const POSGRID3& grid) const	{ return POSGRID3(x + grid.x, y + grid.y, z + grid.z); }
+	inline POSGRID3 operator+(const int nVal) const			{ return POSGRID3(x + nVal, y + nVal, z + nVal); }
+
+	// 減算
+	inline POSGRID3 operator-(const POSGRID3& grid) const	{ return POSGRID3(x - grid.x, y - grid.y, z - grid.z); }
+	inline POSGRID3 operator-(const int nVal) const			{ return POSGRID3(x - nVal, y - nVal, z - nVal); }
+	inline POSGRID3 operator-(void) const					{ return POSGRID3(-x, -y, -z); }
+
+	// 乗算
+	inline POSGRID3 operator*(const int nVal) const	{ return POSGRID3(x * nVal, y * nVal, z * nVal); }
+
+	// 除算
+	inline POSGRID3 operator/(const int nVal) const	{ return POSGRID3(x / nVal, y / nVal, z / nVal); }
+
+	// 加算代入
+	inline POSGRID3& operator+=(const int nVal)
+	{
+		x += nVal;
+		y += nVal;
+		z += nVal;
+		return *this;
+	}
+	inline POSGRID3& operator+=(const POSGRID3& grid)
+	{
+		x += grid.x;
+		y += grid.y;
+		z += grid.z;
+		return *this;
+	}
+
+	// 減算代入
+	inline POSGRID3& operator-=(const int nVal)
+	{
+		x -= nVal;
+		y -= nVal;
+		z -= nVal;
+		return *this;
+	}
+	inline POSGRID3& operator-=(const POSGRID3& grid)
+	{
+		x -= grid.x;
+		y -= grid.y;
+		z -= grid.z;
+		return *this;
+	}
+
+	// 乗算代入
+	inline POSGRID3& operator*=(const int nVal)
+	{
+		x *= nVal;
+		y *= nVal;
+		z *= nVal;
+		return *this;
+	}
+	inline POSGRID3& operator*=(const POSGRID3& grid)
+	{
+		x *= grid.x;
+		y *= grid.y;
+		z *= grid.z;
+		return *this;
+	}
+
+	// 除算代入
+	inline POSGRID3& operator/=(const int nVal)
+	{
+		x /= nVal;
+		y /= nVal;
+		z /= nVal;
+		return *this;
+	}
+	inline POSGRID3& operator/=(const POSGRID3& grid)
+	{
+		x /= grid.x;
+		y /= grid.y;
+		z /= grid.z;
+		return *this;
+	}
+
+	//********************************************************
+	//	メンバ関数
+	//********************************************************
+	/*
+		@brief	座標が一致するかの検証
+		@return	判定結果
+	*/
+	inline bool operator==(const POSGRID3& grid) const
+	{
+		if (grid.x == x && grid.y == y && grid.z == z) { return true; }
+		return false;
+	}
+
+	/*
+		@brief	座標が一致しないかの検証
+		@return	判定結果
+	*/
+	inline bool operator!=(const POSGRID3& grid) const
+	{
+		if (grid.x != x || grid.y != y || grid.z != z) { return true; }
+		return false;
+	}
+
+	/*
+		@brief	方眼座標の反転
+		@return	反転された方眼座標
+	*/
+	inline POSGRID3 Invert() { return POSGRID3(-x, -y, -z); }
+
+	/*
+		@brief	要素がすべてゼロか
+		@return	判定結果
+	*/
+	inline bool IsZero() const
+	{
+		if (x == 0 && y == 0 && z == 0) { return true; }
+		return false;
+	}
+};
+
+// 色
+struct Color : public D3DXCOLOR
+{
+	// デフォルトコンストラクタ
+	Color() : D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f) {}
+
+	// 引数付きコンストラクタ
+	Color(const float all) : D3DXCOLOR(all, all, all, all) {}
+	Color(const float col, const float alpha) : D3DXCOLOR(col, col, col, alpha) {}
+	Color(const float r, const float g, const float b, const float a) : D3DXCOLOR(r, g, b, a) {}
+
+	/*
+		@brief	D3DCOLOR型(DWORD)からの初期化コンストラクタ
+	*/
+	Color(const D3DCOLOR argb)
+	{
+		const float fRate = 1.0f / 255.0f;
+		a = fRate * (float)(unsigned char)(argb >> 24);
+		r = fRate * (float)(unsigned char)(argb >> 16);
+		g = fRate * (float)(unsigned char)(argb >> 8);
+		b = fRate * (float)(unsigned char)(argb >> 0);
+	}
+
+	/*
+		@brief	D3DXCOLOR型(float4)からの初期化コンストラクタ
+	*/
+	Color(const D3DXCOLOR col) : D3DXCOLOR(col) {}
+
+	// デストラクタ
+	~Color() {}
+
+	//********************************************************
+	//	メンバ関数
+	//********************************************************
+	inline void Black(void)					{ *this = Color(0.0f, 0.0f, 0.0f, 1.0f); }		// 黒色/不透明
+	inline void Black(const float fAlpha)	{ *this = Color(0.0f, 0.0f, 0.0f, fAlpha); }	// 黒色/透明度
+	inline void White(void)					{ *this = Color(1.0f, 1.0f, 1.0f, 1.0f); }		// 白色/不透明
+	inline void White(const float fAlpha)	{ *this = Color(1.0f, 1.0f, 1.0f, fAlpha); }	// 白色/透明度
+	inline void Red(void)					{ *this = Color(1.0f, 0.0f, 0.0f, 1.0f); }		// 赤色/不透明
+	inline void Red(const float fAlpha)		{ *this = Color(1.0f, 0.0f, 0.0f, fAlpha); }	// 赤色/透明度
+	inline void Green(void)					{ *this = Color(0.0f, 1.0f, 0.0f, 1.0f); }		// 緑色/不透明
+	inline void Green(const float fAlpha)	{ *this = Color(0.0f, 1.0f, 0.0f, fAlpha); }	// 緑色/透明度
+	inline void Blue(void)					{ *this = Color(0.0f, 0.0f, 1.0f, 1.0f); }		// 青色/不透明
+	inline void Blue(const float fAlpha)	{ *this = Color(0.0f, 0.0f, 1.0f, fAlpha); }	// 青色/透明度
+	inline void Yellow(void)				{ *this = Color(1.0f, 1.0f, 0.0f, 1.0f); }		// 黄色/不透明
+	inline void Yellow(const float fAlpha)	{ *this = Color(1.0f, 1.0f, 0.0f, fAlpha); }	// 黄色/透明度
+	inline void Cyan(void)					{ *this = Color(0.0f, 1.0f, 1.0f, 1.0f); }		// 水色/不透明
+	inline void Cyan(const float fAlpha)	{ *this = Color(0.0f, 1.0f, 1.0f, fAlpha); }	// 水色/透明度
+	inline void Purple(void)				{ *this = Color(1.0f, 0.0f, 1.0f, 1.0f); }		// 紫色/不透明
+	inline void Purple(const float fAlpha)	{ *this = Color(1.0f, 0.0f, 1.0f, fAlpha); }	// 紫色/透明度
+
+	/*
+		@brief	カラーコードから色/透明度の設定
+	*/
+	inline void Code(const std::string& rCode, const float fAlpha)
+	{
+		assert((int)rCode.size() == 6);
+		int R = std::stoi(rCode.substr(0, 2), nullptr, 16);
+		int G = std::stoi(rCode.substr(2, 2), nullptr, 16);
+		int B = std::stoi(rCode.substr(4, 2), nullptr, 16);
+		*this = D3DCOLOR_RGBA(R, G, B, (int)(fAlpha * 255.0f));
+	}
+
+	/*
+		@brief	カラーコードから色の設定
+	*/
+	inline void Code(const std::string& rCode)
+	{
+		this->Code(rCode, 1.0f);
+	}
+
+	/*
+		@brief	透明度がゼロか
+		@return	判定結果
+	*/
+	inline bool IsAlpha(void) const
+	{
+		if (a <= 0.0f) { return true; }
+		return false;
+	}
 };
 
 //************************************************************
@@ -307,10 +613,47 @@ namespace easeing
 	template<class T> inline float InOutQuint(T num, const T min, const T max)	{ return InOutQuint(useful::ValueToRate(num, min, max)); }
 }
 
+// カラー関数空間
+namespace color
+{
+	inline Color Black(void)				{ return Color(0.0f, 0.0f, 0.0f, 1.0f); }	// 黒色/不透明
+	inline Color Black(const float fAlpha)	{ return Color(0.0f, 0.0f, 0.0f, fAlpha); }	// 黒色/透明度
+	inline Color White(void)				{ return Color(1.0f, 1.0f, 1.0f, 1.0f); }	// 白色/不透明
+	inline Color White(const float fAlpha)	{ return Color(1.0f, 1.0f, 1.0f, fAlpha); }	// 白色/透明度
+	inline Color Red(void)					{ return Color(1.0f, 0.0f, 0.0f, 1.0f); }	// 赤色/不透明
+	inline Color Red(const float fAlpha)	{ return Color(1.0f, 0.0f, 0.0f, fAlpha); }	// 赤色/透明度
+	inline Color Green(void)				{ return Color(0.0f, 1.0f, 0.0f, 1.0f); }	// 緑色/不透明
+	inline Color Green(const float fAlpha)	{ return Color(0.0f, 1.0f, 0.0f, fAlpha); }	// 緑色/透明度
+	inline Color Blue(void)					{ return Color(0.0f, 0.0f, 1.0f, 1.0f); }	// 青色/不透明
+	inline Color Blue(const float fAlpha)	{ return Color(0.0f, 0.0f, 1.0f, fAlpha); }	// 青色/透明度
+	inline Color Yellow(void)				{ return Color(1.0f, 1.0f, 0.0f, 1.0f); }	// 黄色/不透明
+	inline Color Yellow(const float fAlpha)	{ return Color(1.0f, 1.0f, 0.0f, fAlpha); }	// 黄色/透明度
+	inline Color Cyan(void)					{ return Color(0.0f, 1.0f, 1.0f, 1.0f); }	// 水色/不透明
+	inline Color Cyan(const float fAlpha)	{ return Color(0.0f, 1.0f, 1.0f, fAlpha); }	// 水色/透明度
+	inline Color Purple(void)				{ return Color(1.0f, 0.0f, 1.0f, 1.0f); }	// 紫色/不透明
+	inline Color Purple(const float fAlpha)	{ return Color(1.0f, 0.0f, 1.0f, fAlpha); }	// 紫色/透明度
+
+	// カラーコード/不透明
+	inline Color Code(const std::string& rCode, const float fAlpha)
+	{
+		assert((int)rCode.size() == 6);
+		int R = std::stoi(rCode.substr(0, 2), nullptr, 16);
+		int G = std::stoi(rCode.substr(2, 2), nullptr, 16);
+		int B = std::stoi(rCode.substr(4, 2), nullptr, 16);
+		Color col = D3DCOLOR_RGBA(R, G, B, (int)(fAlpha * 255.0f));
+		return col;
+	}
+
+	// カラーコード/透明度
+	inline Color Code(const std::string& rCode)
+	{
+		return Code(rCode, 1.0f);
+	}
+}
+
 // マテリアル関数空間
 namespace material
 {
-	// 通常関数
 	D3DXMATERIAL White(void);		// 白色マテリアル取得
 	D3DXMATERIAL Red(void);			// 赤色マテリアル取得
 	D3DXMATERIAL Green(void);		// 緑色マテリアル取得
