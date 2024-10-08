@@ -69,11 +69,15 @@ HRESULT CString2D::Init(void)
 //============================================================
 void CString2D::Uninit(void)
 {
-	for (int i = 0; i < (int)m_wsStr.size(); i++)
-	{ // •¶Žš”•ªŒJ‚è•Ô‚·
+	if (m_ppChar != nullptr)
+	{ // •¶Žš—ñ‚ª”jŠü‚³‚ê‚Ä‚¢‚È‚¢ê‡
 
-		// •¶Žš‚Ì”jŠü
-		SAFE_UNINIT(m_ppChar[i]);
+		for (int i = 0; i < (int)m_wsStr.size(); i++)
+		{ // •¶Žš”•ªŒJ‚è•Ô‚·
+
+			// •¶Žš‚Ì”jŠü
+			SAFE_UNINIT(m_ppChar[i]);
+		}
 	}
 
 	// •¶Žš—ñ‚Ì”jŠü

@@ -20,6 +20,7 @@
 //************************************************************
 class CFrameText2D;	// フレームテキスト2Dクラス
 class CString2D;	// 文字列2Dクラス
+class CItemUI;		// アイテムUIクラス
 
 //************************************************************
 //	クラス定義
@@ -28,6 +29,15 @@ class CString2D;	// 文字列2Dクラス
 class CSelectItemUI : public CSelectUI
 {
 public:
+	// 選択列挙
+	enum ESelect
+	{
+		SELECT_USE = 0,	// 使用
+		SELECT_INFO,	// 情報
+		SELECT_DROP,	// 破棄
+		SELECT_MAX		// この列挙型の総数
+	};
+
 	// コンストラクタ
 	CSelectItemUI(AFuncUninit funcUninit, CObject2D *pSoul);
 
@@ -48,15 +58,6 @@ private:
 		STATE_SELECT,	// 選択状態
 		STATE_TEXT,		// テキスト表示状態
 		STATE_MAX		// この列挙型の総数
-	};
-
-	// 選択列挙
-	enum ESelect
-	{
-		SELECT_USE = 0,	// 使用
-		SELECT_INFO,	// 情報
-		SELECT_DROP,	// 破棄
-		SELECT_MAX		// この列挙型の総数
 	};
 
 	// 表示テキスト列挙
@@ -84,18 +85,49 @@ private:
 	// メンバ変数
 	std::vector<SItem> m_vecItemName;	// アイテム情報
 	CString2D *m_apSelect[SELECT_MAX];	// 選択情報
-	CFrameText2D *m_pTextBox;			// テキストボックス情報
+	CItemUI *m_pItemMenu;	// アイテムメニュー情報
 	EState m_state;			// 状態
-	int m_nCurTextIdx;		// 現在のテキストインデックス
 	int m_nCurSelectItem;	// 現在の選択アイテム
 	int m_nCurSelect;		// 現在の選択肢
 };
 
-// TODO：menuSelectUIを参考にアイテム使用後の更新をクラス分けしよう
-//		 itemUI, itemUseUI, itemInfoUI, itemDropUIってかんじで
-//		 そんでもってこのクラスの更新管理はstate管理にしよう
-//		 じゃないとスパゲッティだわ
-//		 クラス分けしなくていいわ。rTextの部分はコンストラクタで指定して、
-//		 Use, Info, Dropは関数ポインタでもとう。
+// アイテムUIクラス
+class CItemUI : public CObject
+{
+public:
+	// エイリアス定義
+	using AFuncUse = const std::function<void(void)>;	// 関数のポインタ型	// TODO：なんてコメント書きゃいい？
+
+	// コンストラクタ
+	CItemUI(CSelectUI::AFuncUninit funcUninit, AFuncUse funcUse, const ATextBox& rText);
+
+	// デストラクタ
+	~CItemUI() override;
+
+	// オーバーライド関数
+	HRESULT Init(void) override;	// 初期化
+	void Uninit(void) override;		// 終了
+	void Update(const float fDeltaTime) override;	// 更新
+	void Draw(CShader *pShader = nullptr) override;	// 描画
+
+	// 静的メンバ関数
+	static CItemUI *Create	// 生成
+	( // 引数
+		CSelectUI::AFuncUninit funcUninit,	// 選択メニュー終了関数
+		AFuncUse funcUse,		// 
+		const ATextBox& rText	// 表示テキスト
+	);
+
+private:
+	// オーバーライド関数
+	void Release(void) override { CObject::Release(); }	// 破棄
+
+	// メンバ変数
+	CSelectUI::AFuncUninit m_funcUninitMenu;	// 選択メニュー終了関数ポインタ
+	AFuncUse m_funcUse;			// 
+	const ATextBox& m_text;		// 表示テキスト
+	CFrameText2D *m_pTextBox;	// テキストボックス情報
+	int m_nCurTextIdx;			// 現在のテキストインデックス
+};
 
 #endif	// _SELECT_ITEM_UI_H_

@@ -114,6 +114,10 @@ public:
 	D3DXVECTOR3 GetSoulPosition(void) const			{ return m_pSoul->GetVec3Position(); }	// ソウルカーソル位置取得
 	bool IsSoulCursorDraw(void) const				{ return m_pSoul->IsDraw(); }			// ソウルカーソル描画状況取得
 
+protected:
+	// メンバ関数
+	AFuncUninit GetFuncUninit(void) const { return m_funcUninitMenu; }	// 選択メニュー終了関数取得
+
 private:
 	// オーバーライド関数
 	void Release(void) override { CObject::Release(); }	// 破棄
