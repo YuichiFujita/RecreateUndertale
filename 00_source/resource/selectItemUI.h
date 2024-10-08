@@ -55,7 +55,7 @@ private:
 	enum EState
 	{
 		STATE_ITEM = 0,	// アイテム選択状態
-		STATE_SELECT,	// 選択状態
+		STATE_ACT,		// 行動選択状態
 		STATE_TEXT,		// テキスト表示状態
 		STATE_MAX		// この列挙型の総数
 	};
@@ -79,8 +79,8 @@ private:
 	// メンバ関数
 	void UpdateSelectItem(void);	// アイテム選択更新
 	void UpdateDecideItem(void);	// アイテム決定更新
-	void UpdateSelect(void);		// 選択更新
-	void UpdateDecide(void);		// 決定更新
+	void UpdateSelectAct(void);		// 行動選択更新
+	void UpdateDecideAct(void);		// 行動決定更新
 
 	// メンバ変数
 	std::vector<SItem> m_vecItemName;	// アイテム情報
@@ -88,7 +88,7 @@ private:
 	CItemUI *m_pItemMenu;	// アイテムメニュー情報
 	EState m_state;			// 状態
 	int m_nCurSelectItem;	// 現在の選択アイテム
-	int m_nCurSelect;		// 現在の選択肢
+	int m_nCurSelectAct;	// 現在の選択行動
 };
 
 // アイテムUIクラス
@@ -96,10 +96,10 @@ class CItemUI : public CObject
 {
 public:
 	// エイリアス定義
-	using AFuncUse = const std::function<void(void)>;	// 関数のポインタ型	// TODO：なんてコメント書きゃいい？
+	using AFuncAct = const std::function<void(void)>;	// 行動関数のポインタ型
 
 	// コンストラクタ
-	CItemUI(CSelectUI::AFuncUninit funcUninit, AFuncUse funcUse, const ATextBox& rText);
+	CItemUI(CSelectUI::AFuncUninit funcUninit, AFuncAct funcAct, const ATextBox& rText);
 
 	// デストラクタ
 	~CItemUI() override;
@@ -114,7 +114,7 @@ public:
 	static CItemUI *Create	// 生成
 	( // 引数
 		CSelectUI::AFuncUninit funcUninit,	// 選択メニュー終了関数
-		AFuncUse funcUse,		// 
+		AFuncAct funcAct,		// 行動関数
 		const ATextBox& rText	// 表示テキスト
 	);
 
@@ -124,9 +124,9 @@ private:
 
 	// メンバ変数
 	CSelectUI::AFuncUninit m_funcUninitMenu;	// 選択メニュー終了関数ポインタ
-	AFuncUse m_funcUse;			// 
-	const ATextBox& m_text;		// 表示テキスト
+	AFuncAct m_funcAct;			// 行動関数ポインタ
 	CFrameText2D *m_pTextBox;	// テキストボックス情報
+	const ATextBox& m_text;		// 表示テキスト
 	int m_nCurTextIdx;			// 現在のテキストインデックス
 };
 

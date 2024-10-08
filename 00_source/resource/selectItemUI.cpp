@@ -63,7 +63,7 @@ CSelectItemUI::CSelectItemUI(AFuncUninit funcUninit, CObject2D *pSoul) : CSelect
 	m_pItemMenu		 (nullptr),		// アイテムメニュー情報
 	m_state			 (STATE_ITEM),	// 状態
 	m_nCurSelectItem (0),			// 現在の選択アイテム
-	m_nCurSelect	 (0)			// 現在の選択肢
+	m_nCurSelectAct	 (0)			// 現在の選択行動
 {
 	// メンバ変数をクリア
 	memset(&m_apSelect[0], 0, sizeof(m_apSelect));	// 選択情報
@@ -89,7 +89,7 @@ HRESULT CSelectItemUI::Init(void)
 	m_pItemMenu		 = nullptr;		// アイテムメニュー情報
 	m_state			 = STATE_ITEM;	// 状態
 	m_nCurSelectItem = 0;			// 現在の選択アイテム
-	m_nCurSelect	 = 0;			// 現在の選択肢
+	m_nCurSelectAct	 = 0;			// 現在の選択行動
 
 	//--------------------------------------------------------
 	//	親クラスの初期化 / 設定
@@ -222,6 +222,9 @@ void CSelectItemUI::Uninit(void)
 	// アイテム情報のクリア
 	m_vecItemName.clear();
 
+	// アイテムメニューの終了
+	SAFE_UNINIT(m_pItemMenu);
+
 	// セレクトUIの終了
 	CSelectUI::Uninit();
 }
@@ -245,17 +248,19 @@ void CSelectItemUI::Update(const float fDeltaTime)
 		CSelectUI::Update(fDeltaTime);
 		break;
 
-	case STATE_SELECT:
+	case STATE_ACT:
 
-		// 選択の更新
-		UpdateSelect();
+		// 行動選択の更新
+		UpdateSelectAct();
 
-		// 決定の更新
-		UpdateDecide();
+		// 行動決定の更新
+		UpdateDecideAct();
 		break;
 
 	case STATE_TEXT:
 
+		// テキスト表示はCItemUIクラスが行う
+		assert(m_pItemMenu != nullptr);
 		break;
 
 	default:
@@ -303,52 +308,51 @@ void CSelectItemUI::UpdateDecideItem(void)
 {
 	if (input::Decide())
 	{
-		// 選択状態にする
-		m_state = STATE_SELECT;
+		// 行動選択状態にする
+		m_state = STATE_ACT;
 	}
 }
 
 //============================================================
-//	選択の更新処理
+//	行動選択の更新処理
 //============================================================
-void CSelectItemUI::UpdateSelect(void)
+void CSelectItemUI::UpdateSelectAct(void)
 {
 	// 選択肢操作
 	CInputKeyboard *pKey = GET_INPUTKEY;	// キーボード情報
 	if (pKey->IsTrigger(DIK_RIGHT))
 	{
 		// 右に選択をずらす
-		m_nCurSelect = (m_nCurSelect + 1) % SELECT_MAX;
+		m_nCurSelectAct = (m_nCurSelectAct + 1) % SELECT_MAX;
 	}
 	if (pKey->IsTrigger(DIK_LEFT))
 	{
 		// 左に選択をずらす
-		m_nCurSelect = (m_nCurSelect + (SELECT_MAX - 1)) % SELECT_MAX;
+		m_nCurSelectAct = (m_nCurSelectAct + (SELECT_MAX - 1)) % SELECT_MAX;
 	}
 
 	// ソウルカーソルの位置を移動
-	const D3DXVECTOR3 offset = D3DXVECTOR3(m_apSelect[m_nCurSelect]->GetStrWidth() * 0.5f, 0.0f, 0.0f) + CURSOR_OFFSET;	// カーソルオフセット
-	SetSoulPosition(m_apSelect[m_nCurSelect]->GetVec3Position() - offset);
+	const D3DXVECTOR3 offset = D3DXVECTOR3(m_apSelect[m_nCurSelectAct]->GetStrWidth() * 0.5f, 0.0f, 0.0f) + CURSOR_OFFSET;	// カーソルオフセット
+	SetSoulPosition(m_apSelect[m_nCurSelectAct]->GetVec3Position() - offset);
 }
 
 //============================================================
-//	決定の更新処理
+//	行動決定の更新処理
 //============================================================
-void CSelectItemUI::UpdateDecide(void)
+void CSelectItemUI::UpdateDecideAct(void)
 {
 	if (input::Decide())
 	{
-		int nItemIdx = m_vecItemName[m_nCurSelectItem].nItemID;	// 選択中アイテムインデックス
 		CItem* pItem = GET_MANAGER->GetItem();	// アイテム情報
-
-		auto func = [pItem, nItemIdx]() { pItem->GetInfo(nItemIdx).Use(); };	// TODO
+		int nItemIdx = m_vecItemName[m_nCurSelectItem].nItemID;	// 選択中アイテムインデックス
+		auto funcAct = [pItem, nItemIdx]() { pItem->GetInfo(nItemIdx).Use(); };	// 行動関数ポインタ
 
 		// アイテムメニューの生成
 		m_pItemMenu = CItemUI::Create
 		( // 引数
-			GetFuncUninit(),
-			func,
-			pItem->GetInfo(nItemIdx).GetUse()
+			GetFuncUninit(),					// 選択メニュー終了関数
+			funcAct,							// 行動関数
+			pItem->GetInfo(nItemIdx).GetUse()	// 表示テキスト
 		);
 
 		// テキスト表示状態にする
@@ -358,7 +362,7 @@ void CSelectItemUI::UpdateDecide(void)
 	if (input::Cancel())
 	{
 		// 選択肢を初期化
-		m_nCurSelect = 0;
+		m_nCurSelectAct = 0;
 
 		// アイテム選択状態にする
 		m_state = STATE_ITEM;
@@ -371,9 +375,9 @@ void CSelectItemUI::UpdateDecide(void)
 //============================================================
 //	コンストラクタ
 //============================================================
-CItemUI::CItemUI(CSelectUI::AFuncUninit funcUninit, AFuncUse funcUse, const ATextBox& rText) : CObject(CObject::LABEL_UI, CObject::DIM_3D, PRIORITY),
+CItemUI::CItemUI(CSelectUI::AFuncUninit funcUninit, AFuncAct funcAct, const ATextBox& rText) : CObject(CObject::LABEL_UI, CObject::DIM_3D, PRIORITY),
 	m_funcUninitMenu	(funcUninit),	// 選択メニュー終了関数ポインタ
-	m_funcUse			(funcUse),		// 
+	m_funcAct			(funcAct),		// 行動関数ポインタ
 	m_text				(rText),		// 表示テキスト
 	m_pTextBox			(nullptr),		// テキストボックス情報
 	m_nCurTextIdx		(0)				// 現在のテキストインデックス
@@ -448,14 +452,11 @@ void CItemUI::Update(const float fDeltaTime)
 	if (m_nCurTextIdx >= (int)m_text.size())
 	{ // テキストが終了した場合
 
-		// 選択中アイテムの使用
-		m_funcUse();
+		// 選択アイテムの行動
+		m_funcAct();
 
 		// 選択メニューの終了
 		m_funcUninitMenu();
-
-		// アイテムUIの終了
-		Uninit();
 		return;
 	}
 
@@ -465,6 +466,7 @@ void CItemUI::Update(const float fDeltaTime)
 	// テキスト進行度を進める
 	m_nCurTextIdx++;
 
+	// TODO：メモ残し
 #if 0
 	if (m_pTextBox->IsTextScroll())
 	{
@@ -590,12 +592,12 @@ void CItemUI::Draw(CShader * /*pShader*/)
 CItemUI *CItemUI::Create
 (
 	CSelectUI::AFuncUninit funcUninit,	// 選択メニュー終了関数
-	AFuncUse funcUse,		// 
+	AFuncAct funcAct,		// 行動関数
 	const ATextBox& rText	// 表示テキスト
 )
 {
 	// アイテムUIの生成
-	CItemUI *pItemUI = new CItemUI(funcUninit, funcUse, rText);
+	CItemUI *pItemUI = new CItemUI(funcUninit, funcAct, rText);
 	if (pItemUI == nullptr)
 	{ // 生成に失敗した場合
 
