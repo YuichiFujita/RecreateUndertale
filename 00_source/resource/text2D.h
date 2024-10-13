@@ -71,8 +71,10 @@ public:
 	);
 
 	// 仮想関数
-	virtual HRESULT PushFrontString(const std::wstring& rStr);	// 文字列の先頭追加
-	virtual HRESULT PushBackString(const std::wstring& rStr);	// 文字列の最後尾追加
+	virtual HRESULT PushFrontString(const std::string& rStr);	// 文字列の先頭追加 (マルチバイト文字列)
+	virtual HRESULT PushFrontString(const std::wstring& rStr);	// 文字列の先頭追加 (ワイド文字列)
+	virtual HRESULT PushBackString(const std::string& rStr);	// 文字列の最後尾追加 (マルチバイト文字列)
+	virtual HRESULT PushBackString(const std::wstring& rStr);	// 文字列の最後尾追加 (ワイド文字列)
 	virtual void DeleteString(const int nStrID);	// 文字列削除
 	virtual void DeleteStringAll(void);				// 文字列全削除
 

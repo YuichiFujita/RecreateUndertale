@@ -179,7 +179,73 @@ void CString2D::SetVec3Rotation(const D3DXVECTOR3& rRot)
 }
 
 //============================================================
-//	生成処理
+//	生成処理 (マルチバイト文字列)
+//============================================================
+CString2D *CString2D::Create
+(
+	const std::string &rFilePass,	// フォントパス
+	const bool bItalic,				// イタリック
+	const std::string &rStr,		// 指定文字列
+	const D3DXVECTOR3 &rPos,		// 原点位置
+	const float fHeight,			// 文字縦幅
+	const EAlignX alignX,			// 横配置
+	const D3DXVECTOR3& rRot,		// 原点向き
+	const D3DXCOLOR& rCol			// 色
+)
+{
+	// 文字列2Dの生成
+	CString2D *pString2D = new CString2D;
+	if (pString2D == nullptr)
+	{ // 生成に失敗した場合
+
+		return nullptr;
+	}
+	else
+	{ // 生成に成功した場合
+
+		// 文字列2Dの初期化
+		if (FAILED(pString2D->Init()))
+		{ // 初期化に失敗した場合
+
+			// 文字列2Dの破棄
+			SAFE_DELETE(pString2D);
+			return nullptr;
+		}
+
+		// フォントを設定
+		pString2D->SetFont(rFilePass, bItalic);
+
+		// 文字列を設定
+		if (FAILED(pString2D->SetString(rStr)))
+		{ // 設定に失敗した場合
+
+			// 文字列2Dの破棄
+			SAFE_DELETE(pString2D);
+			return nullptr;
+		}
+
+		// 原点位置を設定
+		pString2D->SetVec3Position(rPos);
+
+		// 原点向きを設定
+		pString2D->SetVec3Rotation(rRot);
+
+		// 色を設定
+		pString2D->SetColor(rCol);
+
+		// 文字縦幅を設定
+		pString2D->SetCharHeight(fHeight);
+
+		// 横配置を設定
+		pString2D->SetAlignX(alignX);
+
+		// 確保したアドレスを返す
+		return pString2D;
+	}
+}
+
+//============================================================
+//	生成処理 (ワイド文字列)
 //============================================================
 CString2D *CString2D::Create
 (
@@ -245,7 +311,28 @@ CString2D *CString2D::Create
 }
 
 //============================================================
-//	文字列の設定処理
+//	文字列の設定処理 (マルチバイト文字列)
+//============================================================
+HRESULT CString2D::SetString(const std::string& rStr)
+{
+	// 文字列をワイド変換
+	std::wstring wsStr = useful::MultiByteToWide(rStr);
+
+	// 文字列を設定
+	if (FAILED(SetString(wsStr)))
+	{ // 設定に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
+
+	// 成功を返す
+	return S_OK;
+}
+
+//============================================================
+//	文字列の設定処理 (ワイド文字列)
 //============================================================
 HRESULT CString2D::SetString(const std::wstring& rStr)
 {
@@ -425,6 +512,15 @@ CChar2D *CString2D::GetChar2D(const int nCharID) const
 
 	// 引数インデックスの文字を返す
 	return m_ppChar[nCharID];
+}
+
+//============================================================
+//	文字列の取得処理 (マルチバイト文字列)
+//============================================================
+std::string CString2D::GetStr(void) const
+{
+	// 文字列をマルチバイト変換して返す
+	return useful::WideToMultiByte(m_wsStr);
 }
 
 //============================================================

@@ -107,14 +107,14 @@ void CItemInfoUI::NextText(void)
 	CItem* pItem = GET_MANAGER->GetItem();	// アイテム情報
 	const CItemData& rItemData = pItem->GetInfo(nItemIdx);	// アイテム内部データ
 
-	// アイテム情報確認時のテキスト情報を取得
+	// アイテム情報の確認時のテキスト情報を取得
 	ATextBox textData = rItemData.GetInfo();
 
 	int nNumText = (int)textData.size();	// テキスト総数
 	if (nTextIdx >= nNumText)
 	{ // テキストが終了した場合
 
-		// 選択アイテムを情報確認済みにする
+		// 選択アイテムの情報を確認済みにする
 		pItem->GetInfo(nItemIdx).Info();
 
 		// フィールドメニューの終了

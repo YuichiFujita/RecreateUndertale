@@ -57,7 +57,18 @@ public:
 	D3DXVECTOR3 GetVec3Rotation(void) const override { return m_rot; }	// 向き取得
 
 	// 静的メンバ関数
-	static CString2D *Create	// 生成
+	static CString2D *Create	// 生成 (マルチバイト文字列)
+	( // 引数
+		const std::string &rFilePass,	// フォントパス
+		const bool bItalic,				// イタリック
+		const std::string &rStr,		// 指定文字列
+		const D3DXVECTOR3 &rPos,		// 原点位置
+		const float fHeight = 100.0f,			// 文字縦幅
+		const EAlignX alignX = XALIGN_CENTER,	// 横配置
+		const D3DXVECTOR3& rRot = VEC3_ZERO,	// 原点向き
+		const D3DXCOLOR& rCol = XCOL_WHITE		// 色
+	);
+	static CString2D *Create	// 生成 (ワイド文字列)
 	( // 引数
 		const std::string &rFilePass,	// フォントパス
 		const bool bItalic,				// イタリック
@@ -70,7 +81,8 @@ public:
 	);
 
 	// 仮想関数
-	virtual HRESULT SetString(const std::wstring& rStr);	// 文字列の設定
+	virtual HRESULT SetString(const std::string& rStr);		// 文字列の設定 (マルチバイト文字列)
+	virtual HRESULT SetString(const std::wstring& rStr);	// 文字列の設定 (ワイド文字列)
 
 	// メンバ関数
 	void SetFont	// フォントの設定
@@ -83,11 +95,12 @@ public:
 	void SetAlignX(const EAlignX align);			// 横配置設定
 	float GetStrWidth(void) const;					// 文字列の横幅取得
 	CChar2D *GetChar2D(const int nCharID) const;	// 文字の取得
-	D3DXCOLOR GetColor(void) const	{ return m_col; }				// 色取得
-	float GetCharHeight(void) const	{ return m_fCharHeight; }		// 文字の縦幅取得
-	EAlignX GetAlignX(void) const	{ return m_alignX; }			// 横配置取得
-	int GetNumChar(void) const		{ return (int)m_wsStr.size(); }	// 文字数取得
-	std::wstring GetStr(void) const { return m_wsStr; }				// 文字列取得
+	D3DXCOLOR GetColor(void) const		{ return m_col; }				// 色取得
+	float GetCharHeight(void) const		{ return m_fCharHeight; }		// 文字の縦幅取得
+	EAlignX GetAlignX(void) const		{ return m_alignX; }			// 横配置取得
+	int GetNumChar(void) const			{ return (int)m_wsStr.size(); }	// 文字数取得
+	std::wstring GetWideStr(void) const	{ return m_wsStr; }				// 文字列取得 (ワイド文字列)
+	std::string GetStr(void) const;										// 文字列取得 (マルチバイト文字列)
 
 private:
 	// オーバーライド関数

@@ -370,7 +370,7 @@ void CStartStateCreateName::UpdateDecide(void)
 {
 	if (input::Decide())
 	{
-		std::wstring wsName = m_pName->GetStr();	// 名前の文字列
+		std::wstring wsName = m_pName->GetWideStr();	// 名前の文字列
 
 		// 選択肢に応じて操作を変更
 		switch (m_curSelect.y)
@@ -381,7 +381,7 @@ void CStartStateCreateName::UpdateDecide(void)
 			{ // 文字数が最大ではない場合
 
 				// 追加する文字列を取得
-				std::wstring wsAddChar = m_vecSelect[m_curSelect.y][m_curSelect.x]->GetStr();
+				std::wstring wsAddChar = m_vecSelect[m_curSelect.y][m_curSelect.x]->GetWideStr();
 
 				// 最後尾に文字を追加
 				wsName.push_back(wsAddChar.front());	// 文字列として管理してるので先頭文字を取得
