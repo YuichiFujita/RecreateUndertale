@@ -125,8 +125,8 @@ void loadtext::BindText(CText2D *pText2D, const std::vector<std::wstring>& rVecS
 	for (int i = 0; i < (int)rVecStr.size(); i++)
 	{ // •¶Žš—ñ”•ªŒJ‚è•Ô‚·
 
-		// •¶Žš—ñ‚ð’Ç‰Á
-		pText2D->AddString(rVecStr[i]);
+		// •¶Žš—ñ‚ðÅŒã”ö‚É’Ç‰Á
+		pText2D->PushBackString(rVecStr[i]);
 	}
 }
 

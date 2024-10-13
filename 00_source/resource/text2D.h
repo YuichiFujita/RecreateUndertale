@@ -71,9 +71,10 @@ public:
 	);
 
 	// 仮想関数
-	virtual HRESULT AddString(const std::wstring& rStr);	// 文字列の追加
-	virtual void DeleteString(const int nStrID);			// 文字列削除
-	virtual void DeleteStringAll(void);						// 文字列全削除
+	virtual HRESULT PushFrontString(const std::wstring& rStr);	// 文字列の先頭追加
+	virtual HRESULT PushBackString(const std::wstring& rStr);	// 文字列の最後尾追加
+	virtual void DeleteString(const int nStrID);	// 文字列削除
+	virtual void DeleteStringAll(void);				// 文字列全削除
 
 	// メンバ関数
 	void SetFont	// フォントの設定
@@ -100,6 +101,7 @@ private:
 	void Release(void) override { CObject::Release(); }	// 破棄
 
 	// メンバ関数
+	CString2D *CreateString2D(const std::wstring& rStr);	// 文字列の生成
 	void SetPositionRelative(void);	// 相対位置設定
 
 	// メンバ変数

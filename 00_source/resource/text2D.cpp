@@ -244,22 +244,12 @@ CText2D *CText2D::Create
 }
 
 //============================================================
-//	文字列の追加処理
+//	文字列の先頭追加処理
 //============================================================
-HRESULT CText2D::AddString(const std::wstring& rStr)
+HRESULT CText2D::PushFrontString(const std::wstring& rStr)
 {
-	// 文字列オブジェクトを生成
-	CString2D *pStr = CString2D::Create
-	( // 引数
-		m_pFontChar->GetFilePass(),	// フォントパス
-		m_pFontChar->GetItalic(),	// イタリック
-		rStr,			// 指定文字列
-		m_pos,			// 原点位置
-		m_fCharHeight,	// 文字縦幅
-		m_alignX,		// 横配置
-		m_rot,			// 原点向き
-		m_col			// 色
-	);
+	// 文字列の生成
+	CString2D *pStr = CreateString2D(rStr);
 	if (pStr == nullptr)
 	{ // 生成に失敗した場合
 
@@ -268,11 +258,30 @@ HRESULT CText2D::AddString(const std::wstring& rStr)
 		return E_FAIL;
 	}
 
-	// 文字列のラベルを指定なしにする
-	pStr->SetLabel(LABEL_NONE);
+	// 先頭に生成した文字列を追加
+	m_listString.push_front(pStr);
 
-	// 文字列の優先順位を自身のものにする
-	pStr->SetPriority(GetPriority());
+	// 相対位置の設定
+	SetPositionRelative();
+
+	// 成功を返す
+	return S_OK;
+}
+
+//============================================================
+//	文字列の最後尾追加処理
+//============================================================
+HRESULT CText2D::PushBackString(const std::wstring& rStr)
+{
+	// 文字列の生成
+	CString2D *pStr = CreateString2D(rStr);
+	if (pStr == nullptr)
+	{ // 生成に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
 
 	// 最後尾に生成した文字列を追加
 	m_listString.push_back(pStr);
@@ -471,6 +480,37 @@ float CText2D::GetTextHeight(void) const
 
 	// テキストの縦幅を返す
 	return fTextHeight;
+}
+
+//============================================================
+//	文字列の生成処理
+//============================================================
+CString2D *CText2D::CreateString2D(const std::wstring& rStr)
+{
+	// 文字列オブジェクトを生成
+	CString2D *pStr = CString2D::Create
+	( // 引数
+		m_pFontChar->GetFilePass(),	// フォントパス
+		m_pFontChar->GetItalic(),	// イタリック
+		rStr,			// 指定文字列
+		m_pos,			// 原点位置
+		m_fCharHeight,	// 文字縦幅
+		m_alignX,		// 横配置
+		m_rot,			// 原点向き
+		m_col			// 色
+	);
+	if (pStr != nullptr)
+	{ // 生成に成功した場合
+
+		// 文字列のラベルを指定なしにする
+		pStr->SetLabel(LABEL_NONE);
+
+		// 文字列の優先順位を自身のものにする
+		pStr->SetPriority(GetPriority());
+	}
+
+	// 文字列クラスを返す
+	return pStr;
 }
 
 //============================================================

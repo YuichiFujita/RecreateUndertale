@@ -32,12 +32,13 @@ public:
 	// オーバーライド関数
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
-	void Update(const float fDeltaTime) override;			// 更新
-	void Draw(CShader *pShader = nullptr) override;			// 描画
-	void SetEnableDraw(const bool bDraw) override;			// 描画状況設定
-	HRESULT AddString(const std::wstring& rStr) override;	// 文字列追加
-	void DeleteString(const int nStrID) override;			// 文字列削除
-	void DeleteStringAll(void) override;					// 文字列全削除
+	void Update(const float fDeltaTime) override;	// 更新
+	void Draw(CShader *pShader = nullptr) override;	// 描画
+	void SetEnableDraw(const bool bDraw) override;	// 描画状況設定
+	HRESULT PushFrontString(const std::wstring& rStr) override;	// 文字列の先頭追加
+	HRESULT PushBackString(const std::wstring& rStr) override;	// 文字列の最後尾追加
+	void DeleteString(const int nStrID) override;				// 文字列削除
+	void DeleteStringAll(void) override;						// 文字列全削除
 
 	// 静的メンバ関数
 	static CScrollText2D *Create	// 生成

@@ -44,9 +44,13 @@ public:
 	);
 
 	// メンバ関数
-	void ChangeText(const AText& rText);		// テキスト変更
-	void SetTextEnableDraw(const bool bDraw)	{ return m_pText->SetEnableDraw(bDraw); };	// 描画状況設定
-	bool IsTextScroll(void) const				{ return m_pText->IsScroll(); }				// 文字送り状況取得
+	void ChangeText(const AText& rText);	// テキスト変更
+	HRESULT PushFrontString(const std::wstring& rStr)	{ return m_pText->PushFrontString(rStr); }	// 文字列の先頭追加
+	HRESULT PushBackString(const std::wstring& rStr)	{ return m_pText->PushBackString(rStr); }	// 文字列の最後尾追加
+	void DeleteString(const int nStrID)			{ m_pText->DeleteString(nStrID); }	// 文字列削除
+	void DeleteStringAll(void)					{ m_pText->DeleteStringAll(); }		// 文字列全削除
+	void SetTextEnableDraw(const bool bDraw)	{ m_pText->SetEnableDraw(bDraw); };	// 描画状況設定
+	bool IsTextScroll(void) const				{ return m_pText->IsScroll(); }		// 文字送り状況取得
 
 private:
 	// メンバ変数

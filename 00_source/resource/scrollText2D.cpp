@@ -114,12 +114,49 @@ void CScrollText2D::SetEnableDraw(const bool bDraw)
 }
 
 //============================================================
-//	文字列の追加処理
+//	文字列の先頭追加処理
 //============================================================
-HRESULT CScrollText2D::AddString(const std::wstring& rStr)
+HRESULT CScrollText2D::PushFrontString(const std::wstring& rStr)
 {
-	// 文字列の追加
-	if (FAILED(CText2D::AddString(rStr)))
+	// 文字列の先頭追加
+	if (FAILED(CText2D::PushFrontString(rStr)))
+	{ // 追加に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
+
+	CString2D *pHeadStr = GetString2D(0);	// 先頭の文字列情報
+	std::vector<CChar2D*> vecAdd;
+
+	// 先頭文字列の自動描画をOFFにする
+	pHeadStr->SetEnableDraw(false);
+
+	// 文字列内の文字を配列に追加
+	int nNumChar = pHeadStr->GetNumChar();	// 文字数
+	for (int nCntChar = 0; nCntChar < nNumChar; nCntChar++)
+	{ // 文字数分繰り返す
+
+		// 最後尾に文字アドレスを追加
+		vecAdd.push_back(pHeadStr->GetChar2D(nCntChar));
+	}
+
+	// メンバ変数の文字配列に作成した文字配列を追加
+	m_vecChar.reserve((int)m_vecChar.size() + nNumChar);				// 容量をあらかじめ確保
+	m_vecChar.insert(m_vecChar.begin(), vecAdd.begin(), vecAdd.end());	// 先頭にまとめて挿入
+
+	// 成功を返す
+	return S_OK;
+}
+
+//============================================================
+//	文字列の最後尾追加処理
+//============================================================
+HRESULT CScrollText2D::PushBackString(const std::wstring& rStr)
+{
+	// 文字列の最後尾追加
+	if (FAILED(CText2D::PushBackString(rStr)))
 	{ // 追加に失敗した場合
 
 		// 失敗を返す

@@ -308,8 +308,8 @@ HRESULT CSelectStatusUI::Init(void)
 
 	// TODO：ステータス情報読込
 #if 1
-	m_pLvHpValue->AddString(L"1");
-	m_pLvHpValue->AddString(useful::SandString(L"20", L"/", L"20"));
+	m_pLvHpValue->PushBackString(L"1");
+	m_pLvHpValue->PushBackString(useful::SandString(L"20", L"/", L"20"));
 #endif
 
 	//--------------------------------------------------------
@@ -374,12 +374,12 @@ HRESULT CSelectStatusUI::Init(void)
 	// 攻撃力のステータス文字列を追加
 	std::wstring wsAtk = std::to_wstring(0);							// 自前のステータスを文字列に追加
 	wsAtk.append(useful::SandString(L" (", std::to_wstring(3), L")"));	// 装備のプラスステータスを文字列に追加
-	m_pAtkDefValue->AddString(wsAtk);									// 作成した文字列を割当
+	m_pAtkDefValue->PushBackString(wsAtk);								// 作成した文字列を割当
 
 	// 防御力のステータス文字列を追加
 	std::wstring wsDef = std::to_wstring(0);							// 自前のステータスを文字列に追加
 	wsDef.append(useful::SandString(L" (", std::to_wstring(3), L")"));	// 装備のプラスステータスを文字列に追加
-	m_pAtkDefValue->AddString(wsDef);									// 作成した文字列を割当
+	m_pAtkDefValue->PushBackString(wsDef);								// 作成した文字列を割当
 #endif
 
 	//--------------------------------------------------------
@@ -441,8 +441,8 @@ HRESULT CSelectStatusUI::Init(void)
 
 	// TODO：ステータス情報読込
 #if 1
-	m_pExpNextValue->AddString(L"0");
-	m_pExpNextValue->AddString(L"10");
+	m_pExpNextValue->PushBackString(L"0");
+	m_pExpNextValue->PushBackString(L"10");
 #endif
 
 	//--------------------------------------------------------
@@ -504,8 +504,8 @@ HRESULT CSelectStatusUI::Init(void)
 
 	// TODO：装備情報から名称取得
 #if 1
-	m_pWpnAmrName->AddString(L"ぼうきれ");
-	m_pWpnAmrName->AddString(L"ほうたい");
+	m_pWpnAmrName->PushBackString(L"ぼうきれ");
+	m_pWpnAmrName->PushBackString(L"ほうたい");
 #endif
 
 	//--------------------------------------------------------

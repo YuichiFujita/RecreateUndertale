@@ -184,11 +184,10 @@ void CFrameText2D::ChangeText(const AText& rText)
 	for (int i = 0; i < nLoop; i++)
 	{ // •¶Žš—ñ‚Ì”•ªŒJ‚è•Ô‚·
 
-		// •¶Žš—ñ‚ðy’Ç‰Á
-		m_pText->AddString(useful::MultiByteToWide(rText[i]));
+		// •¶Žš—ñ‚ðÅŒã”ö‚É’Ç‰Á
+		m_pText->PushBackString(useful::MultiByteToWide(rText[i]));
 	}
 
-	// TODO
+	// •¶Žš—ñ‚ð‘S‚Ä”ñ•\Ž¦‚É‚·‚é
 	m_pText->SetEnableScroll(true);
-
 }
