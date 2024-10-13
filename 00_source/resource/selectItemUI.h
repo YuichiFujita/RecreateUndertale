@@ -14,11 +14,11 @@
 //	インクルードファイル
 //************************************************************
 #include "menuSelectUI.h"
+#include "frameText2D.h"
 
 //************************************************************
 //	前方宣言
 //************************************************************
-class CFrameText2D;	// フレームテキスト2Dクラス
 class CString2D;	// 文字列2Dクラス
 class CItemUI;		// アイテムUIクラス
 
@@ -97,7 +97,7 @@ class CItemUI : public CObject
 {
 public:
 	// コンストラクタ
-	CItemUI(const CSelectItemUI::ESelect choiceAct, const int nChoiceItemIdx);
+	explicit CItemUI(const int nChoiceItemIdx);
 
 	// デストラクタ
 	~CItemUI() override;
@@ -115,12 +115,26 @@ public:
 		const int nChoiceItemIdx				// 選択中アイテムインデックス
 	);
 
+	// メンバ関数
+	HRESULT PushFrontString(const std::wstring& rStr)	{ return m_pTextBox->PushFrontString(rStr); }	// 文字列の先頭追加
+	HRESULT PushBackString(const std::wstring& rStr)	{ return m_pTextBox->PushBackString(rStr); }	// 文字列の最後尾追加
+	void DeleteString(const int nStrID)			{ m_pTextBox->DeleteString(nStrID); }		// 文字列削除
+	void DeleteStringAll(void)					{ m_pTextBox->DeleteStringAll(); }			// 文字列全削除
+	void ChangeTextBox(const AText& rText)		{ m_pTextBox->ChangeText(rText); }			// テキスト変更
+	void SetTextBoxEnableDraw(const bool bDraw)	{ m_pTextBox->SetTextEnableDraw(bDraw); };	// 描画状況設定
+	bool IsTextBoxScroll(void) const	{ return m_pTextBox->IsTextScroll(); }	// 文字送り状況取得
+	int GetChoiceItemIdx(void) const	{ return m_nChoiceItemIdx; }			// 選択中アイテムインデックス取得
+	int GetCurTextIdx(void) const		{ return m_nCurTextIdx; }				// 現在のテキストインデックス取得
+
+protected:
+	// 純粋仮想関数
+	virtual void NextText(void) = 0 { m_nCurTextIdx++; }	// テキストボックス進行
+
 private:
 	// オーバーライド関数
 	void Release(void) override { CObject::Release(); }	// 破棄
 
 	// メンバ変数
-	const CSelectItemUI::ESelect m_choiceAct;	// 選択中行動
 	const int m_nChoiceItemIdx;	// 選択中アイテムインデックス
 	CFrameText2D *m_pTextBox;	// テキストボックス情報
 	int m_nCurTextIdx;			// 現在のテキストインデックス

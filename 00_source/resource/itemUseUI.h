@@ -1,37 +1,32 @@
 //============================================================
 //
-//	電話メニューヘッダー [selectPhoneUI.h]
+//	使用メニューヘッダー [itemUseUI.h]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	二重インクルード防止
 //************************************************************
-#ifndef _SELECT_PHONE_UI_H_
-#define _SELECT_PHONE_UI_H_
+#ifndef _ITEM_USE_UI_H_
+#define _ITEM_USE_UI_H_
 
 //************************************************************
 //	インクルードファイル
 //************************************************************
-#include "menuSelectUI.h"
-
-//************************************************************
-//	前方宣言
-//************************************************************
-class CString2D;	// 文字列2Dクラス
+#include "selectItemUI.h"
 
 //************************************************************
 //	クラス定義
 //************************************************************
-// 電話メニュークラス
-class CSelectPhoneUI : public CSelectUI
+// 使用メニュークラス
+class CItemUseUI : public CItemUI
 {
 public:
 	// コンストラクタ
-	CSelectPhoneUI(AFuncUninit funcUninit, CObject2D *pSoul);
+	explicit CItemUseUI(const int nChoiceItemIdx);
 
 	// デストラクタ
-	~CSelectPhoneUI() override;
+	~CItemUseUI() override;
 
 	// オーバーライド関数
 	HRESULT Init(void) override;	// 初期化
@@ -40,8 +35,8 @@ public:
 	void Draw(CShader *pShader = nullptr) override;	// 描画
 
 private:
-	// メンバ変数
-
+	// オーバーライド関数
+	void NextText(void) override;	// テキストボックス進行
 };
 
-#endif	// _SELECT_PHONE_UI_H_
+#endif	// _ITEM_USE_UI_H_

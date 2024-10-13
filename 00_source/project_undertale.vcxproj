@@ -188,6 +188,7 @@
     <ClCompile Include="resource\introStateWait.cpp" />
     <ClCompile Include="resource\item.cpp" />
     <ClCompile Include="resource\itemNone.cpp" />
+    <ClCompile Include="resource\itemUseUI.cpp" />
     <ClCompile Include="resource\light.cpp" />
     <ClCompile Include="resource\listManager.cpp" />
     <ClCompile Include="resource\loading.cpp" />
@@ -309,6 +310,7 @@
     <ClInclude Include="resource\introStateWait.h" />
     <ClInclude Include="resource\item.h" />
     <ClInclude Include="resource\itemNone.h" />
+    <ClInclude Include="resource\itemUseUI.h" />
     <ClInclude Include="resource\light.h" />
     <ClInclude Include="resource\listManager.h" />
     <ClInclude Include="resource\loading.h" />

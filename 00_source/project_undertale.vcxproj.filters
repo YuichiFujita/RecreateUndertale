@@ -73,6 +73,12 @@
     <Filter Include="ingame\frame">
       <UniqueIdentifier>{1a9a45ab-739d-48c5-a222-ba9c5e3f9fc5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ingame\menu\select">
+      <UniqueIdentifier>{ef52a6f4-025f-4f5a-9771-18fb88a91886}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ingame\menu\select\item">
+      <UniqueIdentifier>{397a94b9-9b8b-42fd-a480-0b86e0ce3327}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="resource\camera.cpp">
@@ -393,18 +399,6 @@
     <ClCompile Include="resource\menuStatusUI.cpp">
       <Filter>ingame\menu</Filter>
     </ClCompile>
-    <ClCompile Include="resource\menuSelectUI.cpp">
-      <Filter>ingame\menu</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\selectStatusUI.cpp">
-      <Filter>ingame\menu</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\selectItemUI.cpp">
-      <Filter>ingame\menu</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\selectPhoneUI.cpp">
-      <Filter>ingame\menu</Filter>
-    </ClCompile>
     <ClCompile Include="resource\inputManager.cpp">
       <Filter>system</Filter>
     </ClCompile>
@@ -422,6 +416,21 @@
     </ClCompile>
     <ClCompile Include="resource\frameText2D.cpp">
       <Filter>ingame\frame</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\selectPhoneUI.cpp">
+      <Filter>ingame\menu\select</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\selectStatusUI.cpp">
+      <Filter>ingame\menu\select</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\selectItemUI.cpp">
+      <Filter>ingame\menu\select</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\menuSelectUI.cpp">
+      <Filter>ingame\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\itemUseUI.cpp">
+      <Filter>ingame\menu\select\item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -746,18 +755,6 @@
     <ClInclude Include="resource\menuStatusUI.h">
       <Filter>ingame\menu</Filter>
     </ClInclude>
-    <ClInclude Include="resource\menuSelectUI.h">
-      <Filter>ingame\menu</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\selectStatusUI.h">
-      <Filter>ingame\menu</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\selectItemUI.h">
-      <Filter>ingame\menu</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\selectPhoneUI.h">
-      <Filter>ingame\menu</Filter>
-    </ClInclude>
     <ClInclude Include="resource\inputManager.h">
       <Filter>system</Filter>
     </ClInclude>
@@ -775,6 +772,21 @@
     </ClInclude>
     <ClInclude Include="resource\frameText2D.h">
       <Filter>ingame\frame</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\selectPhoneUI.h">
+      <Filter>ingame\menu\select</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\selectStatusUI.h">
+      <Filter>ingame\menu\select</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\selectItemUI.h">
+      <Filter>ingame\menu\select</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\menuSelectUI.h">
+      <Filter>ingame\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\itemUseUI.h">
+      <Filter>ingame\menu\select\item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -11,13 +11,11 @@
 #include "manager.h"
 #include "string2D.h"
 #include "text2D.h"
-#include "frameText2D.h"
-#include "item.h"
 #include "loadtext.h"
-
-// TODO
-#include "sceneGame.h"
-#include "menuManager.h"
+#include "item.h"
+#include "itemUseUI.h"
+//#include "itemInfoUI.h"
+//#include "itemDropUI.h"
 
 //************************************************************
 //	定数宣言
@@ -263,8 +261,9 @@ void CSelectItemUI::Update(const float fDeltaTime)
 
 	case STATE_TEXT:
 
-		// テキスト表示はCItemUIクラスが行う
+		// アイテムメニューの更新
 		assert(m_pItemMenu != nullptr);
+		m_pItemMenu->Update(fDeltaTime);
 		break;
 
 	default:
@@ -400,8 +399,7 @@ void CSelectItemUI::UpdateDecideAct(void)
 //============================================================
 //	コンストラクタ
 //============================================================
-CItemUI::CItemUI(const CSelectItemUI::ESelect choiceAct, const int nChoiceItemIdx) : CObject(CObject::LABEL_UI, CObject::DIM_3D, PRIORITY),
-	m_choiceAct			(choiceAct),		// 選択中行動
+CItemUI::CItemUI(const int nChoiceItemIdx) : CObject(CObject::LABEL_NONE, CObject::DIM_3D, PRIORITY),
 	m_nChoiceItemIdx	(nChoiceItemIdx),	// 選択中アイテムインデックス
 	m_pTextBox			(nullptr),			// テキストボックス情報
 	m_nCurTextIdx		(0)					// 現在のテキストインデックス
@@ -441,12 +439,6 @@ HRESULT CItemUI::Init(void)
 		return E_FAIL;
 	}
 
-	// TODO：ここで最初のテキストボックスを割り当てる
-	//		 それとItemUIクラスは分割しよう
-
-	// TODO：ここでテキストボックス割り当て後、
-	//		 PushFrontでアイテム名とか回復量とかの文字列を追加
-
 	// 成功を返す
 	return S_OK;
 }
@@ -478,52 +470,8 @@ void CItemUI::Update(const float fDeltaTime)
 			return;
 		}
 
-		ATextBox text = GET_MANAGER->GetItem()->GetInfo(m_nChoiceItemIdx).GetUse();
-		if (m_nCurTextIdx >= (int)text.size())
-		{ // テキストが終了した場合
-
-			// 選択アイテムの行動
-			CItem* pItem = GET_MANAGER->GetItem();	// アイテム情報
-			switch (m_choiceAct)
-			{ // 選択行動ごとの処理
-			case CSelectItemUI::SELECT_USE:
-				pItem->GetInfo(m_nChoiceItemIdx).Use();
-				break;
-
-			case CSelectItemUI::SELECT_INFO:
-				pItem->GetInfo(m_nChoiceItemIdx).Info();
-				break;
-
-			case CSelectItemUI::SELECT_DROP:
-				pItem->GetInfo(m_nChoiceItemIdx).Drop();
-				break;
-
-			default:
-				assert(false);
-				break;
-			}
-
-			// フィールドメニューの終了
-			CSceneGame::GetMenuManager()->SetEnableDrawMenu(false);
-			return;
-		}
-
-		// 現在のテキスト進行度に合わせたテキストに変更
-		m_pTextBox->ChangeText(text[m_nCurTextIdx]);
-
-		// TODO：後で場所かえる
-		if (m_nCurTextIdx == 0)
-		{
-			std::string str = GET_MANAGER->GetItem()->GetInfo(m_nChoiceItemIdx).Detail();
-			m_pTextBox->PushFrontString(useful::MultiByteToWide(str));
-		}
-
-		// TODO：ここでテキストボックス割り当て後、
-		//		 そのテキストボックスが最後なら
-		//		 PushBackで回復後の文字列とかを追加
-
-		// テキスト進行度を進める
-		m_nCurTextIdx++;
+		// テキスト内容の進行
+		NextText();
 	}
 }
 
@@ -545,7 +493,26 @@ CItemUI *CItemUI::Create
 )
 {
 	// アイテムUIの生成
-	CItemUI *pItemUI = new CItemUI(choiceAct, nChoiceItemIdx);
+	CItemUI *pItemUI = nullptr;	// アイテムUI情報
+	switch (choiceAct)
+	{ // 選択肢ごとの処理
+	case CSelectItemUI::SELECT_USE:
+		pItemUI = new CItemUseUI(nChoiceItemIdx);
+		break;
+
+	case CSelectItemUI::SELECT_INFO:
+		//pItemUI = new CItemInfoUI(nChoiceItemIdx);
+		break;
+
+	case CSelectItemUI::SELECT_DROP:
+		//pItemUI = new CItemDropUI(nChoiceItemIdx);
+		break;
+
+	default:	// 例外処理
+		assert(false);
+		break;
+	}
+
 	if (pItemUI == nullptr)
 	{ // 生成に失敗した場合
 
