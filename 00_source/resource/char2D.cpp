@@ -114,7 +114,63 @@ void CChar2D::SetVec3Sizing(const D3DXVECTOR3& /*rSize*/)
 }
 
 //============================================================
-//	生成処理
+//	生成処理 (マルチバイト文字)
+//============================================================
+CChar2D *CChar2D::Create
+(
+	const std::string &rFilePass,	// フォントパス
+	const bool bItalic,				// イタリック
+	const std::string &rChar,		// 指定文字
+	const D3DXVECTOR3& rPos,		// 位置
+	const float fHeight,			// 縦幅
+	const D3DXVECTOR3& rRot,		// 向き
+	const D3DXCOLOR& rCol			// 色
+)
+{
+	// 文字2Dの生成
+	CChar2D *pChar2D = new CChar2D;
+	if (pChar2D == nullptr)
+	{ // 生成に失敗した場合
+
+		return nullptr;
+	}
+	else
+	{ // 生成に成功した場合
+
+		// 文字2Dの初期化
+		if (FAILED(pChar2D->Init()))
+		{ // 初期化に失敗した場合
+
+			// 文字2Dの破棄
+			SAFE_DELETE(pChar2D);
+			return nullptr;
+		}
+
+		// フォントを設定
+		pChar2D->SetFont(rFilePass, bItalic);
+
+		// 文字を設定
+		pChar2D->SetChar(rChar);
+
+		// 位置を設定
+		pChar2D->SetVec3Position(rPos);
+
+		// 向きを設定
+		pChar2D->SetVec3Rotation(rRot);
+
+		// 文字縦幅を設定
+		pChar2D->SetCharHeight(fHeight);
+
+		// 色を設定
+		pChar2D->SetColor(rCol);
+
+		// 確保したアドレスを返す
+		return pChar2D;
+	}
+}
+
+//============================================================
+//	生成処理 (ワイド文字)
 //============================================================
 CChar2D *CChar2D::Create
 (
@@ -187,7 +243,16 @@ void CChar2D::SetFont
 }
 
 //============================================================
-//	文字の設定処理
+//	文字の設定処理 (マルチバイト文字)
+//============================================================
+void CChar2D::SetChar(const std::string& rChar)
+{
+	// ワイド変換後の先頭文字を設定
+	SetChar(useful::MultiByteToWide(rChar)[0]);
+}
+
+//============================================================
+//	文字の設定処理 (ワイド文字)
 //============================================================
 void CChar2D::SetChar(const wchar_t wcChar)
 {
@@ -256,6 +321,20 @@ D3DXVECTOR2 CChar2D::GetOffsetBlackBoxRD(void)
 
 	// ブラックボックスの右下オフセットを返す
 	return tempOffset * m_fSizeRate;
+}
+
+//============================================================
+//	文字の取得処理 (マルチバイト文字)
+//============================================================
+std::string CChar2D::GetChar(void) const
+{
+	std::wstring wsChar;	// 文字列変換用
+
+	// 変換文字列に文字を割当
+	wsChar = m_wcChar;
+
+	// マルチバイト変換後の文字列を返す
+	return useful::WideToMultiByte(wsChar);
 }
 
 //============================================================

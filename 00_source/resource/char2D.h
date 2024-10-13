@@ -37,7 +37,17 @@ public:
 	void SetVec3Sizing(const D3DXVECTOR3& rSize) override;	// 大きさ設定
 
 	// 静的メンバ関数
-	static CChar2D *Create	// 生成
+	static CChar2D *Create	// 生成 (マルチバイト文字)
+	( // 引数
+		const std::string &rFilePass,	// フォントパス
+		const bool bItalic,				// イタリック
+		const std::string &rChar,		// 指定文字
+		const D3DXVECTOR3& rPos = VEC3_ZERO,	// 位置
+		const float fHeight = 100.0f,			// 縦幅
+		const D3DXVECTOR3& rRot = VEC3_ZERO,	// 向き
+		const D3DXCOLOR& rCol = XCOL_WHITE		// 色
+	);
+	static CChar2D *Create	// 生成 (ワイド文字)
 	( // 引数
 		const std::string &rFilePass,	// フォントパス
 		const bool bItalic,				// イタリック
@@ -54,15 +64,17 @@ public:
 		const std::string &rFilePass,	// フォントパス
 		const bool bItalic = false		// イタリック
 	);
-	void SetChar(const wchar_t wcChar);			// 文字の設定
+	void SetChar(const std::string& rChar);		// 文字の設定 (マルチバイト文字)
+	void SetChar(const wchar_t wcChar);			// 文字の設定 (ワイド文字)
 	void SetCharHeight(const float fHeight);	// 文字の縦幅設定
 	D3DXVECTOR2 GetOffsetBlackBoxLU(void);		// ブラックボックスの左上オフセット取得
 	D3DXVECTOR2 GetOffsetBlackBoxRD(void);		// ブラックボックスの右下オフセット取得
 
-	wchar_t GetChar(void) const	{ return m_wcChar; }	// 文字列取得
-	bool IsTexEmpty(void) const	{ return m_bTexEmpty; }	// テクスチャ透明フラグ取得
-	float GetOffsetOrigin(void);	// 原点のオフセット取得
-	float GetNext(void);			// 次の文字までの距離取得
+	bool IsTexEmpty(void) const		{ return m_bTexEmpty; }	// テクスチャ透明フラグ取得
+	wchar_t GetWideChar(void) const	{ return m_wcChar; }	// 文字取得 (ワイド文字)
+	std::string GetChar(void) const;	// 文字取得 (マルチバイト文字)
+	float GetOffsetOrigin(void);		// 原点のオフセット取得
+	float GetNext(void);				// 次の文字までの距離取得
 
 private:
 	// メンバ変数
