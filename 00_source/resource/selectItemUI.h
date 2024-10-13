@@ -49,6 +49,7 @@ public:
 	void Uninit(void) override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
 	void Draw(CShader *pShader = nullptr) override;	// 描画
+	void SetEnableDraw(const bool bDraw) override;	// 描画状況設定
 
 private:
 	// 状態列挙
@@ -96,13 +97,7 @@ class CItemUI : public CObject
 {
 public:
 	// コンストラクタ
-	CItemUI
-	( // 引数
-		CSelectUI::AFuncUninit funcUninit,		// 選択メニュー終了関数
-		const ATextBox& rText,					// 表示テキスト
-		const CSelectItemUI::ESelect choiceAct,	// 選択中行動
-		const int nChoiceItemIdx				// 選択中アイテムインデックス
-	);
+	CItemUI(const CSelectItemUI::ESelect choiceAct, const int nChoiceItemIdx);
 
 	// デストラクタ
 	~CItemUI() override;
@@ -116,8 +111,6 @@ public:
 	// 静的メンバ関数
 	static CItemUI *Create	// 生成
 	( // 引数
-		CSelectUI::AFuncUninit funcUninit,		// 選択メニュー終了関数
-		const ATextBox& rText,					// 表示テキスト
 		const CSelectItemUI::ESelect choiceAct,	// 選択中行動
 		const int nChoiceItemIdx				// 選択中アイテムインデックス
 	);
@@ -127,10 +120,8 @@ private:
 	void Release(void) override { CObject::Release(); }	// 破棄
 
 	// メンバ変数
-	CSelectUI::AFuncUninit m_funcUninitMenu;	// 選択メニュー終了関数ポインタ
-	const ATextBox& m_text;						// 表示テキスト
 	const CSelectItemUI::ESelect m_choiceAct;	// 選択中行動
-	const int m_nChoiceItemIdx;					// 選択中アイテムインデックス
+	const int m_nChoiceItemIdx;	// 選択中アイテムインデックス
 	CFrameText2D *m_pTextBox;	// テキストボックス情報
 	int m_nCurTextIdx;			// 現在のテキストインデックス
 };

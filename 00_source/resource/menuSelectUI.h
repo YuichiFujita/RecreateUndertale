@@ -93,6 +93,7 @@ public:
 	void Uninit(void) override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
 	void Draw(CShader *pShader = nullptr) override;	// 描画
+	void SetEnableDraw(const bool bDraw) override;	// 描画状況設定
 
 	// 静的メンバ関数
 	static CSelectUI *Create	// 生成
@@ -113,10 +114,6 @@ public:
 	D3DXVECTOR3 GetFrameSizing(void) const			{ return m_pFrame->GetVec3Sizing(); }	// フレーム大きさ取得
 	D3DXVECTOR3 GetSoulPosition(void) const			{ return m_pSoul->GetVec3Position(); }	// ソウルカーソル位置取得
 	bool IsSoulCursorDraw(void) const				{ return m_pSoul->IsDraw(); }			// ソウルカーソル描画状況取得
-
-protected:
-	// メンバ関数
-	AFuncUninit GetFuncUninit(void) const { return m_funcUninitMenu; }	// 選択メニュー終了関数取得
 
 private:
 	// オーバーライド関数

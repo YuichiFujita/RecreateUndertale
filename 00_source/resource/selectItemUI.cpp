@@ -15,6 +15,10 @@
 #include "item.h"
 #include "loadtext.h"
 
+// TODO
+#include "sceneGame.h"
+#include "menuManager.h"
+
 //************************************************************
 //	定数宣言
 //************************************************************
@@ -279,6 +283,29 @@ void CSelectItemUI::Draw(CShader *pShader)
 }
 
 //============================================================
+//	描画状況の設定処理
+//============================================================
+void CSelectItemUI::SetEnableDraw(const bool bDraw)
+{
+	// 自身の描画状況の設定
+	CSelectUI::SetEnableDraw(bDraw);
+
+	for (int i = 0; i < SELECT_MAX; i++)
+	{ // 選択肢の総数分繰り返す
+
+		// 選択の描画状況の設定
+		m_apSelect[i]->SetEnableDraw(bDraw);
+	}
+
+	for (auto& rVec : m_vecItemName)
+	{ // 要素数分繰り返す
+
+		// アイテム名の描画状況の設定
+		rVec.m_pName->SetEnableDraw(bDraw);
+	}
+}
+
+//============================================================
 //	アイテム選択の更新処理
 //============================================================
 void CSelectItemUI::UpdateSelectItem(void)
@@ -343,52 +370,15 @@ void CSelectItemUI::UpdateDecideAct(void)
 {
 	if (input::Decide())
 	{
-		CItem* pItem = GET_MANAGER->GetItem();	// アイテム情報
-		int nItemIdx = m_vecItemName[m_nCurSelectItem].nItemID;	// 選択中アイテムインデックス
-
 		// アイテムメニューの生成
-		switch (m_nCurSelectAct)
-		{ // 選択行動ごとの処理
-		case SELECT_USE:
+		m_pItemMenu = CItemUI::Create
+		( // 引数
+			(ESelect)m_nCurSelectAct,				// 選択中行動
+			m_vecItemName[m_nCurSelectItem].nItemID	// 選択中アイテムインデックス
+		);
 
-			m_pItemMenu = CItemUI::Create
-			( // 引数
-				GetFuncUninit(),					// 選択メニュー終了関数
-				pItem->GetInfo(nItemIdx).GetUse(),	// 表示テキスト
-				(ESelect)m_nCurSelectAct,			// 選択中行動
-				nItemIdx							// 選択中アイテムインデックス
-			);
-			break;
-
-		case SELECT_INFO:
-
-			m_pItemMenu = CItemUI::Create
-			( // 引数
-				GetFuncUninit(),					// 選択メニュー終了関数
-				pItem->GetInfo(nItemIdx).GetInfo(),	// 表示テキスト
-				(ESelect)m_nCurSelectAct,			// 選択中行動
-				nItemIdx							// 選択中アイテムインデックス
-			);
-			break;
-
-		case SELECT_DROP:
-
-			m_pItemMenu = CItemUI::Create
-			( // 引数
-				GetFuncUninit(),					// 選択メニュー終了関数
-
-				//pItem->GetInfo(nItemIdx).GetDrop(),	// 表示テキスト
-				pItem->GetInfo(nItemIdx).GetInfo(),	// 表示テキスト
-
-				(ESelect)m_nCurSelectAct,			// 選択中行動
-				nItemIdx							// 選択中アイテムインデックス
-			);
-			break;
-
-		default:
-			assert(false);
-			break;
-		}
+		// アイテムメニューの自動描画をOFFにする
+		SetEnableDraw(false);
 
 		// テキスト表示状態にする
 		m_state = STATE_TEXT;
@@ -410,9 +400,7 @@ void CSelectItemUI::UpdateDecideAct(void)
 //============================================================
 //	コンストラクタ
 //============================================================
-CItemUI::CItemUI(CSelectUI::AFuncUninit funcUninit, const ATextBox& rText, const CSelectItemUI::ESelect choiceAct, const int nChoiceItemIdx) : CObject(CObject::LABEL_UI, CObject::DIM_3D, PRIORITY),
-	m_funcUninitMenu	(funcUninit),		// 選択メニュー終了関数ポインタ
-	m_text				(rText),			// 表示テキスト
+CItemUI::CItemUI(const CSelectItemUI::ESelect choiceAct, const int nChoiceItemIdx) : CObject(CObject::LABEL_UI, CObject::DIM_3D, PRIORITY),
 	m_choiceAct			(choiceAct),		// 選択中行動
 	m_nChoiceItemIdx	(nChoiceItemIdx),	// 選択中アイテムインデックス
 	m_pTextBox			(nullptr),			// テキストボックス情報
@@ -443,7 +431,7 @@ HRESULT CItemUI::Init(void)
 	( // 引数
 		SCREEN_CENT,
 		VEC3_ZERO,
-		D3DXVECTOR3(1000.0f, 1000.0f, 0.0f)
+		D3DXVECTOR3(1000.0f, 300.0f, 0.0f)
 	);
 	if (m_pTextBox == nullptr)
 	{ // 生成に失敗した場合
@@ -490,7 +478,8 @@ void CItemUI::Update(const float fDeltaTime)
 			return;
 		}
 
-		if (m_nCurTextIdx >= (int)m_text.size())
+		ATextBox text = GET_MANAGER->GetItem()->GetInfo(m_nChoiceItemIdx).GetUse();
+		if (m_nCurTextIdx >= (int)text.size())
 		{ // テキストが終了した場合
 
 			// 選択アイテムの行動
@@ -514,19 +503,18 @@ void CItemUI::Update(const float fDeltaTime)
 				break;
 			}
 
-			// 選択メニューの終了
-			m_funcUninitMenu();
+			// フィールドメニューの終了
+			CSceneGame::GetMenuManager()->SetEnableDrawMenu(false);
 			return;
 		}
 
 		// 現在のテキスト進行度に合わせたテキストに変更
-		m_pTextBox->ChangeText(m_text[m_nCurTextIdx]);
+		m_pTextBox->ChangeText(text[m_nCurTextIdx]);
 
 		// TODO：後で場所かえる
 		if (m_nCurTextIdx == 0)
 		{
-			CItem* pItem = GET_MANAGER->GetItem();	// アイテム情報
-			std::string str = pItem->GetInfo(m_nChoiceItemIdx).Detail();
+			std::string str = GET_MANAGER->GetItem()->GetInfo(m_nChoiceItemIdx).Detail();
 			m_pTextBox->PushFrontString(useful::MultiByteToWide(str));
 		}
 
@@ -552,14 +540,12 @@ void CItemUI::Draw(CShader * /*pShader*/)
 //============================================================
 CItemUI *CItemUI::Create
 (
-	CSelectUI::AFuncUninit funcUninit,		// 選択メニュー終了関数
-	const ATextBox& rText,					// 表示テキスト
 	const CSelectItemUI::ESelect choiceAct,	// 選択中行動
 	const int nChoiceItemIdx				// 選択中アイテムインデックス
 )
 {
 	// アイテムUIの生成
-	CItemUI *pItemUI = new CItemUI(funcUninit, rText, choiceAct, nChoiceItemIdx);
+	CItemUI *pItemUI = new CItemUI(choiceAct, nChoiceItemIdx);
 	if (pItemUI == nullptr)
 	{ // 生成に失敗した場合
 
