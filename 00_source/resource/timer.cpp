@@ -196,6 +196,25 @@ CListManager<CTimer> *CTimer::GetList(void)
 }
 
 //============================================================
+//	全タイマーの計測状況の設定処理
+//============================================================
+void CTimer::EnableStopAll(const bool bStop)
+{
+	// タイマーがない場合抜ける
+	if (m_pList == nullptr) { return; }
+
+	// リストマネージャーからリストを取得
+	std::list<CTimer*> listTimer = m_pList->GetList();
+
+	// 全タイマーオブジェクトの計測状況を設定
+	for (auto& rList : listTimer)
+	{ // リスト内の要素数分繰り返す
+
+		rList->EnableStop(bStop);
+	}
+}
+
+//============================================================
 //	計測開始処理
 //============================================================
 void CTimer::Start(void)

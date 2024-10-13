@@ -58,7 +58,8 @@ public:
 		const float fTime,	// 開始時間
 		const float fLimit	// 制限時間
 	);
-	static CListManager<CTimer> *GetList(void);	// リスト取得
+	static CListManager<CTimer> *GetList(void);		// リスト取得
+	static void EnableStopAll(const bool bStop);	// 全タイマー計測状況設定
 
 	// メンバ関数
 	void Start(void);	// 計測開始
