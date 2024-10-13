@@ -95,11 +95,14 @@ private:
 class CItemUI : public CObject
 {
 public:
-	// エイリアス定義
-	using AFuncAct = const std::function<void(void)>;	// 行動関数のポインタ型
-
 	// コンストラクタ
-	CItemUI(CSelectUI::AFuncUninit funcUninit, AFuncAct funcAct, const ATextBox& rText);
+	CItemUI
+	( // 引数
+		CSelectUI::AFuncUninit funcUninit,		// 選択メニュー終了関数
+		const ATextBox& rText,					// 表示テキスト
+		const CSelectItemUI::ESelect choiceAct,	// 選択中行動
+		const int nChoiceItemIdx				// 選択中アイテムインデックス
+	);
 
 	// デストラクタ
 	~CItemUI() override;
@@ -113,9 +116,10 @@ public:
 	// 静的メンバ関数
 	static CItemUI *Create	// 生成
 	( // 引数
-		CSelectUI::AFuncUninit funcUninit,	// 選択メニュー終了関数
-		AFuncAct funcAct,		// 行動関数
-		const ATextBox& rText	// 表示テキスト
+		CSelectUI::AFuncUninit funcUninit,		// 選択メニュー終了関数
+		const ATextBox& rText,					// 表示テキスト
+		const CSelectItemUI::ESelect choiceAct,	// 選択中行動
+		const int nChoiceItemIdx				// 選択中アイテムインデックス
 	);
 
 private:
@@ -124,9 +128,10 @@ private:
 
 	// メンバ変数
 	CSelectUI::AFuncUninit m_funcUninitMenu;	// 選択メニュー終了関数ポインタ
-	AFuncAct m_funcAct;			// 行動関数ポインタ
+	const ATextBox& m_text;						// 表示テキスト
+	const CSelectItemUI::ESelect m_choiceAct;	// 選択中行動
+	const int m_nChoiceItemIdx;					// 選択中アイテムインデックス
 	CFrameText2D *m_pTextBox;	// テキストボックス情報
-	const ATextBox& m_text;		// 表示テキスト
 	int m_nCurTextIdx;			// 現在のテキストインデックス
 };
 

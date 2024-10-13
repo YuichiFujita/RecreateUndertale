@@ -345,15 +345,50 @@ void CSelectItemUI::UpdateDecideAct(void)
 	{
 		CItem* pItem = GET_MANAGER->GetItem();	// アイテム情報
 		int nItemIdx = m_vecItemName[m_nCurSelectItem].nItemID;	// 選択中アイテムインデックス
-		auto funcAct = [pItem, nItemIdx]() { pItem->GetInfo(nItemIdx).Use(); };	// 行動関数ポインタ
 
 		// アイテムメニューの生成
-		m_pItemMenu = CItemUI::Create
-		( // 引数
-			GetFuncUninit(),					// 選択メニュー終了関数
-			funcAct,							// 行動関数
-			pItem->GetInfo(nItemIdx).GetUse()	// 表示テキスト
-		);
+		switch (m_nCurSelectAct)
+		{ // 選択行動ごとの処理
+		case SELECT_USE:
+
+			m_pItemMenu = CItemUI::Create
+			( // 引数
+				GetFuncUninit(),					// 選択メニュー終了関数
+				pItem->GetInfo(nItemIdx).GetUse(),	// 表示テキスト
+				(ESelect)m_nCurSelectAct,			// 選択中行動
+				nItemIdx							// 選択中アイテムインデックス
+			);
+			break;
+
+		case SELECT_INFO:
+
+			m_pItemMenu = CItemUI::Create
+			( // 引数
+				GetFuncUninit(),					// 選択メニュー終了関数
+				pItem->GetInfo(nItemIdx).GetInfo(),	// 表示テキスト
+				(ESelect)m_nCurSelectAct,			// 選択中行動
+				nItemIdx							// 選択中アイテムインデックス
+			);
+			break;
+
+		case SELECT_DROP:
+
+			m_pItemMenu = CItemUI::Create
+			( // 引数
+				GetFuncUninit(),					// 選択メニュー終了関数
+
+				//pItem->GetInfo(nItemIdx).GetDrop(),	// 表示テキスト
+				pItem->GetInfo(nItemIdx).GetInfo(),	// 表示テキスト
+
+				(ESelect)m_nCurSelectAct,			// 選択中行動
+				nItemIdx							// 選択中アイテムインデックス
+			);
+			break;
+
+		default:
+			assert(false);
+			break;
+		}
 
 		// テキスト表示状態にする
 		m_state = STATE_TEXT;
@@ -375,12 +410,13 @@ void CSelectItemUI::UpdateDecideAct(void)
 //============================================================
 //	コンストラクタ
 //============================================================
-CItemUI::CItemUI(CSelectUI::AFuncUninit funcUninit, AFuncAct funcAct, const ATextBox& rText) : CObject(CObject::LABEL_UI, CObject::DIM_3D, PRIORITY),
-	m_funcUninitMenu	(funcUninit),	// 選択メニュー終了関数ポインタ
-	m_funcAct			(funcAct),		// 行動関数ポインタ
-	m_text				(rText),		// 表示テキスト
-	m_pTextBox			(nullptr),		// テキストボックス情報
-	m_nCurTextIdx		(0)				// 現在のテキストインデックス
+CItemUI::CItemUI(CSelectUI::AFuncUninit funcUninit, const ATextBox& rText, const CSelectItemUI::ESelect choiceAct, const int nChoiceItemIdx) : CObject(CObject::LABEL_UI, CObject::DIM_3D, PRIORITY),
+	m_funcUninitMenu	(funcUninit),		// 選択メニュー終了関数ポインタ
+	m_text				(rText),			// 表示テキスト
+	m_choiceAct			(choiceAct),		// 選択中行動
+	m_nChoiceItemIdx	(nChoiceItemIdx),	// 選択中アイテムインデックス
+	m_pTextBox			(nullptr),			// テキストボックス情報
+	m_nCurTextIdx		(0)					// 現在のテキストインデックス
 {
 
 }
@@ -417,6 +453,12 @@ HRESULT CItemUI::Init(void)
 		return E_FAIL;
 	}
 
+	// TODO：ここで最初のテキストボックスを割り当てる
+	//		 それとItemUIクラスは分割しよう
+
+	// TODO：ここでテキストボックス割り当て後、
+	//		 PushFrontでアイテム名とか回復量とかの文字列を追加
+
 	// 成功を返す
 	return S_OK;
 }
@@ -438,144 +480,63 @@ void CItemUI::Uninit(void)
 //============================================================
 void CItemUI::Update(const float fDeltaTime)
 {
-	// 入力検知されていない場合抜ける
-	if (!input::Decide()) { return; }
-
-	if (m_pTextBox->IsTextScroll())
-	{ // 文字送り中の場合
-
-		// 文字を全表示させる
-		m_pTextBox->SetTextEnableDraw(true);
-		return;
-	}
-
-	if (m_nCurTextIdx >= (int)m_text.size())
-	{ // テキストが終了した場合
-
-		// 選択アイテムの行動
-		m_funcAct();
-
-		// 選択メニューの終了
-		m_funcUninitMenu();
-		return;
-	}
-
-	// 現在のテキスト進行度に合わせたテキストに変更
-	m_pTextBox->ChangeText(m_text[m_nCurTextIdx]);
-
-	// テキスト進行度を進める
-	m_nCurTextIdx++;
-
-	// TODO：メモ残し
-#if 0
-	if (m_pTextBox->IsTextScroll())
+	if (input::Decide())
 	{
-		m_pTextBox->SetTextEnableDraw(true);
+		if (m_pTextBox->IsTextScroll())
+		{ // 文字送り中の場合
+
+			// 文字を全表示させる
+			m_pTextBox->SetTextEnableDraw(true);
+			return;
+		}
+
+		if (m_nCurTextIdx >= (int)m_text.size())
+		{ // テキストが終了した場合
+
+			// 選択アイテムの行動
+			CItem* pItem = GET_MANAGER->GetItem();	// アイテム情報
+			switch (m_choiceAct)
+			{ // 選択行動ごとの処理
+			case CSelectItemUI::SELECT_USE:
+				pItem->GetInfo(m_nChoiceItemIdx).Use();
+				break;
+
+			case CSelectItemUI::SELECT_INFO:
+				pItem->GetInfo(m_nChoiceItemIdx).Info();
+				break;
+
+			case CSelectItemUI::SELECT_DROP:
+				pItem->GetInfo(m_nChoiceItemIdx).Drop();
+				break;
+
+			default:
+				assert(false);
+				break;
+			}
+
+			// 選択メニューの終了
+			m_funcUninitMenu();
+			return;
+		}
+
+		// 現在のテキスト進行度に合わせたテキストに変更
+		m_pTextBox->ChangeText(m_text[m_nCurTextIdx]);
+
+		// TODO：後で場所かえる
+		if (m_nCurTextIdx == 0)
+		{
+			CItem* pItem = GET_MANAGER->GetItem();	// アイテム情報
+			std::string str = pItem->GetInfo(m_nChoiceItemIdx).Detail();
+			m_pTextBox->PushFrontString(useful::MultiByteToWide(str));
+		}
+
+		// TODO：ここでテキストボックス割り当て後、
+		//		 そのテキストボックスが最後なら
+		//		 PushBackで回復後の文字列とかを追加
+
+		// テキスト進行度を進める
+		m_nCurTextIdx++;
 	}
-	else
-	{
-		int nItemIdx = m_vecItemName[m_nCurSelectItem].nItemID;	// 選択中アイテムインデックス
-		CItem* pItem = GET_MANAGER->GetItem();	// アイテム情報
-
-		// TODO：選択ごとに表示を切り替え
-		switch (m_nCurSelect)
-		{ // 選択ごとの処理
-		case SELECT_USE:
-		{
-			const ATextBox& rText = pItem->GetInfo(nItemIdx).GetUse();	// テキストボックス保存情報
-
-			if (m_nCurTextIdx >= (int)rText.size())
-			{ // テキストが終了した場合
-
-				// 選択中アイテムの使用
-				pItem->GetInfo(nItemIdx).Use();
-
-				// 選択肢を初期化
-				m_nCurSelect = 0;
-
-				// アイテム選択状態にする
-				m_state = STATE_ITEM;
-
-				// テキストボックスの終了
-				SAFE_UNINIT(m_pTextBox);
-
-				break;
-			}
-
-			// 現在のテキスト進行度に合わせたテキストに変更
-			m_pTextBox->ChangeText(rText[m_nCurTextIdx]);
-
-			// テキスト進行度を進める
-			m_nCurTextIdx++;
-			break;
-		}
-		case SELECT_INFO:
-		{
-			const ATextBox& rText = pItem->GetInfo(nItemIdx).GetInfo();	// テキストボックス保存情報
-
-			if (m_nCurTextIdx >= (int)rText.size())
-			{ // テキストが終了した場合
-
-				// 選択中アイテムの情報
-				pItem->GetInfo(nItemIdx).Info();
-
-				// 選択肢を初期化
-				m_nCurSelect = 0;
-
-				// アイテム選択状態にする
-				m_state = STATE_ITEM;
-
-				// テキストボックスの終了
-				SAFE_UNINIT(m_pTextBox);
-
-				break;
-			}
-
-			// 現在のテキスト進行度に合わせたテキストに変更
-			m_pTextBox->ChangeText(rText[m_nCurTextIdx]);
-
-			// テキスト進行度を進める
-			m_nCurTextIdx++;
-			break;
-		}
-		case SELECT_DROP:
-		{
-			// TODO：捨てるテキストはほんとにこれでいいの？
-#if 0
-			const ATextBox& rText = pItem->GetInfo(nItemIdx).GetDrop();	// テキストボックス保存情報
-
-			if (m_nCurTextIdx >= (int)rText.size())
-			{ // テキストが終了した場合
-
-				// 選択中アイテムの破棄
-				pItem->GetInfo(nItemIdx).Drop();
-
-				// 選択肢を初期化
-				m_nCurSelect = 0;
-
-				// アイテム選択状態にする
-				m_state = STATE_ITEM;
-
-				// テキストボックスの終了
-				SAFE_UNINIT(m_pTextBox);
-
-				break;
-			}
-
-			// 現在のテキスト進行度に合わせたテキストに変更
-			m_pTextBox->ChangeText(rText[m_nCurTextIdx]);
-
-			// テキスト進行度を進める
-			m_nCurTextIdx++;
-#endif
-			break;
-		}
-		default:
-			assert(false);
-			break;
-		}
-	}
-#endif
 }
 
 //============================================================
@@ -591,13 +552,14 @@ void CItemUI::Draw(CShader * /*pShader*/)
 //============================================================
 CItemUI *CItemUI::Create
 (
-	CSelectUI::AFuncUninit funcUninit,	// 選択メニュー終了関数
-	AFuncAct funcAct,		// 行動関数
-	const ATextBox& rText	// 表示テキスト
+	CSelectUI::AFuncUninit funcUninit,		// 選択メニュー終了関数
+	const ATextBox& rText,					// 表示テキスト
+	const CSelectItemUI::ESelect choiceAct,	// 選択中行動
+	const int nChoiceItemIdx				// 選択中アイテムインデックス
 )
 {
 	// アイテムUIの生成
-	CItemUI *pItemUI = new CItemUI(funcUninit, funcAct, rText);
+	CItemUI *pItemUI = new CItemUI(funcUninit, rText, choiceAct, nChoiceItemIdx);
 	if (pItemUI == nullptr)
 	{ // 生成に失敗した場合
 
