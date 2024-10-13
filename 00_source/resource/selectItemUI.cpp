@@ -14,8 +14,8 @@
 #include "loadtext.h"
 #include "item.h"
 #include "itemUseUI.h"
-//#include "itemInfoUI.h"
-//#include "itemDropUI.h"
+#include "itemInfoUI.h"
+#include "itemDropUI.h"
 
 //************************************************************
 //	íËêîêÈåæ
@@ -501,11 +501,11 @@ CItemUI *CItemUI::Create
 		break;
 
 	case CSelectItemUI::SELECT_INFO:
-		//pItemUI = new CItemInfoUI(nChoiceItemIdx);
+		pItemUI = new CItemInfoUI(nChoiceItemIdx);
 		break;
 
 	case CSelectItemUI::SELECT_DROP:
-		//pItemUI = new CItemDropUI(nChoiceItemIdx);
+		pItemUI = new CItemDropUI(nChoiceItemIdx);
 		break;
 
 	default:	// ó·äOèàóù

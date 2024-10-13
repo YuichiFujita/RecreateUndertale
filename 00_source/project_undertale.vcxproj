@@ -187,6 +187,8 @@
     <ClCompile Include="resource\introStateTextSlow.cpp" />
     <ClCompile Include="resource\introStateWait.cpp" />
     <ClCompile Include="resource\item.cpp" />
+    <ClCompile Include="resource\itemDropUI.cpp" />
+    <ClCompile Include="resource\itemInfoUI.cpp" />
     <ClCompile Include="resource\itemNone.cpp" />
     <ClCompile Include="resource\itemUseUI.cpp" />
     <ClCompile Include="resource\light.cpp" />
@@ -309,6 +311,8 @@
     <ClInclude Include="resource\introStateTextSlow.h" />
     <ClInclude Include="resource\introStateWait.h" />
     <ClInclude Include="resource\item.h" />
+    <ClInclude Include="resource\itemDropUI.h" />
+    <ClInclude Include="resource\itemInfoUI.h" />
     <ClInclude Include="resource\itemNone.h" />
     <ClInclude Include="resource\itemUseUI.h" />
     <ClInclude Include="resource\light.h" />

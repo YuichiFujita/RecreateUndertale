@@ -1,13 +1,13 @@
 //============================================================
 //
-//	使用メニュー処理 [itemUseUI.cpp]
+//	情報メニュー処理 [itemInfoUI.cpp]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	インクルードファイル
 //************************************************************
-#include "itemUseUI.h"
+#include "itemInfoUI.h"
 #include "manager.h"
 #include "item.h"
 
@@ -20,16 +20,16 @@
 //************************************************************
 namespace
 {
-	const int PRIORITY = 6;	// 使用メニューの優先順位
+	const int PRIORITY = 6;	// 情報メニューの優先順位
 }
 
 //************************************************************
-//	子クラス [CItemUseUI] のメンバ関数
+//	子クラス [CItemInfoUI] のメンバ関数
 //************************************************************
 //============================================================
 //	コンストラクタ
 //============================================================
-CItemUseUI::CItemUseUI(const int nChoiceItemIdx) : CItemUI(nChoiceItemIdx)
+CItemInfoUI::CItemInfoUI(const int nChoiceItemIdx) : CItemUI(nChoiceItemIdx)
 {
 
 }
@@ -37,7 +37,7 @@ CItemUseUI::CItemUseUI(const int nChoiceItemIdx) : CItemUI(nChoiceItemIdx)
 //============================================================
 //	デストラクタ
 //============================================================
-CItemUseUI::~CItemUseUI()
+CItemInfoUI::~CItemInfoUI()
 {
 
 }
@@ -45,7 +45,7 @@ CItemUseUI::~CItemUseUI()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CItemUseUI::Init(void)
+HRESULT CItemInfoUI::Init(void)
 {
 	// アイテムUIの初期化
 	if (FAILED(CItemUI::Init()))
@@ -59,6 +59,13 @@ HRESULT CItemUseUI::Init(void)
 	// テキスト内容の進行
 	NextText();
 
+	// TODO：きったね
+	// アイテム詳細を先頭に追加
+	CItem* pItem = GET_MANAGER->GetItem();								// アイテム情報
+	const CItemData& rItemData = pItem->GetInfo(GetChoiceItemIdx());	// アイテム内部データ
+	std::string str = rItemData.Detail();
+	PushFrontString(useful::MultiByteToWide(str));
+
 	// 成功を返す
 	return S_OK;
 }
@@ -66,7 +73,7 @@ HRESULT CItemUseUI::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CItemUseUI::Uninit(void)
+void CItemInfoUI::Uninit(void)
 {
 	// アイテムUIの終了
 	CItemUI::Uninit();
@@ -75,7 +82,7 @@ void CItemUseUI::Uninit(void)
 //============================================================
 //	更新処理
 //============================================================
-void CItemUseUI::Update(const float fDeltaTime)
+void CItemInfoUI::Update(const float fDeltaTime)
 {
 	// アイテムUIの更新
 	CItemUI::Update(fDeltaTime);
@@ -84,7 +91,7 @@ void CItemUseUI::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CItemUseUI::Draw(CShader *pShader)
+void CItemInfoUI::Draw(CShader *pShader)
 {
 	// アイテムUIの描画
 	CItemUI::Draw(pShader);
@@ -93,22 +100,22 @@ void CItemUseUI::Draw(CShader *pShader)
 //============================================================
 //	テキストボックス進行処理
 //============================================================
-void CItemUseUI::NextText(void)
+void CItemInfoUI::NextText(void)
 {
 	int nTextIdx = GetCurTextIdx();			// テキスト進行度インデックス
 	int nItemIdx = GetChoiceItemIdx();		// 選択アイテムインデックス
 	CItem* pItem = GET_MANAGER->GetItem();	// アイテム情報
 	const CItemData& rItemData = pItem->GetInfo(nItemIdx);	// アイテム内部データ
 
-	// アイテム使用時のテキスト情報を取得
-	ATextBox textData = rItemData.GetUse();
+	// アイテム情報確認時のテキスト情報を取得
+	ATextBox textData = rItemData.GetInfo();
 
 	int nNumText = (int)textData.size();	// テキスト総数
 	if (nTextIdx >= nNumText)
 	{ // テキストが終了した場合
 
-		// 選択アイテムを使用済みにする
-		pItem->GetInfo(nItemIdx).Use();
+		// 選択アイテムを情報確認済みにする
+		pItem->GetInfo(nItemIdx).Info();
 
 		// フィールドメニューの終了
 		CSceneGame::GetMenuManager()->SetEnableDrawMenu(false);
@@ -120,11 +127,4 @@ void CItemUseUI::NextText(void)
 
 	// テキスト進行度を進める
 	CItemUI::NextText();
-
-	// TODO：回復量の記述はどうしようかな～
-	if (nTextIdx >= nNumText)
-	{ // 最終テキストの場合
-
-		PushBackString(L" ＊ そこそこ回復したで");
-	}
 }

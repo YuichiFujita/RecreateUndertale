@@ -432,6 +432,12 @@
     <ClCompile Include="resource\itemUseUI.cpp">
       <Filter>ingame\menu\select\item</Filter>
     </ClCompile>
+    <ClCompile Include="resource\itemDropUI.cpp">
+      <Filter>ingame\menu\select\item</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\itemInfoUI.cpp">
+      <Filter>ingame\menu\select\item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h">
@@ -786,6 +792,12 @@
       <Filter>ingame\menu</Filter>
     </ClInclude>
     <ClInclude Include="resource\itemUseUI.h">
+      <Filter>ingame\menu\select\item</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\itemDropUI.h">
+      <Filter>ingame\menu\select\item</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\itemInfoUI.h">
       <Filter>ingame\menu\select\item</Filter>
     </ClInclude>
   </ItemGroup>
