@@ -86,3 +86,18 @@ void CItemNone::Drop(void) const
 {
 
 }
+
+//============================================================
+//	アイテム名前処理
+//============================================================
+std::string CItemNone::Detail(void) const
+{
+	// アイテム名前処理
+	std::string sDetail = CItemData::Detail();	// アイテム詳細
+
+	// TODO
+	sDetail.append("TEST_HPかいふく");
+
+	// アイテム詳細を返す
+	return sDetail;
+}

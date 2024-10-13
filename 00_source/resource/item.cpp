@@ -58,6 +58,20 @@ void CItemData::Uninit(void)
 }
 
 //============================================================
+//	アイテム名前処理
+//============================================================
+std::string CItemData::Detail(void) const
+{
+	std::string sDetail;		// アイテム詳細
+	sDetail.append(" ＊ ");		// 開始アスタリスクを追加
+	sDetail.append(m_sName);	// アイテム名を追加
+	sDetail.append(" - ");		// ハイフンを追加
+
+	// アイテム詳細を返す
+	return sDetail;
+}
+
+//============================================================
 //	生成処理
 //============================================================
 CItemData *CItemData::Create(const EType type)

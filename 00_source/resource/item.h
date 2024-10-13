@@ -39,6 +39,7 @@ public:
 	// 仮想関数
 	virtual HRESULT Init(void);	// 初期化
 	virtual void Uninit(void);	// 終了
+	virtual std::string Detail(void) const;	// 使用時の詳細文字列	// TODO：名前表示文字列の取得、DropText取得の作成
 
 	// 静的メンバ関数
 	static CItemData *Create(const EType type);	// 生成

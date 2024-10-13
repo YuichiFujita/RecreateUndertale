@@ -34,6 +34,7 @@ public:
 	void Use(void) const override;	// アイテム使用
 	void Info(void) const override;	// アイテム情報
 	void Drop(void) const override;	// アイテム破棄
+	std::string Detail(void) const override;	// アイテム名前
 
 private:
 	// メンバ変数
