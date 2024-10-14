@@ -370,14 +370,13 @@ void CStartStateCreateName::UpdateDecide(void)
 {
 	if (input::Decide())
 	{
-		std::wstring wsName = m_pName->GetWideStr();	// 名前の文字列
-
 		// 選択肢に応じて操作を変更
+		std::wstring wsName = m_pName->GetWideStr();	// 名前の文字列
 		switch (m_curSelect.y)
 		{ // 現在の行選択肢ごとの処理
 		default:	// 文字選択
 
-			if ((int)wsName.size() < MAX_STR_NAME)
+			if (m_pName->GetNumChar() < MAX_STR_NAME)
 			{ // 文字数が最大ではない場合
 
 				// 追加する文字列を取得
