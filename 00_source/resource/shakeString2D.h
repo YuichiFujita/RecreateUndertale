@@ -36,7 +36,20 @@ public:
 	void SetVec3Position(const D3DXVECTOR3& rPos) override;	// 位置設定
 
 	// 静的メンバ関数
-	static CShakeString2D *Create	// 生成
+	static CShakeString2D *Create	// 生成 (マルチバイト文字列)
+	( // 引数
+		const std::string &rFilePass,	// フォントパス
+		const bool bItalic,				// イタリック
+		const std::string &rStr,		// 指定文字列
+		const D3DXVECTOR3 &rPos,		// 原点位置
+		const float fNextTime = 0.1f,			// 文字振動の待機時間
+		const float fMove = 1.0f,				// 振動移動量
+		const float fHeight = 100.0f,			// 文字縦幅
+		const EAlignX alignX = XALIGN_CENTER,	// 横配置
+		const D3DXVECTOR3& rRot = VEC3_ZERO,	// 原点向き
+		const D3DXCOLOR& rCol = XCOL_WHITE		// 色
+	);
+	static CShakeString2D *Create	// 生成 (ワイド文字列)
 	( // 引数
 		const std::string &rFilePass,	// フォントパス
 		const bool bItalic,				// イタリック

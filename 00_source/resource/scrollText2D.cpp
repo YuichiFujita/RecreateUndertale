@@ -114,7 +114,28 @@ void CScrollText2D::SetEnableDraw(const bool bDraw)
 }
 
 //============================================================
-//	文字列の先頭追加処理
+//	文字列の先頭追加処理 (マルチバイト文字列)
+//============================================================
+HRESULT CScrollText2D::PushFrontString(const std::string& rStr)
+{
+	// 文字列をワイド変換
+	std::wstring wsStr = useful::MultiByteToWide(rStr);
+
+	// 文字列を先頭に追加
+	if (FAILED(PushFrontString(wsStr)))
+	{ // 追加に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
+
+	// 成功を返す
+	return S_OK;
+}
+
+//============================================================
+//	文字列の先頭追加処理 (ワイド文字列)
 //============================================================
 HRESULT CScrollText2D::PushFrontString(const std::wstring& rStr)
 {
@@ -151,7 +172,28 @@ HRESULT CScrollText2D::PushFrontString(const std::wstring& rStr)
 }
 
 //============================================================
-//	文字列の最後尾追加処理
+//	文字列の最後尾追加処理 (マルチバイト文字列)
+//============================================================
+HRESULT CScrollText2D::PushBackString(const std::string& rStr)
+{
+	// 文字列をワイド変換
+	std::wstring wsStr = useful::MultiByteToWide(rStr);
+
+	// 文字列を最後尾に追加
+	if (FAILED(PushBackString(wsStr)))
+	{ // 追加に失敗した場合
+
+		// 失敗を返す
+		assert(false);
+		return E_FAIL;
+	}
+
+	// 成功を返す
+	return S_OK;
+}
+
+//============================================================
+//	文字列の最後尾追加処理 (ワイド文字列)
 //============================================================
 HRESULT CScrollText2D::PushBackString(const std::wstring& rStr)
 {

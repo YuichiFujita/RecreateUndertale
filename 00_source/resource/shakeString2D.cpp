@@ -100,7 +100,81 @@ void CShakeString2D::SetVec3Position(const D3DXVECTOR3& rPos)
 }
 
 //============================================================
-//	生成処理
+//	生成処理 (マルチバイト文字列)
+//============================================================
+CShakeString2D *CShakeString2D::Create
+(
+	const std::string &rFilePass,	// フォントパス
+	const bool bItalic,				// イタリック
+	const std::string &rStr,		// 指定文字列
+	const D3DXVECTOR3 &rPos,		// 原点位置
+	const float fNextTime,			// 文字振動の待機時間
+	const float fMove,				// 振動移動量
+	const float fHeight,			// 文字縦幅
+	const EAlignX alignX,			// 横配置
+	const D3DXVECTOR3& rRot,		// 原点向き
+	const D3DXCOLOR& rCol			// 色
+)
+{
+	// 振動文字列2Dの生成
+	CShakeString2D *pShakeString2D = new CShakeString2D;
+	if (pShakeString2D == nullptr)
+	{ // 生成に失敗した場合
+
+		return nullptr;
+	}
+	else
+	{ // 生成に成功した場合
+
+		// 振動文字列2Dの初期化
+		if (FAILED(pShakeString2D->Init()))
+		{ // 初期化に失敗した場合
+
+			// 振動文字列2Dの破棄
+			SAFE_DELETE(pShakeString2D);
+			return nullptr;
+		}
+
+		// フォントを設定
+		pShakeString2D->SetFont(rFilePass, bItalic);
+
+		// 文字列を設定
+		if (FAILED(pShakeString2D->SetString(rStr)))
+		{ // 設定に失敗した場合
+
+			// 振動文字列2Dの破棄
+			SAFE_DELETE(pShakeString2D);
+			return nullptr;
+		}
+
+		// 原点位置を設定
+		pShakeString2D->SetVec3Position(rPos);
+
+		// 原点向きを設定
+		pShakeString2D->SetVec3Rotation(rRot);
+
+		// 色を設定
+		pShakeString2D->SetColor(rCol);
+
+		// 文字振動の待機時間を設定
+		pShakeString2D->SetNextTime(fNextTime);
+
+		// 振動の移動量を設定
+		pShakeString2D->SetShakeMove(fMove);
+
+		// 文字縦幅を設定
+		pShakeString2D->SetCharHeight(fHeight);
+
+		// 横配置を設定
+		pShakeString2D->SetAlignX(alignX);
+
+		// 確保したアドレスを返す
+		return pShakeString2D;
+	}
+}
+
+//============================================================
+//	生成処理 (ワイド文字列)
 //============================================================
 CShakeString2D *CShakeString2D::Create
 (

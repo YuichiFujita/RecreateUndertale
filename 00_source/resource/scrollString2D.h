@@ -35,10 +35,23 @@ public:
 	void Update(const float fDeltaTime) override;			// 更新
 	void Draw(CShader *pShader = nullptr) override;			// 描画
 	void SetEnableDraw(const bool bDraw) override;			// 描画状況設定
-	HRESULT SetString(const std::wstring& rStr) override;	// 文字列設定
+	HRESULT SetString(const std::string& rStr) override;	// 文字列設定 (マルチバイト文字列)
+	HRESULT SetString(const std::wstring& rStr) override;	// 文字列設定 (ワイド文字列)
 
 	// 静的メンバ関数
-	static CScrollString2D *Create	// 生成
+	static CScrollString2D *Create	// 生成 (マルチバイト文字列)
+	( // 引数
+		const std::string &rFilePass,	// フォントパス
+		const bool bItalic,				// イタリック
+		const std::string &rStr,		// 指定文字列
+		const D3DXVECTOR3 &rPos,		// 原点位置
+		const float fNextTime = 0.1f,			// 文字表示の待機時間
+		const float fHeight = 100.0f,			// 文字縦幅
+		const EAlignX alignX = XALIGN_CENTER,	// 横配置
+		const D3DXVECTOR3& rRot = VEC3_ZERO,	// 原点向き
+		const D3DXCOLOR& rCol = XCOL_WHITE		// 色
+	);
+	static CScrollString2D *Create	// 生成 (ワイド文字列)
 	( // 引数
 		const std::string &rFilePass,	// フォントパス
 		const bool bItalic,				// イタリック
