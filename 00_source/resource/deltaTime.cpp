@@ -8,7 +8,6 @@
 //	インクルードファイル
 //************************************************************
 #include "deltaTime.h"
-#include "manager.h"
 
 //************************************************************
 //	親クラス [CDeltaTime] のメンバ関数
@@ -17,9 +16,11 @@
 //	コンストラクタ
 //============================================================
 CDeltaTime::CDeltaTime() :
-	m_dwOldTime	(0),	// 前回の処理開始時刻
-	m_dwCurTime	(0),	// 今回の処理開始時刻
-	m_fTime		(0.0f)	// 処理の経過時間
+	m_dwOldTime		(0),	// 前回の処理開始時刻
+	m_dwCurTime		(0),	// 今回の処理開始時刻
+	m_fDeltaTime	(0.0f),	// 処理の経過時間
+	m_fDeltaRate	(0.0f),	// 経過時間の割合
+	m_fSlowRate		(0.0f)	// 速度低下の割合
 {
 
 }
@@ -38,9 +39,11 @@ CDeltaTime::~CDeltaTime()
 HRESULT CDeltaTime::Init(void)
 {
 	// メンバ変数を初期化
-	m_dwOldTime	= timeGetTime();	// 前回の処理開始時刻
-	m_dwCurTime	= timeGetTime();	// 今回の処理開始時刻
-	m_fTime		= 0.0f;				// 処理の経過時間
+	m_dwOldTime		= timeGetTime();	// 前回の処理開始時刻
+	m_dwCurTime		= m_dwOldTime;		// 今回の処理開始時刻
+	m_fDeltaTime	= 0.0f;				// 処理の経過時間
+	m_fDeltaRate	= 0.0f;				// 経過時間の割合
+	m_fSlowRate		= 1.0f;				// 速度低下の割合
 
 	// 成功を返す
 	return S_OK;
@@ -72,7 +75,10 @@ void CDeltaTime::Update(void)
 	dwDiffDeltaTime = m_dwCurTime - m_dwOldTime;
 
 	// 経過時間を計算
-	m_fTime = dwDiffDeltaTime * 0.001f;
+	m_fDeltaTime = dwDiffDeltaTime * 0.001f;
+
+	// 経過時間の割合を計算
+	m_fDeltaRate = m_fDeltaTime / (1.0f / 60.0f);
 }
 
 //============================================================

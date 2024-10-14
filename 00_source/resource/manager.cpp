@@ -508,8 +508,9 @@ void CManager::Update(void)
 	assert(m_pDeltaTime != nullptr);
 	m_pDeltaTime->Update();
 
-	// デルタタイムを取得
-	const float fDeltaTime = m_pDeltaTime->GetTime();
+	const float fDeltaTime = m_pDeltaTime->GetDeltaTime();	// 経過時間
+	const float fDeltaRate = m_pDeltaTime->GetDeltaRate();	// 経過時間の割合
+	const float fSlowRate = m_pDeltaTime->GetSlowRate();	// 速度低下の割合
 
 	// パッドの更新
 	assert(m_pPad != nullptr);
