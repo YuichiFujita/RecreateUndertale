@@ -8,6 +8,7 @@
 //	インクルードファイル
 //************************************************************
 #include "deltaTime.h"
+#include "main.h"
 
 //************************************************************
 //	親クラス [CDeltaTime] のメンバ関数
@@ -78,7 +79,7 @@ void CDeltaTime::Update(void)
 	m_fDeltaTime = dwDiffDeltaTime * 0.001f;
 
 	// 経過時間の割合を計算
-	m_fDeltaRate = m_fDeltaTime / (1.0f / 60.0f);
+	m_fDeltaRate = m_fDeltaTime / (1.0f / (float)main::FPS);
 }
 
 //============================================================
