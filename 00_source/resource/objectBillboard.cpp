@@ -385,6 +385,18 @@ void CObjectBillboard::BindTexture(const char *pTexturePass)
 }
 
 //============================================================
+//	透明度の設定処理
+//============================================================
+void CObjectBillboard::SetAlpha(const float fAlpha)
+{
+	// 引数の透明度を代入
+	m_col.a = fAlpha;
+
+	// 色の設定
+	SetColor(m_col);
+}
+
+//============================================================
 //	色の設定処理
 //============================================================
 void CObjectBillboard::SetColor(const D3DXCOLOR& rCol)

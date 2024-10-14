@@ -67,11 +67,13 @@ public:
 	CRenderState *GetRenderState(void);			// レンダーステート情報取得
 	void BindTexture(const int nTextureID);		// テクスチャ割当 (インデックス)
 	void BindTexture(const char *pTexturePass);	// テクスチャ割当 (パス)
+	void SetAlpha(const float fAlpha);			// 透明度設定
 	void SetColor(const D3DXCOLOR& rCol);		// 色設定
 	HRESULT SetPattern(const POSGRID2& rPart);	// 分割数設定
-	int GetTextureIndex(void) const		{ return m_nTextureID; }	// テクスチャインデックス取得
-	D3DXCOLOR GetColor(void) const		{ return m_meshWall.col; }	// 色取得
-	POSGRID2 GetPattern(void) const		{ return m_part; }			// 分割数取得
+	int GetTextureIndex(void) const		{ return m_nTextureID; }		// テクスチャインデックス取得
+	float GetAlpha(void) const			{ return m_meshWall.col.a; }	// 透明度取得
+	D3DXCOLOR GetColor(void) const		{ return m_meshWall.col; }		// 色取得
+	POSGRID2 GetPattern(void) const		{ return m_part; }				// 分割数取得
 
 protected:
 	// メンバ関数

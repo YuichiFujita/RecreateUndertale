@@ -295,6 +295,18 @@ void CObjectMeshCircle::BindTexture(const char *pTexturePass)
 }
 
 //============================================================
+//	透明度の設定処理
+//============================================================
+void CObjectMeshCircle::SetAlpha(const float fAlpha)
+{
+	// 引数の透明度を設定
+	m_meshCircle.col.a = fAlpha;
+
+	// 色の設定
+	SetColor(m_meshCircle.col);
+}
+
+//============================================================
 //	色の設定処理
 //============================================================
 void CObjectMeshCircle::SetColor(const D3DXCOLOR& rCol)

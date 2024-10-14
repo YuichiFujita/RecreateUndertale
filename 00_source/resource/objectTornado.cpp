@@ -310,10 +310,10 @@ CObjectTornado *CObjectTornado::Create
 		pTornado->SetOuterPlusY(fOuterPlusY);
 
 		// 生成時の横ずれ量を設定
-		pTornado->SetWidth(fSetWidth);
+		pTornado->SetCreateWidth(fSetWidth);
 
 		// 生成時の透明度を設定
-		pTornado->SetAlpha(fSetAlpha);
+		pTornado->SetCreateAlpha(fSetAlpha);
 
 		// 横ずれの加算量を設定
 		pTornado->SetAddWidth(fAddWidth);
@@ -466,6 +466,18 @@ void CObjectTornado::SetMatrixParent(D3DXMATRIX *pMtxParent)
 }
 
 //============================================================
+//	透明度の設定処理
+//============================================================
+void CObjectTornado::SetAlpha(const float fAlpha)
+{
+	// 引数の透明度を設定
+	m_tornado.col.a = fAlpha;
+
+	// 色の設定
+	SetColor(m_tornado.col);
+}
+
+//============================================================
 //	色の設定処理
 //============================================================
 void CObjectTornado::SetColor(const D3DXCOLOR& rCol)
@@ -516,7 +528,7 @@ void CObjectTornado::SetOuterPlusY(const float fOuterPlusY)
 //============================================================
 //	生成時の横ずれ量の設定処理
 //============================================================
-void CObjectTornado::SetWidth(const float fSetWidth)
+void CObjectTornado::SetCreateWidth(const float fSetWidth)
 {
 	// 引数の生成時の横ずれ量を設定
 	m_tornado.fSetWidth = fSetWidth;
@@ -528,7 +540,7 @@ void CObjectTornado::SetWidth(const float fSetWidth)
 //============================================================
 //	生成時の透明度の設定処理
 //============================================================
-void CObjectTornado::SetAlpha(const float fSetAlpha)
+void CObjectTornado::SetCreateAlpha(const float fSetAlpha)
 {
 	// 引数の生成時の透明度を設定
 	m_tornado.fSetAlpha = fSetAlpha;

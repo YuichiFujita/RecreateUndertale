@@ -324,6 +324,18 @@ void CObjectMeshField::BindTexture(const char *pTexturePass)
 }
 
 //============================================================
+//	透明度の設定処理
+//============================================================
+void CObjectMeshField::SetAlpha(const float fAlpha)
+{
+	// 引数の透明度を設定
+	m_meshField.col.a = fAlpha;
+
+	// 色の設定
+	SetColor(m_meshField.col);
+}
+
+//============================================================
 //	色の設定処理
 //============================================================
 void CObjectMeshField::SetColor(const D3DXCOLOR& rCol)

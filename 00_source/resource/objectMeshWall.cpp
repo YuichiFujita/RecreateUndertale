@@ -299,6 +299,18 @@ void CObjectMeshWall::BindTexture(const char *pTexturePass)
 }
 
 //============================================================
+//	透明度の設定処理
+//============================================================
+void CObjectMeshWall::SetAlpha(const float fAlpha)
+{
+	// 引数の透明度を設定
+	m_meshWall.col.a = fAlpha;
+
+	// 色の設定
+	SetColor(m_meshWall.col);
+}
+
+//============================================================
 //	色の設定処理
 //============================================================
 void CObjectMeshWall::SetColor(const D3DXCOLOR& rCol)

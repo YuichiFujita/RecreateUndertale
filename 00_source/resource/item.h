@@ -39,7 +39,7 @@ public:
 	// 仮想関数
 	virtual HRESULT Init(void);	// 初期化
 	virtual void Uninit(void);	// 終了
-	virtual std::string Detail(void) const;	// 使用時の詳細文字列	// TODO：名前表示文字列の取得、DropText取得の作成
+	virtual std::string Detail(void) const;	// 使用時の詳細文字列
 
 	// 静的メンバ関数
 	static CItemData *Create(const EType type);	// 生成
@@ -51,6 +51,10 @@ public:
 	const ATextBox& GetUse(void) const		{ return m_vecUse; }		// 使用テキスト取得
 	void SetInfo(const ATextBox& rVecInfo)	{ m_vecInfo = rVecInfo; }	// 情報テキスト設定
 	const ATextBox& GetInfo(void) const		{ return m_vecInfo; }		// 情報テキスト取得
+
+	// TODO：DropText取得の作成
+	// TODO：UnityみたいにGetComponentで各子クラスにできるようにしよう。
+	//		 typeid使えば本当に型が変換後かの確認もできるし、ダメな時は関数呼ばなければいいしね
 
 private:
 	// メンバ変数

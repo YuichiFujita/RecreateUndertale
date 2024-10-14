@@ -314,6 +314,18 @@ void CObjectMeshCylinder::BindTexture(const char *pTexturePass)
 }
 
 //============================================================
+//	透明度の設定処理
+//============================================================
+void CObjectMeshCylinder::SetAlpha(const float fAlpha)
+{
+	// 引数の透明度を設定
+	m_meshCylinder.col.a = fAlpha;
+
+	// 色の設定
+	SetColor(m_meshCylinder.col);
+}
+
+//============================================================
 //	色の設定処理
 //============================================================
 void CObjectMeshCylinder::SetColor(const D3DXCOLOR& rCol)

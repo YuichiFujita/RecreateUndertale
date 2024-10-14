@@ -361,6 +361,18 @@ void CObjectMeshCube::BindTexture(const SFaceTex textureID)
 }
 
 //============================================================
+//	キューブ透明度の設定処理
+//============================================================
+void CObjectMeshCube::SetCubeAlpha(const float fAlpha)
+{
+	// 引数の透明度を設定
+	m_meshCube.aCol[CUBECOL_CUBE].a = fAlpha;
+
+	// キューブ色の設定
+	SetCubeColor(m_meshCube.aCol[CUBECOL_CUBE]);
+}
+
+//============================================================
 //	キューブ色の設定処理
 //============================================================
 void CObjectMeshCube::SetCubeColor(const D3DXCOLOR& rCol)
@@ -370,6 +382,18 @@ void CObjectMeshCube::SetCubeColor(const D3DXCOLOR& rCol)
 
 	// 頂点情報の設定
 	SetVtx();
+}
+
+//============================================================
+//	縁取り透明度の設定処理
+//============================================================
+void CObjectMeshCube::SetBorderAlpha(const float fAlpha)
+{
+	// 引数の透明度を設定
+	m_meshCube.aCol[CUBECOL_BORDER].a = fAlpha;
+
+	// 縁取り色の設定
+	SetBorderColor(m_meshCube.aCol[CUBECOL_BORDER]);
 }
 
 //============================================================

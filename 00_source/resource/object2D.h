@@ -45,8 +45,10 @@ public:
 	CRenderState *GetRenderState(void);			// レンダーステート情報取得
 	void BindTexture(const int nTextureID);		// テクスチャ割当 (インデックス)
 	void BindTexture(const char *pTexturePass);	// テクスチャ割当 (パス)
+	void SetAlpha(const float fAlpha);			// 透明度設定
 	void SetColor(const D3DXCOLOR& rCol);		// 色設定
 	int GetTextureIndex(void) const	{ return m_nTextureID; }	// テクスチャインデックス取得
+	float GetAlpha(void) const		{ return m_col.a; }			// 透明度取得
 	D3DXCOLOR GetColor(void) const	{ return m_col; }			// 色取得
 
 	// 静的メンバ関数

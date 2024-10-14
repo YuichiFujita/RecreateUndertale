@@ -292,6 +292,19 @@ void CObjectMeshSphere::BindTexture(const char *pTexturePass)
 }
 
 //============================================================
+//	“§–¾“x‚Ìİ’èˆ—
+//============================================================
+void CObjectMeshSphere::SetAlpha(const float fAlpha)
+{
+	for (int i = 0; i < DOME_MAX; i++)
+	{ // ”¼‹…‚Ì‘”•ªŒJ‚è•Ô‚·
+
+		// ˆø”‚Ì“§–¾“x‚ğİ’è
+		m_apDome[i]->SetAlpha(fAlpha);
+	}
+}
+
+//============================================================
 //	F‚Ìİ’èˆ—
 //============================================================
 void CObjectMeshSphere::SetColor(const D3DXCOLOR& rCol)

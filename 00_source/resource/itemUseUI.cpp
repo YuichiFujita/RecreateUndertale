@@ -122,7 +122,7 @@ void CItemUseUI::NextText(void)
 	CItemUI::NextText();
 
 	// TODO：回復量の記述はどうしようかな～
-	if (nTextIdx >= nNumText)
+	if (nTextIdx + 1 >= nNumText)
 	{ // 最終テキストの場合
 
 		PushBackString(L" ＊ そこそこ回復したで");

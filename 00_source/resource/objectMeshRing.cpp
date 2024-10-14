@@ -319,6 +319,18 @@ void CObjectMeshRing::BindTexture(const char *pTexturePass)
 }
 
 //============================================================
+//	透明度の設定処理
+//============================================================
+void CObjectMeshRing::SetAlpha(const float fAlpha)
+{
+	// 引数の透明度を設定
+	m_meshRing.col.a = fAlpha;
+
+	// 色の設定
+	SetColor(m_meshRing.col);
+}
+
+//============================================================
 //	色の設定処理
 //============================================================
 void CObjectMeshRing::SetColor(const D3DXCOLOR& rCol)

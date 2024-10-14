@@ -335,6 +335,22 @@ void CObjectMeshTube::BindTexture(const char *pTexturePass)
 }
 
 //============================================================
+//	透明度の設定処理
+//============================================================
+void CObjectMeshTube::SetAlpha(const float fAlpha)
+{
+	// 引数の透明度を設定
+	m_pCylinder->SetAlpha(fAlpha);
+
+	for (int i = 0; i < COVER_MAX; i++)
+	{ // 蓋の総数分繰り返す
+
+		// 引数の透明度を設定
+		m_apCover[i]->SetAlpha(fAlpha);
+	}
+}
+
+//============================================================
 //	色の設定処理
 //============================================================
 void CObjectMeshTube::SetColor(const D3DXCOLOR& rCol)

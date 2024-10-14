@@ -65,11 +65,13 @@ public:
 	void SetRenderState(CRenderState renderState);	// レンダーステート情報設定
 	void BindTexture(const int nTextureID);			// テクスチャ割当 (インデックス)
 	void BindTexture(const char *pTexturePass);		// テクスチャ割当 (パス)
+	void SetAlpha(const float fAlpha);				// 透明度設定
 	void SetColor(const D3DXCOLOR& rCol);			// 色設定
 	void SetRadius(const float fRadius);			// 半径設定
 	HRESULT SetPattern(const POSGRID2& rPart);		// 分割数設定
 	void SetTexPattern(const POSGRID2& rTexPart);	// テクスチャ分割数設定
 	int GetTextureIndex(void) const		{ return m_apDome[DOME_TOP]->GetTextureIndex(); }	// テクスチャインデックス取得
+	float GetAlpha(void) const			{ return m_apDome[DOME_TOP]->GetAlpha(); }			// 透明度取得
 	D3DXCOLOR GetColor(void) const		{ return m_apDome[DOME_TOP]->GetColor(); }			// 色取得
 	float GetRadius(void) const			{ return m_apDome[DOME_TOP]->GetRadius(); }			// 半径取得
 	POSGRID2 GetPattern(void) const		{ return m_apDome[DOME_TOP]->GetPattern(); }		// 分割数取得

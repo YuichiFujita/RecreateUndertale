@@ -77,6 +77,7 @@ public:
 	CRenderState *GetRenderState(void);				// レンダーステート情報取得
 	void BindTexture(const int nTextureID);			// テクスチャ割当 (インデックス)
 	void BindTexture(const char *pTexturePass);		// テクスチャ割当 (パス)
+	void SetAlpha(const float fAlpha);				// 透明度設定
 	void SetColor(const D3DXCOLOR& rCol);			// 色設定
 	void SetRadius(const float fRadius);			// 半径設定
 	void SetHeight(const float fHeight);			// 縦幅設定
@@ -84,6 +85,7 @@ public:
 	HRESULT SetPattern(const POSGRID2& rPart);		// 分割数設定
 	void SetTexPattern(const POSGRID2& rTexPart);	// テクスチャ分割数設定
 	int GetTextureIndex(void) const		{ return m_nTextureID; }			// テクスチャインデックス取得
+	float GetAlpha(void) const			{ return m_meshCylinder.col.a; }	// 透明度取得
 	D3DXCOLOR GetColor(void) const		{ return m_meshCylinder.col; }		// 色取得
 	float GetRadius(void) const			{ return m_meshCylinder.fRadius; }	// 半径取得
 	float GetHeight(void) const			{ return m_meshCylinder.fHeight; }	// 縦幅取得

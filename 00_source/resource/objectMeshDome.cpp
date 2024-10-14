@@ -309,6 +309,18 @@ void CObjectMeshDome::BindTexture(const char *pTexturePass)
 }
 
 //============================================================
+//	透明度の設定処理
+//============================================================
+void CObjectMeshDome::SetAlpha(const float fAlpha)
+{
+	// 引数の透明度を設定
+	m_meshDome.col.a = fAlpha;
+
+	// 色の設定
+	SetColor(m_meshDome.col);
+}
+
+//============================================================
 //	色の設定処理
 //============================================================
 void CObjectMeshDome::SetColor(const D3DXCOLOR& rCol)
