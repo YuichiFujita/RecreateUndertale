@@ -231,14 +231,14 @@ HRESULT CSelectStatusUI::Init(void)
 	//	名前の初期化 / 設定
 	//--------------------------------------------------------
 	// 表示する名前文字列を作成
-	std::wstring wsName = useful::SandString(L"\"", L"おぷおぷ", L"\"");	// TODO：名前の外部読込
+	std::string sName = useful::SandString("\"", "おぷおぷ", "\"");	// TODO：名前の外部読込
 
 	// 名前の生成
 	m_pName = CString2D::Create
 	( // 引数
 		FONT,			// フォントパス
 		ITALIC,			// イタリック
-		wsName,			// 指定文字列
+		sName,			// 指定文字列
 		name::POS,		// 原点位置
 		HEIGHT,			// 文字縦幅
 		name::ALIGN_X,	// 横配置
@@ -308,8 +308,8 @@ HRESULT CSelectStatusUI::Init(void)
 
 	// TODO：ステータス情報読込
 #if 1
-	m_pLvHpValue->PushBackString(L"1");
-	m_pLvHpValue->PushBackString(useful::SandString(L"20", L"/", L"20"));
+	m_pLvHpValue->PushBackString("1");
+	m_pLvHpValue->PushBackString(useful::SandString("20", "/", "20"));
 #endif
 
 	//--------------------------------------------------------
@@ -372,14 +372,14 @@ HRESULT CSelectStatusUI::Init(void)
 	// TODO：ステータス情報 / 装備情報の読込
 #if 1
 	// 攻撃力のステータス文字列を追加
-	std::wstring wsAtk = std::to_wstring(0);							// 自前のステータスを文字列に追加
-	wsAtk.append(useful::SandString(L" (", std::to_wstring(3), L")"));	// 装備のプラスステータスを文字列に追加
-	m_pAtkDefValue->PushBackString(wsAtk);								// 作成した文字列を割当
+	std::string sAtk = std::to_string(0);							// 自前のステータスを文字列に追加
+	sAtk.append(useful::SandString(" (", std::to_string(3), ")"));	// 装備のプラスステータスを文字列に追加
+	m_pAtkDefValue->PushBackString(sAtk);							// 作成した文字列を割当
 
 	// 防御力のステータス文字列を追加
-	std::wstring wsDef = std::to_wstring(0);							// 自前のステータスを文字列に追加
-	wsDef.append(useful::SandString(L" (", std::to_wstring(3), L")"));	// 装備のプラスステータスを文字列に追加
-	m_pAtkDefValue->PushBackString(wsDef);								// 作成した文字列を割当
+	std::string sDef = std::to_string(0);							// 自前のステータスを文字列に追加
+	sDef.append(useful::SandString(" (", std::to_string(3), ")"));	// 装備のプラスステータスを文字列に追加
+	m_pAtkDefValue->PushBackString(sDef);							// 作成した文字列を割当
 #endif
 
 	//--------------------------------------------------------
@@ -441,8 +441,8 @@ HRESULT CSelectStatusUI::Init(void)
 
 	// TODO：ステータス情報読込
 #if 1
-	m_pExpNextValue->PushBackString(L"0");
-	m_pExpNextValue->PushBackString(L"10");
+	m_pExpNextValue->PushBackString("0");
+	m_pExpNextValue->PushBackString("10");
 #endif
 
 	//--------------------------------------------------------
@@ -504,8 +504,8 @@ HRESULT CSelectStatusUI::Init(void)
 
 	// TODO：装備情報から名称取得
 #if 1
-	m_pWpnAmrName->PushBackString(L"ぼうきれ");
-	m_pWpnAmrName->PushBackString(L"ほうたい");
+	m_pWpnAmrName->PushBackString("ぼうきれ");
+	m_pWpnAmrName->PushBackString("ほうたい");
 #endif
 
 	//--------------------------------------------------------
@@ -551,7 +551,7 @@ HRESULT CSelectStatusUI::Init(void)
 
 	// TODO：所持金取得
 #if 1
-	m_pGoldValue->SetString(L"0");
+	m_pGoldValue->SetString("0");
 #endif
 
 	// TODO：キル数取得
@@ -604,7 +604,7 @@ HRESULT CSelectStatusUI::Init(void)
 		m_pKillsValue->SetPriority(PRIORITY);
 
 		// 表示文字列を指定
-		m_pKillsValue->SetString(std::to_wstring(nNumKill));
+		m_pKillsValue->SetString(std::to_string(nNumKill));
 	}
 
 	// 成功を返す

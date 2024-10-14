@@ -45,8 +45,10 @@ public:
 
 	// メンバ関数
 	void ChangeText(const AText& rText);	// テキスト変更
-	HRESULT PushFrontString(const std::wstring& rStr)	{ return m_pText->PushFrontString(rStr); }	// 文字列の先頭追加
-	HRESULT PushBackString(const std::wstring& rStr)	{ return m_pText->PushBackString(rStr); }	// 文字列の最後尾追加
+	HRESULT PushFrontString(const std::string& rStr)	{ return m_pText->PushFrontString(rStr); }	// 文字列の先頭追加 (マルチバイト文字列)
+	HRESULT PushFrontString(const std::wstring& rStr)	{ return m_pText->PushFrontString(rStr); }	// 文字列の先頭追加 (ワイド文字列)
+	HRESULT PushBackString(const std::string& rStr)		{ return m_pText->PushBackString(rStr); }	// 文字列の最後尾追加 (マルチバイト文字列)
+	HRESULT PushBackString(const std::wstring& rStr)	{ return m_pText->PushBackString(rStr); }	// 文字列の最後尾追加 (ワイド文字列)
 	void DeleteString(const int nStrID)			{ m_pText->DeleteString(nStrID); }	// 文字列削除
 	void DeleteStringAll(void)					{ m_pText->DeleteStringAll(); }		// 文字列全削除
 	void SetTextEnableDraw(const bool bDraw)	{ m_pText->SetEnableDraw(bDraw); };	// 描画状況設定

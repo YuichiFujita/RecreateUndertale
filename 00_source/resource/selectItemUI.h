@@ -116,8 +116,10 @@ public:
 	);
 
 	// メンバ関数
-	HRESULT PushFrontString(const std::wstring& rStr)	{ return m_pTextBox->PushFrontString(rStr); }	// 文字列の先頭追加
-	HRESULT PushBackString(const std::wstring& rStr)	{ return m_pTextBox->PushBackString(rStr); }	// 文字列の最後尾追加
+	HRESULT PushFrontString(const std::string& rStr)	{ return m_pTextBox->PushFrontString(rStr); }	// 文字列の先頭追加 (マルチバイト文字列)
+	HRESULT PushFrontString(const std::wstring& rStr)	{ return m_pTextBox->PushFrontString(rStr); }	// 文字列の先頭追加 (ワイド文字列)
+	HRESULT PushBackString(const std::string& rStr)		{ return m_pTextBox->PushBackString(rStr); }	// 文字列の最後尾追加 (マルチバイト文字列)
+	HRESULT PushBackString(const std::wstring& rStr)	{ return m_pTextBox->PushBackString(rStr); }	// 文字列の最後尾追加 (ワイド文字列)
 	void DeleteString(const int nStrID)			{ m_pTextBox->DeleteString(nStrID); }		// 文字列削除
 	void DeleteStringAll(void)					{ m_pTextBox->DeleteStringAll(); }			// 文字列全削除
 	void ChangeTextBox(const AText& rText)		{ m_pTextBox->ChangeText(rText); }			// テキスト変更

@@ -193,9 +193,7 @@ HRESULT CSelectItemUI::Init(void)
 		m_vecItemName[i].m_pName->SetPriority(PRIORITY);
 
 		// アイテム名設定
-		std::string sName = pItem->GetInfo(m_vecItemName[i].nItemID).GetName();	// アイテム名
-		std::wstring wsName = useful::MultiByteToWide(sName);	// ワイド変換アイテム名
-		m_vecItemName[i].m_pName->SetString(wsName);	// 文字列を設定
+		m_vecItemName[i].m_pName->SetString(pItem->GetInfo(m_vecItemName[i].nItemID).GetName());
 	}
 
 	// 成功を返す

@@ -510,7 +510,8 @@ namespace useful
 	void NormalizeRot(D3DXVECTOR3& rRot);			// 三軸向きの正規化
 	void PathToBaseName(std::string *pPath);		// パスのベースネーム変換
 	void StandardizePathPart(std::string *pPath);	// パス区切りの標準化
-	std::wstring SandString(const std::wstring &rTop, const std::wstring &rMain, const std::wstring &rCur);	// 文字列の左右追加
+	std::string SandString(const std::string &rTop, const std::string &rMain, const std::string &rCur);		// 文字列の左右追加 (マルチバイト文字列)
+	std::wstring SandString(const std::wstring &rTop, const std::wstring &rMain, const std::wstring &rCur);	// 文字列の左右追加 (ワイド文字列)
 	std::wstring MultiByteToWide(const std::string &rSrcStr);	// マルチバイト文字列のワイド文字列変換
 	std::string WideToMultiByte(const std::wstring &rSrcStr);	// ワイド文字列のマルチバイト文字列変換
 	void VecToRot(const D3DXVECTOR3& rVec, float *pPhi, float *pTheta);		// ベクトルの向き変換
