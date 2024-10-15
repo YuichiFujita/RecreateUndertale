@@ -212,7 +212,7 @@ CValueUI *CValueUI::Create
 		pMultiModel->SetVec3Rotation(rRotValue);
 
 		// タイトル大きさを設定
-		pValueUI->SetSizingTitle(rSizeTitle);
+		pValueUI->SetSizeTitle(rSizeTitle);
 
 		// 数字大きさを設定
 		pMultiModel->SetVec3Size(rSizeValue);
@@ -397,7 +397,7 @@ void CValueUI::SetRotationTitle(const D3DXVECTOR3& rRot)
 //============================================================
 //	タイトル大きさの設定処理
 //============================================================
-void CValueUI::SetSizingTitle(const D3DXVECTOR3& rSize)
+void CValueUI::SetSizeTitle(const D3DXVECTOR3& rSize)
 {
 	// 引数の大きさを設定
 	m_pTitle->SetVec3Size(rSize);

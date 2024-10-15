@@ -192,7 +192,7 @@ void CTileColl::CollisionTile
 
 	D3DXVECTOR3 posCur = pChara2D->CalcCollOffsetPosition(rPosCur, rRot);	// 判定原点の現在位置
 	D3DXVECTOR3 posOld = pChara2D->CalcCollOffsetPosition(rPosOld, rRot);	// 判定原点の過去位置
-	D3DXVECTOR3 sizeColl = pChara2D->GetCollSizing() * 0.5f;				// 判定大きさ
+	D3DXVECTOR3 sizeColl = pChara2D->GetCollSize() * 0.5f;					// 判定大きさ
 
 	// 判定原点の現在位置を保存
 	D3DXVECTOR3 posSave = posCur;

@@ -112,7 +112,7 @@ HRESULT CSelectItemUI::Init(void)
 	SetFrameRotation(frame::ROT);
 
 	// ƒtƒŒ[ƒ€‚Ì‘å‚«‚³‚ğİ’è
-	SetFrameSizing(frame::SIZE);
+	SetFrameSize(frame::SIZE);
 
 	//--------------------------------------------------------
 	//	‘I‘ğ‚Ì‰Šú‰» / İ’è

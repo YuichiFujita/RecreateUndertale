@@ -180,7 +180,7 @@ void CTileTrans::CollisionTile
 	if (pChara2D == nullptr) { assert(false); return; }
 
 	D3DXVECTOR3 posOffset = pChara2D->CalcCollOffsetPosition(rPos, rRot);	// 判定原点位置
-	D3DXVECTOR3 sizeColl = pChara2D->GetCollSizing() * 0.5f;				// 判定大きさ
+	D3DXVECTOR3 sizeColl = pChara2D->GetCollSize() * 0.5f;					// 判定大きさ
 
 	// 遷移タイルとの当たり判定
 	CollisionTile(posOffset, sizeColl, sizeColl);

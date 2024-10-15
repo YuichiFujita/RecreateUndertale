@@ -168,10 +168,10 @@ CTimerUI *CTimerUI::Create
 		pTimerUI->SetVec3Rotation(rRot);
 
 		// ”Žš‚Ì‘å‚«‚³‚ðÝ’è
-		pTimerUI->SetSizingValue(rSizeValue);
+		pTimerUI->SetSizeValue(rSizeValue);
 
 		// ‹æØ‚è‚Ì‘å‚«‚³‚ðÝ’è
-		pTimerUI->SetSizingPart(rSizePart);
+		pTimerUI->SetSizePart(rSizePart);
 
 		// ”Žš‚Ì‹ó”’‚ðÝ’è
 		pTimerUI->SetSpaceValue(rSpaceValue);

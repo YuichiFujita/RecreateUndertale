@@ -64,7 +64,7 @@ HRESULT CSelectPhoneUI::Init(void)
 	SetFrameRotation(frame::ROT);
 
 	// ƒtƒŒ[ƒ€‚Ì‘å‚«‚³‚ğİ’è
-	SetFrameSizing(frame::SIZE);
+	SetFrameSize(frame::SIZE);
 
 	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;

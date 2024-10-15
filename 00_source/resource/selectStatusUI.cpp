@@ -222,7 +222,7 @@ HRESULT CSelectStatusUI::Init(void)
 	SetFrameRotation(frame::ROT);
 
 	// フレームの大きさを設定
-	SetFrameSizing(frame::SIZE);
+	SetFrameSize(frame::SIZE);
 
 	// ソウルカーソルの描画をOFFにする
 	SetSoulCursorDraw(false);

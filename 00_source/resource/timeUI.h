@@ -103,8 +103,8 @@ public:
 
 	// メンバ関数
 	void SetValueType(const CValue::EType type);	// 数字の種類設定
-	void SetSizingValue(const D3DXVECTOR3& rSize);	// 区切りの大きさ設定
-	void SetSizingPart(const D3DXVECTOR3& rSize);	// 数字の大きさ設定
+	void SetSizeValue(const D3DXVECTOR3& rSize);	// 区切りの大きさ設定
+	void SetSizePart(const D3DXVECTOR3& rSize);		// 数字の大きさ設定
 	void SetSpaceValue(const D3DXVECTOR3& rSpace);	// 区切りの空白設定
 	void SetSpacePart(const D3DXVECTOR3& rSpace);	// 数字の空白設定
 	void SetAlpha(const float fAlpha);				// 透明度の設定
@@ -115,8 +115,8 @@ public:
 	float GetTimeHeight(void) const;				// タイム全体の縦幅取得
 	D3DXVECTOR3 GetTimeSize(void) const;			// タイム全体の大きさ取得
 	CValue::EType GetValueType(void) const	{ return m_type; }			// 数字の種類取得
-	D3DXVECTOR3 GetSizingValue(void) const	{ return m_sizeValue; }		// 区切りの大きさ取得
-	D3DXVECTOR3 GetSizingPart(void) const	{ return m_sizePart; }		// 数字の大きさ取得
+	D3DXVECTOR3 GetSizeValue(void) const	{ return m_sizeValue; }		// 区切りの大きさ取得
+	D3DXVECTOR3 GetSizePart(void) const		{ return m_sizePart; }		// 数字の大きさ取得
 	D3DXVECTOR3 GetSpaceValue(void) const	{ return m_spaceValue; }	// 区切りの空白取得
 	D3DXVECTOR3 GetSpacePart(void) const	{ return m_spacePart; }		// 数字の空白取得
 	float GetAlpha(void) const				{ return m_col.a; }			// 透明度の設定

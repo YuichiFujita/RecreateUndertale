@@ -261,8 +261,8 @@ CGauge2D *CGauge2D::Create
 		pGauge2D->SetOffsetFrame(rOffsetFrame);
 
 		// 大きさを設定
-		pGauge2D->SetSizingGauge(rSizeGauge);	// ゲージ大きさ
-		pGauge2D->SetSizingFrame(rSizeFrame);	// 枠大きさ
+		pGauge2D->SetSizeGauge(rSizeGauge);	// ゲージ大きさ
+		pGauge2D->SetSizeFrame(rSizeFrame);	// 枠大きさ
 
 		// 色を設定
 		pGauge2D->SetColorFront(rColFront);	// 表ゲージ色
@@ -405,7 +405,7 @@ void CGauge2D::SetOffsetFrame(const D3DXVECTOR3& rOffset)
 //============================================================
 //	ゲージ大きさの設定処理
 //============================================================
-void CGauge2D::SetSizingGauge(const D3DXVECTOR3& rSize)
+void CGauge2D::SetSizeGauge(const D3DXVECTOR3& rSize)
 {
 	// 引数のゲージ大きさを代入
 	m_sizeGauge = rSize;
@@ -420,7 +420,7 @@ void CGauge2D::SetSizingGauge(const D3DXVECTOR3& rSize)
 //============================================================
 //	背景大きさの設定処理
 //============================================================
-void CGauge2D::SetSizingFrame(const D3DXVECTOR3& rSize)
+void CGauge2D::SetSizeFrame(const D3DXVECTOR3& rSize)
 {
 	// 引数の背景大きさを代入
 	m_sizeFrame = rSize;

@@ -458,7 +458,7 @@ D3DXVECTOR3 useful::GetMatrixRotation(const D3DXMATRIX& rMtx)
 //============================================================
 //	マトリックスの拡大率取得
 //============================================================
-D3DXVECTOR3 useful::GetMatrixScaling(const D3DXMATRIX& rMtx)
+D3DXVECTOR3 useful::GetMatrixScale(const D3DXMATRIX& rMtx)
 {
 	D3DXVECTOR3 scale;	// 計算結果の保存用
 

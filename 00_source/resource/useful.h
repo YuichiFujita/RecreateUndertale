@@ -501,7 +501,7 @@ namespace useful
 	float GetTexHeightFromAspect(const float fWidth, const int nTexID);		// 横幅からアスペクト比を考慮した縦幅取得
 	D3DXVECTOR3 GetMatrixPosition(const D3DXMATRIX& rMtx);	// マトリックス位置取得
 	D3DXVECTOR3 GetMatrixRotation(const D3DXMATRIX& rMtx);	// マトリックス向き取得
-	D3DXVECTOR3 GetMatrixScaling(const D3DXMATRIX& rMtx);	// マトリックス拡大率取得
+	D3DXVECTOR3 GetMatrixScale(const D3DXMATRIX& rMtx);		// マトリックス拡大率取得
 
 	// テンプレート関数
 	template<class T> T *ZeroClear(T *pClear);	// ゼロクリア

@@ -77,8 +77,8 @@ public:
 	void SetNum(const int nNum);						// ゲージ設定
 	void SetMaxNum(const int nMax);						// ゲージ最大値設定
 	void SetOffsetFrame(const D3DXVECTOR3& rOffset);	// 枠オフセット設定
-	void SetSizingGauge(const D3DXVECTOR3& rSize);		// ゲージ大きさ設定
-	void SetSizingFrame(const D3DXVECTOR3& rSize);		// 背景大きさ設定
+	void SetSizeGauge(const D3DXVECTOR3& rSize);		// ゲージ大きさ設定
+	void SetSizeFrame(const D3DXVECTOR3& rSize);		// 背景大きさ設定
 	void SetAlphaFront(const float fAlpha);				// 表ゲージ透明度取得
 	void SetColorFront(const D3DXCOLOR& rCol);			// 表ゲージ色設定
 	void SetAlphaBack(const float fAlpha);				// 裏ゲージ透明度取得
@@ -87,8 +87,8 @@ public:
 	int GetNum(void) const					{ return m_nNumGauge; }		// ゲージ取得
 	int GetMaxNum(void) const				{ return m_nMaxNumGauge; }	// ゲージ最大値取得
 	D3DXVECTOR3 GetOffsetFrame(void) const	{ return m_offsetFrame; }	// 枠オフセット取得
-	D3DXVECTOR3 GetSizingGauge(void) const	{ return m_sizeGauge; }		// ゲージ大きさ取得
-	D3DXVECTOR3 GetSizingFrame(void) const	{ return m_sizeFrame; }		// 背景大きさ取得
+	D3DXVECTOR3 GetSizeGauge(void) const	{ return m_sizeGauge; }		// ゲージ大きさ取得
+	D3DXVECTOR3 GetSizeFrame(void) const	{ return m_sizeFrame; }		// 背景大きさ取得
 	float GetAlphaFront(void) const			{ return m_colFront.a; }	// 表ゲージ透明度取得
 	D3DXCOLOR GetColorFront(void) const		{ return m_colFront; }		// 表ゲージ色取得
 	float GetAlphaBack(void) const			{ return m_colBack.a; }		// 裏ゲージ透明度取得

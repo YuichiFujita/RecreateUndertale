@@ -366,10 +366,10 @@ CTimeUI *CTimeUI::Create
 		pTimeUI->SetVec3Rotation(rRot);
 
 		// ”š‚Ì‘å‚«‚³‚ğİ’è
-		pTimeUI->SetSizingValue(rSizeValue);
+		pTimeUI->SetSizeValue(rSizeValue);
 
 		// ‹æØ‚è‚Ì‘å‚«‚³‚ğİ’è
-		pTimeUI->SetSizingPart(rSizePart);
+		pTimeUI->SetSizePart(rSizePart);
 
 		// ”š‚Ì‹ó”’‚ğİ’è
 		pTimeUI->SetSpaceValue(rSpaceValue);
@@ -431,7 +431,7 @@ void CTimeUI::SetValueType(const CValue::EType type)
 //============================================================
 //	”š‚Ì‘å‚«‚³‚Ìİ’èˆ—
 //============================================================
-void CTimeUI::SetSizingValue(const D3DXVECTOR3& rSize)
+void CTimeUI::SetSizeValue(const D3DXVECTOR3& rSize)
 {
 	// İ’è‚³‚ê‚½”š‚Ì‘å‚«‚³‚ğ•Û‘¶
 	m_sizeValue = rSize;
@@ -451,7 +451,7 @@ void CTimeUI::SetSizingValue(const D3DXVECTOR3& rSize)
 //============================================================
 //	‹æØ‚è‚Ì‘å‚«‚³‚Ìİ’èˆ—
 //============================================================
-void CTimeUI::SetSizingPart(const D3DXVECTOR3& rSize)
+void CTimeUI::SetSizePart(const D3DXVECTOR3& rSize)
 {
 	// İ’è‚³‚ê‚½‹æØ‚è‚Ì‘å‚«‚³‚ğ•Û‘¶
 	m_sizePart = rSize;

@@ -156,7 +156,7 @@ public:
 	int GetNumType(void)		{ return m_info.GetNumMotion(); }	// 種類総数取得
 	float GetCancelTime(const int nType) const	{ return m_info.vecMotion[nType].fCancelTime; }				// キャンセル時間取得
 	float GetComboTime(const int nType) const	{ return m_info.vecMotion[nType].fComboTime; }				// コンボ時間取得
-	D3DXVECTOR3 GetCollSizing(void) const		{ return m_info.vecMotion[m_info.nType].infoColl.size; }	// 判定大きさ取得
+	D3DXVECTOR3 GetCollSize(void) const			{ return m_info.vecMotion[m_info.nType].infoColl.size; }	// 判定大きさ取得
 
 	D3DXVECTOR3 CalcOriginOffsetPosition(const D3DXVECTOR3& rPos, const D3DXVECTOR3& rRot) const;	// 原点オフセット反映位置計算
 	D3DXVECTOR3 CalcCollOffsetPosition(const D3DXVECTOR3& rPos, const D3DXVECTOR3& rRot) const;		// 判定原点オフセット反映位置計算
