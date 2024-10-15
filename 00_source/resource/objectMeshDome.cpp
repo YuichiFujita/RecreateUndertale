@@ -72,7 +72,7 @@ HRESULT CObjectMeshDome::Init(void)
 
 	m_meshDome.pos		= VEC3_ZERO;		// 位置
 	m_meshDome.rot		= VEC3_ZERO;		// 向き
-	m_meshDome.col		= XCOL_WHITE;		// 色
+	m_meshDome.col		= color::White();	// 色
 	m_meshDome.texDir	= TEXDIR_OUTSIDE;	// テクスチャ方向
 	m_meshDome.fRadius	= 0.0f;				// 半径
 

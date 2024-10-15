@@ -27,15 +27,15 @@ namespace
 //	コンストラクタ
 //============================================================
 CObject2D::CObject2D(const CObject::ELabel label, const CObject::EDim dimension, const int nPriority) : CObject(label, dimension, nPriority),
-	m_pVtxBuff		(nullptr),		// 頂点バッファへのポインタ
-	m_pRenderState	(nullptr),		// レンダーステートの情報
-	m_pos			(VEC3_ZERO),	// 位置
-	m_rot			(VEC3_ZERO),	// 向き
-	m_size			(VEC3_ZERO),	// 大きさ
-	m_col			(XCOL_WHITE),	// 色
-	m_fAngle		(0.0f),			// 対角線の角度
-	m_fLength		(0.0f),			// 対角線の長さ
-	m_nTextureID	(0)				// テクスチャインデックス
+	m_pVtxBuff		(nullptr),			// 頂点バッファへのポインタ
+	m_pRenderState	(nullptr),			// レンダーステートの情報
+	m_pos			(VEC3_ZERO),		// 位置
+	m_rot			(VEC3_ZERO),		// 向き
+	m_size			(VEC3_ZERO),		// 大きさ
+	m_col			(color::White()),	// 色
+	m_fAngle		(0.0f),				// 対角線の角度
+	m_fLength		(0.0f),				// 対角線の長さ
+	m_nTextureID	(0)					// テクスチャインデックス
 {
 
 }
@@ -62,7 +62,7 @@ HRESULT CObject2D::Init(void)
 	m_pos			= VEC3_ZERO;	// 位置
 	m_rot			= VEC3_ZERO;	// 向き
 	m_size			= VEC3_ZERO;	// 大きさ
-	m_col			= XCOL_WHITE;	// 色
+	m_col			= color::White();	// 色
 	m_fAngle		= 0.0f;			// 対角線の角度
 	m_fLength		= 0.0f;			// 対角線の長さ
 	m_nTextureID	= NONE_IDX;		// テクスチャインデックス

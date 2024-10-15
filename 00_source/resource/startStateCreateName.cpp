@@ -38,8 +38,8 @@ namespace
 
 		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_CENTER;		// 横配置
 		const D3DXVECTOR3	POS = D3DXVECTOR3(SCREEN_CENT.x, 80.0f, 0.0f);	// 位置
-		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
-		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
+		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
+		const D3DXCOLOR		COL = color::White();	// 色
 	}
 	
 	namespace name
@@ -50,8 +50,8 @@ namespace
 
 		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;		// 横配置
 		const D3DXVECTOR3	POS = D3DXVECTOR3(360.0f, 155.0f, 0.0f);	// 位置
-		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
-		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
+		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
+		const D3DXCOLOR		COL = color::White();	// 色
 	}
 
 	namespace select
@@ -72,9 +72,9 @@ namespace
 		const float	MOVE		= 1.0f;		// 振動移動量
 
 		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_CENTER;	// 横配置
-		const D3DXVECTOR3	ROT			= VEC3_ZERO;	// 向き
-		const D3DXCOLOR		COL_DEFAULT	= XCOL_WHITE;	// 通常色
-		const D3DXCOLOR		COL_CHOICE	= XCOL_YELLOW;	// 選択色
+		const D3DXVECTOR3	ROT			= VEC3_ZERO;		// 向き
+		const D3DXCOLOR		COL_DEFAULT	= color::White();	// 通常色
+		const D3DXCOLOR		COL_CHOICE	= color::Yellow();	// 選択色
 	}
 }
 

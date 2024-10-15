@@ -61,10 +61,10 @@ HRESULT CObjectMeshCircle::Init(void)
 	m_nNumIdx		= 0;		// 必要インデックス数
 	m_nTextureID	= NONE_IDX;	// テクスチャインデックス
 
-	m_meshCircle.pos		= VEC3_ZERO;	// 位置
-	m_meshCircle.rot		= VEC3_ZERO;	// 向き
-	m_meshCircle.col		= XCOL_WHITE;	// 色
-	m_meshCircle.fRadius	= 0.0f;			// 半径
+	m_meshCircle.pos		= VEC3_ZERO;		// 位置
+	m_meshCircle.rot		= VEC3_ZERO;		// 向き
+	m_meshCircle.col		= color::White();	// 色
+	m_meshCircle.fRadius	= 0.0f;				// 半径
 
 	// 分割数を設定
 	if (FAILED(SetPattern(MIN_PART)))

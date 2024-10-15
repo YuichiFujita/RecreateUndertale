@@ -72,7 +72,7 @@ HRESULT CObjectMeshRing::Init(void)
 
 	m_meshRing.pos			= VEC3_ZERO;		// 位置
 	m_meshRing.rot			= VEC3_ZERO;		// 向き
-	m_meshRing.col			= XCOL_WHITE;		// 色
+	m_meshRing.col			= color::White();	// 色
 	m_meshRing.texDir		= TEXDIR_OUTSIDE;	// テクスチャ方向
 	m_meshRing.fHoleRadius	= 0.0f;				// 穴の半径
 	m_meshRing.fThickness	= 0.0f;				// 太さ

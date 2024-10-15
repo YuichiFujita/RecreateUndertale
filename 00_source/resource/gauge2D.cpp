@@ -28,22 +28,22 @@ namespace
 //	コンストラクタ
 //============================================================
 CGauge2D::CGauge2D(const int nFrame) : CObject(LABEL_UI, DIM_2D, PRIORITY),
-	m_nFrame			(nFrame),		// 表示値の変動フレーム定数
-	m_pVtxBuff			(nullptr),		// 頂点バッファへのポインタ
-	m_pos				(VEC3_ZERO),	// 位置
-	m_offsetFrame		(VEC3_ZERO),	// 枠オフセット
-	m_sizeGauge			(VEC3_ZERO),	// ゲージ大きさ
-	m_sizeFrame			(VEC3_ZERO),	// 枠大きさ
-	m_colFront			(XCOL_WHITE),	// 表ゲージ色
-	m_colBack			(XCOL_WHITE),	// 裏ゲージ色
-	m_state				(STATE_NONE),	// 状態
-	m_nNumGauge			(0),			// 表示値
-	m_fChange			(0.0f),			// ゲージ変動量
-	m_fAddRight			(0.0f),			// 横幅加算量
-	m_nCounterState		(0),			// 状態管理カウンター
-	m_nMaxNumGauge		(0),			// 表示値の最大値
-	m_fCurrentNumGauge	(0.0f),			// 現在表示値
-	m_bDrawFrame		(false)			// 枠表示状況
+	m_nFrame			(nFrame),			// 表示値の変動フレーム定数
+	m_pVtxBuff			(nullptr),			// 頂点バッファへのポインタ
+	m_pos				(VEC3_ZERO),		// 位置
+	m_offsetFrame		(VEC3_ZERO),		// 枠オフセット
+	m_sizeGauge			(VEC3_ZERO),		// ゲージ大きさ
+	m_sizeFrame			(VEC3_ZERO),		// 枠大きさ
+	m_colFront			(color::White()),	// 表ゲージ色
+	m_colBack			(color::White()),	// 裏ゲージ色
+	m_state				(STATE_NONE),		// 状態
+	m_nNumGauge			(0),				// 表示値
+	m_fChange			(0.0f),				// ゲージ変動量
+	m_fAddRight			(0.0f),				// 横幅加算量
+	m_nCounterState		(0),				// 状態管理カウンター
+	m_nMaxNumGauge		(0),				// 表示値の最大値
+	m_fCurrentNumGauge	(0.0f),				// 現在表示値
+	m_bDrawFrame		(false)				// 枠表示状況
 {
 	// メンバ変数をクリア
 	memset(&m_aTextureID[0], 0, sizeof(m_aTextureID));	// テクスチャインデックス
@@ -66,21 +66,21 @@ HRESULT CGauge2D::Init(void)
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// メンバ変数を初期化
-	m_pVtxBuff			= nullptr;		// 頂点バッファへのポインタ
-	m_pos				= VEC3_ZERO;	// 位置
-	m_offsetFrame		= VEC3_ZERO;	// 枠オフセット
-	m_sizeGauge			= VEC3_ZERO;	// ゲージ大きさ
-	m_sizeFrame			= VEC3_ZERO;	// 枠大きさ
-	m_colFront			= XCOL_WHITE;	// 表ゲージ色
-	m_colBack			= XCOL_WHITE;	// 裏ゲージ色
-	m_state				= STATE_NONE;	// 状態
-	m_nNumGauge			= 0;			// 表示値
-	m_fChange			= 0.0f;			// ゲージ変動量
-	m_fAddRight			= 0.0f;			// 横幅加算量
-	m_nCounterState		= 0;			// 状態管理カウンター
-	m_nMaxNumGauge		= 0;			// 表示値の最大値
-	m_fCurrentNumGauge	= 0.0f;			// 現在表示値
-	m_bDrawFrame		= false;		// 枠表示状況
+	m_pVtxBuff			= nullptr;			// 頂点バッファへのポインタ
+	m_pos				= VEC3_ZERO;		// 位置
+	m_offsetFrame		= VEC3_ZERO;		// 枠オフセット
+	m_sizeGauge			= VEC3_ZERO;		// ゲージ大きさ
+	m_sizeFrame			= VEC3_ZERO;		// 枠大きさ
+	m_colFront			= color::White();	// 表ゲージ色
+	m_colBack			= color::White();	// 裏ゲージ色
+	m_state				= STATE_NONE;		// 状態
+	m_nNumGauge			= 0;				// 表示値
+	m_fChange			= 0.0f;				// ゲージ変動量
+	m_fAddRight			= 0.0f;				// 横幅加算量
+	m_nCounterState		= 0;				// 状態管理カウンター
+	m_nMaxNumGauge		= 0;				// 表示値の最大値
+	m_fCurrentNumGauge	= 0.0f;				// 現在表示値
+	m_bDrawFrame		= false;			// 枠表示状況
 
 	for (int nCntTexture = 0; nCntTexture < POLYGON_MAX; nCntTexture++)
 	{ // 使用する四角形ポリゴン数分繰り返す
@@ -546,10 +546,10 @@ void CGauge2D::SetVtx(void)
 				pVtx[3].pos = D3DXVECTOR3(m_pos.x + m_offsetFrame.x + m_sizeFrame.x, m_pos.y + m_offsetFrame.y + m_sizeFrame.y, 0.0f);
 
 				// 頂点カラーの設定
-				pVtx[0].col = XCOL_WHITE;
-				pVtx[1].col = XCOL_WHITE;
-				pVtx[2].col = XCOL_WHITE;
-				pVtx[3].col = XCOL_WHITE;
+				pVtx[0].col = color::White();
+				pVtx[1].col = color::White();
+				pVtx[2].col = color::White();
+				pVtx[3].col = color::White();
 
 				break;
 

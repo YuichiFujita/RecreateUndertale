@@ -47,7 +47,7 @@ CTimeUI::CTimeUI() : CObject(CObject::LABEL_UI, CObject::DIM_2D, PRIORITY),
 	m_sizePart		(VEC3_ZERO),			// 区切りの大きさ
 	m_spaceValue	(VEC3_ZERO),			// 数字の空白
 	m_spacePart		(VEC3_ZERO),			// 区切りの空白
-	m_col			(XCOL_WHITE),			// 色
+	m_col			(color::White()),		// 色
 	m_alignX		(XALIGN_CENTER),		// 横配置
 	m_alignY		(YALIGN_CENTER),		// 縦配置
 	m_fTime			(0.0f)					// 表示時間
@@ -80,7 +80,7 @@ HRESULT CTimeUI::Init(void)
 	m_sizePart		= VEC3_ZERO;		// 区切りの大きさ
 	m_spaceValue	= VEC3_ZERO;		// 数字の空白
 	m_spacePart		= VEC3_ZERO;		// 区切りの空白
-	m_col			= XCOL_WHITE;		// 色
+	m_col			= color::White();	// 色
 	m_alignX		= XALIGN_CENTER;	// 横配置
 	m_alignY		= YALIGN_CENTER;	// 縦配置
 	m_fTime			= 0.0f;				// 表示時間

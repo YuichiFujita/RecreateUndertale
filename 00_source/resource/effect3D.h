@@ -58,12 +58,12 @@ public:
 	( // 引数
 		const D3DXVECTOR3&	rPos,		// 位置
 		const float			fRadius,	// 半径
-		const EType			type		= TYPE_NORMAL,	// テクスチャ
-		const int			nLife		= 10,			// 寿命
-		const D3DXVECTOR3&	rMove		= VEC3_ZERO,	// 移動量
-		const D3DXVECTOR3&	rRot		= VEC3_ZERO,	// 向き
-		const D3DXCOLOR&	rCol		= XCOL_WHITE,	// 色
-		const float			fSubSize	= 0.0f,			// 半径の減算量
+		const EType			type		= TYPE_NORMAL,		// テクスチャ
+		const int			nLife		= 10,				// 寿命
+		const D3DXVECTOR3&	rMove		= VEC3_ZERO,		// 移動量
+		const D3DXVECTOR3&	rRot		= VEC3_ZERO,		// 向き
+		const D3DXCOLOR&	rCol		= color::White(),	// 色
+		const float			fSubSize	= 0.0f,				// 半径の減算量
 		const CRenderState::EBlend	blend	= CRenderState::BLEND_ADD,	// αブレンド状況
 		const CObject::ELabel		label	= LABEL_EFFECT				// オブジェクトラベル
 	);

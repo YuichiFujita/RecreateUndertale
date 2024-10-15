@@ -38,8 +38,8 @@ namespace
 		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
 		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_CENTER;	// 縦配置
 		const D3DXVECTOR3	POS = D3DXVECTOR3(270.0f, 130.0f, 0.0f);	// 位置
-		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
-		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
+		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
+		const D3DXCOLOR		COL = color::White();	// 色
 	}
 
 	namespace name
@@ -56,8 +56,8 @@ namespace
 
 		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;			// 横配置
 		const D3DXVECTOR3	INIT_POS = D3DXVECTOR3(360.0f, 155.0f, 0.0f);	// 初期位置
-		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
-		const D3DXCOLOR		COL = XCOL_WHITE;	// 色
+		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
+		const D3DXCOLOR		COL = color::White();	// 色
 	}
 
 	namespace select
@@ -69,9 +69,9 @@ namespace
 
 		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
 		const D3DXVECTOR3 POS = D3DXVECTOR3(180.0f, 615.0f, 0.0f);	// 位置
-		const D3DXVECTOR3 ROT = VEC3_ZERO;			// 向き
-		const D3DXCOLOR COL_DEFAULT	= XCOL_WHITE;	// 通常色
-		const D3DXCOLOR COL_CHOICE	= XCOL_YELLOW;	// 選択色
+		const D3DXVECTOR3 ROT = VEC3_ZERO;				// 向き
+		const D3DXCOLOR COL_DEFAULT	= color::White();	// 通常色
+		const D3DXCOLOR COL_CHOICE	= color::Yellow();	// 選択色
 	}
 }
 
@@ -329,7 +329,7 @@ void CStartStateDecideName::TransGame(void)
 	PLAY_SOUND(CSound::LABEL_SE_CYMBAL);
 
 	// ゲーム画面に遷移する
-	GET_MANAGER->SetFadeScene(CScene::MODE_GAME, 0.0f, FADE_ADDOUT, FADE_SUBIN, XCOL_AWHITE);
+	GET_MANAGER->SetFadeScene(CScene::MODE_GAME, 0.0f, FADE_ADDOUT, FADE_SUBIN, color::White(0.0f));
 }
 
 //============================================================
@@ -363,7 +363,7 @@ void CStartStateDecideName::MoveName(const float fDeltaTime)
 	if (!m_bMove) { return; }
 
 	// 経過時刻の割合を計算
-	float fRate = easeing::Liner(m_fCurTimeMove, 0.0f, MOVE_TIME);
+	float fRate = easing::Liner(m_fCurTimeMove, 0.0f, MOVE_TIME);
 
 	// 目標への差分を計算
 	D3DXVECTOR3 posDest = D3DXVECTOR3(m_fNameDestPosX, name::DEST_POSY, 0.0f);	// 目標位置

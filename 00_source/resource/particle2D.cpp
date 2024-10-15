@@ -74,10 +74,10 @@ static_assert(NUM_ARRAY(SET_LIFE) == CParticle2D::TYPE_MAX, "ERROR : Type Count 
 //	コンストラクタ
 //============================================================
 CParticle2D::CParticle2D() : CObject(CObject::LABEL_PARTICLE, CObject::DIM_2D),
-	m_pos	(VEC3_ZERO),	// 位置
-	m_col	(XCOL_WHITE),	// 色
-	m_type	(TYPE_NONE),	// 種類
-	m_nLife	(0)				// 寿命
+	m_pos	(VEC3_ZERO),		// 位置
+	m_col	(color::White()),	// 色
+	m_type	(TYPE_NONE),		// 種類
+	m_nLife	(0)					// 寿命
 {
 
 }
@@ -96,10 +96,10 @@ CParticle2D::~CParticle2D()
 HRESULT CParticle2D::Init(void)
 {
 	// メンバ変数を初期化
-	m_pos	= VEC3_ZERO;	// 位置
-	m_col	= XCOL_WHITE;	// 色
-	m_type	= TYPE_NONE;	// 種類
-	m_nLife	= 0;			// 寿命
+	m_pos	= VEC3_ZERO;		// 位置
+	m_col	= color::White();	// 色
+	m_type	= TYPE_NONE;		// 種類
+	m_nLife	= 0;				// 寿命
 
 	// 成功を返す
 	return S_OK;

@@ -33,7 +33,7 @@ CObjectBillboard::CObjectBillboard(const CObject::ELabel label, const CObject::E
 	m_pos			(VEC3_ZERO),		// 位置
 	m_rot			(VEC3_ZERO),		// 向き
 	m_size			(VEC3_ZERO),		// 大きさ
-	m_col			(XCOL_WHITE),		// 色
+	m_col			(color::White()),	// 色
 	m_origin		(ORIGIN_CENTER),	// 原点
 	m_rotate		(ROTATE_NORMAL),	// 回転
 	m_fAngle		(0.0f),				// 対角線の角度
@@ -67,7 +67,7 @@ HRESULT CObjectBillboard::Init(void)
 	m_pos			= VEC3_ZERO;		// 位置
 	m_rot			= VEC3_ZERO;		// 向き
 	m_size			= VEC3_ZERO;		// 大きさ
-	m_col			= XCOL_WHITE;		// 色
+	m_col			= color::White();		// 色
 	m_origin		= ORIGIN_CENTER;	// 原点
 	m_rotate		= ROTATE_NORMAL;	// 回転
 	m_fAngle		= 0.0f;				// 対角線の角度

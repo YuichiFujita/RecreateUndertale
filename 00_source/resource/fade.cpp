@@ -87,7 +87,7 @@ HRESULT CFade::Init(void)
 	SetVec3Sizing(SCREEN_SIZE);
 
 	// F‚ğ•‚É‚·‚é
-	SetColor(XCOL_BLACK);
+	SetColor(color::Black());
 
 	// —Dæ‡ˆÊ‚ğˆê”Ôã‚É‚·‚é
 	SetPriority(PRIORITY);
@@ -356,7 +356,7 @@ void CFade::SetRoomFade(void)
 	SetPriority(PRIORITY);
 
 	// F‚ğİ’è
-	SetColor(XCOL_ABLACK);
+	SetColor(color::Black(0.0f));
 
 	// ‘JˆÚæƒ‹[ƒ€‚ÌŠ„“–ŠÖ”‚ğİ’è
 	m_funcSetMode = std::bind(&CStage::BindNextRoom, CSceneGame::GetStage());

@@ -15,8 +15,8 @@
 //************************************************************
 namespace
 {
-	const D3DXCOLOR   COL_FRAME[] = { XCOL_WHITE, XCOL_BLACK };		// フレーム色
-	const D3DXVECTOR3 BORD_THICK = D3DXVECTOR3(18.0f, 18.0f, 0.0f);	// 縁取り太さ
+	const D3DXCOLOR   COL_FRAME[] = { color::White(), color::Black() };	// フレーム色
+	const D3DXVECTOR3 BORD_THICK = D3DXVECTOR3(18.0f, 18.0f, 0.0f);		// 縁取り太さ
 	const int PRIORITY = 6;	// フレーム2Dの優先順位
 }
 

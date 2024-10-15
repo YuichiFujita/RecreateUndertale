@@ -573,7 +573,7 @@ void CTitleManager::SkipStaging(void)
 	}
 
 	// ƒtƒF[ƒh‚ð“§–¾‚É‚·‚é
-	m_pFade->SetColor(XCOL_ABLACK);
+	m_pFade->SetColor(color::Black(0.0f));
 
 	// ‘I‘ð”wŒi‚ð•`‰æ‚·‚éÝ’è‚É‚·‚é
 	m_pSelectBG->SetEnableDraw(true);

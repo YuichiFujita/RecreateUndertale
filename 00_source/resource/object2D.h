@@ -57,7 +57,7 @@ public:
 		const D3DXVECTOR3& rPos,				// ˆÊ’u
 		const D3DXVECTOR3& rSize = VEC3_ONE,	// ‘å‚«‚³
 		const D3DXVECTOR3& rRot = VEC3_ZERO,	// Œü‚«
-		const D3DXCOLOR& rCol = XCOL_WHITE		// F
+		const D3DXCOLOR& rCol = color::White()	// F
 	);
 
 protected:

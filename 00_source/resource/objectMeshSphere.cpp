@@ -62,7 +62,7 @@ HRESULT CObjectMeshSphere::Init(void)
 		( // 引数
 			VEC3_ZERO,		// 位置
 			VEC3_ZERO,		// 向き
-			XCOL_WHITE,		// 色
+			color::White(),	// 色
 			MIN_PART,		// 分割数
 			MIN_TEXPART,	// テクスチャ分割数
 			0.0f			// 半径

@@ -72,7 +72,7 @@ HRESULT CObjectMeshCylinder::Init(void)
 
 	m_meshCylinder.pos		= VEC3_ZERO;		// 位置
 	m_meshCylinder.rot		= VEC3_ZERO;		// 向き
-	m_meshCylinder.col		= XCOL_WHITE;		// 色
+	m_meshCylinder.col		= color::White();	// 色
 	m_meshCylinder.texDir	= TEXDIR_OUTSIDE;	// テクスチャ方向
 	m_meshCylinder.fRadius	= 0.0f;				// 半径
 	m_meshCylinder.fHeight	= 0.0f;				// 縦幅

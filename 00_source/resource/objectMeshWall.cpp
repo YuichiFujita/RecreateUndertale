@@ -53,10 +53,10 @@ HRESULT CObjectMeshWall::Init(void)
 	m_nNumIdx		= 0;			// 必要インデックス数
 	m_nTextureID	= NONE_IDX;		// テクスチャインデックス
 
-	m_meshWall.pos		= VEC3_ZERO;	// 位置
-	m_meshWall.rot		= VEC3_ZERO;	// 向き
-	m_meshWall.size		= VEC2_ZERO;	// 大きさ
-	m_meshWall.col		= XCOL_WHITE;	// 色
+	m_meshWall.pos		= VEC3_ZERO;		// 位置
+	m_meshWall.rot		= VEC3_ZERO;		// 向き
+	m_meshWall.size		= VEC2_ZERO;		// 大きさ
+	m_meshWall.col		= color::White();	// 色
 
 	// 分割数を設定
 	if (FAILED(SetPattern(GRID2_ONE)))

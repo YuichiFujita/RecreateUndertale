@@ -166,10 +166,10 @@ static_assert(NUM_ARRAY(SET_LIFE) == CParticle3D::TYPE_MAX, "ERROR : Type Count 
 //	コンストラクタ
 //============================================================
 CParticle3D::CParticle3D() : CObject(CObject::LABEL_PARTICLE, CObject::DIM_3D),
-	m_pos	(VEC3_ZERO),	// 位置
-	m_col	(XCOL_WHITE),	// 色
-	m_type	(TYPE_NONE),	// 種類
-	m_nLife	(0)				// 寿命
+	m_pos	(VEC3_ZERO),		// 位置
+	m_col	(color::White()),	// 色
+	m_type	(TYPE_NONE),		// 種類
+	m_nLife	(0)					// 寿命
 {
 
 }
@@ -188,10 +188,10 @@ CParticle3D::~CParticle3D()
 HRESULT CParticle3D::Init(void)
 {
 	// メンバ変数を初期化
-	m_pos	= VEC3_ZERO;	// 位置
-	m_col	= XCOL_WHITE;	// 色
-	m_type	= TYPE_NONE;	// 種類
-	m_nLife	= 0;			// 寿命
+	m_pos	= VEC3_ZERO;		// 位置
+	m_col	= color::White();	// 色
+	m_type	= TYPE_NONE;		// 種類
+	m_nLife	= 0;				// 寿命
 
 	// 成功を返す
 	return S_OK;
@@ -709,11 +709,11 @@ void CParticle3D::BigExplosion(const D3DXVECTOR3& rPos)
 void CParticle3D::PlayerDamage(const D3DXVECTOR3& rPos)
 {
 	// 変数を宣言
-	D3DXVECTOR3 vec  = VEC3_ZERO;	// ベクトルの設定用
-	D3DXVECTOR3 pos  = VEC3_ZERO;	// 位置の代入用
-	D3DXVECTOR3 move = VEC3_ZERO;	// 移動量の代入用
-	D3DXVECTOR3 rot  = VEC3_ZERO;	// 向きの代入用
-	D3DXCOLOR   col  = XCOL_WHITE;	// 色の代入用
+	D3DXVECTOR3 vec  = VEC3_ZERO;		// ベクトルの設定用
+	D3DXVECTOR3 pos  = VEC3_ZERO;		// 位置の代入用
+	D3DXVECTOR3 move = VEC3_ZERO;		// 移動量の代入用
+	D3DXVECTOR3 rot  = VEC3_ZERO;		// 向きの代入用
+	D3DXCOLOR   col  = color::White();	// 色の代入用
 	int nSpawn = 0;	// 生成数の代入用
 	int nLife = 0;	// 寿命の代入用
 

@@ -69,10 +69,10 @@ HRESULT CObjectMeshField::Init(void)
 	m_nNumIdx		= 0;			// 必要インデックス数
 	m_nTextureID	= NONE_IDX;		// テクスチャインデックス
 
-	m_meshField.pos		= VEC3_ZERO;	// 位置
-	m_meshField.rot		= VEC3_ZERO;	// 向き
-	m_meshField.size	= VEC2_ZERO;	// 大きさ
-	m_meshField.col		= XCOL_WHITE;	// 色
+	m_meshField.pos		= VEC3_ZERO;		// 位置
+	m_meshField.rot		= VEC3_ZERO;		// 向き
+	m_meshField.size	= VEC2_ZERO;		// 大きさ
+	m_meshField.col		= color::White();	// 色
 
 	// 分割数を設定
 	if (FAILED(SetPattern(GRID2_ONE)))

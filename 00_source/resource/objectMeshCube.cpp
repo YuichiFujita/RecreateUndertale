@@ -106,8 +106,8 @@ HRESULT CObjectMeshCube::Init(void)
 	m_meshCube.pos	= VEC3_ZERO;	// 位置
 	m_meshCube.rot	= VEC3_ZERO;	// 向き
 	m_meshCube.size	= VEC3_ZERO;	// 大きさ
-	m_meshCube.aCol[CUBECOL_CUBE]	= XCOL_WHITE;	// キューブ色
-	m_meshCube.aCol[CUBECOL_BORDER]	= XCOL_BLACK;	// 縁取り色
+	m_meshCube.aCol[CUBECOL_CUBE]	= color::White();	// キューブ色
+	m_meshCube.aCol[CUBECOL_BORDER]	= color::Black();	// 縁取り色
 	m_meshCube.bordState	= BORDER_OFF;	// 縁取り使用状態
 	m_meshCube.fBordThick	= 0.0f;			// 縁取り太さ
 	m_meshCube.texState		= TEXSTATE_ONE;	// テクスチャの使用状態

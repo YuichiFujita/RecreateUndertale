@@ -52,9 +52,9 @@ public:
 	// 静的メンバ関数
 	static CParticle3D *Create	// 生成
 	( // 引数
-		const EType type,					// 種類
-		const D3DXVECTOR3& rPos,			// 位置
-		const D3DXCOLOR& rCol = XCOL_WHITE	// 色
+		const EType type,			// 種類
+		const D3DXVECTOR3& rPos,	// 位置
+		const D3DXCOLOR& rCol = color::White()	// 色
 	);
 
 	// メンバ関数

@@ -136,7 +136,7 @@ public:
 		const D3DXVECTOR3&	rRot,		// 向き
 		const D3DXVECTOR3&	rSize,		// 大きさ
 		const D3DXCOLOR&	rCubeCol,	// キューブ色
-		const D3DXCOLOR&	rBorderCol	= XCOL_BLACK,			// 縁取り色
+		const D3DXCOLOR&	rBorderCol	= color::Black(),		// 縁取り色
 		const EBorder		bordState	= BORDER_OFF,			// 縁取り状態
 		const float			fBordThick	= 0.0f,					// 縁取り太さ
 		const ETexState		texState	= TEXSTATE_ONE,			// テクスチャ状態

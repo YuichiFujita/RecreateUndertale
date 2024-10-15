@@ -49,7 +49,7 @@ public:
 		const float fHeight = 100.0f,			// 文字縦幅
 		const EAlignX alignX = XALIGN_CENTER,	// 横配置
 		const D3DXVECTOR3& rRot = VEC3_ZERO,	// 原点向き
-		const D3DXCOLOR& rCol = XCOL_WHITE		// 色
+		const D3DXCOLOR& rCol = color::White()	// 色
 	);
 	static CScrollString2D *Create	// 生成 (ワイド文字列)
 	( // 引数
@@ -61,7 +61,7 @@ public:
 		const float fHeight = 100.0f,			// 文字縦幅
 		const EAlignX alignX = XALIGN_CENTER,	// 横配置
 		const D3DXVECTOR3& rRot = VEC3_ZERO,	// 原点向き
-		const D3DXCOLOR& rCol = XCOL_WHITE		// 色
+		const D3DXCOLOR& rCol = color::White()	// 色
 	);
 
 	// メンバ関数

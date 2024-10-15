@@ -59,13 +59,13 @@ public:
 		const int nMax,				// 最大表示値
 		const int nFrame,			// 表示値変動フレーム
 		const D3DXVECTOR3& rPos,	// 位置
-		const D3DXVECTOR3& rSizeGauge = VEC3_ONE,	// ゲージ大きさ
-		const D3DXCOLOR& rColFront = XCOL_WHITE,	// 表ゲージ色
-		const D3DXCOLOR& rColBack = XCOL_BLACK,		// 裏ゲージ色
-		const bool bDrawFrame = false,				// 枠描画状況
-		const char *pPassTex = nullptr,				// フレームテクスチャパス
-		const D3DXVECTOR3& rSizeFrame = VEC3_ONE,	// 枠大きさ
-		const D3DXVECTOR3& rOffsetFrame = VEC3_ONE	// 枠オフセット
+		const D3DXVECTOR3& rSizeGauge = VEC3_ONE,		// ゲージ大きさ
+		const D3DXCOLOR& rColFront = color::White(),	// 表ゲージ色
+		const D3DXCOLOR& rColBack = color::Black(),		// 裏ゲージ色
+		const bool bDrawFrame = false,					// 枠描画状況
+		const char *pPassTex = nullptr,					// フレームテクスチャパス
+		const D3DXVECTOR3& rSizeFrame = VEC3_ONE,		// 枠大きさ
+		const D3DXVECTOR3& rOffsetFrame = VEC3_ONE		// 枠オフセット
 	);
 
 	// メンバ関数

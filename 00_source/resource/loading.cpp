@@ -75,12 +75,12 @@ HRESULT CLoading::Init(void)
 	// ロード画面の生成
 	m_pLoad = CAnim2D::Create
 	( // 引数
-		PTRN.x,			// テクスチャ横分割数
-		PTRN.y,			// テクスチャ縦分割数
-		SCREEN_CENT,	// 位置
-		SCREEN_SIZE,	// 大きさ
-		VEC3_ZERO,		// 向き
-		XCOL_AWHITE		// 色
+		PTRN.x,				// テクスチャ横分割数
+		PTRN.y,				// テクスチャ縦分割数
+		SCREEN_CENT,		// 位置
+		SCREEN_SIZE,		// 大きさ
+		VEC3_ZERO,			// 向き
+		color::White(0.0f)	// 色
 	);
 	if (m_pLoad == nullptr)
 	{ // 生成に失敗した場合

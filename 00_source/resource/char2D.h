@@ -45,7 +45,7 @@ public:
 		const D3DXVECTOR3& rPos = VEC3_ZERO,	// 位置
 		const float fHeight = 100.0f,			// 縦幅
 		const D3DXVECTOR3& rRot = VEC3_ZERO,	// 向き
-		const D3DXCOLOR& rCol = XCOL_WHITE		// 色
+		const D3DXCOLOR& rCol = color::White()	// 色
 	);
 	static CChar2D *Create	// 生成 (ワイド文字)
 	( // 引数
@@ -55,7 +55,7 @@ public:
 		const D3DXVECTOR3& rPos = VEC3_ZERO,	// 位置
 		const float fHeight = 100.0f,			// 縦幅
 		const D3DXVECTOR3& rRot = VEC3_ZERO,	// 向き
-		const D3DXCOLOR& rCol = XCOL_WHITE		// 色
+		const D3DXCOLOR& rCol = color::White()	// 色
 	);
 
 	// メンバ関数

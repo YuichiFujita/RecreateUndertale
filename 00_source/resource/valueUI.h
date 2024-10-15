@@ -55,10 +55,10 @@ public:
 		const D3DXVECTOR3& rSpaceValue,	// 数字行間
 		const D3DXVECTOR3& rSizeTitle,	// タイトル大きさ
 		const D3DXVECTOR3& rSizeValue,	// 数字大きさ
-		const D3DXVECTOR3& rRotTitle = VEC3_ZERO,	// タイトル向き
-		const D3DXVECTOR3& rRotValue = VEC3_ZERO,	// 数字向き
-		const D3DXCOLOR& rColTitle = XCOL_WHITE,	// タイトル色
-		const D3DXCOLOR& rColValue = XCOL_WHITE		// 数字色
+		const D3DXVECTOR3& rRotTitle = VEC3_ZERO,		// タイトル向き
+		const D3DXVECTOR3& rRotValue = VEC3_ZERO,		// 数字向き
+		const D3DXCOLOR& rColTitle = color::White(),	// タイトル色
+		const D3DXCOLOR& rColValue = color::White()		// 数字色
 	);
 	static CValueUI *Create	// 生成 (テクスチャインデックス指定)
 	( // 引数
@@ -70,10 +70,10 @@ public:
 		const D3DXVECTOR3& rSpaceValue,	// 数字行間
 		const D3DXVECTOR3& rSizeTitle,	// タイトル大きさ
 		const D3DXVECTOR3& rSizeValue,	// 数字大きさ
-		const D3DXVECTOR3& rRotTitle = VEC3_ZERO,	// タイトル向き
-		const D3DXVECTOR3& rRotValue = VEC3_ZERO,	// 数字向き
-		const D3DXCOLOR& rColTitle = XCOL_WHITE,	// タイトル色
-		const D3DXCOLOR& rColValue = XCOL_WHITE		// 数字色
+		const D3DXVECTOR3& rRotTitle = VEC3_ZERO,		// タイトル向き
+		const D3DXVECTOR3& rRotValue = VEC3_ZERO,		// 数字向き
+		const D3DXCOLOR& rColTitle = color::White(),	// タイトル色
+		const D3DXCOLOR& rColValue = color::White()		// 数字色
 	);
 	static CValueUI *Create	// 生成 (テクスチャパス指定)
 	( // 引数
@@ -85,10 +85,10 @@ public:
 		const D3DXVECTOR3& rSpaceValue,	// 数字行間
 		const D3DXVECTOR3& rSizeTitle,	// タイトル大きさ
 		const D3DXVECTOR3& rSizeValue,	// 数字大きさ
-		const D3DXVECTOR3& rRotTitle = VEC3_ZERO,	// タイトル向き
-		const D3DXVECTOR3& rRotValue = VEC3_ZERO,	// 数字向き
-		const D3DXCOLOR& rColTitle = XCOL_WHITE,	// タイトル色
-		const D3DXCOLOR& rColValue = XCOL_WHITE		// 数字色
+		const D3DXVECTOR3& rRotTitle = VEC3_ZERO,		// タイトル向き
+		const D3DXVECTOR3& rRotValue = VEC3_ZERO,		// 数字向き
+		const D3DXCOLOR& rColTitle = color::White(),	// タイトル色
+		const D3DXCOLOR& rColValue = color::White()		// 数字色
 	);
 
 	// メンバ関数

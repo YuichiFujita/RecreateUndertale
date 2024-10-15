@@ -41,9 +41,9 @@ namespace
 
 		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
 		const D3DXVECTOR3 POS = D3DXVECTOR3(125.0f, 308.5f, 0.0f);	// 位置
-		const D3DXVECTOR3 ROT = VEC3_ZERO;			// 向き
-		const D3DXCOLOR COL_DEFAULT	= XCOL_WHITE;	// 通常色
-		const D3DXCOLOR COL_CHOICE	= XCOL_YELLOW;	// 選択色
+		const D3DXVECTOR3 ROT = VEC3_ZERO;				// 向き
+		const D3DXCOLOR COL_DEFAULT	= color::White();	// 通常色
+		const D3DXCOLOR COL_CHOICE	= color::Yellow();	// 選択色
 	}
 
 	namespace soul

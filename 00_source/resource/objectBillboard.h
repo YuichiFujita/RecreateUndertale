@@ -65,7 +65,7 @@ public:
 		const D3DXVECTOR3& rPos,	// 位置
 		const D3DXVECTOR3& rSize,	// 大きさ
 		const D3DXVECTOR3& rRot = VEC3_ZERO,	// 向き
-		const D3DXCOLOR& rCol = XCOL_WHITE,		// 色
+		const D3DXCOLOR& rCol = color::White(),	// 色
 		const EOrigin origin = ORIGIN_CENTER,	// 原点
 		const ERotate rotate = ROTATE_NORMAL	// 回転
 	);

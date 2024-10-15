@@ -31,7 +31,7 @@ CString2D::CString2D() : CObject(CObject::LABEL_UI, CObject::DIM_2D, PRIORITY),
 	m_pFontChar		(nullptr),			// フォント文字
 	m_pos			(VEC3_ZERO),		// 位置
 	m_rot			(VEC3_ZERO),		// 向き
-	m_col			(XCOL_WHITE),		// 色
+	m_col			(color::White()),	// 色
 	m_alignX		(XALIGN_CENTER),	// 横配置
 	m_fCharHeight	(0.0f)				// 文字の縦幅
 {
@@ -56,7 +56,7 @@ HRESULT CString2D::Init(void)
 	m_pFontChar		= nullptr;			// フォント文字
 	m_pos			= VEC3_ZERO;		// 位置
 	m_rot			= VEC3_ZERO;		// 向き
-	m_col			= XCOL_WHITE;		// 色
+	m_col			= color::White();	// 色
 	m_alignX		= XALIGN_CENTER;	// 横配置
 	m_fCharHeight	= 0.0f;				// 文字の縦幅
 

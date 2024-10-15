@@ -303,10 +303,10 @@ void CToonShader::SetOnlyDiffuse(const D3DXCOLOR& rDiffuse)
 	SetDiffuse(rDiffuse);
 
 	// ŠÂ‹«Œõ‚Ìİ’è
-	SetAmbient(XCOL_ABLACK);
+	SetAmbient(color::Black(0.0f));
 
 	// •úËŒõ‚Ìİ’è
-	SetEmissive(XCOL_ABLACK);
+	SetEmissive(color::Black(0.0f));
 }
 
 //============================================================

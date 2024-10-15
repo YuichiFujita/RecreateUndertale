@@ -48,7 +48,7 @@ public:
 		const D3DXVECTOR3& rPos = VEC3_ZERO,	// 位置
 		const D3DXVECTOR3& rSize = VEC3_ONE,	// 大きさ
 		const D3DXVECTOR3& rRot = VEC3_ZERO,	// 向き
-		const D3DXCOLOR& rCol = XCOL_WHITE		// 色
+		const D3DXCOLOR& rCol = color::White()	// 色
 	);
 
 	// メイン関数

@@ -91,7 +91,7 @@ public:
 		const EAlignX alignX = XALIGN_CENTER,			// 横配置
 		const EAlignY alignY = YALIGN_CENTER,			// 縦配置
 		const D3DXVECTOR3& rRot = VEC3_ZERO,			// 向き
-		const D3DXCOLOR& rCol = XCOL_WHITE				// 色
+		const D3DXCOLOR& rCol = color::White()			// 色
 	);
 
 	// 仮想関数
