@@ -21,8 +21,6 @@
 // 便利マクロ
 #define SCREEN_WIDTH	(960)	// ウインドウの横幅
 #define SCREEN_HEIGHT	(720)	// ウインドウの縦幅
-#define MAX_STRING		(128)	// 文字列の最大文字数
-#define MAX_FILENAME	(256)	// ファイル名の最大文字数
 #define NONE_IDX		(-1)	// インデックス非使用
 #define NONE_STRING		("\0")	// 文字列非使用
 #define SIZE_TILE		(60)	// マップタイルの大きさ
@@ -42,13 +40,12 @@
 #define SAFE_DEL_ARRAY(p)	if ((p) != nullptr) { delete[]	(p);		(p) = nullptr; }	// 配列を使用したdelete[]を使用する破棄マクロ
 
 // マネージャー関係
-#define GET_MANAGER		(CManager::GetInstance())					// マネージャーインスタンス取得
-#define GET_INPUTKEY	(CManager::GetInstance()->GetKeyboard())	// キーボード情報取得
-#define GET_INPUTMOUSE	(CManager::GetInstance()->GetMouse())		// マウス情報取得
-#define GET_INPUTPAD	(CManager::GetInstance()->GetPad())			// パッド情報取得
-#define GET_RETENTION	(CManager::GetInstance()->GetRetention())	// データ保存情報取得
-#define GET_RENDERER	(CManager::GetInstance()->GetRenderer())	// レンダラー情報取得
-
+#define GET_MANAGER			(CManager::GetInstance())					// マネージャーインスタンス取得
+#define GET_INPUTKEY		(CManager::GetInstance()->GetKeyboard())	// キーボード情報取得
+#define GET_INPUTMOUSE		(CManager::GetInstance()->GetMouse())		// マウス情報取得
+#define GET_INPUTPAD		(CManager::GetInstance()->GetPad())			// パッド情報取得
+#define GET_RETENTION		(CManager::GetInstance()->GetRetention())	// データ保存情報取得
+#define GET_RENDERER		(CManager::GetInstance()->GetRenderer())	// レンダラー情報取得
 #define GET_DEVICE			(CManager::GetInstance()->GetRenderer()->GetDevice())					// デバイス情報取得
 #define PLAY_SOUND(label)	(CManager::GetInstance()->GetSound()->Play((CSound::ELabel)(label)))	// サウンド再生
 

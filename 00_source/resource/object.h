@@ -109,22 +109,22 @@ public:
 	virtual void SetLabel(const ELabel label);				// ラベル設定
 	virtual void SetDimension(const EDim dimension);		// 次元設定
 	virtual void SetPriority(const int nPriority);			// 優先順位設定
-	virtual void SetEnableUpdate(const bool bUpdate);		// 更新状況設定
-	virtual void SetEnableDraw(const bool bDraw);			// 描画状況設定
-	virtual void SetVec2Position(const D3DXVECTOR2& rPos);	// 二軸の位置設定
-	virtual void SetVec3Position(const D3DXVECTOR3& rPos);	// 三軸の位置設定
-	virtual void SetVec3Rotation(const D3DXVECTOR3& rRot);	// 向き設定
-	virtual void SetVec2Sizing(const D3DXVECTOR2& rSize);	// 二軸の大きさ設定
-	virtual void SetVec3Sizing(const D3DXVECTOR3& rSize);	// 三軸の大きさ設定
-	virtual void SetVec3Scaling(const D3DXVECTOR3& rSacle);	// 拡大率設定
-	virtual D3DXVECTOR2 GetVec2Position(void) const;		// 二軸の位置取得
-	virtual D3DXVECTOR3 GetVec3Position(void) const;		// 三軸の位置取得
-	virtual D3DXVECTOR3 GetVec3Rotation(void) const;		// 向き取得
-	virtual D3DXVECTOR2 GetVec2Sizing(void) const;			// 二軸の大きさ取得
-	virtual D3DXVECTOR3 GetVec3Sizing(void) const;			// 三軸の大きさ取得
-	virtual D3DXVECTOR3 GetVec3Scaling(void) const;			// 拡大率取得
-	virtual D3DXMATRIX *GetPtrMtxWorld(void);				// マトリックスポインタ取得
-	virtual D3DXMATRIX GetMtxWorld(void) const;				// マトリックス取得
+	virtual inline void SetEnableUpdate(const bool bUpdate)	{ m_bUpdate = bUpdate; }	// 更新状況設定
+	virtual inline void SetEnableDraw(const bool bDraw)		{ m_bDraw = bDraw; }		// 描画状況設定
+	virtual inline void SetVec2Position(const D3DXVECTOR2&)	{ assert(false); }			// 二軸の位置設定
+	virtual inline void SetVec3Position(const D3DXVECTOR3&)	{ assert(false); }			// 三軸の位置設定
+	virtual inline void SetVec3Rotation(const D3DXVECTOR3&)	{ assert(false); }			// 向き設定
+	virtual inline void SetVec2Size(const D3DXVECTOR2&)		{ assert(false); }			// 二軸の大きさ設定
+	virtual inline void SetVec3Size(const D3DXVECTOR3&)		{ assert(false); }			// 三軸の大きさ設定
+	virtual inline void SetVec3Scale(const D3DXVECTOR3&)	{ assert(false); }			// 拡大率設定
+	virtual inline D3DXVECTOR2 GetVec2Position(void) const	{ return VEC2_ZERO; }		// 二軸の位置取得
+	virtual inline D3DXVECTOR3 GetVec3Position(void) const	{ return VEC3_ZERO; }		// 三軸の位置取得
+	virtual inline D3DXVECTOR3 GetVec3Rotation(void) const	{ return VEC3_ZERO; }		// 向き取得
+	virtual inline D3DXVECTOR2 GetVec2Size(void) const		{ return VEC2_ZERO; }		// 二軸の大きさ取得
+	virtual inline D3DXVECTOR3 GetVec3Size(void) const		{ return VEC3_ZERO; }		// 三軸の大きさ取得
+	virtual inline D3DXVECTOR3 GetVec3Scale(void) const		{ return VEC3_ZERO; }		// 拡大率取得
+	virtual inline D3DXMATRIX *GetPtrMtxWorld(void)			{ return nullptr; }			// マトリックスポインタ取得
+	virtual inline D3DXMATRIX GetMtxWorld(void) const		{ return {}; }				// マトリックス取得
 
 	// 静的メンバ関数
 	static void	ReleaseAll(const std::vector<ELabel> label);	// 全破棄 (複数ラベル指定)
@@ -137,27 +137,16 @@ public:
 	static CObject *GetCur(const EDim dimension, const int nPriority) { return m_apCur[dimension][nPriority]; }	// 最後尾オブジェクト取得
 
 	// メンバ関数
-	ELabel	GetLabel(void) const		{ return m_label; }		// ラベル取得
-	EDim	GetDimension(void) const	{ return m_dimension; }	// 次元取得
-	int		GetPriority(void) const		{ return m_nPriority; }	// 優先順位取得
-	DWORD	GetUniqueID(void) const		{ return m_dwID; }		// ユニークID取得
-	bool	IsUpdate(void) const		{ return m_bUpdate; }	// 更新状況取得
-	bool	IsDraw(void) const			{ return m_bDraw; }		// 描画状況取得
-	bool	IsDeath(void) const			{ return m_bDeath; }	// 死亡フラグ取得
-	CObject	*GetObject(void)			{ return this; }		// オブジェクト取得
-	CObject	*GetPrev(void) const		{ return m_pPrev; }		// 前オブジェクト取得
-	CObject	*GetNext(void) const		{ return m_pNext; }		// 次オブジェクト取得
-
-#ifdef _DEBUG
-
-	// 静的メンバ関数
-	static void	SetEnableDebugDispAll(const bool bDisp2D, const bool bDisp3D);	// 全表示状況設定
-
-	// メンバ関数
-	void SetEnableDebugDisp(const bool bDisp)	{ m_bDebugDisp = bDisp; }	// 表示状況設定
-	bool IsDebugDisp(void) const				{ return m_bDebugDisp; }	// 表示状況取得
-
-#endif	// _DEBUG
+	ELabel	inline GetLabel(void) const		{ return m_label; }		// ラベル取得
+	EDim	inline GetDimension(void) const	{ return m_dimension; }	// 次元取得
+	int		inline GetPriority(void) const	{ return m_nPriority; }	// 優先順位取得
+	DWORD	inline GetUniqueID(void) const	{ return m_dwID; }		// ユニークID取得
+	bool	inline IsUpdate(void) const		{ return m_bUpdate; }	// 更新状況取得
+	bool	inline IsDraw(void) const		{ return m_bDraw; }		// 描画状況取得
+	bool	inline IsDeath(void) const		{ return m_bDeath; }	// 死亡フラグ取得
+	CObject	inline *GetObject(void)			{ return this; }		// オブジェクト取得
+	CObject	inline *GetPrev(void) const		{ return m_pPrev; }		// 前オブジェクト取得
+	CObject	inline *GetNext(void) const		{ return m_pNext; }		// 次オブジェクト取得
 
 private:
 	// 静的メンバ関数
@@ -181,11 +170,18 @@ private:
 	CObject	*m_pNext;		// 次のオブジェクトへのポインタ
 
 #ifdef _DEBUG
+public:
+	// 静的メンバ関数
+	static void	SetEnableDebugDispAll(const bool bDisp2D, const bool bDisp3D);	// 全表示状況設定
 
+	// メンバ関数
+	void SetEnableDebugDisp(const bool bDisp) { m_bDebugDisp = bDisp; }	// 表示状況設定
+	bool IsDebugDisp(void) const { return m_bDebugDisp; }	// 表示状況取得
+
+private:
+	// メンバ変数
 	bool m_bDebugDisp;	// 自身の表示状況
-
 #endif	// _DEBUG
-
 };
 
 #endif	// _OBJECT_H_

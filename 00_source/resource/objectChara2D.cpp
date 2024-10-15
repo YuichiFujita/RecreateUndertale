@@ -146,7 +146,7 @@ void CObjectChara2D::SetMotion(const int nType)
 	// キャラクター情報を設定
 	SetTexPtrn(pInfoChara->ptrnTexture);	// テクスチャ分割数
 	SetEnableLoop(pInfoChara->bLoop);		// ループON/OFF
-	SetVec3Sizing(pInfoChara->size);		// 大きさ
+	SetVec3Size(pInfoChara->size);			// 大きさ
 
 	assert((int)pInfoChara->vecNextTime.size() == pInfoChara->nMaxPtrn);
 	for (int i = 0; i < pInfoChara->nMaxPtrn; i++)

@@ -34,7 +34,7 @@ public:
 	void Uninit(void) override;		// 終了
 	void Update(const float fDeltaTime) override;			// 更新
 	void Draw(CShader *pShader = nullptr) override;			// 描画
-	void SetVec3Sizing(const D3DXVECTOR3& rSize) override;	// 大きさ設定
+	void SetVec3Size(const D3DXVECTOR3& rSize) override;	// 大きさ設定
 
 	// 静的メンバ関数
 	static CChar2D *Create	// 生成 (マルチバイト文字)

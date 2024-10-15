@@ -56,7 +56,7 @@ HRESULT CTileSpawn::Init(void)
 	BindTexture(TEXTURE_FILE);
 
 	// ‘å‚«‚³‚ğİ’è
-	SetVec3Sizing(D3DXVECTOR3(SIZE_TILE, SIZE_TILE, 0.0f));
+	SetVec3Size(D3DXVECTOR3(SIZE_TILE, SIZE_TILE, 0.0f));
 
 	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;

@@ -67,7 +67,7 @@ HRESULT CTileMap::Init(void)
 	}
 
 	// 大きさを設定
-	SetVec3Sizing(D3DXVECTOR3(SIZE_TILE, SIZE_TILE, 0.0f));
+	SetVec3Size(D3DXVECTOR3(SIZE_TILE, SIZE_TILE, 0.0f));
 
 	// 成功を返す
 	return S_OK;
@@ -149,16 +149,16 @@ void CTileMap::SetType(const EType type)
 	if (m_type == TYPE_FALL_POINT)
 	{
 		// 大きさを設定
-		SetVec3Sizing(D3DXVECTOR3(SIZE_TILE * 34.0f, SIZE_TILE * 13.0f, 0.0f));	// TODO：どうにかしよう
+		SetVec3Size(D3DXVECTOR3(SIZE_TILE * 34.0f, SIZE_TILE * 13.0f, 0.0f));	// TODO：どうにかしよう
 	}
 	if (m_type == TYPE_RUINS_GATE)
 	{
 		// 大きさを設定
-		SetVec3Sizing(D3DXVECTOR3(SIZE_TILE * 16.0f, SIZE_TILE * 17.0f, 0.0f));	// TODO：どうにかしよう
+		SetVec3Size(D3DXVECTOR3(SIZE_TILE * 16.0f, SIZE_TILE * 17.0f, 0.0f));	// TODO：どうにかしよう
 	}
 	if (m_type == TYPE_RUINS_STAIRS)
 	{
 		// 大きさを設定
-		SetVec3Sizing(D3DXVECTOR3(SIZE_TILE * 14.0f, SIZE_TILE * 6.4f, 0.0f));	// TODO：どうにかしよう
+		SetVec3Size(D3DXVECTOR3(SIZE_TILE * 14.0f, SIZE_TILE * 6.4f, 0.0f));	// TODO：どうにかしよう
 	}
 }

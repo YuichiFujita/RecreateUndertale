@@ -441,7 +441,7 @@ void CTimeUI::SetSizingValue(const D3DXVECTOR3& rSize)
 
 		// 数字の大きさを設定
 		assert(m_apValue[nCntValue] != nullptr);
-		m_apValue[nCntValue]->SetVec3Sizing(rSize);
+		m_apValue[nCntValue]->SetVec3Size(rSize);
 	}
 
 	// 相対位置の設定
@@ -461,7 +461,7 @@ void CTimeUI::SetSizingPart(const D3DXVECTOR3& rSize)
 
 		// 区切りの大きさを設定
 		assert(m_apPart[nCntPart] != nullptr);
-		m_apPart[nCntPart]->SetVec3Sizing(rSize);
+		m_apPart[nCntPart]->SetVec3Size(rSize);
 	}
 
 	// 相対位置の設定
@@ -567,11 +567,11 @@ float CTimeUI::GetTimeWidth(void) const
 
 	// 先頭数字の横幅を加算
 	assert(m_apValue[0] != nullptr);
-	fTimeWidth += m_apValue[0]->GetVec3Sizing().x * 0.5f;
+	fTimeWidth += m_apValue[0]->GetVec3Size().x * 0.5f;
 
 	// 終端数字の横幅を加算
 	assert(m_apValue[nEndNumID] != nullptr);
-	fTimeWidth += m_apValue[nEndNumID]->GetVec3Sizing().x * 0.5f;
+	fTimeWidth += m_apValue[nEndNumID]->GetVec3Size().x * 0.5f;
 
 	// タイム全体の横幅を返す
 	return fTimeWidth;
@@ -591,11 +591,11 @@ float CTimeUI::GetTimeHeight(void) const
 
 	// 先頭数字の縦幅を加算
 	assert(m_apValue[0] != nullptr);
-	fTimeHeight += m_apValue[0]->GetVec3Sizing().y * 0.5f;
+	fTimeHeight += m_apValue[0]->GetVec3Size().y * 0.5f;
 
 	// 終端数字の縦幅を加算
 	assert(m_apValue[nEndNumID] != nullptr);
-	fTimeHeight += m_apValue[nEndNumID]->GetVec3Sizing().y * 0.5f;
+	fTimeHeight += m_apValue[nEndNumID]->GetVec3Size().y * 0.5f;
 
 	// タイム全体の縦幅を返す
 	return fTimeHeight;
@@ -620,7 +620,7 @@ void CTimeUI::SetPositionRelative(void)
 	D3DXVECTOR3 spaceValue = m_spaceValue * 0.5f;	// 数字の空白
 	D3DXVECTOR3 spacePart = m_spacePart * 0.5f;		// 区切りの空白
 	D3DXVECTOR3 sizeTime = GetTimeSize() * 0.5f;	// タイム全体の大きさ
-	D3DXVECTOR3 sizeHead = m_apValue[0]->GetVec3Sizing() * 0.5f;	// 先頭数字の大きさ
+	D3DXVECTOR3 sizeHead = m_apValue[0]->GetVec3Size() * 0.5f;	// 先頭数字の大きさ
 	D3DXVECTOR3 rotStart = D3DXVECTOR3(m_rot.z + HALF_PI, m_rot.z, 0.0f);	// 文字の開始向き
 
 	D3DXVECTOR3 posOffset = VEC3_ZERO;	// 文字の開始オフセット

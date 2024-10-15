@@ -164,7 +164,7 @@ CFrameText2D *CFrameText2D::Create
 		pFrameText2D->SetVec3Rotation(rRot);
 
 		// 大きさを設定
-		pFrameText2D->SetVec3Sizing(rSize);
+		pFrameText2D->SetVec3Size(rSize);
 
 		// 確保したアドレスを返す
 		return pFrameText2D;

@@ -143,10 +143,10 @@ void CScroll2D::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 //	大きさの設定処理
 //============================================================
-void CScroll2D::SetVec3Sizing(const D3DXVECTOR3& rSize)
+void CScroll2D::SetVec3Size(const D3DXVECTOR3& rSize)
 {
 	// 大きさの設定
-	CObject2D::SetVec3Sizing(rSize);
+	CObject2D::SetVec3Size(rSize);
 
 	// スクロールのテクスチャ座標の設定
 	CObject2D::SetScrollTex(m_fTexU, m_fTexV, m_fOffsetU, m_fOffsetV);
@@ -191,7 +191,7 @@ CScroll2D *CScroll2D::Create
 		pScroll2D->SetVec3Rotation(rRot);
 
 		// 大きさを設定
-		pScroll2D->SetVec3Sizing(rSize);
+		pScroll2D->SetVec3Size(rSize);
 
 		// 色を設定
 		pScroll2D->SetColor(rCol);

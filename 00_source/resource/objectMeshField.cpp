@@ -209,7 +209,7 @@ void CObjectMeshField::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 //	‘å‚«‚³‚ÌÝ’èˆ—
 //============================================================
-void CObjectMeshField::SetVec2Sizing(const D3DXVECTOR2& rSize)
+void CObjectMeshField::SetVec2Size(const D3DXVECTOR2& rSize)
 {
 	// ˆø”‚Ì‘å‚«‚³‚ðÝ’è
 	m_meshField.size = rSize;
@@ -256,7 +256,7 @@ CObjectMeshField *CObjectMeshField::Create
 		pMeshField->SetVec3Rotation(rRot);
 
 		// ‘å‚«‚³‚ðÝ’è
-		pMeshField->SetVec2Sizing(rSize);
+		pMeshField->SetVec2Size(rSize);
 
 		// F‚ðÝ’è
 		pMeshField->SetColor(rCol);

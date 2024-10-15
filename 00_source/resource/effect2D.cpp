@@ -98,7 +98,7 @@ void CEffect2D::Update(const float fDeltaTime)
 	// 変数を宣言
 	D3DXVECTOR3 pos  = GetVec3Position();	// 位置
 	D3DXVECTOR3 rot  = GetVec3Rotation();	// 向き
-	D3DXVECTOR3 size = GetVec3Sizing();		// 大きさ
+	D3DXVECTOR3 size = GetVec3Size();		// 大きさ
 	D3DXCOLOR   col  = GetColor();			// 色
 	float fRadius = size.x;					// 半径
 
@@ -139,7 +139,7 @@ void CEffect2D::Update(const float fDeltaTime)
 	CObject2D::SetVec3Rotation(rot);
 
 	// 大きさを設定
-	CObject2D::SetVec3Sizing(D3DXVECTOR3(fRadius, fRadius, 0.0f));
+	CObject2D::SetVec3Size(D3DXVECTOR3(fRadius, fRadius, 0.0f));
 
 	// 色を設定
 	CObject2D::SetColor(col);
@@ -215,7 +215,7 @@ CEffect2D *CEffect2D::Create
 		pEffect2D->SetVec3Rotation(rRot);
 
 		// 大きさを設定
-		pEffect2D->SetVec3Sizing(D3DXVECTOR3(fRadius, fRadius, 0.0f));
+		pEffect2D->SetVec3Size(D3DXVECTOR3(fRadius, fRadius, 0.0f));
 
 		// 色を設定
 		pEffect2D->SetColor(rCol);

@@ -173,7 +173,7 @@ CAnim2D *CAnim2D::Create(const int nWidthPtrn, const int nHeightPtrn, const D3DX
 		pAnim2D->SetVec3Rotation(rRot);
 
 		// 大きさを設定
-		pAnim2D->SetVec3Sizing(rSize);
+		pAnim2D->SetVec3Size(rSize);
 
 		// 色を設定
 		pAnim2D->SetColor(rCol);
@@ -210,10 +210,10 @@ void CAnim2D::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 //	大きさの設定処理
 //============================================================
-void CAnim2D::SetVec3Sizing(const D3DXVECTOR3& rSize)
+void CAnim2D::SetVec3Size(const D3DXVECTOR3& rSize)
 {
 	// 大きさの設定
-	CObject2D::SetVec3Sizing(rSize);
+	CObject2D::SetVec3Size(rSize);
 
 	// アニメーションのテクスチャ座標の設定
 	CObject2D::SetAnimTex(m_nPattern, m_nWidthPtrn, m_nHeightPtrn);

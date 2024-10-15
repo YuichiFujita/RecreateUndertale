@@ -226,7 +226,7 @@ CObject3D *CObject3D::Create
 		pObject3D->SetVec3Rotation(rRot);
 
 		// ‘å‚«‚³‚ğİ’è
-		pObject3D->SetVec3Sizing(rSize);
+		pObject3D->SetVec3Size(rSize);
 
 		// F‚ğİ’è
 		pObject3D->SetColor(rCol);
@@ -266,7 +266,7 @@ void CObject3D::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 //	‘å‚«‚³‚Ìİ’èˆ—
 //============================================================
-void CObject3D::SetVec3Sizing(const D3DXVECTOR3& rSize)
+void CObject3D::SetVec3Size(const D3DXVECTOR3& rSize)
 {
 	// ˆø”‚Ì‘å‚«‚³‚ğ‘ã“ü
 	m_size = rSize;

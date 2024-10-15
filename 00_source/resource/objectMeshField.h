@@ -46,10 +46,10 @@ public:
 	void Draw(CShader *pShader = nullptr) override;			// 描画
 	void SetVec3Position(const D3DXVECTOR3& rPos) override;	// 位置設定
 	void SetVec3Rotation(const D3DXVECTOR3& rRot) override;	// 向き設定
-	void SetVec2Sizing(const D3DXVECTOR2& rSize) override;	// 大きさ設定
+	void SetVec2Size(const D3DXVECTOR2& rSize) override;	// 大きさ設定
 	D3DXVECTOR3 GetVec3Position(void) const override	{ return m_meshField.pos; }			// 位置取得
 	D3DXVECTOR3 GetVec3Rotation(void) const override	{ return m_meshField.rot; }			// 向き取得
-	D3DXVECTOR2 GetVec2Sizing(void) const override		{ return m_meshField.size; }		// 大きさ取得
+	D3DXVECTOR2 GetVec2Size(void) const override		{ return m_meshField.size; }		// 大きさ取得
 	D3DXMATRIX *GetPtrMtxWorld(void) override			{ return &m_meshField.mtxWorld; }	// マトリックスポインタ取得
 	D3DXMATRIX GetMtxWorld(void) const override			{ return m_meshField.mtxWorld; }	// マトリックス取得
 

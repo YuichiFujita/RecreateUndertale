@@ -170,7 +170,7 @@ void CFrame2D::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 //	大きさの設定処理
 //============================================================
-void CFrame2D::SetVec3Sizing(const D3DXVECTOR3& rSize)
+void CFrame2D::SetVec3Size(const D3DXVECTOR3& rSize)
 {
 	// 引数の大きさを設定
 	m_size = rSize;
@@ -178,7 +178,7 @@ void CFrame2D::SetVec3Sizing(const D3DXVECTOR3& rSize)
 	{ // ポリゴンの総数分繰り返す
 
 		float fCalcScale = (-1.0f * (i - 1));	// 大きさ調整値
-		m_apFrame[i]->SetVec3Sizing(rSize + fCalcScale * BORD_THICK);	// フレーム
+		m_apFrame[i]->SetVec3Size(rSize + fCalcScale * BORD_THICK);	// フレーム
 	}
 }
 
@@ -218,7 +218,7 @@ CFrame2D *CFrame2D::Create
 		pFrame2D->SetVec3Rotation(rRot);
 
 		// 大きさを設定
-		pFrame2D->SetVec3Sizing(rSize);
+		pFrame2D->SetVec3Size(rSize);
 
 		// 確保したアドレスを返す
 		return pFrame2D;

@@ -55,10 +55,10 @@ public:
 	void SetPriority(const int nPriority) override;			// 優先順位設定
 	void SetVec3Position(const D3DXVECTOR3& rPos) override;	// 位置設定
 	void SetVec3Rotation(const D3DXVECTOR3& rRot) override;	// 向き設定
-	void SetVec3Sizing(const D3DXVECTOR3& rSize) override;	// 大きさ設定
+	void SetVec3Size(const D3DXVECTOR3& rSize) override;	// 大きさ設定
 	D3DXVECTOR3 GetVec3Position(void) const override	{ return m_pos; }	// 位置取得
 	D3DXVECTOR3 GetVec3Rotation(void) const override	{ return m_rot; }	// 向き取得
-	D3DXVECTOR3 GetVec3Sizing(void) const override		{ return m_size; }	// 大きさ取得
+	D3DXVECTOR3 GetVec3Size(void) const override		{ return m_size; }	// 大きさ取得
 
 	// 静的メンバ関数
 	static CMultiValue *Create	// 生成

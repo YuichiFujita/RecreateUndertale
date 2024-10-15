@@ -177,7 +177,7 @@ void CMultiValue::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 //	大きさの設定処理
 //============================================================
-void CMultiValue::SetVec3Sizing(const D3DXVECTOR3& rSize)
+void CMultiValue::SetVec3Size(const D3DXVECTOR3& rSize)
 {
 	// 設定する大きさを保存
 	m_size = rSize;
@@ -187,7 +187,7 @@ void CMultiValue::SetVec3Sizing(const D3DXVECTOR3& rSize)
 
 		// 数字大きさの設定
 		assert(rList != nullptr);
-		rList->SetVec3Sizing(rSize);
+		rList->SetVec3Size(rSize);
 	}
 
 	// 相対位置の設定
@@ -252,7 +252,7 @@ CMultiValue *CMultiValue::Create
 		pMultiValue->SetVec3Rotation(rRot);
 
 		// 大きさを設定
-		pMultiValue->SetVec3Sizing(rSize);
+		pMultiValue->SetVec3Size(rSize);
 
 		// 色を設定
 		pMultiValue->SetColor(rCol);
@@ -392,7 +392,7 @@ HRESULT CMultiValue::SetDigit(const int nDigit)
 	SetVec3Rotation(m_rot);
 
 	// 大きさを設定
-	SetVec3Sizing(m_size);
+	SetVec3Size(m_size);
 
 	// 色を設定
 	SetColor(m_col);
@@ -515,8 +515,8 @@ float CMultiValue::GetValueWidth(void) const
 	}
 
 	// 先頭と終端の数字の無視されたサイズを加算
-	fValueWidth += m_listValue.front()->GetVec3Sizing().x * 0.5f;	// 先頭数字の原点左サイズ
-	fValueWidth += m_listValue.back()->GetVec3Sizing().x * 0.5f;	// 終端数字の原点右サイズ
+	fValueWidth += m_listValue.front()->GetVec3Size().x * 0.5f;	// 先頭数字の原点左サイズ
+	fValueWidth += m_listValue.back()->GetVec3Size().x * 0.5f;	// 終端数字の原点右サイズ
 
 	// 数字全体の縦幅を返す
 	return fValueWidth;
@@ -540,8 +540,8 @@ float CMultiValue::GetValueHeight(void) const
 	}
 
 	// 先頭と終端の数字の無視されたサイズを加算
-	fValueHeight += m_listValue.front()->GetVec3Sizing().y * 0.5f;	// 先頭数字の原点上サイズ
-	fValueHeight += m_listValue.back()->GetVec3Sizing().y * 0.5f;	// 終端数字の原点下サイズ
+	fValueHeight += m_listValue.front()->GetVec3Size().y * 0.5f;	// 先頭数字の原点上サイズ
+	fValueHeight += m_listValue.back()->GetVec3Size().y * 0.5f;		// 終端数字の原点下サイズ
 
 	// 数字全体の縦幅を返す
 	return fValueHeight;
@@ -568,7 +568,7 @@ void CMultiValue::SetPositionRelative(void)
 	if ((int)m_listValue.size() <= 0) { return; }
 
 	D3DXVECTOR3 sizeValue	= GetValueSize() * 0.5f;	// 数字全体の大きさ
-	D3DXVECTOR3 sizeHead	= m_listValue.front()->GetVec3Sizing() * 0.5f;		// 先頭数字の大きさ
+	D3DXVECTOR3 sizeHead	= m_listValue.front()->GetVec3Size() * 0.5f;		// 先頭数字の大きさ
 	D3DXVECTOR3 rotStart	= D3DXVECTOR3(m_rot.z + HALF_PI, m_rot.z, 0.0f);	// 文字の開始向き
 
 	D3DXVECTOR3 posOffset = VEC3_ZERO;	// 文字の開始オフセット

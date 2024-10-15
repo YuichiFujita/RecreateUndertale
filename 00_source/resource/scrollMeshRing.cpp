@@ -134,10 +134,10 @@ void CScrollMeshRing::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 //	大きさの設定処理
 //============================================================
-void CScrollMeshRing::SetVec2Sizing(const D3DXVECTOR2& rSize)
+void CScrollMeshRing::SetVec2Size(const D3DXVECTOR2& rSize)
 {
 	// 大きさの設定
-	CObjectMeshRing::SetVec2Sizing(rSize);
+	CObjectMeshRing::SetVec2Size(rSize);
 
 	// スクロールのテクスチャ座標の設定
 	CObjectMeshRing::SetScrollTex(m_fTexU, m_fTexV);
@@ -183,7 +183,7 @@ CScrollMeshRing *CScrollMeshRing::Create
 		pScrollMeshRing->SetVec3Rotation(rRot);
 
 		// 大きさを設定
-		pScrollMeshRing->SetVec2Sizing(rSize);
+		pScrollMeshRing->SetVec2Size(rSize);
 
 		// 色を設定
 		pScrollMeshRing->SetColor(rCol);

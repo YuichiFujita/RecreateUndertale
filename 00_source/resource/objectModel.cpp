@@ -171,7 +171,7 @@ void CObjectModel::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 //	拡大率の設定処理
 //============================================================
-void CObjectModel::SetVec3Scaling(const D3DXVECTOR3& rScale)
+void CObjectModel::SetVec3Scale(const D3DXVECTOR3& rScale)
 {
 	// 引数の拡大率を代入
 	m_scale = rScale;
@@ -208,7 +208,7 @@ CObjectModel *CObjectModel::Create(const D3DXVECTOR3& rPos, const D3DXVECTOR3& r
 		pModel->SetVec3Rotation(rRot);
 
 		// 拡大率を設定
-		pModel->SetVec3Scaling(rScale);
+		pModel->SetVec3Scale(rScale);
 
 		// 確保したアドレスを返す
 		return pModel;

@@ -101,7 +101,7 @@ void CChar2D::Draw(CShader *pShader)
 //============================================================
 //	‘å‚«‚³‚Ìİ’èˆ—
 //============================================================
-void CChar2D::SetVec3Sizing(const D3DXVECTOR3& /*rSize*/)
+void CChar2D::SetVec3Size(const D3DXVECTOR3& /*rSize*/)
 {
 	/*
 		‚±‚Á‚¿‚Å‘å‚«‚³‚ğ©—R‚É•Ï‚¦‚ç‚ê‚é‚Æ
@@ -290,7 +290,7 @@ void CChar2D::SetCharHeight(const float fHeight)
 	m_fSizeRate = fHeight / (float)status.Height;
 
 	// ‘å‚«‚³‚ğİ’è
-	CObject2D::SetVec3Sizing(D3DXVECTOR3(fTexWidth, fHeight, 0.0f));
+	CObject2D::SetVec3Size(D3DXVECTOR3(fTexWidth, fHeight, 0.0f));
 }
 
 //============================================================

@@ -84,7 +84,7 @@ HRESULT CFade::Init(void)
 	SetVec3Position(SCREEN_CENT);
 
 	// 大きさをスクリーンサイズにする
-	SetVec3Sizing(SCREEN_SIZE);
+	SetVec3Size(SCREEN_SIZE);
 
 	// 色を黒にする
 	SetColor(color::Black());

@@ -149,7 +149,7 @@ CValue *CValue::Create
 		pValue->SetVec3Rotation(rRot);
 
 		// ‘å‚«‚³‚ðÝ’è
-		pValue->SetVec3Sizing(rSize);
+		pValue->SetVec3Size(rSize);
 
 		// F‚ðÝ’è
 		pValue->SetColor(rCol);

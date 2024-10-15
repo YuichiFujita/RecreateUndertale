@@ -83,7 +83,7 @@ void CMultiModel::Draw(CShader *pShader)
 	CModel::SModel modelData = GetModelData();	// モデルの情報
 	D3DXVECTOR3 pos = GetVec3Position();		// モデルの位置
 	D3DXVECTOR3 rot = GetVec3Rotation();		// モデルの向き
-	D3DXVECTOR3 scale = GetVec3Scaling();		// モデルの拡大率
+	D3DXVECTOR3 scale = GetVec3Scale();			// モデルの拡大率
 	D3DXMATRIX  mtxScale, mtxRot, mtxTrans;		// 計算用マトリックス
 
 	D3DXMATRIX   mtxWorld;	// ワールドマトリックス
@@ -189,7 +189,7 @@ CMultiModel *CMultiModel::Create(const D3DXVECTOR3& rPos, const D3DXVECTOR3& rRo
 		pMultiModel->SetVec3Rotation(rRot);
 
 		// 拡大率を設定
-		pMultiModel->SetVec3Scaling(rScale);
+		pMultiModel->SetVec3Scale(rScale);
 
 		// 確保したアドレスを返す
 		return pMultiModel;
@@ -230,7 +230,7 @@ void CMultiModel::DrawNormal(void)
 {
 	// 変数を宣言
 	CModel::SModel modelData = GetModelData();	// モデルの情報
-	D3DXVECTOR3	scale = GetVec3Scaling();		// モデルの拡大率
+	D3DXVECTOR3	scale = GetVec3Scale();			// モデルの拡大率
 	D3DXMATRIX	mtxWorld = GetMtxWorld();		// ワールドマトリックス
 
 	// ポインタを宣言
@@ -267,7 +267,7 @@ void CMultiModel::DrawShader(CShader *pShader)
 {
 	// 変数を宣言
 	CModel::SModel modelData = GetModelData();	// モデルの情報
-	D3DXVECTOR3	scale = GetVec3Scaling();		// モデルの拡大率
+	D3DXVECTOR3	scale = GetVec3Scale();			// モデルの拡大率
 	D3DXMATRIX	mtxWorld = GetMtxWorld();		// ワールドマトリックス
 
 	// ポインタを宣言

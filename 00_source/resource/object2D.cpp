@@ -189,7 +189,7 @@ CObject2D *CObject2D::Create
 		pObject2D->SetVec3Rotation(rRot);
 
 		// ‘å‚«‚³‚ğİ’è
-		pObject2D->SetVec3Sizing(rSize);
+		pObject2D->SetVec3Size(rSize);
 
 		// F‚ğİ’è
 		pObject2D->SetColor(rCol);
@@ -229,7 +229,7 @@ void CObject2D::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 //	‘å‚«‚³‚Ìİ’èˆ—
 //============================================================
-void CObject2D::SetVec3Sizing(const D3DXVECTOR3& rSize)
+void CObject2D::SetVec3Size(const D3DXVECTOR3& rSize)
 {
 	// ˆø”‚Ì‘å‚«‚³‚ğ‘ã“ü
 	m_size = rSize;

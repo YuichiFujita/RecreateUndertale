@@ -115,7 +115,7 @@ void CEffect3D::Update(const float fDeltaTime)
 	// 変数を宣言
 	D3DXVECTOR3 pos  = GetVec3Position();	// 位置
 	D3DXVECTOR3 rot  = GetVec3Rotation();	// 向き
-	D3DXVECTOR3 size = GetVec3Sizing();		// 大きさ
+	D3DXVECTOR3 size = GetVec3Size();		// 大きさ
 	D3DXCOLOR   col  = GetColor();			// 色
 	float fRadius    = size.x;				// 半径
 
@@ -156,7 +156,7 @@ void CEffect3D::Update(const float fDeltaTime)
 	CObjectBillboard::SetVec3Rotation(rot);
 
 	// 大きさを設定
-	CObjectBillboard::SetVec3Sizing(D3DXVECTOR3(fRadius, fRadius, 0.0f));
+	CObjectBillboard::SetVec3Size(D3DXVECTOR3(fRadius, fRadius, 0.0f));
 
 	// 色を設定
 	CObjectBillboard::SetColor(col);
@@ -232,7 +232,7 @@ CEffect3D *CEffect3D::Create
 		pEffect3D->SetVec3Rotation(rRot);
 
 		// 大きさを設定
-		pEffect3D->SetVec3Sizing(D3DXVECTOR3(fRadius, fRadius, 0.0f));
+		pEffect3D->SetVec3Size(D3DXVECTOR3(fRadius, fRadius, 0.0f));
 
 		// 色を設定
 		pEffect3D->SetColor(rCol);

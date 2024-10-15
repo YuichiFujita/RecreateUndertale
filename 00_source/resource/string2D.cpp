@@ -496,13 +496,13 @@ float CString2D::GetStrWidth(void) const
 
 	// 先頭文字のサイズをブラックボックス左からの大きさに補正
 	assert(m_ppChar[0] != nullptr);
-	float fHeadWidth = m_ppChar[0]->GetVec3Sizing().x * 0.5f;		// 先頭文字の横幅
+	float fHeadWidth = m_ppChar[0]->GetVec3Size().x * 0.5f;			// 先頭文字の横幅
 	fStrWidth += fHeadWidth - m_ppChar[0]->GetOffsetOrigin();		// 原点より前の空間を加算
 	fStrWidth -= fHeadWidth + m_ppChar[0]->GetOffsetBlackBoxLU().x;	// ブラックボックス開始より前の空間を減算
 
 	// 終端文字のサイズをブラックボックス右までの大きさに補正
 	assert(m_ppChar[nEndCharID] != nullptr);
-	float fTailWidth = m_ppChar[nEndCharID]->GetVec3Sizing().x * 0.5f;			// 終端文字の横幅
+	float fTailWidth = m_ppChar[nEndCharID]->GetVec3Size().x * 0.5f;			// 終端文字の横幅
 	fStrWidth -= fTailWidth - m_ppChar[nEndCharID]->GetOffsetOrigin();			// 原点より前の空間を減算
 	fStrWidth += fTailWidth + m_ppChar[nEndCharID]->GetOffsetBlackBoxRD().x;	// ブラックボックス終了より前の空間を加算
 
@@ -547,7 +547,7 @@ void CString2D::SetPositionRelative(void)
 	float fHeadOffsetOrigin	= m_ppChar[0]->GetOffsetOrigin();			// 先頭文字の原点オフセット
 	float fHeadOffsetLU	= m_ppChar[0]->GetOffsetBlackBoxLU().x;			// 先頭文字のブラックボックスオフセット
 	float fHeadRot		= m_ppChar[0]->GetVec3Rotation().z - HALF_PI;	// 先頭文字の向き
-	float fHeadWidth	= m_ppChar[0]->GetVec3Sizing().x * 0.5f;		// 先頭文字の横幅
+	float fHeadWidth	= m_ppChar[0]->GetVec3Size().x * 0.5f;			// 先頭文字の横幅
 	float fStrWidth		= GetStrWidth() * 0.5f;							// 文字列全体の横幅
 
 	float fStartOffset = fStrWidth;	// 文字の開始位置オフセット

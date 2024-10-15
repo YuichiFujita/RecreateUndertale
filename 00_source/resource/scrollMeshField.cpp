@@ -134,10 +134,10 @@ void CScrollMeshField::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 //	大きさの設定処理
 //============================================================
-void CScrollMeshField::SetVec2Sizing(const D3DXVECTOR2& rSize)
+void CScrollMeshField::SetVec2Size(const D3DXVECTOR2& rSize)
 {
 	// 大きさの設定
-	CObjectMeshField::SetVec2Sizing(rSize);
+	CObjectMeshField::SetVec2Size(rSize);
 
 	// スクロールのテクスチャ座標の設定
 	CObjectMeshField::SetScrollTex(m_fTexU, m_fTexV);
@@ -183,7 +183,7 @@ CScrollMeshField *CScrollMeshField::Create
 		pScrollMeshField->SetVec3Rotation(rRot);
 
 		// 大きさを設定
-		pScrollMeshField->SetVec2Sizing(rSize);
+		pScrollMeshField->SetVec2Size(rSize);
 
 		// 色を設定
 		pScrollMeshField->SetColor(rCol);

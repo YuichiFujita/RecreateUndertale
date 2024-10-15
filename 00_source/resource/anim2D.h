@@ -35,7 +35,7 @@ public:
 	void Draw(CShader *pShader = nullptr) override;			// •`‰æ
 	void SetVec3Position(const D3DXVECTOR3& rPos) override;	// ˆÊ’uİ’è
 	void SetVec3Rotation(const D3DXVECTOR3& rRot) override;	// Œü‚«İ’è
-	void SetVec3Sizing(const D3DXVECTOR3& rSize) override;	// ‘å‚«‚³İ’è
+	void SetVec3Size(const D3DXVECTOR3& rSize) override;	// ‘å‚«‚³İ’è
 
 	// Ã“Iƒƒ“ƒoŠÖ”
 	static CAnim2D *Create	// ¶¬

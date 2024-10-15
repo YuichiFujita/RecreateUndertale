@@ -48,7 +48,7 @@ HRESULT CScreen::Init(void)
 	SetVec3Position(SCREEN_CENT);
 
 	// 大きさをスクリーンサイズにする
-	SetVec3Sizing(SCREEN_SIZE);
+	SetVec3Size(SCREEN_SIZE);
 
 	// 自動更新・自動描画をOFFにする
 	SetEnableUpdate(false);

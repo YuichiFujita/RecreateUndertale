@@ -257,7 +257,7 @@ CObjectBillboard *CObjectBillboard::Create
 		pBillboard->SetVec3Rotation(rRot);
 
 		// ‘å‚«‚³‚ğİ’è
-		pBillboard->SetVec3Sizing(rSize);
+		pBillboard->SetVec3Size(rSize);
 
 		// F‚ğİ’è
 		pBillboard->SetColor(rCol);
@@ -300,7 +300,7 @@ void CObjectBillboard::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 //	‘å‚«‚³‚Ìİ’èˆ—
 //============================================================
-void CObjectBillboard::SetVec3Sizing(const D3DXVECTOR3& rSize)
+void CObjectBillboard::SetVec3Size(const D3DXVECTOR3& rSize)
 {
 	// ˆø”‚Ì‘å‚«‚³‚ğ‘ã“ü
 	m_size = rSize;

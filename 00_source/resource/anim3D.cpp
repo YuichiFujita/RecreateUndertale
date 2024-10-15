@@ -176,7 +176,7 @@ CAnim3D *CAnim3D::Create
 		pAnim3D->SetVec3Rotation(rRot);
 
 		// 大きさを設定
-		pAnim3D->SetVec3Sizing(rSize);
+		pAnim3D->SetVec3Size(rSize);
 
 		// 色を設定
 		pAnim3D->SetColor(rCol);
@@ -213,10 +213,10 @@ void CAnim3D::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 //	大きさの設定処理
 //============================================================
-void CAnim3D::SetVec3Sizing(const D3DXVECTOR3& rSize)
+void CAnim3D::SetVec3Size(const D3DXVECTOR3& rSize)
 {
 	// 大きさの設定
-	CObject3D::SetVec3Sizing(rSize);
+	CObject3D::SetVec3Size(rSize);
 
 	// アニメーションのテクスチャ座標の設定
 	CObject3D::SetAnimTex(m_nCurPtrn, m_ptrn.x, m_ptrn.y);

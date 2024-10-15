@@ -435,7 +435,7 @@ void CTitleManager::UpdateMove(void)
 		{ // ƒ^ƒCƒgƒ‹ƒƒS‚Ì‘”•ªŒJ‚è•Ô‚·
 
 			// ƒ^ƒCƒgƒ‹ƒƒS‚Ì‘å‚«‚³‚ðÝ’è
-			m_apLogo[nCntTitle]->SetVec3Sizing(logo::SIZE * m_fScale);
+			m_apLogo[nCntTitle]->SetVec3Size(logo::SIZE * m_fScale);
 		}
 	}
 	else
@@ -448,7 +448,7 @@ void CTitleManager::UpdateMove(void)
 		{ // ƒ^ƒCƒgƒ‹ƒƒS‚Ì‘”•ªŒJ‚è•Ô‚·
 
 			// ƒ^ƒCƒgƒ‹ƒƒS‚Ì‘å‚«‚³‚ðÝ’è
-			m_apLogo[nCntTitle]->SetVec3Sizing(logo::SIZE);
+			m_apLogo[nCntTitle]->SetVec3Size(logo::SIZE);
 		}
 
 		// ó‘Ô‚ð•ÏX
@@ -559,7 +559,7 @@ void CTitleManager::SkipStaging(void)
 	{ // ƒ^ƒCƒgƒ‹ƒƒS‚Ì‘”•ªŒJ‚è•Ô‚·
 
 		// ƒ^ƒCƒgƒ‹ƒƒS‚Ì‘å‚«‚³‚ðÝ’è
-		m_apLogo[nCntTitle]->SetVec3Sizing(logo::SIZE);
+		m_apLogo[nCntTitle]->SetVec3Size(logo::SIZE);
 
 		// •`‰æ‚ð‚·‚éÝ’è‚É‚·‚é
 		m_apLogo[nCntTitle]->SetEnableDraw(true);

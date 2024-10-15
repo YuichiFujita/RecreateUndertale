@@ -106,12 +106,12 @@ public:
 	// メンバ関数
 	void SetFramePosition(const D3DXVECTOR3& rPos)	{ m_pFrame->SetVec3Position(rPos); }	// フレーム位置設定
 	void SetFrameRotation(const D3DXVECTOR3& rRot)	{ m_pFrame->SetVec3Rotation(rRot); }	// フレーム向き設定
-	void SetFrameSizing(const D3DXVECTOR3& rSize)	{ m_pFrame->SetVec3Sizing(rSize); }		// フレーム大きさ設定
+	void SetFrameSizing(const D3DXVECTOR3& rSize)	{ m_pFrame->SetVec3Size(rSize); }		// フレーム大きさ設定
 	void SetSoulPosition(const D3DXVECTOR3& rPos)	{ m_pSoul->SetVec3Position(rPos); }		// ソウルカーソル位置設定
 	void SetSoulCursorDraw(const bool bDraw)		{ m_pSoul->SetEnableDraw(bDraw); }		// ソウルカーソル描画状況設定
 	D3DXVECTOR3 GetFramePosition(void) const		{ return m_pFrame->GetVec3Position(); }	// フレーム位置取得
 	D3DXVECTOR3 GetFrameRotation(void) const		{ return m_pFrame->GetVec3Rotation(); }	// フレーム向き取得
-	D3DXVECTOR3 GetFrameSizing(void) const			{ return m_pFrame->GetVec3Sizing(); }	// フレーム大きさ取得
+	D3DXVECTOR3 GetFrameSizing(void) const			{ return m_pFrame->GetVec3Size(); }		// フレーム大きさ取得
 	D3DXVECTOR3 GetSoulPosition(void) const			{ return m_pSoul->GetVec3Position(); }	// ソウルカーソル位置取得
 	bool IsSoulCursorDraw(void) const				{ return m_pSoul->IsDraw(); }			// ソウルカーソル描画状況取得
 

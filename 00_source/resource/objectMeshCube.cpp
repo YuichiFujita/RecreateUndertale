@@ -241,7 +241,7 @@ void CObjectMeshCube::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 //	大きさの設定処理
 //============================================================
-void CObjectMeshCube::SetVec3Sizing(const D3DXVECTOR3& rSize)
+void CObjectMeshCube::SetVec3Size(const D3DXVECTOR3& rSize)
 {
 	// 引数の大きさを設定
 	m_meshCube.size = rSize;
@@ -302,7 +302,7 @@ CObjectMeshCube *CObjectMeshCube::Create
 		pMeshCube->SetVec3Rotation(rRot);
 
 		// 大きさを設定
-		pMeshCube->SetVec3Sizing(rSize);
+		pMeshCube->SetVec3Size(rSize);
 
 		// キューブ色を設定
 		pMeshCube->SetCubeColor(rCubeCol);

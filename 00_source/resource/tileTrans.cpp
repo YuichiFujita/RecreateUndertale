@@ -65,7 +65,7 @@ HRESULT CTileTrans::Init(void)
 	BindTexture(TEXTURE_FILE);
 
 	// 大きさを設定
-	SetVec3Sizing(D3DXVECTOR3(SIZE_TILE, SIZE_TILE, 0.0f));
+	SetVec3Size(D3DXVECTOR3(SIZE_TILE, SIZE_TILE, 0.0f));
 
 	if (m_pList == nullptr)
 	{ // リストマネージャーが存在しない場合
@@ -203,8 +203,8 @@ void CTileTrans::CollisionTile
 	for (const auto& rList : list)
 	{ // 要素数分繰り返す
 
-		D3DXVECTOR3 posTile  = rList->GetVec3Position();		// タイル位置
-		D3DXVECTOR3 sizeTile = rList->GetVec3Sizing() * 0.5f;	// タイル大きさ
+		D3DXVECTOR3 posTile  = rList->GetVec3Position();	// タイル位置
+		D3DXVECTOR3 sizeTile = rList->GetVec3Size() * 0.5f;	// タイル大きさ
 
 		// XY平面の矩形の当たり判定
 		bool bHit = collision::BoxXY
