@@ -223,6 +223,18 @@ void CAnim3D::SetVec3Sizing(const D3DXVECTOR3& rSize)
 }
 
 //============================================================
+//	透明度の設定処理
+//============================================================
+void CAnim3D::SetAlpha(const float fAlpha)
+{
+	// 透明度の設定
+	CObject3D::SetAlpha(fAlpha);
+
+	// アニメーションのテクスチャ座標の設定
+	CObject3D::SetAnimTex(m_nCurPtrn, m_ptrn.x, m_ptrn.y);
+}
+
+//============================================================
 //	色の設定処理
 //============================================================
 void CAnim3D::SetColor(const D3DXCOLOR& rCol)

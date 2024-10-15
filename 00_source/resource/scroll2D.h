@@ -50,6 +50,7 @@ public:
 	);
 
 	// メンバ関数
+	void SetAlpha(const float fAlpha);		// 透明度設定
 	void SetColor(const D3DXCOLOR& rCol);	// 色設定
 	void SetTexU(const float fTexU);		// 横座標の開始位置設定
 	void SetTexV(const float fTexV);		// 縦座標の開始位置設定

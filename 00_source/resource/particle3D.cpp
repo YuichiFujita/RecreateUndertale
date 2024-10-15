@@ -333,6 +333,15 @@ CParticle3D *CParticle3D::Create(const EType type, const D3DXVECTOR3& rPos, cons
 }
 
 //============================================================
+//	“§–¾“x‚Ìİ’èˆ—
+//============================================================
+void CParticle3D::SetAlpha(const float fAlpha)
+{
+	// “§–¾“x‚ğİ’è
+	m_col.a = fAlpha;
+}
+
+//============================================================
 //	F‚Ìİ’èˆ—
 //============================================================
 void CParticle3D::SetColor(const D3DXCOLOR& rCol)

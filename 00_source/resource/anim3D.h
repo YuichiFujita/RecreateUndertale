@@ -52,6 +52,7 @@ public:
 	);
 
 	// メンバ関数
+	void SetAlpha(const float fAlpha);					// 透明度設定
 	void SetColor(const D3DXCOLOR& rCol);				// 色設定
 	void SetCurPtrn(const int nPtrn);					// 現在パターン設定
 	void SetTexPtrn(const POSGRID2& rPtrn);				// テクスチャ分割数設定
@@ -68,7 +69,6 @@ public:
 	bool IsPlayBack(void) const	{ return m_bPlayBack; }	// 逆再生フラグ取得
 	bool IsLoop(void) const		{ return m_bLoop; }		// ループフラグ取得
 	bool IsFinish(void) const	{ return m_bFinish; }	// 終了フラグ取得
-
 	float GetCurTime(void) const		{ return m_fCurTime; }		// 現在の待機時間
 	float GetCurWholeTime(void) const	{ return m_fCurWholeTime; }	// 現在の全体時間
 	float GetMaxWholeTime(void) const	{ return m_fMaxWholeTime; }	// 総全体時間

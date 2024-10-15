@@ -220,6 +220,15 @@ CParticle2D *CParticle2D::Create(const EType type, const D3DXVECTOR3& rPos, cons
 }
 
 //============================================================
+//	“§–¾“x‚Ìİ’èˆ—
+//============================================================
+void CParticle2D::SetAlpha(const float fAlpha)
+{
+	// “§–¾“x‚ğİ’è
+	m_col.a = fAlpha;
+}
+
+//============================================================
 //	F‚Ìİ’èˆ—
 //============================================================
 void CParticle2D::SetColor(const D3DXCOLOR& rCol)

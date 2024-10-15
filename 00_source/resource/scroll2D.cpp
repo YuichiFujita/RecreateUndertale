@@ -208,6 +208,18 @@ CScroll2D *CScroll2D::Create
 }
 
 //============================================================
+//	透明度の設定処理
+//============================================================
+void CScroll2D::SetAlpha(const float fAlpha)
+{
+	// 透明度の設定
+	CObject2D::SetAlpha(fAlpha);
+
+	// スクロールのテクスチャ座標の設定
+	CObject2D::SetScrollTex(m_fTexU, m_fTexV, m_fOffsetU, m_fOffsetV);
+}
+
+//============================================================
 //	色の設定処理
 //============================================================
 void CScroll2D::SetColor(const D3DXCOLOR& rCol)

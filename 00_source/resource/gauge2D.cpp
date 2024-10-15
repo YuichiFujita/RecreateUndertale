@@ -430,6 +430,18 @@ void CGauge2D::SetSizingFrame(const D3DXVECTOR3& rSize)
 }
 
 //============================================================
+//	表ゲージ透明度の取得処理
+//============================================================
+void CGauge2D::SetAlphaFront(const float fAlpha)
+{
+	// 引数の透明度を代入
+	m_colFront.a = fAlpha;
+
+	// 表ゲージ色の設定
+	SetColorFront(m_colFront);
+}
+
+//============================================================
 //	表ゲージ色の設定処理
 //============================================================
 void CGauge2D::SetColorFront(const D3DXCOLOR& rCol)
@@ -439,6 +451,18 @@ void CGauge2D::SetColorFront(const D3DXCOLOR& rCol)
 
 	// 頂点情報の設定
 	SetVtx();
+}
+
+//============================================================
+//	裏ゲージ透明度の取得処理
+//============================================================
+void CGauge2D::SetAlphaBack(const float fAlpha)
+{
+	// 引数の透明度を代入
+	m_colBack.a = fAlpha;
+
+	// 裏ゲージ色の設定
+	SetColorBack(m_colBack);
 }
 
 //============================================================

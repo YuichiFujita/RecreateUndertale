@@ -404,6 +404,15 @@ void CValueUI::SetSizingTitle(const D3DXVECTOR3& rSize)
 }
 
 //============================================================
+//	タイトル透明度の設定処理
+//============================================================
+void CValueUI::SetAlphaTitle(const float fAlpha)
+{
+	// 引数の透明度を設定
+	m_pTitle->SetAlpha(fAlpha);
+}
+
+//============================================================
 //	タイトル色の設定処理
 //============================================================
 void CValueUI::SetColorTitle(const D3DXCOLOR& rCol)

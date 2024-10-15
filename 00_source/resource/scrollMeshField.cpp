@@ -221,6 +221,18 @@ void CScrollMeshField::SetTerrain(const POSGRID2& rPart, D3DXVECTOR3 *pPosGap)
 }
 
 //============================================================
+//	透明度の設定処理
+//============================================================
+void CScrollMeshField::SetAlpha(const float fAlpha)
+{
+	// 透明度の設定
+	CObjectMeshField::SetAlpha(fAlpha);
+
+	// スクロールのテクスチャ座標の設定
+	CObjectMeshField::SetScrollTex(m_fTexU, m_fTexV);
+}
+
+//============================================================
 //	色の設定処理
 //============================================================
 void CScrollMeshField::SetColor(const D3DXCOLOR& rCol)

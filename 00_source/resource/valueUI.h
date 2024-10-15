@@ -97,10 +97,12 @@ public:
 	void BindTextureTitle(const char *pTexturePass);	// タイトルテクスチャ割当 (パス)
 	void SetRotationTitle(const D3DXVECTOR3& rRot);		// タイトル向き設定
 	void SetSizingTitle(const D3DXVECTOR3& rSize);		// タイトル大きさ設定
+	void SetAlphaTitle(const float fAlpha);				// タイトル透明度設定
 	void SetColorTitle(const D3DXCOLOR& rCol);			// タイトル色設定
 	D3DXVECTOR3 GetSpace(void) const			{ return m_space; }						// 行間取得
 	D3DXVECTOR3 GetRotationTitle(void) const	{ return m_pTitle->GetVec3Rotation(); }	// タイトル向き取得
 	D3DXVECTOR3 GetSizingTitle(void) const		{ return m_pTitle->GetVec3Sizing(); }	// タイトル大きさ取得
+	float GetAlphaTitle(void) const				{ return m_pTitle->GetAlpha(); }		// タイトル透明度取得
 	D3DXCOLOR GetColorTitle(void) const			{ return m_pTitle->GetColor(); }		// タイトル色取得
 	CMultiValue *GetMultiValue(void) const		{ return m_pValue; }					// 数字情報取得
 

@@ -84,6 +84,7 @@ public:
 	void SetAlignX(const EAlignX align);		// 横配置設定
 	void SetAlignY(const EAlignY align);		// 縦配置設定
 	void SetType(const CValue::EType type);		// 種類設定
+	void SetAlpha(const float fAlpha);			// 透明度設定
 	void SetColor(const D3DXCOLOR& rCol);		// 色設定
 	void SetSpace(const D3DXVECTOR3& rSpace);	// 空白設定
 	float GetValueWidth(void) const;			// 数字全体の横幅取得
@@ -96,6 +97,7 @@ public:
 	int GetDigit(void) const	{ return (int)m_listValue.size(); }	// 桁数取得
 	EAlignX GetAlignX(void) const		{ return m_alignX; }		// 横配置取得
 	EAlignY GetAlignY(void) const		{ return m_alignY; }		// 縦配置取得
+	float GetAlpha(void) const			{ return m_col.a; }			// 透明度取得
 	D3DXCOLOR GetColor(void) const		{ return m_col; }			// 色取得
 	D3DXVECTOR3 GetSpace(void) const	{ return m_space; }			// 空白取得
 

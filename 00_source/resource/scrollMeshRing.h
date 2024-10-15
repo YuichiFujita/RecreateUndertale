@@ -51,6 +51,7 @@ public:
 	);
 
 	// メンバ関数
+	void SetAlpha(const float fAlpha);				// 透明度設定
 	void SetColor(const D3DXCOLOR& rCol);			// 色設定
 	void SetTexDir(const ETexDir texDir);			// テクスチャ方向設定
 	void SetHoleRadius(const float fHoleRadius);	// 穴の半径設定

@@ -49,6 +49,7 @@ public:
 	);
 
 	// メンバ関数
+	void SetAlpha(const float fAlpha);				// 透明度設定
 	void SetColor(const D3DXCOLOR& rCol);			// 色設定
 	void SetPattern(const int nPattern);			// パターンの設定
 	void SetMaxPattern(const int nMaxPtrn);			// パターンの総数の設定

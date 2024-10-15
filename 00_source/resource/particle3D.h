@@ -58,8 +58,10 @@ public:
 	);
 
 	// メンバ関数
+	void SetAlpha(const float fAlpha);		// 透明度設定
 	void SetColor(const D3DXCOLOR& rCol);	// 色設定
 	void SetType(const EType type);			// 種類設定
+	float GetAlpha(void) const		{ return m_col.a; }	// 透明度取得
 	D3DXCOLOR GetColor(void) const	{ return m_col; }	// 色取得
 	EType GetType(void) const		{ return m_type; }	// 種類取得
 
