@@ -193,7 +193,7 @@ CObject3D *CObject3D::Create
 	const D3DXVECTOR3& rPos,	// 位置
 	const D3DXVECTOR3& rSize,	// 大きさ
 	const D3DXVECTOR3& rRot,	// 向き
-	const D3DXCOLOR& rCol,		// 色
+	const COLOR& rCol,			// 色
 	const EOrigin origin		// 原点
 )
 {
@@ -338,7 +338,7 @@ void CObject3D::SetAlpha(const float fAlpha)
 //============================================================
 //	色の設定処理
 //============================================================
-void CObject3D::SetColor(const D3DXCOLOR& rCol)
+void CObject3D::SetColor(const COLOR& rCol)
 {
 	// 引数の色を代入
 	m_col = rCol;

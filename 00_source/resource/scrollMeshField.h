@@ -46,14 +46,14 @@ public:
 		const D3DXVECTOR3& rPos,	// 位置
 		const D3DXVECTOR3& rRot,	// 向き
 		const VECTOR2& rSize,		// 大きさ
-		const D3DXCOLOR& rCol,		// 色
+		const COLOR& rCol,			// 色
 		const POSGRID2& rPart		// 分割数
 	);
 
 	// メンバ関数
 	void SetTerrain(const POSGRID2& rPart, D3DXVECTOR3 *pPosGap);	// 地形設定
 	void SetAlpha(const float fAlpha);			// 透明度設定
-	void SetColor(const D3DXCOLOR& rCol);		// 色設定
+	void SetColor(const COLOR& rCol);			// 色設定
 	HRESULT SetPattern(const POSGRID2& rPart);	// 分割数設定
 	void SetTexU(const float fTexU);	// 横座標の開始位置設定
 	void SetTexV(const float fTexV);	// 縦座標の開始位置設定

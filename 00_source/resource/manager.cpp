@@ -730,7 +730,7 @@ void CManager::SetFadeScene
 	const float fWaitTime,		// 余韻時間
 	const float fAddOut,		// アウトのα値増加量
 	const float fSubIn,			// インのα値減少量
-	const D3DXCOLOR colFade		// フェード色
+	const COLOR colFade			// フェード色
 )
 {
 	// インスタンス未使用
@@ -749,7 +749,7 @@ void CManager::SetLoadScene
 	const float fWaitTime,		// 余韻時間
 	const float fAddOut,		// アウトのα値増加量
 	const float fSubIn,			// インのα値減少量
-	const D3DXCOLOR colFade		// フェード色
+	const COLOR colFade			// フェード色
 )
 {
 	// インスタンス未使用

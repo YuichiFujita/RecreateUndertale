@@ -36,7 +36,7 @@ public:
 
 	HRESULT CreateRenderTexture(void);			// レンダーテクスチャー生成
 	LPDIRECT3DDEVICE9 GetDevice(void) const;	// デバイス取得
-	D3DXCOLOR GetClearColor(void) const;		// 画面クリア色取得
+	COLOR GetClearColor(void) const;			// 画面クリア色取得
 
 	// 静的メンバ関数
 	static CRenderer *Create(HWND hWnd, BOOL bWindow);	// 生成

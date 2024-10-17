@@ -21,7 +21,7 @@ namespace
 {
 #ifdef _DEBUG
 
-	const CScene::EMode INIT_SCENE = CScene::MODE_GAME;	// 初期シーン
+	const CScene::EMode INIT_SCENE = CScene::MODE_INTRO;	// 初期シーン
 
 #else	// NDEBUG
 
@@ -125,7 +125,7 @@ void CFade::Update(const float fDeltaTime)
 	// フェードしていない場合抜ける
 	if (m_fade == FADE_NONE) { return; }
 
-	D3DXCOLOR colFade = GetColor();	// フェード色
+	COLOR colFade = GetColor();	// フェード色
 	switch (m_fade)
 	{ // フェード状態ごとの処理
 	case FADE_WAIT:	// フェード余韻状態
@@ -215,7 +215,7 @@ void CFade::SetFade
 	const float fAddOut,	// アウトのα値増加量
 	const float fSubIn,		// インのα値減少量
 	const int nPriority,	// 優先順位
-	const D3DXCOLOR colFade	// フェード色
+	const COLOR colFade		// フェード色
 )
 {
 	// フェード中の場合抜ける
@@ -247,7 +247,7 @@ void CFade::SetModeFade
 	const float fWaitTime,		// 余韻時間
 	const float fAddOut,		// アウトのα値増加量
 	const float fSubIn,			// インのα値減少量
-	const D3DXCOLOR colFade		// フェード色
+	const COLOR colFade			// フェード色
 )
 {
 	// フェード中の場合抜ける
@@ -298,7 +298,7 @@ void CFade::SetLoadFade
 	const float fWaitTime,		// 余韻時間
 	const float fAddOut,		// アウトのα値増加量
 	const float fSubIn,			// インのα値減少量
-	const D3DXCOLOR colFade		// フェード色
+	const COLOR colFade			// フェード色
 )
 {
 	// フェード中の場合抜ける

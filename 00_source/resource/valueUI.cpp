@@ -174,8 +174,8 @@ CValueUI *CValueUI::Create
 	const D3DXVECTOR3& rSizeValue,	// 数字大きさ
 	const D3DXVECTOR3& rRotTitle,	// タイトル向き
 	const D3DXVECTOR3& rRotValue,	// 数字向き
-	const D3DXCOLOR& rColTitle,		// タイトル色
-	const D3DXCOLOR& rColValue		// 数字色
+	const COLOR& rColTitle,			// タイトル色
+	const COLOR& rColValue			// 数字色
 )
 {
 	// 数字UIの生成
@@ -252,8 +252,8 @@ CValueUI *CValueUI::Create
 	const D3DXVECTOR3& rSizeValue,	// 数字大きさ
 	const D3DXVECTOR3& rRotTitle,	// タイトル向き
 	const D3DXVECTOR3& rRotValue,	// 数字向き
-	const D3DXCOLOR& rColTitle,		// タイトル色
-	const D3DXCOLOR& rColValue		// 数字色
+	const COLOR& rColTitle,			// タイトル色
+	const COLOR& rColValue			// 数字色
 )
 {
 	// 数字UIの生成
@@ -302,8 +302,8 @@ CValueUI *CValueUI::Create
 	const D3DXVECTOR3& rSizeValue,	// 数字大きさ
 	const D3DXVECTOR3& rRotTitle,	// タイトル向き
 	const D3DXVECTOR3& rRotValue,	// 数字向き
-	const D3DXCOLOR& rColTitle,		// タイトル色
-	const D3DXCOLOR& rColValue		// 数字色
+	const COLOR& rColTitle,			// タイトル色
+	const COLOR& rColValue			// 数字色
 )
 {
 	// 数字UIの生成
@@ -415,7 +415,7 @@ void CValueUI::SetAlphaTitle(const float fAlpha)
 //============================================================
 //	タイトル色の設定処理
 //============================================================
-void CValueUI::SetColorTitle(const D3DXCOLOR& rCol)
+void CValueUI::SetColorTitle(const COLOR& rCol)
 {
 	// 引数の色を設定
 	m_pTitle->SetColor(rCol);

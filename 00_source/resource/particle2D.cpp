@@ -184,7 +184,7 @@ void CParticle2D::SetVec3Position(const D3DXVECTOR3& rPos)
 //============================================================
 //	生成処理
 //============================================================
-CParticle2D *CParticle2D::Create(const EType type, const D3DXVECTOR3& rPos, const D3DXCOLOR& rCol)
+CParticle2D *CParticle2D::Create(const EType type, const D3DXVECTOR3& rPos, const COLOR& rCol)
 {
 	// パーティクル2Dの生成
 	CParticle2D *pParticle2D = new CParticle2D;
@@ -231,7 +231,7 @@ void CParticle2D::SetAlpha(const float fAlpha)
 //============================================================
 //	色の設定処理
 //============================================================
-void CParticle2D::SetColor(const D3DXCOLOR& rCol)
+void CParticle2D::SetColor(const COLOR& rCol)
 {
 	// 色を設定
 	m_col = rCol;
@@ -257,7 +257,7 @@ void CParticle2D::SetType(const EType type)
 //============================================================
 //	ダメージパーティクル2D処理
 //============================================================
-void CParticle2D::Damage(const D3DXVECTOR3& rPos, const D3DXCOLOR& rCol)
+void CParticle2D::Damage(const D3DXVECTOR3& rPos, const COLOR& rCol)
 {
 	// 変数を宣言
 	D3DXVECTOR3 move = VEC3_ZERO;	// 移動量の代入用
@@ -306,7 +306,7 @@ void CParticle2D::Damage(const D3DXVECTOR3& rPos, const D3DXCOLOR& rCol)
 //============================================================
 //	アイテムパーティクル2D処理
 //============================================================
-void CParticle2D::Item(const D3DXVECTOR3& rPos, const D3DXCOLOR& rCol)
+void CParticle2D::Item(const D3DXVECTOR3& rPos, const COLOR& rCol)
 {
 	// 変数を宣言
 	D3DXVECTOR3 move = VEC3_ZERO;	// 移動量の代入用
@@ -351,7 +351,7 @@ void CParticle2D::Item(const D3DXVECTOR3& rPos, const D3DXCOLOR& rCol)
 //============================================================
 //	アイテム取得パーティクル2D処理
 //============================================================
-void CParticle2D::GetItem(const D3DXVECTOR3& rPos, const D3DXCOLOR& rCol)
+void CParticle2D::GetItem(const D3DXVECTOR3& rPos, const COLOR& rCol)
 {
 	// 変数を宣言
 	D3DXVECTOR3 move = VEC3_ZERO;	// 移動量の代入用

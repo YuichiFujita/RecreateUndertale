@@ -130,7 +130,7 @@ CTimerUI *CTimerUI::Create
 	const EAlignX alignX,			// 横配置
 	const EAlignY alignY,			// 縦配置
 	const D3DXVECTOR3& rRot,		// 向き
-	const D3DXCOLOR& rCol			// 色
+	const COLOR& rCol				// 色
 )
 {
 	// タイマーUIの生成

@@ -255,7 +255,7 @@ CObjectTornado *CObjectTornado::Create
 (
 	const D3DXVECTOR3& rPos,		// 位置
 	const D3DXVECTOR3& rGrowRot,	// 成長向き
-	const D3DXCOLOR& rCol,			// 色
+	const COLOR& rCol,				// 色
 	D3DXMATRIX *pMtxParent,			// 親のマトリックス
 	const int   nNumAround,			// 渦の周回数
 	const int   nPattern,			// 渦の分割数
@@ -480,7 +480,7 @@ void CObjectTornado::SetAlpha(const float fAlpha)
 //============================================================
 //	色の設定処理
 //============================================================
-void CObjectTornado::SetColor(const D3DXCOLOR& rCol)
+void CObjectTornado::SetColor(const COLOR& rCol)
 {
 	// 引数の色を設定
 	m_tornado.col = rCol;
@@ -635,7 +635,7 @@ void CObjectTornado::SetVtx(void)
 					}
 
 					// 頂点カラーの設定
-					pVtx[0].col = D3DXCOLOR(m_tornado.col.r, m_tornado.col.g, m_tornado.col.b, fAlpha);
+					pVtx[0].col = COLOR(m_tornado.col.r, m_tornado.col.g, m_tornado.col.b, fAlpha);
 
 					// テクスチャ座標の設定
 					pVtx[0].tex = VECTOR2

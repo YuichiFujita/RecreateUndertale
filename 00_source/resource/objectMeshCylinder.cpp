@@ -207,7 +207,7 @@ CObjectMeshCylinder *CObjectMeshCylinder::Create
 (
 	const D3DXVECTOR3& rPos,	// 位置
 	const D3DXVECTOR3& rRot,	// 向き
-	const D3DXCOLOR& rCol,		// 色
+	const COLOR& rCol,			// 色
 	const POSGRID2& rPart,		// 分割数
 	const POSGRID2& rTexPart,	// テクスチャ分割数
 	const float fRadius,		// 半径
@@ -328,7 +328,7 @@ void CObjectMeshCylinder::SetAlpha(const float fAlpha)
 //============================================================
 //	色の設定処理
 //============================================================
-void CObjectMeshCylinder::SetColor(const D3DXCOLOR& rCol)
+void CObjectMeshCylinder::SetColor(const COLOR& rCol)
 {
 	// 引数の色を設定
 	m_meshCylinder.col = rCol;

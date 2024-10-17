@@ -141,7 +141,7 @@ CAnim3D *CAnim3D::Create
 	const float fNextTime,		// パターン変更時間
 	const D3DXVECTOR3& rSize,	// 大きさ
 	const D3DXVECTOR3& rRot,	// 向き
-	const D3DXCOLOR& rCol		// 色
+	const COLOR& rCol			// 色
 )
 {
 	// アニメーション3Dの生成
@@ -237,7 +237,7 @@ void CAnim3D::SetAlpha(const float fAlpha)
 //============================================================
 //	色の設定処理
 //============================================================
-void CAnim3D::SetColor(const D3DXCOLOR& rCol)
+void CAnim3D::SetColor(const COLOR& rCol)
 {
 	// 色の設定
 	CObject3D::SetColor(rCol);

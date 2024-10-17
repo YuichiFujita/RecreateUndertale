@@ -331,7 +331,7 @@ CTimeUI *CTimeUI::Create
 	const EAlignX alignX,			// 横配置
 	const EAlignY alignY,			// 縦配置
 	const D3DXVECTOR3& rRot,		// 向き
-	const D3DXCOLOR& rCol			// 色
+	const COLOR& rCol				// 色
 )
 {
 	// タイムUIの生成
@@ -507,7 +507,7 @@ void CTimeUI::SetAlpha(const float fAlpha)
 //============================================================
 //	色の設定処理
 //============================================================
-void CTimeUI::SetColor(const D3DXCOLOR& rCol)
+void CTimeUI::SetColor(const COLOR& rCol)
 {
 	// 設定された色を保存
 	m_col = rCol;

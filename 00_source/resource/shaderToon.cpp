@@ -255,7 +255,7 @@ void CToonShader::SetMaterial(const D3DMATERIAL9& rMaterial)
 //============================================================
 //	拡散光の設定処理
 //============================================================
-void CToonShader::SetDiffuse(const D3DXCOLOR& rDiffuse)
+void CToonShader::SetDiffuse(const COLOR& rDiffuse)
 {
 	if (!IsEffectOK()) { assert(false); return; }	// エフェクト未使用
 
@@ -269,7 +269,7 @@ void CToonShader::SetDiffuse(const D3DXCOLOR& rDiffuse)
 //============================================================
 //	環境光の設定処理
 //============================================================
-void CToonShader::SetAmbient(const D3DXCOLOR& rAmbient)
+void CToonShader::SetAmbient(const COLOR& rAmbient)
 {
 	if (!IsEffectOK()) { assert(false); return; }	// エフェクト未使用
 
@@ -283,7 +283,7 @@ void CToonShader::SetAmbient(const D3DXCOLOR& rAmbient)
 //============================================================
 //	放射光の設定処理
 //============================================================
-void CToonShader::SetEmissive(const D3DXCOLOR& rEmissive)
+void CToonShader::SetEmissive(const COLOR& rEmissive)
 {
 	if (!IsEffectOK()) { assert(false); return; }	// エフェクト未使用
 
@@ -297,7 +297,7 @@ void CToonShader::SetEmissive(const D3DXCOLOR& rEmissive)
 //============================================================
 //	拡散光のみ設定処理
 //============================================================
-void CToonShader::SetOnlyDiffuse(const D3DXCOLOR& rDiffuse)
+void CToonShader::SetOnlyDiffuse(const COLOR& rDiffuse)
 {
 	// 拡散光の設定
 	SetDiffuse(rDiffuse);

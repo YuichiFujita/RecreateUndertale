@@ -142,7 +142,7 @@ void CLoading::Update(const float fDeltaTime)
 	if (m_state != LOAD_NONE)
 	{ // 何もしない状態ではない場合
 
-		D3DXCOLOR colLoad = m_pLoad->GetColor();	// フェード色
+		COLOR colLoad = m_pLoad->GetColor();	// フェード色
 		switch (m_state)
 		{ // ロード状態ごとの処理
 		case LOAD_FADEOUT:	// ロードの表示開始状態

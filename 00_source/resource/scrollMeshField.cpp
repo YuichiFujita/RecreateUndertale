@@ -153,7 +153,7 @@ CScrollMeshField *CScrollMeshField::Create
 	const D3DXVECTOR3& rPos,	// 位置
 	const D3DXVECTOR3& rRot,	// 向き
 	const VECTOR2& rSize,		// 大きさ
-	const D3DXCOLOR& rCol,		// 色
+	const COLOR& rCol,			// 色
 	const POSGRID2& rPart		// 分割数
 )
 {
@@ -235,7 +235,7 @@ void CScrollMeshField::SetAlpha(const float fAlpha)
 //============================================================
 //	色の設定処理
 //============================================================
-void CScrollMeshField::SetColor(const D3DXCOLOR& rCol)
+void CScrollMeshField::SetColor(const COLOR& rCol)
 {
 	// 色の設定
 	CObjectMeshField::SetColor(rCol);

@@ -106,7 +106,7 @@ public:
 		D3DXVECTOR3	pos;					// 位置
 		D3DXVECTOR3	rot;					// 向き
 		D3DXVECTOR3	size;					// 大きさ
-		D3DXCOLOR	aCol[CUBECOL_MAX];		// 色
+		COLOR		aCol[CUBECOL_MAX];		// 色
 		D3DXMATRIX	mtxWorld;				// ワールドマトリックス
 		EBorder		bordState;				// 縁取り使用状態
 		float		fBordThick;				// 縁取り太さ
@@ -130,30 +130,30 @@ public:
 	D3DXMATRIX GetMtxWorld(void) const override			{ return m_meshCube.mtxWorld; }		// マトリックス取得
 
 	// 静的メンバ関数
-	static CObjectMeshCube *Create		// 生成
+	static CObjectMeshCube *Create	// 生成
 	( // 引数
-		const D3DXVECTOR3&	rPos,		// 位置
-		const D3DXVECTOR3&	rRot,		// 向き
-		const D3DXVECTOR3&	rSize,		// 大きさ
-		const D3DXCOLOR&	rCubeCol,	// キューブ色
-		const D3DXCOLOR&	rBorderCol	= color::Black(),		// 縁取り色
-		const EBorder		bordState	= BORDER_OFF,			// 縁取り状態
-		const float			fBordThick	= 0.0f,					// 縁取り太さ
-		const ETexState		texState	= TEXSTATE_ONE,			// テクスチャ状態
-		const SFaceTex&		rTexID		= SFaceTex(NONE_IDX),	// テクスチャ種類
-		const EOrigin		origin		= ORIGIN_CENTER,		// 原点
-		const VECTOR2&		rTexPartX	= VEC2_ONE,				// テクスチャ分割数X
-		const VECTOR2&		rTexPartY	= VEC2_ONE,				// テクスチャ分割数Y
-		const VECTOR2&		rTexPartZ	= VEC2_ONE				// テクスチャ分割数Z
+		const D3DXVECTOR3&	rPos,	// 位置
+		const D3DXVECTOR3&	rRot,	// 向き
+		const D3DXVECTOR3&	rSize,	// 大きさ
+		const COLOR&	rCubeCol,	// キューブ色
+		const COLOR&	rBorderCol	= color::Black(),		// 縁取り色
+		const EBorder	bordState	= BORDER_OFF,			// 縁取り状態
+		const float		fBordThick	= 0.0f,					// 縁取り太さ
+		const ETexState	texState	= TEXSTATE_ONE,			// テクスチャ状態
+		const SFaceTex&	rTexID		= SFaceTex(NONE_IDX),	// テクスチャ種類
+		const EOrigin	origin		= ORIGIN_CENTER,		// 原点
+		const VECTOR2&	rTexPartX	= VEC2_ONE,				// テクスチャ分割数X
+		const VECTOR2&	rTexPartY	= VEC2_ONE,				// テクスチャ分割数Y
+		const VECTOR2&	rTexPartZ	= VEC2_ONE				// テクスチャ分割数Z
 	);
 
 	// メンバ関数
 	CRenderState *GetRenderState(void);					// レンダーステート情報取得
 	void BindTexture(const SFaceTex textureID);			// テクスチャ割当
 	void SetCubeAlpha(const float fAlpha);				// キューブ透明度設定
-	void SetCubeColor(const D3DXCOLOR& rCol);			// キューブ色設定
+	void SetCubeColor(const COLOR& rCol);				// キューブ色設定
 	void SetBorderAlpha(const float fAlpha);			// 縁取り透明度設定
-	void SetBorderColor(const D3DXCOLOR& rCol);			// 縁取り色設定
+	void SetBorderColor(const COLOR& rCol);				// 縁取り色設定
 	HRESULT SetBorderState(const EBorder bordState);	// 縁取り状態設定
 	void SetBorderThick(const float fBordThick);		// 縁取り太さ設定
 	void SetTextureState(const ETexState texState);		// テクスチャ状態設定
@@ -163,9 +163,9 @@ public:
 	void SetOrigin(const EOrigin origin);				// 原点設定
 	SFaceTex GetTextureIndex(void) const	{ return m_meshCube.texID; }					// テクスチャインデックス取得
 	float GetCubeAlpha(void) const			{ return m_meshCube.aCol[CUBECOL_CUBE].a; }		// 透明度取得
-	D3DXCOLOR GetCubeColor(void) const		{ return m_meshCube.aCol[CUBECOL_CUBE]; }		// キューブ色取得
+	COLOR GetCubeColor(void) const			{ return m_meshCube.aCol[CUBECOL_CUBE]; }		// キューブ色取得
 	float GetBorderAlpha(void) const		{ return m_meshCube.aCol[CUBECOL_BORDER].a; }	// 透明度取得
-	D3DXCOLOR GetBorderColor(void) const	{ return m_meshCube.aCol[CUBECOL_BORDER]; }		// 縁取り色取得
+	COLOR GetBorderColor(void) const		{ return m_meshCube.aCol[CUBECOL_BORDER]; }		// 縁取り色取得
 	EBorder GetBorderState(void) const		{ return m_meshCube.bordState; }				// 縁取り状態取得
 	float GetBorderThick(void) const		{ return m_meshCube.fBordThick; }				// 縁取り太さ取得
 	ETexState GetTextureState(void) const	{ return m_meshCube.texState; }					// テクスチャ状態取得

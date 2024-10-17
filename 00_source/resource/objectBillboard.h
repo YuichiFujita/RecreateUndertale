@@ -65,7 +65,7 @@ public:
 		const D3DXVECTOR3& rPos,	// 位置
 		const D3DXVECTOR3& rSize,	// 大きさ
 		const D3DXVECTOR3& rRot = VEC3_ZERO,	// 向き
-		const D3DXCOLOR& rCol = color::White(),	// 色
+		const COLOR& rCol = color::White(),		// 色
 		const EOrigin origin = ORIGIN_CENTER,	// 原点
 		const ERotate rotate = ROTATE_NORMAL	// 回転
 	);
@@ -75,12 +75,12 @@ public:
 	void BindTexture(const int nTextureID);		// テクスチャ割当 (インデックス)
 	void BindTexture(const char *pTexturePass);	// テクスチャ割当 (パス)
 	void SetAlpha(const float fAlpha);			// 透明度設定
-	void SetColor(const D3DXCOLOR& rCol);		// 色設定
+	void SetColor(const COLOR& rCol);			// 色設定
 	void SetOrigin(const EOrigin origin);		// 原点設定
 	void SetRotate(const ERotate rotate);		// 回転設定
 	int GetTextureIndex(void) const	{ return m_nTextureID; }	// テクスチャインデックス取得
 	float GetAlpha(void) const		{ return m_col.a; }			// 透明度取得
-	D3DXCOLOR GetColor(void) const	{ return m_col; }			// 色取得
+	COLOR GetColor(void) const		{ return m_col; }			// 色取得
 	EOrigin GetOrigin(void) const	{ return m_origin; }		// 原点取得
 	ERotate GetRotate(void) const	{ return m_rotate; }		// 回転取得
 
@@ -103,9 +103,9 @@ private:
 	D3DXVECTOR3	m_pos;		// 位置
 	D3DXVECTOR3	m_rot;		// 向き
 	D3DXVECTOR3	m_size;		// 大きさ
-	D3DXCOLOR	m_col;		// 色
-	EOrigin		m_origin;	// 原点
-	ERotate		m_rotate;	// 回転
+	COLOR	m_col;			// 色
+	EOrigin	m_origin;		// 原点
+	ERotate	m_rotate;		// 回転
 	float m_fAngle;			// 対角線の角度
 	float m_fLength;		// 対角線の長さ
 	int   m_nTextureID;		// テクスチャインデックス

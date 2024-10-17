@@ -42,7 +42,7 @@ public:
 	{
 		D3DXVECTOR3	pos;			// 位置
 		D3DXVECTOR3	rot;			// 向き
-		D3DXCOLOR	col;			// 色
+		COLOR		col;			// 色
 		D3DXMATRIX	mtxWorld;		// ワールドマトリックス
 		ETexDir		texDir;			// テクスチャ方向
 		float		fHoleRadius;	// 穴の半径
@@ -67,7 +67,7 @@ public:
 	( // 引数
 		const D3DXVECTOR3& rPos,	// 位置
 		const D3DXVECTOR3& rRot,	// 向き
-		const D3DXCOLOR& rCol,		// 色
+		const COLOR& rCol,			// 色
 		const POSGRID2& rPart,		// 分割数
 		const POSGRID2& rTexPart,	// テクスチャ分割数
 		const float fHoleRadius,	// 穴の半径
@@ -80,7 +80,7 @@ public:
 	void BindTexture(const int nTextureID);			// テクスチャ割当 (インデックス)
 	void BindTexture(const char *pTexturePass);		// テクスチャ割当 (パス)
 	void SetAlpha(const float fAlpha);				// 透明度設定
-	void SetColor(const D3DXCOLOR& rCol);			// 色設定
+	void SetColor(const COLOR& rCol);				// 色設定
 	void SetTexDir(const ETexDir texDir);			// テクスチャ方向設定
 	void SetHoleRadius(const float fHoleRadius);	// 穴の半径設定
 	void SetThickness(const float fThickness);		// 太さ設定
@@ -89,7 +89,7 @@ public:
 	void SetTexPattern(const POSGRID2& rTexPart);	// テクスチャ分割数設定
 	int GetTextureIndex(void) const		{ return m_nTextureID; }			// テクスチャインデックス取得
 	float GetAlpha(void) const			{ return m_meshRing.col.a; }		// 透明度取得
-	D3DXCOLOR GetColor(void) const		{ return m_meshRing.col; }			// 色取得
+	COLOR GetColor(void) const			{ return m_meshRing.col; }			// 色取得
 	ETexDir GetTexDir(void) const		{ return m_meshRing.texDir; }		// テクスチャ方向取得
 	float GetHoleRadius(void) const		{ return m_meshRing.fHoleRadius; }	// 穴の半径取得
 	float GetThickness(void) const		{ return m_meshRing.fThickness; }	// 太さ取得

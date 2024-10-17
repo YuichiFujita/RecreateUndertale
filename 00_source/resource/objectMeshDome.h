@@ -42,7 +42,7 @@ public:
 	{
 		D3DXVECTOR3	pos;		// 位置
 		D3DXVECTOR3	rot;		// 向き
-		D3DXCOLOR	col;		// 色
+		COLOR		col;		// 色
 		D3DXMATRIX	mtxWorld;	// ワールドマトリックス
 		ETexDir		texDir;		// テクスチャ方向
 		float		fRadius;	// 半径
@@ -65,7 +65,7 @@ public:
 	( // 引数
 		const D3DXVECTOR3& rPos,	// 位置
 		const D3DXVECTOR3& rRot,	// 向き
-		const D3DXCOLOR& rCol,		// 色
+		const COLOR& rCol,			// 色
 		const POSGRID2& rPart,		// 分割数
 		const POSGRID2& rTexPart,	// テクスチャ分割数
 		const float fRadius			// 半径
@@ -76,14 +76,14 @@ public:
 	void BindTexture(const int nTextureID);			// テクスチャ割当 (インデックス)
 	void BindTexture(const char *pTexturePass);		// テクスチャ割当 (パス)
 	void SetAlpha(const float fAlpha);				// 透明度設定
-	void SetColor(const D3DXCOLOR& rCol);			// 色設定
+	void SetColor(const COLOR& rCol);				// 色設定
 	void SetRadius(const float fRadius);			// 半径設定
 	void SetTexDir(const ETexDir texDir);			// テクスチャ方向設定
 	HRESULT SetPattern(const POSGRID2& rPart);		// 分割数設定
 	void SetTexPattern(const POSGRID2& rTexPart);	// テクスチャ分割数設定
 	int GetTextureIndex(void) const		{ return m_nTextureID; }		// テクスチャインデックス取得
 	float GetAlpha(void) const			{ return m_meshDome.col.a; }	// 透明度取得
-	D3DXCOLOR GetColor(void) const		{ return m_meshDome.col; }		// 色取得
+	COLOR GetColor(void) const			{ return m_meshDome.col; }		// 色取得
 	float GetRadius(void) const			{ return m_meshDome.fRadius; }	// 半径取得
 	ETexDir GetTexDir(void) const		{ return m_meshDome.texDir; }	// テクスチャ方向取得
 	POSGRID2 GetPattern(void) const		{ return m_part; }				// 分割数取得

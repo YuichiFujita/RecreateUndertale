@@ -161,7 +161,7 @@ CScrollString2D *CScrollString2D::Create
 	const float fHeight,			// 文字縦幅
 	const EAlignX alignX,			// 横配置
 	const D3DXVECTOR3& rRot,		// 原点向き
-	const D3DXCOLOR& rCol			// 色
+	const COLOR& rCol				// 色
 )
 {
 	// 文字送り文字列2Dの生成
@@ -231,7 +231,7 @@ CScrollString2D *CScrollString2D::Create
 	const float fHeight,			// 文字縦幅
 	const EAlignX alignX,			// 横配置
 	const D3DXVECTOR3& rRot,		// 原点向き
-	const D3DXCOLOR& rCol			// 色
+	const COLOR& rCol				// 色
 )
 {
 	// 文字送り文字列2Dの生成

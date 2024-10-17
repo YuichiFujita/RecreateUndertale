@@ -56,7 +56,7 @@ namespace
 	namespace fire
 	{
 		const CRenderState::EBlend BLEND = CRenderState::BLEND_ADD;	// 炎のαブレンド
-		const D3DXCOLOR COL = D3DXCOLOR(1.0f, 0.35f, 0.1f, 1.0f);	// 炎の色
+		const COLOR COL = COLOR(1.0f, 0.35f, 0.1f, 1.0f);	// 炎の色
 
 		const float	POSGAP		= 30.0f;	// 炎の位置ずれ量
 		const float	MOVE		= -2.0f;	// 炎の移動量
@@ -76,7 +76,7 @@ namespace
 		namespace fire
 		{
 			const CRenderState::EBlend BLEND = CRenderState::BLEND_ADD;	// 爆発の炎のαブレンド
-			const D3DXCOLOR COL = D3DXCOLOR(1.0f, 0.38f, 0.23f, 1.0f);	// 爆発の炎の色
+			const COLOR COL = COLOR(1.0f, 0.38f, 0.23f, 1.0f);	// 爆発の炎の色
 
 			const float	POSGAP		= 5.0f;		// 爆発の炎の位置ずれ量
 			const float	MOVE		= 2.0f;		// 爆発の炎の移動量
@@ -90,7 +90,7 @@ namespace
 		namespace smoke
 		{
 			const CRenderState::EBlend BLEND = CRenderState::BLEND_NORMAL;	// 爆発の煙のαブレンド
-			const D3DXCOLOR COL = D3DXCOLOR(0.25f, 0.25f, 0.25f, 1.0f);		// 爆発の煙の色
+			const COLOR COL = COLOR(0.25f, 0.25f, 0.25f, 1.0f);		// 爆発の煙の色
 
 			const float	POSGAP		= 3.0f;		// 爆発の煙の位置ずれ量
 			const float	MOVE		= 1.2f;		// 爆発の煙の移動量
@@ -108,7 +108,7 @@ namespace
 		namespace fire
 		{
 			const CRenderState::EBlend BLEND = CRenderState::BLEND_ADD;	// 爆発の炎のαブレンド
-			const D3DXCOLOR COL = D3DXCOLOR(1.0f, 0.38f, 0.23f, 1.0f);	// 爆発の炎の色
+			const COLOR COL = COLOR(1.0f, 0.38f, 0.23f, 1.0f);	// 爆発の炎の色
 
 			const float	POSGAP		= 20.0f;	// 爆発の炎の位置ずれ量
 			const float	MOVE		= 3.94f;	// 爆発の炎の移動量
@@ -122,7 +122,7 @@ namespace
 		namespace smoke
 		{
 			const CRenderState::EBlend BLEND = CRenderState::BLEND_NORMAL;	// 爆発の煙のαブレンド
-			const D3DXCOLOR COL = D3DXCOLOR(0.2f, 0.2f, 0.2f, 1.0f);		// 爆発の煙の色
+			const COLOR COL = COLOR(0.2f, 0.2f, 0.2f, 1.0f);		// 爆発の煙の色
 
 			const float	POSGAP		= 10.0f;	// 爆発の煙の位置ずれ量
 			const float	MOVE		= 1.4f;		// 爆発の煙の移動量
@@ -297,7 +297,7 @@ void CParticle3D::SetVec3Position(const D3DXVECTOR3& rPos)
 //============================================================
 //	生成処理
 //============================================================
-CParticle3D *CParticle3D::Create(const EType type, const D3DXVECTOR3& rPos, const D3DXCOLOR& rCol)
+CParticle3D *CParticle3D::Create(const EType type, const D3DXVECTOR3& rPos, const COLOR& rCol)
 {
 	// パーティクル3Dの生成
 	CParticle3D *pParticle3D = new CParticle3D;
@@ -344,7 +344,7 @@ void CParticle3D::SetAlpha(const float fAlpha)
 //============================================================
 //	色の設定処理
 //============================================================
-void CParticle3D::SetColor(const D3DXCOLOR& rCol)
+void CParticle3D::SetColor(const COLOR& rCol)
 {
 	// 色を設定
 	m_col = rCol;
@@ -370,7 +370,7 @@ void CParticle3D::SetType(const EType type)
 //============================================================
 //	ダメージ
 //============================================================
-void CParticle3D::Damage(const D3DXVECTOR3& rPos, const D3DXCOLOR& rCol)
+void CParticle3D::Damage(const D3DXVECTOR3& rPos, const COLOR& rCol)
 {
 	// 変数を宣言
 	D3DXVECTOR3 move = VEC3_ZERO;	// 移動量の代入用
@@ -419,7 +419,7 @@ void CParticle3D::Damage(const D3DXVECTOR3& rPos, const D3DXCOLOR& rCol)
 //============================================================
 //	回復
 //============================================================
-void CParticle3D::Heal(const D3DXVECTOR3& rPos, const D3DXCOLOR& rCol)
+void CParticle3D::Heal(const D3DXVECTOR3& rPos, const COLOR& rCol)
 {
 	// 変数を宣言
 	D3DXVECTOR3 vec  = VEC3_ZERO;	// ベクトルの設定用
@@ -709,11 +709,11 @@ void CParticle3D::BigExplosion(const D3DXVECTOR3& rPos)
 void CParticle3D::PlayerDamage(const D3DXVECTOR3& rPos)
 {
 	// 変数を宣言
-	D3DXVECTOR3 vec  = VEC3_ZERO;		// ベクトルの設定用
-	D3DXVECTOR3 pos  = VEC3_ZERO;		// 位置の代入用
-	D3DXVECTOR3 move = VEC3_ZERO;		// 移動量の代入用
-	D3DXVECTOR3 rot  = VEC3_ZERO;		// 向きの代入用
-	D3DXCOLOR   col  = color::White();	// 色の代入用
+	D3DXVECTOR3	vec  = VEC3_ZERO;		// ベクトルの設定用
+	D3DXVECTOR3	pos  = VEC3_ZERO;		// 位置の代入用
+	D3DXVECTOR3	move = VEC3_ZERO;		// 移動量の代入用
+	D3DXVECTOR3	rot  = VEC3_ZERO;		// 向きの代入用
+	COLOR		col  = color::White();	// 色の代入用
 	int nSpawn = 0;	// 生成数の代入用
 	int nLife = 0;	// 寿命の代入用
 

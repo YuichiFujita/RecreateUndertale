@@ -221,8 +221,8 @@ CGauge2D *CGauge2D::Create
 	const int nFrame,				// 表示値変動フレーム
 	const D3DXVECTOR3& rPos,		// 位置
 	const D3DXVECTOR3& rSizeGauge,	// ゲージ大きさ
-	const D3DXCOLOR& rColFront,		// 表ゲージ色
-	const D3DXCOLOR& rColBack,		// 裏ゲージ色
+	const COLOR& rColFront,			// 表ゲージ色
+	const COLOR& rColBack,			// 裏ゲージ色
 	const bool bDrawFrame,			// 枠描画状況
 	const char *pPassTex,			// フレームテクスチャパス
 	const D3DXVECTOR3& rSizeFrame,	// 枠大きさ
@@ -444,7 +444,7 @@ void CGauge2D::SetAlphaFront(const float fAlpha)
 //============================================================
 //	表ゲージ色の設定処理
 //============================================================
-void CGauge2D::SetColorFront(const D3DXCOLOR& rCol)
+void CGauge2D::SetColorFront(const COLOR& rCol)
 {
 	// 引数の表ゲージ色を代入
 	m_colFront = rCol;
@@ -468,7 +468,7 @@ void CGauge2D::SetAlphaBack(const float fAlpha)
 //============================================================
 //	裏ゲージ色の設定処理
 //============================================================
-void CGauge2D::SetColorBack(const D3DXCOLOR& rCol)
+void CGauge2D::SetColorBack(const COLOR& rCol)
 {
 	// 引数の裏ゲージ色を代入
 	m_colBack = rCol;

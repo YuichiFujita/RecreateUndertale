@@ -140,7 +140,7 @@ void CMonoShader::Uninit(void)
 //============================================================
 //	ピクセル描画色の設定処理
 //============================================================
-void CMonoShader::SetColor(const D3DXCOLOR& rCol)
+void CMonoShader::SetColor(const COLOR& rCol)
 {
 	if (!IsEffectOK()) { assert(false); return; }	// エフェクト未使用
 

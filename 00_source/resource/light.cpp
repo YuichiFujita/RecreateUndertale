@@ -16,12 +16,12 @@
 //************************************************************
 namespace
 {
-	const D3DXCOLOR DIFFUSE[] =	// 設定用拡散光カラー
+	const COLOR DIFFUSE[] =	// 設定用拡散光カラー
 	{
-		D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),
-		D3DXCOLOR(0.7f, 0.7f, 0.7f, 1.0f),
-		D3DXCOLOR(0.6f, 0.6f, 0.6f, 1.0f),
-		D3DXCOLOR(0.4f, 0.4f, 0.4f, 1.0f),
+		COLOR(1.0f, 1.0f, 1.0f, 1.0f),
+		COLOR(0.7f, 0.7f, 0.7f, 1.0f),
+		COLOR(0.6f, 0.6f, 0.6f, 1.0f),
+		COLOR(0.4f, 0.4f, 0.4f, 1.0f),
 	};
 
 	const D3DXVECTOR3 DIRECTION[] =	// 設定用方向ベクトル
@@ -71,7 +71,7 @@ HRESULT CLight::Init(void)
 	{ // 使用するライト数分繰り返す
 
 		// 変数を宣言
-		D3DXCOLOR	diffuse		= DIFFUSE[nCntLight];	// 設定用拡散光カラー
+		COLOR	diffuse			= DIFFUSE[nCntLight];	// 設定用拡散光カラー
 		D3DXVECTOR3	direction	= DIRECTION[nCntLight];	// 設定用方向ベクトル
 
 		// 構造体の要素をクリア

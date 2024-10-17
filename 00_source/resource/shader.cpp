@@ -97,7 +97,7 @@ void CShader::SetMaterial(const D3DMATERIAL9& /*rMaterial*/)
 //============================================================
 //	ŠgUŒõ‚Ìİ’èˆ—
 //============================================================
-void CShader::SetDiffuse(const D3DXCOLOR& /*rDiffuse*/)
+void CShader::SetDiffuse(const COLOR& /*rDiffuse*/)
 {
 
 }
@@ -105,7 +105,7 @@ void CShader::SetDiffuse(const D3DXCOLOR& /*rDiffuse*/)
 //============================================================
 //	ŠÂ‹«Œõ‚Ìİ’èˆ—
 //============================================================
-void CShader::SetAmbient(const D3DXCOLOR& /*rAmbient*/)
+void CShader::SetAmbient(const COLOR& /*rAmbient*/)
 {
 
 }
@@ -113,7 +113,7 @@ void CShader::SetAmbient(const D3DXCOLOR& /*rAmbient*/)
 //============================================================
 //	•úËŒõ‚Ìİ’èˆ—
 //============================================================
-void CShader::SetEmissive(const D3DXCOLOR& /*rEmissive*/)
+void CShader::SetEmissive(const COLOR& /*rEmissive*/)
 {
 
 }
@@ -121,7 +121,7 @@ void CShader::SetEmissive(const D3DXCOLOR& /*rEmissive*/)
 //============================================================
 //	ŠgUŒõ‚Ì‚İİ’èˆ—
 //============================================================
-void CShader::SetOnlyDiffuse(const D3DXCOLOR& /*rDiffuse*/)
+void CShader::SetOnlyDiffuse(const COLOR& /*rDiffuse*/)
 {
 
 }

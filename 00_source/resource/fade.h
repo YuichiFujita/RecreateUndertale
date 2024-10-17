@@ -61,10 +61,10 @@ public:
 
 	void SetFade	// フェード開始設定
 	( // 引数
-		const float fAddOut		= DEF_LEVEL,	// アウトのα値増加量
-		const float fSubIn		= DEF_LEVEL,	// インのα値減少量
-		const int nPriority		= PRIORITY,		// 優先順位
-		const D3DXCOLOR colFade	= color::Black(0.0f)	// フェード色
+		const float fAddOut	= DEF_LEVEL,	// アウトのα値増加量
+		const float fSubIn	= DEF_LEVEL,	// インのα値減少量
+		const int nPriority	= PRIORITY,		// 優先順位
+		const COLOR colFade	= color::Black(0.0f)	// フェード色
 	);
 	void SetModeFade	// 遷移先モード設定 (フェードのみ)
 	( // 引数
@@ -72,7 +72,7 @@ public:
 		const float fWaitTime	= 0.0f,			// 余韻時間
 		const float fAddOut		= DEF_LEVEL,	// アウトのα値増加量
 		const float fSubIn		= DEF_LEVEL,	// インのα値減少量
-		const D3DXCOLOR colFade	= color::Black(0.0f)	// フェード色
+		const COLOR colFade		= color::Black(0.0f)	// フェード色
 	);
 	void SetLoadFade	// 遷移先モード設定 (ロード画面付き)
 	( // 引数
@@ -80,7 +80,7 @@ public:
 		const float fWaitTime	= 0.0f,			// 余韻時間
 		const float fAddOut		= DEF_LEVEL,	// アウトのα値増加量
 		const float fSubIn		= DEF_LEVEL,	// インのα値減少量
-		const D3DXCOLOR colFade	= color::Black(0.0f)	// フェード色
+		const COLOR colFade		= color::Black(0.0f)	// フェード色
 	);
 	void SetRoomFade(void);	// 遷移先ルーム設定
 

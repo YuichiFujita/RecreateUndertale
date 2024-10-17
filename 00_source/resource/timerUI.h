@@ -55,7 +55,7 @@ public:
 		const EAlignX alignX = XALIGN_CENTER,			// 横配置
 		const EAlignY alignY = YALIGN_CENTER,			// 縦配置
 		const D3DXVECTOR3& rRot = VEC3_ZERO,			// 向き
-		const D3DXCOLOR& rCol = color::White()			// 色
+		const COLOR& rCol = color::White()				// 色
 	);
 
 	// メンバ関数

@@ -48,12 +48,12 @@ public:
 		const float fNextTime = DEF_NEXT,		// パターン変更時間
 		const D3DXVECTOR3& rSize = VEC3_ONE,	// 大きさ
 		const D3DXVECTOR3& rRot = VEC3_ZERO,	// 向き
-		const D3DXCOLOR& rCol = color::White()	// 色
+		const COLOR& rCol = color::White()		// 色
 	);
 
 	// メンバ関数
 	void SetAlpha(const float fAlpha);					// 透明度設定
-	void SetColor(const D3DXCOLOR& rCol);				// 色設定
+	void SetColor(const COLOR& rCol);					// 色設定
 	void SetCurPtrn(const int nPtrn);					// 現在パターン設定
 	void SetTexPtrn(const POSGRID2& rPtrn);				// テクスチャ分割数設定
 	void SetTexPtrnWidth(const int nTexPtrnW);			// テクスチャ横分割数設定

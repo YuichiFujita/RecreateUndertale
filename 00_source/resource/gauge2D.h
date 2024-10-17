@@ -59,13 +59,13 @@ public:
 		const int nMax,				// 最大表示値
 		const int nFrame,			// 表示値変動フレーム
 		const D3DXVECTOR3& rPos,	// 位置
-		const D3DXVECTOR3& rSizeGauge = VEC3_ONE,		// ゲージ大きさ
-		const D3DXCOLOR& rColFront = color::White(),	// 表ゲージ色
-		const D3DXCOLOR& rColBack = color::Black(),		// 裏ゲージ色
-		const bool bDrawFrame = false,					// 枠描画状況
-		const char *pPassTex = nullptr,					// フレームテクスチャパス
-		const D3DXVECTOR3& rSizeFrame = VEC3_ONE,		// 枠大きさ
-		const D3DXVECTOR3& rOffsetFrame = VEC3_ONE		// 枠オフセット
+		const D3DXVECTOR3& rSizeGauge = VEC3_ONE,	// ゲージ大きさ
+		const COLOR& rColFront = color::White(),	// 表ゲージ色
+		const COLOR& rColBack = color::Black(),		// 裏ゲージ色
+		const bool bDrawFrame = false,				// 枠描画状況
+		const char *pPassTex = nullptr,				// フレームテクスチャパス
+		const D3DXVECTOR3& rSizeFrame = VEC3_ONE,	// 枠大きさ
+		const D3DXVECTOR3& rOffsetFrame = VEC3_ONE	// 枠オフセット
 	);
 
 	// メンバ関数
@@ -80,9 +80,9 @@ public:
 	void SetSizeGauge(const D3DXVECTOR3& rSize);		// ゲージ大きさ設定
 	void SetSizeFrame(const D3DXVECTOR3& rSize);		// 背景大きさ設定
 	void SetAlphaFront(const float fAlpha);				// 表ゲージ透明度取得
-	void SetColorFront(const D3DXCOLOR& rCol);			// 表ゲージ色設定
+	void SetColorFront(const COLOR& rCol);				// 表ゲージ色設定
 	void SetAlphaBack(const float fAlpha);				// 裏ゲージ透明度取得
-	void SetColorBack(const D3DXCOLOR& rCol);			// 裏ゲージ色設定
+	void SetColorBack(const COLOR& rCol);				// 裏ゲージ色設定
 	void SetEnableDrawFrame(const bool bDraw);			// 枠表示状況設定
 	int GetNum(void) const					{ return m_nNumGauge; }		// ゲージ取得
 	int GetMaxNum(void) const				{ return m_nMaxNumGauge; }	// ゲージ最大値取得
@@ -90,9 +90,9 @@ public:
 	D3DXVECTOR3 GetSizeGauge(void) const	{ return m_sizeGauge; }		// ゲージ大きさ取得
 	D3DXVECTOR3 GetSizeFrame(void) const	{ return m_sizeFrame; }		// 背景大きさ取得
 	float GetAlphaFront(void) const			{ return m_colFront.a; }	// 表ゲージ透明度取得
-	D3DXCOLOR GetColorFront(void) const		{ return m_colFront; }		// 表ゲージ色取得
+	COLOR GetColorFront(void) const			{ return m_colFront; }		// 表ゲージ色取得
 	float GetAlphaBack(void) const			{ return m_colBack.a; }		// 裏ゲージ透明度取得
-	D3DXCOLOR GetColorBack(void) const		{ return m_colBack; }		// 裏ゲージ色取得
+	COLOR GetColorBack(void) const			{ return m_colBack; }		// 裏ゲージ色取得
 	bool IsEnableDrawFrame(void) const		{ return m_bDrawFrame; }	// 枠表示状況取得
 
 private:
@@ -108,8 +108,8 @@ private:
 	D3DXVECTOR3	m_offsetFrame;			// 枠オフセット
 	D3DXVECTOR3	m_sizeGauge;			// ゲージ大きさ
 	D3DXVECTOR3	m_sizeFrame;			// 枠大きさ
-	D3DXCOLOR	m_colFront;				// 表ゲージ色
-	D3DXCOLOR	m_colBack;				// 裏ゲージ色
+	COLOR	m_colFront;					// 表ゲージ色
+	COLOR	m_colBack;					// 裏ゲージ色
 	EState	m_state;					// 状態
 	bool	m_bDrawFrame;				// 枠表示状況
 	float	m_fChange;					// ゲージ変動量

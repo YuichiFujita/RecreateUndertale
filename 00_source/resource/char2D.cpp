@@ -124,7 +124,7 @@ CChar2D *CChar2D::Create
 	const D3DXVECTOR3& rPos,		// 位置
 	const float fHeight,			// 縦幅
 	const D3DXVECTOR3& rRot,		// 向き
-	const D3DXCOLOR& rCol			// 色
+	const COLOR& rCol				// 色
 )
 {
 	// 文字2Dの生成
@@ -180,7 +180,7 @@ CChar2D *CChar2D::Create
 	const D3DXVECTOR3& rPos,		// 位置
 	const float fHeight,			// 縦幅
 	const D3DXVECTOR3& rRot,		// 向き
-	const D3DXCOLOR& rCol			// 色
+	const COLOR& rCol				// 色
 )
 {
 	// 文字2Dの生成

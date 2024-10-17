@@ -192,7 +192,7 @@ CText2D *CText2D::Create
 	const CString2D::EAlignX alignX,	// 横配置
 	const EAlignY alignY,				// 縦配置
 	const D3DXVECTOR3& rRot,			// 原点向き
-	const D3DXCOLOR& rCol				// 色
+	const COLOR& rCol					// 色
 )
 {
 	// テキスト2Dの生成
@@ -415,7 +415,7 @@ void CText2D::SetAlpha(const float fAlpha)
 //============================================================
 //	色の設定処理
 //============================================================
-void CText2D::SetColor(const D3DXCOLOR& rCol)
+void CText2D::SetColor(const COLOR& rCol)
 {
 	// 設定する色を保存
 	m_col = rCol;

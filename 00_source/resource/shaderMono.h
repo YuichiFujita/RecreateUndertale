@@ -33,12 +33,12 @@ public:
 	void Uninit(void) override;		// 終了
 
 	// メンバ関数
-	void SetColor(const D3DXCOLOR& rCol);	// ピクセル描画色の設定
+	void SetColor(const COLOR& rCol);	// ピクセル描画色の設定
 
 	// 静的メンバ関数
 	static CMonoShader *Create(void);		// 生成
 	static CMonoShader *GetInstance(void);	// 取得
-	static void Release(void);					// 破棄
+	static void Release(void);				// 破棄
 
 private:
 	// 静的メンバ変数

@@ -35,10 +35,10 @@ public:
 	virtual void SetTexture(const CTexture::STexture& rTexture);	// テクスチャ設定 (ポインタ)
 	virtual void SetTexture(const int nTextureID);					// テクスチャ設定 (インデックス)
 	virtual void SetMaterial(const D3DMATERIAL9& rMaterial);		// マテリアル設定
-	virtual void SetDiffuse(const D3DXCOLOR& rDiffuse);				// 拡散光設定
-	virtual void SetAmbient(const D3DXCOLOR& rAmbient);				// 環境光設定
-	virtual void SetEmissive(const D3DXCOLOR& rEmissive);			// 放射光設定
-	virtual void SetOnlyDiffuse(const D3DXCOLOR& rDiffuse);			// 拡散光のみ設定
+	virtual void SetDiffuse(const COLOR& rDiffuse);					// 拡散光設定
+	virtual void SetAmbient(const COLOR& rAmbient);					// 環境光設定
+	virtual void SetEmissive(const COLOR& rEmissive);				// 放射光設定
+	virtual void SetOnlyDiffuse(const COLOR& rDiffuse);				// 拡散光のみ設定
 
 	// メンバ関数
 	void Begin(void);						// 開始

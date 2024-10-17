@@ -51,29 +51,29 @@ public:
 	( // 引数
 		const EType type,			// 種類
 		const D3DXVECTOR3& rPos,	// 位置
-		const D3DXCOLOR& rCol = color::White()	// 色
+		const COLOR& rCol = color::White()	// 色
 	);
 
 	// メンバ関数
-	void SetAlpha(const float fAlpha);		// 透明度設定
-	void SetColor(const D3DXCOLOR& rCol);	// 色設定
-	void SetType(const EType type);			// 種類設定
-	float GetAlpha(void) const		{ return m_col.a; }	// 透明度取得
-	D3DXCOLOR GetColor(void) const	{ return m_col; }	// 色取得
-	EType GetType(void) const		{ return m_type; }	// 種類取得
+	void SetAlpha(const float fAlpha);	// 透明度設定
+	void SetColor(const COLOR& rCol);	// 色設定
+	void SetType(const EType type);		// 種類設定
+	float GetAlpha(void) const	{ return m_col.a; }	// 透明度取得
+	COLOR GetColor(void) const	{ return m_col; }	// 色取得
+	EType GetType(void) const	{ return m_type; }	// 種類取得
 
 private:
 	// オーバーライド関数
 	void Release(void) override { CObject::Release(); }	// 破棄
 
 	// メンバ関数
-	void Damage(const D3DXVECTOR3& rPos, const D3DXCOLOR& rCol);	// ダメージ
-	void Item(const D3DXVECTOR3& rPos, const D3DXCOLOR& rCol);		// アイテム
-	void GetItem(const D3DXVECTOR3& rPos, const D3DXCOLOR& rCol);	// アイテム取得
+	void Damage(const D3DXVECTOR3& rPos, const COLOR& rCol);	// ダメージ
+	void Item(const D3DXVECTOR3& rPos, const COLOR& rCol);		// アイテム
+	void GetItem(const D3DXVECTOR3& rPos, const COLOR& rCol);	// アイテム取得
 
 	// メンバ変数
 	D3DXVECTOR3 m_pos;	// 位置
-	D3DXCOLOR m_col;	// 色
+	COLOR m_col;		// 色
 	EType m_type;		// 種類
 	int m_nLife;		// 寿命
 };

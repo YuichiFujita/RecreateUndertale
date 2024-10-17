@@ -117,7 +117,7 @@ CValue *CValue::Create
 	const D3DXVECTOR3& rPos,	// ˆÊ’u
 	const D3DXVECTOR3& rSize,	// ‘å‚«‚³
 	const D3DXVECTOR3& rRot,	// Œü‚«
-	const D3DXCOLOR& rCol		// F
+	const COLOR& rCol			// F
 )
 {
 	// ”š‚Ì¶¬

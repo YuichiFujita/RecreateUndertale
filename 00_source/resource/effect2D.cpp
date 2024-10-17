@@ -96,11 +96,11 @@ void CEffect2D::Uninit(void)
 void CEffect2D::Update(const float fDeltaTime)
 {
 	// 変数を宣言
-	D3DXVECTOR3 pos  = GetVec3Position();	// 位置
-	D3DXVECTOR3 rot  = GetVec3Rotation();	// 向き
+	D3DXVECTOR3 pos	 = GetVec3Position();	// 位置
+	D3DXVECTOR3 rot	 = GetVec3Rotation();	// 向き
 	D3DXVECTOR3 size = GetVec3Size();		// 大きさ
-	D3DXCOLOR   col  = GetColor();			// 色
-	float fRadius = size.x;					// 半径
+	COLOR col		 = GetColor();			// 色
+	float fRadius	 = size.x;				// 半径
 
 	if (m_nLife <= 0		// 寿命を迎えた
 	||  fRadius <= 0.0f)	// 半径が0.0f以下
@@ -180,7 +180,7 @@ CEffect2D *CEffect2D::Create
 	const int nLife,					// 寿命
 	const D3DXVECTOR3& rMove,			// 移動量
 	const D3DXVECTOR3& rRot,			// 向き
-	const D3DXCOLOR& rCol,				// 色
+	const COLOR& rCol,					// 色
 	const float fSubSize,				// 半径の減算量
 	const CRenderState::EBlend blend,	// αブレンド状況
 	const CObject::ELabel label			// オブジェクトラベル

@@ -72,7 +72,7 @@ public:
 		const EAlignX alignX = XALIGN_CENTER,	// 横配置
 		const EAlignY alignY = YALIGN_CENTER,	// 縦配置
 		const D3DXVECTOR3& rRot = VEC3_ZERO,	// 向き
-		const D3DXCOLOR& rCol = color::White()	// 色
+		const COLOR& rCol = color::White()		// 色
 	);
 
 	// メンバ関数
@@ -85,7 +85,7 @@ public:
 	void SetAlignY(const EAlignY align);		// 縦配置設定
 	void SetType(const CValue::EType type);		// 種類設定
 	void SetAlpha(const float fAlpha);			// 透明度設定
-	void SetColor(const D3DXCOLOR& rCol);		// 色設定
+	void SetColor(const COLOR& rCol);			// 色設定
 	void SetSpace(const D3DXVECTOR3& rSpace);	// 空白設定
 	float GetValueWidth(void) const;			// 数字全体の横幅取得
 	float GetValueHeight(void) const;			// 数字全体の縦幅取得
@@ -98,7 +98,7 @@ public:
 	EAlignX GetAlignX(void) const		{ return m_alignX; }		// 横配置取得
 	EAlignY GetAlignY(void) const		{ return m_alignY; }		// 縦配置取得
 	float GetAlpha(void) const			{ return m_col.a; }			// 透明度取得
-	D3DXCOLOR GetColor(void) const		{ return m_col; }			// 色取得
+	COLOR GetColor(void) const			{ return m_col; }			// 色取得
 	D3DXVECTOR3 GetSpace(void) const	{ return m_space; }			// 空白取得
 
 private:
@@ -115,7 +115,7 @@ private:
 	D3DXVECTOR3 m_rot;		// 原点向き
 	D3DXVECTOR3 m_size;		// 大きさ
 	D3DXVECTOR3 m_space;	// 空白
-	D3DXCOLOR m_col;		// 色
+	COLOR m_col;			// 色
 	EAlignX m_alignX;		// 横配置
 	EAlignY m_alignY;		// 縦配置
 	int m_nNum;				// 数字

@@ -44,10 +44,10 @@ public:
 	void SetTexture(const CTexture::STexture& rTexture);	// テクスチャ設定 (ポインタ)
 	void SetTexture(const int nTextureID);					// テクスチャ設定 (インデックス)
 	void SetMaterial(const D3DMATERIAL9& rMaterial);		// マテリアル設定
-	void SetDiffuse(const D3DXCOLOR& rDiffuse);				// 拡散光設定
-	void SetAmbient(const D3DXCOLOR& rAmbient);				// 環境光設定
-	void SetEmissive(const D3DXCOLOR& rEmissive);			// 放射光設定
-	void SetOnlyDiffuse(const D3DXCOLOR& rDiffuse);			// 拡散光のみ設定
+	void SetDiffuse(const COLOR& rDiffuse);					// 拡散光設定
+	void SetAmbient(const COLOR& rAmbient);					// 環境光設定
+	void SetEmissive(const COLOR& rEmissive);				// 放射光設定
+	void SetOnlyDiffuse(const COLOR& rDiffuse);				// 拡散光のみ設定
 
 	// 静的メンバ関数
 	static CToonShader *Create(void);		// 生成

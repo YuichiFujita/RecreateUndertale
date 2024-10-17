@@ -139,7 +139,7 @@ void CAnim2D::Draw(CShader *pShader)
 //============================================================
 //	生成処理
 //============================================================
-CAnim2D *CAnim2D::Create(const int nWidthPtrn, const int nHeightPtrn, const D3DXVECTOR3& rPos, const D3DXVECTOR3& rSize, const D3DXVECTOR3& rRot, const D3DXCOLOR& rCol)
+CAnim2D *CAnim2D::Create(const int nWidthPtrn, const int nHeightPtrn, const D3DXVECTOR3& rPos, const D3DXVECTOR3& rSize, const D3DXVECTOR3& rRot, const COLOR& rCol)
 {
 	// アニメーション2Dの生成
 	CAnim2D *pAnim2D = new CAnim2D;
@@ -234,7 +234,7 @@ void CAnim2D::SetAlpha(const float fAlpha)
 //============================================================
 //	色の設定処理
 //============================================================
-void CAnim2D::SetColor(const D3DXCOLOR& rCol)
+void CAnim2D::SetColor(const COLOR& rCol)
 {
 	// 色の設定
 	CObject2D::SetColor(rCol);

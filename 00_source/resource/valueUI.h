@@ -55,10 +55,10 @@ public:
 		const D3DXVECTOR3& rSpaceValue,	// 数字行間
 		const D3DXVECTOR3& rSizeTitle,	// タイトル大きさ
 		const D3DXVECTOR3& rSizeValue,	// 数字大きさ
-		const D3DXVECTOR3& rRotTitle = VEC3_ZERO,		// タイトル向き
-		const D3DXVECTOR3& rRotValue = VEC3_ZERO,		// 数字向き
-		const D3DXCOLOR& rColTitle = color::White(),	// タイトル色
-		const D3DXCOLOR& rColValue = color::White()		// 数字色
+		const D3DXVECTOR3& rRotTitle = VEC3_ZERO,	// タイトル向き
+		const D3DXVECTOR3& rRotValue = VEC3_ZERO,	// 数字向き
+		const COLOR& rColTitle = color::White(),	// タイトル色
+		const COLOR& rColValue = color::White()		// 数字色
 	);
 	static CValueUI *Create	// 生成 (テクスチャインデックス指定)
 	( // 引数
@@ -70,10 +70,10 @@ public:
 		const D3DXVECTOR3& rSpaceValue,	// 数字行間
 		const D3DXVECTOR3& rSizeTitle,	// タイトル大きさ
 		const D3DXVECTOR3& rSizeValue,	// 数字大きさ
-		const D3DXVECTOR3& rRotTitle = VEC3_ZERO,		// タイトル向き
-		const D3DXVECTOR3& rRotValue = VEC3_ZERO,		// 数字向き
-		const D3DXCOLOR& rColTitle = color::White(),	// タイトル色
-		const D3DXCOLOR& rColValue = color::White()		// 数字色
+		const D3DXVECTOR3& rRotTitle = VEC3_ZERO,	// タイトル向き
+		const D3DXVECTOR3& rRotValue = VEC3_ZERO,	// 数字向き
+		const COLOR& rColTitle = color::White(),	// タイトル色
+		const COLOR& rColValue = color::White()		// 数字色
 	);
 	static CValueUI *Create	// 生成 (テクスチャパス指定)
 	( // 引数
@@ -85,10 +85,10 @@ public:
 		const D3DXVECTOR3& rSpaceValue,	// 数字行間
 		const D3DXVECTOR3& rSizeTitle,	// タイトル大きさ
 		const D3DXVECTOR3& rSizeValue,	// 数字大きさ
-		const D3DXVECTOR3& rRotTitle = VEC3_ZERO,		// タイトル向き
-		const D3DXVECTOR3& rRotValue = VEC3_ZERO,		// 数字向き
-		const D3DXCOLOR& rColTitle = color::White(),	// タイトル色
-		const D3DXCOLOR& rColValue = color::White()		// 数字色
+		const D3DXVECTOR3& rRotTitle = VEC3_ZERO,	// タイトル向き
+		const D3DXVECTOR3& rRotValue = VEC3_ZERO,	// 数字向き
+		const COLOR& rColTitle = color::White(),	// タイトル色
+		const COLOR& rColValue = color::White()		// 数字色
 	);
 
 	// メンバ関数
@@ -98,12 +98,12 @@ public:
 	void SetRotationTitle(const D3DXVECTOR3& rRot);		// タイトル向き設定
 	void SetSizeTitle(const D3DXVECTOR3& rSize);		// タイトル大きさ設定
 	void SetAlphaTitle(const float fAlpha);				// タイトル透明度設定
-	void SetColorTitle(const D3DXCOLOR& rCol);			// タイトル色設定
+	void SetColorTitle(const COLOR& rCol);				// タイトル色設定
 	D3DXVECTOR3 GetSpace(void) const			{ return m_space; }						// 行間取得
 	D3DXVECTOR3 GetRotationTitle(void) const	{ return m_pTitle->GetVec3Rotation(); }	// タイトル向き取得
 	D3DXVECTOR3 GetSizeTitle(void) const		{ return m_pTitle->GetVec3Size(); }		// タイトル大きさ取得
 	float GetAlphaTitle(void) const				{ return m_pTitle->GetAlpha(); }		// タイトル透明度取得
-	D3DXCOLOR GetColorTitle(void) const			{ return m_pTitle->GetColor(); }		// タイトル色取得
+	COLOR GetColorTitle(void) const				{ return m_pTitle->GetColor(); }		// タイトル色取得
 	CMultiValue *GetMultiValue(void) const		{ return m_pValue; }					// 数字情報取得
 
 private:

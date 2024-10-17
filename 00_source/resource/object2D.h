@@ -46,10 +46,10 @@ public:
 	void BindTexture(const int nTextureID);		// テクスチャ割当 (インデックス)
 	void BindTexture(const char *pTexturePass);	// テクスチャ割当 (パス)
 	void SetAlpha(const float fAlpha);			// 透明度設定
-	void SetColor(const D3DXCOLOR& rCol);		// 色設定
+	void SetColor(const COLOR& rCol);			// 色設定
 	int GetTextureIndex(void) const	{ return m_nTextureID; }	// テクスチャインデックス取得
 	float GetAlpha(void) const		{ return m_col.a; }			// 透明度取得
-	D3DXCOLOR GetColor(void) const	{ return m_col; }			// 色取得
+	COLOR GetColor(void) const		{ return m_col; }			// 色取得
 
 	// 静的メンバ関数
 	static CObject2D *Create	// 生成
@@ -57,7 +57,7 @@ public:
 		const D3DXVECTOR3& rPos,				// 位置
 		const D3DXVECTOR3& rSize = VEC3_ONE,	// 大きさ
 		const D3DXVECTOR3& rRot = VEC3_ZERO,	// 向き
-		const D3DXCOLOR& rCol = color::White()	// 色
+		const COLOR& rCol = color::White()		// 色
 	);
 
 protected:
@@ -87,7 +87,7 @@ private:
 	D3DXVECTOR3	m_pos;		// 位置
 	D3DXVECTOR3	m_rot;		// 向き
 	D3DXVECTOR3	m_size;		// 大きさ
-	D3DXCOLOR	m_col;		// 色
+	COLOR	m_col;			// 色
 	float	m_fAngle;		// 対角線の角度
 	float	m_fLength;		// 対角線の長さ
 	int		m_nTextureID;	// テクスチャインデックス

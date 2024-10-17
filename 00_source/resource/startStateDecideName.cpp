@@ -39,7 +39,7 @@ namespace
 		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_CENTER;	// 縦配置
 		const D3DXVECTOR3	POS = D3DXVECTOR3(270.0f, 130.0f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
-		const D3DXCOLOR		COL = color::White();	// 色
+		const COLOR			COL = color::White();	// 色
 	}
 
 	namespace name
@@ -57,7 +57,7 @@ namespace
 		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;			// 横配置
 		const D3DXVECTOR3	INIT_POS = D3DXVECTOR3(360.0f, 155.0f, 0.0f);	// 初期位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
-		const D3DXCOLOR		COL = color::White();	// 色
+		const COLOR			COL = color::White();	// 色
 	}
 
 	namespace select
@@ -69,9 +69,9 @@ namespace
 
 		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
 		const D3DXVECTOR3 POS = D3DXVECTOR3(180.0f, 615.0f, 0.0f);	// 位置
-		const D3DXVECTOR3 ROT = VEC3_ZERO;				// 向き
-		const D3DXCOLOR COL_DEFAULT	= color::White();	// 通常色
-		const D3DXCOLOR COL_CHOICE	= color::Yellow();	// 選択色
+		const D3DXVECTOR3 ROT = VEC3_ZERO;			// 向き
+		const COLOR COL_DEFAULT	= color::White();	// 通常色
+		const COLOR COL_CHOICE	= color::Yellow();	// 選択色
 	}
 }
 

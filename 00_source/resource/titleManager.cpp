@@ -38,8 +38,7 @@ namespace
 
 	namespace fade
 	{
-		const D3DXCOLOR COL = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.5f);	// タイトルフェードの色
-
+		const COLOR COL = COLOR(0.0f, 0.0f, 0.0f, 0.5f);	// タイトルフェードの色
 		const float SUB_ALPHA = 0.008f;	// α値の減算量
 	}
 
@@ -48,7 +47,6 @@ namespace
 		const D3DXVECTOR3 POS_NEVER	= D3DXVECTOR3(340.0f,  140.0f, 0.0f);	// タイトルロゴの位置 (NEVER)
 		const D3DXVECTOR3 POS_GIVE	= D3DXVECTOR3(710.0f,  310.0f, 0.0f);	// タイトルロゴの位置 (GIVE)
 		const D3DXVECTOR3 POS_UP	= D3DXVECTOR3(1050.0f, 320.0f, 0.0f);	// タイトルロゴの位置 (UP!)
-
 		const D3DXVECTOR3 POS[] =	// 位置配列
 		{
 			POS_NEVER,	// NEVERの位置
@@ -66,17 +64,15 @@ namespace
 		const D3DXVECTOR3 POS	= D3DXVECTOR3(350.0f, 560.0f, 0.0f);	// 選択の位置
 		const D3DXVECTOR3 SPACE	= D3DXVECTOR3(560.0f, 0.0f, 0.0f);		// 選択の空間
 		const D3DXVECTOR3 SIZE	= D3DXVECTOR3(420.0f, 140.0f, 0.0f);	// 選択の大きさ
-
-		const D3DXCOLOR CHOICE_COL	= D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);	// 選択中カラー
-		const D3DXCOLOR DEFAULT_COL	= D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f);	// 非選択中カラー
+		const COLOR CHOICE_COL	= COLOR(1.0f, 1.0f, 1.0f, 1.0f);		// 選択中カラー
+		const COLOR DEFAULT_COL	= COLOR(0.5f, 0.5f, 0.5f, 1.0f);		// 非選択中カラー
 	}
 
 	namespace selectBG
 	{
 		const D3DXVECTOR3 POS	= D3DXVECTOR3(640.0f, 560.0f, 0.0f);				// 選択背景の位置
 		const D3DXVECTOR3 SIZE	= D3DXVECTOR3((float)SCREEN_WIDTH, 120.0f, 0.0f);	// 選択背景の大きさ
-
-		const D3DXCOLOR COL = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.5f);	// 選択背景の色
+		const COLOR COL = COLOR(0.0f, 0.0f, 0.0f, 0.5f);	// 選択背景の色
 	}
 }
 
@@ -381,7 +377,7 @@ void CTitleManager::Release(CTitleManager *&prTitleManager)
 void CTitleManager::UpdateFade(void)
 {
 	// 変数を宣言
-	D3DXCOLOR colFade = m_pFade->GetColor();	// フェードの色
+	COLOR colFade = m_pFade->GetColor();	// フェードの色
 
 	if (colFade.a > 0.0f)
 	{ // 透明になっていない場合

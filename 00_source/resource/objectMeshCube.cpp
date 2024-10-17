@@ -255,19 +255,19 @@ void CObjectMeshCube::SetVec3Size(const D3DXVECTOR3& rSize)
 //============================================================
 CObjectMeshCube *CObjectMeshCube::Create
 (
-	const D3DXVECTOR3& rPos,		// 位置
-	const D3DXVECTOR3& rRot,		// 向き
-	const D3DXVECTOR3& rSize,		// 大きさ
-	const D3DXCOLOR& rCubeCol,		// キューブ色
-	const D3DXCOLOR& rBorderCol,	// 縁取り色
-	const EBorder bordState,		// 縁取り状態
-	const float fBordThick,			// 縁取り太さ
-	const ETexState texState,		// テクスチャ状態
-	const SFaceTex& rTexID,			// テクスチャ種類
-	const EOrigin origin,			// 原点
-	const VECTOR2& rTexPartX,		// テクスチャ分割数X
-	const VECTOR2& rTexPartY,		// テクスチャ分割数Y
-	const VECTOR2& rTexPartZ		// テクスチャ分割数Z
+	const D3DXVECTOR3& rPos,	// 位置
+	const D3DXVECTOR3& rRot,	// 向き
+	const D3DXVECTOR3& rSize,	// 大きさ
+	const COLOR& rCubeCol,		// キューブ色
+	const COLOR& rBorderCol,	// 縁取り色
+	const EBorder bordState,	// 縁取り状態
+	const float fBordThick,		// 縁取り太さ
+	const ETexState texState,	// テクスチャ状態
+	const SFaceTex& rTexID,		// テクスチャ種類
+	const EOrigin origin,		// 原点
+	const VECTOR2& rTexPartX,	// テクスチャ分割数X
+	const VECTOR2& rTexPartY,	// テクスチャ分割数Y
+	const VECTOR2& rTexPartZ	// テクスチャ分割数Z
 )
 {
 	// オブジェクトメッシュキューブの生成
@@ -375,7 +375,7 @@ void CObjectMeshCube::SetCubeAlpha(const float fAlpha)
 //============================================================
 //	キューブ色の設定処理
 //============================================================
-void CObjectMeshCube::SetCubeColor(const D3DXCOLOR& rCol)
+void CObjectMeshCube::SetCubeColor(const COLOR& rCol)
 {
 	// 引数のキューブ色を設定
 	m_meshCube.aCol[CUBECOL_CUBE] = rCol;
@@ -399,7 +399,7 @@ void CObjectMeshCube::SetBorderAlpha(const float fAlpha)
 //============================================================
 //	縁取り色の設定処理
 //============================================================
-void CObjectMeshCube::SetBorderColor(const D3DXCOLOR& rCol)
+void CObjectMeshCube::SetBorderColor(const COLOR& rCol)
 {
 	// 引数の縁取り色を設定
 	m_meshCube.aCol[CUBECOL_BORDER] = rCol;

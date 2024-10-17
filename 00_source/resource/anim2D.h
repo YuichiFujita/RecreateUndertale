@@ -45,12 +45,12 @@ public:
 		const D3DXVECTOR3& rPos,	// 位置
 		const D3DXVECTOR3& rSize = VEC3_ONE,	// 大きさ
 		const D3DXVECTOR3& rRot = VEC3_ZERO,	// 向き
-		const D3DXCOLOR& rCol = color::White()	// 色
+		const COLOR& rCol = color::White()		// 色
 	);
 
 	// メンバ関数
 	void SetAlpha(const float fAlpha);				// 透明度設定
-	void SetColor(const D3DXCOLOR& rCol);			// 色設定
+	void SetColor(const COLOR& rCol);				// 色設定
 	void SetPattern(const int nPattern);			// パターンの設定
 	void SetMaxPattern(const int nMaxPtrn);			// パターンの総数の設定
 	void SetWidthPattern(const int nWidthPtrn);		// テクスチャの横分割数の設定

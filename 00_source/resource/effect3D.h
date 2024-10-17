@@ -62,7 +62,7 @@ public:
 		const int			nLife		= 10,				// 寿命
 		const D3DXVECTOR3&	rMove		= VEC3_ZERO,		// 移動量
 		const D3DXVECTOR3&	rRot		= VEC3_ZERO,		// 向き
-		const D3DXCOLOR&	rCol		= color::White(),	// 色
+		const COLOR&		rCol		= color::White(),	// 色
 		const float			fSubSize	= 0.0f,				// 半径の減算量
 		const CRenderState::EBlend	blend	= CRenderState::BLEND_ADD,	// αブレンド状況
 		const CObject::ELabel		label	= LABEL_EFFECT				// オブジェクトラベル

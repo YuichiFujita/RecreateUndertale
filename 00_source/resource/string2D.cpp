@@ -190,7 +190,7 @@ CString2D *CString2D::Create
 	const float fHeight,			// 文字縦幅
 	const EAlignX alignX,			// 横配置
 	const D3DXVECTOR3& rRot,		// 原点向き
-	const D3DXCOLOR& rCol			// 色
+	const COLOR& rCol				// 色
 )
 {
 	// 文字列2Dの生成
@@ -256,7 +256,7 @@ CString2D *CString2D::Create
 	const float fHeight,			// 文字縦幅
 	const EAlignX alignX,			// 横配置
 	const D3DXVECTOR3& rRot,		// 原点向き
-	const D3DXCOLOR& rCol			// 色
+	const COLOR& rCol				// 色
 )
 {
 	// 文字列2Dの生成
@@ -429,7 +429,7 @@ void CString2D::SetAlpha(const float fAlpha)
 //============================================================
 //	色の設定処理
 //============================================================
-void CString2D::SetColor(const D3DXCOLOR& rCol)
+void CString2D::SetColor(const COLOR& rCol)
 {
 	// 設定する色を保存
 	m_col = rCol;

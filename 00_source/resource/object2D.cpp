@@ -160,7 +160,7 @@ CObject2D *CObject2D::Create
 	const D3DXVECTOR3& rPos,	// 位置
 	const D3DXVECTOR3& rSize,	// 大きさ
 	const D3DXVECTOR3& rRot,	// 向き
-	const D3DXCOLOR& rCol		// 色
+	const COLOR& rCol			// 色
 )
 {
 	// オブジェクト2Dの生成
@@ -307,7 +307,7 @@ void CObject2D::SetAlpha(const float fAlpha)
 //============================================================
 //	色の設定処理
 //============================================================
-void CObject2D::SetColor(const D3DXCOLOR& rCol)
+void CObject2D::SetColor(const COLOR& rCol)
 {
 	// 引数の色を代入
 	m_col = rCol;

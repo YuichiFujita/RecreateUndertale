@@ -66,7 +66,7 @@ public:
 		const float fHeight = 100.0f,			// 文字縦幅
 		const EAlignX alignX = XALIGN_CENTER,	// 横配置
 		const D3DXVECTOR3& rRot = VEC3_ZERO,	// 原点向き
-		const D3DXCOLOR& rCol = color::White()	// 色
+		const COLOR& rCol = color::White()		// 色
 	);
 	static CString2D *Create	// 生成 (ワイド文字列)
 	( // 引数
@@ -77,7 +77,7 @@ public:
 		const float fHeight = 100.0f,			// 文字縦幅
 		const EAlignX alignX = XALIGN_CENTER,	// 横配置
 		const D3DXVECTOR3& rRot = VEC3_ZERO,	// 原点向き
-		const D3DXCOLOR& rCol = color::White()	// 色
+		const COLOR& rCol = color::White()		// 色
 	);
 
 	// 仮想関数
@@ -91,13 +91,13 @@ public:
 		const bool bItalic = false		// イタリック
 	);
 	void SetAlpha(const float fAlpha);				// 透明度設定
-	void SetColor(const D3DXCOLOR& rCol);			// 色設定
+	void SetColor(const COLOR& rCol);				// 色設定
 	void SetCharHeight(const float fHeight);		// 文字の縦幅設定
 	void SetAlignX(const EAlignX align);			// 横配置設定
 	float GetStrWidth(void) const;					// 文字列の横幅取得
 	CChar2D *GetChar2D(const int nCharID) const;	// 文字の取得
 	float GetAlpha(void) const			{ return m_col.a; }				// 透明度取得
-	D3DXCOLOR GetColor(void) const		{ return m_col; }				// 色取得
+	COLOR GetColor(void) const		{ return m_col; }					// 色取得
 	float GetCharHeight(void) const		{ return m_fCharHeight; }		// 文字の縦幅取得
 	EAlignX GetAlignX(void) const		{ return m_alignX; }			// 横配置取得
 	int GetNumChar(void) const			{ return (int)m_wsStr.size(); }	// 文字数取得
@@ -117,7 +117,7 @@ private:
 	std::wstring m_wsStr;	// 指定文字列
 	D3DXVECTOR3 m_pos;		// 位置
 	D3DXVECTOR3 m_rot;		// 向き
-	D3DXCOLOR m_col;		// 色
+	COLOR m_col;			// 色
 	EAlignX m_alignX;		// 横配置
 	float m_fCharHeight;	// 文字の縦幅
 };

@@ -113,7 +113,7 @@ CShakeString2D *CShakeString2D::Create
 	const float fHeight,			// 文字縦幅
 	const EAlignX alignX,			// 横配置
 	const D3DXVECTOR3& rRot,		// 原点向き
-	const D3DXCOLOR& rCol			// 色
+	const COLOR& rCol				// 色
 )
 {
 	// 振動文字列2Dの生成
@@ -187,7 +187,7 @@ CShakeString2D *CShakeString2D::Create
 	const float fHeight,			// 文字縦幅
 	const EAlignX alignX,			// 横配置
 	const D3DXVECTOR3& rRot,		// 原点向き
-	const D3DXCOLOR& rCol			// 色
+	const COLOR& rCol				// 色
 )
 {
 	// 振動文字列2Dの生成

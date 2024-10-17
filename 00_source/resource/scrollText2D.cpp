@@ -285,7 +285,7 @@ CScrollText2D *CScrollText2D::Create
 	const CString2D::EAlignX alignX,	// 横配置
 	const EAlignY alignY,				// 縦配置
 	const D3DXVECTOR3& rRot,			// 原点向き
-	const D3DXCOLOR& rCol				// 色
+	const COLOR& rCol					// 色
 )
 {
 	// 文字送りテキスト2Dの生成

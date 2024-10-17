@@ -349,7 +349,7 @@ LPDIRECT3DDEVICE9 CRenderer::GetDevice(void) const
 //============================================================
 //	画面クリア色取得処理
 //============================================================
-D3DXCOLOR CRenderer::GetClearColor(void) const
+COLOR CRenderer::GetClearColor(void) const
 {
 	// 画面クリア色を返す
 	return COL_CLEAR;

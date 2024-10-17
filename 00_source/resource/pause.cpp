@@ -31,9 +31,9 @@ namespace
 
 	const int PRIORITY = 6;	// ポーズ表示の優先順位
 
-	const D3DXCOLOR BG_COL		= D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.6f);	// 背景カラー
-	const D3DXCOLOR CHOICE_COL	= D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);	// 選択中カラー
-	const D3DXCOLOR DEFAULT_COL	= D3DXCOLOR(0.5f, 0.5f, 0.5f, 1.0f);	// 非選択中カラー
+	const COLOR BG_COL		= COLOR(0.0f, 0.0f, 0.0f, 0.6f);	// 背景カラー
+	const COLOR CHOICE_COL	= COLOR(1.0f, 1.0f, 1.0f, 1.0f);	// 選択中カラー
+	const COLOR DEFAULT_COL	= COLOR(0.5f, 0.5f, 0.5f, 1.0f);	// 非選択中カラー
 
 	namespace select
 	{
