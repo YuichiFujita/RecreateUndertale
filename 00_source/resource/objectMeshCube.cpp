@@ -41,14 +41,14 @@ namespace
 		D3DXVECTOR3(0.0f, 0.0f, +1.0f), D3DXVECTOR3(0.0f, 0.0f, +1.0f),
 	};
 
-	const D3DXVECTOR2 SET_TEX_DATA[] =	// テクスチャ座標設定用
+	const VECTOR2 SET_TEX_DATA[] =	// テクスチャ座標設定用
 	{
-		D3DXVECTOR2(1.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 1.0f),
-		D3DXVECTOR2(1.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 1.0f),
-		D3DXVECTOR2(0.0f, 1.0f), D3DXVECTOR2(1.0f, 1.0f), D3DXVECTOR2(1.0f, 1.0f), D3DXVECTOR2(0.0f, 1.0f),
-		D3DXVECTOR2(1.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 0.0f),
-		D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 1.0f), D3DXVECTOR2(1.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f),
-		D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 1.0f), D3DXVECTOR2(1.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f),
+		VECTOR2(1.0f, 0.0f), VECTOR2(1.0f, 1.0f), VECTOR2(0.0f, 0.0f), VECTOR2(0.0f, 1.0f),
+		VECTOR2(1.0f, 0.0f), VECTOR2(1.0f, 1.0f), VECTOR2(0.0f, 0.0f), VECTOR2(0.0f, 1.0f),
+		VECTOR2(0.0f, 1.0f), VECTOR2(1.0f, 1.0f), VECTOR2(1.0f, 1.0f), VECTOR2(0.0f, 1.0f),
+		VECTOR2(1.0f, 0.0f), VECTOR2(0.0f, 0.0f), VECTOR2(0.0f, 0.0f), VECTOR2(1.0f, 0.0f),
+		VECTOR2(0.0f, 0.0f), VECTOR2(0.0f, 1.0f), VECTOR2(1.0f, 0.0f), VECTOR2(1.0f, 1.0f),
+		VECTOR2(0.0f, 0.0f), VECTOR2(0.0f, 1.0f), VECTOR2(1.0f, 0.0f), VECTOR2(1.0f, 1.0f),
 	};
 
 	const int SET_IDX_DATA[] =	// インデックス設定用
@@ -265,9 +265,9 @@ CObjectMeshCube *CObjectMeshCube::Create
 	const ETexState texState,		// テクスチャ状態
 	const SFaceTex& rTexID,			// テクスチャ種類
 	const EOrigin origin,			// 原点
-	const D3DXVECTOR2& rTexPartX,	// テクスチャ分割数X
-	const D3DXVECTOR2& rTexPartY,	// テクスチャ分割数Y
-	const D3DXVECTOR2& rTexPartZ	// テクスチャ分割数Z
+	const VECTOR2& rTexPartX,		// テクスチャ分割数X
+	const VECTOR2& rTexPartY,		// テクスチャ分割数Y
+	const VECTOR2& rTexPartZ		// テクスチャ分割数Z
 )
 {
 	// オブジェクトメッシュキューブの生成
@@ -493,7 +493,7 @@ void CObjectMeshCube::SetTextureState(const ETexState texState)
 //============================================================
 //	テクスチャの分割数Xの設定処理
 //============================================================
-void CObjectMeshCube::SetTexturePatternX(const D3DXVECTOR2& rTexPart)
+void CObjectMeshCube::SetTexturePatternX(const VECTOR2& rTexPart)
 {
 	// 引数のテクスチャの分割数Xを設定
 	m_meshCube.aTexPart[CUBEPART_X] = rTexPart;
@@ -505,7 +505,7 @@ void CObjectMeshCube::SetTexturePatternX(const D3DXVECTOR2& rTexPart)
 //============================================================
 //	テクスチャの分割数Yの設定処理
 //============================================================
-void CObjectMeshCube::SetTexturePatternY(const D3DXVECTOR2& rTexPart)
+void CObjectMeshCube::SetTexturePatternY(const VECTOR2& rTexPart)
 {
 	// 引数のテクスチャの分割数Yを設定
 	m_meshCube.aTexPart[CUBEPART_Y] = rTexPart;
@@ -517,7 +517,7 @@ void CObjectMeshCube::SetTexturePatternY(const D3DXVECTOR2& rTexPart)
 //============================================================
 //	テクスチャの分割数Zの設定処理
 //============================================================
-void CObjectMeshCube::SetTexturePatternZ(const D3DXVECTOR2& rTexPart)
+void CObjectMeshCube::SetTexturePatternZ(const VECTOR2& rTexPart)
 {
 	// 引数のテクスチャの分割数Zを設定
 	m_meshCube.aTexPart[CUBEPART_Z] = rTexPart;
@@ -543,7 +543,7 @@ void CObjectMeshCube::SetVtx(void)
 	// 変数を宣言
 	int nLoop = 0;	// キューブの描画数
 	float fSetBord = 0.0f, fUseBord = 0.0f;	// 頂点座標計算用
-	D3DXVECTOR2 texPart = VEC2_ZERO;		// テクスチャ分割数の計算用
+	VECTOR2 texPart = VEC2_ZERO;			// テクスチャ分割数の計算用
 
 	// ポインタを宣言
 	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
@@ -575,7 +575,7 @@ void CObjectMeshCube::SetVtx(void)
 				{ // 頂点の設定が一巡した場合
 
 					// テクスチャ分割数を変更
-					texPart = D3DXVECTOR2
+					texPart = VECTOR2
 					( // 引数
 						m_meshCube.aTexPart[nBoxID].x,	// x
 						m_meshCube.aTexPart[nBoxID].y	// y

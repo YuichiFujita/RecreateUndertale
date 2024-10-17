@@ -529,10 +529,10 @@ void CObjectBillboard::SetVtx(void)
 	pVtx[3].col = m_col;
 
 	// テクスチャ座標の設定
-	pVtx[0].tex = D3DXVECTOR2(0.0f, 0.0f);
-	pVtx[1].tex = D3DXVECTOR2(1.0f, 0.0f);
-	pVtx[2].tex = D3DXVECTOR2(0.0f, 1.0f);
-	pVtx[3].tex = D3DXVECTOR2(1.0f, 1.0f);
+	pVtx[0].tex = VECTOR2(0.0f, 0.0f);
+	pVtx[1].tex = VECTOR2(1.0f, 0.0f);
+	pVtx[2].tex = VECTOR2(0.0f, 1.0f);
+	pVtx[3].tex = VECTOR2(1.0f, 1.0f);
 
 	// 頂点バッファをアンロックする
 	m_pVtxBuff->Unlock();

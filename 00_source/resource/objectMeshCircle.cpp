@@ -442,7 +442,7 @@ void CObjectMeshCircle::SetVtx(void)
 				pVtx[0].col = m_meshCircle.col;
 
 				// テクスチャ座標の設定
-				pVtx[0].tex = D3DXVECTOR2
+				pVtx[0].tex = VECTOR2
 				( // 引数
 					0.5f + sinf(fRotWidth) * (0.5f / m_meshCircle.fRadius) * fDisHeight,	// u
 					0.5f + cosf(fRotWidth) * (0.5f / m_meshCircle.fRadius) * fDisHeight		// v

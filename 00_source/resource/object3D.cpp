@@ -611,10 +611,10 @@ void CObject3D::SetVtx(void)
 	pVtx[3].col = m_col;
 
 	// テクスチャ座標の設定
-	pVtx[0].tex = D3DXVECTOR2(0.0f, 0.0f);
-	pVtx[1].tex = D3DXVECTOR2(1.0f, 0.0f);
-	pVtx[2].tex = D3DXVECTOR2(0.0f, 1.0f);
-	pVtx[3].tex = D3DXVECTOR2(1.0f, 1.0f);
+	pVtx[0].tex = VECTOR2(0.0f, 0.0f);
+	pVtx[1].tex = VECTOR2(1.0f, 0.0f);
+	pVtx[2].tex = VECTOR2(0.0f, 1.0f);
+	pVtx[3].tex = VECTOR2(1.0f, 1.0f);
 
 	// 頂点バッファをアンロックする
 	m_pVtxBuff->Unlock();
@@ -646,10 +646,10 @@ void CObject3D::SetAnimTex
 		m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
 		// テクスチャ座標の設定
-		pVtx[0].tex = D3DXVECTOR2(fWidthRate *  nWidthCurrent,		fHeightRate *  nHeightCurrent);
-		pVtx[1].tex = D3DXVECTOR2(fWidthRate * (nWidthCurrent + 1),	fHeightRate *  nHeightCurrent);
-		pVtx[2].tex = D3DXVECTOR2(fWidthRate *  nWidthCurrent,		fHeightRate * (nHeightCurrent + 1));
-		pVtx[3].tex = D3DXVECTOR2(fWidthRate * (nWidthCurrent + 1),	fHeightRate * (nHeightCurrent + 1));
+		pVtx[0].tex = VECTOR2(fWidthRate *  nWidthCurrent,		fHeightRate *  nHeightCurrent);
+		pVtx[1].tex = VECTOR2(fWidthRate * (nWidthCurrent + 1),	fHeightRate *  nHeightCurrent);
+		pVtx[2].tex = VECTOR2(fWidthRate *  nWidthCurrent,		fHeightRate * (nHeightCurrent + 1));
+		pVtx[3].tex = VECTOR2(fWidthRate * (nWidthCurrent + 1),	fHeightRate * (nHeightCurrent + 1));
 
 		// 頂点バッファをアンロックする
 		m_pVtxBuff->Unlock();
@@ -677,10 +677,10 @@ void CObject3D::SetScrollTex
 		m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
 		// テクスチャ座標の設定
-		pVtx[0].tex = D3DXVECTOR2(fTexU,			fTexV);
-		pVtx[1].tex = D3DXVECTOR2(fTexU + fOffsetU,	fTexV);
-		pVtx[2].tex = D3DXVECTOR2(fTexU,			fTexV + fOffsetV);
-		pVtx[3].tex = D3DXVECTOR2(fTexU + fOffsetU,	fTexV + fOffsetV);
+		pVtx[0].tex = VECTOR2(fTexU,			fTexV);
+		pVtx[1].tex = VECTOR2(fTexU + fOffsetU,	fTexV);
+		pVtx[2].tex = VECTOR2(fTexU,			fTexV + fOffsetV);
+		pVtx[3].tex = VECTOR2(fTexU + fOffsetU,	fTexV + fOffsetV);
 
 		// 頂点バッファをアンロックする
 		m_pVtxBuff->Unlock();

@@ -36,7 +36,7 @@ public:
 	void Draw(CShader *pShader = nullptr) override;			// 描画
 	void SetVec3Position(const D3DXVECTOR3& rPos) override;	// 位置設定
 	void SetVec3Rotation(const D3DXVECTOR3& rRot) override;	// 向き設定
-	void SetVec2Size(const D3DXVECTOR2& rSize) override;	// 大きさ設定
+	void SetVec2Size(const VECTOR2& rSize) override;		// 大きさ設定
 
 	// 静的メンバ関数
 	static CScrollMeshField *Create	// 生成
@@ -45,7 +45,7 @@ public:
 		const float fMoveV,			// 縦座標の移動量
 		const D3DXVECTOR3& rPos,	// 位置
 		const D3DXVECTOR3& rRot,	// 向き
-		const D3DXVECTOR2& rSize,	// 大きさ
+		const VECTOR2& rSize,		// 大きさ
 		const D3DXCOLOR& rCol,		// 色
 		const POSGRID2& rPart		// 分割数
 	);

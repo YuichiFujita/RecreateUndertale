@@ -494,7 +494,7 @@ HRESULT CStartStateCreateName::LoadArray(const ETypeChar typeChar)
 {
 	D3DXVECTOR3 posOffset	= VEC3_ZERO;	// 文字生成位置
 	D3DXVECTOR3 posStart	= VEC3_ZERO;	// 文字開始位置
-	D3DXVECTOR2 charOffset	= VEC2_ZERO;	// 文字のオフセット
+	VECTOR2 charOffset		= VEC2_ZERO;	// 文字のオフセット
 	float fSpaceOffset		= 0.0f;			// 空白のオフセット
 
 	// ファイルを開く

@@ -49,7 +49,7 @@ public:
 	{
 		LPDIRECT3DTEXTURE9 pTexture;	// テクスチャへのポインタ
 		D3DXIMAGE_INFO status;			// テクスチャステータスへのポインタ
-		D3DXVECTOR2 aspect;				// アスペクト比
+		VECTOR2 aspect;					// アスペクト比
 	};
 
 	// マップ情報構造体

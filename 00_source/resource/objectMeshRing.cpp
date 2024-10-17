@@ -521,7 +521,7 @@ void CObjectMeshRing::SetVtx(void)
 				pVtx[0].col = m_meshRing.col;
 
 				// テクスチャ座標の設定
-				pVtx[0].tex = D3DXVECTOR2
+				pVtx[0].tex = VECTOR2
 				( // 引数
 					fRateWidth  * (nCntWidth  - m_part.x) * CALC_TEXDIR[m_meshRing.texDir],	// u
 					fRateHeight * (nCntHeight - m_part.y) * -1.0f							// v
@@ -605,7 +605,7 @@ void CObjectMeshRing::SetScrollTex(const float fTexU, const float fTexV)
 			{ // 横の分割数 +1回繰り返す
 
 				// テクスチャ座標の設定
-				pVtx[0].tex = D3DXVECTOR2
+				pVtx[0].tex = VECTOR2
 				( // 引数
 					fTexU + fRateWidth  * (nCntWidth  - m_part.x) * CALC_TEXDIR[m_meshRing.texDir],	// u
 					fTexV + fRateHeight * (nCntHeight - m_part.y) * -1.0f							// v

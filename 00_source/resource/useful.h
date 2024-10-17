@@ -49,10 +49,10 @@
 #define GET_DEVICE			(CManager::GetInstance()->GetRenderer()->GetDevice())					// デバイス情報取得
 #define PLAY_SOUND(label)	(CManager::GetInstance()->GetSound()->Play((CSound::ELabel)(label)))	// サウンド再生
 
-// D3DXVECTOR2関係
-#define VEC2_ZERO	(D3DXVECTOR2(0.0f, 0.0f))	// 0クリア
-#define VEC2_ONE	(D3DXVECTOR2(1.0f, 1.0f))	// 1クリア
-#define VEC2_ALL(f)	(D3DXVECTOR2((f), (f))		// 同値クリア
+// VECTOR2関係
+#define VEC2_ZERO	(VECTOR2(0.0f, 0.0f))	// 0クリア
+#define VEC2_ONE	(VECTOR2(1.0f, 1.0f))	// 1クリア
+#define VEC2_ALL(f)	(VECTOR2((f), (f))		// 同値クリア
 
 // D3DXVECTOR3関係
 #define VEC3_ZERO	(D3DXVECTOR3(0.0f, 0.0f, 0.0f))	// 0クリア
@@ -89,6 +89,7 @@ struct VECTOR2 : public D3DXVECTOR2
 
 	// 引数付きコンストラクタ
 	VECTOR2(const float XY) : D3DXVECTOR2(XY, XY) {}
+	VECTOR2(const D3DXVECTOR2& VEC2) : D3DXVECTOR2(VEC2.x, VEC2.y) {}
 	VECTOR2(const D3DXVECTOR3& VEC3) : D3DXVECTOR2(VEC3.x, VEC3.y) {}
 
 	// デストラクタ
@@ -177,7 +178,8 @@ struct VECTOR3 : public D3DXVECTOR3
 
 	// 引数付きコンストラクタ
 	VECTOR3(const float XYZ) : D3DXVECTOR3(XYZ, XYZ, XYZ) {}
-	VECTOR3(const D3DXVECTOR2& VEC2) : D3DXVECTOR3(VEC2.x, VEC2.y, 0.0f) {}
+	VECTOR3(const VECTOR3& VEC3) : D3DXVECTOR3(VEC3.x, VEC3.y, VEC3.z) {}
+	VECTOR3(const VECTOR2& VEC2) : D3DXVECTOR3(VEC2.x, VEC2.y, 0.0f) {}
 
 	// デストラクタ
 	~VECTOR3() {}
@@ -634,7 +636,7 @@ namespace useful
 		const int nRepStrLength		// 置き換える文字列の長さ (通常はstringのsize)
 	);
 
-	D3DXVECTOR2 CalcPosParabola		// 経過時間・X移動量・重力から放物線の位置を求める処理
+	VECTOR2 CalcPosParabola		// 経過時間・X移動量・重力から放物線の位置を求める処理
 	( // 引数
 		const float fGravity,		// 重力
 		const float fMoveX,			// X移動量
@@ -644,7 +646,7 @@ namespace useful
 		float *pMaxTime = nullptr,	// 最大経過時間
 		float *pMaxPosY = nullptr	// 最大到達Y座標
 	);
-	D3DXVECTOR2 CalcMoveParabola	// 経過時間・X移動量・重力から放物線の移動量を求める処理
+	VECTOR2 CalcMoveParabola	// 経過時間・X移動量・重力から放物線の移動量を求める処理
 	( // 引数
 		const float fGravity,		// 重力
 		const float fMoveX,			// X移動量

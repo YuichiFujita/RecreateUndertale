@@ -209,7 +209,7 @@ void CObjectMeshField::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 //	大きさの設定処理
 //============================================================
-void CObjectMeshField::SetVec2Size(const D3DXVECTOR2& rSize)
+void CObjectMeshField::SetVec2Size(const VECTOR2& rSize)
 {
 	// 引数の大きさを設定
 	m_meshField.size = rSize;
@@ -225,7 +225,7 @@ CObjectMeshField *CObjectMeshField::Create
 (
 	const D3DXVECTOR3& rPos,	// 位置
 	const D3DXVECTOR3& rRot,	// 向き
-	const D3DXVECTOR2& rSize,	// 大きさ
+	const VECTOR2& rSize,		// 大きさ
 	const D3DXCOLOR& rCol,		// 色
 	const POSGRID2& rPart		// 分割数
 )
@@ -1116,7 +1116,7 @@ void CObjectMeshField::SetVtx(bool bNor)
 				pVtx[0].col = m_meshField.col;
 
 				// テクスチャ座標の設定
-				pVtx[0].tex = D3DXVECTOR2(1.0f * nCntWidth, 1.0f * nCntHeight);
+				pVtx[0].tex = VECTOR2(1.0f * nCntWidth, 1.0f * nCntHeight);
 
 				// 頂点データのポインタを 1つ分進める
 				pVtx += 1;
@@ -1199,7 +1199,7 @@ void CObjectMeshField::SetScrollTex(const float fTexU, const float fTexV)
 			{ // 横の分割数 +1回繰り返す
 
 				// テクスチャ座標の設定
-				pVtx[0].tex = D3DXVECTOR2((float)nCntWidth + fTexU, (float)nCntHeight + fTexV);
+				pVtx[0].tex = VECTOR2((float)nCntWidth + fTexU, (float)nCntHeight + fTexV);
 
 				// 頂点データのポインタを 1つ分進める
 				pVtx += 1;

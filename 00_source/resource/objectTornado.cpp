@@ -638,7 +638,7 @@ void CObjectTornado::SetVtx(void)
 					pVtx[0].col = D3DXCOLOR(m_tornado.col.r, m_tornado.col.g, m_tornado.col.b, fAlpha);
 
 					// テクスチャ座標の設定
-					pVtx[0].tex = D3DXVECTOR2
+					pVtx[0].tex = VECTOR2
 					( // 引数
 						1.0f,			// u
 						1.0f * nCntSet	// v

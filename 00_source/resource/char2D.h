@@ -67,8 +67,8 @@ public:
 	void SetChar(const std::string& rChar);		// 文字の設定 (マルチバイト文字)
 	void SetChar(const wchar_t wcChar);			// 文字の設定 (ワイド文字)
 	void SetCharHeight(const float fHeight);	// 文字の縦幅設定
-	D3DXVECTOR2 GetOffsetBlackBoxLU(void);		// ブラックボックスの左上オフセット取得
-	D3DXVECTOR2 GetOffsetBlackBoxRD(void);		// ブラックボックスの右下オフセット取得
+	VECTOR2 GetOffsetBlackBoxLU(void);			// ブラックボックスの左上オフセット取得
+	VECTOR2 GetOffsetBlackBoxRD(void);			// ブラックボックスの右下オフセット取得
 
 	bool IsTexEmpty(void) const		{ return m_bTexEmpty; }	// テクスチャ透明フラグ取得
 	wchar_t GetWideChar(void) const	{ return m_wcChar; }	// 文字取得 (ワイド文字)

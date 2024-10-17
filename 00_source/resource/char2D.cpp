@@ -296,11 +296,11 @@ void CChar2D::SetCharHeight(const float fHeight)
 //============================================================
 //	ブラックボックスの左上オフセット取得処理
 //============================================================
-D3DXVECTOR2 CChar2D::GetOffsetBlackBoxLU(void)
+VECTOR2 CChar2D::GetOffsetBlackBoxLU(void)
 {
 	CFontChar::SChar infoChar = m_pFontChar->Regist(m_wcChar);	// 文字情報
 
-	D3DXVECTOR2 tempOffset;	// float変換オフセット格納用
+	VECTOR2 tempOffset;	// float変換オフセット格納用
 	tempOffset.x = (float)infoChar.offsetBlackBox.lu.x;
 	tempOffset.y = (float)infoChar.offsetBlackBox.lu.y;
 
@@ -311,11 +311,11 @@ D3DXVECTOR2 CChar2D::GetOffsetBlackBoxLU(void)
 //============================================================
 //	ブラックボックスの右下オフセット取得処理
 //============================================================
-D3DXVECTOR2 CChar2D::GetOffsetBlackBoxRD(void)
+VECTOR2 CChar2D::GetOffsetBlackBoxRD(void)
 {
 	CFontChar::SChar infoChar = m_pFontChar->Regist(m_wcChar);	// 文字情報
 
-	D3DXVECTOR2 tempOffset;	// float変換オフセット格納用
+	VECTOR2 tempOffset;	// float変換オフセット格納用
 	tempOffset.x = (float)infoChar.offsetBlackBox.rd.x;
 	tempOffset.y = (float)infoChar.offsetBlackBox.rd.y;
 

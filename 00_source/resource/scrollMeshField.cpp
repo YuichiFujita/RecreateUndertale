@@ -134,7 +134,7 @@ void CScrollMeshField::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 //	‘å‚«‚³‚Ìİ’èˆ—
 //============================================================
-void CScrollMeshField::SetVec2Size(const D3DXVECTOR2& rSize)
+void CScrollMeshField::SetVec2Size(const VECTOR2& rSize)
 {
 	// ‘å‚«‚³‚Ìİ’è
 	CObjectMeshField::SetVec2Size(rSize);
@@ -152,7 +152,7 @@ CScrollMeshField *CScrollMeshField::Create
 	const float fMoveV,			// cÀ•W‚ÌˆÚ“®—Ê
 	const D3DXVECTOR3& rPos,	// ˆÊ’u
 	const D3DXVECTOR3& rRot,	// Œü‚«
-	const D3DXVECTOR2& rSize,	// ‘å‚«‚³
+	const VECTOR2& rSize,		// ‘å‚«‚³
 	const D3DXCOLOR& rCol,		// F
 	const POSGRID2& rPart		// •ªŠ„”
 )

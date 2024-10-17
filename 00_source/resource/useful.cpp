@@ -128,7 +128,7 @@ void useful::ReplaceConsecChar
 //============================================================
 //	経過時間・X移動量・重力から放物線の位置を求める処理
 //============================================================
-D3DXVECTOR2 useful::CalcPosParabola
+VECTOR2 useful::CalcPosParabola
 (
 	const float fGravity,	// 重力
 	const float fMoveX,		// X移動量
@@ -156,7 +156,7 @@ D3DXVECTOR2 useful::CalcPosParabola
 	}
 
 	// 現在時間の位置を求める
-	D3DXVECTOR2 posTime = VEC2_ZERO;
+	VECTOR2 posTime = VEC2_ZERO;
 	posTime.x = fMoveX * fTime;
 	posTime.y = (0.5f * fGravity * (fTime * fTime) + fMoveY * fTime) * (fDestPosY / fMaxPosY);
 
@@ -167,7 +167,7 @@ D3DXVECTOR2 useful::CalcPosParabola
 //============================================================
 //	経過時間・X移動量・重力から放物線の移動量を求める処理
 //============================================================
-D3DXVECTOR2 useful::CalcMoveParabola
+VECTOR2 useful::CalcMoveParabola
 (
 	const float fGravity,	// 重力
 	const float fMoveX,		// X移動量
@@ -195,7 +195,7 @@ D3DXVECTOR2 useful::CalcMoveParabola
 	}
 
 	// 現在時間の移動量を求める
-	D3DXVECTOR2 moveTime = VEC2_ZERO;
+	VECTOR2 moveTime = VEC2_ZERO;
 	moveTime.x = fMoveX;
 	moveTime.y = (fGravity * fTime + fMoveY) * (fDestPosY / fMaxPosY);
 
@@ -389,7 +389,7 @@ void useful::RotToVec(const float fPhi, const float fTheta, D3DXVECTOR3 *pVec)
 float useful::GetTexWidthFromAspect(const float fHeight, const int nTexID)
 {
 	// テクスチャアスペクト比を取得
-	D3DXVECTOR2 aspect = GET_MANAGER->GetTexture()->GetInfo(nTexID).aspect;
+	VECTOR2 aspect = GET_MANAGER->GetTexture()->GetInfo(nTexID).aspect;
 
 	// アスペクト比から計算した横幅を返す
 	return fHeight * aspect.x;
@@ -401,7 +401,7 @@ float useful::GetTexWidthFromAspect(const float fHeight, const int nTexID)
 float useful::GetTexHeightFromAspect(const float fWidth, const int nTexID)
 {
 	// テクスチャアスペクト比を取得
-	D3DXVECTOR2 aspect = GET_MANAGER->GetTexture()->GetInfo(nTexID).aspect;
+	VECTOR2 aspect = GET_MANAGER->GetTexture()->GetInfo(nTexID).aspect;
 
 	// アスペクト比から計算した縦幅を返す
 	return fWidth * aspect.y;
