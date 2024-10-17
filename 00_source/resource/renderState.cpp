@@ -18,9 +18,9 @@ namespace
 {
 	const CRenderState::SBlendAlpha SET_BLEND[] =	// 列挙ごとのαブレンド
 	{
-		RS_BL_NORMAL,	// 通常αブレンド
-		RS_BL_ADD,		// 加算αブレンド
-		RS_BL_SUB,		// 減算αブレンド
+		RS_BL_NOR,	// 通常αブレンド
+		RS_BL_ADD,	// 加算αブレンド
+		RS_BL_SUB,	// 減算αブレンド
 	};
 }
 
