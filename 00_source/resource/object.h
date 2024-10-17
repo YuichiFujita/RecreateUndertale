@@ -117,14 +117,14 @@ public:
 	virtual inline void SetVec2Size(const D3DXVECTOR2&)		{ assert(false); }			// 二軸の大きさ設定
 	virtual inline void SetVec3Size(const D3DXVECTOR3&)		{ assert(false); }			// 三軸の大きさ設定
 	virtual inline void SetVec3Scale(const D3DXVECTOR3&)	{ assert(false); }			// 拡大率設定
-	virtual inline D3DXVECTOR2 GetVec2Position(void) const	{ return VEC2_ZERO; }		// 二軸の位置取得
-	virtual inline D3DXVECTOR3 GetVec3Position(void) const	{ return VEC3_ZERO; }		// 三軸の位置取得
-	virtual inline D3DXVECTOR3 GetVec3Rotation(void) const	{ return VEC3_ZERO; }		// 向き取得
-	virtual inline D3DXVECTOR2 GetVec2Size(void) const		{ return VEC2_ZERO; }		// 二軸の大きさ取得
-	virtual inline D3DXVECTOR3 GetVec3Size(void) const		{ return VEC3_ZERO; }		// 三軸の大きさ取得
-	virtual inline D3DXVECTOR3 GetVec3Scale(void) const		{ return VEC3_ZERO; }		// 拡大率取得
-	virtual inline D3DXMATRIX *GetPtrMtxWorld(void)			{ return nullptr; }			// マトリックスポインタ取得
-	virtual inline D3DXMATRIX GetMtxWorld(void) const		{ return {}; }				// マトリックス取得
+	virtual inline D3DXVECTOR2 GetVec2Position(void) const	{ assert(false); return VEC2_ZERO; }	// 二軸の位置取得
+	virtual inline D3DXVECTOR3 GetVec3Position(void) const	{ assert(false); return VEC3_ZERO; }	// 三軸の位置取得
+	virtual inline D3DXVECTOR3 GetVec3Rotation(void) const	{ assert(false); return VEC3_ZERO; }	// 向き取得
+	virtual inline D3DXVECTOR2 GetVec2Size(void) const		{ assert(false); return VEC2_ZERO; }	// 二軸の大きさ取得
+	virtual inline D3DXVECTOR3 GetVec3Size(void) const		{ assert(false); return VEC3_ZERO; }	// 三軸の大きさ取得
+	virtual inline D3DXVECTOR3 GetVec3Scale(void) const		{ assert(false); return VEC3_ZERO; }	// 拡大率取得
+	virtual inline D3DXMATRIX *GetPtrMtxWorld(void)			{ assert(false); return nullptr; }		// マトリックスポインタ取得
+	virtual inline D3DXMATRIX GetMtxWorld(void) const		{ assert(false); return {}; }			// マトリックス取得
 
 	// 静的メンバ関数
 	static void	ReleaseAll(const std::vector<ELabel> label);	// 全破棄 (複数ラベル指定)

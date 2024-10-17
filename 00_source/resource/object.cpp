@@ -68,10 +68,8 @@ CObject::CObject(const ELabel label, const EDim dimension, const int nPriority)
 	m_bDeath	= false;		// 死亡フラグ
 
 #ifdef _DEBUG
-
 	// 自身の表示をONにする
 	m_bDebugDisp = true;
-
 #endif	// _DEBUG
 
 	// 次のユニークIDを設定
@@ -511,7 +509,6 @@ void CObject::DrawAll(void)
 				CObject *pObjectNext = pObject->m_pNext;
 
 #ifdef _DEBUG
-
 				if (!pObject->m_bDebugDisp)
 				{ // 表示しない場合
 
@@ -519,7 +516,6 @@ void CObject::DrawAll(void)
 					pObject = pObjectNext;
 					continue;
 				}
-
 #endif	// _DEBUG
 
 				if (!pObject->m_bDraw
@@ -619,7 +615,6 @@ void CObject::DeathAll(void)
 //	全表示状況の設定処理
 //============================================================
 #ifdef _DEBUG
-
 void CObject::SetEnableDebugDispAll(const bool bDisp2D, const bool bDisp3D)
 {
 	// 変数を宣言
@@ -648,5 +643,4 @@ void CObject::SetEnableDebugDispAll(const bool bDisp2D, const bool bDisp3D)
 		}
 	}
 }
-
 #endif	// _DEBUG
