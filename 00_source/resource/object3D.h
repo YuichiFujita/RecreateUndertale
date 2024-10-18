@@ -48,8 +48,8 @@ public:
 	D3DXVECTOR3 GetVec3Position(void) const override	{ return m_pos; }		// 位置取得
 	D3DXVECTOR3 GetVec3Rotation(void) const override	{ return m_rot; }		// 向き取得
 	D3DXVECTOR3 GetVec3Size(void) const override		{ return m_size; }		// 大きさ取得
-	D3DXMATRIX *GetPtrMtxWorld(void) override			{ return &m_mtxWorld; }	// マトリックスポインタ取得
-	D3DXMATRIX GetMtxWorld(void) const override			{ return m_mtxWorld; }	// マトリックス取得
+	MATRIX *GetPtrMtxWorld(void) override				{ return &m_mtxWorld; }	// マトリックスポインタ取得
+	MATRIX GetMtxWorld(void) const override				{ return m_mtxWorld; }	// マトリックス取得
 
 	// 静的メンバ関数
 	static CObject3D *Create	// 生成
@@ -111,7 +111,7 @@ private:
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;	// 頂点バッファへのポインタ
 	CRenderState *m_pRenderState;		// レンダーステートの情報
 	D3DXVECTOR3 *m_pPosGapBuff;			// 座標のずれバッファへのポインタ
-	D3DXMATRIX	m_mtxWorld;		// ワールドマトリックス
+	MATRIX		m_mtxWorld;		// ワールドマトリックス
 	D3DXVECTOR3	m_pos;			// 位置
 	D3DXVECTOR3	m_rot;			// 向き
 	D3DXVECTOR3	m_size;			// 大きさ

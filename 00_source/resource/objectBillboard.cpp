@@ -141,8 +141,8 @@ void CObjectBillboard::Update(const float fDeltaTime)
 void CObjectBillboard::Draw(CShader *pShader)
 {
 	// 変数を宣言
-	D3DXMATRIX mtxTrans;	// 計算用マトリックス
-	D3DXMATRIX mtxView;		// ビューマトリックス
+	MATRIX mtxTrans;	// 計算用マトリックス
+	MATRIX mtxView;		// ビューマトリックス
 
 	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ

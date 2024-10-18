@@ -97,7 +97,7 @@ void CObjectModel::Update(const float fDeltaTime)
 void CObjectModel::Draw(CShader *pShader)
 {
 	// 変数を宣言
-	D3DXMATRIX   mtxScale, mtxRot, mtxTrans;	// 計算用マトリックス
+	MATRIX mtxScale, mtxRot, mtxTrans;	// 計算用マトリックス
 	D3DMATERIAL9 matDef;	// 現在のマテリアル保存用
 
 	// ポインタを宣言
@@ -437,7 +437,7 @@ void CObjectModel::SetModelData(const CModel::SModel& rModel)
 //============================================================
 //	マトリックスの設定処理
 //============================================================
-void CObjectModel::SetMtxWorld(const D3DXMATRIX& rMtxWorld)
+void CObjectModel::SetMtxWorld(const MATRIX& rMtxWorld)
 {
 	// 引数のマトリックスを設定
 	m_mtxWorld = rMtxWorld;

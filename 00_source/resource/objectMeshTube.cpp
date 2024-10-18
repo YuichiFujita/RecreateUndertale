@@ -445,8 +445,8 @@ void CObjectMeshTube::SetTexPattern(const POSGRID2& rTexPart)
 //============================================================
 void CObjectMeshTube::SetPositionRelative(void)
 {
-	D3DXMATRIX  mtxOffset, mtxBottom, mtxTop;	// マトリックス計算用
-	D3DXMATRIX  mtxCylinder = CalcCylinderMtxWorld();	// シリンダーマトリックス
+	MATRIX mtxOffset, mtxBottom, mtxTop;	// マトリックス計算用
+	MATRIX mtxCylinder = CalcCylinderMtxWorld();	// シリンダーマトリックス
 	D3DXVECTOR3 posCylinder = m_pCylinder->GetVec3Position();	// シリンダー位置
 	D3DXVECTOR3 rotCylinder = m_pCylinder->GetVec3Rotation();	// シリンダー向き
 	float fHeightCylinder   = m_pCylinder->GetHeight();			// シリンダー縦幅
@@ -457,24 +457,24 @@ void CObjectMeshTube::SetPositionRelative(void)
 
 	// 下蓋の位置・向きを設定
 	m_apCover[COVER_BOTTOM]->SetVec3Position(posCylinder);
-	m_apCover[COVER_BOTTOM]->SetVec3Rotation(useful::GetMatrixRotation(mtxBottom));
+	m_apCover[COVER_BOTTOM]->SetVec3Rotation(mtxBottom.GetRotation());
 
 	// 位置オフセットマトリックスを作成・掛け合わせる
 	D3DXMatrixTranslation(&mtxOffset, 0.0f, fHeightCylinder, 0.0f);
 	D3DXMatrixMultiply(&mtxTop, &mtxOffset, &mtxCylinder);
 
 	// 上蓋の位置・向きを設定
-	m_apCover[COVER_TOP]->SetVec3Position(useful::GetMatrixPosition(mtxTop));
+	m_apCover[COVER_TOP]->SetVec3Position(mtxTop.GetPosition());
 	m_apCover[COVER_TOP]->SetVec3Rotation(rotCylinder);
 }
 
 //============================================================
 //	シリンダーマトリックスの計算結果の取得処理
 //============================================================
-D3DXMATRIX CObjectMeshTube::CalcCylinderMtxWorld(void) const
+MATRIX CObjectMeshTube::CalcCylinderMtxWorld(void) const
 {
 	// 変数を宣言
-	D3DXMATRIX  mtxRot, mtxTrans, mtxWorld;	// 計算用マトリックス
+	MATRIX  mtxRot, mtxTrans, mtxWorld;	// 計算用マトリックス
 	D3DXVECTOR3 posCylinder = m_pCylinder->GetVec3Position();	// シリンダー位置
 	D3DXVECTOR3 rotCylinder = m_pCylinder->GetVec3Rotation();	// シリンダー向き
 

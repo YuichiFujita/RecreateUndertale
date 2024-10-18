@@ -65,7 +65,7 @@ void CShader::Uninit(void)
 //============================================================
 //	ライト方向ベクトルの設定処理
 //============================================================
-void CShader::SetLightDirect(D3DXMATRIX * /*pMtxWorld*/, const int /*nLightID*/)
+void CShader::SetLightDirect(MATRIX * /*pMtxWorld*/, const int /*nLightID*/)
 {
 
 }
@@ -173,13 +173,13 @@ void CShader::End(void)
 //============================================================
 //	マトリックスの設定処理
 //============================================================
-void CShader::SetMatrix(D3DXMATRIX* pMtxWorld)
+void CShader::SetMatrix(MATRIX* pMtxWorld)
 {
 	if (m_pEffect == nullptr) { assert(false); return; }	// エフェクト未使用
 
 	// 変数を宣言
-	D3DXMATRIX mtxView;			// ビューマトリックス
-	D3DXMATRIX mtxProjection;	// プロジェクションマトリックス
+	MATRIX mtxView;			// ビューマトリックス
+	MATRIX mtxProjection;	// プロジェクションマトリックス
 
 	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイス情報

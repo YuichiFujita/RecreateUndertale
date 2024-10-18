@@ -164,8 +164,8 @@ void CObjectTornado::Update(const float fDeltaTime)
 void CObjectTornado::Draw(CShader *pShader)
 {
 	// 変数を宣言
-	D3DXMATRIX mtxRot, mtxTrans;	// 計算用マトリックス
-	D3DXMATRIX mtxOrigin;			// 発生源のマトリックス
+	MATRIX mtxRot, mtxTrans;	// 計算用マトリックス
+	MATRIX mtxOrigin;			// 発生源のマトリックス
 
 	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
@@ -256,20 +256,20 @@ CObjectTornado *CObjectTornado::Create
 	const D3DXVECTOR3& rPos,		// 位置
 	const D3DXVECTOR3& rGrowRot,	// 成長向き
 	const COLOR& rCol,				// 色
-	D3DXMATRIX *pMtxParent,			// 親のマトリックス
-	const int   nNumAround,			// 渦の周回数
-	const int   nPattern,			// 渦の分割数
-	const float fMoveRot,			// 向きの変更量
-	const float fThickness,			// ポリゴンの太さ
-	const float fOuterPlusY,		// ポリゴン外周のY座標加算量
-	const float fSetWidth,			// 生成時の横ずれ量
-	const float fSetAlpha,			// 生成時の透明度
-	const float fAddWidth,			// 横ずれの加算量
-	const float fAddHeight,			// 縦ずれの加算量
-	const float fSubAlpha,			// 透明度の減算量
-	const float fGrowWidth,			// 横ずれの成長量
-	const float fGrowHeight,		// 縦ずれの成長量
-	const float fGrowAlpha			// 透明度の成長量
+	MATRIX *pMtxParent,				// 親のマトリックス
+	const int	nNumAround,			// 渦の周回数
+	const int	nPattern,			// 渦の分割数
+	const float	fMoveRot,			// 向きの変更量
+	const float	fThickness,			// ポリゴンの太さ
+	const float	fOuterPlusY,		// ポリゴン外周のY座標加算量
+	const float	fSetWidth,			// 生成時の横ずれ量
+	const float	fSetAlpha,			// 生成時の透明度
+	const float	fAddWidth,			// 横ずれの加算量
+	const float	fAddHeight,			// 縦ずれの加算量
+	const float	fSubAlpha,			// 透明度の減算量
+	const float	fGrowWidth,			// 横ずれの成長量
+	const float	fGrowHeight,		// 縦ずれの成長量
+	const float	fGrowAlpha			// 透明度の成長量
 )
 {
 	// オブジェクト竜巻の生成
@@ -459,7 +459,7 @@ void CObjectTornado::DeleteMatrixParent(void)
 //============================================================
 //	親のマトリックスの設定処理
 //============================================================
-void CObjectTornado::SetMatrixParent(D3DXMATRIX *pMtxParent)
+void CObjectTornado::SetMatrixParent(MATRIX *pMtxParent)
 {
 	// 引数の親マトリックスを設定
 	m_tornado.pMtxParent = pMtxParent;

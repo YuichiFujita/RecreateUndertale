@@ -56,8 +56,8 @@ public:
 		D3DXVECTOR3	rot;		// 向き
 		D3DXVECTOR3	growRot;	// 成長向き
 		COLOR		col;		// 色
-		D3DXMATRIX	mtxWorld;	// ワールドマトリックス
-		D3DXMATRIX *pMtxParent;	// 親のマトリックス
+		MATRIX	mtxWorld;		// ワールドマトリックス
+		MATRIX *pMtxParent;		// 親のマトリックス
 		float fMoveRot;			// 向きの変更量
 		float fThickness;		// ポリゴンの太さ
 		float fOuterPlusY;		// ポリゴン外周のY座標加算量
@@ -78,8 +78,8 @@ public:
 	void Draw(CShader *pShader = nullptr) override;			// 描画
 	void SetVec3Position(const D3DXVECTOR3& rPos) override;	// 位置設定
 	D3DXVECTOR3 GetVec3Position(void) const override	{ return m_tornado.pos; }		// 位置取得
-	D3DXMATRIX *GetPtrMtxWorld(void) override			{ return &m_tornado.mtxWorld; }	// マトリックスポインタ取得
-	D3DXMATRIX GetMtxWorld(void) const override			{ return m_tornado.mtxWorld; }	// マトリックス取得
+	MATRIX *GetPtrMtxWorld(void) override				{ return &m_tornado.mtxWorld; }	// マトリックスポインタ取得
+	MATRIX GetMtxWorld(void) const override				{ return m_tornado.mtxWorld; }	// マトリックス取得
 
 	// 静的メンバ関数
 	static CObjectTornado *Create	// 生成
@@ -87,7 +87,7 @@ public:
 		const D3DXVECTOR3& rPos,		// 位置
 		const D3DXVECTOR3& rGrowRot,	// 成長向き
 		const COLOR& rCol,				// 色
-		D3DXMATRIX *pMtxParent	= nullptr,				// 親のマトリックス
+		MATRIX *pMtxParent		= nullptr,				// 親のマトリックス
 		const int	nNumAround	= tornado::NUM_AROUND,	// 渦の周回数
 		const int	nPattern	= tornado::NUM_PTRN,	// 渦の分割数
 		const float	fMoveRot	= tornado::MOVE_ROT,	// 向きの変更量
@@ -121,7 +121,7 @@ public:
 	void BindTexture(const int nTextureID);			// テクスチャ割当 (インデックス)
 	void BindTexture(const char *pTexturePass);		// テクスチャ割当 (パス)
 	void DeleteMatrixParent(void);					// 親マトリックス削除
-	void SetMatrixParent(D3DXMATRIX *pMtxParent);	// 親マトリックス設定
+	void SetMatrixParent(MATRIX *pMtxParent);		// 親マトリックス設定
 	void SetAlpha(const float fAlpha);				// 透明度設定
 	void SetColor(const COLOR& rCol);				// 色設定
 	void SetRotationGrow(const D3DXVECTOR3& rRot);	// 成長向き設定
@@ -135,7 +135,7 @@ public:
 	int GetTextureIndex(void) const			{ return m_nTextureID; }			// テクスチャインデックス取得
 	float GetAlpha(void) const				{ return m_tornado.col.a; }			// 透明度取得
 	COLOR GetColor(void) const				{ return m_tornado.col; }			// 色取得
-	D3DXVECTOR3 GetRotationGrow(void) const { return m_tornado.growRot; }		// 成長向き取得
+	D3DXVECTOR3 GetRotationGrow(void) const	{ return m_tornado.growRot; }		// 成長向き取得
 	float GetThickness(void) const			{ return m_tornado.fThickness; }	// ポリゴンの太さ取得
 	float GetOuterPlusY(void) const			{ return m_tornado.fOuterPlusY; }	// ポリゴン外周のY座標加算量取得
 	float GetCreateWidth(void) const		{ return m_tornado.fSetWidth; }		// 生成時の横ずれ量取得

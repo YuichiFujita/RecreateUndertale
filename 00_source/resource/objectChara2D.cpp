@@ -276,10 +276,10 @@ D3DXVECTOR3 CObjectChara2D::GetCollOffsetPosition(void) const
 void CObjectChara2D::CalcDrawMatrix(void)
 {
 	D3DXVECTOR3 offset = m_info.vecMotion[m_info.nType].infoChara.offset;	// オフセット
-	D3DXMATRIX *pMtxWorld = GetPtrMtxWorld();	// ワールドマトリックス
-	D3DXMATRIX mtxRot, mtxTrans, mtxOffset;		// 計算用マトリックス
-	D3DXVECTOR3 pos = GetVec3Position();		// 位置
-	D3DXVECTOR3 rot = GetVec3Rotation();		// 向き
+	MATRIX *pMtxWorld = GetPtrMtxWorld();	// ワールドマトリックス
+	MATRIX mtxRot, mtxTrans, mtxOffset;		// 計算用マトリックス
+	D3DXVECTOR3 pos = GetVec3Position();	// 位置
+	D3DXVECTOR3 rot = GetVec3Rotation();	// 向き
 
 	// ワールドマトリックスの初期化
 	D3DXMatrixIdentity(pMtxWorld);
@@ -307,7 +307,7 @@ D3DXVECTOR3 CObjectChara2D::CalcOffsetPosition
 	const D3DXVECTOR3& rOffset	// オフセット
 ) const
 {
-	D3DXMATRIX mtxWorld, mtxRot, mtxTrans, mtxOffset;	// 計算用マトリックス
+	MATRIX mtxWorld, mtxRot, mtxTrans, mtxOffset;	// 計算用マトリックス
 
 	// ワールドマトリックスの初期化
 	D3DXMatrixIdentity(&mtxWorld);
@@ -325,5 +325,5 @@ D3DXVECTOR3 CObjectChara2D::CalcOffsetPosition
 	D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxTrans);
 
 	// 算出したマトリックスの位置を返す
-	return useful::GetMatrixPosition(mtxWorld);
+	return mtxWorld.GetPosition();
 }

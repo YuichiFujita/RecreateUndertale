@@ -137,7 +137,7 @@ void CObjectMeshField::Update(const float fDeltaTime)
 void CObjectMeshField::Draw(CShader *pShader)
 {
 	// 変数を宣言
-	D3DXMATRIX mtxRot, mtxTrans;	// 計算用マトリックス
+	MATRIX mtxRot, mtxTrans;	// 計算用マトリックス
 
 	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
@@ -885,7 +885,7 @@ bool CObjectMeshField::IsPositionRange(const D3DXVECTOR3&rPos)
 	{ // 三角形ポリゴンの頂点数分繰り返す
 
 		// 変数を宣言
-		D3DXMATRIX mtxWorld, mtxRot, mtxTrans;	// 計算用マトリックス
+		MATRIX mtxWorld, mtxRot, mtxTrans;	// 計算用マトリックス
 
 		// ワールドマトリックスの初期化
 		D3DXMatrixIdentity(&mtxWorld);
@@ -1034,7 +1034,7 @@ float CObjectMeshField::GetPositionRotateHeight(const D3DXVECTOR3&rPos)
 					{ // 三角形ポリゴンの頂点数分繰り返す
 
 						// 変数を宣言
-						D3DXMATRIX mtxWorld, mtxRot, mtxTrans;	// 計算用マトリックス
+						MATRIX mtxWorld, mtxRot, mtxTrans;	// 計算用マトリックス
 
 						// ワールドマトリックスの初期化
 						D3DXMatrixIdentity(&mtxWorld);

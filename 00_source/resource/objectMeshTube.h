@@ -53,8 +53,8 @@ public:
 	void SetVec3Rotation(const D3DXVECTOR3& rRot) override;	// 向き設定
 	D3DXVECTOR3 GetVec3Position(void) const override	{ return m_pCylinder->GetVec3Position(); }	// 位置取得
 	D3DXVECTOR3 GetVec3Rotation(void) const override	{ return m_pCylinder->GetVec3Rotation(); }	// 向き取得
-	D3DXMATRIX *GetPtrMtxWorld(void) override			{ return m_pCylinder->GetPtrMtxWorld(); }	// マトリックスポインタ取得
-	D3DXMATRIX GetMtxWorld(void) const override			{ return m_pCylinder->GetMtxWorld(); }		// マトリックス取得
+	MATRIX *GetPtrMtxWorld(void) override				{ return m_pCylinder->GetPtrMtxWorld(); }	// マトリックスポインタ取得
+	MATRIX GetMtxWorld(void) const override				{ return m_pCylinder->GetMtxWorld(); }		// マトリックス取得
 
 	// 静的メンバ関数
 	static CObjectMeshTube *Create	// 生成
@@ -91,8 +91,8 @@ private:
 	void Release(void) override { CObject::Release(); }	// 破棄
 
 	// メンバ関数
-	void SetPositionRelative(void);					// 相対位置設定
-	D3DXMATRIX CalcCylinderMtxWorld(void) const;	// シリンダーマトリックス計算結果取得
+	void SetPositionRelative(void);				// 相対位置設定
+	MATRIX CalcCylinderMtxWorld(void) const;	// シリンダーマトリックス計算結果取得
 
 	// メンバ変数
 	CObjectMeshCircle *m_apCover[COVER_MAX];	// 蓋の情報

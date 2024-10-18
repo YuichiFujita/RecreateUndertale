@@ -76,8 +76,8 @@ public:
 		float		 fDestDis;	// 目標の視点と注視点の距離
 		SSwing		 swing;		// カメラ揺れ情報
 		D3DVIEWPORT9 viewport;	// ビューポート情報
-		D3DXMATRIX	 mtxProj;	// プロジェクションマトリックス
-		D3DXMATRIX	 mtxView;	// ビューマトリックス
+		MATRIX		 mtxProj;	// プロジェクションマトリックス
+		MATRIX		 mtxView;	// ビューマトリックス
 	};
 
 	// メンバ関数

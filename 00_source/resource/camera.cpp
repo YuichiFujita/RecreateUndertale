@@ -756,7 +756,7 @@ void CCamera::UpdateSwing(void)
 	{ // 注視点のずらし量が設定されている場合
 
 		D3DXQUATERNION quat;	// クォータニオン
-		D3DXMATRIX mtxRot;		// 回転マトリックス
+		MATRIX mtxRot;			// 回転マトリックス
 		D3DXVECTOR3 offset;		// 位置ずれオフセット
 		float fRotY;			// 位置ずれ向き
 		D3DXVECTOR3 vecAxis = pCamera->posR - pCamera->posV;	// 回転軸ベクトル

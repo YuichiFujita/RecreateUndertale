@@ -46,8 +46,8 @@ public:
 	void SetVec3Rotation(const D3DXVECTOR3& rRot) override;	// 向き設定
 	D3DXVECTOR3 GetVec3Position(void) const override	{ return m_pos; }		// 位置取得
 	D3DXVECTOR3 GetVec3Rotation(void) const override	{ return m_rot; }		// 向き取得
-	D3DXMATRIX *GetPtrMtxWorld(void) override			{ return &m_mtxWorld; }	// マトリックスポインタ取得
-	D3DXMATRIX GetMtxWorld(void) const override			{ return m_mtxWorld; }	// マトリックス取得
+	MATRIX *GetPtrMtxWorld(void) override				{ return &m_mtxWorld; }	// マトリックスポインタ取得
+	MATRIX GetMtxWorld(void) const override				{ return m_mtxWorld; }	// マトリックス取得
 
 	// 静的メンバ関数
 	static CObjectChara *Create(const D3DXVECTOR3 &rPos, const D3DXVECTOR3 &rRot = VEC3_ZERO);	// 生成
@@ -65,9 +65,9 @@ public:
 		const char *pFileName		// ファイル名
 	);
 
-	void BindCharaData(const char *pCharaPass);		// キャラクター情報割当
-	void SetMtxWorld(const D3DXMATRIX &rMtxWorld);	// マトリックス設定
-	void SetNumParts(const int nNumParts);			// パーツ数設定
+	void BindCharaData(const char *pCharaPass);	// キャラクター情報割当
+	void SetMtxWorld(const MATRIX &rMtxWorld);	// マトリックス設定
+	void SetNumParts(const int nNumParts);		// パーツ数設定
 	void SetPartsInfo(CCharacter::SPartsInfo& rInfo);					// パーツ情報設定
 	void SetPartsPosition(const int nPartsID, const D3DXVECTOR3& rPos);	// パーツ位置設定
 	void SetPartsRotation(const int nPartsID, const D3DXVECTOR3& rRot);	// パーツ向き設定
@@ -110,7 +110,7 @@ private:
 	// メンバ変数
 	std::vector<CMultiModel*> m_vecParts;	// パーツ情報
 	CMotion		*m_pMotion;	// モーションの情報
-	D3DXMATRIX	m_mtxWorld;	// ワールドマトリックス
+	MATRIX		m_mtxWorld;	// ワールドマトリックス
 	D3DXVECTOR3	m_pos;		// 位置
 	D3DXVECTOR3	m_rot;		// 向き
 };

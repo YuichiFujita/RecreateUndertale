@@ -107,7 +107,7 @@ public:
 		D3DXVECTOR3	rot;					// 向き
 		D3DXVECTOR3	size;					// 大きさ
 		COLOR		aCol[CUBECOL_MAX];		// 色
-		D3DXMATRIX	mtxWorld;				// ワールドマトリックス
+		MATRIX		mtxWorld;				// ワールドマトリックス
 		EBorder		bordState;				// 縁取り使用状態
 		float		fBordThick;				// 縁取り太さ
 		ETexState	texState;				// テクスチャ使用状態
@@ -126,8 +126,8 @@ public:
 	D3DXVECTOR3 GetVec3Position(void) const override	{ return m_meshCube.pos; }			// 位置取得
 	D3DXVECTOR3 GetVec3Rotation(void) const override	{ return m_meshCube.rot; }			// 向き取得
 	D3DXVECTOR3 GetVec3Size(void) const override		{ return m_meshCube.size; }			// 大きさ取得
-	D3DXMATRIX *GetPtrMtxWorld(void) override			{ return &m_meshCube.mtxWorld; }	// マトリックスポインタ取得
-	D3DXMATRIX GetMtxWorld(void) const override			{ return m_meshCube.mtxWorld; }		// マトリックス取得
+	MATRIX *GetPtrMtxWorld(void) override				{ return &m_meshCube.mtxWorld; }	// マトリックスポインタ取得
+	MATRIX GetMtxWorld(void) const override				{ return m_meshCube.mtxWorld; }		// マトリックス取得
 
 	// 静的メンバ関数
 	static CObjectMeshCube *Create	// 生成

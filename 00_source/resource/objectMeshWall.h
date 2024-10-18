@@ -36,7 +36,7 @@ public:
 		D3DXVECTOR3	rot;		// 向き
 		VECTOR2		size;		// 大きさ
 		COLOR		col;		// 色
-		D3DXMATRIX	mtxWorld;	// ワールドマトリックス
+		MATRIX		mtxWorld;	// ワールドマトリックス
 	};
 
 	// オーバーライド関数
@@ -50,8 +50,8 @@ public:
 	D3DXVECTOR3 GetVec3Position(void) const override	{ return m_meshWall.pos; }			// 位置取得
 	D3DXVECTOR3 GetVec3Rotation(void) const override	{ return m_meshWall.rot; }			// 向き取得
 	VECTOR2 GetVec2Size(void) const override			{ return m_meshWall.size; }			// 大きさ取得
-	D3DXMATRIX *GetPtrMtxWorld(void) override			{ return &m_meshWall.mtxWorld; }	// マトリックスポインタ取得
-	D3DXMATRIX GetMtxWorld(void) const override			{ return m_meshWall.mtxWorld; }		// マトリックス取得
+	MATRIX *GetPtrMtxWorld(void) override				{ return &m_meshWall.mtxWorld; }	// マトリックスポインタ取得
+	MATRIX GetMtxWorld(void) const override				{ return m_meshWall.mtxWorld; }		// マトリックス取得
 
 	// 静的メンバ関数
 	static CObjectMeshWall *Create	// 生成

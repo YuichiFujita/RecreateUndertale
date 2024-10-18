@@ -168,14 +168,14 @@ void CToonShader::Uninit(void)
 //============================================================
 //	ライト方向ベクトルの設定処理
 //============================================================
-void CToonShader::SetLightDirect(D3DXMATRIX *pMtxWorld, const int nLightID)
+void CToonShader::SetLightDirect(MATRIX *pMtxWorld, const int nLightID)
 {
 	if (!IsEffectOK()) { assert(false); return; }	// エフェクト未使用
 
 	// 変数を宣言
-	D3DXVECTOR3 dirLight = GET_MANAGER->GetLight()->GetLight(nLightID).Direction;	// ライト方向計算用
-	D3DXVECTOR4 setLight = D3DXVECTOR4(dirLight.x, dirLight.y, dirLight.z, 0.0f);	// ライト方向設定用
-	D3DXMATRIX  mtxInvWorld;	// ワールドマトリックス逆行列
+	D3DXVECTOR3	dirLight = GET_MANAGER->GetLight()->GetLight(nLightID).Direction;	// ライト方向計算用
+	D3DXVECTOR4	setLight = D3DXVECTOR4(dirLight.x, dirLight.y, dirLight.z, 0.0f);	// ライト方向設定用
+	MATRIX		mtxInvWorld;	// ワールドマトリックス逆行列
 
 	// 平行光源の方向ベクトルを計算
 	D3DXMatrixInverse(&mtxInvWorld, nullptr, pMtxWorld);	// ワールドマトリックスの逆行列を計算

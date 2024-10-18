@@ -108,7 +108,7 @@ void CObjectChara::Update(const float fDeltaTime)
 void CObjectChara::Draw(CShader *pShader)
 {
 	// 変数を宣言
-	D3DXMATRIX mtxRot, mtxTrans;	// 計算用マトリックス
+	MATRIX mtxRot, mtxTrans;	// 計算用マトリックス
 
 	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
@@ -302,7 +302,7 @@ void CObjectChara::BindCharaData(const char *pCharaPass)
 //============================================================
 //	マトリックスの設定処理
 //============================================================
-void CObjectChara::SetMtxWorld(const D3DXMATRIX &rMtxWorld)
+void CObjectChara::SetMtxWorld(const MATRIX &rMtxWorld)
 {
 	// 引数のマトリックスを設定
 	m_mtxWorld = rMtxWorld;

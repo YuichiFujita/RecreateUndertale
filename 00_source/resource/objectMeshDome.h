@@ -43,7 +43,7 @@ public:
 		D3DXVECTOR3	pos;		// 位置
 		D3DXVECTOR3	rot;		// 向き
 		COLOR		col;		// 色
-		D3DXMATRIX	mtxWorld;	// ワールドマトリックス
+		MATRIX		mtxWorld;	// ワールドマトリックス
 		ETexDir		texDir;		// テクスチャ方向
 		float		fRadius;	// 半径
 	};
@@ -57,8 +57,8 @@ public:
 	void SetVec3Rotation(const D3DXVECTOR3& rRot) override;	// 向き設定
 	D3DXVECTOR3 GetVec3Position(void) const override	{ return m_meshDome.pos; }			// 位置取得
 	D3DXVECTOR3 GetVec3Rotation(void) const override	{ return m_meshDome.rot; }			// 向き取得
-	D3DXMATRIX *GetPtrMtxWorld(void) override			{ return &m_meshDome.mtxWorld; }	// マトリックスポインタ取得
-	D3DXMATRIX GetMtxWorld(void) const override			{ return m_meshDome.mtxWorld; }		// マトリックス取得
+	MATRIX *GetPtrMtxWorld(void) override				{ return &m_meshDome.mtxWorld; }	// マトリックスポインタ取得
+	MATRIX GetMtxWorld(void) const override				{ return m_meshDome.mtxWorld; }		// マトリックス取得
 
 	// 静的メンバ関数
 	static CObjectMeshDome *Create	// 生成

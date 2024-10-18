@@ -483,7 +483,7 @@ float CObject3D::GetPositionHeight(const D3DXVECTOR3&rPos)
 	{ // 頂点数分繰り返す
 
 		// 変数を宣言
-		D3DXMATRIX mtxWorld, mtxRot, mtxTrans;		// 計算用マトリックス
+		MATRIX mtxWorld, mtxRot, mtxTrans;			// 計算用マトリックス
 		D3DXVECTOR3 pos = GetVertexPosition(nCnt);	// 頂点座標
 		
 		// ワールドマトリックスの初期化
@@ -542,7 +542,7 @@ float CObject3D::GetPositionHeight(const D3DXVECTOR3&rPos)
 //============================================================
 void CObject3D::CalcDrawMatrix(void)
 {
-	D3DXMATRIX mtxRot, mtxTrans;	// 計算用マトリックス
+	MATRIX mtxRot, mtxTrans;	// 計算用マトリックス
 
 	// ワールドマトリックスの初期化
 	D3DXMatrixIdentity(&m_mtxWorld);

@@ -84,10 +84,10 @@ void CMultiModel::Draw(CShader *pShader)
 	D3DXVECTOR3 pos = GetVec3Position();		// モデルの位置
 	D3DXVECTOR3 rot = GetVec3Rotation();		// モデルの向き
 	D3DXVECTOR3 scale = GetVec3Scale();			// モデルの拡大率
-	D3DXMATRIX  mtxScale, mtxRot, mtxTrans;		// 計算用マトリックス
+	MATRIX mtxScale, mtxRot, mtxTrans;			// 計算用マトリックス
 
-	D3DXMATRIX   mtxWorld;	// ワールドマトリックス
-	D3DXMATRIX   mtxParent;	// 親のマトリックス
+	MATRIX mtxWorld;		// ワールドマトリックス
+	MATRIX mtxParent;		// 親のマトリックス
 	D3DMATERIAL9 matDef;	// 現在のマテリアル保存用
 
 	// ポインタを宣言
@@ -230,8 +230,8 @@ void CMultiModel::DrawNormal(void)
 {
 	// 変数を宣言
 	CModel::SModel modelData = GetModelData();	// モデルの情報
-	D3DXVECTOR3	scale = GetVec3Scale();			// モデルの拡大率
-	D3DXMATRIX	mtxWorld = GetMtxWorld();		// ワールドマトリックス
+	D3DXVECTOR3 scale = GetVec3Scale();			// モデルの拡大率
+	MATRIX mtxWorld = GetMtxWorld();			// ワールドマトリックス
 
 	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
@@ -267,8 +267,8 @@ void CMultiModel::DrawShader(CShader *pShader)
 {
 	// 変数を宣言
 	CModel::SModel modelData = GetModelData();	// モデルの情報
-	D3DXVECTOR3	scale = GetVec3Scale();			// モデルの拡大率
-	D3DXMATRIX	mtxWorld = GetMtxWorld();		// ワールドマトリックス
+	D3DXVECTOR3 scale = GetVec3Scale();			// モデルの拡大率
+	MATRIX mtxWorld = GetMtxWorld();			// ワールドマトリックス
 
 	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ

@@ -130,7 +130,7 @@ void CObjectMeshDome::Update(const float fDeltaTime)
 void CObjectMeshDome::Draw(CShader *pShader)
 {
 	// 変数を宣言
-	D3DXMATRIX mtxRot, mtxTrans;	// 計算用マトリックス
+	MATRIX mtxRot, mtxTrans;	// 計算用マトリックス
 
 	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
