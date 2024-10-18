@@ -88,10 +88,10 @@ HRESULT CCharacter2D::LoadAll(void)
 //============================================================
 //	キャラクター登録
 //============================================================
-CCharacter2D::AMotion CCharacter2D::Regist(const char *pCharaPass)
+CCharacter2D::AMotion CCharacter2D::Regist(const char *pCharaPath)
 {
 	// 既に生成済みかを検索
-	auto itr = m_mapCharacter.find(pCharaPass);	// 引数のキャラクター情報を検索
+	auto itr = m_mapCharacter.find(pCharaPath);	// 引数のキャラクター情報を検索
 	if (itr != m_mapCharacter.end())
 	{ // 生成済みの場合
 
@@ -101,7 +101,7 @@ CCharacter2D::AMotion CCharacter2D::Regist(const char *pCharaPass)
 
 	// キャラクター情報を読込
 	AMotion tempCharaData;	// キャラクター情報
-	if (FAILED(LoadSetup(&tempCharaData, pCharaPass)))
+	if (FAILED(LoadSetup(&tempCharaData, pCharaPath)))
 	{ // 読込に失敗した場合
 
 		// 初期値を返す
@@ -110,7 +110,7 @@ CCharacter2D::AMotion CCharacter2D::Regist(const char *pCharaPass)
 	}
 
 	// キャラクター情報を保存
-	m_mapCharacter.insert(std::make_pair(pCharaPass, tempCharaData));
+	m_mapCharacter.insert(std::make_pair(pCharaPath, tempCharaData));
 
 	// 生成したキャラクター情報を返す
 	return tempCharaData;
@@ -215,10 +215,10 @@ HRESULT CCharacter2D::SearchFolderAll(std::string sFolderPath)
 //============================================================
 //	キャラクター情報セットアップ処理
 //============================================================
-HRESULT CCharacter2D::LoadSetup(AMotion *pInfoChara, const char *pCharaPass)
+HRESULT CCharacter2D::LoadSetup(AMotion *pInfoChara, const char *pCharaPath)
 {
 	// ファイルを開く
-	std::ifstream file(pCharaPass);	// ファイルストリーム
+	std::ifstream file(pCharaPath);	// ファイルストリーム
 	if (file.fail())
 	{ // ファイルが開けなかった場合
 
@@ -260,10 +260,10 @@ HRESULT CCharacter2D::LoadSetup(AMotion *pInfoChara, const char *pCharaPass)
 //============================================================
 //	モーション情報セットアップ処理
 //============================================================
-HRESULT CCharacter2D::LoadMotionSetup(AMotion *pInfoChara, const char *pMotionPass)
+HRESULT CCharacter2D::LoadMotionSetup(AMotion *pInfoChara, const char *pMotionPath)
 {
 	// ファイルを開く
-	std::ifstream file(pMotionPass);	// ファイルストリーム
+	std::ifstream file(pMotionPath);	// ファイルストリーム
 	if (file.fail())
 	{ // ファイルが開けなかった場合
 
@@ -297,7 +297,7 @@ HRESULT CCharacter2D::LoadMotionSetup(AMotion *pInfoChara, const char *pMotionPa
 		else if (str == "TEXTURE_PASS")
 		{
 			file >> str;					// ＝を読込
-			file >> pChara->sPassTexture;	// テクスチャパスを読込
+			file >> pChara->sPathTexture;	// テクスチャパスを読込
 		}
 		else if (str == "TEX_PATTERN")
 		{

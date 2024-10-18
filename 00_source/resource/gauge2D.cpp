@@ -62,7 +62,6 @@ CGauge2D::~CGauge2D()
 //============================================================
 HRESULT CGauge2D::Init(void)
 {
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// メンバ変数を初期化
@@ -163,7 +162,6 @@ void CGauge2D::Update(const float fDeltaTime)
 //============================================================
 void CGauge2D::Draw(CShader * /*pShader*/)
 {
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// 頂点バッファをデータストリームに設定
@@ -224,7 +222,7 @@ CGauge2D *CGauge2D::Create
 	const COLOR& rColFront,			// 表ゲージ色
 	const COLOR& rColBack,			// 裏ゲージ色
 	const bool bDrawFrame,			// 枠描画状況
-	const char *pPassTex,			// フレームテクスチャパス
+	const char *pPathTex,			// フレームテクスチャパス
 	const D3DXVECTOR3& rSizeFrame,	// 枠大きさ
 	const D3DXVECTOR3& rOffsetFrame	// 枠オフセット
 )
@@ -249,7 +247,7 @@ CGauge2D *CGauge2D::Create
 		}
 
 		// テクスチャを登録・割当
-		pGauge2D->BindTexture(POLYGON_FRAME, pPassTex);
+		pGauge2D->BindTexture(POLYGON_FRAME, pPathTex);
 
 		// ゲージ最大値を設定
 		pGauge2D->SetMaxNum(nMax);
@@ -297,19 +295,17 @@ void CGauge2D::BindTexture(const int nPolygonID, const int nTextureID)
 //============================================================
 //	テクスチャ割当処理 (パス)
 //============================================================
-void CGauge2D::BindTexture(const int nPolygonID, const char *pTexturePass)
+void CGauge2D::BindTexture(const int nPolygonID, const char *pTexturePath)
 {
-	// ポインタを宣言
 	CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
-
 	if (nPolygonID > NONE_IDX && nPolygonID < POLYGON_MAX)
 	{ // 正規インデックスの場合
 
-		if (pTexturePass != nullptr)
+		if (pTexturePath != nullptr)
 		{ // 割り当てるテクスチャパスがある場合
 	
 			// テクスチャインデックスを設定
-			m_aTextureID[nPolygonID] = pTexture->Regist(pTexturePass);
+			m_aTextureID[nPolygonID] = pTexture->Regist(pTexturePath);
 		}
 		else
 		{ // 割り当てるテクスチャパスがない場合
@@ -491,9 +487,7 @@ void CGauge2D::SetEnableDrawFrame(const bool bDraw)
 //============================================================
 void CGauge2D::SetVtx(void)
 {
-	// ポインタを宣言
 	VERTEX_2D *pVtx;	// 頂点情報へのポインタ
-
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
 

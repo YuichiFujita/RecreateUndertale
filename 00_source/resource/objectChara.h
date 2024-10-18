@@ -65,7 +65,7 @@ public:
 		const char *pFileName		// ファイル名
 	);
 
-	void BindCharaData(const char *pCharaPass);	// キャラクター情報割当
+	void BindCharaData(const char *pCharaPath);	// キャラクター情報割当
 	void SetMtxWorld(const MATRIX &rMtxWorld);	// マトリックス設定
 	void SetNumParts(const int nNumParts);		// パーツ数設定
 	void SetPartsInfo(CCharacter::SPartsInfo& rInfo);					// パーツ情報設定

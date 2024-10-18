@@ -61,7 +61,7 @@ public:
 
 	CRenderState *GetRenderState(void);					// レンダーステート情報取得
 	void BindModel(const int nModelID);					// モデル割当 (インデックス)
-	void BindModel(const char *pModelPass);				// モデル割当 (パス)
+	void BindModel(const char *pModelPath);				// モデル割当 (パス)
 	void SetAllMaterial(const D3DXMATERIAL& rMat);		// マテリアル全設定
 	void ResetMaterial(void);							// マテリアル再設定
 	void SetModelData(const CModel::SModel& rModel);	// モデル情報設定

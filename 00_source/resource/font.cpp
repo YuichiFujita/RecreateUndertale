@@ -50,7 +50,7 @@ CFont::CFont()
 	m_mapFont.clear();
 
 	// 読込済みファイルパスをクリア
-	m_vecFilePass.clear();
+	m_vecFilePath.clear();
 }
 
 //============================================================
@@ -70,7 +70,7 @@ HRESULT CFont::Init(void)
 	m_mapFont.clear();
 
 	// 読込済みファイルパスを初期化
-	m_vecFilePass.clear();
+	m_vecFilePath.clear();
 
 	// 成功を返す
 	return S_OK;
@@ -91,7 +91,7 @@ void CFont::Uninit(void)
 		SAFE_DEL_OBJECT(rMap.second.pFont);
 	}
 
-	for (auto& rVec : m_vecFilePass)
+	for (auto& rVec : m_vecFilePath)
 	{ // フォントパスの要素数分繰り返す
 
 		// フォントの破棄
@@ -110,7 +110,7 @@ void CFont::Uninit(void)
 	m_mapFont.clear();
 
 	// 読込済みファイルパスをクリア
-	m_vecFilePass.clear();
+	m_vecFilePath.clear();
 }
 
 //============================================================
@@ -134,11 +134,11 @@ HRESULT CFont::LoadAll(void)
 //============================================================
 //	フォント読込処理
 //============================================================
-HRESULT CFont::Load(const std::string &rFilePass)
+HRESULT CFont::Load(const std::string &rFilePath)
 {
 	// 既に読込済みかを検索
-	auto itr = std::find(m_vecFilePass.begin(), m_vecFilePass.end(), rFilePass);	// 引数のフォントパスを検索
-	if (itr != m_vecFilePass.end())
+	auto itr = std::find(m_vecFilePath.begin(), m_vecFilePath.end(), rFilePath);	// 引数のフォントパスを検索
+	if (itr != m_vecFilePath.end())
 	{ // 読込済みの場合
 
 		// 成功を返す
@@ -148,7 +148,7 @@ HRESULT CFont::Load(const std::string &rFilePass)
 	// フォントの読込
 	int nError = AddFontResourceEx
 	( // 引数
-		rFilePass.c_str(),	// フォントファイルパス
+		rFilePath.c_str(),	// フォントファイルパス
 		FR_PRIVATE,			// フォント特性
 		nullptr
 	);
@@ -161,12 +161,12 @@ HRESULT CFont::Load(const std::string &rFilePass)
 	}
 
 	// 読み込んだフォントパスを保存
-	m_vecFilePass.push_back(rFilePass);
+	m_vecFilePath.push_back(rFilePath);
 
 #if NDEBUG	// Release版以外では事前登録を行わない
 
 	// フォントとフォント文字の事前登録
-	RegistPrepare(rFilePass);
+	RegistPrepare(rFilePath);
 
 #endif	// NDEBUG
 
@@ -177,10 +177,10 @@ HRESULT CFont::Load(const std::string &rFilePass)
 //============================================================
 //	フォント登録処理
 //============================================================
-CFont::SFont CFont::Regist(const std::string &rFilePass, const bool bItalic)
+CFont::SFont CFont::Regist(const std::string &rFilePath, const bool bItalic)
 {
 	// 既に生成済みかを検索
-	auto itr = m_mapFont.find(SKey(rFilePass, bItalic));	// 引数のフォントを検索
+	auto itr = m_mapFont.find(SKey(rFilePath, bItalic));	// 引数のフォントを検索
 	if (itr != m_mapFont.end())
 	{ // 生成済みの場合
 
@@ -192,7 +192,7 @@ CFont::SFont CFont::Regist(const std::string &rFilePass, const bool bItalic)
 	SFont tempFont;
 
 	// フォント名を設定
-	tempFont.sFontName = rFilePass;					// ファイルパスを設定
+	tempFont.sFontName = rFilePath;					// ファイルパスを設定
 	useful::PathToBaseName(&tempFont.sFontName);	// ベースネームのみに変換
 
 	// フォント属性の設定
@@ -223,7 +223,7 @@ CFont::SFont CFont::Regist(const std::string &rFilePass, const bool bItalic)
 	}
 
 	// フォント文字の生成
-	tempFont.pFontChar = CFontChar::Create(tempFont.pFont, rFilePass, bItalic);
+	tempFont.pFontChar = CFontChar::Create(tempFont.pFont, rFilePath, bItalic);
 	if (tempFont.pFontChar == nullptr)
 	{ // 生成に失敗した場合
 
@@ -233,7 +233,7 @@ CFont::SFont CFont::Regist(const std::string &rFilePass, const bool bItalic)
 	}
 
 	// フォント情報を保存
-	m_mapFont.insert(std::make_pair(SKey(rFilePass, bItalic), tempFont));
+	m_mapFont.insert(std::make_pair(SKey(rFilePath, bItalic), tempFont));
 
 	// 生成したフォント情報を返す
 	return tempFont;
@@ -245,12 +245,12 @@ CFont::SFont CFont::Regist(const std::string &rFilePass, const bool bItalic)
 CFontChar::SChar CFont::RegistChar
 (
 	const wchar_t wcChar,			// 指定文字
-	const std::string &rFilePass,	// ファイルパス
+	const std::string &rFilePath,	// ファイルパス
 	bool bItalic					// イタリック
 )
 {
 	// 生成したフォントの文字テクスチャインデックスを返す
-	return Regist(rFilePass, bItalic).pFontChar->Regist(wcChar);
+	return Regist(rFilePath, bItalic).pFontChar->Regist(wcChar);
 }
 
 //============================================================
@@ -298,10 +298,10 @@ void CFont::Release(CFont *&prFont)
 //============================================================
 //	フォント・フォント文字の事前登録
 //============================================================
-void CFont::RegistPrepare(const std::string &rFilePass)
+void CFont::RegistPrepare(const std::string &rFilePath)
 {
 	// 引数パスのフォントを登録
-	Regist(rFilePass);
+	Regist(rFilePath);
 
 	// 使用頻度の高いフォント文字を登録する
 	for (int i = 0; i < NUM_ARRAY(INIT_REGIST_CHAR); i++)
@@ -314,7 +314,7 @@ void CFont::RegistPrepare(const std::string &rFilePass)
 			wchar_t wcOffset = INIT_REGIST_CHAR[i].wcChar + (wchar_t)j;
 
 			// フォント文字を登録
-			RegistChar(wcOffset, rFilePass);
+			RegistChar(wcOffset, rFilePath);
 		}
 	}
 }

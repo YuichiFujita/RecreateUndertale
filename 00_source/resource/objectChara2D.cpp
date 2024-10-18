@@ -117,13 +117,13 @@ CObjectChara2D *CObjectChara2D::Create(const D3DXVECTOR3 &rPos, const D3DXVECTOR
 //============================================================
 //	キャラクター情報割当
 //============================================================
-void CObjectChara2D::BindCharaData(const char *pCharaPass)
+void CObjectChara2D::BindCharaData(const char *pCharaPath)
 {
 	// 割り当てるモーションパスが存在しない場合抜ける
-	if (pCharaPass == nullptr) { assert(false); return; }
+	if (pCharaPath == nullptr) { assert(false); return; }
 
 	// モーション情報の全設定
-	SetAllInfo(GET_MANAGER->GetCharacter2D()->Regist(pCharaPass));
+	SetAllInfo(GET_MANAGER->GetCharacter2D()->Regist(pCharaPath));
 }
 
 //============================================================
@@ -141,7 +141,7 @@ void CObjectChara2D::SetMotion(const int nType)
 	SChara *pInfoChara = &m_info.vecMotion[nType].infoChara;	// キャラクター情報
 
 	// 指定テクスチャの割当
-	BindTexture(pInfoChara->sPassTexture.c_str());
+	BindTexture(pInfoChara->sPathTexture.c_str());
 
 	// キャラクター情報を設定
 	SetTexPtrn(pInfoChara->ptrnTexture);	// テクスチャ分割数

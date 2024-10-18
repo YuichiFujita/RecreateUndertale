@@ -134,7 +134,7 @@ int CTexture::Regist(const SInfo info)
 	pStatus->ImageFileFormat = (D3DXIMAGE_FILEFORMAT)NONE_IDX;	// ファイル形式 (作成のため無し)
 
 	// ファイルパス名を保存
-	tempMapInfo.sFilePassName = NONE_STRING;	// 読込ではないのでパス無し
+	tempMapInfo.sFilePathName = NONE_STRING;	// 読込ではないのでパス無し
 
 	// アスペクト比を計算
 	tempMapInfo.textureData.aspect.x = (float)info.Width / (float)info.Height;
@@ -153,7 +153,7 @@ int CTexture::Regist(const SInfo info)
 //============================================================
 //	テクスチャ登録処理 (パス)
 //============================================================
-int CTexture::Regist(std::string sFilePass)
+int CTexture::Regist(std::string sFilePath)
 {
 	// 変数を宣言
 	HRESULT  hr;			// 異常終了の確認用
@@ -164,14 +164,14 @@ int CTexture::Regist(std::string sFilePass)
 	tempMapInfo.textureData.pTexture = nullptr;	// テクスチャへのポインタ
 
 	// ファイルパスを標準化
-	useful::StandardizePathPart(&sFilePass);
+	useful::StandardizePathPart(&sFilePath);
 
 	// 既に読み込んでいないかを確認
 	int nCntTexture = 0;
 	for (const auto& rMap : m_mapTexture)
 	{ // テクスチャの要素数分繰り返す
 
-		if (rMap.second.sFilePassName.compare(sFilePass) == 0)
+		if (rMap.second.sFilePathName.compare(sFilePath) == 0)
 		{ // 文字列が一致した場合
 
 			// すでに読み込んでいるテクスチャの配列番号を返す
@@ -184,7 +184,7 @@ int CTexture::Regist(std::string sFilePass)
 
 	// 画像情報の取得
 	D3DXIMAGE_INFO size;	// テクスチャステータス
-	if (FAILED(D3DXGetImageInfoFromFile(sFilePass.c_str(), &size)))
+	if (FAILED(D3DXGetImageInfoFromFile(sFilePath.c_str(), &size)))
 	{ // 画像情報の取得に失敗した場合
 
 		// 失敗を返す
@@ -196,7 +196,7 @@ int CTexture::Regist(std::string sFilePass)
 	hr = D3DXCreateTextureFromFileEx
 	( // 引数
 		GET_DEVICE,			// Direct3Dデバイス
-		sFilePass.c_str(),	// テクスチャファイルパス
+		sFilePath.c_str(),	// テクスチャファイルパス
 		size.Width,			// テクスチャ横幅
 		size.Height,		// テクスチャ縦幅
 		0,					// ミップマップレベル
@@ -219,7 +219,7 @@ int CTexture::Regist(std::string sFilePass)
 	}
 
 	// ファイルパス名を保存
-	tempMapInfo.sFilePassName = sFilePass;
+	tempMapInfo.sFilePathName = sFilePath;
 
 	// アスペクト比を計算
 	D3DXIMAGE_INFO status = tempMapInfo.textureData.status;	// テクスチャステータス

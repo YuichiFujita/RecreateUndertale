@@ -40,14 +40,14 @@ public:
 	struct SMapInfo
 	{
 		SModel modelData;			// モデル情報
-		std::string sFilePassName;	// ファイルパス名
+		std::string sFilePathName;	// ファイルパス名
 	};
 
 	// メンバ関数
 	HRESULT Init(void);		// モデル初期化
 	void Uninit(void);		// モデル終了
 	HRESULT LoadAll(void);	// モデル全読込
-	int Regist(std::string sFilePass);	// モデル登録
+	int Regist(std::string sFilePath);	// モデル登録
 	SModel *GetInfo(const int nID);		// モデル情報取得
 
 	// 静的メンバ関数
@@ -56,7 +56,7 @@ public:
 
 private:
 	// メンバ関数
-	HRESULT LoadXFileModel(SMapInfo *pMapInfo, std::string sFilePass);	// xファイルの読込
+	HRESULT LoadXFileModel(SMapInfo *pMapInfo, std::string sFilePath);	// xファイルの読込
 	HRESULT LoadTextureModel(SMapInfo *pMapInfo);		// テクスチャの読込
 	HRESULT SetCollisionModel(SMapInfo *pMapInfo);		// 当たり判定の作成
 	HRESULT SearchFolderAll(std::string sFolderPath);	// フォルダ全検索

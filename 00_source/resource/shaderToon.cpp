@@ -66,14 +66,11 @@ CToonShader::~CToonShader()
 //============================================================
 HRESULT CToonShader::Init(void)
 {
-	// 変数を宣言
-	D3DCAPS9 caps;	// ハードウェア機能
-	HRESULT hr;		// 異常終了の確認用
-
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイス情報
 	LPD3DXBUFFER pError  = nullptr;	// コンパイルエラー情報
 	LPD3DXEFFECT pEffect = nullptr;	// エフェクト設定用
+	D3DCAPS9 caps;	// ハードウェア機能
+	HRESULT hr;		// 異常終了の確認用
 
 	// メンバ変数を初期化
 	m_pTextureToon	= nullptr;	// トゥーンマップテクスチャ
@@ -238,10 +235,7 @@ void CToonShader::SetMaterial(const D3DMATERIAL9& rMaterial)
 {
 	if (!IsEffectOK()) { assert(false); return; }	// エフェクト未使用
 
-	// ポインタを宣言
 	LPD3DXEFFECT pEffect = GetEffect();	// エフェクト情報
-
-	// 変数を宣言
 	D3DXVECTOR4 diffuse  = D3DXVECTOR4(rMaterial.Diffuse.r,  rMaterial.Diffuse.g,  rMaterial.Diffuse.b,  rMaterial.Diffuse.a);	// 拡散光
 	D3DXVECTOR4 ambient  = D3DXVECTOR4(rMaterial.Ambient.r,  rMaterial.Ambient.g,  rMaterial.Ambient.b,  rMaterial.Ambient.a);	// 環境光
 	D3DXVECTOR4 emissive = D3DXVECTOR4(rMaterial.Emissive.r, rMaterial.Emissive.g, rMaterial.Emissive.b, rMaterial.Emissive.a);	// 放射光

@@ -59,7 +59,7 @@ public:
 	// 静的メンバ関数
 	static CText2D *Create	// 生成
 	( // 引数
-		const std::string &rFilePass,		// フォントパス
+		const std::string &rFilePath,		// フォントパス
 		const bool bItalic,					// イタリック
 		const D3DXVECTOR3& rPos,			// 原点位置
 		const float fCharHeight = 100.0f,	// 文字縦幅
@@ -81,7 +81,7 @@ public:
 	// メンバ関数
 	void SetFont	// フォントの設定
 	( // 引数
-		const std::string &rFilePass,	// フォントパス
+		const std::string &rFilePath,	// フォントパス
 		const bool bItalic = false		// イタリック
 	);
 	void SetAlpha(const float fAlpha);				// 透明度設定

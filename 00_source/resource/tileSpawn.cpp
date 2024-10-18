@@ -24,8 +24,8 @@ namespace
 //============================================================
 //	コンストラクタ
 //============================================================
-CTileSpawn::CTileSpawn(const char *pPrevPass) : CObject3D(CObject::LABEL_TILE, CObject::DIM_3D, PRIORITY),
-	m_sPrevStagePass	(pPrevPass)	// 遷移元ステージパス
+CTileSpawn::CTileSpawn(const char *pPrevPath) : CObject3D(CObject::LABEL_TILE, CObject::DIM_3D, PRIORITY),
+	m_sPrevStagePath	(pPrevPath)	// 遷移元ステージパス
 {
 
 }
@@ -92,10 +92,10 @@ void CTileSpawn::Draw(CShader *pShader)
 //============================================================
 //	生成処理
 //============================================================
-CTileSpawn *CTileSpawn::Create(const char *pPrevPass, const D3DXVECTOR3& rPos)
+CTileSpawn *CTileSpawn::Create(const char *pPrevPath, const D3DXVECTOR3& rPos)
 {
 	// 出現タイルの生成
-	CTileSpawn *pTileSpawn = new CTileSpawn(pPrevPass);
+	CTileSpawn *pTileSpawn = new CTileSpawn(pPrevPath);
 	if (pTileSpawn == nullptr)
 	{ // 生成に失敗した場合
 

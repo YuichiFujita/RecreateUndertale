@@ -31,6 +31,7 @@ CObject3D::CObject3D(const CObject::ELabel label, const CObject::EDim dimension,
 	m_pVtxBuff		(nullptr),			// 頂点バッファへのポインタ
 	m_pRenderState	(nullptr),			// レンダーステートの情報
 	m_pPosGapBuff	(nullptr),			// 座標のずれバッファ
+	m_mtxWorld		(MTX_IDENT),		// ワールドマトリックス
 	m_pos			(VEC3_ZERO),		// 位置
 	m_rot			(VEC3_ZERO),		// 向き
 	m_size			(VEC3_ZERO),		// 大きさ
@@ -38,8 +39,7 @@ CObject3D::CObject3D(const CObject::ELabel label, const CObject::EDim dimension,
 	m_origin		(ORIGIN_CENTER),	// 原点
 	m_nTextureID	(0)					// テクスチャインデックス
 {
-	// メンバ変数をクリア
-	D3DXMatrixIdentity(&m_mtxWorld);	// ワールドマトリックス
+
 }
 
 //============================================================
@@ -55,7 +55,6 @@ CObject3D::~CObject3D()
 //============================================================
 HRESULT CObject3D::Init(void)
 {
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// メンバ変数を初期化
@@ -66,7 +65,7 @@ HRESULT CObject3D::Init(void)
 	m_pos			= VEC3_ZERO;		// 位置
 	m_rot			= VEC3_ZERO;		// 向き
 	m_size			= VEC3_ZERO;		// 大きさ
-	m_col			= color::White();		// 色
+	m_col			= color::White();	// 色
 	m_origin		= ORIGIN_CENTER;	// 原点
 	m_nTextureID	= NONE_IDX;			// テクスチャインデックス
 
@@ -304,16 +303,14 @@ void CObject3D::BindTexture(const int nTextureID)
 //============================================================
 //	テクスチャ割当処理 (パス)
 //============================================================
-void CObject3D::BindTexture(const char *pTexturePass)
+void CObject3D::BindTexture(const char *pTexturePath)
 {
-	// ポインタを宣言
-	CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
-
-	if (pTexturePass != nullptr)
+	if (pTexturePath != nullptr)
 	{ // 割り当てるテクスチャパスがある場合
 
 		// テクスチャインデックスを設定
-		m_nTextureID = pTexture->Regist(pTexturePass);
+		CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
+		m_nTextureID = pTexture->Regist(pTexturePath);
 	}
 	else
 	{ // 割り当てるテクスチャパスがない場合
@@ -364,9 +361,7 @@ void CObject3D::SetOrigin(const EOrigin origin)
 //============================================================
 void CObject3D::SetVertexPosition(const int nID, const D3DXVECTOR3& rPos)
 {
-	// ポインタを宣言
 	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
-
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
 
@@ -396,12 +391,8 @@ void CObject3D::SetVertexPosition(const int nID, const D3DXVECTOR3& rPos)
 //============================================================
 D3DXVECTOR3 CObject3D::GetVertexPosition(const int nID)
 {
-	// 変数を宣言
-	D3DXVECTOR3 pos;	// 頂点座標の代入用
-
-	// ポインタを宣言
 	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
-
+	D3DXVECTOR3 pos;	// 頂点座標の代入用
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
 
@@ -545,15 +536,15 @@ void CObject3D::CalcDrawMatrix(void)
 	MATRIX mtxRot, mtxTrans;	// 計算用マトリックス
 
 	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&m_mtxWorld);
+	m_mtxWorld.Identity();
 
 	// 向きを反映
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
+	mtxRot.Rotation(m_rot);
+	m_mtxWorld.Multiply(mtxRot);
 
 	// 位置を反映
-	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
+	mtxTrans.Translation(m_pos);
+	m_mtxWorld.Multiply(mtxTrans);
 }
 
 //============================================================
@@ -561,7 +552,6 @@ void CObject3D::CalcDrawMatrix(void)
 //============================================================
 void CObject3D::SetVtx(void)
 {
-	// ポインタを宣言
 	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
 
 	// 頂点バッファをロックし、頂点情報へのポインタを取得
@@ -630,15 +620,11 @@ void CObject3D::SetAnimTex
 	const int nHeightPtrn	// テクスチャの縦の分割数
 )
 {
-	// 変数を宣言
+	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
 	float fWidthRate	= 1.0f / nWidthPtrn;	// 横の分割数の割合
 	float fHeightRate	= 1.0f / nHeightPtrn;	// 縦の分割数の割合
 	int nWidthCurrent	= nPattern % nWidthPtrn;					// 現在の横のパターン
 	int nHeightCurrent	= (nPattern / nWidthPtrn) % nHeightPtrn;	// 現在の縦のパターン
-
-	// ポインタを宣言
-	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
-
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
 
@@ -667,9 +653,7 @@ void CObject3D::SetScrollTex
 	const float fOffsetV	// テクスチャの縦座標のオフセット位置
 )
 {
-	// ポインタを宣言
 	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
-
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
 
@@ -692,7 +676,6 @@ void CObject3D::SetScrollTex
 //============================================================
 void CObject3D::DrawNormal(void)
 {
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// テクスチャの設定
@@ -707,7 +690,6 @@ void CObject3D::DrawNormal(void)
 //============================================================
 void CObject3D::DrawShader(CShader *pShader)
 {
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// 描画開始
@@ -745,7 +727,6 @@ void CObject3D::DrawShader(CShader *pShader)
 //============================================================
 void CObject3D::NormalizeNormal(void)
 {
-	// ポインタを宣言
 	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
 
 	// 頂点バッファをロックし、頂点情報へのポインタを取得

@@ -183,7 +183,7 @@ void CString2D::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 CString2D *CString2D::Create
 (
-	const std::string &rFilePass,	// フォントパス
+	const std::string &rFilePath,	// フォントパス
 	const bool bItalic,				// イタリック
 	const std::string &rStr,		// 指定文字列
 	const D3DXVECTOR3 &rPos,		// 原点位置
@@ -213,7 +213,7 @@ CString2D *CString2D::Create
 		}
 
 		// フォントを設定
-		pString2D->SetFont(rFilePass, bItalic);
+		pString2D->SetFont(rFilePath, bItalic);
 
 		// 文字列を設定
 		if (FAILED(pString2D->SetString(rStr)))
@@ -249,7 +249,7 @@ CString2D *CString2D::Create
 //============================================================
 CString2D *CString2D::Create
 (
-	const std::string &rFilePass,	// フォントパス
+	const std::string &rFilePath,	// フォントパス
 	const bool bItalic,				// イタリック
 	const std::wstring &rStr,		// 指定文字列
 	const D3DXVECTOR3 &rPos,		// 原点位置
@@ -279,7 +279,7 @@ CString2D *CString2D::Create
 		}
 
 		// フォントを設定
-		pString2D->SetFont(rFilePass, bItalic);
+		pString2D->SetFont(rFilePath, bItalic);
 
 		// 文字列を設定
 		if (FAILED(pString2D->SetString(rStr)))
@@ -367,7 +367,7 @@ HRESULT CString2D::SetString(const std::wstring& rStr)
 		// 文字を生成
 		m_ppChar[i] = CChar2D::Create
 		( // 引数
-			m_pFontChar->GetFilePass(),	// フォントパス
+			m_pFontChar->GetFilePath(),	// フォントパス
 			m_pFontChar->GetItalic(),	// イタリック
 			m_wsStr[i],		// 指定文字
 			m_pos,			// 原点位置
@@ -402,13 +402,13 @@ HRESULT CString2D::SetString(const std::wstring& rStr)
 //============================================================
 void CString2D::SetFont
 (
-	const std::string &rFilePass,	// フォントパス
+	const std::string &rFilePath,	// フォントパス
 	const bool bItalic				// イタリック
 )
 {
 	// フォント文字情報を設定
 	CFont *pFont = GET_MANAGER->GetFont();	// フォント情報
-	m_pFontChar = pFont->Regist(rFilePass, bItalic).pFontChar;
+	m_pFontChar = pFont->Regist(rFilePath, bItalic).pFontChar;
 
 	// 文字列の再設定
 	SetString(m_wsStr);

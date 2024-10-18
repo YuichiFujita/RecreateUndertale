@@ -276,7 +276,7 @@ void CScrollText2D::DeleteStringAll(void)
 //============================================================
 CScrollText2D *CScrollText2D::Create
 (
-	const std::string &rFilePass,		// フォントパス
+	const std::string &rFilePath,		// フォントパス
 	const bool bItalic,					// イタリック
 	const D3DXVECTOR3& rPos,			// 原点位置
 	const float fNextTime,				// 文字表示の待機時間
@@ -308,7 +308,7 @@ CScrollText2D *CScrollText2D::Create
 		}
 
 		// フォントを設定
-		pScrollText2D->SetFont(rFilePass, bItalic);
+		pScrollText2D->SetFont(rFilePath, bItalic);
 
 		// 原点位置を設定
 		pScrollText2D->SetVec3Position(rPos);

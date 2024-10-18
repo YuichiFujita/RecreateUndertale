@@ -48,7 +48,6 @@ CDebugProc::~CDebugProc()
 //==========================================================
 HRESULT CDebugProc::Init(void)
 {
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスへのポインタ
 
 	// デバッグ表示情報の初期化

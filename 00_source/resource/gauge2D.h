@@ -63,14 +63,14 @@ public:
 		const COLOR& rColFront = color::White(),	// 表ゲージ色
 		const COLOR& rColBack = color::Black(),		// 裏ゲージ色
 		const bool bDrawFrame = false,				// 枠描画状況
-		const char *pPassTex = nullptr,				// フレームテクスチャパス
+		const char *pPathTex = nullptr,				// フレームテクスチャパス
 		const D3DXVECTOR3& rSizeFrame = VEC3_ONE,	// 枠大きさ
 		const D3DXVECTOR3& rOffsetFrame = VEC3_ONE	// 枠オフセット
 	);
 
 	// メンバ関数
 	void BindTexture(const int nPolygonID, const int nTextureID);		// テクスチャ割当 (インデックス)
-	void BindTexture(const int nPolygonID, const char *pTexturePass);	// テクスチャ割当 (パス)
+	void BindTexture(const int nPolygonID, const char *pTexturePath);	// テクスチャ割当 (パス)
 	int GetTextureIndex(const int nPolygonID) const;					// テクスチャインデックス取得
 
 	void AddNum(const int nAdd);						// ゲージ加算

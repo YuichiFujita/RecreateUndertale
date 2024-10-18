@@ -118,7 +118,7 @@ void CChar2D::SetVec3Size(const D3DXVECTOR3& /*rSize*/)
 //============================================================
 CChar2D *CChar2D::Create
 (
-	const std::string &rFilePass,	// フォントパス
+	const std::string &rFilePath,	// フォントパス
 	const bool bItalic,				// イタリック
 	const std::string &rChar,		// 指定文字
 	const D3DXVECTOR3& rPos,		// 位置
@@ -147,7 +147,7 @@ CChar2D *CChar2D::Create
 		}
 
 		// フォントを設定
-		pChar2D->SetFont(rFilePass, bItalic);
+		pChar2D->SetFont(rFilePath, bItalic);
 
 		// 文字を設定
 		pChar2D->SetChar(rChar);
@@ -174,7 +174,7 @@ CChar2D *CChar2D::Create
 //============================================================
 CChar2D *CChar2D::Create
 (
-	const std::string &rFilePass,	// フォントパス
+	const std::string &rFilePath,	// フォントパス
 	const bool bItalic,				// イタリック
 	const wchar_t wcChar,			// 指定文字
 	const D3DXVECTOR3& rPos,		// 位置
@@ -203,7 +203,7 @@ CChar2D *CChar2D::Create
 		}
 
 		// フォントを設定
-		pChar2D->SetFont(rFilePass, bItalic);
+		pChar2D->SetFont(rFilePath, bItalic);
 
 		// 文字を設定
 		pChar2D->SetChar(wcChar);
@@ -230,13 +230,13 @@ CChar2D *CChar2D::Create
 //============================================================
 void CChar2D::SetFont
 (
-	const std::string &rFilePass,	// フォントパス
+	const std::string &rFilePath,	// フォントパス
 	const bool bItalic				// イタリック
 )
 {
 	// フォント文字情報を設定
 	CFont *pFont = GET_MANAGER->GetFont();	// フォント情報
-	m_pFontChar = pFont->Regist(rFilePass, bItalic).pFontChar;
+	m_pFontChar = pFont->Regist(rFilePath, bItalic).pFontChar;
 
 	// 指定文字を再設定
 	SetChar(m_wcChar);

@@ -177,12 +177,9 @@ void CShader::SetMatrix(MATRIX* pMtxWorld)
 {
 	if (m_pEffect == nullptr) { assert(false); return; }	// エフェクト未使用
 
-	// 変数を宣言
+	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイス情報
 	MATRIX mtxView;			// ビューマトリックス
 	MATRIX mtxProjection;	// プロジェクションマトリックス
-
-	// ポインタを宣言
-	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイス情報
 
 	// ビューマトリックス・プロジェクションマトリックスを取得
 	pDevice->GetTransform(D3DTS_VIEW, &mtxView);

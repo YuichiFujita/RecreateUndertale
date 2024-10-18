@@ -184,7 +184,7 @@ void CText2D::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 CText2D *CText2D::Create
 (
-	const std::string &rFilePass,		// フォントパス
+	const std::string &rFilePath,		// フォントパス
 	const bool bItalic,					// イタリック
 	const D3DXVECTOR3& rPos,			// 原点位置
 	const float fCharHeight,			// 文字縦幅
@@ -215,7 +215,7 @@ CText2D *CText2D::Create
 		}
 
 		// フォントを設定
-		pText2D->SetFont(rFilePass, bItalic);
+		pText2D->SetFont(rFilePath, bItalic);
 
 		// 原点位置を設定
 		pText2D->SetVec3Position(rPos);
@@ -380,20 +380,20 @@ void CText2D::DeleteStringAll(void)
 //============================================================
 void CText2D::SetFont
 (
-	const std::string &rFilePass,	// フォントパス
+	const std::string &rFilePath,	// フォントパス
 	const bool bItalic				// イタリック
 )
 {
 	// フォント文字情報を設定
 	CFont *pFont = GET_MANAGER->GetFont();	// フォント情報
-	m_pFontChar = pFont->Regist(rFilePass, bItalic).pFontChar;
+	m_pFontChar = pFont->Regist(rFilePath, bItalic).pFontChar;
 
 	for (auto& rList : m_listString)
 	{ // 文字列の格納数分繰り返す
 
 		// 文字列フォントの設定
 		assert(rList != nullptr);
-		rList->SetFont(rFilePass, bItalic);
+		rList->SetFont(rFilePath, bItalic);
 	}
 
 	// 相対位置の設定
@@ -544,7 +544,7 @@ CString2D *CText2D::CreateString2D(const std::wstring& rStr)
 	// 文字列オブジェクトを生成
 	CString2D *pStr = CString2D::Create
 	( // 引数
-		m_pFontChar->GetFilePass(),	// フォントパス
+		m_pFontChar->GetFilePath(),	// フォントパス
 		m_pFontChar->GetItalic(),	// イタリック
 		rStr,			// 指定文字列
 		m_pos,			// 原点位置

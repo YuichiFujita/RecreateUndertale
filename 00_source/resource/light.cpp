@@ -64,9 +64,7 @@ CLight::~CLight()
 //============================================================
 HRESULT CLight::Init(void)
 {
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
-
 	for (int nCntLight = 0; nCntLight < light::MAX_NUM; nCntLight++)
 	{ // 使用するライト数分繰り返す
 

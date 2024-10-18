@@ -163,12 +163,9 @@ void CObjectTornado::Update(const float fDeltaTime)
 //============================================================
 void CObjectTornado::Draw(CShader *pShader)
 {
-	// 変数を宣言
+	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 	MATRIX mtxRot, mtxTrans;	// 計算用マトリックス
 	MATRIX mtxOrigin;			// 発生源のマトリックス
-
-	// ポインタを宣言
-	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// レンダーステートを設定
 	m_pRenderState->Set();
@@ -428,16 +425,14 @@ void CObjectTornado::BindTexture(const int nTextureID)
 //============================================================
 //	テクスチャ割当処理 (パス)
 //============================================================
-void CObjectTornado::BindTexture(const char *pTexturePass)
+void CObjectTornado::BindTexture(const char *pTexturePath)
 {
-	// ポインタを宣言
-	CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
-
-	if (pTexturePass != nullptr)
+	if (pTexturePath != nullptr)
 	{ // 割り当てるテクスチャパスがある場合
 
 		// テクスチャインデックスを設定
-		m_nTextureID = pTexture->Regist(pTexturePass);
+		CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
+		m_nTextureID = pTexture->Regist(pTexturePath);
 	}
 	else
 	{ // 割り当てるテクスチャパスがない場合
@@ -590,15 +585,11 @@ void CObjectTornado::SetSubAlpha(const float fSubAlpha)
 //============================================================
 void CObjectTornado::SetVtx(void)
 {
-	// 変数を宣言
+	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
 	D3DXVECTOR3 vecPos;	// 竜巻の頂点方向ベクトル
 	float fWidth  = m_tornado.fSetWidth;	// 頂点方向の横ずれ量
 	float fHeight = 0.0f;					// 頂点方向の縦ずれ量
 	float fAlpha  = m_tornado.fSetAlpha;	// 頂点カラーの透明度
-
-	// ポインタを宣言
-	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
-
 	if (m_pVtxBuff != nullptr)
 	{ // 竜巻の頂点バッファが使用中の場合
 
@@ -668,7 +659,6 @@ void CObjectTornado::SetVtx(void)
 //============================================================
 void CObjectTornado::DrawNormal(void)
 {
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// テクスチャの設定
@@ -683,7 +673,6 @@ void CObjectTornado::DrawNormal(void)
 //============================================================
 void CObjectTornado::DrawShader(CShader *pShader)
 {
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// 描画開始

@@ -41,7 +41,7 @@ public:
 	// 静的メンバ関数
 	static CScrollString2D *Create	// 生成 (マルチバイト文字列)
 	( // 引数
-		const std::string &rFilePass,	// フォントパス
+		const std::string &rFilePath,	// フォントパス
 		const bool bItalic,				// イタリック
 		const std::string &rStr,		// 指定文字列
 		const D3DXVECTOR3 &rPos,		// 原点位置
@@ -53,7 +53,7 @@ public:
 	);
 	static CScrollString2D *Create	// 生成 (ワイド文字列)
 	( // 引数
-		const std::string &rFilePass,	// フォントパス
+		const std::string &rFilePath,	// フォントパス
 		const bool bItalic,				// イタリック
 		const std::wstring &rStr,		// 指定文字列
 		const D3DXVECTOR3 &rPos,		// 原点位置

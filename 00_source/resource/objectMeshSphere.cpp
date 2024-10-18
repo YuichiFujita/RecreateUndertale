@@ -266,9 +266,9 @@ void CObjectMeshSphere::BindTexture(const int nTextureID)
 //============================================================
 //	テクスチャ割当処理 (パス)
 //============================================================
-void CObjectMeshSphere::BindTexture(const char *pTexturePass)
+void CObjectMeshSphere::BindTexture(const char *pTexturePath)
 {
-	if (pTexturePass != nullptr)
+	if (pTexturePath != nullptr)
 	{ // 割り当てるテクスチャパスがある場合
 
 		CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
@@ -276,7 +276,7 @@ void CObjectMeshSphere::BindTexture(const char *pTexturePass)
 		{ // 半球の総数分繰り返す
 
 			// テクスチャインデックスを割当
-			m_apDome[i]->BindTexture(pTexture->Regist(pTexturePass));
+			m_apDome[i]->BindTexture(pTexture->Regist(pTexturePath));
 		}
 	}
 	else

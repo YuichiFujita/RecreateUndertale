@@ -174,11 +174,8 @@ void CObjectMeshCube::Update(const float fDeltaTime)
 //============================================================
 void CObjectMeshCube::Draw(CShader *pShader)
 {
-	// 変数を宣言
-	MATRIX mtxRot, mtxTrans;	// 計算用マトリックス
-
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
+	MATRIX mtxRot, mtxTrans;	// 計算用マトリックス
 
 	// ワールドマトリックスの初期化
 	D3DXMatrixIdentity(&m_meshCube.mtxWorld);
@@ -413,7 +410,6 @@ void CObjectMeshCube::SetBorderColor(const COLOR& rCol)
 //============================================================
 HRESULT CObjectMeshCube::SetBorderState(const EBorder bordState)
 {
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// 引数の縁取りの状態を設定
@@ -540,14 +536,10 @@ void CObjectMeshCube::SetOrigin(const EOrigin origin)
 //============================================================
 void CObjectMeshCube::SetVtx(void)
 {
-	// 変数を宣言
-	int nLoop = 0;	// キューブの描画数
+	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
+	int nLoop = 0;		// キューブの描画数
 	float fSetBord = 0.0f, fUseBord = 0.0f;	// 頂点座標計算用
 	VECTOR2 texPart = VEC2_ZERO;			// テクスチャ分割数の計算用
-
-	// ポインタを宣言
-	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
-
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
 
@@ -641,13 +633,9 @@ void CObjectMeshCube::SetVtx(void)
 //============================================================
 void CObjectMeshCube::SetIdx(void)
 {
-	// 変数を宣言
+	WORD *pIdx;			// インデックス情報へのポインタ
 	int nNumVtx = 0;	// 頂点数の計測用
 	int nLoop = 0;		// キューブの描画数
-
-	// ポインタを宣言
-	WORD *pIdx;	// インデックス情報へのポインタ
-
 	if (m_pIdxBuff != nullptr)
 	{ // 使用中の場合
 
@@ -684,11 +672,8 @@ void CObjectMeshCube::SetIdx(void)
 //============================================================
 void CObjectMeshCube::DrawNormal(void)
 {
-	// 変数配列を宣言
-	int aTexType[NUM_CUBE_FACE];	// テクスチャ設定用
-
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
+	int aTexType[NUM_CUBE_FACE];			// テクスチャ設定用
 
 	//--------------------------------------------------------
 	//	キューブの描画
@@ -791,11 +776,8 @@ void CObjectMeshCube::DrawNormal(void)
 //============================================================
 void CObjectMeshCube::DrawShader(CShader *pShader)
 {
-	// 変数配列を宣言
-	int aTexType[NUM_CUBE_FACE];	// テクスチャ設定用
-
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
+	int aTexType[NUM_CUBE_FACE];			// テクスチャ設定用
 
 	// 描画開始
 	pShader->Begin();

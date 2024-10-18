@@ -153,7 +153,7 @@ HRESULT CScrollString2D::SetString(const std::wstring& rStr)
 //============================================================
 CScrollString2D *CScrollString2D::Create
 (
-	const std::string &rFilePass,	// フォントパス
+	const std::string &rFilePath,	// フォントパス
 	const bool bItalic,				// イタリック
 	const std::string &rStr,		// 指定文字列
 	const D3DXVECTOR3 &rPos,		// 原点位置
@@ -184,7 +184,7 @@ CScrollString2D *CScrollString2D::Create
 		}
 
 		// フォントを設定
-		pScrollString2D->SetFont(rFilePass, bItalic);
+		pScrollString2D->SetFont(rFilePath, bItalic);
 
 		// 文字列を設定
 		if (FAILED(pScrollString2D->SetString(rStr)))
@@ -223,7 +223,7 @@ CScrollString2D *CScrollString2D::Create
 //============================================================
 CScrollString2D *CScrollString2D::Create
 (
-	const std::string &rFilePass,	// フォントパス
+	const std::string &rFilePath,	// フォントパス
 	const bool bItalic,				// イタリック
 	const std::wstring &rStr,		// 指定文字列
 	const D3DXVECTOR3 &rPos,		// 原点位置
@@ -254,7 +254,7 @@ CScrollString2D *CScrollString2D::Create
 		}
 
 		// フォントを設定
-		pScrollString2D->SetFont(rFilePass, bItalic);
+		pScrollString2D->SetFont(rFilePath, bItalic);
 
 		// 文字列を設定
 		if (FAILED(pScrollString2D->SetString(rStr)))

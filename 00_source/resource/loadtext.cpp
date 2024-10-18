@@ -53,7 +53,7 @@ void loadtext::LoadVector(std::ifstream *pFile, std::vector<std::wstring> *pVecS
 //============================================================
 //	テキストの読込処理 (文字列)
 //============================================================
-std::vector<std::wstring> loadtext::LoadText(const char *pFilePass, const char *pTextStr)
+std::vector<std::wstring> loadtext::LoadText(const char *pFilePath, const char *pTextStr)
 {
 	std::vector<std::wstring> vecStr;	// 文字列の動的配列
 	std::string sLoadStart;				// 読込開始の文字列
@@ -63,7 +63,7 @@ std::vector<std::wstring> loadtext::LoadText(const char *pFilePass, const char *
 	sLoadStart.append(pTextStr);	// 引数の認識用文字列と連結
 
 	// ファイルを開く
-	std::ifstream file(pFilePass);	// ファイルストリーム
+	std::ifstream file(pFilePath);	// ファイルストリーム
 	if (file.fail())
 	{ // ファイルが開けなかった場合
 
@@ -111,10 +111,10 @@ std::vector<std::wstring> loadtext::LoadText(const char *pFilePass, const char *
 //============================================================
 //	テキストの読込処理 (インデックス)
 //============================================================
-std::vector<std::wstring> loadtext::LoadText(const char *pFilePass, const int nTextID)
+std::vector<std::wstring> loadtext::LoadText(const char *pFilePath, const int nTextID)
 {
 	// テキストの読込
-	return LoadText(pFilePass, std::to_string(nTextID).c_str());
+	return LoadText(pFilePath, std::to_string(nTextID).c_str());
 }
 
 //============================================================

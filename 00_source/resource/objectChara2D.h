@@ -54,7 +54,7 @@ public:
 			bLoop		(false)			// ループON/OFF
 		{
 			vecNextTime.clear();	// パターン変更時間配列をクリア
-			sPassTexture.clear();	// テクスチャパスをクリア
+			sPathTexture.clear();	// テクスチャパスをクリア
 		}
 
 		// テクスチャ分割数・パターン総数の設定
@@ -93,7 +93,7 @@ public:
 
 		// メンバ変数
 		std::vector<float> vecNextTime;	// パターン変更時間配列
-		std::string sPassTexture;		// テクスチャパス
+		std::string sPathTexture;		// テクスチャパス
 		POSGRID2 ptrnTexture;			// テクスチャ分割数
 		int nMaxPtrn;		// 最大パターン数
 		D3DXVECTOR3 offset;	// 原点オフセット
@@ -145,7 +145,7 @@ public:
 	static CObjectChara2D *Create(const D3DXVECTOR3& rPos, const D3DXVECTOR3& rRot = VEC3_ZERO);	// 生成
 
 	// メンバ関数
-	void BindCharaData(const char *pCharaPass);	// キャラクター情報割当
+	void BindCharaData(const char *pCharaPath);	// キャラクター情報割当
 	void SetMotion(const int nType);			// モーション設定
 	void AddInfo(const SMotion& rMotion);		// モーション情報追加
 	void SetAllInfo(const SInfo& rInfo);		// モーション情報全設定

@@ -136,11 +136,8 @@ void CObjectMeshField::Update(const float fDeltaTime)
 //============================================================
 void CObjectMeshField::Draw(CShader *pShader)
 {
-	// 変数を宣言
-	MATRIX mtxRot, mtxTrans;	// 計算用マトリックス
-
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
+	MATRIX mtxRot, mtxTrans;	// 計算用マトリックス
 
 	// レンダーステートを設定
 	m_pRenderState->Set();
@@ -304,16 +301,14 @@ void CObjectMeshField::BindTexture(const int nTextureID)
 //============================================================
 //	テクスチャ割当処理 (パス)
 //============================================================
-void CObjectMeshField::BindTexture(const char *pTexturePass)
+void CObjectMeshField::BindTexture(const char *pTexturePath)
 {
-	// ポインタを宣言
-	CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
-
-	if (pTexturePass != nullptr)
+	if (pTexturePath != nullptr)
 	{ // 割り当てるテクスチャパスがある場合
 
 		// テクスチャインデックスを設定
-		m_nTextureID = pTexture->Regist(pTexturePass);
+		CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
+		m_nTextureID = pTexture->Regist(pTexturePath);
 	}
 	else
 	{ // 割り当てるテクスチャパスがない場合
@@ -352,10 +347,7 @@ void CObjectMeshField::SetColor(const COLOR& rCol)
 //============================================================
 HRESULT CObjectMeshField::SetPattern(const POSGRID2& rPart)
 {
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
-
-	// 変数を宣言
 	int nNorBuff = 0;	// 法線バッファの確保数
 
 	//--------------------------------------------------------
@@ -556,11 +548,8 @@ D3DXVECTOR3 CObjectMeshField::GetGapPosition(const int nID)
 //============================================================
 void CObjectMeshField::NormalizeNormal(void)
 {
-	// 変数を宣言
-	int nNumNor = 0;	// 法線データ格納用
-
-	// ポインタを宣言
 	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
+	int nNumNor = 0;	// 法線データ格納用
 
 	//--------------------------------------------------------
 	//	法線の設定
@@ -778,9 +767,7 @@ bool CObjectMeshField::LandPosition(D3DXVECTOR3& rPos, D3DXVECTOR3& rMove)
 //============================================================
 void CObjectMeshField::SetMeshVertexPosition(const int nID, const D3DXVECTOR3& rPos)
 {
-	// ポインタを宣言
 	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
-
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
 
@@ -836,12 +823,8 @@ void CObjectMeshField::SetTerrain(const POSGRID2& rPart, D3DXVECTOR3 *pPosGap)
 //============================================================
 D3DXVECTOR3 CObjectMeshField::GetMeshVertexPosition(const int nID)
 {
-	// 変数を宣言
-	D3DXVECTOR3 pos;	// 頂点座標の代入用
-
-	// ポインタを宣言
 	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
-
+	D3DXVECTOR3 pos;	// 頂点座標の代入用
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
 
@@ -1082,12 +1065,8 @@ float CObjectMeshField::GetPositionRotateHeight(const D3DXVECTOR3&rPos)
 //============================================================
 void CObjectMeshField::SetVtx(bool bNor)
 {
-	// 変数を宣言
-	int nNumVtx = 0;	// 現在の頂点番号
-
-	// ポインタを宣言
 	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
-
+	int nNumVtx = 0;	// 現在の頂点番号
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
 
@@ -1140,9 +1119,7 @@ void CObjectMeshField::SetVtx(bool bNor)
 //============================================================
 void CObjectMeshField::SetIdx(void)
 {
-	// ポインタを宣言
 	WORD *pIdx;	// インデックス情報へのポインタ
-
 	if (m_pIdxBuff != nullptr)
 	{ // 使用中の場合
 
@@ -1183,9 +1160,7 @@ void CObjectMeshField::SetIdx(void)
 //============================================================
 void CObjectMeshField::SetScrollTex(const float fTexU, const float fTexV)
 {
-	// ポインタを宣言
 	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
-
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
 
@@ -1216,7 +1191,6 @@ void CObjectMeshField::SetScrollTex(const float fTexU, const float fTexV)
 //============================================================
 void CObjectMeshField::DrawNormal(void)
 {
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// テクスチャの設定
@@ -1239,7 +1213,6 @@ void CObjectMeshField::DrawNormal(void)
 //============================================================
 void CObjectMeshField::DrawShader(CShader *pShader)
 {
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// 描画開始

@@ -79,20 +79,16 @@ void CMultiModel::Update(const float fDeltaTime)
 //============================================================
 void CMultiModel::Draw(CShader *pShader)
 {
-	// 変数を宣言
-	CModel::SModel modelData = GetModelData();	// モデルの情報
-	D3DXVECTOR3 pos = GetVec3Position();		// モデルの位置
-	D3DXVECTOR3 rot = GetVec3Rotation();		// モデルの向き
-	D3DXVECTOR3 scale = GetVec3Scale();			// モデルの拡大率
-	MATRIX mtxScale, mtxRot, mtxTrans;			// 計算用マトリックス
-
+	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;			// デバイスのポインタ
+	CRenderState *pRenderState = GetRenderState();	// レンダーステートの情報
+	CModel::SModel modelData = GetModelData();		// モデルの情報
+	D3DXVECTOR3 pos = GetVec3Position();	// モデルの位置
+	D3DXVECTOR3 rot = GetVec3Rotation();	// モデルの向き
+	D3DXVECTOR3 scale = GetVec3Scale();		// モデルの拡大率
+	MATRIX mtxScale, mtxRot, mtxTrans;		// 計算用マトリックス
 	MATRIX mtxWorld;		// ワールドマトリックス
 	MATRIX mtxParent;		// 親のマトリックス
 	D3DMATERIAL9 matDef;	// 現在のマテリアル保存用
-
-	// ポインタを宣言
-	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;			// デバイスのポインタ
-	CRenderState *pRenderState = GetRenderState();	// レンダーステートの情報
 
 	// レンダーステートを設定
 	pRenderState->Set();
@@ -228,14 +224,10 @@ void CMultiModel::DeleteParentObject(void)
 //============================================================
 void CMultiModel::DrawNormal(void)
 {
-	// 変数を宣言
+	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;		// デバイスのポインタ
 	CModel::SModel modelData = GetModelData();	// モデルの情報
 	D3DXVECTOR3 scale = GetVec3Scale();			// モデルの拡大率
 	MATRIX mtxWorld = GetMtxWorld();			// ワールドマトリックス
-
-	// ポインタを宣言
-	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
-
 	for (int nCntMat = 0; nCntMat < (int)modelData.dwNumMat; nCntMat++)
 	{ // マテリアルの数分繰り返す
 
@@ -265,13 +257,10 @@ void CMultiModel::DrawNormal(void)
 //============================================================
 void CMultiModel::DrawShader(CShader *pShader)
 {
-	// 変数を宣言
+	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;		// デバイスのポインタ
 	CModel::SModel modelData = GetModelData();	// モデルの情報
 	D3DXVECTOR3 scale = GetVec3Scale();			// モデルの拡大率
 	MATRIX mtxWorld = GetMtxWorld();			// ワールドマトリックス
-
-	// ポインタを宣言
-	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// 描画開始
 	pShader->Begin();

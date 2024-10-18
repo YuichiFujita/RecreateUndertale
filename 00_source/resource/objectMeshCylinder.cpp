@@ -130,11 +130,8 @@ void CObjectMeshCylinder::Update(const float fDeltaTime)
 //============================================================
 void CObjectMeshCylinder::Draw(CShader *pShader)
 {
-	// 変数を宣言
-	MATRIX mtxRot, mtxTrans;	// 計算用マトリックス
-
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
+	MATRIX mtxRot, mtxTrans;	// 計算用マトリックス
 
 	// レンダーステートを設定
 	m_pRenderState->Set();
@@ -294,16 +291,14 @@ void CObjectMeshCylinder::BindTexture(const int nTextureID)
 //============================================================
 //	テクスチャ割当処理 (パス)
 //============================================================
-void CObjectMeshCylinder::BindTexture(const char *pTexturePass)
+void CObjectMeshCylinder::BindTexture(const char *pTexturePath)
 {
-	// ポインタを宣言
-	CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
-
-	if (pTexturePass != nullptr)
+	if (pTexturePath != nullptr)
 	{ // 割り当てるテクスチャパスがある場合
 
 		// テクスチャインデックスを設定
-		m_nTextureID = pTexture->Regist(pTexturePass);
+		CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
+		m_nTextureID = pTexture->Regist(pTexturePath);
 	}
 	else
 	{ // 割り当てるテクスチャパスがない場合
@@ -378,7 +373,6 @@ void CObjectMeshCylinder::SetTexDir(const ETexDir texDir)
 //============================================================
 HRESULT CObjectMeshCylinder::SetPattern(const POSGRID2& rPart)
 {
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// 分割数の設定不可
@@ -465,15 +459,11 @@ void CObjectMeshCylinder::SetTexPattern(const POSGRID2& rTexPart)
 //============================================================
 void CObjectMeshCylinder::SetVtx(void)
 {
-	// 変数を宣言
+	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
 	D3DXVECTOR3 vecPos;	// 頂点位置の計算用
 	D3DXVECTOR3 vecNor;	// 法線ベクトルの計算用
 	float fRateWidth  = ((float)(m_texPart.x) / (float)(m_part.x));	// テクスチャ横分割数の割合
 	float fRateHeight = ((float)(m_texPart.y) / (float)(m_part.y));	// テクスチャ縦分割数の割合
-
-	// ポインタを宣言
-	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
-
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
 
@@ -531,9 +521,7 @@ void CObjectMeshCylinder::SetVtx(void)
 //============================================================
 void CObjectMeshCylinder::SetIdx(void)
 {
-	// ポインタを宣言
 	WORD *pIdx;	// インデックス情報へのポインタ
-
 	if (m_pIdxBuff != nullptr)
 	{ // 使用中の場合
 
@@ -574,13 +562,9 @@ void CObjectMeshCylinder::SetIdx(void)
 //============================================================
 void CObjectMeshCylinder::SetScrollTex(const float fTexU, const float fTexV)
 {
-	// 変数を宣言
+	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
 	float fRateWidth  = ((float)(m_texPart.x) / (float)(m_part.x));	// テクスチャ横分割数の割合
 	float fRateHeight = ((float)(m_texPart.y) / (float)(m_part.y));	// テクスチャ縦分割数の割合
-
-	// ポインタを宣言
-	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
-
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
 
@@ -615,7 +599,6 @@ void CObjectMeshCylinder::SetScrollTex(const float fTexU, const float fTexV)
 //============================================================
 void CObjectMeshCylinder::DrawNormal(void)
 {
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// テクスチャの設定
@@ -638,7 +621,6 @@ void CObjectMeshCylinder::DrawNormal(void)
 //============================================================
 void CObjectMeshCylinder::DrawShader(CShader *pShader)
 {
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// 描画開始

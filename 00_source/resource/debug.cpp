@@ -267,7 +267,6 @@ void CDebug::UpdateDebugControl(void) {}
 
 void CDebug::DrawDebugControl(void)
 {
-	// ポインタを宣言
 	CDebugProc *pDebugProc = GET_MANAGER->GetDebugProc();	// デバッグプロックの情報
 
 	pDebugProc->Print(CDebugProc::POINT_LEFT, "======================================\n");
@@ -316,7 +315,6 @@ void CDebug::DrawDebugControl(void) {}
 
 void CDebug::DrawDebugData(void)
 {
-	// ポインタを宣言
 	CDebugProc *pDebugProc = GET_MANAGER->GetDebugProc();	// デバッグプロックの情報
 
 	pDebugProc->Print(CDebugProc::POINT_LEFT, "======================================\n");

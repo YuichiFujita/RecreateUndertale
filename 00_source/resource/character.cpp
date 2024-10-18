@@ -106,10 +106,10 @@ HRESULT CCharacter::LoadAll(void)
 //============================================================
 //	キャラクター登録
 //============================================================
-CCharacter::SCharaData CCharacter::Regist(const char *pCharaPass)
+CCharacter::SCharaData CCharacter::Regist(const char *pCharaPath)
 {
 	// 既に生成済みかを検索
-	auto itr = m_mapCharacter.find(pCharaPass);	// 引数のキャラクター情報を検索
+	auto itr = m_mapCharacter.find(pCharaPath);	// 引数のキャラクター情報を検索
 	if (itr != m_mapCharacter.end())
 	{ // 生成済みの場合
 
@@ -119,7 +119,7 @@ CCharacter::SCharaData CCharacter::Regist(const char *pCharaPass)
 
 	// キャラクター情報を読込
 	SCharaData tempCharaData;	// キャラクター情報
-	if (FAILED(LoadSetup(&tempCharaData, pCharaPass)))
+	if (FAILED(LoadSetup(&tempCharaData, pCharaPath)))
 	{ // 読込に失敗した場合
 
 		// 初期値を返す
@@ -128,7 +128,7 @@ CCharacter::SCharaData CCharacter::Regist(const char *pCharaPass)
 	}
 
 	// キャラクター情報を保存
-	m_mapCharacter.insert(std::make_pair(pCharaPass, tempCharaData));
+	m_mapCharacter.insert(std::make_pair(pCharaPath, tempCharaData));
 
 	// 生成したキャラクター情報を返す
 	return tempCharaData;
@@ -233,7 +233,7 @@ HRESULT CCharacter::SearchFolderAll(std::string sFolderPath)
 //============================================================
 //	キャラクター情報セットアップ処理
 //============================================================
-HRESULT CCharacter::LoadSetup(SCharaData *pInfoChara, const char *pCharaPass)
+HRESULT CCharacter::LoadSetup(SCharaData *pInfoChara, const char *pCharaPath)
 {
 	SPartsInfo *pInfoParts = &pInfoChara->infoParts;	// パーツ情報
 	D3DXVECTOR3 pos = VEC3_ZERO;	// 位置の代入用
@@ -241,7 +241,7 @@ HRESULT CCharacter::LoadSetup(SCharaData *pInfoChara, const char *pCharaPass)
 	int nID = 0;	// インデックスの代入用
 
 	// ファイルを開く
-	std::ifstream file(pCharaPass);	// ファイルストリーム
+	std::ifstream file(pCharaPath);	// ファイルストリーム
 	if (file.fail())
 	{ // ファイルが開けなかった場合
 
@@ -315,10 +315,10 @@ HRESULT CCharacter::LoadSetup(SCharaData *pInfoChara, const char *pCharaPass)
 						else if (str == "FILEPASS")
 						{
 							file >> str;								// ＝を読込
-							file >> pInfoParts->vecParts[nID].strPass;	// モデルパスを読込
+							file >> pInfoParts->vecParts[nID].strPath;	// モデルパスを読込
 
 							// モデルパスを標準化
-							useful::StandardizePathPart(&pInfoParts->vecParts[nID].strPass);
+							useful::StandardizePathPart(&pInfoParts->vecParts[nID].strPath);
 						}
 					} while (str != "END_PARTSSET");	// END_PARTSSETを読み込むまでループ
 				}
@@ -344,7 +344,7 @@ HRESULT CCharacter::LoadSetup(SCharaData *pInfoChara, const char *pCharaPass)
 //============================================================
 //	モーション情報セットアップ処理
 //============================================================
-HRESULT CCharacter::LoadMotionSetup(CMotion::SInfo *pInfoMotion, const SPartsInfo *pInfoParts, const char *pMotionPass)
+HRESULT CCharacter::LoadMotionSetup(CMotion::SInfo *pInfoMotion, const SPartsInfo *pInfoParts, const char *pMotionPath)
 {
 	D3DXVECTOR3 pos = VEC3_ZERO;	// 読込位置
 	D3DXVECTOR3 rot = VEC3_ZERO;	// 読込向き
@@ -353,7 +353,7 @@ HRESULT CCharacter::LoadMotionSetup(CMotion::SInfo *pInfoMotion, const SPartsInf
 	int nCastBool	= 0;			// bool型変換
 
 	// ファイルを開く
-	std::ifstream file(pMotionPass);	// ファイルストリーム
+	std::ifstream file(pMotionPath);	// ファイルストリーム
 	if (file.fail())
 	{ // ファイルが開けなかった場合
 

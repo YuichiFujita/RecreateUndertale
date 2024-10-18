@@ -37,11 +37,11 @@ public:
 			rot			(VEC3_ZERO),	// 向き
 			nParentID	(NONE_IDX)		// 親インデックス
 		{
-			strPass.clear();	// モデルパスをクリア
+			strPath.clear();	// モデルパスをクリア
 		}
 
 		// メンバ変数
-		std::string strPass;	// モデルパス
+		std::string strPath;	// モデルパス
 		D3DXVECTOR3 pos;		// 位置
 		D3DXVECTOR3 rot;		// 向き
 		int nParentID;			// 親インデックス
@@ -78,7 +78,7 @@ public:
 	HRESULT Init(void);		// キャラクター初期化
 	void Uninit(void);		// キャラクター終了
 	HRESULT LoadAll(void);	// キャラクター全読込
-	SCharaData Regist(const char *pCharaPass);	// キャラクター登録
+	SCharaData Regist(const char *pCharaPath);	// キャラクター登録
 
 	// 静的メンバ関数
 	static CCharacter *Create(void);	// 生成
@@ -89,8 +89,8 @@ private:
 	HRESULT SearchFolderAll(std::string sFolderPath);	// フォルダ全検索
 
 	// メンバ関数
-	HRESULT LoadSetup(SCharaData *pInfoChara, const char *pCharaPass);	// キャラクター情報セットアップ
-	HRESULT LoadMotionSetup(CMotion::SInfo *pInfoMotion, const SPartsInfo *pInfoParts, const char *pMotionPass);	// モーション情報セットアップ
+	HRESULT LoadSetup(SCharaData *pInfoChara, const char *pCharaPath);	// キャラクター情報セットアップ
+	HRESULT LoadMotionSetup(CMotion::SInfo *pInfoMotion, const SPartsInfo *pInfoParts, const char *pMotionPath);	// モーション情報セットアップ
 
 	// メンバ変数
 	std::map<std::string, SCharaData> m_mapCharacter;	// キャラクター連想配列

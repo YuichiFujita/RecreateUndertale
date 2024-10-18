@@ -67,7 +67,7 @@ HRESULT CStage::Init(void)
 	}
 
 	// 割り当てたステージを保存
-	m_sNextRoomPass = INIT_PASS;
+	m_sNextRoomPath = INIT_PASS;
 
 	// 成功を返す
 	return S_OK;
@@ -101,13 +101,13 @@ void CStage::LimitPosition(D3DXVECTOR3& rPos, const float fRadius)
 //============================================================
 //	遷移先ルームの設定処理
 //============================================================
-void CStage::SetFadeRoom(const char *pRoomPass)
+void CStage::SetFadeRoom(const char *pRoomPath)
 {
 	CFade *pFade = GET_MANAGER->GetFade();	// フェード情報
 
 	// ルームパスの保存
-	m_sPrevRoomPass = m_sNextRoomPass;	// 遷移元
-	m_sNextRoomPass = pRoomPass;		// 遷移先
+	m_sPrevRoomPath = m_sNextRoomPath;	// 遷移元
+	m_sNextRoomPath = pRoomPath;		// 遷移先
 
 	// 遷移先ルームの設定
 	pFade->SetRoomFade();
@@ -158,7 +158,7 @@ void CStage::Release(CStage *&prStage)
 //============================================================
 //	ステージ割当処理
 //============================================================
-HRESULT CStage::BindStage(const char *pStagePass)
+HRESULT CStage::BindStage(const char *pStagePath)
 {
 	// ラベルタイルのオブジェクト全破棄
 	CObject::ReleaseAll(CObject::LABEL_TILE);
@@ -169,7 +169,7 @@ HRESULT CStage::BindStage(const char *pStagePass)
 	CTileColl::Create(CTileColl::TYPE_TRIANGLE,	D3DXVECTOR3(SIZE_TILE *  2.0f, SIZE_TILE * 2.0f, -1.0f));
 
 	// ファイルを開く
-	std::ifstream file(pStagePass);	// ファイルストリーム
+	std::ifstream file(pStagePath);	// ファイルストリーム
 	if (file.fail())
 	{ // ファイルが開けなかった場合
 
@@ -424,7 +424,7 @@ HRESULT CStage::LoadSpawn(std::ifstream *pFile, std::string& rString)
 			}
 
 			// プレイヤー出現先の設定
-			if (passPrev == m_sPrevRoomPass)
+			if (passPrev == m_sPrevRoomPath)
 			{ // タイルの読込パスとルームの遷移元パスが同じ場合
 
 				// プレイヤーの部屋遷移

@@ -56,7 +56,7 @@ public:
 	struct SMapInfo
 	{
 		STexture textureData;		// テクスチャ情報
-		std::string sFilePassName;	// ファイルパス名
+		std::string sFilePathName;	// ファイルパス名
 	};
 
 	// メンバ関数
@@ -64,7 +64,7 @@ public:
 	void Uninit(void);		// テクスチャ終了
 	HRESULT LoadAll(void);	// テクスチャ全読込
 	int Regist(const SInfo info);				// テクスチャ登録 (生成)
-	int Regist(std::string sFilePass);			// テクスチャ登録 (パス)
+	int Regist(std::string sFilePath);			// テクスチャ登録 (パス)
 	STexture GetInfo(const int nID);			// テクスチャ情報取得
 	LPDIRECT3DTEXTURE9 GetPtr(const int nID);	// テクスチャポインタ取得
 

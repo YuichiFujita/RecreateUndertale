@@ -104,7 +104,7 @@ void CShakeString2D::SetVec3Position(const D3DXVECTOR3& rPos)
 //============================================================
 CShakeString2D *CShakeString2D::Create
 (
-	const std::string &rFilePass,	// フォントパス
+	const std::string &rFilePath,	// フォントパス
 	const bool bItalic,				// イタリック
 	const std::string &rStr,		// 指定文字列
 	const D3DXVECTOR3 &rPos,		// 原点位置
@@ -136,7 +136,7 @@ CShakeString2D *CShakeString2D::Create
 		}
 
 		// フォントを設定
-		pShakeString2D->SetFont(rFilePass, bItalic);
+		pShakeString2D->SetFont(rFilePath, bItalic);
 
 		// 文字列を設定
 		if (FAILED(pShakeString2D->SetString(rStr)))
@@ -178,7 +178,7 @@ CShakeString2D *CShakeString2D::Create
 //============================================================
 CShakeString2D *CShakeString2D::Create
 (
-	const std::string &rFilePass,	// フォントパス
+	const std::string &rFilePath,	// フォントパス
 	const bool bItalic,				// イタリック
 	const std::wstring &rStr,		// 指定文字列
 	const D3DXVECTOR3 &rPos,		// 原点位置
@@ -210,7 +210,7 @@ CShakeString2D *CShakeString2D::Create
 		}
 
 		// フォントを設定
-		pShakeString2D->SetFont(rFilePass, bItalic);
+		pShakeString2D->SetFont(rFilePath, bItalic);
 
 		// 文字列を設定
 		if (FAILED(pShakeString2D->SetString(rStr)))

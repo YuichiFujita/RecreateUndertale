@@ -54,11 +54,10 @@
 #define VEC2_ONE	(VECTOR2(1.0f, 1.0f))	// 1クリア
 #define VEC2_ALL(f)	(VECTOR2((f), (f))		// 同値クリア
 
-// D3DXVECTOR3関係
+// VECTOR3関係
 #define VEC3_ZERO	(D3DXVECTOR3(0.0f, 0.0f, 0.0f))	// 0クリア
 #define VEC3_ONE	(D3DXVECTOR3(1.0f, 1.0f, 1.0f))	// 1クリア
 #define VEC3_ALL(f)	(D3DXVECTOR3((f), (f), (f)))	// 同値クリア
-
 #define SCREEN_CENT	(D3DXVECTOR3(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f, 0.0f))	// ウインドウの中央座標
 #define SCREEN_SIZE	(D3DXVECTOR3((float)SCREEN_WIDTH, (float)SCREEN_HEIGHT, 0.0f))	// ウインドウの画面サイズ
 
@@ -69,6 +68,9 @@
 // POSGRID3関係
 #define GRID3_ZERO	(POSGRID3(0, 0, 0))	// 0クリア
 #define GRID3_ONE	(POSGRID3(1, 1, 1))	// 1クリア
+
+// MATRIX関係
+#define MTX_IDENT	(MATRIX())	// 単位マトリックスクリア
 
 // RenderState関係
 #define RS_BL_NOR	(CRenderState::SBlendAlpha(D3DBLENDOP_ADD,			D3DBLEND_SRCALPHA,	D3DBLEND_INVSRCALPHA))	// 通常αブレンド

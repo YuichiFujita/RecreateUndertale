@@ -77,7 +77,7 @@ public:
 	);
 	static CValueUI *Create	// 生成 (テクスチャパス指定)
 	( // 引数
-		const char *pTexturePass,		// タイトルテクスチャパス
+		const char *pTexturePath,		// タイトルテクスチャパス
 		const CValue::EType type,		// 数字種類
 		const int nDigit,				// 桁数
 		const D3DXVECTOR3& rPos,		// 位置
@@ -94,7 +94,7 @@ public:
 	// メンバ関数
 	void SetSpace(const D3DXVECTOR3& rSpace);			// 行間設定
 	void BindTextureTitle(const int nTextureID);		// タイトルテクスチャ割当 (インデックス)
-	void BindTextureTitle(const char *pTexturePass);	// タイトルテクスチャ割当 (パス)
+	void BindTextureTitle(const char *pTexturePath);	// タイトルテクスチャ割当 (パス)
 	void SetRotationTitle(const D3DXVECTOR3& rRot);		// タイトル向き設定
 	void SetSizeTitle(const D3DXVECTOR3& rSize);		// タイトル大きさ設定
 	void SetAlphaTitle(const float fAlpha);				// タイトル透明度設定

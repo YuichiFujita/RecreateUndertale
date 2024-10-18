@@ -114,7 +114,6 @@ CTitleManager::~CTitleManager()
 //============================================================
 HRESULT CTitleManager::Init(void)
 {
-	// ポインタを宣言
 	CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
 
 	// メンバ変数を初期化
@@ -460,10 +459,8 @@ void CTitleManager::UpdateMove(void)
 //============================================================
 void CTitleManager::UpdateStart(void)
 {
-	// ポインタを宣言
 	CInputKeyboard	*pKeyboard	= GET_INPUTKEY;	// キーボード
 	CInputPad		*pPad		= GET_INPUTPAD;	// パッド
-
 	if (pKeyboard->IsTrigger(DIK_RETURN)
 	||  pKeyboard->IsTrigger(DIK_SPACE)
 	||  pPad->IsTrigger(CInputPad::KEY_A)
@@ -510,10 +507,8 @@ void CTitleManager::UpdateStart(void)
 //============================================================
 void CTitleManager::ActSelect(void)
 {
-	// ポインタを宣言
 	CInputKeyboard	*pKeyboard	= GET_INPUTKEY;	// キーボード
 	CInputPad		*pPad		= GET_INPUTPAD;	// パッド
-
 	if (!GET_MANAGER->GetFade()->IsFade())
 	{ // フェード中ではない場合
 

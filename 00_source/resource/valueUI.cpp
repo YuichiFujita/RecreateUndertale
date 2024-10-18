@@ -292,7 +292,7 @@ CValueUI *CValueUI::Create
 //============================================================
 CValueUI *CValueUI::Create
 (
-	const char *pTexturePass,		// タイトルテクスチャパス
+	const char *pTexturePath,		// タイトルテクスチャパス
 	const CValue::EType type,		// 数字種類
 	const int nDigit,				// 桁数
 	const D3DXVECTOR3& rPos,		// 位置
@@ -330,7 +330,7 @@ CValueUI *CValueUI::Create
 	{ // 生成に成功した場合
 
 		// テクスチャを割当
-		pValueUI->BindTextureTitle(pTexturePass);
+		pValueUI->BindTextureTitle(pTexturePath);
 
 		// 確保したアドレスを返す
 		return pValueUI;
@@ -366,16 +366,14 @@ void CValueUI::BindTextureTitle(const int nTextureID)
 //============================================================
 //	タイトルのテクスチャ割当処理 (パス)
 //============================================================
-void CValueUI::BindTextureTitle(const char *pTexturePass)
+void CValueUI::BindTextureTitle(const char *pTexturePath)
 {
-	// ポインタを宣言
-	CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
-
-	if (pTexturePass != nullptr)
+	if (pTexturePath != nullptr)
 	{ // 割り当てるテクスチャパスがある場合
 
 		// テクスチャインデックスを設定
-		m_pTitle->BindTexture(pTexture->Regist(pTexturePass));
+		CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
+		m_pTitle->BindTexture(pTexture->Regist(pTexturePath));
 	}
 	else
 	{ // 割り当てるテクスチャパスがない場合

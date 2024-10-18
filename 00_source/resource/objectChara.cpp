@@ -107,11 +107,8 @@ void CObjectChara::Update(const float fDeltaTime)
 //============================================================
 void CObjectChara::Draw(CShader *pShader)
 {
-	// 変数を宣言
-	MATRIX mtxRot, mtxTrans;	// 計算用マトリックス
-
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
+	MATRIX mtxRot, mtxTrans;	// 計算用マトリックス
 
 	// ワールドマトリックスの初期化
 	D3DXMatrixIdentity(&m_mtxWorld);
@@ -276,12 +273,12 @@ void CObjectChara::SetPartsInfo
 //============================================================
 //	キャラクター情報割当
 //============================================================
-void CObjectChara::BindCharaData(const char *pCharaPass)
+void CObjectChara::BindCharaData(const char *pCharaPath)
 {
 	// 割り当てるモーションパスが存在しない場合抜ける
-	if (pCharaPass == nullptr) { assert(false); return; }
+	if (pCharaPath == nullptr) { assert(false); return; }
 
-	CCharacter::SCharaData data = GET_MANAGER->GetCharacter()->Regist(pCharaPass);	// キャラクター情報
+	CCharacter::SCharaData data = GET_MANAGER->GetCharacter()->Regist(pCharaPath);	// キャラクター情報
 
 	// モーション情報の動的配列のクリア
 	m_pMotion->ClearVector();
@@ -352,7 +349,7 @@ void CObjectChara::SetPartsInfo(CCharacter::SPartsInfo& rInfo)
 			pParts->nParentID,		// 親インデックス
 			pParts->pos,			// 位置
 			pParts->rot,			// 向き
-			pParts->strPass.c_str()	// ファイル名
+			pParts->strPath.c_str()	// ファイル名
 		);
 	}
 }

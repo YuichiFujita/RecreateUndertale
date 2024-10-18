@@ -103,21 +103,21 @@ HRESULT CModel::LoadAll(void)
 //============================================================
 //	モデル登録処理
 //============================================================
-int CModel::Regist(std::string sFilePass)
+int CModel::Regist(std::string sFilePath)
 {
 	// 変数を宣言
 	SMapInfo tempMapInfo;	// マップ情報
 	int nID = m_nNumAll;	// モデル読込番号
 
 	// ファイルパスを標準化
-	useful::StandardizePathPart(&sFilePass);
+	useful::StandardizePathPart(&sFilePath);
 
 	// 既に読み込んでいないかを確認
 	int nCntModel = 0;
 	for (const auto& rMap : m_mapModel)
 	{ // モデルの要素数分繰り返す
 
-		if (rMap.second.sFilePassName.compare(sFilePass) == 0)
+		if (rMap.second.sFilePathName.compare(sFilePath) == 0)
 		{ // 文字列が一致した場合
 
 			// すでに読み込んでいるモデルの配列番号を返す
@@ -129,7 +129,7 @@ int CModel::Regist(std::string sFilePass)
 	}
 
 	// xファイルの読込
-	if (FAILED(LoadXFileModel(&tempMapInfo, sFilePass)))
+	if (FAILED(LoadXFileModel(&tempMapInfo, sFilePath)))
 		{ // xファイルの読込に失敗した場合
 
 			// 失敗を返す
@@ -156,7 +156,7 @@ int CModel::Regist(std::string sFilePass)
 		}
 
 	// ファイルパス名を保存
-	tempMapInfo.sFilePassName = sFilePass;
+	tempMapInfo.sFilePathName = sFilePath;
 
 	// モデル情報を生成
 	m_mapModel.insert(std::make_pair(m_nNumAll, tempMapInfo));
@@ -233,7 +233,7 @@ void CModel::Release(CModel *&prModel)
 //============================================================
 //	xファイルの読み込み
 //============================================================
-HRESULT CModel::LoadXFileModel(SMapInfo *pMapInfo, std::string sFilePass)
+HRESULT CModel::LoadXFileModel(SMapInfo *pMapInfo, std::string sFilePath)
 {
 	// マップ情報の指定がない場合エラー
 	if (pMapInfo == nullptr) { return E_FAIL; }
@@ -242,7 +242,7 @@ HRESULT CModel::LoadXFileModel(SMapInfo *pMapInfo, std::string sFilePass)
 	HRESULT hr;
 	hr = D3DXLoadMeshFromX
 	( // 引数
-		sFilePass.c_str(),				// モデルの相対パス
+		sFilePath.c_str(),				// モデルの相対パス
 		D3DXMESH_SYSTEMMEM,				// メッシュ作成用オプション
 		GET_DEVICE,						// デバイスへのポインタ
 		nullptr,						// 隣接性データ
@@ -285,7 +285,6 @@ HRESULT CModel::LoadTextureModel(SMapInfo *pMapInfo)
 	// マップ情報の指定がない場合エラー
 	if (pMapInfo == nullptr) { return E_FAIL; }
 
-	// ポインタを宣言
 	CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
 	D3DXMATERIAL *pMat;	// マテリアルへのポインタ
 

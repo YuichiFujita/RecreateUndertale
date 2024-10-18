@@ -33,7 +33,7 @@ public:
 	{
 		// コンストラクタ
 		SKey(std::string FontName, bool Italic) :
-			sFilePass	(FontName),	// フォントファイルパス
+			sFilePath	(FontName),	// フォントファイルパス
 			bItalic		(Italic)	// イタリック
 		{}
 
@@ -41,11 +41,11 @@ public:
 		bool operator<(const SKey& rKey) const
 		{
 			// 情報をまとめて比較
-			return std::tie(sFilePass, bItalic) < std::tie(rKey.sFilePass, rKey.bItalic);
+			return std::tie(sFilePath, bItalic) < std::tie(rKey.sFilePath, rKey.bItalic);
 		}
 
 		// メンバ変数
-		std::string sFilePass;	// フォントファイルパス
+		std::string sFilePath;	// フォントファイルパス
 		bool bItalic;			// イタリック
 	};
 
@@ -70,12 +70,12 @@ public:
 	HRESULT Init(void);		// フォント初期化
 	void Uninit(void);		// フォント終了
 	HRESULT LoadAll(void);	// フォント全読込
-	HRESULT Load(const std::string &rFilePass);	// フォント読込
-	SFont Regist(const std::string &rFilePass, const bool bItalic = false);	// フォント登録
+	HRESULT Load(const std::string &rFilePath);	// フォント読込
+	SFont Regist(const std::string &rFilePath, const bool bItalic = false);	// フォント登録
 	CFontChar::SChar RegistChar	// フォント文字登録
 	( // 引数
 		const wchar_t wcChar,			// 指定文字
-		const std::string &rFilePass,	// ファイルパス
+		const std::string &rFilePath,	// ファイルパス
 		const bool bItalic = false		// イタリック
 	);
 
@@ -85,12 +85,12 @@ public:
 
 private:
 	// メンバ関数
-	void RegistPrepare(const std::string &rFilePass);			// フォント・フォント文字の事前登録
+	void RegistPrepare(const std::string &rFilePath);			// フォント・フォント文字の事前登録
 	HRESULT SearchFolderAll(const std::string &rFolderPath);	// フォルダ全検索
 
 	// メンバ変数
 	std::map<SKey, SFont> m_mapFont;		// フォント連想配列
-	std::vector<std::string> m_vecFilePass;	// 読込済みファイルパス
+	std::vector<std::string> m_vecFilePath;	// 読込済みファイルパス
 };
 
 #endif	// _FONT_H_

@@ -96,12 +96,9 @@ void CObjectModel::Update(const float fDeltaTime)
 //============================================================
 void CObjectModel::Draw(CShader *pShader)
 {
-	// 変数を宣言
-	MATRIX mtxScale, mtxRot, mtxTrans;	// 計算用マトリックス
-	D3DMATERIAL9 matDef;	// 現在のマテリアル保存用
-
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
+	MATRIX mtxScale, mtxRot, mtxTrans;		// 計算用マトリックス
+	D3DMATERIAL9 matDef;	// 現在のマテリアル保存用
 
 	// レンダーステートを設定
 	m_pRenderState->Set();
@@ -344,11 +341,10 @@ CRenderState *CObjectModel::GetRenderState(void)
 //============================================================
 void CObjectModel::BindModel(const int nModelID)
 {
-	// ポインタを宣言
-	CModel *pModel = GET_MANAGER->GetModel();	// モデルへのポインタ
-
 	if (nModelID > NONE_IDX)
 	{ // モデルインデックスが使用可能な場合
+
+		CModel *pModel = GET_MANAGER->GetModel();	// モデルへのポインタ
 
 		// モデルインデックスを代入
 		m_nModelID = nModelID;
@@ -366,16 +362,15 @@ void CObjectModel::BindModel(const int nModelID)
 //============================================================
 //	モデル割当処理 (パス)
 //============================================================
-void CObjectModel::BindModel(const char *pModelPass)
+void CObjectModel::BindModel(const char *pModelPath)
 {
-	// ポインタを宣言
-	CModel *pModel = GET_MANAGER->GetModel();	// モデルへのポインタ
-
-	if (pModelPass != nullptr)
+	if (pModelPath != nullptr)
 	{ // 割り当てるモデルパスが存在する場合
 
+		CModel *pModel = GET_MANAGER->GetModel();	// モデルへのポインタ
+
 		// モデルインデックスを代入
-		m_nModelID = pModel->Regist(pModelPass);
+		m_nModelID = pModel->Regist(pModelPath);
 
 		// モデルを割り当て
 		m_modelData = *pModel->GetInfo(m_nModelID);
@@ -512,9 +507,7 @@ HRESULT CObjectModel::SetOriginMaterial(const LPD3DXBUFFER pBuffMat, const int n
 //============================================================
 void CObjectModel::DrawNormal(void)
 {
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
-
 	for (int nCntMat = 0; nCntMat < (int)m_modelData.dwNumMat; nCntMat++)
 	{ // マテリアルの数分繰り返す
 
@@ -544,7 +537,6 @@ void CObjectModel::DrawNormal(void)
 //============================================================
 void CObjectModel::DrawShader(CShader *pShader)
 {
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// 描画開始

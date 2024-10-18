@@ -57,7 +57,6 @@ CObjectBillboard::~CObjectBillboard()
 //============================================================
 HRESULT CObjectBillboard::Init(void)
 {
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// メンバ変数を初期化
@@ -140,12 +139,9 @@ void CObjectBillboard::Update(const float fDeltaTime)
 //============================================================
 void CObjectBillboard::Draw(CShader *pShader)
 {
-	// 変数を宣言
+	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 	MATRIX mtxTrans;	// 計算用マトリックス
 	MATRIX mtxView;		// ビューマトリックス
-
-	// ポインタを宣言
-	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// レンダーステートを設定
 	m_pRenderState->Set();
@@ -365,16 +361,14 @@ void CObjectBillboard::BindTexture(const int nTextureID)
 //============================================================
 //	テクスチャ割当処理 (パス)
 //============================================================
-void CObjectBillboard::BindTexture(const char *pTexturePass)
+void CObjectBillboard::BindTexture(const char *pTexturePath)
 {
-	// ポインタを宣言
-	CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
-
-	if (pTexturePass != nullptr)
+	if (pTexturePath != nullptr)
 	{ // 割り当てるテクスチャパスがある場合
 
 		// テクスチャインデックスを設定
-		m_nTextureID = pTexture->Regist(pTexturePass);
+		CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
+		m_nTextureID = pTexture->Regist(pTexturePath);
 	}
 	else
 	{ // 割り当てるテクスチャパスがない場合
@@ -461,7 +455,6 @@ void CObjectBillboard::SetRotate(const ERotate rotate)
 //============================================================
 void CObjectBillboard::SetVtx(void)
 {
-	// ポインタを宣言
 	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
 
 	// 頂点バッファをロックし、頂点情報へのポインタを取得
@@ -543,7 +536,6 @@ void CObjectBillboard::SetVtx(void)
 //============================================================
 void CObjectBillboard::DrawNormal(void)
 {
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// テクスチャの設定
@@ -558,7 +550,6 @@ void CObjectBillboard::DrawNormal(void)
 //============================================================
 void CObjectBillboard::DrawShader(CShader *pShader)
 {
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// 描画開始

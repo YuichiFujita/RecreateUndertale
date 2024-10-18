@@ -487,7 +487,6 @@ void CObject::UpdateAll(const float fDeltaTime)
 //============================================================
 void CObject::DrawAll(void)
 {
-	// ポインタを宣言
 	CLoading *pLoading = GET_MANAGER->GetLoading();	// ローディング
 
 	// ロード中の場合抜ける

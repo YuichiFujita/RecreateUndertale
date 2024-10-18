@@ -33,8 +33,8 @@ CListManager<CTileTrans> *CTileTrans::m_pList = nullptr;	// オブジェクトリスト
 //============================================================
 //	コンストラクタ
 //============================================================
-CTileTrans::CTileTrans(const char *pNextPass) : CObject3D(CObject::LABEL_TILE, CObject::DIM_3D, PRIORITY),
-	m_sNextStagePass	(pNextPass)	// 遷移先ステージパス
+CTileTrans::CTileTrans(const char *pNextPath) : CObject3D(CObject::LABEL_TILE, CObject::DIM_3D, PRIORITY),
+	m_sNextStagePath	(pNextPath)	// 遷移先ステージパス
 {
 
 }
@@ -128,10 +128,10 @@ void CTileTrans::Draw(CShader *pShader)
 //============================================================
 //	生成処理
 //============================================================
-CTileTrans *CTileTrans::Create(const char *pNextPass, const D3DXVECTOR3& rPos)
+CTileTrans *CTileTrans::Create(const char *pNextPath, const D3DXVECTOR3& rPos)
 {
 	// 遷移タイルの生成
-	CTileTrans *pTileTrans = new CTileTrans(pNextPass);
+	CTileTrans *pTileTrans = new CTileTrans(pNextPath);
 	if (pTileTrans == nullptr)
 	{ // 生成に失敗した場合
 
@@ -220,7 +220,7 @@ void CTileTrans::CollisionTile
 		{ // 当たっている場合
 
 			// 踏んだタイルのルームパスに遷移する
-			CSceneGame::GetStage()->SetFadeRoom(rList->m_sNextStagePass.c_str());
+			CSceneGame::GetStage()->SetFadeRoom(rList->m_sNextStagePath.c_str());
 			return;
 		}
 	}

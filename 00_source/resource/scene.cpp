@@ -58,7 +58,6 @@ void CScene::Uninit(void)
 //============================================================
 void CScene::Update(const float fDeltaTime)
 {
-	// ポインタを宣言
 	CManager	*pManager	= GET_MANAGER;				// マネージャー
 	CLight		*pLight		= pManager->GetLight();		// ライト
 	CCamera		*pCamera	= pManager->GetCamera();	// カメラ

@@ -303,9 +303,9 @@ void CObjectMeshTube::BindTexture(const int nTextureID)
 //============================================================
 //	テクスチャ割当処理 (パス)
 //============================================================
-void CObjectMeshTube::BindTexture(const char *pTexturePass)
+void CObjectMeshTube::BindTexture(const char *pTexturePath)
 {
-	if (pTexturePass != nullptr)
+	if (pTexturePath != nullptr)
 	{ // 割り当てるテクスチャパスがある場合
 
 		CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
@@ -313,11 +313,11 @@ void CObjectMeshTube::BindTexture(const char *pTexturePass)
 		{ // 蓋の総数分繰り返す
 
 			// テクスチャインデックスを割当
-			m_apCover[i]->BindTexture(pTexture->Regist(pTexturePass));
+			m_apCover[i]->BindTexture(pTexture->Regist(pTexturePath));
 		}
 
 		// テクスチャインデックスを割当
-		m_pCylinder->BindTexture(pTexture->Regist(pTexturePass));
+		m_pCylinder->BindTexture(pTexture->Regist(pTexturePath));
 	}
 	else
 	{ // 割り当てるテクスチャパスがない場合

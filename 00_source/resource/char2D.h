@@ -39,7 +39,7 @@ public:
 	// 静的メンバ関数
 	static CChar2D *Create	// 生成 (マルチバイト文字)
 	( // 引数
-		const std::string &rFilePass,	// フォントパス
+		const std::string &rFilePath,	// フォントパス
 		const bool bItalic,				// イタリック
 		const std::string &rChar,		// 指定文字
 		const D3DXVECTOR3& rPos = VEC3_ZERO,	// 位置
@@ -49,7 +49,7 @@ public:
 	);
 	static CChar2D *Create	// 生成 (ワイド文字)
 	( // 引数
-		const std::string &rFilePass,	// フォントパス
+		const std::string &rFilePath,	// フォントパス
 		const bool bItalic,				// イタリック
 		const wchar_t wcChar,			// 指定文字
 		const D3DXVECTOR3& rPos = VEC3_ZERO,	// 位置
@@ -61,7 +61,7 @@ public:
 	// メンバ関数
 	void SetFont	// フォントの設定
 	( // 引数
-		const std::string &rFilePass,	// フォントパス
+		const std::string &rFilePath,	// フォントパス
 		const bool bItalic = false		// イタリック
 	);
 	void SetChar(const std::string& rChar);		// 文字の設定 (マルチバイト文字)

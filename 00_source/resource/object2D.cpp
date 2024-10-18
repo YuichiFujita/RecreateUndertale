@@ -53,7 +53,6 @@ CObject2D::~CObject2D()
 //============================================================
 HRESULT CObject2D::Init(void)
 {
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// メンバ変数を初期化
@@ -130,7 +129,6 @@ void CObject2D::Update(const float fDeltaTime)
 //============================================================
 void CObject2D::Draw(CShader * /*pShader*/)
 {
-	// ポインタを宣言
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// レンダーステートを設定
@@ -273,16 +271,14 @@ void CObject2D::BindTexture(const int nTextureID)
 //============================================================
 //	テクスチャ割当処理 (パス)
 //============================================================
-void CObject2D::BindTexture(const char *pTexturePass)
+void CObject2D::BindTexture(const char *pTexturePath)
 {
-	// ポインタを宣言
-	CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
-
-	if (pTexturePass != nullptr)
+	if (pTexturePath != nullptr)
 	{ // 割り当てるテクスチャパスがある場合
 
 		// テクスチャインデックスを設定
-		m_nTextureID = pTexture->Regist(pTexturePass);
+		CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
+		m_nTextureID = pTexture->Regist(pTexturePath);
 	}
 	else
 	{ // 割り当てるテクスチャパスがない場合
@@ -321,9 +317,7 @@ void CObject2D::SetColor(const COLOR& rCol)
 //============================================================
 void CObject2D::SetVtx(void)
 {
-	// ポインタを宣言
 	VERTEX_2D *pVtx;	// 頂点情報へのポインタ
-
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
 
@@ -380,15 +374,11 @@ void CObject2D::SetAnimTex
 	const int nHeightPtrn	// テクスチャの縦の分割数
 )
 {
-	// 変数を宣言
+	VERTEX_2D *pVtx;	// 頂点情報へのポインタ
 	float fWidthRate	= 1.0f / nWidthPtrn;	// 横の分割数の割合
 	float fHeightRate	= 1.0f / nHeightPtrn;	// 縦の分割数の割合
 	int nWidthCurrent	= nPattern % nWidthPtrn;					// 現在の横のパターン
 	int nHeightCurrent	= (nPattern / nWidthPtrn) % nHeightPtrn;	// 現在の縦のパターン
-
-	// ポインタを宣言
-	VERTEX_2D *pVtx;	// 頂点情報へのポインタ
-
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
 
@@ -417,9 +407,7 @@ void CObject2D::SetScrollTex
 	const float fOffsetV	// テクスチャの縦座標のオフセット位置
 )
 {
-	// ポインタを宣言
 	VERTEX_2D *pVtx;	// 頂点情報へのポインタ
-
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
 

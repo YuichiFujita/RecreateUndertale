@@ -180,15 +180,12 @@ void CRenderer::Update(const float fDeltaTime)
 //============================================================
 void CRenderer::Draw(void)
 {
-	// ポインタを宣言
-	CManager	*pManager	= GET_MANAGER;				// マネージャー
-	CCamera		*pCamera	= pManager->GetCamera();	// カメラ
-	CLoading	*pLoading	= pManager->GetLoading();	// ローディング
-	CDebugProc	*pDebugProc	= pManager->GetDebugProc();	// デバッグプロック
-
-	// 変数を宣言
+	CManager*	 pManager	= GET_MANAGER;				// マネージャー
+	CCamera*	 pCamera	= pManager->GetCamera();	// カメラ
+	CLoading*	 pLoading	= pManager->GetLoading();	// ローディング
+	CDebugProc*	 pDebugProc	= pManager->GetDebugProc();	// デバッグプロック
 	D3DVIEWPORT9 viewportDef;	// カメラのビューポート保存用
-	HRESULT hr;	// 異常終了の確認用
+	HRESULT		 hr;			// 異常終了の確認用
 
 	//--------------------------------------------------------
 	//	テクスチャ作成用の描画
@@ -281,12 +278,8 @@ void CRenderer::Draw(void)
 //============================================================
 HRESULT CRenderer::CreateRenderTexture(void)
 {
-	// 変数を宣言
-	HRESULT hr;	// 異常終了の確認用
-
-	// ポインタを宣言
 	CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
-	assert(pTexture != nullptr);
+	HRESULT hr;	// 異常終了の確認用
 
 	// 空のスクリーンテクスチャを生成
 	m_nScreenTexID = pTexture->Regist(CTexture::SInfo
