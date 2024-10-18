@@ -147,7 +147,7 @@ struct VECTOR2 : public D3DXVECTOR2
 
 	/*
 		@brief	許容される誤差の範囲内にあるか
-		@param	fRange [in] 許容範囲
+		@param	const float [in] 許容範囲
 		@return	判定結果
 	*/
 	inline bool IsNearlyZero(const float fRange) const
@@ -240,7 +240,7 @@ struct VECTOR3 : public D3DXVECTOR3
 
 	/*
 		@brief	許容される誤差の範囲内にあるか
-		@param	fRange [in] 許容範囲
+		@param	const float [in] 許容範囲
 		@return	判定結果
 	*/
 	inline bool IsNearlyZero(const float fRange) const
@@ -354,7 +354,7 @@ struct POSGRID2
 
 	/*
 		@brief	座標が一致するかの検証
-		@param	rGrid [in] 判定する方眼座標
+		@param	const POSGRID2& [in] 判定する方眼座標
 		@return	判定結果
 	*/
 	inline bool operator==(const POSGRID2& rGrid) const
@@ -365,7 +365,7 @@ struct POSGRID2
 
 	/*
 		@brief	座標が一致しないかの検証
-		@param	rGrid [in] 判定する方眼座標
+		@param	const POSGRID2& [in] 判定する方眼座標
 		@return	判定結果
 	*/
 	inline bool operator!=(const POSGRID2& rGrid) const
@@ -494,7 +494,7 @@ struct POSGRID3
 
 	/*
 		@brief	座標が一致するかの検証
-		@param	rGrid [in] 判定する方眼座標
+		@param	const POSGRID3& [in] 判定する方眼座標
 		@return	判定結果
 	*/
 	inline bool operator==(const POSGRID3& rGrid) const
@@ -505,7 +505,7 @@ struct POSGRID3
 
 	/*
 		@brief	座標が一致しないかの検証
-		@param	rGrid [in] 判定する方眼座標
+		@param	const POSGRID3& [in] 判定する方眼座標
 		@return	判定結果
 	*/
 	inline bool operator!=(const POSGRID3& rGrid) const
@@ -528,6 +528,129 @@ struct POSGRID3
 	{
 		if (x == 0 && y == 0 && z == 0) { return true; }
 		return false;
+	}
+};
+
+// マトリックス
+struct MATRIX : public D3DXMATRIX
+{
+	// コンストラクタ継承
+	using D3DXMATRIX::D3DXMATRIX;
+
+	// デフォルトコンストラクタ
+	MATRIX() : D3DXMATRIX(1.0f, 0.0f, 0.0f, 0.0f,
+						  0.0f, 1.0f, 0.0f, 0.0f,
+						  0.0f, 0.0f, 1.0f, 0.0f,
+						  0.0f, 0.0f, 0.0f, 1.0f) {}
+
+	// 引数付きコンストラクタ
+	MATRIX(const D3DXMATRIX& MTX) : D3DXMATRIX(MTX) {}
+
+	// デストラクタ
+	~MATRIX() {}
+
+	//********************************************************
+	//	メンバ関数
+	//********************************************************
+	/* @brief 単位マトリックス化 */
+	inline void Identity(void) { D3DXMatrixIdentity(this); }
+
+	/*
+		@brief	マトリックスを掛け合わせる
+		@param	const MATRIX& [in] 掛け合わせるマトリックス
+	*/
+	inline void Multiply(const MATRIX& rMtx) { D3DXMatrixMultiply(this, this, &rMtx); }
+
+	/*
+		@brief	位置マトリックスの計算
+		@param	const VECTOR3& [in] 参照する位置
+	*/
+	inline void Translation(const VECTOR3& rPos) { D3DXMatrixTranslation(this, rPos.x, rPos.y, rPos.z); }
+
+	/*
+		@brief	位置マトリックスの計算
+		@param	const float [in] 参照するX座標
+		@param	const float [in] 参照するY座標
+		@param	const float [in] 参照するZ座標
+	*/
+	inline void Translation(const float fX, const float fY, const float fZ) { D3DXMatrixTranslation(this, fX, fY, fZ); }
+
+	/*
+		@brief	向きマトリックスの計算
+		@param	const VECTOR3& [in] 参照する向き
+	*/
+	inline void Rotation(const VECTOR3& rRot) { D3DXMatrixRotationYawPitchRoll(this, rRot.y, rRot.x, rRot.z); }
+
+	/*
+		@brief	向きマトリックスの計算
+		@param	const float [in] 参照するYaw向き
+		@param	const float [in] 参照するPitch向き
+		@param	const float [in] 参照するRoll向き
+	*/
+	inline void Rotation(const float fYaw, const float fPitch, const float fRoll) { D3DXMatrixRotationYawPitchRoll(this, fYaw, fPitch, fRoll); }
+
+	/*
+		@brief	拡大率マトリックスの計算
+		@param	const VECTOR3& [in] 参照する拡大率
+	*/
+	inline void Scaling(const VECTOR3& rScale) { D3DXMatrixScaling(this, rScale.x, rScale.y, rScale.z); }
+
+	/*
+		@brief	拡大率マトリックスの計算
+		@param	const float [in] 参照するX拡大率
+		@param	const float [in] 参照するY拡大率
+		@param	const float [in] 参照するZ拡大率
+	*/
+	inline void Scaling(const float fX, const float fY, const float fZ) { D3DXMatrixScaling(this, fX, fY, fZ); }
+
+	/*
+		@brief	マトリックス位置の取得
+		@return	マトリックスの位置
+	*/
+	inline D3DXVECTOR3 GetPosition(void) { return D3DXVECTOR3(this->_41, this->_42, this->_43); }
+
+	/*
+		@brief	マトリックス向きの取得
+		@return	マトリックスの向き
+	*/
+	inline D3DXVECTOR3 GetRotation(void)
+	{
+		float fYaw, fPitch, fRoll;	// 計算結果の保存用
+		float fCosPitch;			// 向き計算用
+
+		// マトリックスからPitchを求める
+		fPitch = asinf(-(*this)._32);
+
+		// マトリックスからYaw・Rollを求める
+		fCosPitch = cosf(fPitch);
+		if (fabs(fCosPitch) > 0.0001f)
+		{ // Pitchの角度が計算に問題ない場合
+
+			fYaw  = atan2f(this->_31 / fCosPitch, this->_33 / fCosPitch);
+			fRoll = atan2f(this->_12 / fCosPitch, this->_22 / fCosPitch);
+		}
+		else
+		{ // Pitchが90度または-90度の場合
+
+			fYaw  = 0.0f;	// 正確な値が取れないので0.0fとする
+			fRoll = atan2f(this->_21, this->_11);
+		}
+
+		// マトリックスの向きを返す
+		return D3DXVECTOR3(fPitch, fYaw, fRoll);
+	}
+
+	/*
+		@brief	マトリックス拡大率の取得
+		@return	マトリックスの拡大率
+	*/
+	inline D3DXVECTOR3 GetScale(void)
+	{
+		D3DXVECTOR3 scale;
+		scale.x = sqrtf(this->_11 * this->_11 + this->_12 * this->_12 + this->_13 * this->_13);
+		scale.y = sqrtf(this->_21 * this->_21 + this->_22 * this->_22 + this->_23 * this->_23);
+		scale.z = sqrtf(this->_31 * this->_31 + this->_32 * this->_32 + this->_33 * this->_33);
+		return scale;
 	}
 };
 
@@ -570,8 +693,8 @@ struct COLOR : public D3DXCOLOR
 
 	/*
 		@brief	カラーコードから色/透明度の設定
-		@param	rCode	[in] カラーコード文字列
-		@param	fAlpha	[in] 透明度
+		@param	const std::string&	[in] カラーコード文字列
+		@param	const float			[in] 透明度
 	*/
 	inline void Code(const std::string& rCode, const float fAlpha)
 	{
@@ -584,7 +707,7 @@ struct COLOR : public D3DXCOLOR
 
 	/*
 		@brief	カラーコードから色の設定
-		@param	rCode [in] カラーコード文字列
+		@param	const std::string&	[in] カラーコード文字列
 	*/
 	inline void Code(const std::string& rCode)
 	{
