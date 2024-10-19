@@ -41,24 +41,6 @@ class CObject2D;	// オブジェクト2Dクラス
 class CTimeUI : public CObject
 {
 public:
-	// 横配置列挙
-	enum EAlignX
-	{
-		XALIGN_LEFT = 0,	// 左揃え
-		XALIGN_CENTER,		// 中央揃え
-		XALIGN_RIGHT,		// 右揃え
-		XALIGN_MAX,			// この列挙型の総数
-	};
-
-	// 縦配置列挙
-	enum EAlignY
-	{
-		YALIGN_TOP = 0,	// 上揃え
-		YALIGN_CENTER,	// 中央揃え
-		YALIGN_BOTTOM,	// 下揃え
-		YALIGN_MAX,		// この列挙型の総数
-	};
-
 	// コンストラクタ
 	CTimeUI();
 

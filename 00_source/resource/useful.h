@@ -78,6 +78,27 @@
 #define RS_BL_SUB	(CRenderState::SBlendAlpha(D3DBLENDOP_REVSUBTRACT,	D3DBLEND_SRCALPHA,	D3DBLEND_ONE))			// 減算αブレンド
 
 //************************************************************
+//	列挙型定義
+//************************************************************
+// 横配置列挙
+enum EAlignX
+{
+	XALIGN_LEFT = 0,	// 左揃え
+	XALIGN_CENTER,		// 中央揃え
+	XALIGN_RIGHT,		// 右揃え
+	XALIGN_MAX,			// この列挙型の総数
+};
+
+// 縦配置列挙
+enum EAlignY
+{
+	YALIGN_TOP = 0,	// 上揃え
+	YALIGN_CENTER,	// 中央揃え
+	YALIGN_BOTTOM,	// 下揃え
+	YALIGN_MAX,		// この列挙型の総数
+};
+
+//************************************************************
 //	構造体定義
 //************************************************************
 // 2次元ベクトル

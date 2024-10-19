@@ -28,15 +28,6 @@ class CFontChar;	// フォント文字クラス
 class CText2D : public CObject
 {
 public:
-	// 縦配置列挙
-	enum EAlignY
-	{
-		YALIGN_TOP = 0,	// 上揃え
-		YALIGN_CENTER,	// 中央揃え
-		YALIGN_BOTTOM,	// 下揃え
-		YALIGN_MAX,		// この列挙型の総数
-	};
-
 	// コンストラクタ
 	CText2D();
 
@@ -59,15 +50,15 @@ public:
 	// 静的メンバ関数
 	static CText2D *Create	// 生成
 	( // 引数
-		const std::string &rFilePath,		// フォントパス
-		const bool bItalic,					// イタリック
-		const D3DXVECTOR3& rPos,			// 原点位置
-		const float fCharHeight = 100.0f,	// 文字縦幅
-		const float fLineHeight = 100.0f,	// 行間縦幅
-		const CString2D::EAlignX alignX = CString2D::XALIGN_CENTER,	// 横配置
-		const EAlignY alignY = YALIGN_CENTER,						// 縦配置
-		const D3DXVECTOR3& rRot = VEC3_ZERO,						// 原点向き
-		const COLOR& rCol = color::White()							// 色
+		const std::string &rFilePath,			// フォントパス
+		const bool bItalic,						// イタリック
+		const D3DXVECTOR3& rPos,				// 原点位置
+		const float fCharHeight = 100.0f,		// 文字縦幅
+		const float fLineHeight = 100.0f,		// 行間縦幅
+		const EAlignX alignX = XALIGN_CENTER,	// 横配置
+		const EAlignY alignY = YALIGN_CENTER,	// 縦配置
+		const D3DXVECTOR3& rRot = VEC3_ZERO,	// 原点向き
+		const COLOR& rCol = color::White()		// 色
 	);
 
 	// 仮想関数
@@ -88,16 +79,16 @@ public:
 	void SetColor(const COLOR& rCol);				// 色設定
 	void SetCharHeight(const float fHeight);		// 文字の縦幅設定
 	void SetLineHeight(const float fHeight);		// 行間の縦幅設定
-	void SetAlignX(const CString2D::EAlignX align);	// 横配置設定
+	void SetAlignX(const EAlignX align);			// 横配置設定
 	void SetAlignY(const EAlignY align);			// 縦配置設定
 	float GetTextHeight(void) const;				// テキストの縦幅取得
 	CString2D *GetString2D(const int nStrID) const;	// 文字列の取得
-	float GetAlpha(void) const					{ return m_col.a; }			// 透明度取得
-	COLOR GetColor(void) const					{ return m_col; }			// 色取得
-	float GetCharHeight(void) const				{ return m_fCharHeight; }	// 文字の縦幅取得
-	float GetLineHeight(void) const				{ return m_fLineHeight; }	// 行間の縦幅取得
-	CString2D::EAlignX GetAlignX(void) const	{ return m_alignX; }		// 横配置取得
-	EAlignY GetAlignY(void) const				{ return m_alignY; }		// 縦配置取得
+	float GetAlpha(void) const		{ return m_col.a; }			// 透明度取得
+	COLOR GetColor(void) const		{ return m_col; }			// 色取得
+	float GetCharHeight(void) const	{ return m_fCharHeight; }	// 文字の縦幅取得
+	float GetLineHeight(void) const	{ return m_fLineHeight; }	// 行間の縦幅取得
+	EAlignX GetAlignX(void) const	{ return m_alignX; }		// 横配置取得
+	EAlignY GetAlignY(void) const	{ return m_alignY; }		// 縦配置取得
 	int GetNumString(void) const	{ return (int)m_listString.size(); }	// 文字列数取得
 
 private:
@@ -110,14 +101,14 @@ private:
 
 	// メンバ変数
 	std::list<CString2D*> m_listString;	// 文字列リスト
-	CFontChar *m_pFontChar;				// フォント文字
-	D3DXVECTOR3 m_pos;					// 位置
-	D3DXVECTOR3 m_rot;					// 向き
-	COLOR m_col;						// 色
-	CString2D::EAlignX m_alignX;		// 横配置
-	EAlignY m_alignY;					// 縦配置
-	float m_fCharHeight;				// 文字の縦幅
-	float m_fLineHeight;				// 文字の行間
+	CFontChar *m_pFontChar;	// フォント文字
+	D3DXVECTOR3 m_pos;		// 位置
+	D3DXVECTOR3 m_rot;		// 向き
+	COLOR m_col;			// 色
+	EAlignX m_alignX;		// 横配置
+	EAlignY m_alignY;		// 縦配置
+	float m_fCharHeight;	// 文字の縦幅
+	float m_fLineHeight;	// 文字の行間
 };
 
 #endif	// _TEXT2D_H_

@@ -29,7 +29,7 @@ namespace
 		const bool	ITALIC	= false;	// イタリック
 		const float	HEIGHT	= 42.0f;	// 文字縦幅
 
-		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_CENTER;		// 横配置
+		const EAlignX		ALIGN_X = XALIGN_CENTER;	// 横配置
 		const D3DXVECTOR3	POS = D3DXVECTOR3(SCREEN_CENT.x, 65.0f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;								// 向き
 		const COLOR			COL = COLOR(0.75f, 0.75f, 0.75f, 1.0f);			// 色
@@ -45,8 +45,8 @@ namespace
 		const D3DXVECTOR3	POS = D3DXVECTOR3(150.0f, 262.0f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;							// 向き
 		const COLOR			COL = COLOR(0.75f, 0.75f, 0.75f, 1.0f);		// 色
-		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
-		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_CENTER;	// 縦配置
+		const EAlignX		ALIGN_X = XALIGN_LEFT;		// 横配置
+		const EAlignY		ALIGN_Y = YALIGN_CENTER;	// 縦配置
 	}
 
 	namespace rule
@@ -55,7 +55,7 @@ namespace
 		const bool	ITALIC	= false;	// イタリック
 		const float	HEIGHT	= 42.0f;	// 文字縦幅
 
-		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;		// 横配置
+		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
 		const D3DXVECTOR3	POS = D3DXVECTOR3(150.0f, 450.0f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;							// 向き
 		const COLOR			COL = COLOR(0.75f, 0.75f, 0.75f, 1.0f);		// 色
@@ -68,7 +68,7 @@ namespace
 		const float	CHAR_HEIGHT	= 42.0f;	// 文字縦幅
 		const float	LINE_HEIGHT	= 54.0f;	// 行間縦幅
 
-		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
+		const EAlignX ALIGN_X = XALIGN_LEFT;	// 横配置
 		const D3DXVECTOR3 POS = D3DXVECTOR3(255.0f, 535.0f, 0.0f);	// 位置
 		const D3DXVECTOR3 ROT = VEC3_ZERO;			// 向き
 		const COLOR COL_DEFAULT	= color::White();	// 通常色
@@ -81,7 +81,7 @@ namespace
 		const bool	ITALIC	= false;	// イタリック
 		const float	HEIGHT	= 22.5f;	// 文字縦幅
 
-		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_CENTER;		// 横配置
+		const EAlignX		ALIGN_X = XALIGN_CENTER;	// 横配置
 		const D3DXVECTOR3	POS = D3DXVECTOR3(SCREEN_CENT.x, 706.0f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;								// 向き
 		const COLOR			COL = COLOR(0.5f, 0.5f, 0.5f, 1.0f);			// 色

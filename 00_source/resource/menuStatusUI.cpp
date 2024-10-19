@@ -34,7 +34,7 @@ namespace
 		const bool	ITALIC	= false;	// イタリック
 		const float	HEIGHT	= 26.0f;	// 文字縦幅
 
-		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
+		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
 		const D3DXVECTOR3	POS = D3DXVECTOR3(68.0f, 115.0f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
 		const COLOR			COL = color::White();	// 色
@@ -48,8 +48,8 @@ namespace
 		const float	CHAR_HEIGHT	= 22.0f;	// 文字縦幅
 		const float	LINE_HEIGHT	= 26.0f;	// 行間縦幅
 
-		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
-		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_BOTTOM;	// 縦配置
+		const EAlignX		ALIGN_X = XALIGN_LEFT;		// 横配置
+		const EAlignY		ALIGN_Y = YALIGN_BOTTOM;	// 縦配置
 		const D3DXVECTOR3	POS = D3DXVECTOR3(68.0f, 225.5f, 0.0f);		// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
 		const COLOR			COL = color::White();	// 色
@@ -62,8 +62,8 @@ namespace
 		const float	CHAR_HEIGHT	= status::CHAR_HEIGHT;	// 文字縦幅
 		const float	LINE_HEIGHT = status::LINE_HEIGHT;	// 行間縦幅
 
-		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;		// 横配置
-		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_BOTTOM;		// 縦配置
+		const EAlignX		ALIGN_X = XALIGN_LEFT;		// 横配置
+		const EAlignY		ALIGN_Y = YALIGN_BOTTOM;	// 縦配置
 		const D3DXVECTOR3	POS = D3DXVECTOR3(115.0f, status::POS.y, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
 		const COLOR			COL = color::White();	// 色

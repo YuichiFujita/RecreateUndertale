@@ -39,9 +39,9 @@ namespace
 		const float	CHAR_HEIGHT	= 43.0f;	// 文字縦幅
 		const float	LINE_HEIGHT	= 53.0f;	// 行間縦幅
 
-		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;		// 横配置
+		const EAlignX ALIGN_X	= XALIGN_LEFT;		// 横配置
 		const D3DXVECTOR3 POS	= D3DXVECTOR3(125.0f, 308.5f, 0.0f);	// 位置
-		const D3DXVECTOR3 ROT	= VEC3_ZERO;			// 向き
+		const D3DXVECTOR3 ROT	= VEC3_ZERO;		// 向き
 		const COLOR COL_DEFAULT	= color::White();	// 通常色
 		const COLOR COL_CHOICE	= color::Yellow();	// 選択色
 	}

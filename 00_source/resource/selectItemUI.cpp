@@ -38,7 +38,7 @@ namespace
 
 	namespace select
 	{
-		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_CENTER;	// 横配置
+		const EAlignX ALIGN_X	= XALIGN_CENTER;	// 横配置
 		const D3DXVECTOR3 POS	= D3DXVECTOR3(380.0f, 555.0f, 0.0f);	// 位置
 		const D3DXVECTOR3 SPACE	= D3DXVECTOR3(160.0f, 0.0f, 0.0f);		// 空白
 		const D3DXVECTOR3 ROT	= VEC3_ZERO;		// 向き
@@ -47,7 +47,7 @@ namespace
 
 	namespace item
 	{
-		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;		// 横配置
+		const EAlignX ALIGN_X	= XALIGN_LEFT;		// 横配置
 		const D3DXVECTOR3 POS	= D3DXVECTOR3(360.0f, 145.0f, 0.0f);	// 位置
 		const D3DXVECTOR3 SPACE	= D3DXVECTOR3(0.0f, 49.0f, 0.0f);		// 空白
 		const D3DXVECTOR3 ROT	= VEC3_ZERO;		// 向き

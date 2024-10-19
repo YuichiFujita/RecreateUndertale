@@ -276,16 +276,16 @@ void CScrollText2D::DeleteStringAll(void)
 //============================================================
 CScrollText2D *CScrollText2D::Create
 (
-	const std::string &rFilePath,		// フォントパス
-	const bool bItalic,					// イタリック
-	const D3DXVECTOR3& rPos,			// 原点位置
-	const float fNextTime,				// 文字表示の待機時間
-	const float fCharHeight,			// 文字縦幅
-	const float fLineHeight,			// 行間縦幅
-	const CString2D::EAlignX alignX,	// 横配置
-	const EAlignY alignY,				// 縦配置
-	const D3DXVECTOR3& rRot,			// 原点向き
-	const COLOR& rCol					// 色
+	const std::string &rFilePath,	// フォントパス
+	const bool bItalic,				// イタリック
+	const D3DXVECTOR3& rPos,		// 原点位置
+	const float fNextTime,			// 文字表示の待機時間
+	const float fCharHeight,		// 文字縦幅
+	const float fLineHeight,		// 行間縦幅
+	const EAlignX alignX,			// 横配置
+	const EAlignY alignY,			// 縦配置
+	const D3DXVECTOR3& rRot,		// 原点向き
+	const COLOR& rCol				// 色
 )
 {
 	// 文字送りテキスト2Dの生成

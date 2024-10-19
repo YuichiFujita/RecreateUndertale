@@ -28,15 +28,6 @@ class CChar2D;		// 文字2Dクラス
 class CString2D : public CObject
 {
 public:
-	// 横配置列挙
-	enum EAlignX
-	{
-		XALIGN_LEFT = 0,	// 左揃え
-		XALIGN_CENTER,		// 中央揃え
-		XALIGN_RIGHT,		// 右揃え
-		XALIGN_MAX,			// この列挙型の総数
-	};
-
 	// コンストラクタ
 	CString2D();
 

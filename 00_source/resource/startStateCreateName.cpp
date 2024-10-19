@@ -36,7 +36,7 @@ namespace
 		const bool	ITALIC	= false;	// イタリック
 		const float	HEIGHT	= 42.0f;	// 文字縦幅
 
-		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_CENTER;		// 横配置
+		const EAlignX		ALIGN_X = XALIGN_CENTER;	// 横配置
 		const D3DXVECTOR3	POS = D3DXVECTOR3(SCREEN_CENT.x, 80.0f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
 		const COLOR			COL = color::White();	// 色
@@ -48,7 +48,7 @@ namespace
 		const bool	ITALIC = false;	// イタリック
 		const float	HEIGHT = 42.0f;	// 文字縦幅
 
-		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;		// 横配置
+		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
 		const D3DXVECTOR3	POS = D3DXVECTOR3(360.0f, 155.0f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
 		const COLOR			COL = color::White();	// 色
@@ -71,7 +71,7 @@ namespace
 		const float	NEXT_TIME	= 0.035f;	// 文字振動の待機時間
 		const float	MOVE		= 1.0f;		// 振動移動量
 
-		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_CENTER;	// 横配置
+		const EAlignX ALIGN_X	= XALIGN_CENTER;	// 横配置
 		const D3DXVECTOR3 ROT	= VEC3_ZERO;		// 向き
 		const COLOR COL_DEFAULT	= color::White();	// 通常色
 		const COLOR COL_CHOICE	= color::Yellow();	// 選択色

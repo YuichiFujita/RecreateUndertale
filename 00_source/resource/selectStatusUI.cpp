@@ -32,7 +32,7 @@ namespace
 
 	namespace name
 	{
-		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;		// 横配置
+		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
 		const D3DXVECTOR3	POS = D3DXVECTOR3(320.0f, 140.0f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
 		const COLOR			COL = color::White();	// 色
@@ -40,8 +40,8 @@ namespace
 
 	namespace lvhp_title
 	{
-		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
-		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_TOP;		// 縦配置
+		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
+		const EAlignY		ALIGN_Y = YALIGN_TOP;	// 縦配置
 		const D3DXVECTOR3	POS = D3DXVECTOR3(320.0f, 200.5f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
 		const COLOR			COL = color::White();	// 色
@@ -50,8 +50,8 @@ namespace
 
 	namespace lvhp_value
 	{
-		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
-		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_TOP;		// 縦配置
+		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
+		const EAlignY		ALIGN_Y = YALIGN_TOP;	// 縦配置
 		const D3DXVECTOR3	POS = D3DXVECTOR3(402.0f, 200.5f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
 		const COLOR			COL = color::White();	// 色
@@ -60,8 +60,8 @@ namespace
 
 	namespace atkdef_title
 	{
-		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
-		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_TOP;		// 縦配置
+		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
+		const EAlignY		ALIGN_Y = YALIGN_TOP;	// 縦配置
 		const D3DXVECTOR3	POS = D3DXVECTOR3(320.0f, 330.5f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
 		const COLOR			COL = color::White();	// 色
@@ -70,8 +70,8 @@ namespace
 
 	namespace atkdef_value
 	{
-		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
-		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_TOP;		// 縦配置
+		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
+		const EAlignY		ALIGN_Y = YALIGN_TOP;	// 縦配置
 		const D3DXVECTOR3	POS = D3DXVECTOR3(402.0f, 330.5f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
 		const COLOR			COL = color::White();	// 色
@@ -80,8 +80,8 @@ namespace
 
 	namespace expnext_title
 	{
-		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
-		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_TOP;		// 縦配置
+		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
+		const EAlignY		ALIGN_Y = YALIGN_TOP;	// 縦配置
 		const D3DXVECTOR3	POS = D3DXVECTOR3(570.0f, 330.5f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
 		const COLOR			COL = color::White();	// 色
@@ -90,8 +90,8 @@ namespace
 
 	namespace expnext_value
 	{
-		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
-		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_TOP;		// 縦配置
+		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
+		const EAlignY		ALIGN_Y = YALIGN_TOP;	// 縦配置
 		const D3DXVECTOR3	POS = D3DXVECTOR3(672.0f, 330.5f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
 		const COLOR			COL = color::White();	// 色
@@ -100,8 +100,8 @@ namespace
 
 	namespace wpnamr_title
 	{
-		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
-		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_TOP;		// 縦配置
+		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
+		const EAlignY		ALIGN_Y = YALIGN_TOP;	// 縦配置
 		const D3DXVECTOR3	POS = D3DXVECTOR3(320.0f, 460.5f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
 		const COLOR			COL = color::White();	// 色
@@ -110,8 +110,8 @@ namespace
 
 	namespace wpnamr_name
 	{
-		const CString2D::EAlignX	ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
-		const CText2D::EAlignY		ALIGN_Y = CText2D::YALIGN_TOP;		// 縦配置
+		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
+		const EAlignY		ALIGN_Y = YALIGN_TOP;	// 縦配置
 		const D3DXVECTOR3	POS = D3DXVECTOR3(402.0f, 460.5f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
 		const COLOR			COL = color::White();	// 色
@@ -120,7 +120,7 @@ namespace
 
 	namespace gold_title
 	{
-		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;		// 横配置
+		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
 		const D3DXVECTOR3	POS = D3DXVECTOR3(320.0f, 615.5f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
 		const COLOR			COL = color::White();	// 色
@@ -128,7 +128,7 @@ namespace
 
 	namespace gold_value
 	{
-		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;		// 横配置
+		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
 		const D3DXVECTOR3	POS = D3DXVECTOR3(423.0f, 615.5f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
 		const COLOR			COL = color::White();	// 色
@@ -136,7 +136,7 @@ namespace
 
 	namespace kills_title
 	{
-		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;		// 横配置
+		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
 		const D3DXVECTOR3	POS = D3DXVECTOR3(500.0f, 615.5f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
 		const COLOR			COL = color::White();	// 色
@@ -144,7 +144,7 @@ namespace
 
 	namespace kills_value
 	{
-		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;		// 横配置
+		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
 		const D3DXVECTOR3	POS = D3DXVECTOR3(627.0f, 615.5f, 0.0f);	// 位置
 		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
 		const COLOR			COL = color::White();	// 色

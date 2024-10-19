@@ -466,7 +466,7 @@ void CString2D::SetCharHeight(const float fHeight)
 //============================================================
 //	横配置の設定処理
 //============================================================
-void CString2D::SetAlignX(const CString2D::EAlignX alignX)
+void CString2D::SetAlignX(const EAlignX alignX)
 {
 	// 引数の横配置を設定
 	m_alignX = alignX;

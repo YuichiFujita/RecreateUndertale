@@ -62,8 +62,8 @@ namespace
 		const float	WAIT_TIME_SLOW	= 0.7f;		// 文字表示の待機時間 (速度低下)
 
 		const D3DXVECTOR3 POS = D3DXVECTOR3(SCREEN_CENT.x - story::SIZE.x * 0.5f, 460.0f, 0.0f);	// テキスト位置
-		const CString2D::EAlignX ALIGN_X = CString2D::XALIGN_LEFT;	// 横配置
-		const CText2D::EAlignY	 ALIGN_Y = CText2D::YALIGN_TOP;		// 縦配置
+		const EAlignX ALIGN_X = XALIGN_LEFT;	// 横配置
+		const EAlignY ALIGN_Y = YALIGN_TOP;		// 縦配置
 	}
 }
 

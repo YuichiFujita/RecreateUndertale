@@ -26,14 +26,14 @@ namespace
 //	コンストラクタ
 //============================================================
 CText2D::CText2D() : CObject(CObject::LABEL_UI, CObject::DIM_2D, PRIORITY),
-	m_pFontChar		(nullptr),					// フォント文字
-	m_pos			(VEC3_ZERO),				// 位置
-	m_rot			(VEC3_ZERO),				// 向き
-	m_col			(color::White()),			// 色
-	m_alignX		(CString2D::XALIGN_CENTER),	// 横配置
-	m_alignY		(YALIGN_CENTER),			// 縦配置
-	m_fCharHeight	(0.0f),						// 文字の縦幅
-	m_fLineHeight	(0.0f)						// 文字の行間
+	m_pFontChar		(nullptr),			// フォント文字
+	m_pos			(VEC3_ZERO),		// 位置
+	m_rot			(VEC3_ZERO),		// 向き
+	m_col			(color::White()),	// 色
+	m_alignX		(XALIGN_CENTER),	// 横配置
+	m_alignY		(YALIGN_CENTER),	// 縦配置
+	m_fCharHeight	(0.0f),				// 文字の縦幅
+	m_fLineHeight	(0.0f)				// 文字の行間
 {
 	// 文字列リストをクリア
 	m_listString.clear();
@@ -53,14 +53,14 @@ CText2D::~CText2D()
 HRESULT CText2D::Init(void)
 {
 	// メンバ変数を初期化
-	m_pFontChar		= nullptr;					// フォント文字
-	m_pos			= VEC3_ZERO;				// 位置
-	m_rot			= VEC3_ZERO;				// 向き
-	m_col			= color::White();			// 色
-	m_alignX		= CString2D::XALIGN_CENTER;	// 横配置
-	m_alignY		= YALIGN_CENTER;			// 縦配置
-	m_fCharHeight	= 0.0f;						// 文字の縦幅
-	m_fLineHeight	= 0.0f;						// 文字の行間
+	m_pFontChar		= nullptr;			// フォント文字
+	m_pos			= VEC3_ZERO;		// 位置
+	m_rot			= VEC3_ZERO;		// 向き
+	m_col			= color::White();	// 色
+	m_alignX		= XALIGN_CENTER;	// 横配置
+	m_alignY		= YALIGN_CENTER;	// 縦配置
+	m_fCharHeight	= 0.0f;				// 文字の縦幅
+	m_fLineHeight	= 0.0f;				// 文字の行間
 
 	// 文字列リストを初期化
 	m_listString.clear();
@@ -184,15 +184,15 @@ void CText2D::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 CText2D *CText2D::Create
 (
-	const std::string &rFilePath,		// フォントパス
-	const bool bItalic,					// イタリック
-	const D3DXVECTOR3& rPos,			// 原点位置
-	const float fCharHeight,			// 文字縦幅
-	const float fLineHeight,			// 行間縦幅
-	const CString2D::EAlignX alignX,	// 横配置
-	const EAlignY alignY,				// 縦配置
-	const D3DXVECTOR3& rRot,			// 原点向き
-	const COLOR& rCol					// 色
+	const std::string &rFilePath,	// フォントパス
+	const bool bItalic,				// イタリック
+	const D3DXVECTOR3& rPos,		// 原点位置
+	const float fCharHeight,		// 文字縦幅
+	const float fLineHeight,		// 行間縦幅
+	const EAlignX alignX,			// 横配置
+	const EAlignY alignY,			// 縦配置
+	const D3DXVECTOR3& rRot,		// 原点向き
+	const COLOR& rCol				// 色
 )
 {
 	// テキスト2Dの生成
@@ -464,7 +464,7 @@ void CText2D::SetLineHeight(const float fHeight)
 //============================================================
 //	横配置の設定処理
 //============================================================
-void CText2D::SetAlignX(const CString2D::EAlignX align)
+void CText2D::SetAlignX(const EAlignX align)
 {
 	// 引数の横配置を設定
 	m_alignX = align;
