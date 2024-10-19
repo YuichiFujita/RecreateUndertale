@@ -200,7 +200,6 @@ void CInputKeyboard::Uninit(void)
 //============================================================
 void CInputKeyboard::Update(void)
 {
-	// 変数配列を宣言
 	BYTE aKeyState[MAX_KEY];	// キーボードの入力情報
 
 	// 入力デバイスからデータを取得
@@ -405,7 +404,6 @@ CInputMouse::~CInputMouse()
 //============================================================
 HRESULT CInputMouse::Init(HINSTANCE hInstance, HWND hWnd)
 {
-	// 変数を宣言
 	DIPROPDWORD diprop;	// デバイスの設定用
 
 	// メンバ変数を初期化
@@ -485,10 +483,8 @@ void CInputMouse::Uninit(void)
 //============================================================
 void CInputMouse::Update(void)
 {
-	// 変数を宣言
-	DIMOUSESTATE keyState;	// マウスの入力情報
-
 	// 入力デバイスからデータを取得
+	DIMOUSESTATE keyState;	// マウスの入力情報
 	if (SUCCEEDED(m_pDevice->GetDeviceState(sizeof(keyState), &keyState)))
 	{ // 取得に成功した場合
 
@@ -705,9 +701,7 @@ void CInputPad::Uninit(void)
 //============================================================
 void CInputPad::Update(void)
 {
-	// 変数配列を宣言
 	XINPUT_STATE aKeyState[MAX_NUM];	// パッドの入力情報
-
 	for (int nCntJoyKey = 0; nCntJoyKey < MAX_NUM; nCntJoyKey++)
 	{ // プレイヤーの最大人数分ループ
 
@@ -1112,14 +1106,8 @@ SHORT CInputPad::GetPressRStickY(int nPadID)
 //============================================================
 float CInputPad::GetPressLStickRot(int nPadID)
 {
-	// 変数を宣言
-	float fRot = 0.0f;	// スティック傾き
-
-	// ステックの傾きを計算
-	fRot = atan2f((float)GetPressLStickY(nPadID), (float)GetPressLStickX(nPadID));
-
 	// ステックの傾きを返す
-	return fRot;
+	return atan2f((float)GetPressLStickY(nPadID), (float)GetPressLStickX(nPadID));
 }
 
 //============================================================
@@ -1127,14 +1115,8 @@ float CInputPad::GetPressLStickRot(int nPadID)
 //============================================================
 float CInputPad::GetPressRStickRot(int nPadID)
 {
-	// 変数を宣言
-	float fRot = 0.0f;	// スティック傾き
-
-	// ステックの傾きを計算
-	fRot = atan2f((float)GetPressRStickY(nPadID), (float)GetPressRStickX(nPadID));
-
 	// ステックの傾きを返す
-	return fRot;
+	return atan2f((float)GetPressRStickY(nPadID), (float)GetPressRStickX(nPadID));
 }
 
 //============================================================
@@ -1142,12 +1124,9 @@ float CInputPad::GetPressRStickRot(int nPadID)
 //============================================================
 float CInputPad::GetPressLStickTilt(int nPadID)
 {
-	// 変数を宣言
-	D3DXVECTOR3	vecLTilt = D3DXVECTOR3((float)GetPressLStickX(nPadID), (float)GetPressLStickY(nPadID), 0.0f);	// Lスティック各軸の傾き量
-	float fLTilt = sqrtf(vecLTilt.x * vecLTilt.x + vecLTilt.y * vecLTilt.y) * 0.5f;	// Lスティックの傾き量
-
 	// Lスティックの傾きを返す
-	return fLTilt;
+	D3DXVECTOR3	vecLTilt = D3DXVECTOR3((float)GetPressLStickX(nPadID), (float)GetPressLStickY(nPadID), 0.0f);	// Lスティック各軸の傾き量
+	return sqrtf(vecLTilt.x * vecLTilt.x + vecLTilt.y * vecLTilt.y) * 0.5f;
 }
 
 //============================================================
@@ -1155,12 +1134,9 @@ float CInputPad::GetPressLStickTilt(int nPadID)
 //============================================================
 float CInputPad::GetPressRStickTilt(int nPadID)
 {
-	// 変数を宣言
-	D3DXVECTOR3	vecRTilt = D3DXVECTOR3((float)GetPressRStickX(nPadID), (float)GetPressRStickY(nPadID), 0.0f);	// Rスティック各軸の傾き量
-	float fRTilt = sqrtf(vecRTilt.x * vecRTilt.x + vecRTilt.y * vecRTilt.y) * 0.5f;	// Rスティックの傾き量
-
 	// Rスティックの傾きを返す
-	return fRTilt;
+	D3DXVECTOR3	vecRTilt = D3DXVECTOR3((float)GetPressRStickX(nPadID), (float)GetPressRStickY(nPadID), 0.0f);	// Rスティック各軸の傾き量
+	return sqrtf(vecRTilt.x * vecRTilt.x + vecRTilt.y * vecRTilt.y) * 0.5f;
 }
 
 //============================================================

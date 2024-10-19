@@ -1129,10 +1129,8 @@ template<class T> void useful::SortNum
 	const int nMaxKeep	// 配列サイズ
 )
 {
-	// 変数を宣言
 	T	keepNum;		// ソート用
 	int	nCurrentMaxID;	// 最大値のインデックス
-
 	for (int nCntKeep = 0; nCntKeep < (nMaxKeep - 1); nCntKeep++)
 	{ // 入れ替える値の総数 -1回分繰り返す
 
@@ -1173,8 +1171,7 @@ template<class T> void useful::Shuffle
 	for (int nCntShu = nMaxShuffle - 1; nCntShu > 0; nCntShu--)
 	{ // 引数の総数分繰り返す
 
-		// 変数を宣言
-		T swap;		// 要素の入れ替え用
+		T swap;	// 要素の入れ替え用
 		int nRandom = rand() % nCntShu;	// 要素を入れ替えるインデックス
 
 		// 要素の入れ替え

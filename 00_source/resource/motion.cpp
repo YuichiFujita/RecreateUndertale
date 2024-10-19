@@ -438,7 +438,6 @@ void CMotion::UpdateMove(void)
 {
 	if (m_pChara == nullptr) { return; }	// オブジェクトキャラクター未設定
 
-	// 変数を宣言
 	MATRIX		mtxChara	= m_pChara->GetMtxWorld();		// キャラマトリックス
 	D3DXVECTOR3	posSetChara	= m_pChara->GetVec3Position();	// キャラ設定位置
 	D3DXVECTOR3	posOldChara	= mtxChara.GetPosition();		// キャラ過去位置

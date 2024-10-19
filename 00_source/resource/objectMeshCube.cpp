@@ -559,10 +559,8 @@ void CObjectMeshCube::SetVtx(void)
 			for (int nCntSet = 0; nCntSet < NEED_VTX_CUBE; nCntSet++)
 			{ // 必要頂点・インデックス数分繰り返す
 
-				// 変数を宣言
 				int nVtxID = nCntSet % NUM_VTX_CUBE;	// 現在の箱の頂点番号
 				int nBoxID = nCntSet / NUM_VTX_CUBE;	// 現在の箱番号
-
 				if (nVtxID == 0)
 				{ // 頂点の設定が一巡した場合
 

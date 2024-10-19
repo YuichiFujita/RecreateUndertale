@@ -141,7 +141,6 @@ void CMonoShader::SetColor(const COLOR& rCol)
 {
 	if (!IsEffectOK()) { assert(false); return; }	// エフェクト未使用
 
-	// 変数を宣言
 	D3DXVECTOR4 col = D3DXVECTOR4(rCol.r, rCol.g, rCol.b, rCol.a);	// ピクセル描画色
 
 	// エフェクトにピクセル描画色を設定

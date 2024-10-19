@@ -68,9 +68,8 @@ HRESULT CLight::Init(void)
 	for (int nCntLight = 0; nCntLight < light::MAX_NUM; nCntLight++)
 	{ // 使用するライト数分繰り返す
 
-		// 変数を宣言
-		COLOR	diffuse			= DIFFUSE[nCntLight];	// 設定用拡散光カラー
-		D3DXVECTOR3	direction	= DIRECTION[nCntLight];	// 設定用方向ベクトル
+		COLOR diffuse = DIFFUSE[nCntLight];	// 設定用拡散光カラー
+		D3DXVECTOR3 direction = DIRECTION[nCntLight];	// 設定用方向ベクトル
 
 		// 構造体の要素をクリア
 		ZeroMemory(&m_aLight[nCntLight], sizeof(D3DLIGHT9));

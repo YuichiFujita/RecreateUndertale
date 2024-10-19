@@ -375,9 +375,7 @@ void CTitleManager::Release(CTitleManager *&prTitleManager)
 //============================================================
 void CTitleManager::UpdateFade(void)
 {
-	// 変数を宣言
 	COLOR colFade = m_pFade->GetColor();	// フェードの色
-
 	if (colFade.a > 0.0f)
 	{ // 透明になっていない場合
 

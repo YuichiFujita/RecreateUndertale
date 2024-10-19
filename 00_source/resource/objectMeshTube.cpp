@@ -473,7 +473,6 @@ void CObjectMeshTube::SetPositionRelative(void)
 //============================================================
 MATRIX CObjectMeshTube::CalcCylinderMtxWorld(void) const
 {
-	// 変数を宣言
 	MATRIX  mtxRot, mtxTrans, mtxWorld;	// 計算用マトリックス
 	D3DXVECTOR3 posCylinder = m_pCylinder->GetVec3Position();	// シリンダー位置
 	D3DXVECTOR3 rotCylinder = m_pCylinder->GetVec3Rotation();	// シリンダー向き

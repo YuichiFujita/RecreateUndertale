@@ -440,9 +440,7 @@ void CObject3D::SetGapPosition(const int nID, const D3DXVECTOR3& rPos)
 //============================================================
 D3DXVECTOR3 CObject3D::GetGapPosition(const int nID)
 {
-	// 変数を宣言
 	D3DXVECTOR3 pos = VEC3_ZERO;	// 頂点のずれの代入用
-
 	if (m_pPosGapBuff != nullptr)
 	{ // 使用中の場合
 
@@ -464,16 +462,11 @@ D3DXVECTOR3 CObject3D::GetGapPosition(const int nID)
 //============================================================
 float CObject3D::GetPositionHeight(const D3DXVECTOR3&rPos)
 {
-	// 変数を宣言
-	D3DXVECTOR3 nor;	// 法線ベクトル
-
-	// 変数配列を宣言
 	D3DXVECTOR3 aVtxPos[MAX_VERTEX];	// ポリゴンの頂点座標 [※] 0：左上 1：右上 2：左下 3：右下
-
+	D3DXVECTOR3 nor;	// 法線ベクトル
 	for (int nCnt = 0; nCnt < MAX_VERTEX; nCnt++)
 	{ // 頂点数分繰り返す
 
-		// 変数を宣言
 		MATRIX mtxWorld, mtxRot, mtxTrans;			// 計算用マトリックス
 		D3DXVECTOR3 pos = GetVertexPosition(nCnt);	// 頂点座標
 		

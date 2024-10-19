@@ -47,7 +47,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE /*hInstancePrev*/, LPSTR /*lpC
 	// 終了時にメモリリークを出力
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-	// 変数を宣言
 	WNDCLASSEX wcex =
 	{ // 初期値
 		sizeof(WNDCLASSEX),									// WNDCLASSEXのメモリサイズ
@@ -63,8 +62,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE /*hInstancePrev*/, LPSTR /*lpC
 		CLASS_NAME,											// ウインドウクラスの名前
 		LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON1))		// ファイルのアイコン
 	};
-
-	RECT rect =		// 画面サイズ
+	RECT rect =	// 画面サイズ
 	{ // 初期値
 		0,				// ウインドウの左上 X座標
 		0,				// ウインドウの左上 Y座標

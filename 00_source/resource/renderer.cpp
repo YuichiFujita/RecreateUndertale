@@ -60,7 +60,6 @@ CRenderer::~CRenderer()
 //============================================================
 HRESULT CRenderer::Init(HWND hWnd, BOOL bWindow)
 {
-	// 変数を宣言
 	D3DDISPLAYMODE			d3ddm;	// ディスプレイモード
 	D3DPRESENT_PARAMETERS	d3dpp;	// プレゼンテーションパラメータ
 
@@ -395,7 +394,6 @@ void CRenderer::Release(CRenderer *&prRenderer)
 //============================================================
 HRESULT CRenderer::CreateDevice(HWND hWnd, D3DPRESENT_PARAMETERS d3dpp)
 {
-	// 変数を宣言
 	HRESULT hr;	// 異常終了の確認用
 
 	// 描画処理と頂点処理をハードウェアが行う設定でデバイスを生成

@@ -63,7 +63,6 @@ void CDeltaTime::Uninit(void)
 //============================================================
 void CDeltaTime::Update(void)
 {
-	// 変数を宣言
 	DWORD dwDiffDeltaTime = 0;	// 処理開始時刻の差分
 
 	// 前フレームの開始時刻を保存

@@ -112,13 +112,11 @@ void CEffect3D::Uninit(void)
 //============================================================
 void CEffect3D::Update(const float fDeltaTime)
 {
-	// •Ï”‚ğéŒ¾
 	D3DXVECTOR3 pos	 = GetVec3Position();	// ˆÊ’u
 	D3DXVECTOR3 rot	 = GetVec3Rotation();	// Œü‚«
 	D3DXVECTOR3 size = GetVec3Size();		// ‘å‚«‚³
 	COLOR col		 = GetColor();			// F
 	float fRadius	 = size.x;				// ”¼Œa
-
 	if (m_nLife <= 0		// õ–½‚ğŒ}‚¦‚½
 	||  fRadius <= 0.0f)	// ”¼Œa‚ª0.0fˆÈ‰º
 	{ // ã‹L‚Ì‚Ç‚ê‚©‚É‚È‚Á‚½ê‡

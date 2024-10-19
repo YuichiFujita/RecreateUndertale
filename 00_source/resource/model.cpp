@@ -105,7 +105,6 @@ HRESULT CModel::LoadAll(void)
 //============================================================
 int CModel::Regist(std::string sFilePath)
 {
-	// 変数を宣言
 	SMapInfo tempMapInfo;	// マップ情報
 	int nID = m_nNumAll;	// モデル読込番号
 
@@ -320,7 +319,6 @@ HRESULT CModel::SetCollisionModel(SMapInfo *pMapInfo)
 	// マップ情報の指定がない場合エラー
 	if (pMapInfo == nullptr) { return E_FAIL; }
 
-	// 変数を宣言
 	int			nNumVtx;	// モデルの頂点数
 	DWORD		dwSizeFVF;	// モデルの頂点フォーマットのサイズ
 	BYTE		*pVtxBuff;	// モデルの頂点バッファへのポインタ
@@ -405,7 +403,6 @@ HRESULT CModel::SetCollisionModel(SMapInfo *pMapInfo)
 //============================================================
 HRESULT CModel::SearchFolderAll(std::string sFolderPath)
 {
-	// 変数を宣言
 	HANDLE hFile;	// 検索ハンドル
 	WIN32_FIND_DATA findFileData;	// ファイル情報
 

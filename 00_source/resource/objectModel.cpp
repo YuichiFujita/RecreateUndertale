@@ -240,17 +240,8 @@ D3DXMATERIAL CObjectModel::GetMaterial(const int nMatID) const
 	else
 	{ // 引数インデックスがマテリアルの最大数を超えている場合
 
-		// 変数を宣言
-		D3DXMATERIAL mat;	// 例外時のマテリアル
-
-		// マテリアルのメモリをクリア
-		ZeroMemory(&mat, sizeof(mat));
-
-		// 例外処理
-		assert(false);
-
 		// 例外時のマテリアルを返す
-		return mat;
+		return material::White();
 	}
 }
 
@@ -266,7 +257,6 @@ void CObjectModel::SetAlpha(const float fAlpha)
 	for (int nCntMat = 0; nCntMat < (int)m_modelData.dwNumMat; nCntMat++)
 	{ // マテリアルの数分繰り返す
 
-		// 変数を宣言
 		float fSetAlpha = fAlpha;	// 設定する透明度
 
 		// 透明度の補正

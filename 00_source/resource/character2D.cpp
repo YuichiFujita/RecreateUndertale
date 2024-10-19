@@ -163,7 +163,6 @@ void CCharacter2D::Release(CCharacter2D *&prCharacter)
 //============================================================
 HRESULT CCharacter2D::SearchFolderAll(std::string sFolderPath)
 {
-	// 変数を宣言
 	HANDLE hFile;	// 検索ハンドル
 	WIN32_FIND_DATA findFileData;	// ファイル情報
 

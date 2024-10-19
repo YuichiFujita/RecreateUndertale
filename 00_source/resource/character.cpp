@@ -181,7 +181,6 @@ void CCharacter::Release(CCharacter *&prCharacter)
 //============================================================
 HRESULT CCharacter::SearchFolderAll(std::string sFolderPath)
 {
-	// 変数を宣言
 	HANDLE hFile;	// 検索ハンドル
 	WIN32_FIND_DATA findFileData;	// ファイル情報
 

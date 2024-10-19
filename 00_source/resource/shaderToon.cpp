@@ -169,7 +169,6 @@ void CToonShader::SetLightDirect(MATRIX *pMtxWorld, const int nLightID)
 {
 	if (!IsEffectOK()) { assert(false); return; }	// エフェクト未使用
 
-	// 変数を宣言
 	D3DXVECTOR3	dirLight = GET_MANAGER->GetLight()->GetLight(nLightID).Direction;	// ライト方向計算用
 	D3DXVECTOR4	setLight = D3DXVECTOR4(dirLight.x, dirLight.y, dirLight.z, 0.0f);	// ライト方向設定用
 	MATRIX		mtxInvWorld;	// ワールドマトリックス逆行列
@@ -253,7 +252,6 @@ void CToonShader::SetDiffuse(const COLOR& rDiffuse)
 {
 	if (!IsEffectOK()) { assert(false); return; }	// エフェクト未使用
 
-	// 変数を宣言
 	D3DXVECTOR4 diffuse = D3DXVECTOR4(rDiffuse.r, rDiffuse.g, rDiffuse.b, rDiffuse.a);	// 拡散光
 
 	// エフェクトに拡散光を設定
@@ -267,7 +265,6 @@ void CToonShader::SetAmbient(const COLOR& rAmbient)
 {
 	if (!IsEffectOK()) { assert(false); return; }	// エフェクト未使用
 
-	// 変数を宣言
 	D3DXVECTOR4 ambient = D3DXVECTOR4(rAmbient.r, rAmbient.g, rAmbient.b, rAmbient.a);	// 環境光
 
 	// エフェクトに環境光を設定
@@ -281,7 +278,6 @@ void CToonShader::SetEmissive(const COLOR& rEmissive)
 {
 	if (!IsEffectOK()) { assert(false); return; }	// エフェクト未使用
 
-	// 変数を宣言
 	D3DXVECTOR4 emissive = D3DXVECTOR4(rEmissive.r, rEmissive.g, rEmissive.b, rEmissive.a);	// 放射光
 
 	// エフェクトに放射光を設定

@@ -100,12 +100,9 @@ bool collision::Circle2D
 	float *pLength			// 判定目標との距離
 )
 {
-	// 変数を宣言
-	float fLength  = 0.0f;	// 判定位置と判定目標位置の間の距離
-
 	// 判定位置と判定目標位置の距離を求める
-	fLength = (centerPos.x - targetPos.x) * (centerPos.x - targetPos.x)
-			+ (centerPos.z - targetPos.z) * (centerPos.z - targetPos.z);
+	float fLength = (centerPos.x - targetPos.x) * (centerPos.x - targetPos.x)
+				  + (centerPos.z - targetPos.z) * (centerPos.z - targetPos.z);
 
 	if (pLength != nullptr)
 	{ // ポインタが使用されている場合
@@ -136,13 +133,10 @@ bool collision::Circle3D
 	float fTargetRadius		// 判定目標半径
 )
 {
-	// 変数を宣言
-	float fLength  = 0.0f;	// 判定位置と判定目標位置の間の距離
-
 	// 判定位置と判定目標位置の距離を求める
-	fLength = (centerPos.x - targetPos.x) * (centerPos.x - targetPos.x)
-			+ (centerPos.y - targetPos.y) * (centerPos.y - targetPos.y)
-			+ (centerPos.z - targetPos.z) * (centerPos.z - targetPos.z);
+	float fLength = (centerPos.x - targetPos.x) * (centerPos.x - targetPos.x)
+				  + (centerPos.y - targetPos.y) * (centerPos.y - targetPos.y)
+				  + (centerPos.z - targetPos.z) * (centerPos.z - targetPos.z);
 
 	if (fLength < ((fCenterRadius + fTargetRadius) * (fCenterRadius + fTargetRadius)))
 	{ // 判定内の場合
@@ -168,20 +162,11 @@ bool collision::Sector
 	float *pLength			// 判定目標との距離
 )
 {
-	// 変数を宣言
-	bool  bHit = false;		// 当たり判定の結果
-	float fLength;			// 中心位置と目標位置の距離
-	float fHalfAngle;		// 引数の角度の半分の値の代入用
-	D3DXVECTOR3 vecToPos;	// 左端と位置のベクトル
-
-	// 変数配列を宣言
-	float fRotEdge[2];		// 扇形の縁の角度     [※] 0：左 1：右
-	D3DXVECTOR3 posEdge[2];	// 扇形の縁の先端位置 [※] 0：左 1：右
-	D3DXVECTOR3 vecEdge[2];	// 扇形の縁ベクトル   [※] 0：左 1：右
+	bool bHit = false;	// 当たり判定の結果
 
 	// 中心位置と目標位置の距離求める
-	fLength = (centerPos.x - targetPos.x) * (centerPos.x - targetPos.x)
-			+ (centerPos.z - targetPos.z) * (centerPos.z - targetPos.z);
+	float fLength = (centerPos.x - targetPos.x) * (centerPos.x - targetPos.x)
+				  + (centerPos.z - targetPos.z) * (centerPos.z - targetPos.z);
 
 	if (pLength != nullptr)
 	{ // ポインタが使用されている場合
@@ -193,8 +178,12 @@ bool collision::Sector
 	if (fLength < fRadius * fRadius)
 	{ // 円の範囲内の場合
 
+		float fRotEdge[2];		// 扇形の縁の角度     [※] 0：左 1：右
+		D3DXVECTOR3 posEdge[2];	// 扇形の縁の先端位置 [※] 0：左 1：右
+		D3DXVECTOR3 vecEdge[2];	// 扇形の縁ベクトル   [※] 0：左 1：右
+
 		// 引数の角度の半分の値を求める
-		fHalfAngle = fAngle * 0.5f;
+		float fHalfAngle = fAngle * 0.5f;
 
 		// 扇形の左縁の角度を求める
 		fRotEdge[0] = fCenterRot + fHalfAngle;	// 角度を左に傾ける
@@ -223,7 +212,7 @@ bool collision::Sector
 		vecEdge[1].y = 0.0f;
 
 		// 左端と位置のベクトルを求める
-		vecToPos = targetPos - centerPos;
+		D3DXVECTOR3 vecToPos = targetPos - centerPos;
 
 		if ((vecEdge[0].z * vecToPos.x) - (vecEdge[0].x * vecToPos.z) < 0
 		&&  (vecEdge[1].z * vecToPos.x) - (vecEdge[1].x * vecToPos.z) > 0)
@@ -397,20 +386,15 @@ bool collision::CirclePillar
 	float fTargetRadius			// 判定目標半径
 )
 {
-	// 変数を宣言
-	float fLength = 0.0f;	// 判定位置と判定目標位置の間の距離
-
 	// 判定位置と判定目標位置の距離を求める
-	fLength = (rCenterPos.x - targetPos.x) * (rCenterPos.x - targetPos.x)
-			+ (rCenterPos.z - targetPos.z) * (rCenterPos.z - targetPos.z);
+	float fLength = (rCenterPos.x - targetPos.x) * (rCenterPos.x - targetPos.x)
+				  + (rCenterPos.z - targetPos.z) * (rCenterPos.z - targetPos.z);
 
 	if (fLength < (fCenterRadius + fTargetRadius) * (fCenterRadius + fTargetRadius))
 	{ // 判定内の場合
 
-		// 変数を宣言
-		float fCenterRot = atan2f(rCenterPos.x - targetPos.x, rCenterPos.z - targetPos.z);	// 判定目標から見た判定向き
-
 		// 位置を補正
+		float fCenterRot = atan2f(rCenterPos.x - targetPos.x, rCenterPos.z - targetPos.z);	// 判定目標から見た判定向き
 		rCenterPos.x = targetPos.x + sinf(fCenterRot) * (fCenterRadius + fTargetRadius);
 		rCenterPos.z = targetPos.z + cosf(fCenterRot) * (fCenterRadius + fTargetRadius);
 
@@ -440,10 +424,8 @@ bool collision::ResponseBox3D
 	bool *pDown			// 下からの判定
 )
 {
-	// 変数を宣言
-	bool bHit = false;	// 衝突判定結果
-
 	// 左右の当たり判定
+	bool bHit = false;	// 衝突判定結果
 	if (rCenterPos.y + rCenterSizeUp.y   > rTargetPos.y - rTargetSizeDown.y
 	&&  rCenterPos.y - rCenterSizeDown.y < rTargetPos.y + rTargetSizeUp.y
 	&&  rCenterPos.z + rCenterSizeUp.z   > rTargetPos.z - rTargetSizeDown.z
@@ -629,18 +611,14 @@ bool collision::ResponseCircle3D
 	float fTargetRadius			// 判定目標半径
 )
 {
-	// 変数を宣言
-	float fLength = 0.0f;	// 判定位置と判定目標位置の間の距離
-
 	// 判定位置と判定目標位置の距離を求める
-	fLength = (rCenterPos.x - targetPos.x) * (rCenterPos.x - targetPos.x)
-			+ (rCenterPos.y - targetPos.y) * (rCenterPos.y - targetPos.y)
-			+ (rCenterPos.z - targetPos.z) * (rCenterPos.z - targetPos.z);
+	float fLength = (rCenterPos.x - targetPos.x) * (rCenterPos.x - targetPos.x)
+				  + (rCenterPos.y - targetPos.y) * (rCenterPos.y - targetPos.y)
+				  + (rCenterPos.z - targetPos.z) * (rCenterPos.z - targetPos.z);
 
 	if (fLength < ((fCenterRadius + fTargetRadius) * (fCenterRadius + fTargetRadius)))
 	{ // 判定内の場合
 
-		// 変数を宣言
 		D3DXVECTOR3 vecRev = rCenterPos - targetPos;	// 補正方向
 		D3DXVECTOR3 sphere;	// 球座標
 		float fPhi, fTheta;	// 方位角・仰角
@@ -672,14 +650,12 @@ bool collision::ResponseCapsule3D
 	float fTargetHeight			// 判定目標縦幅
 )
 {
-	// 変数を宣言
 	bool bHit = false;	// 衝突判定結果
 	float fHalfHeight = (fTargetHeight - (fTargetRadius * 2.0f)) * 0.5f;			// 円柱縦幅の半分
 	D3DXVECTOR3 centUp   = *pCenterPos + D3DXVECTOR3(0.0f, fCenterRadius, 0.0f);	// 判定位置の上
 	D3DXVECTOR3 centDown = *pCenterPos - D3DXVECTOR3(0.0f, fCenterRadius, 0.0f);	// 判定位置の下
 	D3DXVECTOR3 targUp   = rTargetPos + D3DXVECTOR3(0.0f, fHalfHeight, 0.0f);		// 判定目標位置の上
 	D3DXVECTOR3 targDown = rTargetPos - D3DXVECTOR3(0.0f, fHalfHeight, 0.0f);		// 判定目標位置の下
-
 	if (centDown.y >= targUp.y)
 	{ // 円柱判定の上側にいる場合
 
@@ -738,10 +714,8 @@ bool collision::ResponseSingleX
 	bool *pRight		// 右からの判定
 )
 {
-	// 変数を宣言
-	bool bHit = false;	// 衝突判定結果
-
 	// 左右の当たり判定
+	bool bHit = false;	// 衝突判定結果
 	if (rCenterPos.y + centerSizeUp.y   > targetPos.y - targetSizeDown.y
 	&&  rCenterPos.y - centerSizeDown.y < targetPos.y + targetSizeUp.y
 	&&  rCenterPos.z + centerSizeUp.z   > targetPos.z - targetSizeDown.z
@@ -819,10 +793,8 @@ bool collision::ResponseSingleY
 	bool *pUp			// 上からの判定
 )
 {
-	// 変数を宣言
-	bool bHit = false;	// 衝突判定結果
-
 	// 上下の当たり判定
+	bool bHit = false;	// 衝突判定結果
 	if (rCenterPos.x + centerSizeUp.x   > targetPos.x - targetSizeDown.x
 	&&  rCenterPos.x - centerSizeDown.x < targetPos.x + targetSizeUp.x
 	&&  rCenterPos.z + centerSizeUp.z   > targetPos.z - targetSizeDown.z
@@ -900,10 +872,8 @@ bool collision::ResponseSingleZ
 	bool *pAfter		// 後からの判定
 )
 {
-	// 変数を宣言
-	bool bHit = false;	// 衝突判定結果
-
 	// 前後の当たり判定
+	bool bHit = false;	// 衝突判定結果
 	if (rCenterPos.x + centerSizeUp.x   > targetPos.x - targetSizeDown.x
 	&&  rCenterPos.x - centerSizeDown.x < targetPos.x + targetSizeUp.x
 	&&  rCenterPos.y + centerSizeUp.y   > targetPos.y - targetSizeDown.y
@@ -1045,20 +1015,15 @@ bool collision::InCirclePillar
 	float fOriginRadius			// 判定原点半径
 )
 {
-	// 変数を宣言
-	float fLength = 0.0f;	// 判定位置と判定目標位置の間の距離
-
 	// 判定位置と判定目標位置の距離を求める
-	fLength = (rCenterPos.x - originPos.x) * (rCenterPos.x - originPos.x)
-			+ (rCenterPos.z - originPos.z) * (rCenterPos.z - originPos.z);
+	float fLength = (rCenterPos.x - originPos.x) * (rCenterPos.x - originPos.x)
+				  + (rCenterPos.z - originPos.z) * (rCenterPos.z - originPos.z);
 
 	if (fLength > (fOriginRadius - fCenterRadius) * (fOriginRadius - fCenterRadius))
 	{ // 判定外の場合
 
-		// 変数を宣言
-		float fCenterRot = atan2f(rCenterPos.x - originPos.x, rCenterPos.z - originPos.z);	// 判定目標から見た判定向き
-
 		// 位置を補正
+		float fCenterRot = atan2f(rCenterPos.x - originPos.x, rCenterPos.z - originPos.z);	// 判定目標から見た判定向き
 		rCenterPos.x = originPos.x + sinf(fCenterRot) * (fOriginRadius - fCenterRadius);
 		rCenterPos.z = originPos.z + cosf(fCenterRot) * (fOriginRadius - fCenterRadius);
 
@@ -1082,15 +1047,11 @@ float collision::LineOuterProduct
 	D3DXVECTOR3 pos			// 判定位置
 )
 {
-	// 変数を宣言
-	D3DXVECTOR3 vecLine;	// 境界線ベクトル
-	D3DXVECTOR3 vecToPos;	// 左端と位置のベクトル
-
 	// 境界線ベクトルを求める
-	vecLine = posRight - posLeft;
+	D3DXVECTOR3 vecLine = posRight - posLeft;
 
 	// 左端と位置のベクトルを求める
-	vecToPos = pos - posLeft;
+	D3DXVECTOR3 vecToPos = pos - posLeft;
 
 	// 外積の計算結果を返す
 	return (vecLine.z * vecToPos.x) - (vecLine.x * vecToPos.z);
@@ -1108,15 +1069,11 @@ float collision::LineHeightOuterProduct
 	D3DXVECTOR3 pos			// 判定位置
 )
 {
-	// 変数を宣言
-	D3DXVECTOR3 vecLine;	// 境界線ベクトル
-	D3DXVECTOR3 vecToPos;	// 左端と位置のベクトル
-
 	// 境界線ベクトルを求める
-	vecLine = posRight - posLeft;
+	D3DXVECTOR3 vecLine = posRight - posLeft;
 
 	// 左端と位置のベクトルを求める
-	vecToPos = pos - posLeft;
+	D3DXVECTOR3 vecToPos = pos - posLeft;
 
 	// 外積の計算結果を返す
 	return (vecLine.y * vecToPos.x) - (vecLine.x * vecToPos.y);

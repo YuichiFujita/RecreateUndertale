@@ -616,9 +616,7 @@ void CObject::DeathAll(void)
 #ifdef _DEBUG
 void CObject::SetEnableDebugDispAll(const bool bDisp2D, const bool bDisp3D)
 {
-	// •Ï”‚ğéŒ¾
 	bool aDisp[DIM_MAX] = { bDisp3D, bDisp2D };	// ŠeŸŒ³‚Ì•\¦ó‹µ
-
 	for (int nCntDim = 0; nCntDim < DIM_MAX; nCntDim++)
 	{ // ŸŒ³‚Ì‘”•ªŒJ‚è•Ô‚·
 

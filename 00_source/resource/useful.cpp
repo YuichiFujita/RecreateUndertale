@@ -29,9 +29,7 @@ void useful::DivideDigitNum
 	const int nMaxDigit	// 分解する数字の桁数
 )
 {
-	// 変数を宣言
 	int nDigit = 1;	// 各桁の数値の計算用
-
 	for (int nCntDigit = 0; nCntDigit < nMaxDigit; nCntDigit++)
 	{ // 桁の最大数分繰り返す
 
@@ -61,7 +59,6 @@ void useful::NormalizeNormal
 	D3DXVECTOR3& rNor				// 法線
 )
 {
-	// 変数を宣言
 	D3DXVECTOR3 vecLine[2];	// 辺ベクトル
 
 	// 辺ベクトルを求める

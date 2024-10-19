@@ -59,7 +59,6 @@ CSound::~CSound()
 //============================================================
 HRESULT CSound::Init(HWND hWnd)
 {
-	// 変数を宣言
 	HRESULT hr;	// 終了確認用
 
 	// メンバ変数を初期化
@@ -260,7 +259,6 @@ HRESULT CSound::LoadAll(HWND hWnd)
 //============================================================
 HRESULT CSound::Play(ELabel label)
 {
-	// 変数を宣言
 	XAUDIO2_VOICE_STATE xa2state;
 	XAUDIO2_BUFFER buffer;
 
@@ -297,7 +295,6 @@ HRESULT CSound::Play(ELabel label)
 //============================================================
 void CSound::Stop(ELabel label)
 {
-	// 変数を宣言
 	XAUDIO2_VOICE_STATE xa2state;
 
 	// 状態取得
@@ -346,7 +343,6 @@ void CSound::Stop(void)
 //============================================================
 void CSound::SetVolume(const ELabel label, float fVolume)
 {
-	// 変数を宣言
 	XAUDIO2_VOICE_STATE xa2state;
 
 	// 状態取得
@@ -365,7 +361,6 @@ void CSound::SetVolume(const ELabel label, float fVolume)
 //============================================================
 float CSound::GetVolume(const ELabel label) const
 {
-	// 変数を宣言
 	float fVolume = 0.0f;	// 音量
 
 	// 音量を取得
@@ -380,7 +375,6 @@ float CSound::GetVolume(const ELabel label) const
 //============================================================
 void CSound::SetFrequency(const ELabel label, float fFreq)
 {
-	// 変数を宣言
 	XAUDIO2_VOICE_STATE xa2state;
 
 	// 状態取得
@@ -398,7 +392,6 @@ void CSound::SetFrequency(const ELabel label, float fFreq)
 //============================================================
 float CSound::GetFrequency(const ELabel label) const
 {
-	// 変数を宣言
 	float fFreq = 0.0f;	// 周波数
 
 	// 周波数を取得
@@ -455,7 +448,6 @@ void CSound::Release(CSound *&prSound)
 //============================================================
 HRESULT CSound::CheckChunk(HANDLE hFile, DWORD format, DWORD *pChunkSize, DWORD *pChunkDataPosition)
 {
-	// 変数を宣言
 	HRESULT hr = S_OK;	// 終了確認用
 	DWORD dwRead;
 	DWORD dwChunkType;
@@ -464,7 +456,6 @@ HRESULT CSound::CheckChunk(HANDLE hFile, DWORD format, DWORD *pChunkSize, DWORD 
 	DWORD dwFileType;
 	DWORD dwBytesRead = 0;
 	DWORD dwOffset = 0;
-	
 	if (SetFilePointer(hFile, 0, nullptr, FILE_BEGIN) == INVALID_SET_FILE_POINTER)
 	{ // ファイルポインタを先頭に移動
 
@@ -533,9 +524,7 @@ HRESULT CSound::CheckChunk(HANDLE hFile, DWORD format, DWORD *pChunkSize, DWORD 
 //============================================================
 HRESULT CSound::ReadChunkData(HANDLE hFile, void *pBuffer, DWORD dwBuffersize, DWORD dwBufferoffset)
 {
-	// 変数を宣言
 	DWORD dwRead;
-	
 	if (SetFilePointer(hFile, dwBufferoffset, nullptr, FILE_BEGIN) == INVALID_SET_FILE_POINTER)
 	{ // ファイルポインタを指定位置まで移動
 

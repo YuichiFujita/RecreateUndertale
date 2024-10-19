@@ -519,9 +519,7 @@ void CObjectMeshField::SetGapPosition(const int nID, const D3DXVECTOR3& rPos)
 //============================================================
 D3DXVECTOR3 CObjectMeshField::GetGapPosition(const int nID)
 {
-	// 変数を宣言
 	D3DXVECTOR3 pos = VEC3_ZERO;	// 頂点のずれの代入用
-
 	if (m_pPosGapBuff != nullptr)
 	{ // 使用中の場合
 
@@ -563,9 +561,7 @@ void CObjectMeshField::NormalizeNormal(void)
 		for (int nCntWidth = 0; nCntWidth < m_part.x + 1; nCntWidth++)
 		{ // 横の分割数 +1回繰り返す
 
-			// 変数を宣言
 			int nNumVtx = nCntWidth + (nCntHeight * (m_part.x + 1));	// 現在の頂点番号
-
 			if (nNumVtx == 0)
 			{ // 頂点番号が左上の場合
 
@@ -710,9 +706,7 @@ void CObjectMeshField::NormalizeNormal(void)
 	for (int nCntVtx = 0; nCntVtx < m_nNumVtx; nCntVtx++)
 	{ // 頂点数分繰り返す
 
-		// 変数を宣言
 		D3DXVECTOR3 nor = VEC3_ZERO;	// 法線設定用
-
 		for (int nCntNor = 0; nCntNor < m_pNumNorBuff[nCntVtx]; nCntNor++)
 		{ // 設定されている法線数分繰り返す
 
@@ -742,9 +736,7 @@ void CObjectMeshField::NormalizeNormal(void)
 //============================================================
 bool CObjectMeshField::LandPosition(D3DXVECTOR3& rPos, D3DXVECTOR3& rMove)
 {
-	// 変数を宣言
 	float fLandHeight = GetPositionHeight(rPos);	// 着地位置
-
 	if (rPos.y < fLandHeight)
 	{ // 位置が地面より下の場合
 
@@ -854,7 +846,6 @@ D3DXVECTOR3 CObjectMeshField::GetMeshVertexPosition(const int nID)
 //============================================================
 bool CObjectMeshField::IsPositionRange(const D3DXVECTOR3&rPos)
 {
-	// 変数配列を宣言
 	D3DXVECTOR3 aVtxPos[4];		// ポリゴンの頂点座標
 	D3DXVECTOR3 aVtxMtxPos[4];	// ポリゴンの位置・向き反映を行った頂点座標
 
@@ -867,7 +858,6 @@ bool CObjectMeshField::IsPositionRange(const D3DXVECTOR3&rPos)
 	for (int nCntVtx = 0; nCntVtx < 4; nCntVtx++)
 	{ // 三角形ポリゴンの頂点数分繰り返す
 
-		// 変数を宣言
 		MATRIX mtxWorld, mtxRot, mtxTrans;	// 計算用マトリックス
 
 		// ワールドマトリックスの初期化
@@ -898,25 +888,19 @@ bool CObjectMeshField::IsPositionRange(const D3DXVECTOR3&rPos)
 //============================================================
 float CObjectMeshField::GetPositionHeight(const D3DXVECTOR3& rPos)
 {
-	// 変数を宣言
 	int nWidth  = (int)(( rPos.x + m_meshField.size.x * 0.5f) / (m_meshField.size.x / m_part.x));	// 横の分割位置
 	int nHeight = (int)((-rPos.z + m_meshField.size.y * 0.5f) / (m_meshField.size.y / m_part.y));	// 縦の分割位置
 	int nNumVtx = nWidth + (nHeight * (m_part.x + 1));	// 分割位置の左上頂点番号
-	D3DXVECTOR3 nor;	// 法線ベクトル
-
-	// 変数配列を宣言
+	D3DXVECTOR3 nor;		// 法線ベクトル
 	D3DXVECTOR3 aVtxPos[4];	// ポリゴンの頂点座標
 
 	for (int nCntHeight = 0; nCntHeight < 3; nCntHeight++)
 	{ // 縦の判定確認数分繰り返す
 
-		// 変数を宣言
 		int nColl = -(m_part.x + 2) + (nCntHeight * (m_part.x + 1));	// 判定する頂点番号の変更用
-
 		for (int nCntWidth = 0; nCntWidth < 3; nCntWidth++)
 		{ // 横の判定確認数分繰り返す
 
-			// 変数配列を宣言
 			int aVtxNum[4] =	// 頂点番号
 			{ // 初期化
 				nColl + nNumVtx + m_part.x + 1,	// 左下
@@ -977,16 +961,12 @@ float CObjectMeshField::GetPositionHeight(const D3DXVECTOR3& rPos)
 //============================================================
 float CObjectMeshField::GetPositionRotateHeight(const D3DXVECTOR3&rPos)
 {
-	// 変数を宣言
 	int nNumCul;		// 法線ベクトル用の頂点計算用
 	int nNumVtx;		// 法線を求める頂点番号
 	D3DXVECTOR3 nor;	// 法線ベクトル
 	D3DXVECTOR3 pos;	// ターゲット位置
-
-	// 変数配列を宣言
 	D3DXVECTOR3 aVtxPos[NUM_VTX_TRIANGLE];		// ポリゴンの頂点座標
 	D3DXVECTOR3 aVtxMtxPos[NUM_VTX_TRIANGLE];	// ポリゴンの位置・向き反映を行った頂点座標
-
 	for (int nCntVtx = 0; nCntVtx < 2; nCntVtx++)
 	{ // 四角ポリゴンに使用する三角の数分繰り返す
 
@@ -1016,7 +996,6 @@ float CObjectMeshField::GetPositionRotateHeight(const D3DXVECTOR3&rPos)
 					for (int nCntTriangle = 0; nCntTriangle < NUM_VTX_TRIANGLE; nCntTriangle++)
 					{ // 三角形ポリゴンの頂点数分繰り返す
 
-						// 変数を宣言
 						MATRIX mtxWorld, mtxRot, mtxTrans;	// 計算用マトリックス
 
 						// ワールドマトリックスの初期化
@@ -1258,7 +1237,6 @@ void CObjectMeshField::DrawShader(CShader *pShader)
 //============================================================
 D3DXVECTOR3 CObjectMeshField::GetNormalLeft(VERTEX_3D *pVtx)
 {
-	// 変数を宣言
 	D3DXVECTOR3 nor;	// 法線代入用
 
 	// 法線の正規化
@@ -1279,7 +1257,6 @@ D3DXVECTOR3 CObjectMeshField::GetNormalLeft(VERTEX_3D *pVtx)
 //============================================================
 D3DXVECTOR3 CObjectMeshField::GetNormalLeftTop(VERTEX_3D *pVtx)
 {
-	// 変数を宣言
 	D3DXVECTOR3 nor;	// 法線代入用
 
 	// 法線の正規化
@@ -1300,7 +1277,6 @@ D3DXVECTOR3 CObjectMeshField::GetNormalLeftTop(VERTEX_3D *pVtx)
 //============================================================
 D3DXVECTOR3 CObjectMeshField::GetNormalLeftBottom(VERTEX_3D *pVtx)
 {
-	// 変数を宣言
 	D3DXVECTOR3 nor;	// 法線代入用
 
 	// 法線の正規化
@@ -1321,7 +1297,6 @@ D3DXVECTOR3 CObjectMeshField::GetNormalLeftBottom(VERTEX_3D *pVtx)
 //============================================================
 D3DXVECTOR3 CObjectMeshField::GetNormalRight(VERTEX_3D *pVtx)
 {
-	// 変数を宣言
 	D3DXVECTOR3 nor;	// 法線代入用
 
 	// 法線の正規化
@@ -1342,7 +1317,6 @@ D3DXVECTOR3 CObjectMeshField::GetNormalRight(VERTEX_3D *pVtx)
 //============================================================
 D3DXVECTOR3 CObjectMeshField::GetNormalRightTop(VERTEX_3D *pVtx)
 {
-	// 変数を宣言
 	D3DXVECTOR3 nor;	// 法線代入用
 
 	// 法線の正規化
@@ -1363,7 +1337,6 @@ D3DXVECTOR3 CObjectMeshField::GetNormalRightTop(VERTEX_3D *pVtx)
 //============================================================
 D3DXVECTOR3 CObjectMeshField::GetNormalRightBottom(VERTEX_3D *pVtx)
 {
-	// 変数を宣言
 	D3DXVECTOR3 nor;	// 法線代入用
 
 	// 法線の正規化

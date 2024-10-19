@@ -95,7 +95,6 @@ HRESULT CTexture::LoadAll(void)
 //============================================================
 int CTexture::Regist(const SInfo info)
 {
-	// 変数を宣言
 	HRESULT  hr;			// 異常終了の確認用
 	SMapInfo tempMapInfo;	// マップ情報
 	int nID = m_nNumAll;	// テクスチャ読込番号
@@ -155,7 +154,6 @@ int CTexture::Regist(const SInfo info)
 //============================================================
 int CTexture::Regist(std::string sFilePath)
 {
-	// 変数を宣言
 	HRESULT  hr;			// 異常終了の確認用
 	SMapInfo tempMapInfo;	// マップ情報
 	int nID = m_nNumAll;	// テクスチャ読込番号
@@ -355,7 +353,6 @@ void CTexture::Release(CTexture *&prTexture)
 //============================================================
 HRESULT CTexture::SearchFolderAll(std::string sFolderPath)
 {
-	// 変数を宣言
 	HANDLE hFile;	// 検索ハンドル
 	WIN32_FIND_DATA findFileData;	// ファイル情報
 

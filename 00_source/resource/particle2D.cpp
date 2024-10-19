@@ -259,10 +259,8 @@ void CParticle2D::SetType(const EType type)
 //============================================================
 void CParticle2D::Damage(const D3DXVECTOR3& rPos, const COLOR& rCol)
 {
-	// 変数を宣言
 	D3DXVECTOR3 move = VEC3_ZERO;	// 移動量の代入用
 	D3DXVECTOR3 rot = VEC3_ZERO;	// 向きの代入用
-
 	if ((m_nLife + 1) % 9 == 0)
 	{ // 寿命が9の倍数の場合
 
@@ -308,10 +306,8 @@ void CParticle2D::Damage(const D3DXVECTOR3& rPos, const COLOR& rCol)
 //============================================================
 void CParticle2D::Item(const D3DXVECTOR3& rPos, const COLOR& rCol)
 {
-	// 変数を宣言
 	D3DXVECTOR3 move = VEC3_ZERO;	// 移動量の代入用
 	D3DXVECTOR3 rot = VEC3_ZERO;	// 向きの代入用
-
 	for (int nCntPart = 0; nCntPart < item::SPAWN; nCntPart++)
 	{ // 生成されるエフェクト数分繰り返す
 
@@ -353,10 +349,8 @@ void CParticle2D::Item(const D3DXVECTOR3& rPos, const COLOR& rCol)
 //============================================================
 void CParticle2D::GetItem(const D3DXVECTOR3& rPos, const COLOR& rCol)
 {
-	// 変数を宣言
 	D3DXVECTOR3 move = VEC3_ZERO;	// 移動量の代入用
 	D3DXVECTOR3 rot = VEC3_ZERO;	// 向きの代入用
-
 	for (int nCntPart = 0; nCntPart < itemGet::SPAWN; nCntPart++)
 	{ // 生成されるエフェクト数分繰り返す
 
