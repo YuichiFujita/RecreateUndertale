@@ -86,13 +86,25 @@ struct VECTOR2 : public D3DXVECTOR2
 	// コンストラクタ継承
 	using D3DXVECTOR2::D3DXVECTOR2;
 
+	// 演算子オーバーライド再公開
+	using D3DXVECTOR2::operator+=;
+	using D3DXVECTOR2::operator-=;
+	using D3DXVECTOR2::operator*=;
+	using D3DXVECTOR2::operator/=;
+	using D3DXVECTOR2::operator+;
+	using D3DXVECTOR2::operator-;
+	using D3DXVECTOR2::operator*;
+	using D3DXVECTOR2::operator/;
+	using D3DXVECTOR2::operator==;
+	using D3DXVECTOR2::operator!=;
+
 	// デフォルトコンストラクタ
 	VECTOR2() : D3DXVECTOR2(0.0f, 0.0f) {}
 
 	// 引数付きコンストラクタ
-	VECTOR2(const float XY) : D3DXVECTOR2(XY, XY) {}
-	VECTOR2(const D3DXVECTOR2& VEC2) : D3DXVECTOR2(VEC2.x, VEC2.y) {}
-	VECTOR2(const D3DXVECTOR3& VEC3) : D3DXVECTOR2(VEC3.x, VEC3.y) {}
+	VECTOR2(const float XY)				: D3DXVECTOR2(XY, XY)			{}
+	VECTOR2(const D3DXVECTOR2& VEC2)	: D3DXVECTOR2(VEC2.x, VEC2.y)	{}
+	VECTOR2(const D3DXVECTOR3& VEC3)	: D3DXVECTOR2(VEC3.x, VEC3.y)	{}
 
 	// デストラクタ
 	~VECTOR2() {}
@@ -175,13 +187,25 @@ struct VECTOR3 : public D3DXVECTOR3
 	// コンストラクタ継承
 	using D3DXVECTOR3::D3DXVECTOR3;
 
+	// 演算子オーバーライド再公開
+	using D3DXVECTOR3::operator+=;
+	using D3DXVECTOR3::operator-=;
+	using D3DXVECTOR3::operator*=;
+	using D3DXVECTOR3::operator/=;
+	using D3DXVECTOR3::operator+;
+	using D3DXVECTOR3::operator-;
+	using D3DXVECTOR3::operator*;
+	using D3DXVECTOR3::operator/;
+	using D3DXVECTOR3::operator==;
+	using D3DXVECTOR3::operator!=;
+
 	// デフォルトコンストラクタ
 	VECTOR3() : D3DXVECTOR3(0.0f, 0.0f, 0.0f) {}
 
 	// 引数付きコンストラクタ
-	VECTOR3(const float XYZ) : D3DXVECTOR3(XYZ, XYZ, XYZ) {}
-	VECTOR3(const VECTOR3& VEC3) : D3DXVECTOR3(VEC3.x, VEC3.y, VEC3.z) {}
-	VECTOR3(const VECTOR2& VEC2) : D3DXVECTOR3(VEC2.x, VEC2.y, 0.0f) {}
+	VECTOR3(const float XYZ)			: D3DXVECTOR3(XYZ, XYZ, XYZ)			{}
+	VECTOR3(const D3DXVECTOR3& VEC3)	: D3DXVECTOR3(VEC3.x, VEC3.y, VEC3.z)	{}
+	VECTOR3(const D3DXVECTOR2& VEC2)	: D3DXVECTOR3(VEC2.x, VEC2.y, 0.0f)		{}
 
 	// デストラクタ
 	~VECTOR3() {}
@@ -269,8 +293,8 @@ struct POSGRID2
 	POSGRID2() : x(0), y(0) {}
 
 	// 引数付きコンストラクタ
-	POSGRID2(const int XY) : x(XY), y(XY) {}
-	POSGRID2(const int X, const int Y) : x(X), y(Y) {}
+	POSGRID2(const int XY)				: x(XY), y(XY)	{}
+	POSGRID2(const int X, const int Y)	: x(X), y(Y)	{}
 
 	// デストラクタ
 	~POSGRID2() {}
@@ -400,8 +424,8 @@ struct POSGRID3
 	POSGRID3() : x(0), y(0), z(0) {}
 
 	// 引数付きコンストラクタ
-	POSGRID3(const int XYZ) : x(XYZ), y(XYZ), z(XYZ) {}
-	POSGRID3(const int X, const int Y, const int Z) : x(X), y(Y), z(Z) {}
+	POSGRID3(const int XYZ)							: x(XYZ), y(XYZ), z(XYZ)	{}
+	POSGRID3(const int X, const int Y, const int Z)	: x(X), y(Y), z(Z)			{}
 
 	// デストラクタ
 	~POSGRID3() {}
@@ -539,6 +563,18 @@ struct MATRIX : public D3DXMATRIX
 	// コンストラクタ継承
 	using D3DXMATRIX::D3DXMATRIX;
 
+	// 演算子オーバーライド再公開
+	using D3DXMATRIX::operator+=;
+	using D3DXMATRIX::operator-=;
+	using D3DXMATRIX::operator*=;
+	using D3DXMATRIX::operator/=;
+	using D3DXMATRIX::operator+;
+	using D3DXMATRIX::operator-;
+	using D3DXMATRIX::operator*;
+	using D3DXMATRIX::operator/;
+	using D3DXMATRIX::operator==;
+	using D3DXMATRIX::operator!=;
+
 	// デフォルトコンストラクタ
 	MATRIX() : D3DXMATRIX(1.0f, 0.0f, 0.0f, 0.0f,
 						  0.0f, 1.0f, 0.0f, 0.0f,
@@ -662,13 +698,25 @@ struct COLOR : public D3DXCOLOR
 	// コンストラクタ継承
 	using D3DXCOLOR::D3DXCOLOR;
 
+	// 演算子オーバーライド再公開
+	using D3DXCOLOR::operator+=;
+	using D3DXCOLOR::operator-=;
+	using D3DXCOLOR::operator*=;
+	using D3DXCOLOR::operator/=;
+	using D3DXCOLOR::operator+;
+	using D3DXCOLOR::operator-;
+	using D3DXCOLOR::operator*;
+	using D3DXCOLOR::operator/;
+	using D3DXCOLOR::operator==;
+	using D3DXCOLOR::operator!=;
+
 	// デフォルトコンストラクタ
 	COLOR() : D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f) {}
 
 	// 引数付きコンストラクタ
-	COLOR(const float ALL) : D3DXCOLOR(ALL, ALL, ALL, ALL) {}
-	COLOR(const float COL, const float ALPHA) : D3DXCOLOR(COL, COL, COL, ALPHA) {}
-	COLOR(const D3DXCOLOR& COL) : D3DXCOLOR(COL) {}
+	COLOR(const float ALL)						: D3DXCOLOR(ALL, ALL, ALL, ALL)		{}
+	COLOR(const float COL, const float ALPHA)	: D3DXCOLOR(COL, COL, COL, ALPHA)	{}
+	COLOR(const D3DXCOLOR& COL)					: D3DXCOLOR(COL)					{}
 
 	// デストラクタ
 	~COLOR() {}
