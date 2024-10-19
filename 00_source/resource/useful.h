@@ -666,13 +666,13 @@ struct MATRIX : public D3DXMATRIX
 		@brief	マトリックス位置の取得
 		@return	マトリックスの位置
 	*/
-	inline D3DXVECTOR3 GetPosition(void) { return D3DXVECTOR3(this->_41, this->_42, this->_43); }
+	inline D3DXVECTOR3 GetPosition(void) const { return D3DXVECTOR3(this->_41, this->_42, this->_43); }
 
 	/*
 		@brief	マトリックス向きの取得
 		@return	マトリックスの向き
 	*/
-	inline D3DXVECTOR3 GetRotation(void)
+	inline D3DXVECTOR3 GetRotation(void) const
 	{
 		float fYaw, fPitch, fRoll;	// 計算結果の保存用
 		float fCosPitch;			// 向き計算用
@@ -703,7 +703,7 @@ struct MATRIX : public D3DXMATRIX
 		@brief	マトリックス拡大率の取得
 		@return	マトリックスの拡大率
 	*/
-	inline D3DXVECTOR3 GetScale(void)
+	inline D3DXVECTOR3 GetScale(void) const
 	{
 		D3DXVECTOR3 scale;
 		scale.x = sqrtf(this->_11 * this->_11 + this->_12 * this->_12 + this->_13 * this->_13);
