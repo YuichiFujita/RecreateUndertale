@@ -50,22 +50,22 @@
 #define PLAY_SOUND(label)	(CManager::GetInstance()->GetSound()->Play((CSound::ELabel)(label)))	// サウンド再生
 
 // VECTOR2関係
-#define VEC2_ZERO	(VECTOR2(0.0f, 0.0f))	// 0クリア
-#define VEC2_ONE	(VECTOR2(1.0f, 1.0f))	// 1クリア
+#define VEC2_ZERO	(VECTOR2())		// 0クリア
+#define VEC2_ONE	(VECTOR2(1.0f))	// 1クリア
 
 // VECTOR3関係
-#define VEC3_ZERO	(VECTOR3(0.0f, 0.0f, 0.0f))	// 0クリア
-#define VEC3_ONE	(VECTOR3(1.0f, 1.0f, 1.0f))	// 1クリア
+#define VEC3_ZERO	(VECTOR3())		// 0クリア
+#define VEC3_ONE	(VECTOR3(1.0f))	// 1クリア
 #define SCREEN_CENT	(VECTOR3(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f, 0.0f))	// ウインドウの中央座標
 #define SCREEN_SIZE	(VECTOR3((float)SCREEN_WIDTH, (float)SCREEN_HEIGHT, 0.0f))	// ウインドウの画面サイズ
 
 // POSGRID2関係
-#define GRID2_ZERO	(POSGRID2(0, 0))	// 0クリア
-#define GRID2_ONE	(POSGRID2(1, 1))	// 1クリア
+#define GRID2_ZERO	(POSGRID2())	// 0クリア
+#define GRID2_ONE	(POSGRID2(1))	// 1クリア
 
 // POSGRID3関係
-#define GRID3_ZERO	(POSGRID3(0, 0, 0))	// 0クリア
-#define GRID3_ONE	(POSGRID3(1, 1, 1))	// 1クリア
+#define GRID3_ZERO	(POSGRID3())	// 0クリア
+#define GRID3_ONE	(POSGRID3(1))	// 1クリア
 
 // MATRIX関係
 #define MTX_IDENT	(MATRIX())	// 単位マトリックスクリア
