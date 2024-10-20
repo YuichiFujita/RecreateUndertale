@@ -404,10 +404,10 @@ float CSound::GetFrequency(const ELabel label) const
 //============================================================
 //	生成処理
 //============================================================
-CSound *CSound::Create(HWND hWnd)
+CSound* CSound::Create(HWND hWnd)
 {
 	// サウンドの生成
-	CSound *pSound = new CSound;
+	CSound* pSound = new CSound;
 	if (pSound == nullptr)
 	{ // 生成に失敗した場合
 
@@ -446,7 +446,7 @@ void CSound::Release(CSound*& prSound)
 //============================================================
 //	チャンクのチェック
 //============================================================
-HRESULT CSound::CheckChunk(HANDLE hFile, DWORD format, DWORD *pChunkSize, DWORD *pChunkDataPosition)
+HRESULT CSound::CheckChunk(HANDLE hFile, DWORD format, DWORD* pChunkSize, DWORD* pChunkDataPosition)
 {
 	HRESULT hr = S_OK;	// 終了確認用
 	DWORD dwRead;
@@ -522,7 +522,7 @@ HRESULT CSound::CheckChunk(HANDLE hFile, DWORD format, DWORD *pChunkSize, DWORD 
 //============================================================
 //	チャンクデータの読み込み
 //============================================================
-HRESULT CSound::ReadChunkData(HANDLE hFile, void *pBuffer, DWORD dwBuffersize, DWORD dwBufferoffset)
+HRESULT CSound::ReadChunkData(HANDLE hFile, void* pBuffer, DWORD dwBuffersize, DWORD dwBufferoffset)
 {
 	DWORD dwRead;
 	if (SetFilePointer(hFile, dwBufferoffset, nullptr, FILE_BEGIN) == INVALID_SET_FILE_POINTER)

@@ -39,7 +39,7 @@ public:
 	// サウンド情報構造体
 	struct SSoundInfo
 	{
-		const char *pFilename;	// ファイル名
+		const char* pFilename;	// ファイル名
 		int nCntLoop;			// ループカウント
 	};
 
@@ -56,19 +56,19 @@ public:
 	float GetFrequency(const ELabel label) const;		// 周波数取得
 
 	// 静的メンバ関数
-	static CSound *Create(HWND hWnd);		// 生成
+	static CSound* Create(HWND hWnd);		// 生成
 	static void Release(CSound*& pSound);	// 破棄
 
 private:
 	// メンバ関数
-	HRESULT CheckChunk(HANDLE hFile, DWORD format, DWORD *pChunkSize, DWORD *pChunkDataPosition);	// チャンクチェック
-	HRESULT ReadChunkData(HANDLE hFile, void *pBuffer, DWORD dwBuffersize, DWORD dwBufferoffset);	// チャンクデータ読込
+	HRESULT CheckChunk(HANDLE hFile, DWORD format, DWORD* pChunkSize, DWORD* pChunkDataPosition);	// チャンクチェック
+	HRESULT ReadChunkData(HANDLE hFile, void* pBuffer, DWORD dwBuffersize, DWORD dwBufferoffset);	// チャンクデータ読込
 
 	// メンバ変数
-	IXAudio2 *m_pXAudio2;								// XAudio2オブジェクトへのインターフェイス
-	IXAudio2MasteringVoice *m_pMasteringVoice;			// マスターボイス
-	IXAudio2SourceVoice *m_apSourceVoice[LABEL_MAX];	// ソースボイス
-	BYTE *m_apDataAudio[LABEL_MAX];						// オーディオデータ
+	IXAudio2* m_pXAudio2;								// XAudio2オブジェクトへのインターフェイス
+	IXAudio2MasteringVoice* m_pMasteringVoice;			// マスターボイス
+	IXAudio2SourceVoice* m_apSourceVoice[LABEL_MAX];	// ソースボイス
+	BYTE* m_apDataAudio[LABEL_MAX];						// オーディオデータ
 	DWORD m_aSizeAudio[LABEL_MAX];						// オーディオデータサイズ
 };
 

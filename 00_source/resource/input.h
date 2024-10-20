@@ -56,7 +56,7 @@ public:
 	void Update(void) override;	// 更新
 
 	// 静的メンバ関数
-	static CInputKeyboard *Create(HINSTANCE hInstance, HWND hWnd);	// 生成
+	static CInputKeyboard* Create(HINSTANCE hInstance, HWND hWnd);	// 生成
 	static void Release(CInputKeyboard*& pKeyboard);				// 破棄
 
 	// メンバ関数
@@ -102,7 +102,7 @@ public:
 	void Update(void) override;	// 更新
 
 	// 静的メンバ関数
-	static CInputMouse *Create(HINSTANCE hInstance, HWND hWnd);	// 生成
+	static CInputMouse* Create(HINSTANCE hInstance, HWND hWnd);	// 生成
 	static void Release(CInputMouse*& pMouse);					// 破棄
 
 	// メンバ関数
@@ -180,7 +180,7 @@ public:
 	};
 
 	// 静的メンバ関数
-	static CInputPad *Create(void);			// 生成
+	static CInputPad* Create(void);			// 生成
 	static void Release(CInputPad*& pPad);	// 破棄
 
 	// メンバ関数
@@ -213,7 +213,7 @@ public:
 
 private:
 	// メンバ関数
-	void UpdateVibration(SVibration *pVibration, int nPadID);	// バイブレーション更新
+	void UpdateVibration(SVibration* pVibration, int nPadID);	// バイブレーション更新
 
 	// メンバ変数
 	SVibration   m_aVibration[MAX_NUM];			// バイブ情報

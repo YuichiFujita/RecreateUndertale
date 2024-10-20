@@ -38,7 +38,7 @@ public:
 	D3DLIGHT9 GetLight(const int nID);		// ライト取得
 
 	// 静的メンバ関数
-	static CLight *Create(void);			// 生成
+	static CLight* Create(void);			// 生成
 	static void Release(CLight*& pLight);	// 破棄
 
 private:

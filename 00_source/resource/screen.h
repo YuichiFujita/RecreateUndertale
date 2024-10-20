@@ -35,7 +35,7 @@ public:
 	void Draw(CShader* pShader = nullptr) override;	// •`‰æ
 
 	// Ã“Iƒƒ“ƒoŠÖ”
-	static CScreen *Create(const int nScreenTexID);	// ¶¬
+	static CScreen* Create(const int nScreenTexID);	// ¶¬
 };
 
 #endif	// _SCREEN_H_

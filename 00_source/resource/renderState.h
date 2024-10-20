@@ -95,9 +95,9 @@ public:
 	void SetLighting(const bool bLight)			{ m_info.bLight	= bLight; }	// ライティング設定
 
 	// 静的メンバ関数
-	static CRenderState *Create(void);	// 生成
+	static CRenderState* Create(void);	// 生成
 	static void Release(CRenderState*& prRenderState);		// 破棄
-	static void BindDevice(LPDIRECT3DDEVICE9 *ppDevice);	// デバイス割当
+	static void BindDevice(LPDIRECT3DDEVICE9* ppDevice);	// デバイス割当
 	static void InitRenderState(void);		// レンダーステート情報初期化
 	static SInfo GetSaveRenderState(void);	// 保存レンダーステート情報取得
 
@@ -106,7 +106,7 @@ private:
 	static void SetRenderState(const SInfo& rInfo);	// レンダーステート反映
 
 	// 静的メンバ変数
-	static LPDIRECT3DDEVICE9 *m_ppDevice;	// Direct3Dデバイスへのポインタ
+	static LPDIRECT3DDEVICE9* m_ppDevice;	// Direct3Dデバイスへのポインタ
 	static SInfo m_save;	// 保存レンダーステート情報
 
 	// メンバ変数

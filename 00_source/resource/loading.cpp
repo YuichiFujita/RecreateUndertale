@@ -292,7 +292,7 @@ HRESULT CLoading::Set(std::function<HRESULT(bool*)> func)
 		*m_pFuture = m_pPromise->get_future();
 
 		// 返り値の取得できるラムダ関数を作成
-		auto funcLambda = [func, this](bool *pEnd)
+		auto funcLambda = [func, this](bool* pEnd)
 		{
 			// 引数の関数を呼び出し
 			HRESULT hr = func(pEnd);
@@ -319,10 +319,10 @@ HRESULT CLoading::Set(std::function<HRESULT(bool*)> func)
 //============================================================
 //	生成処理
 //============================================================
-CLoading *CLoading::Create(void)
+CLoading* CLoading::Create(void)
 {
 	// ローディングの生成
-	CLoading *pLoading = new CLoading;
+	CLoading* pLoading = new CLoading;
 	if (pLoading == nullptr)
 	{ // 生成に失敗した場合
 

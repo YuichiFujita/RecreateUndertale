@@ -74,7 +74,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE /*hInstancePrev*/, LPSTR /*lpC
 	MSG   msg;	// メッセージを格納する変数
 	DWORD dwCurrentTime  = 0;				// 現在時刻
 	DWORD dwExecLastTime = timeGetTime();	// 最後に処理した時刻
-	CManager *pManager   = nullptr;			// マネージャー情報
+	CManager* pManager   = nullptr;			// マネージャー情報
 
 	// ウインドウクラスの登録
 	RegisterClassEx(&wcex);

@@ -277,7 +277,7 @@ void CRenderer::Draw(void)
 //============================================================
 HRESULT CRenderer::CreateRenderTexture(void)
 {
-	CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
+	CTexture* pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
 	HRESULT hr;	// 異常終了の確認用
 
 	// 空のスクリーンテクスチャを生成
@@ -350,10 +350,10 @@ COLOR CRenderer::GetClearColor(void) const
 //============================================================
 //	生成処理
 //============================================================
-CRenderer *CRenderer::Create(HWND hWnd, BOOL bWindow)
+CRenderer* CRenderer::Create(HWND hWnd, BOOL bWindow)
 {
 	// レンダラーの生成
-	CRenderer *pRenderer = new CRenderer;
+	CRenderer* pRenderer = new CRenderer;
 	if (pRenderer == nullptr)
 	{ // 生成に失敗した場合
 

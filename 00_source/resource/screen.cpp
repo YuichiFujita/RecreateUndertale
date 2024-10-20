@@ -98,10 +98,10 @@ void CScreen::Draw(CShader* pShader)
 //============================================================
 //	¶¬ˆ—
 //============================================================
-CScreen *CScreen::Create(const int nScreenTexID)
+CScreen* CScreen::Create(const int nScreenTexID)
 {
 	// ƒXƒNƒŠ[ƒ“‚Ì¶¬
-	CScreen *pScreen = new CScreen;
+	CScreen* pScreen = new CScreen;
 	if (pScreen == nullptr)
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 

@@ -39,7 +39,7 @@ public:
 	COLOR GetClearColor(void) const;			// 画面クリア色取得
 
 	// 静的メンバ関数
-	static CRenderer *Create(HWND hWnd, BOOL bWindow);	// 生成
+	static CRenderer* Create(HWND hWnd, BOOL bWindow);	// 生成
 	static void Release(CRenderer*& prRenderer);		// 破棄
 
 private:
@@ -51,7 +51,7 @@ private:
 	LPDIRECT3DDEVICE9	m_pD3DDevice;	// Direct3Dデバイス
 
 	int m_nScreenTexID;		// スクリーンテクスチャのインデックス
-	CScreen *m_pDrawScreen;	// スクリーン描画ポリゴン
+	CScreen* m_pDrawScreen;	// スクリーン描画ポリゴン
 	LPDIRECT3DSURFACE9 m_pDefSurScreen;	// 元のスクリーン描画サーフェイス保存用
 	LPDIRECT3DSURFACE9 m_pSurScreen;	// スクリーン描画サーフェイスへのポインタ
 };

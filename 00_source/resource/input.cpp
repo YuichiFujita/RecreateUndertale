@@ -338,10 +338,10 @@ bool CInputKeyboard::IsAnyRelease(void)
 //============================================================
 //	生成処理
 //============================================================
-CInputKeyboard *CInputKeyboard::Create(HINSTANCE hInstance, HWND hWnd)
+CInputKeyboard* CInputKeyboard::Create(HINSTANCE hInstance, HWND hWnd)
 {
 	// キーボードの生成
-	CInputKeyboard *pKeyboard = new CInputKeyboard;
+	CInputKeyboard* pKeyboard = new CInputKeyboard;
 	if (pKeyboard == nullptr)
 	{ // 生成に失敗した場合
 
@@ -607,10 +607,10 @@ VECTOR3 CInputMouse::GetMove(void)
 //============================================================
 //	生成処理
 //============================================================
-CInputMouse *CInputMouse::Create(HINSTANCE hInstance, HWND hWnd)
+CInputMouse* CInputMouse::Create(HINSTANCE hInstance, HWND hWnd)
 {
 	// マウスの生成
-	CInputMouse *pMouse = new CInputMouse;
+	CInputMouse* pMouse = new CInputMouse;
 	if (pMouse == nullptr)
 	{ // 生成に失敗した場合
 
@@ -744,7 +744,7 @@ void CInputPad::Update(void)
 //============================================================
 //	バイブレーションの更新処理
 //============================================================
-void CInputPad::UpdateVibration(SVibration *pVibration, int nPadID)
+void CInputPad::UpdateVibration(SVibration* pVibration, int nPadID)
 {
 	switch (pVibration->type)
 	{ // 振動の更新
@@ -1142,10 +1142,10 @@ float CInputPad::GetPressRStickTilt(int nPadID)
 //============================================================
 //	生成処理
 //============================================================
-CInputPad *CInputPad::Create(void)
+CInputPad* CInputPad::Create(void)
 {
 	// パッドの生成
-	CInputPad *pPad = new CInputPad;
+	CInputPad* pPad = new CInputPad;
 	if (pPad == nullptr)
 	{ // 生成に失敗した場合
 

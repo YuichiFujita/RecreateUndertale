@@ -51,7 +51,7 @@ public:
 	void Draw(CShader* pShader = nullptr) override;	// 描画
 
 	// 静的メンバ関数
-	static CFade *Create(void);	// 生成
+	static CFade* Create(void);	// 生成
 
 	// メンバ関数
 	void SetNextMode(const CScene::EMode next)	{ m_modeNext = next; }	// 遷移先モード設定

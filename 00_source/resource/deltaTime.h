@@ -33,7 +33,7 @@ public:
 	void SetSlowRate(const float fRate)	{ m_fSlowRate = fRate; }	// ‘¬“x’á‰º‚ÌŠ„‡İ’è
 
 	// Ã“Iƒƒ“ƒoŠÖ”
-	static CDeltaTime *Create(void);				// ¶¬
+	static CDeltaTime* Create(void);				// ¶¬
 	static void Release(CDeltaTime*& prDeltaTime);	// ”jŠü
 
 private:

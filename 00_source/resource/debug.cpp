@@ -267,7 +267,7 @@ void CDebug::UpdateDebugControl(void) {}
 
 void CDebug::DrawDebugControl(void)
 {
-	CDebugProc *pDebugProc = GET_MANAGER->GetDebugProc();	// デバッグプロックの情報
+	CDebugProc* pDebugProc = GET_MANAGER->GetDebugProc();	// デバッグプロックの情報
 
 	pDebugProc->Print(CDebugProc::POINT_LEFT, "======================================\n");
 	pDebugProc->Print(CDebugProc::POINT_LEFT, "　[デバッグ操作]\n");
@@ -315,7 +315,7 @@ void CDebug::DrawDebugControl(void) {}
 
 void CDebug::DrawDebugData(void)
 {
-	CDebugProc *pDebugProc = GET_MANAGER->GetDebugProc();	// デバッグプロックの情報
+	CDebugProc* pDebugProc = GET_MANAGER->GetDebugProc();	// デバッグプロックの情報
 
 	pDebugProc->Print(CDebugProc::POINT_LEFT, "======================================\n");
 	pDebugProc->Print(CDebugProc::POINT_LEFT, "　[デバッグ情報]\n");
@@ -333,10 +333,10 @@ void CDebug::DrawDebugData(void) {}
 //============================================================
 //	生成処理
 //============================================================
-CDebug *CDebug::Create(void)
+CDebug* CDebug::Create(void)
 {
 	// デバッグの生成
-	CDebug *pDebug = new CDebug;
+	CDebug* pDebug = new CDebug;
 	if (pDebug == nullptr)
 	{ // 生成に失敗した場合
 

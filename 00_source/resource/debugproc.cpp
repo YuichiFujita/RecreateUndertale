@@ -118,7 +118,7 @@ void CDebugProc::Draw(void)
 //==========================================================
 //デバッグ表示の設定処理
 //==========================================================
-void CDebugProc::Print(const EPoint point, const char *fmt, ...)
+void CDebugProc::Print(const EPoint point, const char* fmt, ...)
 {
 	va_list args;
 	char aString[debugproc::MAX_DEBUGSTRING];		// 指定文字格納用
@@ -213,10 +213,10 @@ void CDebugProc::Print(const EPoint point, const char *fmt, ...)
 //==========================================================
 //	生成処理
 //==========================================================
-CDebugProc *CDebugProc::Create(void)
+CDebugProc* CDebugProc::Create(void)
 {
 	// デバッグ表示の生成
-	CDebugProc *pDebugProc = new CDebugProc;
+	CDebugProc* pDebugProc = new CDebugProc;
 	if (pDebugProc == nullptr)
 	{ // 生成に失敗した場合
 

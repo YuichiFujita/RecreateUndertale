@@ -48,15 +48,15 @@ public:
 	ELoading GetState(void) const { return m_state; }	// ロード状態取得
 
 	// 静的メンバ関数
-	static CLoading *Create(void);				// 生成
+	static CLoading* Create(void);				// 生成
 	static void Release(CLoading*& pLoading);	// 破棄
 
 private:
 	// メンバ変数
-	std::promise<HRESULT> *m_pPromise;	// プロミス
-	std::future<HRESULT> *m_pFuture;	// フューチャー
+	std::promise<HRESULT>* m_pPromise;	// プロミス
+	std::future<HRESULT>* m_pFuture;	// フューチャー
 	std::thread m_func;	// スレッド
-	CAnim2D *m_pLoad;	// ロード画面情報
+	CAnim2D* m_pLoad;	// ロード画面情報
 	ELoading m_state;	// ロード状態
 	bool m_bEnd;		// ロード終了状況
 };

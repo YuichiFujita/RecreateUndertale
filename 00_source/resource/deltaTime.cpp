@@ -84,10 +84,10 @@ void CDeltaTime::Update(void)
 //============================================================
 //	生成処理
 //============================================================
-CDeltaTime *CDeltaTime::Create(void)
+CDeltaTime* CDeltaTime::Create(void)
 {
 	// デルタタイムの生成
-	CDeltaTime *pDeltaTime = new CDeltaTime;
+	CDeltaTime* pDeltaTime = new CDeltaTime;
 	if (pDeltaTime == nullptr)
 	{ // 生成に失敗した場合
 

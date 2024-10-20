@@ -368,10 +368,10 @@ void CFade::SetRoomFade(void)
 //============================================================
 //	生成処理
 //============================================================
-CFade *CFade::Create(void)
+CFade* CFade::Create(void)
 {
 	// フェードの生成
-	CFade *pFade = new CFade;
+	CFade* pFade = new CFade;
 	if (pFade == nullptr)
 	{ // 生成に失敗した場合
 

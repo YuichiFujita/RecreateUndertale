@@ -108,7 +108,7 @@ public:
 	float GetDestDistance(void) const		{ return m_camera.fDestDis; }	// –Ú•W‚Ì‹——£æ“¾
 
 	// Ã“Iƒƒ“ƒoŠÖ”
-	static CCamera *Create(void);				// ¶¬
+	static CCamera* Create(void);				// ¶¬
 	static void Release(CCamera*& prCamera);	// ”jŠü
 
 private:

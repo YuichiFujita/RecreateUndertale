@@ -239,7 +239,7 @@ void CCamera::SetCamera(void)
 //============================================================
 void CCamera::SetPositionV(const VECTOR3& rPosV)
 {
-	SCamera *pCamera = &m_camera;	// メインカメラ情報
+	SCamera* pCamera = &m_camera;	// メインカメラ情報
 
 	// 視点・目標視点を設定
 	pCamera->posV = pCamera->destPosV = rPosV;
@@ -255,7 +255,7 @@ void CCamera::SetPositionV(const VECTOR3& rPosV)
 //============================================================
 void CCamera::SetPositionR(const VECTOR3& rPosR)
 {
-	SCamera *pCamera = &m_camera;	// メインカメラ情報
+	SCamera* pCamera = &m_camera;	// メインカメラ情報
 
 	// 注視点・目標注視点を設定
 	pCamera->posR = pCamera->destPosR = rPosR;
@@ -271,7 +271,7 @@ void CCamera::SetPositionR(const VECTOR3& rPosR)
 //============================================================
 void CCamera::SetRotation(const VECTOR3& rRot)
 {
-	SCamera *pCamera = &m_camera;	// メインカメラ情報
+	SCamera* pCamera = &m_camera;	// メインカメラ情報
 
 	// 向き・目標向きを設定
 	pCamera->rot = pCamera->destRot = rRot;
@@ -287,7 +287,7 @@ void CCamera::SetRotation(const VECTOR3& rRot)
 //============================================================
 void CCamera::SetDistance(const float fDis)
 {
-	SCamera *pCamera = &m_camera;	// メインカメラ情報
+	SCamera* pCamera = &m_camera;	// メインカメラ情報
 
 	// 距離・目標距離を設定
 	pCamera->fDis = pCamera->fDestDis = fDis;
@@ -350,11 +350,11 @@ void CCamera::InitFollow(void)
 	if (m_state != STATE_FOLLOW) { return; }
 
 	// プレイヤーが存在しない場合抜ける
-	CPlayer *pPlayer = CSceneGame::GetPlayer();	// プレイヤー情報
+	CPlayer* pPlayer = CSceneGame::GetPlayer();	// プレイヤー情報
 	if (pPlayer == nullptr) { assert(false); return; }
 
 	// ステージが存在しない場合抜ける
-	CStage *pStage = CSceneGame::GetStage();	// ステージ情報
+	CStage* pStage = CSceneGame::GetStage();	// ステージ情報
 	if (pStage == nullptr) { assert(false); return; }
 
 	//----------------------------------------------------
@@ -394,7 +394,7 @@ void CCamera::InitFollow(void)
 void CCamera::ResetSwing(void)
 {
 	// カメラ揺れ情報を初期化
-	SSwing *pSwing = &m_camera.swing;
+	SSwing* pSwing = &m_camera.swing;
 	pSwing->shiftPos	 = VEC3_ZERO;	// 位置ずれ量
 	pSwing->fShiftAngle	 = 0.0f;		// 位置をずらす角度
 	pSwing->fShiftLength = 0.0f;		// 位置をずらす距離
@@ -473,10 +473,10 @@ void CCamera::SetEnableUpdate(const bool bUpdate)
 //============================================================
 //	生成処理
 //============================================================
-CCamera *CCamera::Create(void)
+CCamera* CCamera::Create(void)
 {
 	// カメラの生成
-	CCamera *pCamera = new CCamera;
+	CCamera* pCamera = new CCamera;
 	if (pCamera == nullptr)
 	{ // 生成に失敗した場合
 
@@ -575,11 +575,11 @@ void CCamera::UpdateFollow(void)
 	if (m_state != STATE_FOLLOW) { return; }
 
 	// プレイヤーが存在しない場合抜ける
-	CPlayer *pPlayer = CSceneGame::GetPlayer();	// プレイヤー情報
+	CPlayer* pPlayer = CSceneGame::GetPlayer();	// プレイヤー情報
 	if (pPlayer == nullptr) { assert(false); return; }
 
 	// ステージが存在しない場合抜ける
-	CStage *pStage = CSceneGame::GetStage();	// ステージ情報
+	CStage* pStage = CSceneGame::GetStage();	// ステージ情報
 	if (pStage == nullptr) { assert(false); return; }
 
 	//----------------------------------------------------
@@ -651,7 +651,7 @@ void CCamera::UpdateControl(void)
 //============================================================
 void CCamera::UpdateMove(void)
 {
-	CInputMouse *pMouse = GET_INPUTMOUSE;	// マウス情報
+	CInputMouse* pMouse = GET_INPUTMOUSE;	// マウス情報
 	VECTOR3 mouseMove = pMouse->GetMove();	// マウス移動量
 
 	// マウス操作の更新
@@ -677,7 +677,7 @@ void CCamera::UpdateMove(void)
 //============================================================
 void CCamera::UpdateDistance(void)
 {
-	CInputMouse *pMouse = GET_INPUTMOUSE;	// マウス情報
+	CInputMouse* pMouse = GET_INPUTMOUSE;	// マウス情報
 	VECTOR3 mouseMove = pMouse->GetMove();	// マウス移動量
 
 	// マウス操作の更新
@@ -697,7 +697,7 @@ void CCamera::UpdateDistance(void)
 //============================================================
 void CCamera::UpdateRotation(void)
 {
-	CInputMouse *pMouse = GET_INPUTMOUSE;	// マウス情報
+	CInputMouse* pMouse = GET_INPUTMOUSE;	// マウス情報
 	VECTOR3 mouseMove = pMouse->GetMove();	// マウス移動量
 
 	// マウス操作の更新
@@ -749,8 +749,8 @@ void CCamera::UpdateSwing(void)
 	// カメラ操作状態の場合抜ける
 	if (m_state == STATE_CONTROL) { return; }
 
-	SCamera *pCamera = &m_camera;		// カメラ情報
-	SSwing  *pSwing  = &m_camera.swing;	// カメラ揺れ情報
+	SCamera* pCamera = &m_camera;		// カメラ情報
+	SSwing*  pSwing  = &m_camera.swing;	// カメラ揺れ情報
 
 	if (pSwing->fShiftLength > 0.0f)
 	{ // 注視点のずらし量が設定されている場合

@@ -128,10 +128,10 @@ D3DLIGHT9 CLight::GetLight(const int nID)
 //============================================================
 //	ê∂ê¨èàóù
 //============================================================
-CLight *CLight::Create(void)
+CLight* CLight::Create(void)
 {
 	// ÉâÉCÉgÇÃê∂ê¨
-	CLight *pLight = new CLight;
+	CLight* pLight = new CLight;
 	if (pLight == nullptr)
 	{ // ê∂ê¨Ç…é∏îsÇµÇΩèÍçá
 
