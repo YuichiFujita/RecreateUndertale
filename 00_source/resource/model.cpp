@@ -17,7 +17,7 @@
 //************************************************************
 namespace
 {
-	const char *LOAD_FOLDER = "data\\MODEL";	// モデルフォルダ相対パス
+	const char* LOAD_FOLDER = "data\\MODEL";	// モデルフォルダ相対パス
 
 	const VECTOR3 INIT_VTXMIN = VECTOR3( 9999.0f,  9999.0f,  9999.0f);	// モデルの最小の頂点座標の初期値
 	const VECTOR3 INIT_VTXMAX = VECTOR3(-9999.0f, -9999.0f, -9999.0f);	// モデルの最大の頂点座標の初期値
@@ -170,7 +170,7 @@ int CModel::Regist(std::string sFilePath)
 //============================================================
 //	モデル情報取得処理
 //============================================================
-CModel::SModel *CModel::GetInfo(const int nID)
+CModel::SModel* CModel::GetInfo(const int nID)
 {
 	if (nID > NONE_IDX && nID < (int)m_mapModel.size())
 	{ // モデルがある場合
@@ -190,10 +190,10 @@ CModel::SModel *CModel::GetInfo(const int nID)
 //============================================================
 //	生成処理
 //============================================================
-CModel *CModel::Create(void)
+CModel* CModel::Create(void)
 {
 	// モデルの生成
-	CModel *pModel = new CModel;
+	CModel* pModel = new CModel;
 	if (pModel == nullptr)
 	{ // 生成に失敗した場合
 
@@ -232,7 +232,7 @@ void CModel::Release(CModel*& prModel)
 //============================================================
 //	xファイルの読み込み
 //============================================================
-HRESULT CModel::LoadXFileModel(SMapInfo *pMapInfo, std::string sFilePath)
+HRESULT CModel::LoadXFileModel(SMapInfo* pMapInfo, std::string sFilePath)
 {
 	// マップ情報の指定がない場合エラー
 	if (pMapInfo == nullptr) { return E_FAIL; }
@@ -279,13 +279,13 @@ HRESULT CModel::LoadXFileModel(SMapInfo *pMapInfo, std::string sFilePath)
 //============================================================
 //	テクスチャの読み込み
 //============================================================
-HRESULT CModel::LoadTextureModel(SMapInfo *pMapInfo)
+HRESULT CModel::LoadTextureModel(SMapInfo* pMapInfo)
 {
 	// マップ情報の指定がない場合エラー
 	if (pMapInfo == nullptr) { return E_FAIL; }
 
-	CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
-	D3DXMATERIAL *pMat;	// マテリアルへのポインタ
+	CTexture* pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
+	D3DXMATERIAL* pMat;	// マテリアルへのポインタ
 
 	// マテリアル情報に対するポインタを取得
 	pMat = (D3DXMATERIAL*)pMapInfo->modelData.pBuffMat->GetBufferPointer();
@@ -314,15 +314,15 @@ HRESULT CModel::LoadTextureModel(SMapInfo *pMapInfo)
 //============================================================
 //	当たり判定の作成
 //============================================================
-HRESULT CModel::SetCollisionModel(SMapInfo *pMapInfo)
+HRESULT CModel::SetCollisionModel(SMapInfo* pMapInfo)
 {
 	// マップ情報の指定がない場合エラー
 	if (pMapInfo == nullptr) { return E_FAIL; }
 
-	int		nNumVtx;	// モデルの頂点数
+	BYTE*	pVtxBuff;	// モデルの頂点バッファへのポインタ
 	DWORD	dwSizeFVF;	// モデルの頂点フォーマットのサイズ
-	BYTE	*pVtxBuff;	// モデルの頂点バッファへのポインタ
 	VECTOR3	vtx;		// モデルの頂点座標
+	int		nNumVtx;	// モデルの頂点数
 
 	// モデルの頂点数を取得
 	nNumVtx = pMapInfo->modelData.pMesh->GetNumVertices();

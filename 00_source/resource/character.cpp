@@ -16,7 +16,7 @@
 //************************************************************
 namespace
 {
-	const char *LOAD_FOLDER = "data\\CHARACTER";	// キャラクターフォルダ相対パス
+	const char* LOAD_FOLDER = "data\\CHARACTER";	// キャラクターフォルダ相対パス
 	const CCharacter::SCharaData ZERO_CHARADATA;	// キャラクター情報初期値
 }
 
@@ -106,7 +106,7 @@ HRESULT CCharacter::LoadAll(void)
 //============================================================
 //	キャラクター登録
 //============================================================
-CCharacter::SCharaData CCharacter::Regist(const char *pCharaPath)
+CCharacter::SCharaData CCharacter::Regist(const char* pCharaPath)
 {
 	// 既に生成済みかを検索
 	auto itr = m_mapCharacter.find(pCharaPath);	// 引数のキャラクター情報を検索
@@ -137,10 +137,10 @@ CCharacter::SCharaData CCharacter::Regist(const char *pCharaPath)
 //============================================================
 //	生成処理
 //============================================================
-CCharacter *CCharacter::Create(void)
+CCharacter* CCharacter::Create(void)
 {
 	// キャラクターの生成
-	CCharacter *pCharacter = new CCharacter;
+	CCharacter* pCharacter = new CCharacter;
 	if (pCharacter == nullptr)
 	{ // 生成に失敗した場合
 
@@ -232,9 +232,9 @@ HRESULT CCharacter::SearchFolderAll(std::string sFolderPath)
 //============================================================
 //	キャラクター情報セットアップ処理
 //============================================================
-HRESULT CCharacter::LoadSetup(SCharaData *pInfoChara, const char *pCharaPath)
+HRESULT CCharacter::LoadSetup(SCharaData* pInfoChara, const char* pCharaPath)
 {
-	SPartsInfo *pInfoParts = &pInfoChara->infoParts;	// パーツ情報
+	SPartsInfo* pInfoParts = &pInfoChara->infoParts;	// パーツ情報
 	VECTOR3 pos = VEC3_ZERO;	// 位置の代入用
 	VECTOR3 rot = VEC3_ZERO;	// 向きの代入用
 	int nID = 0;	// インデックスの代入用
@@ -343,7 +343,7 @@ HRESULT CCharacter::LoadSetup(SCharaData *pInfoChara, const char *pCharaPath)
 //============================================================
 //	モーション情報セットアップ処理
 //============================================================
-HRESULT CCharacter::LoadMotionSetup(CMotion::SInfo *pInfoMotion, const SPartsInfo *pInfoParts, const char *pMotionPath)
+HRESULT CCharacter::LoadMotionSetup(CMotion::SInfo* pInfoMotion, const SPartsInfo* pInfoParts, const char* pMotionPath)
 {
 	VECTOR3 pos = VEC3_ZERO;	// 読込位置
 	VECTOR3 rot = VEC3_ZERO;	// 読込向き
@@ -378,7 +378,7 @@ HRESULT CCharacter::LoadMotionSetup(CMotion::SInfo *pInfoMotion, const SPartsInf
 		{
 			int nType = pInfoMotion->GetNumMotion();	// 現在のモーション数
 			pInfoMotion->vecMotion.emplace_back();		// 空の要素を最後尾に追加
-			CMotion::SMotion *pMotion = &pInfoMotion->vecMotion[nType];	// 現在のモーション情報
+			CMotion::SMotion* pMotion = &pInfoMotion->vecMotion[nType];	// 現在のモーション情報
 
 			// 現在のキー番号を初期化
 			nCurKey = 0;
@@ -436,7 +436,7 @@ HRESULT CCharacter::LoadMotionSetup(CMotion::SInfo *pInfoMotion, const SPartsInf
 				else if (str == "KEYSET")
 				{
 					pMotion->vecKey.emplace_back();	// 空の要素を最後尾に追加
-					CMotion::SKey *pKey = &pMotion->vecKey[nCurKey];	// 現在のキー情報
+					CMotion::SKey* pKey = &pMotion->vecKey[nCurKey];	// 現在のキー情報
 
 					// 現在のパーツ番号を初期化
 					nCurParts = 0;
@@ -468,7 +468,7 @@ HRESULT CCharacter::LoadMotionSetup(CMotion::SInfo *pInfoMotion, const SPartsInf
 						else if (str == "KEY")
 						{
 							pKey->vecParts.emplace_back();	// 空の要素を最後尾に追加
-							CMotion::SParts *pParts = &pKey->vecParts[nCurParts];	// 現在のパーツ情報
+							CMotion::SParts* pParts = &pKey->vecParts[nCurParts];	// 現在のパーツ情報
 
 							do
 							{ // END_KEYを読み込むまでループ

@@ -457,8 +457,8 @@ void CTitleManager::UpdateMove(void)
 //============================================================
 void CTitleManager::UpdateStart(void)
 {
-	CInputKeyboard	*pKeyboard	= GET_INPUTKEY;	// キーボード
-	CInputPad		*pPad		= GET_INPUTPAD;	// パッド
+	CInputKeyboard*	pKeyboard	= GET_INPUTKEY;	// キーボード
+	CInputPad*		pPad		= GET_INPUTPAD;	// パッド
 	if (pKeyboard->IsTrigger(DIK_RETURN)
 	||  pKeyboard->IsTrigger(DIK_SPACE)
 	||  pPad->IsTrigger(CInputPad::KEY_A)
@@ -505,8 +505,8 @@ void CTitleManager::UpdateStart(void)
 //============================================================
 void CTitleManager::ActSelect(void)
 {
-	CInputKeyboard	*pKeyboard	= GET_INPUTKEY;	// キーボード
-	CInputPad		*pPad		= GET_INPUTPAD;	// パッド
+	CInputKeyboard*	pKeyboard	= GET_INPUTKEY;	// キーボード
+	CInputPad*		pPad		= GET_INPUTPAD;	// パッド
 	if (!GET_MANAGER->GetFade()->IsFade())
 	{ // フェード中ではない場合
 

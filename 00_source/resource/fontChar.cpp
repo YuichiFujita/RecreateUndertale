@@ -105,7 +105,7 @@ CFontChar::SChar CFontChar::Regist(const wchar_t wcChar)
 	HFONT hOldFont = (HFONT)SelectObject(hDC, m_hFont);
 
 	// ビットマップの生成・文字情報の保存
-	BYTE *pBitMap = CreateBitMap(&tempChar, hDC, wcChar);
+	BYTE* pBitMap = CreateBitMap(&tempChar, hDC, wcChar);
 	if (pBitMap == nullptr)
 	{ // 生成に失敗した場合
 
@@ -142,10 +142,10 @@ CFontChar::SChar CFontChar::Regist(const wchar_t wcChar)
 //============================================================
 //	生成処理
 //============================================================
-CFontChar *CFontChar::Create(const HFONT hFont, const std::string& rFilePath, const bool bItalic)
+CFontChar* CFontChar::Create(const HFONT hFont, const std::string& rFilePath, const bool bItalic)
 {
 	// フォント文字の生成
-	CFontChar *pFontChar = new CFontChar(hFont, rFilePath, bItalic);
+	CFontChar* pFontChar = new CFontChar(hFont, rFilePath, bItalic);
 	if (pFontChar == nullptr)
 	{ // 生成に失敗した場合
 
@@ -184,7 +184,7 @@ void CFontChar::Release(CFontChar*& prFontChar)
 //============================================================
 //	ビットマップの生成・文字情報の保存
 //============================================================
-BYTE *CFontChar::CreateBitMap(SChar *pChar, HDC hDC, const wchar_t wcChar)
+BYTE* CFontChar::CreateBitMap(SChar* pChar, HDC hDC, const wchar_t wcChar)
 {
 	// ビットマップのサイズを取得
 	DWORD dwGlyphSize = GetGlyphOutlineW(hDC, wcChar, FORMAT_BITMAP, &pChar->glyph, 0, nullptr, &INIT_MATRIX);
@@ -197,7 +197,7 @@ BYTE *CFontChar::CreateBitMap(SChar *pChar, HDC hDC, const wchar_t wcChar)
 	}
 
 	// ビットマップのサイズ分メモリ確保
-	BYTE *pBitMap = new BYTE[dwGlyphSize];
+	BYTE* pBitMap = new BYTE[dwGlyphSize];
 	if (pBitMap == nullptr)
 	{ // 生成に失敗した場合
 
@@ -242,7 +242,7 @@ BYTE *CFontChar::CreateBitMap(SChar *pChar, HDC hDC, const wchar_t wcChar)
 //============================================================
 //	テクスチャの生成・作成
 //============================================================
-HRESULT CFontChar::CreateTexture(SChar *pChar, BYTE *pBitMap)
+HRESULT CFontChar::CreateTexture(SChar* pChar, BYTE* pBitMap)
 {
 	int nAbsOffset = std::abs(pChar->glyph.gmptGlyphOrigin.x);	// 原点オフセットの絶対値
 	int nPlusSize = nAbsOffset * 4;	// テクスチャ横幅の大きさ加算量
@@ -260,7 +260,7 @@ HRESULT CFontChar::CreateTexture(SChar *pChar, BYTE *pBitMap)
 	sizeTexture.y = (int)pChar->text.tmHeight + 2;			// テクスチャ縦幅
 
 	// 空のテクスチャを生成・テクスチャインデックスを保存
-	CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャ情報
+	CTexture* pTexture = GET_MANAGER->GetTexture();	// テクスチャ情報
 	pChar->nTexID = pTexture->Regist(CTexture::SInfo
 	( // 引数
 		sizeTexture.x,		// テクスチャ横幅

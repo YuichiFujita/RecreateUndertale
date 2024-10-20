@@ -26,13 +26,13 @@ namespace
 		"data\\CSV\\char_alphabet.csv",	// アルファベット配置情報
 	};
 
-	const char *PASS		= "data\\TEXT\\start.txt";	// テキストパス
+	const char* PASS		= "data\\TEXT\\start.txt";	// テキストパス
 	const int PRIORITY		= 6;	// 優先順位
 	const int MAX_STR_NAME	= 6;	// 名前の最大文字数
 
 	namespace title
 	{	
-		const char	*FONT	= "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
+		const char*	FONT	= "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
 		const bool	ITALIC	= false;	// イタリック
 		const float	HEIGHT	= 42.0f;	// 文字縦幅
 
@@ -44,7 +44,7 @@ namespace
 	
 	namespace name
 	{
-		const char	*FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
+		const char*	FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
 		const bool	ITALIC = false;	// イタリック
 		const float	HEIGHT = 42.0f;	// 文字縦幅
 
@@ -65,7 +65,7 @@ namespace
 		const CStartStateCreateName::ETypeChar INIT_TYPE = CStartStateCreateName::TYPECHAR_HIRAGANA;	// 初期文字セット
 		const POSGRID2 INIT_SELECT = POSGRID2(0, 2);	// 初期選択位置
 
-		const char	*FONT		= "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
+		const char*	FONT		= "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
 		const bool	ITALIC		= false;	// イタリック
 		const float	HEIGHT		= 42.0f;	// 文字縦幅
 		const float	NEXT_TIME	= 0.035f;	// 文字振動の待機時間

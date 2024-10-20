@@ -48,17 +48,17 @@ public:
 	void Uninit(void);		// モデル終了
 	HRESULT LoadAll(void);	// モデル全読込
 	int Regist(std::string sFilePath);	// モデル登録
-	SModel *GetInfo(const int nID);		// モデル情報取得
+	SModel* GetInfo(const int nID);		// モデル情報取得
 
 	// 静的メンバ関数
-	static CModel *Create(void);			// 生成
-	static void Release(CModel*& pModel);	// 破棄
+	static CModel* Create(void);			// 生成
+	static void Release(CModel* &pModel);	// 破棄
 
 private:
 	// メンバ関数
-	HRESULT LoadXFileModel(SMapInfo *pMapInfo, std::string sFilePath);	// xファイルの読込
-	HRESULT LoadTextureModel(SMapInfo *pMapInfo);		// テクスチャの読込
-	HRESULT SetCollisionModel(SMapInfo *pMapInfo);		// 当たり判定の作成
+	HRESULT LoadXFileModel(SMapInfo* pMapInfo, std::string sFilePath);	// xファイルの読込
+	HRESULT LoadTextureModel(SMapInfo* pMapInfo);		// テクスチャの読込
+	HRESULT SetCollisionModel(SMapInfo* pMapInfo);		// 当たり判定の作成
 	HRESULT SearchFolderAll(std::string sFolderPath);	// フォルダ全検索
 
 	// メンバ変数

@@ -78,10 +78,10 @@ public:
 	HRESULT Init(void);		// キャラクター初期化
 	void Uninit(void);		// キャラクター終了
 	HRESULT LoadAll(void);	// キャラクター全読込
-	SCharaData Regist(const char *pCharaPath);	// キャラクター登録
+	SCharaData Regist(const char* pCharaPath);	// キャラクター登録
 
 	// 静的メンバ関数
-	static CCharacter *Create(void);	// 生成
+	static CCharacter* Create(void);	// 生成
 	static void Release(CCharacter*& prCharacter);	// 破棄
 
 private:
@@ -89,8 +89,8 @@ private:
 	HRESULT SearchFolderAll(std::string sFolderPath);	// フォルダ全検索
 
 	// メンバ関数
-	HRESULT LoadSetup(SCharaData *pInfoChara, const char *pCharaPath);	// キャラクター情報セットアップ
-	HRESULT LoadMotionSetup(CMotion::SInfo *pInfoMotion, const SPartsInfo *pInfoParts, const char *pMotionPath);	// モーション情報セットアップ
+	HRESULT LoadSetup(SCharaData* pInfoChara, const char* pCharaPath);	// キャラクター情報セットアップ
+	HRESULT LoadMotionSetup(CMotion::SInfo* pInfoMotion, const SPartsInfo* pInfoParts, const char* pMotionPath);	// モーション情報セットアップ
 
 	// メンバ変数
 	std::map<std::string, SCharaData> m_mapCharacter;	// キャラクター連想配列

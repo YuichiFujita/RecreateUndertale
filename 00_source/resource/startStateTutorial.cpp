@@ -25,7 +25,7 @@ namespace
 
 	namespace title
 	{	
-		const char	*FONT	= "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
+		const char*	FONT	= "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
 		const bool	ITALIC	= false;	// イタリック
 		const float	HEIGHT	= 42.0f;	// 文字縦幅
 
@@ -51,7 +51,7 @@ namespace
 
 	namespace rule
 	{
-		const char	*FONT	= "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
+		const char*	FONT	= "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
 		const bool	ITALIC	= false;	// イタリック
 		const float	HEIGHT	= 42.0f;	// 文字縦幅
 
@@ -63,7 +63,7 @@ namespace
 
 	namespace select
 	{
-		const char	*FONT		= "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
+		const char*	FONT		= "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
 		const bool	ITALIC		= false;	// イタリック
 		const float	CHAR_HEIGHT	= 42.0f;	// 文字縦幅
 		const float	LINE_HEIGHT	= 54.0f;	// 行間縦幅
@@ -77,7 +77,7 @@ namespace
 
 	namespace virsion
 	{
-		const char	*FONT	= "data\\FONT\\Crypt of Tomorrow.ttf";	// フォントパス
+		const char*	FONT	= "data\\FONT\\Crypt of Tomorrow.ttf";	// フォントパス
 		const bool	ITALIC	= false;	// イタリック
 		const float	HEIGHT	= 22.5f;	// 文字縦幅
 

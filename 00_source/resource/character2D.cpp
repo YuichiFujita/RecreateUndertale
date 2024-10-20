@@ -16,7 +16,7 @@
 //************************************************************
 namespace
 {
-	const char *LOAD_FOLDER = "data\\CHARACTER";	// キャラクターフォルダ相対パス
+	const char* LOAD_FOLDER = "data\\CHARACTER";	// キャラクターフォルダ相対パス
 }
 
 //************************************************************
@@ -88,7 +88,7 @@ HRESULT CCharacter2D::LoadAll(void)
 //============================================================
 //	キャラクター登録
 //============================================================
-CCharacter2D::AMotion CCharacter2D::Regist(const char *pCharaPath)
+CCharacter2D::AMotion CCharacter2D::Regist(const char* pCharaPath)
 {
 	// 既に生成済みかを検索
 	auto itr = m_mapCharacter.find(pCharaPath);	// 引数のキャラクター情報を検索
@@ -119,10 +119,10 @@ CCharacter2D::AMotion CCharacter2D::Regist(const char *pCharaPath)
 //============================================================
 //	生成処理
 //============================================================
-CCharacter2D *CCharacter2D::Create(void)
+CCharacter2D* CCharacter2D::Create(void)
 {
 	// キャラクター2Dの生成
-	CCharacter2D *pCharacter = new CCharacter2D;
+	CCharacter2D* pCharacter = new CCharacter2D;
 	if (pCharacter == nullptr)
 	{ // 生成に失敗した場合
 
@@ -214,7 +214,7 @@ HRESULT CCharacter2D::SearchFolderAll(std::string sFolderPath)
 //============================================================
 //	キャラクター情報セットアップ処理
 //============================================================
-HRESULT CCharacter2D::LoadSetup(AMotion *pInfoChara, const char *pCharaPath)
+HRESULT CCharacter2D::LoadSetup(AMotion* pInfoChara, const char* pCharaPath)
 {
 	// ファイルを開く
 	std::ifstream file(pCharaPath);	// ファイルストリーム
@@ -259,7 +259,7 @@ HRESULT CCharacter2D::LoadSetup(AMotion *pInfoChara, const char *pCharaPath)
 //============================================================
 //	モーション情報セットアップ処理
 //============================================================
-HRESULT CCharacter2D::LoadMotionSetup(AMotion *pInfoChara, const char *pMotionPath)
+HRESULT CCharacter2D::LoadMotionSetup(AMotion* pInfoChara, const char* pMotionPath)
 {
 	// ファイルを開く
 	std::ifstream file(pMotionPath);	// ファイルストリーム
@@ -278,9 +278,9 @@ HRESULT CCharacter2D::LoadMotionSetup(AMotion *pInfoChara, const char *pMotionPa
 	pInfoChara->vecMotion.emplace_back();			// 空の要素を最後尾に追加
 
 	// 変数をポインタ化し簡略化
-	CObjectChara2D::SMotion *pMotion = &pInfoChara->vecMotion[nCurMotionID];			// モーション情報
-	CObjectChara2D::SChara *pChara = &pInfoChara->vecMotion[nCurMotionID].infoChara;	// キャラクター情報
-	CObjectChara2D::SColl *pColl = &pInfoChara->vecMotion[nCurMotionID].infoColl;		// 当たり判定情報
+	CObjectChara2D::SMotion* pMotion = &pInfoChara->vecMotion[nCurMotionID];			// モーション情報
+	CObjectChara2D::SChara* pChara = &pInfoChara->vecMotion[nCurMotionID].infoChara;	// キャラクター情報
+	CObjectChara2D::SColl* pColl = &pInfoChara->vecMotion[nCurMotionID].infoColl;		// 当たり判定情報
 
 	// ファイルを読込
 	std::string str;	// 読込文字列

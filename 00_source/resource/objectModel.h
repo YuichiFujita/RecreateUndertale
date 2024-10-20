@@ -83,9 +83,9 @@ private:
 	void DrawShader(CShader* pShader);	// シェーダー描画
 
 	// メンバ変数
-	CRenderState	*m_pRenderState;	// レンダーステートの情報
-	D3DXMATERIAL	*m_pMat;			// マテリアルへのポインタ
-	CModel::SModel	m_modelData;		// モデル情報
+	CRenderState*	m_pRenderState;	// レンダーステートの情報
+	D3DXMATERIAL*	m_pMat;			// マテリアルへのポインタ
+	CModel::SModel	m_modelData;	// モデル情報
 	MATRIX	m_mtxWorld;	// ワールドマトリックス
 	VECTOR3	m_pos;		// 位置
 	VECTOR3	m_rot;		// 向き

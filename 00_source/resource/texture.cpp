@@ -16,7 +16,7 @@
 //************************************************************
 namespace
 {
-	const char *LOAD_FOLDER = "data\\TEXTURE";	// テクスチャフォルダ相対パス
+	const char* LOAD_FOLDER = "data\\TEXTURE";	// テクスチャフォルダ相対パス
 }
 
 //************************************************************
@@ -123,7 +123,7 @@ int CTexture::Regist(const SInfo info)
 	}
 
 	// テクスチャステータスを設定
-	D3DXIMAGE_INFO *pStatus = &tempMapInfo.textureData.status;	// ステータス情報
+	D3DXIMAGE_INFO* pStatus = &tempMapInfo.textureData.status;	// ステータス情報
 	pStatus->Width			 = info.Width;						// テクスチャ横幅
 	pStatus->Height			 = info.Height;						// テクスチャ縦幅
 	pStatus->Depth			 = 1;								// テクスチャ深度
@@ -309,10 +309,10 @@ LPDIRECT3DTEXTURE9 CTexture::GetPtr(const int nID)
 //============================================================
 //	生成処理
 //============================================================
-CTexture *CTexture::Create(void)
+CTexture* CTexture::Create(void)
 {
 	// テクスチャの生成
-	CTexture *pTexture = new CTexture;
+	CTexture* pTexture = new CTexture;
 	if (pTexture == nullptr)
 	{ // 生成に失敗した場合
 

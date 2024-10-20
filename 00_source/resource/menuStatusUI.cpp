@@ -30,7 +30,7 @@ namespace
 
 	namespace name
 	{
-		const char	*FONT	= "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス	// TODO：多分フォント違うの使ってる
+		const char*	FONT	= "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス	// TODO：多分フォント違うの使ってる
 		const bool	ITALIC	= false;	// イタリック
 		const float	HEIGHT	= 26.0f;	// 文字縦幅
 
@@ -42,8 +42,8 @@ namespace
 
 	namespace status
 	{
-		const char	*FONT = "data\\FONT\\Crypt of Tomorrow.ttf";	// フォントパス7
-		const char	*PASS = "data\\TEXT\\menu.txt";	// テキストパス
+		const char*	FONT = "data\\FONT\\Crypt of Tomorrow.ttf";	// フォントパス7
+		const char*	PASS = "data\\TEXT\\menu.txt";	// テキストパス
 		const bool	ITALIC		= false;	// イタリック
 		const float	CHAR_HEIGHT	= 22.0f;	// 文字縦幅
 		const float	LINE_HEIGHT	= 26.0f;	// 行間縦幅
@@ -57,7 +57,7 @@ namespace
 
 	namespace value
 	{
-		const char	*FONT		= status::FONT;			// フォントパス
+		const char*	FONT		= status::FONT;			// フォントパス
 		const bool	ITALIC		= status::ITALIC;		// イタリック
 		const float	CHAR_HEIGHT	= status::CHAR_HEIGHT;	// 文字縦幅
 		const float	LINE_HEIGHT = status::LINE_HEIGHT;	// 行間縦幅

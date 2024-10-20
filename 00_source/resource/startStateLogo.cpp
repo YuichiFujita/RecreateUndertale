@@ -21,16 +21,16 @@
 //************************************************************
 namespace
 {
-	const char	*TEXTURE	= "data\\TEXTURE\\logo000.png";	// ロゴテクスチャ
+	const char*	TEXTURE		= "data\\TEXTURE\\logo000.png";	// ロゴテクスチャ
 	const int	PRIORITY	= 6;		// 優先順位
 	const float	DISP_TIME	= 3.0f;		// ロゴ表示時間
 	const float	TRANS_TIME	= 17.0f;	// イントロ遷移の余韻時間
-	const char	*CMD_BALL	= "ball";	// BALL効果音を鳴らすコマンド入力
+	const char*	CMD_BALL	= "ball";	// BALL効果音を鳴らすコマンド入力
 
 	namespace str
 	{
-		const char	*FONT	= "data\\FONT\\Crypt of Tomorrow.ttf";	// フォントパス
-		const char	*PASS	= "data\\TEXT\\start.txt";				// テキストパス
+		const char*	FONT	= "data\\FONT\\Crypt of Tomorrow.ttf";	// フォントパス
+		const char*	PASS	= "data\\TEXT\\start.txt";				// テキストパス
 		const bool	ITALIC	= false;	// イタリック
 		const float	HEIGHT	= 22.5f;	// 文字縦幅
 

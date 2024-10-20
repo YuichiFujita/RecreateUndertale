@@ -89,54 +89,54 @@ public:
 	HRESULT SetLoadMode(void);		// モード設定 (ロード：ON)
 	CScene::EMode GetMode(void);	// モード取得
 
-	CDeltaTime		*GetDeltaTime(void);	// デルタタイム取得
-	CRenderer		*GetRenderer(void);		// レンダラー取得
-	CInputKeyboard	*GetKeyboard(void);		// キーボード取得
-	CInputMouse		*GetMouse(void);		// マウス取得
-	CInputPad		*GetPad(void);			// パッド取得
-	CSound			*GetSound(void);		// サウンド取得
-	CCamera			*GetCamera(void);		// カメラ取得
-	CLight			*GetLight(void);		// ライト取得
-	CTexture		*GetTexture(void);		// テクスチャ取得
-	CModel			*GetModel(void);		// モデル取得
-	CFont			*GetFont(void);			// フォント取得
-	CCharacter		*GetCharacter(void);	// キャラクター取得
-	CCharacter2D	*GetCharacter2D(void);	// キャラクター2D取得
-	CItem			*GetItem(void);			// アイテム取得
-	CFade			*GetFade(void);			// フェード取得
-	CLoading		*GetLoading(void);		// ローディング取得
-	CScene			*GetScene(void);		// シーン取得
-	CRetention		*GetRetention(void);	// データ保存取得
-	CDebugProc		*GetDebugProc(void);	// デバッグ表示取得
-	CDebug			*GetDebug(void);		// デバッグ取得
+	CDeltaTime*		GetDeltaTime(void);		// デルタタイム取得
+	CRenderer*		GetRenderer(void);		// レンダラー取得
+	CInputKeyboard*	GetKeyboard(void);		// キーボード取得
+	CInputMouse*	GetMouse(void);			// マウス取得
+	CInputPad*		GetPad(void);			// パッド取得
+	CSound*			GetSound(void);			// サウンド取得
+	CCamera*		GetCamera(void);		// カメラ取得
+	CLight*			GetLight(void);			// ライト取得
+	CTexture*		GetTexture(void);		// テクスチャ取得
+	CModel*			GetModel(void);			// モデル取得
+	CFont*			GetFont(void);			// フォント取得
+	CCharacter*		GetCharacter(void);		// キャラクター取得
+	CCharacter2D*	GetCharacter2D(void);	// キャラクター2D取得
+	CItem*			GetItem(void);			// アイテム取得
+	CFade*			GetFade(void);			// フェード取得
+	CLoading*		GetLoading(void);		// ローディング取得
+	CScene*			GetScene(void);			// シーン取得
+	CRetention*		GetRetention(void);		// データ保存取得
+	CDebugProc*		GetDebugProc(void);		// デバッグ表示取得
+	CDebug*			GetDebug(void);			// デバッグ取得
 
 private:
 	// 静的メンバ変数
-	static CManager	*m_pManager;	// マネージャー
+	static CManager* m_pManager;	// マネージャー
 
 	// メンバ変数
-	HINSTANCE		m_hInstance;		// インスタンスハンドル
-	HWND			m_hWnd;				// ウインドウハンドル
-	CDeltaTime		*m_pDeltaTime;		// デルタタイムインスタンス
-	CRenderer		*m_pRenderer;		// レンダラーインスタンス
-	CInputKeyboard	*m_pKeyboard;		// キーボードインスタンス
-	CInputMouse		*m_pMouse;			// マウスインスタンス
-	CInputPad		*m_pPad;			// パッドインスタンス
-	CSound			*m_pSound;			// サウンドインスタンス
-	CCamera			*m_pCamera;			// カメラインスタンス
-	CLight			*m_pLight;			// ライトインスタンス
-	CTexture		*m_pTexture;		// テクスチャインスタンス
-	CModel			*m_pModel;			// モデルインスタンス
-	CFont			*m_pFont;			// フォントインスタンス
-	CCharacter		*m_pCharacter;		// キャラクターインスタンス
-	CCharacter2D	*m_pCharacter2D;	// キャラクター2Dインスタンス
-	CItem			*m_pItem;			// アイテムインスタンス
-	CFade			*m_pFade;			// フェードインスタンス
-	CLoading		*m_pLoading;		// ローディングインスタンス
-	CScene			*m_pScene;			// シーンインスタンス
-	CRetention		*m_pRetention;		// データ保存インスタンス
-	CDebugProc		*m_pDebugProc;		// デバッグ表示
-	CDebug			*m_pDebug;			// デバッグ
+	HINSTANCE		m_hInstance;	// インスタンスハンドル
+	HWND			m_hWnd;			// ウインドウハンドル
+	CDeltaTime*		m_pDeltaTime;	// デルタタイムインスタンス
+	CRenderer*		m_pRenderer;	// レンダラーインスタンス
+	CInputKeyboard*	m_pKeyboard;	// キーボードインスタンス
+	CInputMouse*	m_pMouse;		// マウスインスタンス
+	CInputPad*		m_pPad;			// パッドインスタンス
+	CSound*			m_pSound;		// サウンドインスタンス
+	CCamera*		m_pCamera;		// カメラインスタンス
+	CLight*			m_pLight;		// ライトインスタンス
+	CTexture*		m_pTexture;		// テクスチャインスタンス
+	CModel*			m_pModel;		// モデルインスタンス
+	CFont*			m_pFont;		// フォントインスタンス
+	CCharacter*		m_pCharacter;	// キャラクターインスタンス
+	CCharacter2D*	m_pCharacter2D;	// キャラクター2Dインスタンス
+	CItem*			m_pItem;		// アイテムインスタンス
+	CFade*			m_pFade;		// フェードインスタンス
+	CLoading*		m_pLoading;		// ローディングインスタンス
+	CScene*			m_pScene;		// シーンインスタンス
+	CRetention*		m_pRetention;	// データ保存インスタンス
+	CDebugProc*		m_pDebugProc;	// デバッグ表示
+	CDebug*			m_pDebug;		// デバッグ
 };
 
 #endif	// _MANAGER_H_

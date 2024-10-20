@@ -109,10 +109,10 @@ private:
 
 	// メンバ変数
 	std::vector<CMultiModel*> m_vecParts;	// パーツ情報
-	CMotion	*m_pMotion;	// モーションの情報
-	MATRIX	m_mtxWorld;	// ワールドマトリックス
-	VECTOR3	m_pos;		// 位置
-	VECTOR3	m_rot;		// 向き
+	CMotion* m_pMotion;		// モーションの情報
+	MATRIX	 m_mtxWorld;	// ワールドマトリックス
+	VECTOR3	 m_pos;			// 位置
+	VECTOR3	 m_rot;			// 向き
 };
 
 #endif	// _OBJECTCHARA_H_

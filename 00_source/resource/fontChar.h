@@ -54,13 +54,13 @@ public:
 	const bool GetItalic(void)			{ return m_bItalic; }	// イタリック
 
 	// 静的メンバ関数
-	static CFontChar *Create(const HFONT hFont, const std::string& rFilePath, const bool bItalic);	// 生成
+	static CFontChar* Create(const HFONT hFont, const std::string& rFilePath, const bool bItalic);	// 生成
 	static void Release(CFontChar*& pFontChar);	// 破棄
 
 private:
 	// メンバ関数
-	BYTE *CreateBitMap(SChar *pChar, HDC hDC, const wchar_t wcChar);	// ビットマップ生成・文字情報保存
-	HRESULT CreateTexture(SChar *pChar, BYTE *pBitMap);					// テクスチャ生成・作成
+	BYTE* CreateBitMap(SChar* pChar, HDC hDC, const wchar_t wcChar);	// ビットマップ生成・文字情報保存
+	HRESULT CreateTexture(SChar* pChar, BYTE* pBitMap);					// テクスチャ生成・作成
 
 	// メンバ変数
 	std::map<wchar_t, SChar> m_mapChar;	// フォント文字連想配列

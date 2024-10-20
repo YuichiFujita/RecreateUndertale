@@ -69,7 +69,7 @@ public:
 	LPDIRECT3DTEXTURE9 GetPtr(const int nID);	// テクスチャポインタ取得
 
 	// 静的メンバ関数
-	static CTexture *Create(void);				// 生成
+	static CTexture* Create(void);				// 生成
 	static void Release(CTexture*& pTexture);	// 破棄
 
 private:

@@ -17,8 +17,8 @@
 //************************************************************
 namespace
 {
-	const char	*FONT	 = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
-	const char	*PASS	 = "data\\TEXT\\selectStatus.txt";				// テキストパス
+	const char*	FONT	 = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
+	const char*	PASS	 = "data\\TEXT\\selectStatus.txt";				// テキストパス
 	const bool	ITALIC	 = false;	// イタリック
 	const float	HEIGHT	 = 42.0f;	// 文字縦幅
 	const int	PRIORITY = 6;		// フルステータスメニューの優先順位

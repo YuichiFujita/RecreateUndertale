@@ -58,10 +58,10 @@ void CScene::Uninit(void)
 //============================================================
 void CScene::Update(const float fDeltaTime)
 {
-	CManager	*pManager	= GET_MANAGER;				// マネージャー
-	CLight		*pLight		= pManager->GetLight();		// ライト
-	CCamera		*pCamera	= pManager->GetCamera();	// カメラ
-	CRenderer	*pRenderer	= pManager->GetRenderer();	// レンダラー
+	CManager*	pManager	= GET_MANAGER;				// マネージャー
+	CLight*		pLight		= pManager->GetLight();		// ライト
+	CCamera*	pCamera		= pManager->GetCamera();	// カメラ
+	CRenderer*	pRenderer	= pManager->GetRenderer();	// レンダラー
 
 	// ライトの更新
 	assert(pLight != nullptr);

@@ -43,18 +43,18 @@ public:
 	void Update(const float fDeltaTime) override;	// 更新
 
 	// 静的メンバ関数
-	static CGameManager	*GetGameManager(void);	// ゲームマネージャー取得
-	static CMenuManager	*GetMenuManager(void);	// メニューマネージャー取得
-	static CPause		*GetPause(void);		// ポーズ取得
-	static CStage		*GetStage(void);		// ステージ取得
-	static CPlayer		*GetPlayer(void);		// プレイヤー取得
+	static CGameManager* GetGameManager(void);	// ゲームマネージャー取得
+	static CMenuManager* GetMenuManager(void);	// メニューマネージャー取得
+	static CPause* GetPause(void);		// ポーズ取得
+	static CStage* GetStage(void);		// ステージ取得
+	static CPlayer* GetPlayer(void);	// プレイヤー取得
 
 private:
 	// 静的メンバ変数
-	static CGameManager	*m_pGameManager;	// ゲームマネージャー
-	static CMenuManager	*m_pMenuManager;	// メニューマネージャー
-	static CPause		*m_pPause;			// ポーズ情報
-	static CStage		*m_pStage;			// ステージ情報
+	static CGameManager* m_pGameManager;	// ゲームマネージャー
+	static CMenuManager* m_pMenuManager;	// メニューマネージャー
+	static CPause* m_pPause;	// ポーズ情報
+	static CStage* m_pStage;	// ステージ情報
 };
 
 #endif	// _SCENE_GAME_H_

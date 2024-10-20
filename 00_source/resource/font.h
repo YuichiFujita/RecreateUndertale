@@ -62,7 +62,7 @@ public:
 
 		// メンバ変数
 		std::string sFontName;	// フォント名
-		CFontChar *pFontChar;	// フォント文字インスタンス
+		CFontChar* pFontChar;	// フォント文字インスタンス
 		HFONT pFont;			// フォントへのポインタ
 	};
 
@@ -80,7 +80,7 @@ public:
 	);
 
 	// 静的メンバ関数
-	static CFont *Create(void);				// 生成
+	static CFont* Create(void);				// 生成
 	static void Release(CFont*& prFont);	// 破棄
 
 private:

@@ -29,8 +29,8 @@ namespace
 
 	namespace title
 	{	
-		const char	*FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
-		const char	*PASS = "data\\TEXT\\naming.txt";	// テキストパス
+		const char*	FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
+		const char*	PASS = "data\\TEXT\\naming.txt";	// テキストパス
 		const bool	ITALIC		= false;	// イタリック
 		const float	CHAR_HEIGHT	= 42.0f;	// 文字縦幅
 		const float	LINE_HEIGHT	= 54.0f;	// 行間縦幅
@@ -44,7 +44,7 @@ namespace
 
 	namespace name
 	{
-		const char	*FONT	= "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
+		const char*	FONT	= "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
 		const bool	ITALIC	= false;		// イタリック
 		const float	INIT_HEIGHT	= 42.0f;	// 初期文字縦幅
 		const float	DEST_HEIGHT	= 148.0f;	// 目標文字縦幅
@@ -62,7 +62,7 @@ namespace
 
 	namespace select
 	{
-		const char	*FONT		= "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
+		const char*	FONT		= "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
 		const bool	ITALIC		= false;	// イタリック
 		const float	CHAR_HEIGHT	= 42.0f;	// 文字縦幅
 		const float	LINE_WIDTH	= 500.0f;	// 列間縦幅

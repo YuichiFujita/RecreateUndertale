@@ -33,7 +33,7 @@ namespace
 		{ L'ア', 90 },  // ア～ン (ヺ)
 	};
 
-	const char *LOAD_FOLDER = "data\\FONT";	// フォントフォルダ相対パス
+	const char*	LOAD_FOLDER = "data\\FONT";	// フォントフォルダ相対パス
 	const int	FONT_HEIGHT = 240;			// フォント縦幅
 	const CFont::SFont ZERO_FONT;			// フォント初期値
 }
@@ -256,10 +256,10 @@ CFontChar::SChar CFont::RegistChar
 //============================================================
 //	生成処理
 //============================================================
-CFont *CFont::Create(void)
+CFont* CFont::Create(void)
 {
 	// フォントの生成
-	CFont *pFont = new CFont;
+	CFont* pFont = new CFont;
 	if (pFont == nullptr)
 	{ // 生成に失敗した場合
 

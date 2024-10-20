@@ -35,10 +35,10 @@ public:
 	HRESULT Init(void);		// キャラクター初期化
 	void Uninit(void);		// キャラクター終了
 	HRESULT LoadAll(void);	// キャラクター全読込
-	AMotion Regist(const char *pCharaPath);	// キャラクター登録
+	AMotion Regist(const char* pCharaPath);	// キャラクター登録
 
 	// 静的メンバ関数
-	static CCharacter2D *Create(void);	// 生成
+	static CCharacter2D* Create(void);	// 生成
 	static void Release(CCharacter2D*& prCharacter2D);	// 破棄
 
 private:
@@ -46,8 +46,8 @@ private:
 	HRESULT SearchFolderAll(std::string sFolderPath);	// フォルダ全検索
 
 	// メンバ関数
-	HRESULT LoadSetup(AMotion *pInfoChara, const char *pCharaPath);			// キャラクター情報セットアップ
-	HRESULT LoadMotionSetup(AMotion *pInfoChara, const char *pMotionPath);	// モーション情報セットアップ
+	HRESULT LoadSetup(AMotion* pInfoChara, const char* pCharaPath);			// キャラクター情報セットアップ
+	HRESULT LoadMotionSetup(AMotion* pInfoChara, const char* pMotionPath);	// モーション情報セットアップ
 
 	// メンバ変数
 	std::map<std::string, AMotion> m_mapCharacter;	// キャラクター2D連想配列

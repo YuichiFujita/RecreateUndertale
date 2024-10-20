@@ -317,9 +317,8 @@ bool CPause::IsDebugDisp(void) const
 //============================================================
 void CPause::Select(void)
 {
-	CInputKeyboard	*pKeyboard	= GET_INPUTKEY;	// キーボード
-	CInputPad		*pPad		= GET_INPUTPAD;	// パッド
-
+	CInputKeyboard*	pKeyboard	= GET_INPUTKEY;	// キーボード
+	CInputPad*		pPad		= GET_INPUTPAD;	// パッド
 	if (!GET_MANAGER->GetFade()->IsFade())
 	{ // フェードしていない場合
 

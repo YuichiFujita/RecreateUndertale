@@ -123,7 +123,7 @@ public:
 	virtual inline VECTOR2 GetVec2Size(void) const			{ assert(false); return VEC2_ZERO; }	// 二軸の大きさ取得
 	virtual inline VECTOR3 GetVec3Size(void) const			{ assert(false); return VEC3_ZERO; }	// 三軸の大きさ取得
 	virtual inline VECTOR3 GetVec3Scale(void) const			{ assert(false); return VEC3_ZERO; }	// 拡大率取得
-	virtual inline MATRIX *GetPtrMtxWorld(void)				{ assert(false); return nullptr; }		// マトリックスポインタ取得
+	virtual inline MATRIX* GetPtrMtxWorld(void)				{ assert(false); return nullptr; }		// マトリックスポインタ取得
 	virtual inline MATRIX GetMtxWorld(void) const			{ assert(false); return {}; }			// マトリックス取得
 
 	// 静的メンバ関数
@@ -133,41 +133,41 @@ public:
 	static void	UpdateAll(const float fDeltaTime);		// 全更新
 	static void	DrawAll(void);							// 全描画
 	static int	GetNumAll(void) { return m_nNumAll; }	// 総数取得
-	static CObject *GetTop(const EDim dimension, const int nPriority) { return m_apTop[dimension][nPriority]; }	// 先頭オブジェクト取得
-	static CObject *GetCur(const EDim dimension, const int nPriority) { return m_apCur[dimension][nPriority]; }	// 最後尾オブジェクト取得
+	static CObject* GetTop(const EDim dimension, const int nPriority) { return m_apTop[dimension][nPriority]; }	// 先頭オブジェクト取得
+	static CObject* GetCur(const EDim dimension, const int nPriority) { return m_apCur[dimension][nPriority]; }	// 最後尾オブジェクト取得
 
 	// メンバ関数
-	ELabel	inline GetLabel(void) const		{ return m_label; }		// ラベル取得
-	EDim	inline GetDimension(void) const	{ return m_dimension; }	// 次元取得
-	int		inline GetPriority(void) const	{ return m_nPriority; }	// 優先順位取得
-	DWORD	inline GetUniqueID(void) const	{ return m_dwID; }		// ユニークID取得
-	bool	inline IsUpdate(void) const		{ return m_bUpdate; }	// 更新状況取得
-	bool	inline IsDraw(void) const		{ return m_bDraw; }		// 描画状況取得
-	bool	inline IsDeath(void) const		{ return m_bDeath; }	// 死亡フラグ取得
-	CObject	inline *GetObject(void)			{ return this; }		// オブジェクト取得
-	CObject	inline *GetPrev(void) const		{ return m_pPrev; }		// 前オブジェクト取得
-	CObject	inline *GetNext(void) const		{ return m_pNext; }		// 次オブジェクト取得
+	inline ELabel	GetLabel(void) const		{ return m_label; }		// ラベル取得
+	inline EDim		GetDimension(void) const	{ return m_dimension; }	// 次元取得
+	inline int		GetPriority(void) const		{ return m_nPriority; }	// 優先順位取得
+	inline DWORD	GetUniqueID(void) const		{ return m_dwID; }		// ユニークID取得
+	inline bool		IsUpdate(void) const		{ return m_bUpdate; }	// 更新状況取得
+	inline bool		IsDraw(void) const			{ return m_bDraw; }		// 描画状況取得
+	inline bool		IsDeath(void) const			{ return m_bDeath; }	// 死亡フラグ取得
+	inline CObject*	GetObject(void)				{ return this; }		// オブジェクト取得
+	inline CObject*	GetPrev(void) const			{ return m_pPrev; }		// 前オブジェクト取得
+	inline CObject*	GetNext(void) const			{ return m_pNext; }		// 次オブジェクト取得
 
 private:
 	// 静的メンバ関数
 	static void DeathAll(void);	// 全死亡
 
 	// 静的メンバ変数
-	static CObject	*m_apTop[DIM_MAX][object::MAX_PRIO];	// 先頭のオブジェクトへのポインタ
-	static CObject	*m_apCur[DIM_MAX][object::MAX_PRIO];	// 最後尾のオブジェクトへのポインタ
+	static CObject*	m_apTop[DIM_MAX][object::MAX_PRIO];	// 先頭のオブジェクトへのポインタ
+	static CObject*	m_apCur[DIM_MAX][object::MAX_PRIO];	// 最後尾のオブジェクトへのポインタ
 	static DWORD	m_dwNextID;	// 次のユニークID
 	static int		m_nNumAll;	// オブジェクトの総数
 
 	// メンバ変数
-	ELabel	m_label;		// 自身のオブジェクトラベル
-	EDim	m_dimension;	// 自身の次元
-	int		m_nPriority;	// 自身の優先順位
-	DWORD	m_dwID;			// 自身のユニークID
-	bool	m_bUpdate;		// 自身の更新状況
-	bool	m_bDraw;		// 自身の描画状況
-	bool	m_bDeath;		// 自身の死亡フラグ
-	CObject	*m_pPrev;		// 前のオブジェクトへのポインタ
-	CObject	*m_pNext;		// 次のオブジェクトへのポインタ
+	ELabel	 m_label;		// 自身のオブジェクトラベル
+	EDim	 m_dimension;	// 自身の次元
+	int		 m_nPriority;	// 自身の優先順位
+	DWORD	 m_dwID;		// 自身のユニークID
+	bool	 m_bUpdate;		// 自身の更新状況
+	bool	 m_bDraw;		// 自身の描画状況
+	bool	 m_bDeath;		// 自身の死亡フラグ
+	CObject* m_pPrev;		// 前のオブジェクトへのポインタ
+	CObject* m_pNext;		// 次のオブジェクトへのポインタ
 
 #ifdef _DEBUG
 public:
