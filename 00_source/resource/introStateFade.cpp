@@ -46,7 +46,7 @@ CIntroStateFade::~CIntroStateFade()
 HRESULT CIntroStateFade::Init(void)
 {
 	// フェードを開始する
-	CFade *pFade = GET_MANAGER->GetFade();	// フェード情報
+	CFade* pFade = GET_MANAGER->GetFade();	// フェード情報
 	pFade->SetFade(FADE_LEVEL, FADE_LEVEL, PRIORITY);
 
 	// 成功を返す
@@ -68,7 +68,7 @@ void CIntroStateFade::Uninit(void)
 void CIntroStateFade::Update(const float fDeltaTime)
 {
 	// フェードインしていない場合抜ける
-	CFade *pFade = GET_MANAGER->GetFade();	// フェード情報
+	CFade* pFade = GET_MANAGER->GetFade();	// フェード情報
 	if (pFade->GetState() != CFade::FADE_IN) { return; }
 
 	// 物語と状態を遷移させる

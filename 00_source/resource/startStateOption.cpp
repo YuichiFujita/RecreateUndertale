@@ -18,7 +18,7 @@
 //************************************************************
 namespace
 {
-	const char *PASS = "data\\TEXT\\start.txt";	// テキストパス
+	const char* PASS = "data\\TEXT\\start.txt";	// テキストパス
 	const int PRIORITY = 6;	// 優先順位
 
 	namespace title
@@ -167,7 +167,7 @@ void CStartStateOption::Update(const float fDeltaTime)
 //============================================================
 void CStartStateOption::UpdateSelect(void)
 {
-	CInputKeyboard *pKey = GET_INPUTKEY;	// キーボード情報
+	CInputKeyboard* pKey = GET_INPUTKEY;	// キーボード情報
 
 	// 前回の選択肢を保存
 	m_nOldSelect = m_nCurSelect;

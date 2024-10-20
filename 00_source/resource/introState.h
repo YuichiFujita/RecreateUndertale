@@ -34,11 +34,11 @@ public:
 	virtual void Update(const float fDeltaTime) = 0;	// 更新
 
 	// メンバ関数
-	void SetContext(CIntroManager *pContext) { m_pContext = pContext; }	// コンテキスト設定
+	void SetContext(CIntroManager* pContext) { m_pContext = pContext; }	// コンテキスト設定
 
 protected:
 	// メンバ変数
-	CIntroManager *m_pContext;	// コンテキスト
+	CIntroManager* m_pContext;	// コンテキスト
 };
 
 //************************************************************

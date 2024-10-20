@@ -19,7 +19,7 @@
 //************************************************************
 namespace
 {
-	const char *PASS_CHAR[] =	// 文字配置情報の相対パス
+	const char* PASS_CHAR[] =	// 文字配置情報の相対パス
 	{
 		"data\\CSV\\char_hiragana.csv",	// ひらがな配置情報
 		"data\\CSV\\char_katakana.csv",	// カタカナ配置情報
@@ -179,7 +179,7 @@ HRESULT CStartStateCreateName::Init(void)
 		{ // 列の固定選択肢の総数分繰り返す
 
 			// 選択肢の生成
-			CString2D *pSelect = CString2D::Create
+			CString2D* pSelect = CString2D::Create
 			( // 引数
 				select::FONT,		// フォントパス
 				select::ITALIC,		// イタリック
@@ -269,7 +269,7 @@ void CStartStateCreateName::Update(const float fDeltaTime)
 //============================================================
 void CStartStateCreateName::ControlSelect(void)
 {
-	CInputKeyboard *pKey = GET_INPUTKEY;	// キーボード情報
+	CInputKeyboard* pKey = GET_INPUTKEY;	// キーボード情報
 	if (pKey->IsTrigger(DIK_LEFT))
 	{
 		do { // 選択先がない場合さらに動かす
@@ -571,7 +571,7 @@ HRESULT CStartStateCreateName::LoadArray(const ETypeChar typeChar)
 						{ // 特殊操作ではない場合
 
 							// 読み込んだ文字の生成
-							CString2D *pChar = CShakeString2D::Create
+							CString2D* pChar = CShakeString2D::Create
 							( // 引数
 								select::FONT,					// フォントパス
 								select::ITALIC,					// イタリック

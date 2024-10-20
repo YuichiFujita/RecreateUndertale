@@ -21,7 +21,7 @@
 //************************************************************
 namespace
 {
-	const char *PASS		= "data\\TEXT\\start.txt";	// テキストパス
+	const char*	PASS		= "data\\TEXT\\start.txt";	// テキストパス
 	const int	PRIORITY	= 6;	// 優先順位
 	const float	MOVE_TIME	= 4.0f;	// 移動時間
 	const float FADE_ADDOUT	= 0.2f;	// アウトのα値増加量
@@ -257,7 +257,7 @@ void CStartStateDecideName::Update(const float fDeltaTime)
 //============================================================
 void CStartStateDecideName::UpdateSelect(void)
 {
-	CInputKeyboard *pKey = GET_INPUTKEY;	// キーボード情報
+	CInputKeyboard* pKey = GET_INPUTKEY;	// キーボード情報
 
 	// 前回の選択肢を保存
 	m_nOldSelect = m_nCurSelect;

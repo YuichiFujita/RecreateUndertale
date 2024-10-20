@@ -46,8 +46,8 @@ private:
 
 	// メンバ変数
 	std::string m_sFragInput;	// キー入力フラグ
-	CObject2D *m_pLogo;	// タイトルロゴ
-	CString2D *m_pCont;	// 操作説明
+	CObject2D* m_pLogo;	// タイトルロゴ
+	CString2D* m_pCont;	// 操作説明
 	float m_fCurTime;	// 現在の待機時間
 	bool m_bSndBall;	// BALLコマンド再生フラグ
 };

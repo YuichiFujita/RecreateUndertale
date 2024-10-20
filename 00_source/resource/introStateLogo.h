@@ -40,7 +40,7 @@ public:
 
 private:
 	// メンバ変数
-	CObject2D *m_pLogo;	// タイトルロゴ
+	CObject2D* m_pLogo;	// タイトルロゴ
 	float m_fCurTime;	// 現在の待機時間
 };
 

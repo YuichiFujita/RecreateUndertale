@@ -53,11 +53,11 @@ private:
 	void UpdateDecide(void);	// 決定更新
 
 	// メンバ変数
-	CString2D *m_apSelect[SELECT_MAX];	// 選択肢
-	CText2D   *m_pCont;		// 操作説明
-	CString2D *m_pTitle;	// タイトル
-	CString2D *m_pRule;		// ゲーム概要
-	CString2D *m_pVersion;	// バージョン表記
+	CString2D* m_apSelect[SELECT_MAX];	// 選択肢
+	CText2D*   m_pCont;		// 操作説明
+	CString2D* m_pTitle;	// タイトル
+	CString2D* m_pRule;		// ゲーム概要
+	CString2D* m_pVersion;	// バージョン表記
 	int m_nCurSelect;		// 現在の選択肢
 	int m_nOldSelect;		// 前回の選択肢
 };

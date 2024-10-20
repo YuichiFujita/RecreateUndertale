@@ -196,7 +196,7 @@ void CStartStateLogo::UpdateCommand(void)
 	// BALL効果音が再生済みの場合抜ける
 	if (m_bSndBall) { return; }
 
-	CInputKeyboard *pKey = GET_INPUTKEY;	// キーボード情報
+	CInputKeyboard* pKey = GET_INPUTKEY;	// キーボード情報
 
 	// 最後尾に入力キーのフラグを追加
 	if (pKey->IsTrigger(DIK_B))

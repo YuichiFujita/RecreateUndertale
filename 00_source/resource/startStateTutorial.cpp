@@ -20,7 +20,7 @@
 //************************************************************
 namespace
 {
-	const char *PASS = "data\\TEXT\\start.txt";	// テキストパス
+	const char* PASS = "data\\TEXT\\start.txt";	// テキストパス
 	const int PRIORITY = 6;	// 優先順位
 
 	namespace title
@@ -37,7 +37,7 @@ namespace
 
 	namespace control
 	{
-		const char *FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
+		const char*	FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
 		const bool	ITALIC		= false;	// イタリック
 		const float	CHAR_HEIGHT	= 42.0f;	// 文字縦幅
 		const float	LINE_HEIGHT	= 54.0f;	// 行間縦幅
@@ -290,7 +290,7 @@ void CStartStateTutorial::Update(const float fDeltaTime)
 //============================================================
 void CStartStateTutorial::UpdateSelect(void)
 {
-	CInputKeyboard *pKey = GET_INPUTKEY;	// キーボード情報
+	CInputKeyboard* pKey = GET_INPUTKEY;	// キーボード情報
 
 	// 前回の選択肢を保存
 	m_nOldSelect = m_nCurSelect;
