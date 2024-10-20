@@ -51,7 +51,7 @@ public:
 	void SetEnableDraw(const bool bDraw);	// 描画状況設定
 
 	// 静的メンバ関数
-	static CPause *Create(void);			// 生成
+	static CPause* Create(void);			// 生成
 	static void Release(CPause*& prPause);	// 破棄
 
 #ifdef _DEBUG
@@ -67,8 +67,8 @@ private:
 	void Select(void);	// 選択操作
 
 	// メンバ変数
-	CObject2D *m_apSelect[SELECT_MAX];	// 選択情報
-	CObject2D *m_pBG;	// 背景情報
+	CObject2D* m_apSelect[SELECT_MAX];	// 選択情報
+	CObject2D* m_pBG;	// 背景情報
 	int  m_nSelect;		// 現在の選択
 	int  m_nOldSelect;	// 前回の選択
 	bool m_bPause;		// ポーズ状況

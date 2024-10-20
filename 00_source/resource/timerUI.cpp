@@ -117,7 +117,7 @@ void CTimerUI::SetTime(const float fTime)
 //============================================================
 //	生成処理
 //============================================================
-CTimerUI *CTimerUI::Create
+CTimerUI* CTimerUI::Create
 (
 	const float fTime,			// 開始時間
 	const float fLimit,			// 制限時間
@@ -134,7 +134,7 @@ CTimerUI *CTimerUI::Create
 )
 {
 	// タイマーUIの生成
-	CTimerUI *pTimerUI = new CTimerUI;
+	CTimerUI* pTimerUI = new CTimerUI;
 	if (pTimerUI == nullptr)
 	{ // 生成に失敗した場合
 

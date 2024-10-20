@@ -42,7 +42,7 @@ public:
 	int GetMSec(void) const override	{ return m_pTimer->GetMSec(); }	// ミリ秒取得
 
 	// 静的メンバ関数
-	static CTimerUI *Create	// 生成
+	static CTimerUI* Create	// 生成
 	( // 引数
 		const float fTime,			// 開始時間
 		const float fLimit,			// 制限時間
@@ -69,7 +69,7 @@ public:
 
 private:
 	// メンバ変数
-	CTimer *m_pTimer;	// タイマー管理情報
+	CTimer* m_pTimer;	// タイマー管理情報
 };
 
 #endif	// _TIMER_UI_H_

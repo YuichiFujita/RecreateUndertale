@@ -93,10 +93,10 @@ void CHitStop::SetStop(const int nCounter)
 //============================================================
 //	生成処理
 //============================================================
-CHitStop *CHitStop::Create(void)
+CHitStop* CHitStop::Create(void)
 {
 	// ヒットストップの生成
-	CHitStop *pHitStop = new CHitStop;
+	CHitStop* pHitStop = new CHitStop;
 	if (pHitStop == nullptr)
 	{ // 生成に失敗した場合
 

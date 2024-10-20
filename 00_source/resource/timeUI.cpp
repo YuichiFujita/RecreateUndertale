@@ -20,7 +20,7 @@
 //************************************************************
 namespace
 {
-	const char *TEXTURE_FILE[] =	// テクスチャファイル
+	const char* TEXTURE_FILE[] =	// テクスチャファイル
 	{
 		"data\\TEXTURE\\timePart000.png",	// 通常区切り
 	};
@@ -319,7 +319,7 @@ void CTimeUI::SetVec3Rotation(const VECTOR3& rRot)
 //============================================================
 //	生成処理
 //============================================================
-CTimeUI *CTimeUI::Create
+CTimeUI* CTimeUI::Create
 (
 	const float fTime,			// 表示時間
 	const VECTOR3& rPos,		// 位置
@@ -335,7 +335,7 @@ CTimeUI *CTimeUI::Create
 )
 {
 	// タイムUIの生成
-	CTimeUI *pTimeUI = new CTimeUI;
+	CTimeUI* pTimeUI = new CTimeUI;
 	if (pTimeUI == nullptr)
 	{ // 生成に失敗した場合
 

@@ -22,7 +22,7 @@
 //************************************************************
 namespace
 {
-	const char *TEXTURE_FILE[] =	// テクスチャファイル
+	const char* TEXTURE_FILE[] =	// テクスチャファイル
 	{
 		"data\\TEXTURE\\pause000.png",	// 再開テクスチャ
 		"data\\TEXTURE\\pause001.png",	// リトライテクスチャ
@@ -240,10 +240,10 @@ void CPause::SetEnableDraw(const bool bDraw)
 //============================================================
 //	生成処理
 //============================================================
-CPause *CPause::Create(void)
+CPause* CPause::Create(void)
 {
 	// ポーズの生成
-	CPause *pPause = new CPause;
+	CPause* pPause = new CPause;
 	if (pPause == nullptr)
 	{ // 生成に失敗した場合
 

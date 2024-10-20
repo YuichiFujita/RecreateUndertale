@@ -46,7 +46,7 @@ public:
 	VECTOR3 GetVec3Position(void) const override { return m_pos; }	// 位置取得
 
 	// 静的メンバ関数
-	static CValueUI *Create	// 生成 (テクスチャ指定なし)
+	static CValueUI* Create	// 生成 (テクスチャ指定なし)
 	( // 引数
 		const CValue::EType type,	// 数字種類
 		const int nDigit,			// 桁数
@@ -60,7 +60,7 @@ public:
 		const COLOR& rColTitle = color::White(),	// タイトル色
 		const COLOR& rColValue = color::White()		// 数字色
 	);
-	static CValueUI *Create	// 生成 (テクスチャインデックス指定)
+	static CValueUI* Create	// 生成 (テクスチャインデックス指定)
 	( // 引数
 		const int nTextureID,		// タイトルテクスチャインデックス
 		const CValue::EType type,	// 数字種類
@@ -75,9 +75,9 @@ public:
 		const COLOR& rColTitle = color::White(),	// タイトル色
 		const COLOR& rColValue = color::White()		// 数字色
 	);
-	static CValueUI *Create	// 生成 (テクスチャパス指定)
+	static CValueUI* Create	// 生成 (テクスチャパス指定)
 	( // 引数
-		const char *pTexturePath,	// タイトルテクスチャパス
+		const char* pTexturePath,	// タイトルテクスチャパス
 		const CValue::EType type,	// 数字種類
 		const int nDigit,			// 桁数
 		const VECTOR3& rPos,		// 位置
@@ -94,7 +94,7 @@ public:
 	// メンバ関数
 	void SetSpace(const VECTOR3& rSpace);				// 行間設定
 	void BindTextureTitle(const int nTextureID);		// タイトルテクスチャ割当 (インデックス)
-	void BindTextureTitle(const char *pTexturePath);	// タイトルテクスチャ割当 (パス)
+	void BindTextureTitle(const char* pTexturePath);	// タイトルテクスチャ割当 (パス)
 	void SetRotationTitle(const VECTOR3& rRot);			// タイトル向き設定
 	void SetSizeTitle(const VECTOR3& rSize);			// タイトル大きさ設定
 	void SetAlphaTitle(const float fAlpha);				// タイトル透明度設定
@@ -104,7 +104,7 @@ public:
 	VECTOR3 GetSizeTitle(void) const		{ return m_pTitle->GetVec3Size(); }		// タイトル大きさ取得
 	float GetAlphaTitle(void) const			{ return m_pTitle->GetAlpha(); }		// タイトル透明度取得
 	COLOR GetColorTitle(void) const			{ return m_pTitle->GetColor(); }		// タイトル色取得
-	CMultiValue *GetMultiValue(void) const	{ return m_pValue; }					// 数字情報取得
+	CMultiValue* GetMultiValue(void) const	{ return m_pValue; }					// 数字情報取得
 
 private:
 	// オーバーライド関数
@@ -114,8 +114,8 @@ private:
 	void SetPositionRelative(void);	// 相対位置設定
 
 	// メンバ変数
-	CObject2D *m_pTitle;	// タイトル情報
-	CMultiValue *m_pValue;	// 数字情報
+	CObject2D* m_pTitle;	// タイトル情報
+	CMultiValue* m_pValue;	// 数字情報
 	VECTOR3 m_pos;			// 位置
 	VECTOR3 m_space;		// 行間
 };

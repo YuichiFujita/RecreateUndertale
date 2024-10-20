@@ -32,7 +32,7 @@ public:
 	bool IsStop(void) const	{ return m_bStop; }	// ’â~ó‹µæ“¾
 
 	// Ã“Iƒƒ“ƒoŠÖ”
-	static CHitStop *Create(void);				// ¶¬
+	static CHitStop* Create(void);				// ¶¬
 	static void Release(CHitStop*& prHitStop);	// ”jŠü
 
 private:

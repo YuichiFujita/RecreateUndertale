@@ -61,7 +61,7 @@ public:
 	VECTOR3 GetVec3Rotation(void) const override { return m_rot; }	// 向き取得
 
 	// 静的メンバ関数
-	static CTimeUI *Create	// 生成
+	static CTimeUI* Create	// 生成
 	( // 引数
 		const float fTime,			// 表示時間
 		const VECTOR3& rPos,		// 位置
@@ -115,8 +115,8 @@ private:
 	void SetTexNum(void);			// 数字のテクスチャ座標設定
 
 	// メンバ変数
-	CValue *m_apValue[timeUI::MAX_DIGIT];	// 数値の情報
-	CObject2D *m_apPart[timeUI::MAX_PART];	// 区切りの情報
+	CValue* m_apValue[timeUI::MAX_DIGIT];	// 数値の情報
+	CObject2D* m_apPart[timeUI::MAX_PART];	// 区切りの情報
 	CValue::EType m_type;	// 数字種類
 	VECTOR3 m_pos;			// 原点位置
 	VECTOR3 m_rot;			// 原点向き
