@@ -40,7 +40,7 @@ public:
 
 	// Ã“Iƒƒ“ƒoŠÖ”
 	static CGameManager *Create(void);	// ¶¬
-	static void Release(CGameManager *&prGameManager);	// ”jŠü
+	static void Release(CGameManager*& prGameManager);	// ”jŠü
 
 private:
 	// ƒƒ“ƒo•Ï”

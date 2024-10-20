@@ -348,7 +348,7 @@ CLoading *CLoading::Create(void)
 //============================================================
 //	破棄処理
 //============================================================
-void CLoading::Release(CLoading *&prLoading)
+void CLoading::Release(CLoading*& prLoading)
 {
 	// ローディングの終了
 	assert(prLoading != nullptr);

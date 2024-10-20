@@ -44,7 +44,7 @@ public:
 
 	// Ã“Iƒƒ“ƒoŠÖ”
 	static CStage *Create(void);			// ¶¬
-	static void Release(CStage *&prStage);	// ”jŠü
+	static void Release(CStage*& prStage);	// ”jŠü
 
 private:
 	// ƒƒ“ƒoŠÖ”

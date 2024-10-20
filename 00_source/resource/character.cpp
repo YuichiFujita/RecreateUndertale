@@ -166,7 +166,7 @@ CCharacter *CCharacter::Create(void)
 //============================================================
 //	破棄処理
 //============================================================
-void CCharacter::Release(CCharacter *&prCharacter)
+void CCharacter::Release(CCharacter*& prCharacter)
 {
 	// キャラクターの終了
 	assert(prCharacter != nullptr);

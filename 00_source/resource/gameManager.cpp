@@ -116,7 +116,7 @@ CGameManager *CGameManager::Create(void)
 //============================================================
 //	破棄処理
 //============================================================
-void CGameManager::Release(CGameManager *&prGameManager)
+void CGameManager::Release(CGameManager*& prGameManager)
 {
 	// ゲームマネージャーの終了
 	assert(prGameManager != nullptr);

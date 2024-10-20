@@ -171,7 +171,7 @@ CFontChar *CFontChar::Create(const HFONT hFont, const std::string& rFilePath, co
 //============================================================
 //	破棄処理
 //============================================================
-void CFontChar::Release(CFontChar *&prFontChar)
+void CFontChar::Release(CFontChar*& prFontChar)
 {
 	// フォント文字の終了
 	assert(prFontChar != nullptr);

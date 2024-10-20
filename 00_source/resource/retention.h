@@ -29,7 +29,7 @@ public:
 
 	// Ã“Iƒƒ“ƒoŠÖ”
 	static CRetention *Create(void);	// ¶¬
-	static void Release(CRetention *&prRetention);	// ”jŠü
+	static void Release(CRetention*& prRetention);	// ”jŠü
 };
 
 #endif	// _RETENTION_H_

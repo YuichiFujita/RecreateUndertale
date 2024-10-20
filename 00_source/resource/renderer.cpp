@@ -379,7 +379,7 @@ CRenderer *CRenderer::Create(HWND hWnd, BOOL bWindow)
 //============================================================
 //	”jŠüˆ—
 //============================================================
-void CRenderer::Release(CRenderer *&prRenderer)
+void CRenderer::Release(CRenderer*& prRenderer)
 {
 	// ƒŒƒ“ƒ_ƒ‰[‚ÌI—¹
 	assert(prRenderer != nullptr);

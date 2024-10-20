@@ -41,7 +41,7 @@ public:
 
 	// Ã“Iƒƒ“ƒoŠÖ”
 	static CDebug *Create(void);			// ¶¬
-	static void Release(CDebug *&pDebug);	// ”jŠü
+	static void Release(CDebug*& pDebug);	// ”jŠü
 
 private:
 

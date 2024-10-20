@@ -157,7 +157,7 @@ CLight *CLight::Create(void)
 //============================================================
 //	”jŠüˆ—
 //============================================================
-void CLight::Release(CLight *&prLight)
+void CLight::Release(CLight*& prLight)
 {
 	// ƒ‰ƒCƒg‚ÌI—¹
 	assert(prLight != nullptr);

@@ -57,7 +57,7 @@ public:
 
 	// 静的メンバ関数
 	static CInputKeyboard *Create(HINSTANCE hInstance, HWND hWnd);	// 生成
-	static void Release(CInputKeyboard *&pKeyboard);				// 破棄
+	static void Release(CInputKeyboard*& pKeyboard);				// 破棄
 
 	// メンバ関数
 	void InitPress(void);		// プレス初期化
@@ -103,7 +103,7 @@ public:
 
 	// 静的メンバ関数
 	static CInputMouse *Create(HINSTANCE hInstance, HWND hWnd);	// 生成
-	static void Release(CInputMouse *&pMouse);					// 破棄
+	static void Release(CInputMouse*& pMouse);					// 破棄
 
 	// メンバ関数
 	bool IsPress(EKey mouKey);		// プレス取得
@@ -181,7 +181,7 @@ public:
 
 	// 静的メンバ関数
 	static CInputPad *Create(void);			// 生成
-	static void Release(CInputPad *&pPad);	// 破棄
+	static void Release(CInputPad*& pPad);	// 破棄
 
 	// メンバ関数
 	HRESULT Init(void);	// 初期化

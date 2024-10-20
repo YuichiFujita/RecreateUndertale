@@ -52,7 +52,7 @@ public:
 
 	// Ã“Iƒƒ“ƒoŠÖ”
 	static CPause *Create(void);			// ¶¬
-	static void Release(CPause *&prPause);	// ”jŠü
+	static void Release(CPause*& prPause);	// ”jŠü
 
 #ifdef _DEBUG
 

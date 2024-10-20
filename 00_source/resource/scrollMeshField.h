@@ -39,7 +39,7 @@ public:
 	void SetVec2Size(const VECTOR2& rSize) override;	// 大きさ設定
 
 	// 静的メンバ関数
-	static CScrollMeshField *Create	// 生成
+	static CScrollMeshField* Create	// 生成
 	( // 引数
 		const float fMoveU,		// 横座標の移動量
 		const float fMoveV,		// 縦座標の移動量
@@ -51,7 +51,7 @@ public:
 	);
 
 	// メンバ関数
-	void SetTerrain(const POSGRID2& rPart, VECTOR3 *pPosGap);	// 地形設定
+	void SetTerrain(const POSGRID2& rPart, VECTOR3* pPosGap);	// 地形設定
 	void SetAlpha(const float fAlpha);			// 透明度設定
 	void SetColor(const COLOR& rCol);			// 色設定
 	HRESULT SetPattern(const POSGRID2& rPart);	// 分割数設定

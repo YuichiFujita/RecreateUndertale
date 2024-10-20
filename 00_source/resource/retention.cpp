@@ -77,7 +77,7 @@ CRetention *CRetention::Create(void)
 //============================================================
 //	破棄処理
 //============================================================
-void CRetention::Release(CRetention *&prRetention)
+void CRetention::Release(CRetention*& prRetention)
 {
 	// データ保存の終了
 	assert(prRetention != nullptr);

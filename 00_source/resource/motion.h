@@ -183,7 +183,7 @@ public:
 
 	// Ã“Iƒƒ“ƒoŠÖ”
 	static CMotion *Create(CObjectChara *pChara);	// ¶¬
-	static void Release(CMotion *&prMotion);		// ”jŠü
+	static void Release(CMotion*& prMotion);		// ”jŠü
 
 private:
 	// ƒƒ“ƒoŠÖ”

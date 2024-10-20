@@ -39,7 +39,7 @@ public:
 
 	// Ã“Iƒƒ“ƒoŠÖ”
 	static CCharacter2D *Create(void);	// ¶¬
-	static void Release(CCharacter2D *&prCharacter2D);	// ”jŠü
+	static void Release(CCharacter2D*& prCharacter2D);	// ”jŠü
 
 private:
 	// ƒƒ“ƒoŠÖ”

@@ -114,7 +114,7 @@ CScene *CScene::Create(EMode mode)
 //============================================================
 //	破棄処理
 //============================================================
-void CScene::Release(CScene *&prScene)
+void CScene::Release(CScene*& prScene)
 {
 	// シーンの終了
 	assert(prScene != nullptr);

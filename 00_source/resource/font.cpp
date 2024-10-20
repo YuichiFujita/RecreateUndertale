@@ -285,7 +285,7 @@ CFont *CFont::Create(void)
 //============================================================
 //	破棄処理
 //============================================================
-void CFont::Release(CFont *&prFont)
+void CFont::Release(CFont*& prFont)
 {
 	// フォントの終了
 	assert(prFont != nullptr);

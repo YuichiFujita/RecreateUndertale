@@ -362,7 +362,7 @@ CDebug *CDebug::Create(void)
 //============================================================
 //	破棄処理
 //============================================================
-void CDebug::Release(CDebug *&prDebug)
+void CDebug::Release(CDebug*& prDebug)
 {
 	// デバッグの終了
 	assert(prDebug != nullptr);

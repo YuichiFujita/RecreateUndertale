@@ -81,7 +81,7 @@ public:
 
 	// Ã“Iƒƒ“ƒoŠÖ”
 	static CFont *Create(void);				// ¶¬
-	static void Release(CFont *&prFont);	// ”jŠü
+	static void Release(CFont*& prFont);	// ”jŠü
 
 private:
 	// ƒƒ“ƒoŠÖ”

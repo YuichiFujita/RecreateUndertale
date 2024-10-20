@@ -242,7 +242,7 @@ CDebugProc *CDebugProc::Create(void)
 //==========================================================
 //	破棄処理
 //==========================================================
-void CDebugProc::Release(CDebugProc *&prDebugProc)
+void CDebugProc::Release(CDebugProc*& prDebugProc)
 {
 	// デバッグプロックの終了
 	assert(prDebugProc != nullptr);

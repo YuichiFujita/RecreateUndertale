@@ -33,7 +33,7 @@ public:
 
 	// Ã“Iƒƒ“ƒoŠÖ”
 	static CHitStop *Create(void);				// ¶¬
-	static void Release(CHitStop *&prHitStop);	// ”jŠü
+	static void Release(CHitStop*& prHitStop);	// ”jŠü
 
 private:
 	// ƒƒ“ƒo•Ï”

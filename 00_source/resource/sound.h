@@ -57,7 +57,7 @@ public:
 
 	// Ã“Iƒƒ“ƒoŠÖ”
 	static CSound *Create(HWND hWnd);		// ¶¬
-	static void Release(CSound *&pSound);	// ”jŠü
+	static void Release(CSound*& pSound);	// ”jŠü
 
 private:
 	// ƒƒ“ƒoŠÖ”

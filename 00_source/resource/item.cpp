@@ -231,7 +231,7 @@ CItem *CItem::Create(void)
 //============================================================
 //	破棄処理
 //============================================================
-void CItem::Release(CItem *&prItem)
+void CItem::Release(CItem*& prItem)
 {
 	// アイテムの終了
 	assert(prItem != nullptr);

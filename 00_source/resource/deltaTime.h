@@ -34,7 +34,7 @@ public:
 
 	// Ã“Iƒƒ“ƒoŠÖ”
 	static CDeltaTime *Create(void);				// ¶¬
-	static void Release(CDeltaTime *&prDeltaTime);	// ”jŠü
+	static void Release(CDeltaTime*& prDeltaTime);	// ”jŠü
 
 private:
 	// ƒƒ“ƒo•Ï”

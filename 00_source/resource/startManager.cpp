@@ -127,7 +127,7 @@ CStartManager *CStartManager::Create(void)
 //============================================================
 //	破棄処理
 //============================================================
-void CStartManager::Release(CStartManager *&prStartManager)
+void CStartManager::Release(CStartManager*& prStartManager)
 {
 	// スタートマネージャーの終了
 	assert(prStartManager != nullptr);

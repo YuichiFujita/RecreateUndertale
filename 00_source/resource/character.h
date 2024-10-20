@@ -82,7 +82,7 @@ public:
 
 	// Ã“Iƒƒ“ƒoŠÖ”
 	static CCharacter *Create(void);	// ¶¬
-	static void Release(CCharacter *&prCharacter);	// ”jŠü
+	static void Release(CCharacter*& prCharacter);	// ”jŠü
 
 private:
 	// ƒƒ“ƒoŠÖ”

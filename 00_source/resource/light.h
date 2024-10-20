@@ -39,7 +39,7 @@ public:
 
 	// Ã“Iƒƒ“ƒoŠÖ”
 	static CLight *Create(void);			// ¶¬
-	static void Release(CLight *&pLight);	// ”jŠü
+	static void Release(CLight*& pLight);	// ”jŠü
 
 private:
 	// ƒƒ“ƒo•Ï”

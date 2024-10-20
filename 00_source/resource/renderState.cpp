@@ -32,7 +32,7 @@ static_assert(NUM_ARRAY(SET_BLEND) == CRenderState::BLEND_MAX, "ERROR : Blend Co
 //************************************************************
 //	静的メンバ変数宣言
 //************************************************************
-LPDIRECT3DDEVICE9 *CRenderState::m_ppDevice = nullptr;	// Direct3Dデバイスへのポインタ
+LPDIRECT3DDEVICE9* CRenderState::m_ppDevice = nullptr;	// Direct3Dデバイスへのポインタ
 CRenderState::SInfo CRenderState::m_save = {};			// 保存レンダーステート情報
 
 //************************************************************
@@ -128,10 +128,10 @@ void CRenderState::SetAlphaBlend(const EBlend blend)
 //============================================================
 //	生成処理
 //============================================================
-CRenderState *CRenderState::Create(void)
+CRenderState* CRenderState::Create(void)
 {
 	// レンダーステートの生成
-	CRenderState *pRenderState = new CRenderState;
+	CRenderState* pRenderState = new CRenderState;
 	if (pRenderState == nullptr)
 	{ // 生成に失敗した場合
 
@@ -157,7 +157,7 @@ CRenderState *CRenderState::Create(void)
 //============================================================
 //	破棄処理
 //============================================================
-void CRenderState::Release(CRenderState *&prRenderState)
+void CRenderState::Release(CRenderState*& prRenderState)
 {
 	// レンダーステートの終了
 	assert(prRenderState != nullptr);
@@ -170,7 +170,7 @@ void CRenderState::Release(CRenderState *&prRenderState)
 //============================================================
 //	デバイスの割当処理
 //============================================================
-void CRenderState::BindDevice(LPDIRECT3DDEVICE9 *ppDevice)
+void CRenderState::BindDevice(LPDIRECT3DDEVICE9* ppDevice)
 {
 	// デバイス未指定
 	assert(*ppDevice != nullptr);

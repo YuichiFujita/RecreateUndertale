@@ -109,7 +109,7 @@ public:
 
 	// Ã“Iƒƒ“ƒoŠÖ”
 	static CCamera *Create(void);				// ¶¬
-	static void Release(CCamera *&prCamera);	// ”jŠü
+	static void Release(CCamera*& prCamera);	// ”jŠü
 
 private:
 	// ƒƒ“ƒoŠÖ”

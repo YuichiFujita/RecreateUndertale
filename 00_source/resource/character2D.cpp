@@ -148,7 +148,7 @@ CCharacter2D *CCharacter2D::Create(void)
 //============================================================
 //	破棄処理
 //============================================================
-void CCharacter2D::Release(CCharacter2D *&prCharacter)
+void CCharacter2D::Release(CCharacter2D*& prCharacter)
 {
 	// キャラクター2Dの終了
 	assert(prCharacter != nullptr);

@@ -146,7 +146,7 @@ void CScrollMeshField::SetVec2Size(const VECTOR2& rSize)
 //============================================================
 //	生成処理
 //============================================================
-CScrollMeshField *CScrollMeshField::Create
+CScrollMeshField* CScrollMeshField::Create
 (
 	const float fMoveU,		// 横座標の移動量
 	const float fMoveV,		// 縦座標の移動量
@@ -158,7 +158,7 @@ CScrollMeshField *CScrollMeshField::Create
 )
 {
 	// スクロールメッシュフィールドの生成
-	CScrollMeshField *pScrollMeshField = new CScrollMeshField;
+	CScrollMeshField* pScrollMeshField = new CScrollMeshField;
 	if (pScrollMeshField == nullptr)
 	{ // 生成に失敗した場合
 
@@ -211,7 +211,7 @@ CScrollMeshField *CScrollMeshField::Create
 //============================================================
 //	地形の設定処理
 //============================================================
-void CScrollMeshField::SetTerrain(const POSGRID2& rPart, VECTOR3 *pPosGap)
+void CScrollMeshField::SetTerrain(const POSGRID2& rPart, VECTOR3* pPosGap)
 {
 	// 地形の設定
 	CObjectMeshField::SetTerrain(rPart, pPosGap);

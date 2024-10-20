@@ -80,7 +80,7 @@ void CMultiModel::Update(const float fDeltaTime)
 void CMultiModel::Draw(CShader* pShader)
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;			// デバイスのポインタ
-	CRenderState *pRenderState = GetRenderState();	// レンダーステートの情報
+	CRenderState* pRenderState = GetRenderState();	// レンダーステートの情報
 	CModel::SModel modelData = GetModelData();		// モデルの情報
 	VECTOR3 pos = GetVec3Position();	// モデルの位置
 	VECTOR3 rot = GetVec3Rotation();	// モデルの向き
@@ -157,10 +157,10 @@ void CMultiModel::Draw(CShader* pShader)
 //============================================================
 //	生成処理
 //============================================================
-CMultiModel *CMultiModel::Create(const VECTOR3& rPos, const VECTOR3& rRot, const VECTOR3& rScale)
+CMultiModel* CMultiModel::Create(const VECTOR3& rPos, const VECTOR3& rRot, const VECTOR3& rScale)
 {
 	// マルチモデルの生成
-	CMultiModel *pMultiModel = new CMultiModel;
+	CMultiModel* pMultiModel = new CMultiModel;
 	if (pMultiModel == nullptr)
 	{ // 生成に失敗した場合
 
@@ -195,7 +195,7 @@ CMultiModel *CMultiModel::Create(const VECTOR3& rPos, const VECTOR3& rRot, const
 //============================================================
 //	親オブジェクトの設定処理
 //============================================================
-void CMultiModel::SetParentObject(CObject *pObject)
+void CMultiModel::SetParentObject(CObject* pObject)
 {
 	// 引数のオブジェクトポインタを親に設定
 	m_pParent = pObject;
@@ -204,7 +204,7 @@ void CMultiModel::SetParentObject(CObject *pObject)
 //============================================================
 //	親オブジェクトの設定処理
 //============================================================
-void CMultiModel::SetParentModel(CMultiModel *pModel)
+void CMultiModel::SetParentModel(CMultiModel* pModel)
 {
 	// 引数のモデルポインタを親に設定
 	m_pParent = (CObject*)pModel;

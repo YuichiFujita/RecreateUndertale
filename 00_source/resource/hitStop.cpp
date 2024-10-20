@@ -122,7 +122,7 @@ CHitStop *CHitStop::Create(void)
 //============================================================
 //	破棄処理
 //============================================================
-void CHitStop::Release(CHitStop *&prHitStop)
+void CHitStop::Release(CHitStop*& prHitStop)
 {
 	// ヒットストップの終了
 	assert(prHitStop != nullptr);

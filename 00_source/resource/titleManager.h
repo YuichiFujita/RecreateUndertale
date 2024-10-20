@@ -62,7 +62,7 @@ public:
 
 	// Ã“Iƒƒ“ƒoŠÖ”
 	static CTitleManager *Create(void);	// ¶¬
-	static void Release(CTitleManager *&prTitleManager);	// ”jŠü
+	static void Release(CTitleManager*& prTitleManager);	// ”jŠü
 
 private:
 	// ƒƒ“ƒoŠÖ”

@@ -145,7 +145,7 @@ CStage *CStage::Create(void)
 //============================================================
 //	破棄処理
 //============================================================
-void CStage::Release(CStage *&prStage)
+void CStage::Release(CStage*& prStage)
 {
 	// ステージの終了
 	assert(prStage != nullptr);

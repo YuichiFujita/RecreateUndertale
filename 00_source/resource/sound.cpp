@@ -433,7 +433,7 @@ CSound *CSound::Create(HWND hWnd)
 //============================================================
 //	破棄処理
 //============================================================
-void CSound::Release(CSound *&prSound)
+void CSound::Release(CSound*& prSound)
 {
 	// サウンドの終了
 	assert(prSound != nullptr);

@@ -219,7 +219,7 @@ CModel *CModel::Create(void)
 //============================================================
 //	”jŠüˆ—
 //============================================================
-void CModel::Release(CModel *&prModel)
+void CModel::Release(CModel*& prModel)
 {
 	// ƒ‚ƒfƒ‹‚ÌI—¹
 	assert(prModel != nullptr);

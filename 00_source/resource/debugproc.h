@@ -48,7 +48,7 @@ public:
 
 	// 静的メンバ関数
 	static CDebugProc *Create(void);				// 生成
-	static void Release(CDebugProc *&pDebugProc);	// 破棄
+	static void Release(CDebugProc*& pDebugProc);	// 破棄
 
 private:
 	static LPD3DXFONT m_pFont;	// フォントへのポインタ

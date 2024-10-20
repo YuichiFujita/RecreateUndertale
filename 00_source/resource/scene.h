@@ -40,7 +40,7 @@ public:
 
 	// 静的メンバ関数
 	static CScene *Create(EMode mode);		// 生成
-	static void Release(CScene *&prScene);	// 破棄
+	static void Release(CScene*& prScene);	// 破棄
 
 	// メンバ関数
 	void SetMode(const EMode mode)	{ m_mode = mode; }	// モード設定

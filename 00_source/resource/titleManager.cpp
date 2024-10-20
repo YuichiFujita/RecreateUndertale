@@ -360,7 +360,7 @@ CTitleManager *CTitleManager::Create(void)
 //============================================================
 //	破棄処理
 //============================================================
-void CTitleManager::Release(CTitleManager *&prTitleManager)
+void CTitleManager::Release(CTitleManager*& prTitleManager)
 {
 	// タイトルマネージャーの終了
 	assert(prTitleManager != nullptr);

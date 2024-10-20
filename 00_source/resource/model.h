@@ -52,7 +52,7 @@ public:
 
 	// Ã“Iƒƒ“ƒoŠÖ”
 	static CModel *Create(void);			// ¶¬
-	static void Release(CModel *&pModel);	// ”jŠü
+	static void Release(CModel*& pModel);	// ”jŠü
 
 private:
 	// ƒƒ“ƒoŠÖ”

@@ -62,7 +62,7 @@ public:
 
 	// Ã“Iƒƒ“ƒoŠÖ”
 	static CStartManager *Create(void);	// ¶¬
-	static void Release(CStartManager *&prStartManager);	// ”jŠü
+	static void Release(CStartManager*& prStartManager);	// ”jŠü
 
 private:
 	// ƒƒ“ƒo•Ï”

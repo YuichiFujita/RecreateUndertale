@@ -96,7 +96,7 @@ public:
 
 	// 静的メンバ関数
 	static CRenderState *Create(void);	// 生成
-	static void Release(CRenderState *&prRenderState);		// 破棄
+	static void Release(CRenderState*& prRenderState);		// 破棄
 	static void BindDevice(LPDIRECT3DDEVICE9 *ppDevice);	// デバイス割当
 	static void InitRenderState(void);		// レンダーステート情報初期化
 	static SInfo GetSaveRenderState(void);	// 保存レンダーステート情報取得

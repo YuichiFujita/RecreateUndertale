@@ -603,7 +603,7 @@ CManager *CManager::GetInstance(void)
 //============================================================
 //	破棄処理
 //============================================================
-void CManager::Release(CManager *&prManager)
+void CManager::Release(CManager*& prManager)
 {
 	// マネージャーの終了
 	assert(prManager != nullptr);

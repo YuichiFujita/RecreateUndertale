@@ -40,7 +40,7 @@ public:
 
 	// 静的メンバ関数
 	static CRandom *Create(void);	// 生成
-	static void Release(CRandom *&prRandom);	// 破棄
+	static void Release(CRandom*& prRandom);	// 破棄
 
 private:
 	// イテレーター型エイリアス定義
@@ -196,7 +196,7 @@ template<class T> CRandom<T> *CRandom<T>::Create(void)
 //============================================================
 //	破棄処理
 //============================================================
-template<class T> void CRandom<T>::Release(CRandom *&prRandom)
+template<class T> void CRandom<T>::Release(CRandom*& prRandom)
 {
 	// ランダムの終了
 	assert(prRandom != nullptr);

@@ -137,7 +137,7 @@ CMenuManager *CMenuManager::Create(void)
 //============================================================
 //	破棄処理
 //============================================================
-void CMenuManager::Release(CMenuManager *&prMenuManager)
+void CMenuManager::Release(CMenuManager*& prMenuManager)
 {
 	// フィールドメニューマネージャーの終了
 	assert(prMenuManager != nullptr);

@@ -38,7 +38,7 @@ public:
 
 	// Ã“Iƒƒ“ƒoŠÖ”
 	static CMenuManager *Create(void);	// ¶¬
-	static void Release(CMenuManager *&prMenuManager);	// ”jŠü
+	static void Release(CMenuManager*& prMenuManager);	// ”jŠü
 
 private:
 	// ƒƒ“ƒo•Ï”

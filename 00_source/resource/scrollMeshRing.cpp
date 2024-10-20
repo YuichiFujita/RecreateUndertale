@@ -146,7 +146,7 @@ void CScrollMeshRing::SetVec2Size(const VECTOR2& rSize)
 //============================================================
 //	生成処理
 //============================================================
-CScrollMeshRing *CScrollMeshRing::Create
+CScrollMeshRing* CScrollMeshRing::Create
 (
 	const float fMoveU,		// 横座標の移動量
 	const float fMoveV,		// 縦座標の移動量
@@ -158,7 +158,7 @@ CScrollMeshRing *CScrollMeshRing::Create
 )
 {
 	// スクロールメッシュリングの生成
-	CScrollMeshRing *pScrollMeshRing = new CScrollMeshRing;
+	CScrollMeshRing* pScrollMeshRing = new CScrollMeshRing;
 	if (pScrollMeshRing == nullptr)
 	{ // 生成に失敗した場合
 

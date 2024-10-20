@@ -81,7 +81,7 @@ public:
 
 	// Ã“Iƒƒ“ƒoŠÖ”
 	static CItem *Create(void);			// ¶¬
-	static void Release(CItem *&pItem);	// ”jŠü
+	static void Release(CItem*& pItem);	// ”jŠü
 
 private:
 	// ƒƒ“ƒoŠÖ”

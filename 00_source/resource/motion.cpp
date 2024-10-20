@@ -421,7 +421,7 @@ CMotion *CMotion::Create(CObjectChara *pChara)
 //============================================================
 //	”jŠüˆ—
 //============================================================
-void CMotion::Release(CMotion *&prMotion)
+void CMotion::Release(CMotion*& prMotion)
 {
 	// ƒ‚[ƒVƒ‡ƒ“‚ÌI—¹
 	assert(prMotion != nullptr);

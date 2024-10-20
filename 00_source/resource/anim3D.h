@@ -41,7 +41,7 @@ public:
 	void SetVec3Size(const VECTOR3& rSize) override;	// 大きさ設定
 
 	// 静的メンバ関数
-	static CAnim3D *Create	// 生成
+	static CAnim3D* Create	// 生成
 	( // 引数
 		const POSGRID2& rPtrn,	// テクスチャ分割数
 		const VECTOR3& rPos,	// 位置
@@ -84,7 +84,7 @@ private:
 	// メンバ変数
 	std::function<void(float)> m_funcPattern;	// パターン変更関数ポインタ
 	POSGRID2 m_ptrn;		// テクスチャ分割数
-	float *m_pNextTime;		// パターン変更時間
+	float* m_pNextTime;		// パターン変更時間
 	float m_fCurTime;		// 現在の待機時間
 	float m_fCurWholeTime;	// 現在の全体時間
 	float m_fMaxWholeTime;	// 総全体時間

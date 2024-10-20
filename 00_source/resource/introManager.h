@@ -69,7 +69,7 @@ public:
 
 	// 静的メンバ関数
 	static CIntroManager *Create(void);	// 生成
-	static void Release(CIntroManager *&prIntroManager);	// 破棄
+	static void Release(CIntroManager*& prIntroManager);	// 破棄
 	static void SetEnableLogoSkip(const bool bSkip)	{ m_bLogoSkip = bSkip; }	// ロゴスキップ状況設定
 	static bool IsLogoSkip(void)					{ return m_bLogoSkip; }		// ロゴスキップ状況取得
 

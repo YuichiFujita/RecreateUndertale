@@ -61,7 +61,7 @@ public:
 	// 静的メンバ関数
 	static CManager *Create(HINSTANCE hInstance, HWND hWnd, BOOL bWindow);	// 生成
 	static CManager *GetInstance(void);			// 取得
-	static void Release(CManager *&prManager);	// 破棄
+	static void Release(CManager*& prManager);	// 破棄
 	static void ReleaseWindow(void);			// ウインドウ破棄
 
 	// メンバ関数

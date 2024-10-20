@@ -134,7 +134,7 @@ void CAnim3D::Draw(CShader* pShader)
 //============================================================
 //	生成処理
 //============================================================
-CAnim3D *CAnim3D::Create
+CAnim3D* CAnim3D::Create
 (
 	const POSGRID2& rPtrn,	// テクスチャ分割数
 	const VECTOR3& rPos,	// 位置
@@ -145,7 +145,7 @@ CAnim3D *CAnim3D::Create
 )
 {
 	// アニメーション3Dの生成
-	CAnim3D *pAnim3D = new CAnim3D;
+	CAnim3D* pAnim3D = new CAnim3D;
 	if (pAnim3D == nullptr)
 	{ // 生成に失敗した場合
 

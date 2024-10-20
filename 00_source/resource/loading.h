@@ -49,7 +49,7 @@ public:
 
 	// Ã“Iƒƒ“ƒoŠÖ”
 	static CLoading *Create(void);				// ¶¬
-	static void Release(CLoading *&pLoading);	// ”jŠü
+	static void Release(CLoading*& pLoading);	// ”jŠü
 
 private:
 	// ƒƒ“ƒo•Ï”

@@ -50,7 +50,7 @@ public:
 	VECTOR3 GetVec3Position(void) const override { return m_pos; }	// 位置取得
 
 	// 静的メンバ関数
-	static CParticle3D *Create	// 生成
+	static CParticle3D* Create	// 生成
 	( // 引数
 		const EType type,		// 種類
 		const VECTOR3& rPos,	// 位置

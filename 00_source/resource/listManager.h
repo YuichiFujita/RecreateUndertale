@@ -39,7 +39,7 @@ public:
 
 	// 静的メンバ関数
 	static CListManager *Create(void);	// 生成
-	static void Release(CListManager *&prListManager);	// 破棄
+	static void Release(CListManager*& prListManager);	// 破棄
 
 private:
 	// メンバ変数
@@ -194,7 +194,7 @@ template<class T> CListManager<T> *CListManager<T>::Create(void)
 //============================================================
 //	破棄処理
 //============================================================
-template<class T> void CListManager<T>::Release(CListManager *&prListManager)
+template<class T> void CListManager<T>::Release(CListManager*& prListManager)
 {
 	// リストマネージャーの終了
 	assert(prListManager != nullptr);

@@ -35,7 +35,7 @@ public:
 	void Draw(CShader* pShader = nullptr) override;	// 描画
 
 	// 静的メンバ関数
-	static CMultiModel *Create	// 生成
+	static CMultiModel* Create	// 生成
 	( // 引数
 		const VECTOR3& rPos,	// 位置
 		const VECTOR3& rRot,	// 向き
@@ -43,8 +43,8 @@ public:
 	);
 
 	// メンバ関数
-	void SetParentObject(CObject *pObject);		// 親オブジェクト設定
-	void SetParentModel(CMultiModel *pModel);	// 親オブジェクト設定
+	void SetParentObject(CObject* pObject);		// 親オブジェクト設定
+	void SetParentModel(CMultiModel* pModel);	// 親オブジェクト設定
 	void DeleteParentObject(void);				// 親オブジェクト削除
 
 private:
@@ -53,7 +53,7 @@ private:
 	void DrawShader(CShader* pShader);	// シェーダー描画
 
 	// メンバ変数
-	CObject *m_pParent;	// 親オブジェクトへのポインタ
+	CObject* m_pParent;	// 親オブジェクトへのポインタ
 };
 
 #endif	// _MULTIMODEL_H_

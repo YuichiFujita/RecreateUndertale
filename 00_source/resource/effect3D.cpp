@@ -17,7 +17,7 @@
 //************************************************************
 namespace
 {
-	const char *TEXTURE_FILE[] =	// テクスチャファイル
+	const char* TEXTURE_FILE[] =	// テクスチャファイル
 	{
 		"data\\TEXTURE\\EFFECT\\effect000.jpg",	// 通常テクスチャ
 		"data\\TEXTURE\\EFFECT\\effect001.png",	// バブルテクスチャ
@@ -86,7 +86,7 @@ HRESULT CEffect3D::Init(void)
 	}
 
 	// レンダーステートの情報を取得
-	CRenderState *pRenderState = GetRenderState();
+	CRenderState* pRenderState = GetRenderState();
 
 	// Zテストの設定
 	pRenderState->SetZFunc(D3DCMP_ALWAYS);
@@ -187,7 +187,7 @@ void CEffect3D::SetAlphaBlend(const CRenderState::EBlend blend)
 //============================================================
 //	生成処理
 //============================================================
-CEffect3D *CEffect3D::Create
+CEffect3D* CEffect3D::Create
 (
 	const VECTOR3& rPos,				// 位置
 	const float fRadius,				// 半径
@@ -202,7 +202,7 @@ CEffect3D *CEffect3D::Create
 )
 {
 	// エフェクト3Dの生成
-	CEffect3D *pEffect3D = new CEffect3D(type, label);
+	CEffect3D* pEffect3D = new CEffect3D(type, label);
 	if (pEffect3D == nullptr)
 	{ // 生成に失敗した場合
 

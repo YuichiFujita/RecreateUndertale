@@ -40,7 +40,7 @@ public:
 
 	// Ã“Iƒƒ“ƒoŠÖ”
 	static CRenderer *Create(HWND hWnd, BOOL bWindow);	// ¶¬
-	static void Release(CRenderer *&prRenderer);		// ”jŠü
+	static void Release(CRenderer*& prRenderer);		// ”jŠü
 
 private:
 	// ƒƒ“ƒoŠÖ”

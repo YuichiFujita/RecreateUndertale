@@ -39,7 +39,7 @@ public:
 	void SetVec2Size(const VECTOR2& rSize) override;	// 大きさ設定
 
 	// 静的メンバ関数
-	static CScrollMeshRing *Create	// 生成
+	static CScrollMeshRing* Create	// 生成
 	( // 引数
 		const float fMoveU,		// 横座標の移動量
 		const float fMoveV,		// 縦座標の移動量

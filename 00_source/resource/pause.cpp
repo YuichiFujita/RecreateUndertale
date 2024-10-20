@@ -269,7 +269,7 @@ CPause *CPause::Create(void)
 //============================================================
 //	破棄処理
 //============================================================
-void CPause::Release(CPause *&prPause)
+void CPause::Release(CPause*& prPause)
 {
 	// ポーズの終了
 	assert(prPause != nullptr);

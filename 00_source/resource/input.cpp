@@ -367,7 +367,7 @@ CInputKeyboard *CInputKeyboard::Create(HINSTANCE hInstance, HWND hWnd)
 //============================================================
 //	破棄処理
 //============================================================
-void CInputKeyboard::Release(CInputKeyboard *&prKeyboard)
+void CInputKeyboard::Release(CInputKeyboard*& prKeyboard)
 {
 	// キーボードの終了
 	assert(prKeyboard != nullptr);
@@ -636,7 +636,7 @@ CInputMouse *CInputMouse::Create(HINSTANCE hInstance, HWND hWnd)
 //============================================================
 //	破棄処理
 //============================================================
-void CInputMouse::Release(CInputMouse *&prMouse)
+void CInputMouse::Release(CInputMouse*& prMouse)
 {
 	// マウスの終了
 	assert(prMouse != nullptr);
@@ -1171,7 +1171,7 @@ CInputPad *CInputPad::Create(void)
 //============================================================
 //	破棄処理
 //============================================================
-void CInputPad::Release(CInputPad *&prPad)
+void CInputPad::Release(CInputPad*& prPad)
 {
 	// パッドの終了
 	assert(prPad != nullptr);

@@ -70,7 +70,7 @@ public:
 
 	// Ã“Iƒƒ“ƒoŠÖ”
 	static CTexture *Create(void);				// ¶¬
-	static void Release(CTexture *&pTexture);	// ”jŠü
+	static void Release(CTexture*& pTexture);	// ”jŠü
 
 private:
 	// ƒƒ“ƒoŠÖ”

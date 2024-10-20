@@ -502,7 +502,7 @@ CCamera *CCamera::Create(void)
 //============================================================
 //	破棄処理
 //============================================================
-void CCamera::Release(CCamera *&prCamera)
+void CCamera::Release(CCamera*& prCamera)
 {
 	// カメラの終了
 	assert(prCamera != nullptr);

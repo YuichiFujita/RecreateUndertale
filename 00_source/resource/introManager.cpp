@@ -415,7 +415,7 @@ CIntroManager *CIntroManager::Create(void)
 //============================================================
 //	破棄処理
 //============================================================
-void CIntroManager::Release(CIntroManager *&prIntroManager)
+void CIntroManager::Release(CIntroManager*& prIntroManager)
 {
 	// イントロマネージャーの終了
 	assert(prIntroManager != nullptr);

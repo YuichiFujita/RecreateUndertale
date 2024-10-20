@@ -297,10 +297,10 @@ void CParticle3D::SetVec3Position(const VECTOR3& rPos)
 //============================================================
 //	生成処理
 //============================================================
-CParticle3D *CParticle3D::Create(const EType type, const VECTOR3& rPos, const COLOR& rCol)
+CParticle3D* CParticle3D::Create(const EType type, const VECTOR3& rPos, const COLOR& rCol)
 {
 	// パーティクル3Dの生成
-	CParticle3D *pParticle3D = new CParticle3D;
+	CParticle3D* pParticle3D = new CParticle3D;
 	if (pParticle3D == nullptr)
 	{ // 生成に失敗した場合
 

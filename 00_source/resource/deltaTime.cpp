@@ -113,7 +113,7 @@ CDeltaTime *CDeltaTime::Create(void)
 //============================================================
 //	破棄処理
 //============================================================
-void CDeltaTime::Release(CDeltaTime *&prDeltaTime)
+void CDeltaTime::Release(CDeltaTime*& prDeltaTime)
 {
 	// デルタタイムの終了
 	assert(prDeltaTime != nullptr);

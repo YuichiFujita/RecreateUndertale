@@ -338,7 +338,7 @@ CTexture *CTexture::Create(void)
 //============================================================
 //	破棄処理
 //============================================================
-void CTexture::Release(CTexture *&prTexture)
+void CTexture::Release(CTexture*& prTexture)
 {
 	// テクスチャの終了
 	assert(prTexture != nullptr);

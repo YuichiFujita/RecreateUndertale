@@ -54,7 +54,7 @@ public:
 	void SetAlphaBlend(const CRenderState::EBlend blend);	// αブレンド設定
 
 	// 静的メンバ関数
-	static CEffect3D *Create	// 生成
+	static CEffect3D* Create	// 生成
 	( // 引数
 		const VECTOR3&	rPos,		// 位置
 		const float		fRadius,	// 半径
