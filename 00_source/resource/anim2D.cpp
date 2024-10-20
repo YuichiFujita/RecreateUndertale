@@ -130,7 +130,7 @@ void CAnim2D::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CAnim2D::Draw(CShader *pShader)
+void CAnim2D::Draw(CShader* pShader)
 {
 	// オブジェクト2Dの描画
 	CObject2D::Draw(pShader);
@@ -139,7 +139,7 @@ void CAnim2D::Draw(CShader *pShader)
 //============================================================
 //	生成処理
 //============================================================
-CAnim2D *CAnim2D::Create
+CAnim2D* CAnim2D::Create
 (
 	const int nWidthPtrn,	// テクスチャの横の分割数
 	const int nHeightPtrn,	// テクスチャの縦の分割数
@@ -150,7 +150,7 @@ CAnim2D *CAnim2D::Create
 )
 {
 	// アニメーション2Dの生成
-	CAnim2D *pAnim2D = new CAnim2D;
+	CAnim2D* pAnim2D = new CAnim2D;
 	if (pAnim2D == nullptr)
 	{ // 生成に失敗した場合
 

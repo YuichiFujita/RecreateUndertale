@@ -38,7 +38,7 @@ public:
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
 	void Update(const float fDeltaTime) override;		// 更新
-	void Draw(CShader *pShader = nullptr) override;		// 描画
+	void Draw(CShader* pShader = nullptr) override;		// 描画
 	void SetPriority(const int nPriority) override;		// 優先順位設定
 	void SetEnableUpdate(const bool bUpdate) override;	// 更新状況設定
 	void SetEnableDraw(const bool bDraw) override;		// 描画状況設定
@@ -48,23 +48,23 @@ public:
 	VECTOR3 GetVec3Rotation(void) const override { return m_rot; }	// 向き取得
 
 	// 静的メンバ関数
-	static CString2D *Create	// 生成 (マルチバイト文字列)
+	static CString2D* Create	// 生成 (マルチバイト文字列)
 	( // 引数
-		const std::string &rFilePath,	// フォントパス
+		const std::string& rFilePath,	// フォントパス
 		const bool bItalic,				// イタリック
-		const std::string &rStr,		// 指定文字列
-		const VECTOR3 &rPos,			// 原点位置
+		const std::string& rStr,		// 指定文字列
+		const VECTOR3& rPos,			// 原点位置
 		const float fHeight = 100.0f,			// 文字縦幅
 		const EAlignX alignX = XALIGN_CENTER,	// 横配置
 		const VECTOR3& rRot = VEC3_ZERO,		// 原点向き
 		const COLOR& rCol = color::White()		// 色
 	);
-	static CString2D *Create	// 生成 (ワイド文字列)
+	static CString2D* Create	// 生成 (ワイド文字列)
 	( // 引数
-		const std::string &rFilePath,	// フォントパス
+		const std::string& rFilePath,	// フォントパス
 		const bool bItalic,				// イタリック
-		const std::wstring &rStr,		// 指定文字列
-		const VECTOR3 &rPos,			// 原点位置
+		const std::wstring& rStr,		// 指定文字列
+		const VECTOR3& rPos,			// 原点位置
 		const float fHeight = 100.0f,			// 文字縦幅
 		const EAlignX alignX = XALIGN_CENTER,	// 横配置
 		const VECTOR3& rRot = VEC3_ZERO,		// 原点向き
@@ -78,7 +78,7 @@ public:
 	// メンバ関数
 	void SetFont	// フォントの設定
 	( // 引数
-		const std::string &rFilePath,	// フォントパス
+		const std::string& rFilePath,	// フォントパス
 		const bool bItalic = false		// イタリック
 	);
 	void SetAlpha(const float fAlpha);				// 透明度設定
@@ -86,7 +86,7 @@ public:
 	void SetCharHeight(const float fHeight);		// 文字の縦幅設定
 	void SetAlignX(const EAlignX align);			// 横配置設定
 	float GetStrWidth(void) const;					// 文字列の横幅取得
-	CChar2D *GetChar2D(const int nCharID) const;	// 文字の取得
+	CChar2D* GetChar2D(const int nCharID) const;	// 文字の取得
 	float GetAlpha(void) const			{ return m_col.a; }				// 透明度取得
 	COLOR GetColor(void) const			{ return m_col; }				// 色取得
 	float GetCharHeight(void) const		{ return m_fCharHeight; }		// 文字の縦幅取得
@@ -103,8 +103,8 @@ private:
 	void SetPositionRelative(void);	// 相対位置設定
 
 	// メンバ変数
-	CChar2D **m_ppChar;		// 文字ポリゴンの情報
-	CFontChar *m_pFontChar;	// フォント文字
+	CChar2D** m_ppChar;		// 文字ポリゴンの情報
+	CFontChar* m_pFontChar;	// フォント文字
 	std::wstring m_wsStr;	// 指定文字列
 	VECTOR3 m_pos;			// 位置
 	VECTOR3 m_rot;			// 向き

@@ -33,7 +33,7 @@ public:
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
 	void Update(const float fDeltaTime) override;		// 更新
-	void Draw(CShader *pShader = nullptr) override;		// 描画
+	void Draw(CShader* pShader = nullptr) override;		// 描画
 	void SetPriority(const int nPriority) override;		// 優先順位設定
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
 	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
@@ -43,7 +43,7 @@ public:
 	VECTOR3 GetVec3Size(void) const override		{ return m_size; }	// 大きさ取得
 
 	// 静的メンバ関数
-	static CMultiValue *Create	// 生成
+	static CMultiValue* Create	// 生成
 	( // 引数
 		const CValue::EType type,	// 数字種類
 		const int nNum,				// 数字

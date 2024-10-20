@@ -129,7 +129,7 @@ void CObjectMeshRing::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CObjectMeshRing::Draw(CShader *pShader)
+void CObjectMeshRing::Draw(CShader* pShader)
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 	MATRIX mtxRot, mtxTrans;	// 計算用マトリックス
@@ -630,7 +630,7 @@ void CObjectMeshRing::DrawNormal(void)
 //============================================================
 //	シェーダー描画処理
 //============================================================
-void CObjectMeshRing::DrawShader(CShader *pShader)
+void CObjectMeshRing::DrawShader(CShader* pShader)
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 

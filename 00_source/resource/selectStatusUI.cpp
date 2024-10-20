@@ -675,7 +675,7 @@ void CSelectStatusUI::Update(const float fDeltaTime)
 //============================================================
 //	•`‰æˆ—
 //============================================================
-void CSelectStatusUI::Draw(CShader *pShader)
+void CSelectStatusUI::Draw(CShader* pShader)
 {
 	// ƒZƒŒƒNƒgUI‚Ì•`‰æ
 	CSelectUI::Draw(pShader);

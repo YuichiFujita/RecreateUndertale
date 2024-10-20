@@ -98,7 +98,7 @@ void CMenuUI::Update(const float fDeltaTime)
 //============================================================
 //	•`‰æˆ—
 //============================================================
-void CMenuUI::Draw(CShader * /*pShader*/)
+void CMenuUI::Draw(CShader* /*pShader*/)
 {
 
 }

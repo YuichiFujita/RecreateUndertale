@@ -51,7 +51,7 @@ public:
 	HRESULT Init(void) override;	// ‰Šú‰»
 	void Uninit(void) override;		// I—¹
 	void Update(const float fDeltaTime) override;		// XV
-	void Draw(CShader *pShader = nullptr) override;		// •`‰æ
+	void Draw(CShader* pShader = nullptr) override;		// •`‰æ
 	void SetPriority(const int nPriority) override;		// —Dæ‡ˆÊİ’è
 	void SetEnableUpdate(const bool bUpdate) override;	// XVó‹µİ’è
 	void SetEnableDraw(const bool bDraw) override;		// •`‰æó‹µİ’è

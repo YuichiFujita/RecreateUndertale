@@ -268,7 +268,7 @@ void useful::StandardizePathPart(std::string *pPath)
 //============================================================
 //	文字列の左右追加処理 (マルチバイト文字列)
 //============================================================
-std::string useful::SandString(const std::string &rTop, const std::string &rMain, const std::string &rCur)
+std::string useful::SandString(const std::string& rTop, const std::string& rMain, const std::string& rCur)
 {
 	// 左右に追加した文字列を作成し返す
 	std::string sTemp;
@@ -281,7 +281,7 @@ std::string useful::SandString(const std::string &rTop, const std::string &rMain
 //============================================================
 //	文字列の左右追加処理 (ワイド文字列)
 //============================================================
-std::wstring useful::SandString(const std::wstring &rTop, const std::wstring &rMain, const std::wstring &rCur)
+std::wstring useful::SandString(const std::wstring& rTop, const std::wstring& rMain, const std::wstring& rCur)
 {
 	// 左右に追加した文字列を作成し返す
 	std::wstring wsTemp;
@@ -294,7 +294,7 @@ std::wstring useful::SandString(const std::wstring &rTop, const std::wstring &rM
 //============================================================
 //	マルチバイト文字列のワイド文字列変換
 //============================================================
-std::wstring useful::MultiByteToWide(const std::string &rSrcStr)
+std::wstring useful::MultiByteToWide(const std::string& rSrcStr)
 {
 	int nSrcSize = (int)rSrcStr.size();	// 変換前の文字列のサイズ
 	if (nSrcSize <= 0) { return L""; }	// 文字列がない場合抜ける
@@ -321,7 +321,7 @@ std::wstring useful::MultiByteToWide(const std::string &rSrcStr)
 //============================================================
 //	ワイド文字列のマルチバイト文字列変換
 //============================================================
-std::string useful::WideToMultiByte(const std::wstring &rSrcStr)
+std::string useful::WideToMultiByte(const std::wstring& rSrcStr)
 {
 	int nSrcSize = (int)rSrcStr.size();	// 変換前の文字列のサイズ
 	if (nSrcSize <= 0) { return ""; }	// 文字列がない場合抜ける

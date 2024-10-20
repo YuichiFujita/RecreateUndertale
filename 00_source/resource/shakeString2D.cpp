@@ -81,7 +81,7 @@ void CShakeString2D::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CShakeString2D::Draw(CShader *pShader)
+void CShakeString2D::Draw(CShader* pShader)
 {
 	// 文字列2Dの描画
 	CString2D::Draw(pShader);
@@ -102,12 +102,12 @@ void CShakeString2D::SetVec3Position(const VECTOR3& rPos)
 //============================================================
 //	生成処理 (マルチバイト文字列)
 //============================================================
-CShakeString2D *CShakeString2D::Create
+CShakeString2D* CShakeString2D::Create
 (
-	const std::string &rFilePath,	// フォントパス
+	const std::string& rFilePath,	// フォントパス
 	const bool bItalic,				// イタリック
-	const std::string &rStr,		// 指定文字列
-	const VECTOR3 &rPos,			// 原点位置
+	const std::string& rStr,		// 指定文字列
+	const VECTOR3& rPos,			// 原点位置
 	const float fNextTime,			// 文字振動の待機時間
 	const float fMove,				// 振動移動量
 	const float fHeight,			// 文字縦幅
@@ -117,7 +117,7 @@ CShakeString2D *CShakeString2D::Create
 )
 {
 	// 振動文字列2Dの生成
-	CShakeString2D *pShakeString2D = new CShakeString2D;
+	CShakeString2D* pShakeString2D = new CShakeString2D;
 	if (pShakeString2D == nullptr)
 	{ // 生成に失敗した場合
 
@@ -176,12 +176,12 @@ CShakeString2D *CShakeString2D::Create
 //============================================================
 //	生成処理 (ワイド文字列)
 //============================================================
-CShakeString2D *CShakeString2D::Create
+CShakeString2D* CShakeString2D::Create
 (
-	const std::string &rFilePath,	// フォントパス
+	const std::string& rFilePath,	// フォントパス
 	const bool bItalic,				// イタリック
-	const std::wstring &rStr,		// 指定文字列
-	const VECTOR3 &rPos,			// 原点位置
+	const std::wstring& rStr,		// 指定文字列
+	const VECTOR3& rPos,			// 原点位置
 	const float fNextTime,			// 文字振動の待機時間
 	const float fMove,				// 振動移動量
 	const float fHeight,			// 文字縦幅
@@ -191,7 +191,7 @@ CShakeString2D *CShakeString2D::Create
 )
 {
 	// 振動文字列2Dの生成
-	CShakeString2D *pShakeString2D = new CShakeString2D;
+	CShakeString2D* pShakeString2D = new CShakeString2D;
 	if (pShakeString2D == nullptr)
 	{ // 生成に失敗した場合
 

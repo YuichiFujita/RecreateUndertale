@@ -142,7 +142,7 @@ void CTimer::Update(const float fDeltaTime)
 //============================================================
 //	•`‰æˆ—
 //============================================================
-void CTimer::Draw(CShader * /*pShader*/)
+void CTimer::Draw(CShader* /*pShader*/)
 {
 
 }

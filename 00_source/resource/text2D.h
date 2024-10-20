@@ -38,7 +38,7 @@ public:
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
 	void Update(const float fDeltaTime) override;		// 更新
-	void Draw(CShader *pShader = nullptr) override;		// 描画
+	void Draw(CShader* pShader = nullptr) override;		// 描画
 	void SetPriority(const int nPriority) override;		// 優先順位設定
 	void SetEnableUpdate(const bool bUpdate) override;	// 更新状況設定
 	void SetEnableDraw(const bool bDraw) override;		// 描画状況設定
@@ -48,9 +48,9 @@ public:
 	VECTOR3 GetVec3Rotation(void) const override { return m_rot; }	// 向き取得
 
 	// 静的メンバ関数
-	static CText2D *Create	// 生成
+	static CText2D* Create	// 生成
 	( // 引数
-		const std::string &rFilePath,			// フォントパス
+		const std::string& rFilePath,			// フォントパス
 		const bool bItalic,						// イタリック
 		const VECTOR3& rPos,					// 原点位置
 		const float fCharHeight = 100.0f,		// 文字縦幅
@@ -72,7 +72,7 @@ public:
 	// メンバ関数
 	void SetFont	// フォントの設定
 	( // 引数
-		const std::string &rFilePath,	// フォントパス
+		const std::string& rFilePath,	// フォントパス
 		const bool bItalic = false		// イタリック
 	);
 	void SetAlpha(const float fAlpha);				// 透明度設定
@@ -82,7 +82,7 @@ public:
 	void SetAlignX(const EAlignX align);			// 横配置設定
 	void SetAlignY(const EAlignY align);			// 縦配置設定
 	float GetTextHeight(void) const;				// テキストの縦幅取得
-	CString2D *GetString2D(const int nStrID) const;	// 文字列の取得
+	CString2D* GetString2D(const int nStrID) const;	// 文字列の取得
 	float GetAlpha(void) const		{ return m_col.a; }			// 透明度取得
 	COLOR GetColor(void) const		{ return m_col; }			// 色取得
 	float GetCharHeight(void) const	{ return m_fCharHeight; }	// 文字の縦幅取得
@@ -96,12 +96,12 @@ private:
 	void Release(void) override { CObject::Release(); }	// 破棄
 
 	// メンバ関数
-	CString2D *CreateString2D(const std::wstring& rStr);	// 文字列の生成
+	CString2D* CreateString2D(const std::wstring& rStr);	// 文字列の生成
 	void SetPositionRelative(void);	// 相対位置設定
 
 	// メンバ変数
 	std::list<CString2D*> m_listString;	// 文字列リスト
-	CFontChar *m_pFontChar;	// フォント文字
+	CFontChar* m_pFontChar;	// フォント文字
 	VECTOR3 m_pos;			// 位置
 	VECTOR3 m_rot;			// 向き
 	COLOR m_col;			// 色

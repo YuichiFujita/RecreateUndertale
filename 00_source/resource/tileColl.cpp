@@ -126,7 +126,7 @@ void CTileColl::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CTileColl::Draw(CShader *pShader)
+void CTileColl::Draw(CShader* pShader)
 {
 	// オブジェクト3Dの描画
 	CObject3D::Draw(pShader);

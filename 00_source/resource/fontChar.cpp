@@ -36,7 +36,7 @@ namespace
 //============================================================
 //	コンストラクタ
 //============================================================
-CFontChar::CFontChar(const HFONT hFont, const std::string &rFilePath, const bool bItalic) :
+CFontChar::CFontChar(const HFONT hFont, const std::string& rFilePath, const bool bItalic) :
 	m_hFont		(hFont),		// フォントへのポインタ
 	m_sFilePath	(rFilePath),	// フォントパス
 	m_bItalic	(bItalic)		// イタリック
@@ -142,7 +142,7 @@ CFontChar::SChar CFontChar::Regist(const wchar_t wcChar)
 //============================================================
 //	生成処理
 //============================================================
-CFontChar *CFontChar::Create(const HFONT hFont, const std::string &rFilePath, const bool bItalic)
+CFontChar *CFontChar::Create(const HFONT hFont, const std::string& rFilePath, const bool bItalic)
 {
 	// フォント文字の生成
 	CFontChar *pFontChar = new CFontChar(hFont, rFilePath, bItalic);

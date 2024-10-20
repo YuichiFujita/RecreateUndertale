@@ -127,7 +127,7 @@ void CObjectMeshDome::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CObjectMeshDome::Draw(CShader *pShader)
+void CObjectMeshDome::Draw(CShader* pShader)
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 	MATRIX mtxRot, mtxTrans;	// 計算用マトリックス
@@ -648,7 +648,7 @@ void CObjectMeshDome::DrawNormal(void)
 //============================================================
 //	シェーダー描画処理
 //============================================================
-void CObjectMeshDome::DrawShader(CShader *pShader)
+void CObjectMeshDome::DrawShader(CShader* pShader)
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 

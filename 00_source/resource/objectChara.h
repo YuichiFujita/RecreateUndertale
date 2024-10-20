@@ -39,7 +39,7 @@ public:
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
 	void Update(const float fDeltaTime) override;		// 更新
-	void Draw(CShader *pShader = nullptr) override;		// 描画
+	void Draw(CShader* pShader = nullptr) override;		// 描画
 	void SetEnableUpdate(const bool bUpdate) override;	// 更新状況設定
 	void SetEnableDraw(const bool bDraw) override;		// 描画状況設定
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
@@ -50,7 +50,7 @@ public:
 	MATRIX GetMtxWorld(void) const override			{ return m_mtxWorld; }	// マトリックス取得
 
 	// 静的メンバ関数
-	static CObjectChara *Create(const VECTOR3 &rPos, const VECTOR3 &rRot = VEC3_ZERO);	// 生成
+	static CObjectChara *Create(const VECTOR3& rPos, const VECTOR3& rRot = VEC3_ZERO);	// 生成
 
 	// 仮想関数
 	virtual void SetMotion(const int nType, const int nBlendFrame = 0);	// モーション設定
@@ -66,7 +66,7 @@ public:
 	);
 
 	void BindCharaData(const char *pCharaPath);	// キャラクター情報割当
-	void SetMtxWorld(const MATRIX &rMtxWorld);	// マトリックス設定
+	void SetMtxWorld(const MATRIX& rMtxWorld);	// マトリックス設定
 	void SetNumParts(const int nNumParts);		// パーツ数設定
 	void SetPartsInfo(CCharacter::SPartsInfo& rInfo);					// パーツ情報設定
 	void SetPartsPosition(const int nPartsID, const VECTOR3& rPos);		// パーツ位置設定

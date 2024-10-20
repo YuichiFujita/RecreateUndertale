@@ -91,7 +91,7 @@ void CSelectPhoneUI::Update(const float fDeltaTime)
 //============================================================
 //	•`‰æˆ—
 //============================================================
-void CSelectPhoneUI::Draw(CShader *pShader)
+void CSelectPhoneUI::Draw(CShader* pShader)
 {
 	// ƒZƒŒƒNƒgUI‚Ì•`‰æ
 	CSelectUI::Draw(pShader);

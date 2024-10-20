@@ -809,7 +809,7 @@ namespace useful
 	// 通常関数
 	void DivideDigitNum		// 数値の桁数ごとの分解
 	( // 引数
-		int *pNumDivide,	// 分解結果の格納配列
+		int* pNumDivide,	// 分解結果の格納配列
 		const int nNum,		// 分解する数値
 		const int nMaxDigit	// 分解する数字の桁数
 	);
@@ -822,7 +822,7 @@ namespace useful
 	);
 	void ReplaceConsecChar	// 文字列内の連続文字の置換
 	( // 引数
-		std::string *pDestStr,		// 置き換えを行う文字列
+		std::string* pDestStr,		// 置き換えを行う文字列
 		const char cRepChar,		// 検出する文字
 		const std::string& rRepStr,	// 置き換える文字列
 		const int nRepStrLength		// 置き換える文字列の長さ (通常はstringのsize)
@@ -835,8 +835,8 @@ namespace useful
 		const float fDestPosX,		// 最大X座標
 		const float fDestPosY,		// 最大Y座標
 		const float fTime,			// 経過時間
-		float *pMaxTime = nullptr,	// 最大経過時間
-		float *pMaxPosY = nullptr	// 最大到達Y座標
+		float* pMaxTime = nullptr,	// 最大経過時間
+		float* pMaxPosY = nullptr	// 最大到達Y座標
 	);
 	VECTOR2 CalcMoveParabola	// 経過時間・X移動量・重力から放物線の移動量を求める処理
 	( // 引数
@@ -845,26 +845,26 @@ namespace useful
 		const float fDestPosX,		// 最大X座標
 		const float fDestPosY,		// 最大Y座標
 		const float fTime,			// 経過時間
-		float *pMaxTime = nullptr,	// 最大経過時間
-		float *pMaxPosY = nullptr	// 最大到達Y座標
+		float* pMaxTime = nullptr,	// 最大経過時間
+		float* pMaxPosY = nullptr	// 最大到達Y座標
 	);
 
 	float RandomRot(void);			// ランダム向き取得
 	void NormalizeRot(float& rRot);	// 向きの正規化
 	void NormalizeRot(VECTOR3& rRot);				// 三軸向きの正規化
-	void PathToBaseName(std::string *pPath);		// パスのベースネーム変換
-	void StandardizePathPart(std::string *pPath);	// パス区切りの標準化
-	std::string SandString(const std::string &rTop, const std::string &rMain, const std::string &rCur);		// 文字列の左右追加 (マルチバイト文字列)
-	std::wstring SandString(const std::wstring &rTop, const std::wstring &rMain, const std::wstring &rCur);	// 文字列の左右追加 (ワイド文字列)
-	std::wstring MultiByteToWide(const std::string &rSrcStr);	// マルチバイト文字列のワイド文字列変換
-	std::string WideToMultiByte(const std::wstring &rSrcStr);	// ワイド文字列のマルチバイト文字列変換
-	void VecToRot(const VECTOR3& rVec, float *pPhi, float *pTheta);		// ベクトルの向き変換
-	void RotToVec(const float fPhi, const float fTheta, VECTOR3 *pVec);	// 向きのベクトル変換
+	void PathToBaseName(std::string* pPath);		// パスのベースネーム変換
+	void StandardizePathPart(std::string* pPath);	// パス区切りの標準化
+	std::string SandString(const std::string& rTop, const std::string& rMain, const std::string& rCur);		// 文字列の左右追加 (マルチバイト文字列)
+	std::wstring SandString(const std::wstring& rTop, const std::wstring& rMain, const std::wstring& rCur);	// 文字列の左右追加 (ワイド文字列)
+	std::wstring MultiByteToWide(const std::string& rSrcStr);	// マルチバイト文字列のワイド文字列変換
+	std::string WideToMultiByte(const std::wstring& rSrcStr);	// ワイド文字列のマルチバイト文字列変換
+	void VecToRot(const VECTOR3& rVec, float* pPhi, float* pTheta);		// ベクトルの向き変換
+	void RotToVec(const float fPhi, const float fTheta, VECTOR3* pVec);	// 向きのベクトル変換
 	float GetTexWidthFromAspect(const float fHeight, const int nTexID);	// 縦幅からアスペクト比を考慮した横幅取得
 	float GetTexHeightFromAspect(const float fWidth, const int nTexID);	// 横幅からアスペクト比を考慮した縦幅取得
 
 	// テンプレート関数
-	template<class T> T *ZeroClear(T *pClear);	// ゼロクリア
+	template<class T> T* ZeroClear(T* pClear);	// ゼロクリア
 	template<class T> bool LimitNum		// 値の範囲内制限
 	( // 引数
 		T& rNum,		// 制限数値
@@ -895,12 +895,12 @@ namespace useful
 	);
 	template<class T> void SortNum		// 値のソート
 	( // 引数
-		T *pSortNum,		// ソート配列
+		T* pSortNum,		// ソート配列
 		const int nMaxKeep	// 配列サイズ
 	);
 	template<class T> void Shuffle		// シャッフル
 	(
-		T *pShuffleData,		// シャッフル配列
+		T* pShuffleData,		// シャッフル配列
 		const int nMaxShuffle	// 配列サイズ
 	);
 }
@@ -1067,7 +1067,7 @@ namespace material
 //============================================================
 //	ゼロクリア
 //============================================================
-template<class T> T *useful::ZeroClear(T *pClear)
+template<class T> T* useful::ZeroClear(T* pClear)
 {
 	// 引数情報をゼロクリア
 	memset(pClear, 0, sizeof(*pClear));
@@ -1192,7 +1192,7 @@ template<class T> T useful::RateToValue
 //============================================================
 template<class T> void useful::SortNum
 (
-	T *pSortNum,		// ソート配列
+	T* pSortNum,		// ソート配列
 	const int nMaxKeep	// 配列サイズ
 )
 {
@@ -1231,7 +1231,7 @@ template<class T> void useful::SortNum
 //============================================================
 template<class T> void useful::Shuffle
 (
-	T *pShuffleData,		// シャッフル配列
+	T* pShuffleData,		// シャッフル配列
 	const int nMaxShuffle	// 配列サイズ
 )
 {

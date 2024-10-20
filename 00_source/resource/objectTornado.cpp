@@ -161,7 +161,7 @@ void CObjectTornado::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CObjectTornado::Draw(CShader *pShader)
+void CObjectTornado::Draw(CShader* pShader)
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 	MATRIX mtxRot, mtxTrans;	// 計算用マトリックス
@@ -671,7 +671,7 @@ void CObjectTornado::DrawNormal(void)
 //============================================================
 //	シェーダー描画処理
 //============================================================
-void CObjectTornado::DrawShader(CShader *pShader)
+void CObjectTornado::DrawShader(CShader* pShader)
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 

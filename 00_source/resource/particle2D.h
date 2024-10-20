@@ -42,12 +42,12 @@ public:
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
 	void Update(const float fDeltaTime) override;		// 更新
-	void Draw(CShader *pShader = nullptr) override;		// 描画
+	void Draw(CShader* pShader = nullptr) override;		// 描画
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
 	VECTOR3 GetVec3Position(void) const override { return m_pos; }	// 位置取得
 
 	// 静的メンバ関数
-	static CParticle2D *Create	// 生成
+	static CParticle2D* Create	// 生成
 	( // 引数
 		const EType type,		// 種類
 		const VECTOR3& rPos,	// 位置

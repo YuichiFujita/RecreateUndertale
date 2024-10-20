@@ -92,7 +92,7 @@ void CChar2D::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CChar2D::Draw(CShader *pShader)
+void CChar2D::Draw(CShader* pShader)
 {
 	// オブジェクト2Dの描画
 	CObject2D::Draw(pShader);
@@ -116,11 +116,11 @@ void CChar2D::SetVec3Size(const VECTOR3& /*rSize*/)
 //============================================================
 //	生成処理 (マルチバイト文字)
 //============================================================
-CChar2D *CChar2D::Create
+CChar2D* CChar2D::Create
 (
-	const std::string &rFilePath,	// フォントパス
+	const std::string& rFilePath,	// フォントパス
 	const bool bItalic,				// イタリック
-	const std::string &rChar,		// 指定文字
+	const std::string& rChar,		// 指定文字
 	const VECTOR3& rPos,			// 位置
 	const float fHeight,			// 縦幅
 	const VECTOR3& rRot,			// 向き
@@ -128,7 +128,7 @@ CChar2D *CChar2D::Create
 )
 {
 	// 文字2Dの生成
-	CChar2D *pChar2D = new CChar2D;
+	CChar2D* pChar2D = new CChar2D;
 	if (pChar2D == nullptr)
 	{ // 生成に失敗した場合
 
@@ -172,9 +172,9 @@ CChar2D *CChar2D::Create
 //============================================================
 //	生成処理 (ワイド文字)
 //============================================================
-CChar2D *CChar2D::Create
+CChar2D* CChar2D::Create
 (
-	const std::string &rFilePath,	// フォントパス
+	const std::string& rFilePath,	// フォントパス
 	const bool bItalic,				// イタリック
 	const wchar_t wcChar,			// 指定文字
 	const VECTOR3& rPos,			// 位置
@@ -184,7 +184,7 @@ CChar2D *CChar2D::Create
 )
 {
 	// 文字2Dの生成
-	CChar2D *pChar2D = new CChar2D;
+	CChar2D* pChar2D = new CChar2D;
 	if (pChar2D == nullptr)
 	{ // 生成に失敗した場合
 
@@ -230,12 +230,12 @@ CChar2D *CChar2D::Create
 //============================================================
 void CChar2D::SetFont
 (
-	const std::string &rFilePath,	// フォントパス
+	const std::string& rFilePath,	// フォントパス
 	const bool bItalic				// イタリック
 )
 {
 	// フォント文字情報を設定
-	CFont *pFont = GET_MANAGER->GetFont();	// フォント情報
+	CFont* pFont = GET_MANAGER->GetFont();	// フォント情報
 	m_pFontChar = pFont->Regist(rFilePath, bItalic).pFontChar;
 
 	// 指定文字を再設定

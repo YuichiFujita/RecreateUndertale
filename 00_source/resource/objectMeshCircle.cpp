@@ -117,7 +117,7 @@ void CObjectMeshCircle::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CObjectMeshCircle::Draw(CShader *pShader)
+void CObjectMeshCircle::Draw(CShader* pShader)
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 	MATRIX mtxRot, mtxTrans;	// 計算用マトリックス
@@ -542,7 +542,7 @@ void CObjectMeshCircle::DrawNormal(void)
 //============================================================
 //	シェーダー描画処理
 //============================================================
-void CObjectMeshCircle::DrawShader(CShader *pShader)
+void CObjectMeshCircle::DrawShader(CShader* pShader)
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 

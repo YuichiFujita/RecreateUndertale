@@ -125,7 +125,7 @@ void CAnim3D::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CAnim3D::Draw(CShader *pShader)
+void CAnim3D::Draw(CShader* pShader)
 {
 	// オブジェクト3Dの描画
 	CObject3D::Draw(pShader);

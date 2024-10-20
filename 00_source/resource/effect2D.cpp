@@ -17,7 +17,7 @@
 //************************************************************
 namespace
 {
-	const char *TEXTURE_FILE[] =	// テクスチャファイル
+	const char* TEXTURE_FILE[] =	// テクスチャファイル
 	{
 		"data\\TEXTURE\\EFFECT\\effect000.jpg",	// 通常テクスチャ
 	};
@@ -149,7 +149,7 @@ void CEffect2D::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CEffect2D::Draw(CShader *pShader)
+void CEffect2D::Draw(CShader* pShader)
 {
 	// オブジェクト2Dの描画
 	CObject2D::Draw(pShader);
@@ -170,7 +170,7 @@ void CEffect2D::SetAlphaBlend(const CRenderState::EBlend blend)
 //============================================================
 //	生成処理
 //============================================================
-CEffect2D *CEffect2D::Create
+CEffect2D* CEffect2D::Create
 (
 	const VECTOR3& rPos,				// 位置
 	const float fRadius,				// 半径
@@ -185,7 +185,7 @@ CEffect2D *CEffect2D::Create
 )
 {
 	// エフェクト2Dの生成
-	CEffect2D *pEffect2D = new CEffect2D(type, label);
+	CEffect2D* pEffect2D = new CEffect2D(type, label);
 	if (pEffect2D == nullptr)
 	{ // 生成に失敗した場合
 

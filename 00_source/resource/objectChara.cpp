@@ -105,7 +105,7 @@ void CObjectChara::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CObjectChara::Draw(CShader *pShader)
+void CObjectChara::Draw(CShader* pShader)
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 	MATRIX mtxRot, mtxTrans;	// 計算用マトリックス
@@ -184,7 +184,7 @@ void CObjectChara::SetVec3Rotation(const VECTOR3& rRot)
 //============================================================
 //	生成処理
 //============================================================
-CObjectChara *CObjectChara::Create(const VECTOR3 &rPos, const VECTOR3 &rRot)
+CObjectChara *CObjectChara::Create(const VECTOR3& rPos, const VECTOR3& rRot)
 {
 	// オブジェクトキャラクターの生成
 	CObjectChara *pObjectChara = new CObjectChara;
@@ -299,7 +299,7 @@ void CObjectChara::BindCharaData(const char *pCharaPath)
 //============================================================
 //	マトリックスの設定処理
 //============================================================
-void CObjectChara::SetMtxWorld(const MATRIX &rMtxWorld)
+void CObjectChara::SetMtxWorld(const MATRIX& rMtxWorld)
 {
 	// 引数のマトリックスを設定
 	m_mtxWorld = rMtxWorld;

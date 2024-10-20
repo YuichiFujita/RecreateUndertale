@@ -61,7 +61,7 @@ public:
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
-	void Draw(CShader *pShader = nullptr) override;	// 描画
+	void Draw(CShader* pShader = nullptr) override;	// 描画
 	HRESULT ChangeState(CPlayerState *pState);		// 状態変更
 
 	// 静的メンバ関数

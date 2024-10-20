@@ -119,7 +119,7 @@ void CTileTrans::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CTileTrans::Draw(CShader *pShader)
+void CTileTrans::Draw(CShader* pShader)
 {
 	// オブジェクト3Dの描画
 	CObject3D::Draw(pShader);

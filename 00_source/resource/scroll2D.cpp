@@ -110,7 +110,7 @@ void CScroll2D::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CScroll2D::Draw(CShader *pShader)
+void CScroll2D::Draw(CShader* pShader)
 {
 	// オブジェクト2Dの描画
 	CObject2D::Draw(pShader);
@@ -155,7 +155,7 @@ void CScroll2D::SetVec3Size(const VECTOR3& rSize)
 //============================================================
 //	生成処理
 //============================================================
-CScroll2D *CScroll2D::Create
+CScroll2D* CScroll2D::Create
 (
 	const float fMoveU,		// 横座標の移動量
 	const float fMoveV,		// 縦座標の移動量
@@ -166,7 +166,7 @@ CScroll2D *CScroll2D::Create
 )
 {
 	// スクロール2Dの生成
-	CScroll2D *pScroll2D = new CScroll2D;
+	CScroll2D* pScroll2D = new CScroll2D;
 	if (pScroll2D == nullptr)
 	{ // 生成に失敗した場合
 
@@ -312,7 +312,7 @@ void CScroll2D::SetMoveV(const float fMoveV)
 //============================================================
 //	テクスチャ座標の正規化
 //============================================================
-bool CScroll2D::NormalizeTexPos(float *pTexPos)
+bool CScroll2D::NormalizeTexPos(float* pTexPos)
 {
 	if (*pTexPos > 1.0f)
 	{

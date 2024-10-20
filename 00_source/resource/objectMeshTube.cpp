@@ -142,7 +142,7 @@ void CObjectMeshTube::Update(const float fDeltaTime)
 //============================================================
 //	•`‰æˆ—
 //============================================================
-void CObjectMeshTube::Draw(CShader *pShader)
+void CObjectMeshTube::Draw(CShader* pShader)
 {
 	for (int i = 0; i < COVER_MAX; i++)
 	{ // ŠW‚Ì‘”•ªŒJ‚è•Ô‚·

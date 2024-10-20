@@ -94,7 +94,7 @@ void CTileMap::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CTileMap::Draw(CShader *pShader)
+void CTileMap::Draw(CShader* pShader)
 {
 	// オブジェクト3Dの描画
 	CObject3D::Draw(pShader);

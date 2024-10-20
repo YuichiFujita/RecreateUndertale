@@ -151,7 +151,7 @@ public:
 	HRESULT Init(void);	// 初期化
 	void Uninit(void);	// 終了
 	void Update(const float fDeltaTime);		// 更新
-	void BindPartsData(CMultiModel **ppModel);	// パーツ情報設定
+	void BindPartsData(CMultiModel** ppModel);	// パーツ情報設定
 	void SetAllInfo(const SInfo& rInfo);		// モーション情報全設定
 	void AddInfo(const SMotion& rMotion);		// モーション情報追加
 	void SetEnableUpdate(const bool bUpdate);	// 更新状況設定
@@ -193,7 +193,7 @@ private:
 
 	// メンバ変数
 	const std::function<int(void)> m_funcGetNumParts;	// パーツ数取得関数ポインタ
-	CMultiModel **m_ppModel;	// モデル情報
+	CMultiModel** m_ppModel;	// モデル情報
 	CObjectChara *m_pChara;		// オブジェクトキャラクター情報
 	SInfo  m_info;	// モーション情報
 	SBlend m_blend;	// ブレンド情報

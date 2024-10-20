@@ -101,7 +101,7 @@ void CScrollMeshRing::Update(const float fDeltaTime)
 //============================================================
 //	•`‰æˆ—
 //============================================================
-void CScrollMeshRing::Draw(CShader *pShader)
+void CScrollMeshRing::Draw(CShader* pShader)
 {
 	// ƒƒbƒVƒ…ƒŠƒ“ƒO‚Ì•`‰æ
 	CObjectMeshRing::Draw(pShader);

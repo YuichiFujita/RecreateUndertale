@@ -111,7 +111,7 @@ void CFrame2D::Update(const float fDeltaTime)
 //============================================================
 //	•`‰æˆ—
 //============================================================
-void CFrame2D::Draw(CShader *pShader)
+void CFrame2D::Draw(CShader* pShader)
 {
 	for (int i = 0; i < POLYGON_MAX; i++)
 	{ // ƒ|ƒŠƒSƒ“‚Ì‘”•ªŒJ‚è•Ô‚·

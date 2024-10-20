@@ -93,7 +93,7 @@ void CTimerUI::Update(const float fDeltaTime)
 //============================================================
 //	•`‰æˆ—
 //============================================================
-void CTimerUI::Draw(CShader *pShader)
+void CTimerUI::Draw(CShader* pShader)
 {
 	// ƒ^ƒCƒ}[‚Ì•`‰æ
 	m_pTimer->Draw(pShader);

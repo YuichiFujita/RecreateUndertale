@@ -49,12 +49,12 @@ public:
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
 	void Update(const float fDeltaTime) override;		// 更新
-	void Draw(CShader *pShader = nullptr) override;		// 描画
+	void Draw(CShader* pShader = nullptr) override;		// 描画
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
 	VECTOR3 GetVec3Position(void) const override { return m_pos; }	// 位置取得
 
 	// 静的メンバ関数
-	static CGauge2D *Create	// 生成
+	static CGauge2D* Create	// 生成
 	( // 引数
 		const int nMax,			// 最大表示値
 		const int nFrame,		// 表示値変動フレーム
@@ -63,14 +63,14 @@ public:
 		const COLOR& rColFront = color::White(),	// 表ゲージ色
 		const COLOR& rColBack = color::Black(),		// 裏ゲージ色
 		const bool bDrawFrame = false,				// 枠描画状況
-		const char *pPathTex = nullptr,				// フレームテクスチャパス
+		const char* pPathTex = nullptr,				// フレームテクスチャパス
 		const VECTOR3& rSizeFrame = VEC3_ONE,		// 枠大きさ
 		const VECTOR3& rOffsetFrame = VEC3_ONE		// 枠オフセット
 	);
 
 	// メンバ関数
 	void BindTexture(const int nPolygonID, const int nTextureID);		// テクスチャ割当 (インデックス)
-	void BindTexture(const int nPolygonID, const char *pTexturePath);	// テクスチャ割当 (パス)
+	void BindTexture(const int nPolygonID, const char* pTexturePath);	// テクスチャ割当 (パス)
 	int GetTextureIndex(const int nPolygonID) const;					// テクスチャインデックス取得
 
 	void AddNum(const int nAdd);					// ゲージ加算

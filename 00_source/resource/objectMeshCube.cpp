@@ -172,7 +172,7 @@ void CObjectMeshCube::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CObjectMeshCube::Draw(CShader *pShader)
+void CObjectMeshCube::Draw(CShader* pShader)
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 	MATRIX mtxRot, mtxTrans;	// 計算用マトリックス
@@ -772,7 +772,7 @@ void CObjectMeshCube::DrawNormal(void)
 //============================================================
 //	シェーダー描画処理
 //============================================================
-void CObjectMeshCube::DrawShader(CShader *pShader)
+void CObjectMeshCube::DrawShader(CShader* pShader)
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 	int aTexType[NUM_CUBE_FACE];			// テクスチャ設定用

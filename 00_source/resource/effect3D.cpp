@@ -166,7 +166,7 @@ void CEffect3D::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CEffect3D::Draw(CShader *pShader)
+void CEffect3D::Draw(CShader* pShader)
 {
 	// オブジェクトビルボードの描画
 	CObjectBillboard::Draw(pShader);

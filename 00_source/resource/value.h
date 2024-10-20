@@ -39,10 +39,10 @@ public:
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
-	void Draw(CShader *pShader = nullptr) override;	// 描画
+	void Draw(CShader* pShader = nullptr) override;	// 描画
 
 	// 静的メンバ関数
-	static CValue *Create	// 生成
+	static CValue* Create	// 生成
 	( // 引数
 		const EType type = TYPE_NORMAL,		// 数字種類
 		const VECTOR3& rPos = VEC3_ZERO,	// 位置

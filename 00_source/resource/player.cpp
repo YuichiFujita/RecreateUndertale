@@ -138,7 +138,7 @@ void CPlayer::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CPlayer::Draw(CShader *pShader)
+void CPlayer::Draw(CShader* pShader)
 {
 	// オブジェクトキャラクター2Dの描画
 	CObjectChara2D::Draw(pShader);

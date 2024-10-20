@@ -101,7 +101,7 @@ void CScrollMeshField::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CScrollMeshField::Draw(CShader *pShader)
+void CScrollMeshField::Draw(CShader* pShader)
 {
 	// メッシュフィールドの描画
 	CObjectMeshField::Draw(pShader);

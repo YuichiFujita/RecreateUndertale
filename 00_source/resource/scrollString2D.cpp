@@ -85,7 +85,7 @@ void CScrollString2D::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CScrollString2D::Draw(CShader *pShader)
+void CScrollString2D::Draw(CShader* pShader)
 {
 	// 文字列2Dの描画
 	CString2D::Draw(pShader);
@@ -151,12 +151,12 @@ HRESULT CScrollString2D::SetString(const std::wstring& rStr)
 //============================================================
 //	生成処理 (マルチバイト文字列)
 //============================================================
-CScrollString2D *CScrollString2D::Create
+CScrollString2D* CScrollString2D::Create
 (
-	const std::string &rFilePath,	// フォントパス
+	const std::string& rFilePath,	// フォントパス
 	const bool bItalic,				// イタリック
-	const std::string &rStr,		// 指定文字列
-	const VECTOR3 &rPos,			// 原点位置
+	const std::string& rStr,		// 指定文字列
+	const VECTOR3& rPos,			// 原点位置
 	const float fNextTime,			// 文字表示の待機時間
 	const float fHeight,			// 文字縦幅
 	const EAlignX alignX,			// 横配置
@@ -165,7 +165,7 @@ CScrollString2D *CScrollString2D::Create
 )
 {
 	// 文字送り文字列2Dの生成
-	CScrollString2D *pScrollString2D = new CScrollString2D;
+	CScrollString2D* pScrollString2D = new CScrollString2D;
 	if (pScrollString2D == nullptr)
 	{ // 生成に失敗した場合
 
@@ -221,12 +221,12 @@ CScrollString2D *CScrollString2D::Create
 //============================================================
 //	生成処理 (ワイド文字列)
 //============================================================
-CScrollString2D *CScrollString2D::Create
+CScrollString2D* CScrollString2D::Create
 (
-	const std::string &rFilePath,	// フォントパス
+	const std::string& rFilePath,	// フォントパス
 	const bool bItalic,				// イタリック
-	const std::wstring &rStr,		// 指定文字列
-	const VECTOR3 &rPos,			// 原点位置
+	const std::wstring& rStr,		// 指定文字列
+	const VECTOR3& rPos,			// 原点位置
 	const float fNextTime,			// 文字表示の待機時間
 	const float fHeight,			// 文字縦幅
 	const EAlignX alignX,			// 横配置
@@ -235,7 +235,7 @@ CScrollString2D *CScrollString2D::Create
 )
 {
 	// 文字送り文字列2Dの生成
-	CScrollString2D *pScrollString2D = new CScrollString2D;
+	CScrollString2D* pScrollString2D = new CScrollString2D;
 	if (pScrollString2D == nullptr)
 	{ // 生成に失敗した場合
 
@@ -304,7 +304,7 @@ void CScrollString2D::UpdateScroll(const float fDeltaTime)
 	while (m_fCurTime >= m_fNextTime)
 	{ // 待機し終わった場合
 
-		CChar2D *pChar = GetChar2D(m_nNextID);	// 表示させる文字情報
+		CChar2D* pChar = GetChar2D(m_nNextID);	// 表示させる文字情報
 
 		// 文字の自動描画をONにする
 		assert(pChar != nullptr);
@@ -336,7 +336,7 @@ void CScrollString2D::UpdateScroll(const float fDeltaTime)
 //============================================================
 //	文字送り効果音の再生処理
 //============================================================
-void CScrollString2D::PlayScrollSE(CChar2D *pChar2D)
+void CScrollString2D::PlayScrollSE(CChar2D* pChar2D)
 {
 	// ラベルが指定なしの場合抜ける
 	if (m_labelSE == CSound::LABEL_NONE) { return; }

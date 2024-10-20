@@ -239,7 +239,7 @@ void CMenuStatusUI::Update(const float fDeltaTime)
 //============================================================
 //	•`‰æˆ—
 //============================================================
-void CMenuStatusUI::Draw(CShader * /*pShader*/)
+void CMenuStatusUI::Draw(CShader* /*pShader*/)
 {
 
 }

@@ -18,7 +18,7 @@ class CFontChar
 {
 public:
 	// コンストラクタ
-	CFontChar(const HFONT hFont, const std::string &rFilePath, const bool bItalic);
+	CFontChar(const HFONT hFont, const std::string& rFilePath, const bool bItalic);
 
 	// デストラクタ
 	~CFontChar();
@@ -54,7 +54,7 @@ public:
 	const bool GetItalic(void)			{ return m_bItalic; }	// イタリック
 
 	// 静的メンバ関数
-	static CFontChar *Create(const HFONT hFont, const std::string &rFilePath, const bool bItalic);	// 生成
+	static CFontChar *Create(const HFONT hFont, const std::string& rFilePath, const bool bItalic);	// 生成
 	static void Release(CFontChar *&pFontChar);	// 破棄
 
 private:

@@ -128,7 +128,7 @@ void CObjectMeshCylinder::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CObjectMeshCylinder::Draw(CShader *pShader)
+void CObjectMeshCylinder::Draw(CShader* pShader)
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 	MATRIX mtxRot, mtxTrans;	// 計算用マトリックス
@@ -619,7 +619,7 @@ void CObjectMeshCylinder::DrawNormal(void)
 //============================================================
 //	シェーダー描画処理
 //============================================================
-void CObjectMeshCylinder::DrawShader(CShader *pShader)
+void CObjectMeshCylinder::DrawShader(CShader* pShader)
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 

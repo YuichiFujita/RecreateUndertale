@@ -48,7 +48,7 @@ public:
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
-	void Draw(CShader *pShader = nullptr) override;	// 描画
+	void Draw(CShader* pShader = nullptr) override;	// 描画
 
 	// 静的メンバ関数
 	static CMenuUI *Create(void);	// 生成

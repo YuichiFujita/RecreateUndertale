@@ -148,7 +148,7 @@ void CObject3D::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CObject3D::Draw(CShader *pShader)
+void CObject3D::Draw(CShader* pShader)
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
@@ -681,7 +681,7 @@ void CObject3D::DrawNormal(void)
 //============================================================
 //	シェーダー描画処理
 //============================================================
-void CObject3D::DrawShader(CShader *pShader)
+void CObject3D::DrawShader(CShader* pShader)
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 

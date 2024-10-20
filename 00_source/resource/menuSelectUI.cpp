@@ -212,7 +212,7 @@ void CMenuSelectUI::Update(const float fDeltaTime)
 //============================================================
 //	•`‰æˆ—
 //============================================================
-void CMenuSelectUI::Draw(CShader * /*pShader*/)
+void CMenuSelectUI::Draw(CShader* /*pShader*/)
 {
 
 }
@@ -399,7 +399,7 @@ void CSelectUI::Update(const float fDeltaTime)
 //============================================================
 //	•`‰æˆ—
 //============================================================
-void CSelectUI::Draw(CShader * /*pShader*/)
+void CSelectUI::Draw(CShader* /*pShader*/)
 {
 
 }

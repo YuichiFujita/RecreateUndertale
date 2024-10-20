@@ -133,7 +133,7 @@ void loadtext::BindText(CText2D *pText2D, const std::vector<std::wstring>& rVecS
 //============================================================
 //	•¶š—ñ‚ÌŠ„“–ˆ—
 //============================================================
-void loadtext::BindString(CString2D *pString2D, const std::vector<std::wstring> &rVecStr)
+void loadtext::BindString(CString2D *pString2D, const std::vector<std::wstring>& rVecStr)
 {
 	// •¶š—ñ‚ªˆê‚Â‚Å‚Í‚È‚¢ê‡ƒGƒ‰[
 	assert((int)rVecStr.size() == 1);

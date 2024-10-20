@@ -121,7 +121,7 @@ void CValueUI::Update(const float fDeltaTime)
 //============================================================
 //	ï`âÊèàóù
 //============================================================
-void CValueUI::Draw(CShader * /*pShader*/)
+void CValueUI::Draw(CShader* /*pShader*/)
 {
 
 }

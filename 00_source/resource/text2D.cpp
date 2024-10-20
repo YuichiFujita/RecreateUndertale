@@ -100,7 +100,7 @@ void CText2D::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CText2D::Draw(CShader * /*pShader*/)
+void CText2D::Draw(CShader* /*pShader*/)
 {
 
 }
@@ -182,9 +182,9 @@ void CText2D::SetVec3Rotation(const VECTOR3& rRot)
 //============================================================
 //	生成処理
 //============================================================
-CText2D *CText2D::Create
+CText2D* CText2D::Create
 (
-	const std::string &rFilePath,	// フォントパス
+	const std::string& rFilePath,	// フォントパス
 	const bool bItalic,				// イタリック
 	const VECTOR3& rPos,			// 原点位置
 	const float fCharHeight,		// 文字縦幅
@@ -196,7 +196,7 @@ CText2D *CText2D::Create
 )
 {
 	// テキスト2Dの生成
-	CText2D *pText2D = new CText2D;
+	CText2D* pText2D = new CText2D;
 	if (pText2D == nullptr)
 	{ // 生成に失敗した場合
 
@@ -270,7 +270,7 @@ HRESULT CText2D::PushFrontString(const std::string& rStr)
 HRESULT CText2D::PushFrontString(const std::wstring& rStr)
 {
 	// 文字列の生成
-	CString2D *pStr = CreateString2D(rStr);
+	CString2D* pStr = CreateString2D(rStr);
 	if (pStr == nullptr)
 	{ // 生成に失敗した場合
 
@@ -316,7 +316,7 @@ HRESULT CText2D::PushBackString(const std::string& rStr)
 HRESULT CText2D::PushBackString(const std::wstring& rStr)
 {
 	// 文字列の生成
-	CString2D *pStr = CreateString2D(rStr);
+	CString2D* pStr = CreateString2D(rStr);
 	if (pStr == nullptr)
 	{ // 生成に失敗した場合
 
@@ -380,12 +380,12 @@ void CText2D::DeleteStringAll(void)
 //============================================================
 void CText2D::SetFont
 (
-	const std::string &rFilePath,	// フォントパス
+	const std::string& rFilePath,	// フォントパス
 	const bool bItalic				// イタリック
 )
 {
 	// フォント文字情報を設定
-	CFont *pFont = GET_MANAGER->GetFont();	// フォント情報
+	CFont* pFont = GET_MANAGER->GetFont();	// フォント情報
 	m_pFontChar = pFont->Regist(rFilePath, bItalic).pFontChar;
 
 	for (auto& rList : m_listString)
@@ -496,7 +496,7 @@ void CText2D::SetAlignY(const EAlignY align)
 //============================================================
 //	文字列の取得処理
 //============================================================
-CString2D *CText2D::GetString2D(const int nStrID) const
+CString2D* CText2D::GetString2D(const int nStrID) const
 {
 	// 文字列がない場合抜ける
 	int nStrSize = (int)m_listString.size();
@@ -539,10 +539,10 @@ float CText2D::GetTextHeight(void) const
 //============================================================
 //	文字列の生成処理
 //============================================================
-CString2D *CText2D::CreateString2D(const std::wstring& rStr)
+CString2D* CText2D::CreateString2D(const std::wstring& rStr)
 {
 	// 文字列オブジェクトを生成
-	CString2D *pStr = CString2D::Create
+	CString2D* pStr = CString2D::Create
 	( // 引数
 		m_pFontChar->GetFilePath(),	// フォントパス
 		m_pFontChar->GetItalic(),	// イタリック

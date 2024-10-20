@@ -127,7 +127,7 @@ void CObject2D::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CObject2D::Draw(CShader * /*pShader*/)
+void CObject2D::Draw(CShader* /*pShader*/)
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 

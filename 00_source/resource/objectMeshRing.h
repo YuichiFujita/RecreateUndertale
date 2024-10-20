@@ -54,7 +54,7 @@ public:
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
 	void Update(const float fDeltaTime) override;		// 更新
-	void Draw(CShader *pShader = nullptr) override;		// 描画
+	void Draw(CShader* pShader = nullptr) override;		// 描画
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
 	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
 	VECTOR3 GetVec3Position(void) const override	{ return m_meshRing.pos; }			// 位置取得
@@ -113,7 +113,7 @@ private:
 
 	// メンバ関数
 	void DrawNormal(void);	// 通常描画
-	void DrawShader(CShader *pShader);	// シェーダー描画
+	void DrawShader(CShader* pShader);	// シェーダー描画
 
 	// メンバ変数
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;	// 頂点バッファへのポインタ

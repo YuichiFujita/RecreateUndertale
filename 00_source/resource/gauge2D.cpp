@@ -160,7 +160,7 @@ void CGauge2D::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CGauge2D::Draw(CShader * /*pShader*/)
+void CGauge2D::Draw(CShader* /*pShader*/)
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
@@ -213,7 +213,7 @@ void CGauge2D::SetVec3Position(const VECTOR3& rPos)
 //============================================================
 //	生成処理
 //============================================================
-CGauge2D *CGauge2D::Create
+CGauge2D* CGauge2D::Create
 (
 	const int nMax,				// 最大表示値
 	const int nFrame,			// 表示値変動フレーム
@@ -222,13 +222,13 @@ CGauge2D *CGauge2D::Create
 	const COLOR& rColFront,		// 表ゲージ色
 	const COLOR& rColBack,		// 裏ゲージ色
 	const bool bDrawFrame,		// 枠描画状況
-	const char *pPathTex,		// フレームテクスチャパス
+	const char* pPathTex,		// フレームテクスチャパス
 	const VECTOR3& rSizeFrame,	// 枠大きさ
 	const VECTOR3& rOffsetFrame	// 枠オフセット
 )
 {
 	// ゲージ2Dの生成
-	CGauge2D *pGauge2D = new CGauge2D(nFrame);
+	CGauge2D* pGauge2D = new CGauge2D(nFrame);
 	if (pGauge2D == nullptr)
 	{ // 生成に失敗した場合
 
@@ -295,9 +295,9 @@ void CGauge2D::BindTexture(const int nPolygonID, const int nTextureID)
 //============================================================
 //	テクスチャ割当処理 (パス)
 //============================================================
-void CGauge2D::BindTexture(const int nPolygonID, const char *pTexturePath)
+void CGauge2D::BindTexture(const int nPolygonID, const char* pTexturePath)
 {
-	CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
+	CTexture* pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
 	if (nPolygonID > NONE_IDX && nPolygonID < POLYGON_MAX)
 	{ // 正規インデックスの場合
 
@@ -487,7 +487,7 @@ void CGauge2D::SetEnableDrawFrame(const bool bDraw)
 //============================================================
 void CGauge2D::SetVtx(void)
 {
-	VERTEX_2D *pVtx;	// 頂点情報へのポインタ
+	VERTEX_2D* pVtx;	// 頂点情報へのポインタ
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
 

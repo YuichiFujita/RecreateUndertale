@@ -182,7 +182,7 @@ void CTimeUI::Update(const float fDeltaTime)
 //============================================================
 //	ï`âÊèàóù
 //============================================================
-void CTimeUI::Draw(CShader *pShader)
+void CTimeUI::Draw(CShader* pShader)
 {
 	for (int nCntValue = 0; nCntValue < timeUI::MAX_DIGIT; nCntValue++)
 	{ // êîéöÇÃêîï™åJÇËï‘Ç∑

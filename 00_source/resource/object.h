@@ -103,7 +103,7 @@ public:
 	virtual void Uninit(void)	= 0;	// 終了
 	virtual void Release(void)	= 0;	// 破棄
 	virtual void Update(const float fDeltaTime)		= 0;	// 更新
-	virtual void Draw(CShader *pShader = nullptr)	= 0;	// 描画
+	virtual void Draw(CShader* pShader = nullptr)	= 0;	// 描画
 
 	// 仮想関数
 	virtual void SetLabel(const ELabel label);				// ラベル設定

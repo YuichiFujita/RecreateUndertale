@@ -122,7 +122,7 @@ void CFrameText2D::Update(const float fDeltaTime)
 //============================================================
 //	•`‰æˆ—
 //============================================================
-void CFrameText2D::Draw(CShader *pShader)
+void CFrameText2D::Draw(CShader* pShader)
 {
 	// ƒtƒŒ[ƒ€2D‚Ì•`‰æ
 	CFrame2D::Draw(pShader);

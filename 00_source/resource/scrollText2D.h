@@ -33,7 +33,7 @@ public:
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
-	void Draw(CShader *pShader = nullptr) override;	// 描画
+	void Draw(CShader* pShader = nullptr) override;	// 描画
 	void SetEnableDraw(const bool bDraw) override;	// 描画状況設定
 	HRESULT PushFrontString(const std::string& rStr) override;	// 文字列の先頭追加 (マルチバイト文字列)
 	HRESULT PushFrontString(const std::wstring& rStr) override;	// 文字列の先頭追加 (ワイド文字列)
@@ -43,9 +43,9 @@ public:
 	void DeleteStringAll(void) override;						// 文字列全削除
 
 	// 静的メンバ関数
-	static CScrollText2D *Create	// 生成
+	static CScrollText2D* Create	// 生成
 	( // 引数
-		const std::string &rFilePath,			// フォントパス
+		const std::string& rFilePath,			// フォントパス
 		const bool bItalic,						// イタリック
 		const VECTOR3& rPos,					// 原点位置
 		const float fNextTime = 0.1f,			// 文字表示の待機時間
@@ -65,12 +65,12 @@ public:
 	void SetScrollSE(const CSound::ELabel labelSE)	{ m_labelSE = labelSE; }		// 文字送り時の効果音設定
 	CSound::ELabel GetScrollSE(void) const			{ return m_labelSE; }			// 文字送り時の効果音取得
 	int GetNextCharID(void)			{ return m_nNextID; }				// 次の表示文字インデックス取得
-	CChar2D *GetNextChar2D(void)	{ return m_vecChar[m_nNextID]; }	// 次の表示文字取得
+	CChar2D* GetNextChar2D(void)	{ return m_vecChar[m_nNextID]; }	// 次の表示文字取得
 
 private:
 	// メンバ関数
 	void UpdateScroll(const float fDeltaTime);	// 文字送り更新
-	void PlayScrollSE(CChar2D *pChar2D);		// 文字送り効果音の再生
+	void PlayScrollSE(CChar2D* pChar2D);		// 文字送り効果音の再生
 
 	// メンバ変数
 	std::vector<CChar2D*> m_vecChar;	// 全文字情報

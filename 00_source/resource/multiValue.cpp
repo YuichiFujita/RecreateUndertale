@@ -115,7 +115,7 @@ void CMultiValue::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CMultiValue::Draw(CShader *pShader)
+void CMultiValue::Draw(CShader* pShader)
 {
 	for (auto& rList : m_listValue)
 	{ // 数字の桁数分繰り返す
@@ -197,7 +197,7 @@ void CMultiValue::SetVec3Size(const VECTOR3& rSize)
 //============================================================
 //	生成処理
 //============================================================
-CMultiValue *CMultiValue::Create
+CMultiValue* CMultiValue::Create
 (
 	const CValue::EType type,	// 数字種類
 	const int nNum,				// 数字
@@ -212,7 +212,7 @@ CMultiValue *CMultiValue::Create
 )
 {
 	// マルチ数字の生成
-	CMultiValue *pMultiValue = new CMultiValue;
+	CMultiValue* pMultiValue = new CMultiValue;
 	if (pMultiValue == nullptr)
 	{ // 生成に失敗した場合
 
@@ -368,7 +368,7 @@ HRESULT CMultiValue::SetDigit(const int nDigit)
 	{ // 桁数分繰り返す
 
 		// 数字の生成
-		CValue *pValue = CValue::Create(CValue::TYPE_NORMAL);
+		CValue* pValue = CValue::Create(CValue::TYPE_NORMAL);
 		if (pValue == nullptr)
 		{ // 生成に失敗した場合
 
@@ -599,7 +599,7 @@ void CMultiValue::SetTexNum(void)
 {
 	// 数字を桁数ごとに分解
 	int nDigit = (int)m_listValue.size();	// 数値の桁数
-	int *pNumDivide = new int[nDigit];		// 数値の分解用配列
+	int* pNumDivide = new int[nDigit];		// 数値の分解用配列
 	useful::ZeroClear(pNumDivide);			// 配列のメモリクリア
 	useful::DivideDigitNum
 	( // 引数

@@ -273,7 +273,7 @@ void CSelectItemUI::Update(const float fDeltaTime)
 //============================================================
 //	•`‰æˆ—
 //============================================================
-void CSelectItemUI::Draw(CShader *pShader)
+void CSelectItemUI::Draw(CShader* pShader)
 {
 	// ƒZƒŒƒNƒgUI‚Ì•`‰æ
 	CSelectUI::Draw(pShader);
@@ -476,7 +476,7 @@ void CItemUI::Update(const float fDeltaTime)
 //============================================================
 //	•`‰æˆ—
 //============================================================
-void CItemUI::Draw(CShader * /*pShader*/)
+void CItemUI::Draw(CShader* /*pShader*/)
 {
 
 }

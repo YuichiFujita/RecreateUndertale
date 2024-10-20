@@ -167,7 +167,7 @@ void CParticle2D::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CParticle2D::Draw(CShader * /*pShader*/)
+void CParticle2D::Draw(CShader* /*pShader*/)
 {
 
 }
@@ -184,10 +184,10 @@ void CParticle2D::SetVec3Position(const VECTOR3& rPos)
 //============================================================
 //	生成処理
 //============================================================
-CParticle2D *CParticle2D::Create(const EType type, const VECTOR3& rPos, const COLOR& rCol)
+CParticle2D* CParticle2D::Create(const EType type, const VECTOR3& rPos, const COLOR& rCol)
 {
 	// パーティクル2Dの生成
-	CParticle2D *pParticle2D = new CParticle2D;
+	CParticle2D* pParticle2D = new CParticle2D;
 	if (pParticle2D == nullptr)
 	{ // 生成に失敗した場合
 

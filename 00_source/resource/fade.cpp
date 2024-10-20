@@ -201,7 +201,7 @@ void CFade::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CFade::Draw(CShader *pShader)
+void CFade::Draw(CShader* pShader)
 {
 	// オブジェクト2Dの描画
 	CObject2D::Draw(pShader);

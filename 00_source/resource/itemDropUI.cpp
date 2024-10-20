@@ -84,7 +84,7 @@ void CItemDropUI::Update(const float fDeltaTime)
 //============================================================
 //	•`‰æˆ—
 //============================================================
-void CItemDropUI::Draw(CShader *pShader)
+void CItemDropUI::Draw(CShader* pShader)
 {
 	// ƒAƒCƒeƒ€UI‚Ì•`‰æ
 	CItemUI::Draw(pShader);

@@ -91,7 +91,7 @@ void CItemInfoUI::Update(const float fDeltaTime)
 //============================================================
 //	•`‰æˆ—
 //============================================================
-void CItemInfoUI::Draw(CShader *pShader)
+void CItemInfoUI::Draw(CShader* pShader)
 {
 	// ƒAƒCƒeƒ€UI‚Ì•`‰æ
 	CItemUI::Draw(pShader);

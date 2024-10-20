@@ -79,7 +79,7 @@ void CScreen::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CScreen::Draw(CShader *pShader)
+void CScreen::Draw(CShader* pShader)
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 

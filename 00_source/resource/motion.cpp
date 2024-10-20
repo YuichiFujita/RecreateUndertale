@@ -88,7 +88,7 @@ void CMotion::Update(const float fDeltaTime)
 //============================================================
 //	パーツ情報の設定処理
 //============================================================
-void CMotion::BindPartsData(CMultiModel **ppModel)
+void CMotion::BindPartsData(CMultiModel** ppModel)
 {
 	// 引数のモデル情報を設定
 	m_ppModel = ppModel;

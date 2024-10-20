@@ -73,7 +73,7 @@ void CObjectChara2D::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CObjectChara2D::Draw(CShader *pShader)
+void CObjectChara2D::Draw(CShader* pShader)
 {
 	// アニメーション3Dの描画
 	CAnim3D::Draw(pShader);
@@ -82,7 +82,7 @@ void CObjectChara2D::Draw(CShader *pShader)
 //============================================================
 //	生成処理
 //============================================================
-CObjectChara2D *CObjectChara2D::Create(const VECTOR3 &rPos, const VECTOR3 &rRot)
+CObjectChara2D *CObjectChara2D::Create(const VECTOR3& rPos, const VECTOR3& rRot)
 {
 	// オブジェクトキャラクター2Dの生成
 	CObjectChara2D *pObjectChara2D = new CObjectChara2D;

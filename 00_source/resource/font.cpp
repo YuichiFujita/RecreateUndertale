@@ -134,7 +134,7 @@ HRESULT CFont::LoadAll(void)
 //============================================================
 //	フォント読込処理
 //============================================================
-HRESULT CFont::Load(const std::string &rFilePath)
+HRESULT CFont::Load(const std::string& rFilePath)
 {
 	// 既に読込済みかを検索
 	auto itr = std::find(m_vecFilePath.begin(), m_vecFilePath.end(), rFilePath);	// 引数のフォントパスを検索
@@ -177,7 +177,7 @@ HRESULT CFont::Load(const std::string &rFilePath)
 //============================================================
 //	フォント登録処理
 //============================================================
-CFont::SFont CFont::Regist(const std::string &rFilePath, const bool bItalic)
+CFont::SFont CFont::Regist(const std::string& rFilePath, const bool bItalic)
 {
 	// 既に生成済みかを検索
 	auto itr = m_mapFont.find(SKey(rFilePath, bItalic));	// 引数のフォントを検索
@@ -245,7 +245,7 @@ CFont::SFont CFont::Regist(const std::string &rFilePath, const bool bItalic)
 CFontChar::SChar CFont::RegistChar
 (
 	const wchar_t wcChar,			// 指定文字
-	const std::string &rFilePath,	// ファイルパス
+	const std::string& rFilePath,	// ファイルパス
 	bool bItalic					// イタリック
 )
 {
@@ -298,7 +298,7 @@ void CFont::Release(CFont *&prFont)
 //============================================================
 //	フォント・フォント文字の事前登録
 //============================================================
-void CFont::RegistPrepare(const std::string &rFilePath)
+void CFont::RegistPrepare(const std::string& rFilePath)
 {
 	// 引数パスのフォントを登録
 	Regist(rFilePath);
@@ -322,7 +322,7 @@ void CFont::RegistPrepare(const std::string &rFilePath)
 //============================================================
 //	フォルダ全検索処理
 //============================================================
-HRESULT CFont::SearchFolderAll(const std::string &rFolderPath)
+HRESULT CFont::SearchFolderAll(const std::string& rFolderPath)
 {
 	HANDLE hFile;	// 検索ハンドル
 	WIN32_FIND_DATA findFileData;	// ファイル情報

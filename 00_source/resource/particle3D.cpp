@@ -280,7 +280,7 @@ void CParticle3D::Update(const float fDeltaTime)
 //============================================================
 //	•`‰æˆ—
 //============================================================
-void CParticle3D::Draw(CShader * /*pShader*/)
+void CParticle3D::Draw(CShader* /*pShader*/)
 {
 
 }

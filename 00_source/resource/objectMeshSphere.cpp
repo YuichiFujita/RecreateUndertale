@@ -117,7 +117,7 @@ void CObjectMeshSphere::Update(const float fDeltaTime)
 //============================================================
 //	•`‰æˆ—
 //============================================================
-void CObjectMeshSphere::Draw(CShader *pShader)
+void CObjectMeshSphere::Draw(CShader* pShader)
 {
 	for (int i = 0; i < DOME_MAX; i++)
 	{ // ”¼‹…‚Ì‘”•ªŒJ‚è•Ô‚·

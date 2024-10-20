@@ -70,12 +70,12 @@ public:
 	HRESULT Init(void);		// フォント初期化
 	void Uninit(void);		// フォント終了
 	HRESULT LoadAll(void);	// フォント全読込
-	HRESULT Load(const std::string &rFilePath);	// フォント読込
-	SFont Regist(const std::string &rFilePath, const bool bItalic = false);	// フォント登録
+	HRESULT Load(const std::string& rFilePath);	// フォント読込
+	SFont Regist(const std::string& rFilePath, const bool bItalic = false);	// フォント登録
 	CFontChar::SChar RegistChar	// フォント文字登録
 	( // 引数
 		const wchar_t wcChar,			// 指定文字
-		const std::string &rFilePath,	// ファイルパス
+		const std::string& rFilePath,	// ファイルパス
 		const bool bItalic = false		// イタリック
 	);
 
@@ -85,8 +85,8 @@ public:
 
 private:
 	// メンバ関数
-	void RegistPrepare(const std::string &rFilePath);			// フォント・フォント文字の事前登録
-	HRESULT SearchFolderAll(const std::string &rFolderPath);	// フォルダ全検索
+	void RegistPrepare(const std::string& rFilePath);			// フォント・フォント文字の事前登録
+	HRESULT SearchFolderAll(const std::string& rFolderPath);	// フォルダ全検索
 
 	// メンバ変数
 	std::map<SKey, SFont> m_mapFont;		// フォント連想配列

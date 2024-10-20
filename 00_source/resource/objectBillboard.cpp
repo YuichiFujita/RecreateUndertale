@@ -137,7 +137,7 @@ void CObjectBillboard::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CObjectBillboard::Draw(CShader *pShader)
+void CObjectBillboard::Draw(CShader* pShader)
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 	MATRIX mtxTrans;	// 計算用マトリックス
@@ -548,7 +548,7 @@ void CObjectBillboard::DrawNormal(void)
 //============================================================
 //	シェーダー描画処理
 //============================================================
-void CObjectBillboard::DrawShader(CShader *pShader)
+void CObjectBillboard::DrawShader(CShader* pShader)
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 

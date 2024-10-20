@@ -92,7 +92,7 @@ void CScrollText2D::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CScrollText2D::Draw(CShader *pShader)
+void CScrollText2D::Draw(CShader* pShader)
 {
 	// テキスト2Dの描画
 	CText2D::Draw(pShader);
@@ -148,7 +148,7 @@ HRESULT CScrollText2D::PushFrontString(const std::wstring& rStr)
 		return E_FAIL;
 	}
 
-	CString2D *pHeadStr = GetString2D(0);	// 先頭の文字列情報
+	CString2D* pHeadStr = GetString2D(0);	// 先頭の文字列情報
 	std::vector<CChar2D*> vecAdd;
 
 	// 先頭文字列の自動描画をOFFにする
@@ -207,7 +207,7 @@ HRESULT CScrollText2D::PushBackString(const std::wstring& rStr)
 	}
 
 	int nTailStrID = GetNumString() - 1;			// 最後尾の文字列インデックス
-	CString2D *pTailStr = GetString2D(nTailStrID);	// 最後尾の文字列情報
+	CString2D* pTailStr = GetString2D(nTailStrID);	// 最後尾の文字列情報
 
 	// 最後尾文字列の自動描画をOFFにする
 	pTailStr->SetEnableDraw(false);
@@ -274,9 +274,9 @@ void CScrollText2D::DeleteStringAll(void)
 //============================================================
 //	生成処理
 //============================================================
-CScrollText2D *CScrollText2D::Create
+CScrollText2D* CScrollText2D::Create
 (
-	const std::string &rFilePath,	// フォントパス
+	const std::string& rFilePath,	// フォントパス
 	const bool bItalic,				// イタリック
 	const VECTOR3& rPos,			// 原点位置
 	const float fNextTime,			// 文字表示の待機時間
@@ -289,7 +289,7 @@ CScrollText2D *CScrollText2D::Create
 )
 {
 	// 文字送りテキスト2Dの生成
-	CScrollText2D *pScrollText2D = new CScrollText2D;
+	CScrollText2D* pScrollText2D = new CScrollText2D;
 	if (pScrollText2D == nullptr)
 	{ // 生成に失敗した場合
 
@@ -385,7 +385,7 @@ void CScrollText2D::UpdateScroll(const float fDeltaTime)
 //============================================================
 //	文字送り効果音の再生処理
 //============================================================
-void CScrollText2D::PlayScrollSE(CChar2D *pChar2D)
+void CScrollText2D::PlayScrollSE(CChar2D* pChar2D)
 {
 	// ラベルが指定なしの場合抜ける
 	if (m_labelSE == CSound::LABEL_NONE) { return; }

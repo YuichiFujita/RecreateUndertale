@@ -49,7 +49,7 @@ public:
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
-	void Draw(CShader *pShader = nullptr) override;	// 描画
+	void Draw(CShader* pShader = nullptr) override;	// 描画
 
 	// 静的メンバ関数
 	static CMenuSelectUI *Create(void);	// 生成
@@ -92,7 +92,7 @@ public:
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
-	void Draw(CShader *pShader = nullptr) override;	// 描画
+	void Draw(CShader* pShader = nullptr) override;	// 描画
 	void SetEnableDraw(const bool bDraw) override;	// 描画状況設定
 
 	// 静的メンバ関数

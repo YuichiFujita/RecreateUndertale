@@ -34,7 +34,7 @@ public:
 	HRESULT Init(void) override;	// ‰Šú‰»
 	void Uninit(void) override;		// I—¹
 	void Update(const float fDeltaTime) override;	// XV
-	void Draw(CShader *pShader = nullptr) override;	// •`‰æ
+	void Draw(CShader* pShader = nullptr) override;	// •`‰æ
 	void SetTime(const float fTime) override;		// ŽžŠÔÝ’è
 	float GetTime(void) const override	{ return m_pTimer->GetTime(); }	// ŽžŠÔŽæ“¾
 	int GetMin(void) const override		{ return m_pTimer->GetMin(); }	// •ªŽæ“¾

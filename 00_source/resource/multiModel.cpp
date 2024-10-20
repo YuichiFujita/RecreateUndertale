@@ -77,7 +77,7 @@ void CMultiModel::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CMultiModel::Draw(CShader *pShader)
+void CMultiModel::Draw(CShader* pShader)
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;			// デバイスのポインタ
 	CRenderState *pRenderState = GetRenderState();	// レンダーステートの情報
@@ -255,7 +255,7 @@ void CMultiModel::DrawNormal(void)
 //============================================================
 //	シェーダー描画処理
 //============================================================
-void CMultiModel::DrawShader(CShader *pShader)
+void CMultiModel::DrawShader(CShader* pShader)
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;		// デバイスのポインタ
 	CModel::SModel modelData = GetModelData();	// モデルの情報

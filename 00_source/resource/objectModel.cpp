@@ -94,7 +94,7 @@ void CObjectModel::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CObjectModel::Draw(CShader *pShader)
+void CObjectModel::Draw(CShader* pShader)
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 	MATRIX mtxScale, mtxRot, mtxTrans;		// 計算用マトリックス
@@ -525,7 +525,7 @@ void CObjectModel::DrawNormal(void)
 //============================================================
 //	シェーダー描画処理
 //============================================================
-void CObjectModel::DrawShader(CShader *pShader)
+void CObjectModel::DrawShader(CShader* pShader)
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 

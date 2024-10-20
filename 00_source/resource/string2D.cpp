@@ -99,7 +99,7 @@ void CString2D::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CString2D::Draw(CShader * /*pShader*/)
+void CString2D::Draw(CShader* /*pShader*/)
 {
 
 }
@@ -181,12 +181,12 @@ void CString2D::SetVec3Rotation(const VECTOR3& rRot)
 //============================================================
 //	生成処理 (マルチバイト文字列)
 //============================================================
-CString2D *CString2D::Create
+CString2D* CString2D::Create
 (
-	const std::string &rFilePath,	// フォントパス
+	const std::string& rFilePath,	// フォントパス
 	const bool bItalic,				// イタリック
-	const std::string &rStr,		// 指定文字列
-	const VECTOR3 &rPos,			// 原点位置
+	const std::string& rStr,		// 指定文字列
+	const VECTOR3& rPos,			// 原点位置
 	const float fHeight,			// 文字縦幅
 	const EAlignX alignX,			// 横配置
 	const VECTOR3& rRot,			// 原点向き
@@ -194,7 +194,7 @@ CString2D *CString2D::Create
 )
 {
 	// 文字列2Dの生成
-	CString2D *pString2D = new CString2D;
+	CString2D* pString2D = new CString2D;
 	if (pString2D == nullptr)
 	{ // 生成に失敗した場合
 
@@ -247,12 +247,12 @@ CString2D *CString2D::Create
 //============================================================
 //	生成処理 (ワイド文字列)
 //============================================================
-CString2D *CString2D::Create
+CString2D* CString2D::Create
 (
-	const std::string &rFilePath,	// フォントパス
+	const std::string& rFilePath,	// フォントパス
 	const bool bItalic,				// イタリック
-	const std::wstring &rStr,		// 指定文字列
-	const VECTOR3 &rPos,			// 原点位置
+	const std::wstring& rStr,		// 指定文字列
+	const VECTOR3& rPos,			// 原点位置
 	const float fHeight,			// 文字縦幅
 	const EAlignX alignX,			// 横配置
 	const VECTOR3& rRot,			// 原点向き
@@ -260,7 +260,7 @@ CString2D *CString2D::Create
 )
 {
 	// 文字列2Dの生成
-	CString2D *pString2D = new CString2D;
+	CString2D* pString2D = new CString2D;
 	if (pString2D == nullptr)
 	{ // 生成に失敗した場合
 
@@ -402,12 +402,12 @@ HRESULT CString2D::SetString(const std::wstring& rStr)
 //============================================================
 void CString2D::SetFont
 (
-	const std::string &rFilePath,	// フォントパス
+	const std::string& rFilePath,	// フォントパス
 	const bool bItalic				// イタリック
 )
 {
 	// フォント文字情報を設定
-	CFont *pFont = GET_MANAGER->GetFont();	// フォント情報
+	CFont* pFont = GET_MANAGER->GetFont();	// フォント情報
 	m_pFontChar = pFont->Regist(rFilePath, bItalic).pFontChar;
 
 	// 文字列の再設定

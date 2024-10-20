@@ -102,7 +102,7 @@ void CValue::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CValue::Draw(CShader *pShader)
+void CValue::Draw(CShader* pShader)
 {
 	// アニメーション2Dの描画
 	CAnim2D::Draw(pShader);
@@ -111,7 +111,7 @@ void CValue::Draw(CShader *pShader)
 //============================================================
 //	生成処理
 //============================================================
-CValue *CValue::Create
+CValue* CValue::Create
 (
 	const EType type,		// 数字種類
 	const VECTOR3& rPos,	// 位置
@@ -121,7 +121,7 @@ CValue *CValue::Create
 )
 {
 	// 数字の生成
-	CValue *pValue = new CValue;
+	CValue* pValue = new CValue;
 	if (pValue == nullptr)
 	{ // 生成に失敗した場合
 

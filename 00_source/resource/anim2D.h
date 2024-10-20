@@ -32,13 +32,13 @@ public:
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
 	void Update(const float fDeltaTime) override;		// 更新
-	void Draw(CShader *pShader = nullptr) override;		// 描画
+	void Draw(CShader* pShader = nullptr) override;		// 描画
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
 	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
 	void SetVec3Size(const VECTOR3& rSize) override;	// 大きさ設定
 
 	// 静的メンバ関数
-	static CAnim2D *Create	// 生成
+	static CAnim2D* Create	// 生成
 	( // 引数
 		const int nWidthPtrn,	// テクスチャの横の分割数
 		const int nHeightPtrn,	// テクスチャの縦の分割数
