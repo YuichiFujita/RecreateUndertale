@@ -17,7 +17,7 @@
 //************************************************************
 //	静的メンバ変数宣言
 //************************************************************
-CStartManager *CSceneStart::m_pStartManager = nullptr;	// スタートマネージャー
+CStartManager* CSceneStart::m_pStartManager = nullptr;	// スタートマネージャー
 
 //************************************************************
 //	子クラス [CSceneStart] のメンバ関数
@@ -63,7 +63,7 @@ HRESULT CSceneStart::Init(void)
 	}
 
 	// 固定カメラにする
-	CCamera *pCamera = GET_MANAGER->GetCamera();	// カメラ情報
+	CCamera* pCamera = GET_MANAGER->GetCamera();	// カメラ情報
 	pCamera->SetState(CCamera::STATE_NONE);			// 固定状態を設定
 
 	// 成功を返す
@@ -98,7 +98,7 @@ void CSceneStart::Update(const float fDeltaTime)
 //============================================================
 //	スタートマネージャー取得処理
 //============================================================
-CStartManager *CSceneStart::GetStartManager(void)
+CStartManager* CSceneStart::GetStartManager(void)
 {
 	// インスタンス未使用
 	assert(m_pStartManager != nullptr);

@@ -56,7 +56,7 @@ public:
 	HRESULT Init(void);	// 初期化
 	void Uninit(void);	// 終了
 	void Update(const float fDeltaTime);		// 更新
-	HRESULT ChangeState(CIntroState *pState);	// 状態変更
+	HRESULT ChangeState(CIntroState* pState);	// 状態変更
 	void NextStory(void);						// 物語の遷移
 	void ChangeStory(const int nStoryID);		// ストーリー変更
 	void ChangeText(const int nStoryID);		// テキスト変更
@@ -68,7 +68,7 @@ public:
 	bool IsTextScroll(void)	{ return m_pText->IsScroll(); }			// テキスト文字送り状況取得
 
 	// 静的メンバ関数
-	static CIntroManager *Create(void);	// 生成
+	static CIntroManager* Create(void);	// 生成
 	static void Release(CIntroManager*& prIntroManager);	// 破棄
 	static void SetEnableLogoSkip(const bool bSkip)	{ m_bLogoSkip = bSkip; }	// ロゴスキップ状況設定
 	static bool IsLogoSkip(void)					{ return m_bLogoSkip; }		// ロゴスキップ状況取得
@@ -78,9 +78,9 @@ private:
 	static bool m_bLogoSkip;	// ロゴスキップ状況
 
 	// メンバ変数
-	CScroll2D *m_pStory;	// ストーリー
-	CScrollText2D *m_pText;	// テキスト
-	CIntroState *m_pState;	// 状態
+	CScroll2D* m_pStory;	// ストーリー
+	CScrollText2D* m_pText;	// テキスト
+	CIntroState* m_pState;	// 状態
 	int m_nStoryID;			// 物語インデックス
 };
 

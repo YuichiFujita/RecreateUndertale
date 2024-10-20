@@ -39,11 +39,11 @@ public:
 	void Update(const float fDeltaTime) override;	// 更新
 
 	// 静的メンバ関数
-	static CIntroManager *GetIntroManager(void);	// イントロマネージャー取得
+	static CIntroManager* GetIntroManager(void);	// イントロマネージャー取得
 
 private:
 	// 静的メンバ変数
-	static CIntroManager *m_pIntroManager;	// イントロマネージャー
+	static CIntroManager* m_pIntroManager;	// イントロマネージャー
 };
 
 #endif	// _SCENE_INTRO_H_

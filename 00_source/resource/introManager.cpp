@@ -22,7 +22,7 @@ namespace
 {
 	namespace story
 	{
-		const char *TEXTURE[] =	// 物語のテクスチャ
+		const char* TEXTURE[] =	// 物語のテクスチャ
 		{
 			"data\\TEXTURE\\INTRO\\story000.png",	// むかしむかし
 			"data\\TEXTURE\\INTRO\\story001.png",	// ところがあるとき
@@ -49,8 +49,8 @@ namespace
 
 	namespace text
 	{
-		const char *FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
-		const char *PASS = "data\\TEXT\\intro.txt";	// テキストパス
+		const char* FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
+		const char* PASS = "data\\TEXT\\intro.txt";	// テキストパス
 
 		const int	PRIORITY	= 6;		// テキストの優先順位
 		const bool	ITALIC		= false;	// イタリック
@@ -224,7 +224,7 @@ void CIntroManager::Update(const float fDeltaTime)
 //============================================================
 //	状態の変更処理
 //============================================================
-HRESULT CIntroManager::ChangeState(CIntroState *pState)
+HRESULT CIntroManager::ChangeState(CIntroState* pState)
 {
 	// 状態の生成に失敗している場合抜ける
 	if (pState == nullptr) { assert(false); return E_FAIL; }
@@ -386,10 +386,10 @@ void CIntroManager::SetEnableSlowText(const bool bSlow)
 //============================================================
 //	生成処理
 //============================================================
-CIntroManager *CIntroManager::Create(void)
+CIntroManager* CIntroManager::Create(void)
 {
 	// イントロマネージャーの生成
-	CIntroManager *pIntroManager = new CIntroManager;
+	CIntroManager* pIntroManager = new CIntroManager;
 	if (pIntroManager == nullptr)
 	{ // 生成に失敗した場合
 

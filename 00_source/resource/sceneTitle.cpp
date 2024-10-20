@@ -17,7 +17,7 @@
 //************************************************************
 //	静的メンバ変数宣言
 //************************************************************
-CTitleManager *CSceneTitle::m_pTitleManager = nullptr;	// タイトルマネージャー
+CTitleManager* CSceneTitle::m_pTitleManager = nullptr;	// タイトルマネージャー
 
 //************************************************************
 //	子クラス [CSceneTitle] のメンバ関数
@@ -63,7 +63,7 @@ HRESULT CSceneTitle::Init(void)
 	}
 
 	// 固定カメラにする
-	CCamera *pCamera = GET_MANAGER->GetCamera();	// カメラ情報
+	CCamera* pCamera = GET_MANAGER->GetCamera();	// カメラ情報
 	pCamera->SetState(CCamera::STATE_NONE);			// 固定状態を設定
 
 	// BGMの再生
@@ -101,7 +101,7 @@ void CSceneTitle::Update(const float fDeltaTime)
 //============================================================
 //	タイトルマネージャー取得処理
 //============================================================
-CTitleManager *CSceneTitle::GetTitleManager(void)
+CTitleManager* CSceneTitle::GetTitleManager(void)
 {
 	// インスタンス未使用
 	assert(m_pTitleManager != nullptr);

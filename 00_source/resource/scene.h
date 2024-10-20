@@ -39,7 +39,7 @@ public:
 	virtual void Update(const float fDeltaTime);	// 更新
 
 	// 静的メンバ関数
-	static CScene *Create(EMode mode);		// 生成
+	static CScene* Create(EMode mode);		// 生成
 	static void Release(CScene*& prScene);	// 破棄
 
 	// メンバ関数

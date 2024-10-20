@@ -21,14 +21,14 @@
 //************************************************************
 namespace
 {
-	const char *TEX_LOGO_FILE[] =	// ロゴテクスチャファイル
+	const char* TEX_LOGO_FILE[] =	// ロゴテクスチャファイル
 	{
 		"data\\TEXTURE\\title000.png",	// NEVERテクスチャ
 		"data\\TEXTURE\\title001.png",	// GIVEテクスチャ
 		"data\\TEXTURE\\title002.png",	// UP!テクスチャ
 	};
 
-	const char *TEX_SELECT_FILE[] =	// 選択項目テクスチャファイル
+	const char* TEX_SELECT_FILE[] =	// 選択項目テクスチャファイル
 	{
 		"data\\TEXTURE\\title003.png",	// STARTテクスチャ
 		"data\\TEXTURE\\title004.png",	// MANUALテクスチャ
@@ -114,7 +114,7 @@ CTitleManager::~CTitleManager()
 //============================================================
 HRESULT CTitleManager::Init(void)
 {
-	CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
+	CTexture* pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
 
 	// メンバ変数を初期化
 	memset(&m_apLogo[0],	0, sizeof(m_apLogo));	// タイトル表示の情報
@@ -331,10 +331,10 @@ void CTitleManager::Update(const float fDeltaTime)
 //============================================================
 //	生成処理
 //============================================================
-CTitleManager *CTitleManager::Create(void)
+CTitleManager* CTitleManager::Create(void)
 {
 	// タイトルマネージャーの生成
-	CTitleManager *pTitleManager = new CTitleManager;
+	CTitleManager* pTitleManager = new CTitleManager;
 	if (pTitleManager == nullptr)
 	{ // 生成に失敗した場合
 

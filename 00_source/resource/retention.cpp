@@ -48,10 +48,10 @@ void CRetention::Uninit(void)
 //============================================================
 //	ê∂ê¨èàóù
 //============================================================
-CRetention *CRetention::Create(void)
+CRetention* CRetention::Create(void)
 {
 	// ÉfÅ[É^ï€ë∂ÇÃê∂ê¨
-	CRetention *pRetention = new CRetention;
+	CRetention* pRetention = new CRetention;
 	if (pRetention == nullptr)
 	{ // ê∂ê¨Ç…é∏îsÇµÇΩèÍçá
 

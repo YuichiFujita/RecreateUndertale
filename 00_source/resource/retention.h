@@ -28,7 +28,7 @@ public:
 	void Uninit(void);	// I—¹
 
 	// Ã“Iƒƒ“ƒoŠÖ”
-	static CRetention *Create(void);	// ¶¬
+	static CRetention* Create(void);	// ¶¬
 	static void Release(CRetention*& prRetention);	// ”jŠü
 };
 

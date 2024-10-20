@@ -39,11 +39,11 @@ public:
 	void Update(const float fDeltaTime) override;	// 更新
 
 	// 静的メンバ関数
-	static CStartManager *GetStartManager(void);	// スタートマネージャー取得
+	static CStartManager* GetStartManager(void);	// スタートマネージャー取得
 
 private:
 	// 静的メンバ変数
-	static CStartManager *m_pStartManager;	// スタートマネージャー
+	static CStartManager* m_pStartManager;	// スタートマネージャー
 };
 
 #endif	// _SCENE_START_H_

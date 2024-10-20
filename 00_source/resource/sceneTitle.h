@@ -39,11 +39,11 @@ public:
 	void Update(const float fDeltaTime) override;	// 更新
 
 	// 静的メンバ関数
-	static CTitleManager *GetTitleManager(void);	// タイトルマネージャー取得
+	static CTitleManager* GetTitleManager(void);	// タイトルマネージャー取得
 
 private:
 	// 静的メンバ変数
-	static CTitleManager *m_pTitleManager;	// タイトルマネージャー
+	static CTitleManager* m_pTitleManager;	// タイトルマネージャー
 };
 
 #endif	// _SCENE_TITLE_H_

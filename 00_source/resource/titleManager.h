@@ -61,7 +61,7 @@ public:
 	void Update(const float fDeltaTime);	// 更新
 
 	// 静的メンバ関数
-	static CTitleManager *Create(void);	// 生成
+	static CTitleManager* Create(void);	// 生成
 	static void Release(CTitleManager*& prTitleManager);	// 破棄
 
 private:
@@ -73,10 +73,10 @@ private:
 	void SkipStaging(void);	// 演出スキップ
 
 	// メンバ変数
-	CObject2D *m_apLogo[LOGO_MAX];		// タイトル表示の情報
-	CObject2D *m_apSelect[SELECT_MAX];	// 選択表示の情報
-	CObject2D *m_pFade;		// フェードの情報
-	CObject2D *m_pSelectBG;	// 選択背景の情報
+	CObject2D* m_apLogo[LOGO_MAX];		// タイトル表示の情報
+	CObject2D* m_apSelect[SELECT_MAX];	// 選択表示の情報
+	CObject2D* m_pFade;		// フェードの情報
+	CObject2D* m_pSelectBG;	// 選択背景の情報
 	EState m_state;		// 状態
 	float m_fScale;		// タイトル拡大率
 	int m_nSelect;		// 現在の選択

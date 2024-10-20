@@ -67,7 +67,7 @@ void CStartManager::Update(const float fDeltaTime)
 //============================================================
 //	状態の変更処理
 //============================================================
-HRESULT CStartManager::ChangeState(CStartState *pState)
+HRESULT CStartManager::ChangeState(CStartState* pState)
 {
 	// 状態の生成に失敗している場合抜ける
 	if (pState == nullptr) { assert(false); return E_FAIL; }
@@ -98,10 +98,10 @@ HRESULT CStartManager::ChangeState(CStartState *pState)
 //============================================================
 //	生成処理
 //============================================================
-CStartManager *CStartManager::Create(void)
+CStartManager* CStartManager::Create(void)
 {
 	// スタートマネージャーの生成
-	CStartManager *pStartManager = new CStartManager;
+	CStartManager* pStartManager = new CStartManager;
 	if (pStartManager == nullptr)
 	{ // 生成に失敗した場合
 

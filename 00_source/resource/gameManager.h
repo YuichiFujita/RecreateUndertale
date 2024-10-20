@@ -39,7 +39,7 @@ public:
 	EState GetState(void) const;			// ó‘Ôæ“¾
 
 	// Ã“Iƒƒ“ƒoŠÖ”
-	static CGameManager *Create(void);	// ¶¬
+	static CGameManager* Create(void);	// ¶¬
 	static void Release(CGameManager*& prGameManager);	// ”jŠü
 
 private:

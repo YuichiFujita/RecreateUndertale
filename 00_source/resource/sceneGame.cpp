@@ -21,10 +21,10 @@
 //************************************************************
 //	静的メンバ変数宣言
 //************************************************************
-CGameManager *CSceneGame::m_pGameManager = nullptr;	// ゲームマネージャー
-CMenuManager *CSceneGame::m_pMenuManager = nullptr;	// メニューマネージャー
-CPause		 *CSceneGame::m_pPause		 = nullptr;	// ポーズ情報
-CStage		 *CSceneGame::m_pStage		 = nullptr;	// ステージ情報
+CGameManager* CSceneGame::m_pGameManager = nullptr;	// ゲームマネージャー
+CMenuManager* CSceneGame::m_pMenuManager = nullptr;	// メニューマネージャー
+CPause* CSceneGame::m_pPause = nullptr;	// ポーズ情報
+CStage* CSceneGame::m_pStage = nullptr;	// ステージ情報
 
 //************************************************************
 //	子クラス [CSceneGame] のメンバ関数
@@ -108,7 +108,7 @@ HRESULT CSceneGame::Init(void)
 	}
 
 	// 追従カメラにする
-	CCamera *pCamera = GET_MANAGER->GetCamera();	// カメラ情報
+	CCamera* pCamera = GET_MANAGER->GetCamera();	// カメラ情報
 	pCamera->SetState(CCamera::STATE_FOLLOW);		// 追従状態を設定
 
 	// BGMの再生
@@ -189,7 +189,7 @@ void CSceneGame::Update(const float fDeltaTime)
 //============================================================
 //	ゲームマネージャー取得処理
 //============================================================
-CGameManager *CSceneGame::GetGameManager(void)
+CGameManager* CSceneGame::GetGameManager(void)
 {
 	// インスタンス未使用
 	assert(m_pGameManager != nullptr);
@@ -201,7 +201,7 @@ CGameManager *CSceneGame::GetGameManager(void)
 //============================================================
 //	メニューマネージャー取得処理
 //============================================================
-CMenuManager *CSceneGame::GetMenuManager(void)
+CMenuManager* CSceneGame::GetMenuManager(void)
 {
 	// インスタンス未使用
 	assert(m_pMenuManager != nullptr);
@@ -213,7 +213,7 @@ CMenuManager *CSceneGame::GetMenuManager(void)
 //============================================================
 //	ポーズ取得処理
 //============================================================
-CPause *CSceneGame::GetPause(void)
+CPause* CSceneGame::GetPause(void)
 {
 	// インスタンス未使用
 	assert(m_pPause != nullptr);
@@ -225,7 +225,7 @@ CPause *CSceneGame::GetPause(void)
 //============================================================
 //	ステージ取得処理
 //============================================================
-CStage *CSceneGame::GetStage(void)
+CStage* CSceneGame::GetStage(void)
 {
 	// インスタンス未使用
 	assert(m_pStage != nullptr);
@@ -237,12 +237,12 @@ CStage *CSceneGame::GetStage(void)
 //============================================================
 //	プレイヤー取得処理
 //============================================================
-CPlayer *CSceneGame::GetPlayer(void)
+CPlayer* CSceneGame::GetPlayer(void)
 {
-	CListManager<CPlayer> *pListManager = CPlayer::GetList();	// プレイヤーリストマネージャー
+	CListManager<CPlayer>* pListManager = CPlayer::GetList();	// プレイヤーリストマネージャー
 	if (pListManager == nullptr)		{ return nullptr; }		// リスト未使用の場合抜ける
 	if (pListManager->GetNumAll() != 1)	{ return nullptr; }		// プレイヤーが1人ではない場合抜ける
-	CPlayer *pPlayer = pListManager->GetList().front();			// プレイヤー情報
+	CPlayer* pPlayer = pListManager->GetList().front();			// プレイヤー情報
 
 	// インスタンス未使用
 	assert(pPlayer != nullptr);

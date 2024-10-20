@@ -79,10 +79,10 @@ void CScene::Update(const float fDeltaTime)
 //============================================================
 //	生成処理
 //============================================================
-CScene *CScene::Create(EMode mode)
+CScene* CScene::Create(EMode mode)
 {
 	// シーンの生成
-	CScene *pScene = nullptr;	// シーン情報
+	CScene* pScene = nullptr;	// シーン情報
 	switch (mode)
 	{ // モードごとの処理
 	case MODE_INTRO:

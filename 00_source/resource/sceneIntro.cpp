@@ -17,7 +17,7 @@
 //************************************************************
 //	静的メンバ変数宣言
 //************************************************************
-CIntroManager *CSceneIntro::m_pIntroManager = nullptr;	// イントロマネージャー
+CIntroManager* CSceneIntro::m_pIntroManager = nullptr;	// イントロマネージャー
 
 //************************************************************
 //	子クラス [CSceneIntro] のメンバ関数
@@ -63,7 +63,7 @@ HRESULT CSceneIntro::Init(void)
 	}
 
 	// 固定カメラにする
-	CCamera *pCamera = GET_MANAGER->GetCamera();	// カメラ情報
+	CCamera* pCamera = GET_MANAGER->GetCamera();	// カメラ情報
 	pCamera->SetState(CCamera::STATE_NONE);			// 固定状態を設定
 
 	// 成功を返す
@@ -98,7 +98,7 @@ void CSceneIntro::Update(const float fDeltaTime)
 //============================================================
 //	イントロマネージャー取得処理
 //============================================================
-CIntroManager *CSceneIntro::GetIntroManager(void)
+CIntroManager* CSceneIntro::GetIntroManager(void)
 {
 	// インスタンス未使用
 	assert(m_pIntroManager != nullptr);

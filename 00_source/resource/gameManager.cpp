@@ -87,10 +87,10 @@ CGameManager::EState CGameManager::GetState(void) const
 //============================================================
 //	生成処理
 //============================================================
-CGameManager *CGameManager::Create(void)
+CGameManager* CGameManager::Create(void)
 {
 	// ゲームマネージャーの生成
-	CGameManager *pGameManager = new CGameManager;
+	CGameManager* pGameManager = new CGameManager;
 	if (pGameManager == nullptr)
 	{ // 生成に失敗した場合
 
