@@ -18,7 +18,7 @@
 //************************************************************
 namespace
 {
-	const char *TEXTURE_FILE[] =	// テクスチャ定数
+	const char* TEXTURE_FILE[] =	// テクスチャ定数
 	{
 		"data\\TEXTURE\\SHADER\\toon003.png",	// トゥーンマップテクスチャ
 	};
@@ -34,7 +34,7 @@ static_assert(NUM_ARRAY(TEXTURE_FILE) == CToonShader::TEXTURE_MAX, "ERROR : Text
 //************************************************************
 //	静的メンバ変数宣言
 //************************************************************
-CToonShader *CToonShader::m_pShader = nullptr;	// シェーダー情報
+CToonShader* CToonShader::m_pShader = nullptr;	// シェーダー情報
 
 //************************************************************
 //	親クラス [CToonShader] のメンバ関数
@@ -165,7 +165,7 @@ void CToonShader::Uninit(void)
 //============================================================
 //	ライト方向ベクトルの設定処理
 //============================================================
-void CToonShader::SetLightDirect(MATRIX *pMtxWorld, const int nLightID)
+void CToonShader::SetLightDirect(MATRIX* pMtxWorld, const int nLightID)
 {
 	if (!IsEffectOK()) { assert(false); return; }	// エフェクト未使用
 
@@ -302,7 +302,7 @@ void CToonShader::SetOnlyDiffuse(const COLOR& rDiffuse)
 //============================================================
 //	生成処理
 //============================================================
-CToonShader *CToonShader::Create(void)
+CToonShader* CToonShader::Create(void)
 {
 	// インスタンス使用中
 	assert(m_pShader == nullptr);
@@ -335,7 +335,7 @@ CToonShader *CToonShader::Create(void)
 //============================================================
 //	取得処理
 //============================================================
-CToonShader *CToonShader::GetInstance(void)
+CToonShader* CToonShader::GetInstance(void)
 {
 	// インスタンス未使用
 	assert(m_pShader != nullptr);
@@ -366,7 +366,7 @@ void CToonShader::SetToonMapTexture(const ETexture texture)
 	{ // インデックスが範囲内の場合
 
 		if (!IsEffectOK()) { assert(false); return; }	// エフェクト未使用
-		CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャ情報
+		CTexture* pTexture = GET_MANAGER->GetTexture();	// テクスチャ情報
 
 		// エフェクトにトゥーンマップ用テクスチャを設定
 		GetEffect()->SetTexture(m_pTextureToon, pTexture->GetPtr(pTexture->Regist(TEXTURE_FILE[texture])));

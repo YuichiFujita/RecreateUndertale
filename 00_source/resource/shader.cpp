@@ -65,7 +65,7 @@ void CShader::Uninit(void)
 //============================================================
 //	ライト方向ベクトルの設定処理
 //============================================================
-void CShader::SetLightDirect(MATRIX * /*pMtxWorld*/, const int /*nLightID*/)
+void CShader::SetLightDirect(MATRIX* /*pMtxWorld*/, const int /*nLightID*/)
 {
 
 }
@@ -226,7 +226,7 @@ LPD3DXEFFECT CShader::GetEffect(void) const
 HRESULT CShader::Create(void)
 {
 	// トゥーンシェーダーの生成
-	CToonShader *pToonShader = CToonShader::Create();
+	CToonShader* pToonShader = CToonShader::Create();
 	if (pToonShader == nullptr)
 	{ // 生成に失敗した場合
 
@@ -236,7 +236,7 @@ HRESULT CShader::Create(void)
 	}
 
 	// 単色描画シェーダーの生成
-	CMonoShader *pMonoShader = CMonoShader::Create();
+	CMonoShader* pMonoShader = CMonoShader::Create();
 	if (pMonoShader == nullptr)
 	{ // 生成に失敗した場合
 

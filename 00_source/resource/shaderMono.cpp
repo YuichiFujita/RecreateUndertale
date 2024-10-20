@@ -23,7 +23,7 @@ namespace
 //************************************************************
 //	静的メンバ変数宣言
 //************************************************************
-CMonoShader *CMonoShader::m_pShader = nullptr;	// シェーダー情報
+CMonoShader* CMonoShader::m_pShader = nullptr;	// シェーダー情報
 
 //************************************************************
 //	親クラス [CMonoShader] のメンバ関数
@@ -150,7 +150,7 @@ void CMonoShader::SetColor(const COLOR& rCol)
 //============================================================
 //	生成処理
 //============================================================
-CMonoShader *CMonoShader::Create(void)
+CMonoShader* CMonoShader::Create(void)
 {
 	// インスタンス使用中
 	assert(m_pShader == nullptr);
@@ -183,7 +183,7 @@ CMonoShader *CMonoShader::Create(void)
 //============================================================
 //	取得処理
 //============================================================
-CMonoShader *CMonoShader::GetInstance(void)
+CMonoShader* CMonoShader::GetInstance(void)
 {
 	// インスタンス未使用
 	assert(m_pShader != nullptr);

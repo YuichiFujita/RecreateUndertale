@@ -40,7 +40,7 @@ public:
 	void Uninit(void) override;		// 終了
 
 	// メンバ関数
-	void SetLightDirect(MATRIX *pMtxWorld, const int nLightID);	// ライト方向ベクトル設定
+	void SetLightDirect(MATRIX* pMtxWorld, const int nLightID);	// ライト方向ベクトル設定
 	void SetTexture(const CTexture::STexture& rTexture);		// テクスチャ設定 (ポインタ)
 	void SetTexture(const int nTextureID);						// テクスチャ設定 (インデックス)
 	void SetMaterial(const D3DMATERIAL9& rMaterial);			// マテリアル設定
@@ -50,8 +50,8 @@ public:
 	void SetOnlyDiffuse(const COLOR& rDiffuse);					// 拡散光のみ設定
 
 	// 静的メンバ関数
-	static CToonShader *Create(void);		// 生成
-	static CToonShader *GetInstance(void);	// 取得
+	static CToonShader* Create(void);		// 生成
+	static CToonShader* GetInstance(void);	// 取得
 	static void Release(void);				// 破棄
 
 private:
@@ -59,7 +59,7 @@ private:
 	void SetToonMapTexture(const ETexture texture);	// トゥーンマップテクスチャ設定
 
 	// 静的メンバ変数
-	static CToonShader *m_pShader;	// シェーダー情報
+	static CToonShader* m_pShader;	// シェーダー情報
 
 	// メンバ変数
 	D3DXHANDLE m_pTextureToon;	// トゥーンマップテクスチャ
