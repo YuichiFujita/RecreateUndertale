@@ -142,10 +142,10 @@ public:
 	void Draw(CShader* pShader = nullptr) override;	// 描画
 
 	// 静的メンバ関数
-	static CObjectChara2D *Create(const VECTOR3& rPos, const VECTOR3& rRot = VEC3_ZERO);	// 生成
+	static CObjectChara2D* Create(const VECTOR3& rPos, const VECTOR3& rRot = VEC3_ZERO);	// 生成
 
 	// メンバ関数
-	void BindCharaData(const char *pCharaPath);	// キャラクター情報割当
+	void BindCharaData(const char* pCharaPath);	// キャラクター情報割当
 	void SetMotion(const int nType);			// モーション設定
 	void AddInfo(const SMotion& rMotion);		// モーション情報追加
 	void SetAllInfo(const SInfo& rInfo);		// モーション情報全設定

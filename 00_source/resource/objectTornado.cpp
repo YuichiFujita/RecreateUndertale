@@ -96,7 +96,7 @@ HRESULT CObjectTornado::Init(void)
 	}
 
 	// レンダーステートの情報を取得
-	CRenderState *pRenderState = GetRenderState();
+	CRenderState* pRenderState = GetRenderState();
 
 	// αテストの設定
 	pRenderState->SetAlphaTest(true);			// αテストの有効 / 無効の設定
@@ -248,12 +248,12 @@ void CObjectTornado::SetVec3Position(const VECTOR3& rPos)
 //============================================================
 //	生成処理
 //============================================================
-CObjectTornado *CObjectTornado::Create
+CObjectTornado* CObjectTornado::Create
 (
 	const VECTOR3& rPos,		// 位置
 	const VECTOR3& rGrowRot,	// 成長向き
 	const COLOR& rCol,			// 色
-	MATRIX *pMtxParent,			// 親のマトリックス
+	MATRIX* pMtxParent,			// 親のマトリックス
 	const int	nNumAround,		// 渦の周回数
 	const int	nPattern,		// 渦の分割数
 	const float	fMoveRot,		// 向きの変更量
@@ -270,7 +270,7 @@ CObjectTornado *CObjectTornado::Create
 )
 {
 	// オブジェクト竜巻の生成
-	CObjectTornado *pTornado = new CObjectTornado;
+	CObjectTornado* pTornado = new CObjectTornado;
 	if (pTornado == nullptr)
 	{ // 生成に失敗した場合
 
@@ -399,7 +399,7 @@ HRESULT CObjectTornado::SetVortex(const int nNumAround, const int nPattern)
 //============================================================
 //	レンダーステート情報の取得処理
 //============================================================
-CRenderState *CObjectTornado::GetRenderState(void)
+CRenderState* CObjectTornado::GetRenderState(void)
 {
 	// インスタンス未使用
 	assert(m_pRenderState != nullptr);
@@ -425,13 +425,13 @@ void CObjectTornado::BindTexture(const int nTextureID)
 //============================================================
 //	テクスチャ割当処理 (パス)
 //============================================================
-void CObjectTornado::BindTexture(const char *pTexturePath)
+void CObjectTornado::BindTexture(const char* pTexturePath)
 {
 	if (pTexturePath != nullptr)
 	{ // 割り当てるテクスチャパスがある場合
 
 		// テクスチャインデックスを設定
-		CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
+		CTexture* pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
 		m_nTextureID = pTexture->Regist(pTexturePath);
 	}
 	else
@@ -454,7 +454,7 @@ void CObjectTornado::DeleteMatrixParent(void)
 //============================================================
 //	親のマトリックスの設定処理
 //============================================================
-void CObjectTornado::SetMatrixParent(MATRIX *pMtxParent)
+void CObjectTornado::SetMatrixParent(MATRIX* pMtxParent)
 {
 	// 引数の親マトリックスを設定
 	m_tornado.pMtxParent = pMtxParent;
@@ -585,7 +585,7 @@ void CObjectTornado::SetSubAlpha(const float fSubAlpha)
 //============================================================
 void CObjectTornado::SetVtx(void)
 {
-	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
+	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 	VECTOR3 vecPos;		// 竜巻の頂点方向ベクトル
 	float fWidth  = m_tornado.fSetWidth;	// 頂点方向の横ずれ量
 	float fHeight = 0.0f;					// 頂点方向の縦ずれ量

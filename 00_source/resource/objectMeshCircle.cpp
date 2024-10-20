@@ -189,7 +189,7 @@ void CObjectMeshCircle::SetVec3Rotation(const VECTOR3& rRot)
 //============================================================
 //	生成処理
 //============================================================
-CObjectMeshCircle *CObjectMeshCircle::Create
+CObjectMeshCircle* CObjectMeshCircle::Create
 (
 	const VECTOR3& rPos,	// 位置
 	const VECTOR3& rRot,	// 向き
@@ -199,7 +199,7 @@ CObjectMeshCircle *CObjectMeshCircle::Create
 )
 {
 	// オブジェクトメッシュサークルの生成
-	CObjectMeshCircle *pMeshCircle = new CObjectMeshCircle;
+	CObjectMeshCircle* pMeshCircle = new CObjectMeshCircle;
 	if (pMeshCircle == nullptr)
 	{ // 生成に失敗した場合
 
@@ -246,7 +246,7 @@ CObjectMeshCircle *CObjectMeshCircle::Create
 //============================================================
 //	レンダーステート情報の取得処理
 //============================================================
-CRenderState *CObjectMeshCircle::GetRenderState(void)
+CRenderState* CObjectMeshCircle::GetRenderState(void)
 {
 	// インスタンス未使用
 	assert(m_pRenderState != nullptr);
@@ -272,13 +272,13 @@ void CObjectMeshCircle::BindTexture(const int nTextureID)
 //============================================================
 //	テクスチャ割当処理 (パス)
 //============================================================
-void CObjectMeshCircle::BindTexture(const char *pTexturePath)
+void CObjectMeshCircle::BindTexture(const char* pTexturePath)
 {
 	if (pTexturePath != nullptr)
 	{ // 割り当てるテクスチャパスがある場合
 
 		// テクスチャインデックスを設定
-		CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
+		CTexture* pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
 		m_nTextureID = pTexture->Regist(pTexturePath);
 	}
 	else
@@ -398,7 +398,7 @@ HRESULT CObjectMeshCircle::SetPattern(const POSGRID2& rPart)
 //============================================================
 void CObjectMeshCircle::SetVtx(void)
 {
-	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
+	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
 
@@ -455,7 +455,7 @@ void CObjectMeshCircle::SetVtx(void)
 //============================================================
 void CObjectMeshCircle::SetIdx(void)
 {
-	WORD *pIdx;	// インデックス情報へのポインタ
+	WORD* pIdx;	// インデックス情報へのポインタ
 	if (m_pIdxBuff != nullptr)
 	{ // 使用中の場合
 

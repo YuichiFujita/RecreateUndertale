@@ -197,7 +197,7 @@ void CObjectMeshTube::SetVec3Rotation(const VECTOR3& rRot)
 //============================================================
 //	生成処理
 //============================================================
-CObjectMeshTube *CObjectMeshTube::Create
+CObjectMeshTube* CObjectMeshTube::Create
 (
 	const VECTOR3& rPos,		// 位置
 	const VECTOR3& rRot,		// 向き
@@ -209,7 +209,7 @@ CObjectMeshTube *CObjectMeshTube::Create
 )
 {
 	// オブジェクトメッシュチューブの生成
-	CObjectMeshTube *pMeshTube = new CObjectMeshTube;
+	CObjectMeshTube* pMeshTube = new CObjectMeshTube;
 	if (pMeshTube == nullptr)
 	{ // 生成に失敗した場合
 
@@ -264,7 +264,7 @@ CObjectMeshTube *CObjectMeshTube::Create
 //============================================================
 void CObjectMeshTube::SetRenderState(CRenderState renderState)
 {
-	CRenderState *pTempRenderState = nullptr;	// レンダーステート情報
+	CRenderState* pTempRenderState = nullptr;	// レンダーステート情報
 
 	// 引数のレンダーステートを設定
 	pTempRenderState = m_pCylinder->GetRenderState();
@@ -303,12 +303,12 @@ void CObjectMeshTube::BindTexture(const int nTextureID)
 //============================================================
 //	テクスチャ割当処理 (パス)
 //============================================================
-void CObjectMeshTube::BindTexture(const char *pTexturePath)
+void CObjectMeshTube::BindTexture(const char* pTexturePath)
 {
 	if (pTexturePath != nullptr)
 	{ // 割り当てるテクスチャパスがある場合
 
-		CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
+		CTexture* pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
 		for (int i = 0; i < COVER_MAX; i++)
 		{ // 蓋の総数分繰り返す
 

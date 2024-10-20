@@ -41,11 +41,11 @@ public:
 	VECTOR3 GetVec3Position(void) const override	{ return m_pos; }		// 位置取得
 	VECTOR3 GetVec3Rotation(void) const override	{ return m_rot; }		// 向き取得
 	VECTOR3 GetVec3Scale(void) const override		{ return m_scale; }		// 拡大率取得
-	MATRIX *GetPtrMtxWorld(void) override			{ return &m_mtxWorld; }	// マトリックスポインタ取得
+	MATRIX* GetPtrMtxWorld(void) override			{ return &m_mtxWorld; }	// マトリックスポインタ取得
 	MATRIX GetMtxWorld(void) const override			{ return m_mtxWorld; }	// マトリックス取得
 
 	// 静的メンバ関数
-	static CObjectModel *Create	// 生成
+	static CObjectModel* Create	// 生成
 	( // 引数
 		const VECTOR3& rPos,	// 位置
 		const VECTOR3& rRot,	// 向き
@@ -59,9 +59,9 @@ public:
 	float GetAlpha(void) const;			// 透明度取得
 	float GetMaxAlpha(void) const;		// 最大透明度取得
 
-	CRenderState *GetRenderState(void);					// レンダーステート情報取得
+	CRenderState* GetRenderState(void);					// レンダーステート情報取得
 	void BindModel(const int nModelID);					// モデル割当 (インデックス)
-	void BindModel(const char *pModelPath);				// モデル割当 (パス)
+	void BindModel(const char* pModelPath);				// モデル割当 (パス)
 	void SetAllMaterial(const D3DXMATERIAL& rMat);		// マテリアル全設定
 	void ResetMaterial(void);							// マテリアル再設定
 	void SetModelData(const CModel::SModel& rModel);	// モデル情報設定
@@ -71,7 +71,7 @@ public:
 
 protected:
 	// メンバ関数
-	D3DXMATERIAL *GetPtrMaterial(const int nID) const;	// マテリアルポインタ取得
+	D3DXMATERIAL* GetPtrMaterial(const int nID) const;	// マテリアルポインタ取得
 
 private:
 	// オーバーライド関数

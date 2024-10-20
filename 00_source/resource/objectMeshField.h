@@ -50,11 +50,11 @@ public:
 	VECTOR3 GetVec3Position(void) const override	{ return m_meshField.pos; }			// 位置取得
 	VECTOR3 GetVec3Rotation(void) const override	{ return m_meshField.rot; }			// 向き取得
 	VECTOR2 GetVec2Size(void) const override		{ return m_meshField.size; }		// 大きさ取得
-	MATRIX *GetPtrMtxWorld(void) override			{ return &m_meshField.mtxWorld; }	// マトリックスポインタ取得
+	MATRIX* GetPtrMtxWorld(void) override			{ return &m_meshField.mtxWorld; }	// マトリックスポインタ取得
 	MATRIX GetMtxWorld(void) const override			{ return m_meshField.mtxWorld; }	// マトリックス取得
 
 	// 静的メンバ関数
-	static CObjectMeshField *Create	// 生成
+	static CObjectMeshField* Create	// 生成
 	( // 引数
 		const VECTOR3& rPos,	// 位置
 		const VECTOR3& rRot,	// 向き
@@ -64,9 +64,9 @@ public:
 	);
 
 	// メンバ関数
-	CRenderState *GetRenderState(void);			// レンダーステート情報取得
+	CRenderState* GetRenderState(void);			// レンダーステート情報取得
 	void BindTexture(const int nTextureID);		// テクスチャ割当 (インデックス)
-	void BindTexture(const char *pTexturePath);	// テクスチャ割当 (パス)
+	void BindTexture(const char* pTexturePath);	// テクスチャ割当 (パス)
 	void SetAlpha(const float fAlpha);			// 透明度設定
 	void SetColor(const COLOR& rCol);			// 色設定
 	HRESULT SetPattern(const POSGRID2& rPart);	// 分割数設定
@@ -81,7 +81,7 @@ public:
 	void NormalizeNormal(void);										// 法線の正規化
 	bool LandPosition(VECTOR3& rPos, VECTOR3& rMove);				// メッシュ着地
 	void SetMeshVertexPosition(const int nID, const VECTOR3& rPos);	// メッシュの頂点位置設定
-	void SetTerrain(const POSGRID2& rPart, VECTOR3 *pPosGap);		// 地形設定
+	void SetTerrain(const POSGRID2& rPart, VECTOR3* pPosGap);		// 地形設定
 
 	VECTOR3 GetMeshVertexPosition(const int nID);		// メッシュの頂点位置取得
 	bool IsPositionRange(const VECTOR3& rPos);			// メッシュの範囲内取得
@@ -105,20 +105,20 @@ private:
 	// メンバ関数
 	void DrawNormal(void);	// 通常描画
 	void DrawShader(CShader* pShader);	// シェーダー描画
-	VECTOR3 GetNormalLeft(VERTEX_3D *pVtx);			// 法線の取得 (左)
-	VECTOR3 GetNormalLeftTop(VERTEX_3D *pVtx);		// 法線の取得 (左上)
-	VECTOR3 GetNormalLeftBottom(VERTEX_3D *pVtx);	// 法線の取得 (左下)
-	VECTOR3 GetNormalRight(VERTEX_3D *pVtx);		// 法線の取得 (右)
-	VECTOR3 GetNormalRightTop(VERTEX_3D *pVtx);		// 法線の取得 (右上)
-	VECTOR3 GetNormalRightBottom(VERTEX_3D *pVtx);	// 法線の取得 (右下)
+	VECTOR3 GetNormalLeft(VERTEX_3D* pVtx);			// 法線の取得 (左)
+	VECTOR3 GetNormalLeftTop(VERTEX_3D* pVtx);		// 法線の取得 (左上)
+	VECTOR3 GetNormalLeftBottom(VERTEX_3D* pVtx);	// 法線の取得 (左下)
+	VECTOR3 GetNormalRight(VERTEX_3D* pVtx);		// 法線の取得 (右)
+	VECTOR3 GetNormalRightTop(VERTEX_3D* pVtx);		// 法線の取得 (右上)
+	VECTOR3 GetNormalRightBottom(VERTEX_3D* pVtx);	// 法線の取得 (右下)
 
 	// メンバ変数
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;	// 頂点バッファへのポインタ
 	LPDIRECT3DINDEXBUFFER9 m_pIdxBuff;	// インデックスバッファへのポインタ
-	CRenderState *m_pRenderState;		// レンダーステートの情報
-	VECTOR3 *m_pPosGapBuff;	// 座標のずれバッファへのポインタ
-	VECTOR3 *m_pNorBuff;	// 法線バッファへのポインタ
-	int *m_pNumNorBuff;		// 法線の使用数バッファへのポインタ
+	CRenderState* m_pRenderState;		// レンダーステートの情報
+	VECTOR3* m_pPosGapBuff;	// 座標のずれバッファへのポインタ
+	VECTOR3* m_pNorBuff;	// 法線バッファへのポインタ
+	int* m_pNumNorBuff;		// 法線の使用数バッファへのポインタ
 	SMeshField m_meshField;	// メッシュフィールドの情報
 	POSGRID2 m_part;		// 分割数
 	int m_nNumVtx;			// 必要頂点数

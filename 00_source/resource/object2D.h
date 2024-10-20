@@ -42,9 +42,9 @@ public:
 	VECTOR3 GetVec3Size(void) const override		{ return m_size; }	// 大きさ取得
 
 	// メンバ関数
-	CRenderState *GetRenderState(void);			// レンダーステート情報取得
+	CRenderState* GetRenderState(void);			// レンダーステート情報取得
 	void BindTexture(const int nTextureID);		// テクスチャ割当 (インデックス)
-	void BindTexture(const char *pTexturePath);	// テクスチャ割当 (パス)
+	void BindTexture(const char* pTexturePath);	// テクスチャ割当 (パス)
 	void SetAlpha(const float fAlpha);			// 透明度設定
 	void SetColor(const COLOR& rCol);			// 色設定
 	int GetTextureIndex(void) const	{ return m_nTextureID; }	// テクスチャインデックス取得
@@ -52,7 +52,7 @@ public:
 	COLOR GetColor(void) const		{ return m_col; }			// 色取得
 
 	// 静的メンバ関数
-	static CObject2D *Create	// 生成
+	static CObject2D* Create	// 生成
 	( // 引数
 		const VECTOR3& rPos,				// 位置
 		const VECTOR3& rSize = VEC3_ONE,	// 大きさ
@@ -83,7 +83,7 @@ private:
 
 	// メンバ変数
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;	// 頂点バッファへのポインタ
-	CRenderState *m_pRenderState;		// レンダーステートの情報
+	CRenderState* m_pRenderState;		// レンダーステートの情報
 	VECTOR3	m_pos;			// 位置
 	VECTOR3	m_rot;			// 向き
 	VECTOR3	m_size;			// 大きさ

@@ -218,7 +218,7 @@ void CObjectMeshField::SetVec2Size(const VECTOR2& rSize)
 //============================================================
 //	生成処理
 //============================================================
-CObjectMeshField *CObjectMeshField::Create
+CObjectMeshField* CObjectMeshField::Create
 (
 	const VECTOR3& rPos,	// 位置
 	const VECTOR3& rRot,	// 向き
@@ -228,7 +228,7 @@ CObjectMeshField *CObjectMeshField::Create
 )
 {
 	// オブジェクトメッシュフィールドの生成
-	CObjectMeshField *pMeshField = new CObjectMeshField;
+	CObjectMeshField* pMeshField = new CObjectMeshField;
 	if (pMeshField == nullptr)
 	{ // 生成に失敗した場合
 
@@ -275,7 +275,7 @@ CObjectMeshField *CObjectMeshField::Create
 //============================================================
 //	レンダーステート情報の取得処理
 //============================================================
-CRenderState *CObjectMeshField::GetRenderState(void)
+CRenderState* CObjectMeshField::GetRenderState(void)
 {
 	// インスタンス未使用
 	assert(m_pRenderState != nullptr);
@@ -301,13 +301,13 @@ void CObjectMeshField::BindTexture(const int nTextureID)
 //============================================================
 //	テクスチャ割当処理 (パス)
 //============================================================
-void CObjectMeshField::BindTexture(const char *pTexturePath)
+void CObjectMeshField::BindTexture(const char* pTexturePath)
 {
 	if (pTexturePath != nullptr)
 	{ // 割り当てるテクスチャパスがある場合
 
 		// テクスチャインデックスを設定
-		CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
+		CTexture* pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
 		m_nTextureID = pTexture->Regist(pTexturePath);
 	}
 	else
@@ -546,7 +546,7 @@ VECTOR3 CObjectMeshField::GetGapPosition(const int nID)
 //============================================================
 void CObjectMeshField::NormalizeNormal(void)
 {
-	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
+	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 	int nNumNor = 0;	// 法線データ格納用
 
 	//--------------------------------------------------------
@@ -759,7 +759,7 @@ bool CObjectMeshField::LandPosition(VECTOR3& rPos, VECTOR3& rMove)
 //============================================================
 void CObjectMeshField::SetMeshVertexPosition(const int nID, const VECTOR3& rPos)
 {
-	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
+	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
 
@@ -784,7 +784,7 @@ void CObjectMeshField::SetMeshVertexPosition(const int nID, const VECTOR3& rPos)
 //============================================================
 //	地形の設定処理
 //============================================================
-void CObjectMeshField::SetTerrain(const POSGRID2& rPart, VECTOR3 *pPosGap)
+void CObjectMeshField::SetTerrain(const POSGRID2& rPart, VECTOR3* pPosGap)
 {
 	if (rPart != m_part)
 	{ // 分割数が違う場合
@@ -815,7 +815,7 @@ void CObjectMeshField::SetTerrain(const POSGRID2& rPart, VECTOR3 *pPosGap)
 //============================================================
 VECTOR3 CObjectMeshField::GetMeshVertexPosition(const int nID)
 {
-	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
+	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 	VECTOR3 pos;		// 頂点座標の代入用
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
@@ -1044,7 +1044,7 @@ float CObjectMeshField::GetPositionRotateHeight(const VECTOR3& rPos)
 //============================================================
 void CObjectMeshField::SetVtx(bool bNor)
 {
-	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
+	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 	int nNumVtx = 0;	// 現在の頂点番号
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
@@ -1098,7 +1098,7 @@ void CObjectMeshField::SetVtx(bool bNor)
 //============================================================
 void CObjectMeshField::SetIdx(void)
 {
-	WORD *pIdx;	// インデックス情報へのポインタ
+	WORD* pIdx;	// インデックス情報へのポインタ
 	if (m_pIdxBuff != nullptr)
 	{ // 使用中の場合
 
@@ -1139,7 +1139,7 @@ void CObjectMeshField::SetIdx(void)
 //============================================================
 void CObjectMeshField::SetScrollTex(const float fTexU, const float fTexV)
 {
-	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
+	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
 
@@ -1235,7 +1235,7 @@ void CObjectMeshField::DrawShader(CShader* pShader)
 //============================================================
 //	法線の取得処理 (左)
 //============================================================
-VECTOR3 CObjectMeshField::GetNormalLeft(VERTEX_3D *pVtx)
+VECTOR3 CObjectMeshField::GetNormalLeft(VERTEX_3D* pVtx)
 {
 	// 法線の正規化
 	VECTOR3 nor;	// 法線代入用
@@ -1254,7 +1254,7 @@ VECTOR3 CObjectMeshField::GetNormalLeft(VERTEX_3D *pVtx)
 //============================================================
 //	法線の取得処理 (左上)
 //============================================================
-VECTOR3 CObjectMeshField::GetNormalLeftTop(VERTEX_3D *pVtx)
+VECTOR3 CObjectMeshField::GetNormalLeftTop(VERTEX_3D* pVtx)
 {
 	// 法線の正規化
 	VECTOR3 nor;	// 法線代入用
@@ -1273,7 +1273,7 @@ VECTOR3 CObjectMeshField::GetNormalLeftTop(VERTEX_3D *pVtx)
 //============================================================
 //	法線の取得処理 (左下)
 //============================================================
-VECTOR3 CObjectMeshField::GetNormalLeftBottom(VERTEX_3D *pVtx)
+VECTOR3 CObjectMeshField::GetNormalLeftBottom(VERTEX_3D* pVtx)
 {
 	// 法線の正規化
 	VECTOR3 nor;	// 法線代入用
@@ -1292,7 +1292,7 @@ VECTOR3 CObjectMeshField::GetNormalLeftBottom(VERTEX_3D *pVtx)
 //============================================================
 //	法線の取得処理 (右)
 //============================================================
-VECTOR3 CObjectMeshField::GetNormalRight(VERTEX_3D *pVtx)
+VECTOR3 CObjectMeshField::GetNormalRight(VERTEX_3D* pVtx)
 {
 	// 法線の正規化
 	VECTOR3 nor;	// 法線代入用
@@ -1311,7 +1311,7 @@ VECTOR3 CObjectMeshField::GetNormalRight(VERTEX_3D *pVtx)
 //============================================================
 //	法線の取得処理 (右上)
 //============================================================
-VECTOR3 CObjectMeshField::GetNormalRightTop(VERTEX_3D *pVtx)
+VECTOR3 CObjectMeshField::GetNormalRightTop(VERTEX_3D* pVtx)
 {
 	// 法線の正規化
 	VECTOR3 nor;	// 法線代入用
@@ -1330,7 +1330,7 @@ VECTOR3 CObjectMeshField::GetNormalRightTop(VERTEX_3D *pVtx)
 //============================================================
 //	法線の取得処理 (右下)
 //============================================================
-VECTOR3 CObjectMeshField::GetNormalRightBottom(VERTEX_3D *pVtx)
+VECTOR3 CObjectMeshField::GetNormalRightBottom(VERTEX_3D* pVtx)
 {
 	// 法線の正規化
 	VECTOR3 nor;	// 法線代入用

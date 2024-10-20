@@ -57,7 +57,7 @@ public:
 		VECTOR3 growRot;	// 成長向き
 		COLOR col;			// 色
 		MATRIX mtxWorld;	// ワールドマトリックス
-		MATRIX *pMtxParent;	// 親のマトリックス
+		MATRIX* pMtxParent;	// 親のマトリックス
 		float fMoveRot;		// 向きの変更量
 		float fThickness;	// ポリゴンの太さ
 		float fOuterPlusY;	// ポリゴン外周のY座標加算量
@@ -78,16 +78,16 @@ public:
 	void Draw(CShader* pShader = nullptr) override;		// 描画
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
 	VECTOR3 GetVec3Position(void) const override	{ return m_tornado.pos; }		// 位置取得
-	MATRIX *GetPtrMtxWorld(void) override			{ return &m_tornado.mtxWorld; }	// マトリックスポインタ取得
+	MATRIX* GetPtrMtxWorld(void) override			{ return &m_tornado.mtxWorld; }	// マトリックスポインタ取得
 	MATRIX GetMtxWorld(void) const override			{ return m_tornado.mtxWorld; }	// マトリックス取得
 
 	// 静的メンバ関数
-	static CObjectTornado *Create	// 生成
+	static CObjectTornado* Create	// 生成
 	( // 引数
 		const VECTOR3& rPos,		// 位置
 		const VECTOR3& rGrowRot,	// 成長向き
 		const COLOR& rCol,			// 色
-		MATRIX *pMtxParent		= nullptr,				// 親のマトリックス
+		MATRIX* pMtxParent		= nullptr,				// 親のマトリックス
 		const int	nNumAround	= tornado::NUM_AROUND,	// 渦の周回数
 		const int	nPattern	= tornado::NUM_PTRN,	// 渦の分割数
 		const float	fMoveRot	= tornado::MOVE_ROT,	// 向きの変更量
@@ -117,11 +117,11 @@ public:
 		const int nPattern		// 渦の分割数
 	);
 
-	CRenderState *GetRenderState(void);				// レンダーステート情報取得
+	CRenderState* GetRenderState(void);				// レンダーステート情報取得
 	void BindTexture(const int nTextureID);			// テクスチャ割当 (インデックス)
-	void BindTexture(const char *pTexturePath);		// テクスチャ割当 (パス)
+	void BindTexture(const char* pTexturePath);		// テクスチャ割当 (パス)
 	void DeleteMatrixParent(void);					// 親マトリックス削除
-	void SetMatrixParent(MATRIX *pMtxParent);		// 親マトリックス設定
+	void SetMatrixParent(MATRIX* pMtxParent);		// 親マトリックス設定
 	void SetAlpha(const float fAlpha);				// 透明度設定
 	void SetColor(const COLOR& rCol);				// 色設定
 	void SetRotationGrow(const VECTOR3& rRot);		// 成長向き設定
@@ -158,7 +158,7 @@ private:
 
 	// メンバ変数
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;	// 頂点バッファへのポインタ
-	CRenderState *m_pRenderState;		// レンダーステートの情報
+	CRenderState* m_pRenderState;		// レンダーステートの情報
 	STornado m_tornado;	// 竜巻の情報
 	int m_nNumVtx;		// 必要頂点数
 	int m_nNumAround;	// 渦の周回数

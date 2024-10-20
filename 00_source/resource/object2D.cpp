@@ -153,7 +153,7 @@ void CObject2D::Draw(CShader* /*pShader*/)
 //============================================================
 //	生成処理
 //============================================================
-CObject2D *CObject2D::Create
+CObject2D* CObject2D::Create
 (
 	const VECTOR3& rPos,	// 位置
 	const VECTOR3& rSize,	// 大きさ
@@ -162,7 +162,7 @@ CObject2D *CObject2D::Create
 )
 {
 	// オブジェクト2Dの生成
-	CObject2D *pObject2D = new CObject2D;
+	CObject2D* pObject2D = new CObject2D;
 	if (pObject2D == nullptr)
 	{ // 生成に失敗した場合
 
@@ -245,7 +245,7 @@ void CObject2D::SetVec3Size(const VECTOR3& rSize)
 //============================================================
 //	レンダーステート情報の取得処理
 //============================================================
-CRenderState *CObject2D::GetRenderState(void)
+CRenderState* CObject2D::GetRenderState(void)
 {
 	// インスタンス未使用
 	assert(m_pRenderState != nullptr);
@@ -271,13 +271,13 @@ void CObject2D::BindTexture(const int nTextureID)
 //============================================================
 //	テクスチャ割当処理 (パス)
 //============================================================
-void CObject2D::BindTexture(const char *pTexturePath)
+void CObject2D::BindTexture(const char* pTexturePath)
 {
 	if (pTexturePath != nullptr)
 	{ // 割り当てるテクスチャパスがある場合
 
 		// テクスチャインデックスを設定
-		CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
+		CTexture* pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
 		m_nTextureID = pTexture->Regist(pTexturePath);
 	}
 	else
@@ -317,7 +317,7 @@ void CObject2D::SetColor(const COLOR& rCol)
 //============================================================
 void CObject2D::SetVtx(void)
 {
-	VERTEX_2D *pVtx;	// 頂点情報へのポインタ
+	VERTEX_2D* pVtx;	// 頂点情報へのポインタ
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
 
@@ -374,7 +374,7 @@ void CObject2D::SetAnimTex
 	const int nHeightPtrn	// テクスチャの縦の分割数
 )
 {
-	VERTEX_2D *pVtx;	// 頂点情報へのポインタ
+	VERTEX_2D* pVtx;	// 頂点情報へのポインタ
 	float fWidthRate	= 1.0f / nWidthPtrn;	// 横の分割数の割合
 	float fHeightRate	= 1.0f / nHeightPtrn;	// 縦の分割数の割合
 	int nWidthCurrent	= nPattern % nWidthPtrn;					// 現在の横のパターン
@@ -407,7 +407,7 @@ void CObject2D::SetScrollTex
 	const float fOffsetV	// テクスチャの縦座標のオフセット位置
 )
 {
-	VERTEX_2D *pVtx;	// 頂点情報へのポインタ
+	VERTEX_2D* pVtx;	// 頂点情報へのポインタ
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
 

@@ -184,10 +184,10 @@ void CObjectChara::SetVec3Rotation(const VECTOR3& rRot)
 //============================================================
 //	生成処理
 //============================================================
-CObjectChara *CObjectChara::Create(const VECTOR3& rPos, const VECTOR3& rRot)
+CObjectChara* CObjectChara::Create(const VECTOR3& rPos, const VECTOR3& rRot)
 {
 	// オブジェクトキャラクターの生成
-	CObjectChara *pObjectChara = new CObjectChara;
+	CObjectChara* pObjectChara = new CObjectChara;
 	if (pObjectChara == nullptr)
 	{ // 生成に失敗した場合
 
@@ -234,7 +234,7 @@ void CObjectChara::SetPartsInfo
 	const int nParentID,	// 親インデックス
 	const VECTOR3& rPos,	// 位置
 	const VECTOR3& rRot,	// 向き
-	const char *pFileName	// ファイル名
+	const char* pFileName	// ファイル名
 )
 {
 	// インデックスが非正規の場合抜ける
@@ -273,7 +273,7 @@ void CObjectChara::SetPartsInfo
 //============================================================
 //	キャラクター情報割当
 //============================================================
-void CObjectChara::BindCharaData(const char *pCharaPath)
+void CObjectChara::BindCharaData(const char* pCharaPath)
 {
 	// 割り当てるモーションパスが存在しない場合抜ける
 	if (pCharaPath == nullptr) { assert(false); return; }
@@ -342,7 +342,7 @@ void CObjectChara::SetPartsInfo(CCharacter::SPartsInfo& rInfo)
 	{ // パーツ数分繰り返す
 
 		// パーツ情報の設定
-		CCharacter::SParts *pParts = &rInfo.vecParts[nCntParts];	// パーツ情報
+		CCharacter::SParts* pParts = &rInfo.vecParts[nCntParts];	// パーツ情報
 		CObjectChara::SetPartsInfo
 		( // 引数
 			nCntParts,				// パーツインデックス
@@ -419,7 +419,7 @@ VECTOR3 CObjectChara::GetPartsRotation(const int nPartsID) const
 //============================================================
 //	パーツ取得処理
 //============================================================
-CMultiModel *CObjectChara::GetParts(const int nPartsID) const
+CMultiModel* CObjectChara::GetParts(const int nPartsID) const
 {
 	if (nPartsID < GetNumParts())
 	{ // 使用可能なインデックスの場合

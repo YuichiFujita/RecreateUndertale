@@ -200,7 +200,7 @@ void CObjectMeshCylinder::SetVec3Rotation(const VECTOR3& rRot)
 //============================================================
 //	生成処理
 //============================================================
-CObjectMeshCylinder *CObjectMeshCylinder::Create
+CObjectMeshCylinder* CObjectMeshCylinder::Create
 (
 	const VECTOR3& rPos,		// 位置
 	const VECTOR3& rRot,		// 向き
@@ -212,7 +212,7 @@ CObjectMeshCylinder *CObjectMeshCylinder::Create
 )
 {
 	// オブジェクトメッシュシリンダーの生成
-	CObjectMeshCylinder *pMeshCylinder = new CObjectMeshCylinder;
+	CObjectMeshCylinder* pMeshCylinder = new CObjectMeshCylinder;
 	if (pMeshCylinder == nullptr)
 	{ // 生成に失敗した場合
 
@@ -265,7 +265,7 @@ CObjectMeshCylinder *CObjectMeshCylinder::Create
 //============================================================
 //	レンダーステート情報の取得処理
 //============================================================
-CRenderState *CObjectMeshCylinder::GetRenderState(void)
+CRenderState* CObjectMeshCylinder::GetRenderState(void)
 {
 	// インスタンス未使用
 	assert(m_pRenderState != nullptr);
@@ -291,13 +291,13 @@ void CObjectMeshCylinder::BindTexture(const int nTextureID)
 //============================================================
 //	テクスチャ割当処理 (パス)
 //============================================================
-void CObjectMeshCylinder::BindTexture(const char *pTexturePath)
+void CObjectMeshCylinder::BindTexture(const char* pTexturePath)
 {
 	if (pTexturePath != nullptr)
 	{ // 割り当てるテクスチャパスがある場合
 
 		// テクスチャインデックスを設定
-		CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
+		CTexture* pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
 		m_nTextureID = pTexture->Regist(pTexturePath);
 	}
 	else
@@ -459,7 +459,7 @@ void CObjectMeshCylinder::SetTexPattern(const POSGRID2& rTexPart)
 //============================================================
 void CObjectMeshCylinder::SetVtx(void)
 {
-	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
+	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 	VECTOR3 vecPos;		// 頂点位置の計算用
 	VECTOR3 vecNor;		// 法線ベクトルの計算用
 	float fRateWidth  = ((float)(m_texPart.x) / (float)(m_part.x));	// テクスチャ横分割数の割合
@@ -521,7 +521,7 @@ void CObjectMeshCylinder::SetVtx(void)
 //============================================================
 void CObjectMeshCylinder::SetIdx(void)
 {
-	WORD *pIdx;	// インデックス情報へのポインタ
+	WORD* pIdx;	// インデックス情報へのポインタ
 	if (m_pIdxBuff != nullptr)
 	{ // 使用中の場合
 
@@ -562,7 +562,7 @@ void CObjectMeshCylinder::SetIdx(void)
 //============================================================
 void CObjectMeshCylinder::SetScrollTex(const float fTexU, const float fTexV)
 {
-	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
+	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 	float fRateWidth  = ((float)(m_texPart.x) / (float)(m_part.x));	// テクスチャ横分割数の割合
 	float fRateHeight = ((float)(m_texPart.y) / (float)(m_part.y));	// テクスチャ縦分割数の割合
 	if (m_pVtxBuff != nullptr)

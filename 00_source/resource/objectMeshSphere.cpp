@@ -172,7 +172,7 @@ void CObjectMeshSphere::SetVec3Rotation(const VECTOR3& rRot)
 //============================================================
 //	生成処理
 //============================================================
-CObjectMeshSphere *CObjectMeshSphere::Create
+CObjectMeshSphere* CObjectMeshSphere::Create
 (
 	const VECTOR3& rPos,		// 位置
 	const VECTOR3& rRot,		// 向き
@@ -183,7 +183,7 @@ CObjectMeshSphere *CObjectMeshSphere::Create
 )
 {
 	// オブジェクトメッシュスフィアの生成
-	CObjectMeshSphere *pMeshSphere = new CObjectMeshSphere;
+	CObjectMeshSphere* pMeshSphere = new CObjectMeshSphere;
 	if (pMeshSphere == nullptr)
 	{ // 生成に失敗した場合
 
@@ -235,7 +235,7 @@ CObjectMeshSphere *CObjectMeshSphere::Create
 //============================================================
 void CObjectMeshSphere::SetRenderState(CRenderState renderState)
 {
-	CRenderState *pTempRenderState = nullptr;	// レンダーステート情報
+	CRenderState* pTempRenderState = nullptr;	// レンダーステート情報
 	for (int i = 0; i < DOME_MAX; i++)
 	{ // 半球の総数分繰り返す
 
@@ -266,12 +266,12 @@ void CObjectMeshSphere::BindTexture(const int nTextureID)
 //============================================================
 //	テクスチャ割当処理 (パス)
 //============================================================
-void CObjectMeshSphere::BindTexture(const char *pTexturePath)
+void CObjectMeshSphere::BindTexture(const char* pTexturePath)
 {
 	if (pTexturePath != nullptr)
 	{ // 割り当てるテクスチャパスがある場合
 
-		CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
+		CTexture* pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
 		for (int i = 0; i < DOME_MAX; i++)
 		{ // 半球の総数分繰り返す
 

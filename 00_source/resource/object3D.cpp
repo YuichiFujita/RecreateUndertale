@@ -187,7 +187,7 @@ void CObject3D::Draw(CShader* pShader)
 //============================================================
 //	生成処理
 //============================================================
-CObject3D *CObject3D::Create
+CObject3D* CObject3D::Create
 (
 	const VECTOR3& rPos,	// 位置
 	const VECTOR3& rSize,	// 大きさ
@@ -197,7 +197,7 @@ CObject3D *CObject3D::Create
 )
 {
 	// オブジェクト3Dの生成
-	CObject3D *pObject3D = new CObject3D;
+	CObject3D* pObject3D = new CObject3D;
 	if (pObject3D == nullptr)
 	{ // 生成に失敗した場合
 
@@ -277,7 +277,7 @@ void CObject3D::SetVec3Size(const VECTOR3& rSize)
 //============================================================
 //	レンダーステート情報の取得処理
 //============================================================
-CRenderState *CObject3D::GetRenderState(void)
+CRenderState* CObject3D::GetRenderState(void)
 {
 	// インスタンス未使用
 	assert(m_pRenderState != nullptr);
@@ -303,13 +303,13 @@ void CObject3D::BindTexture(const int nTextureID)
 //============================================================
 //	テクスチャ割当処理 (パス)
 //============================================================
-void CObject3D::BindTexture(const char *pTexturePath)
+void CObject3D::BindTexture(const char* pTexturePath)
 {
 	if (pTexturePath != nullptr)
 	{ // 割り当てるテクスチャパスがある場合
 
 		// テクスチャインデックスを設定
-		CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
+		CTexture* pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
 		m_nTextureID = pTexture->Regist(pTexturePath);
 	}
 	else
@@ -361,7 +361,7 @@ void CObject3D::SetOrigin(const EOrigin origin)
 //============================================================
 void CObject3D::SetVertexPosition(const int nID, const VECTOR3& rPos)
 {
-	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
+	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
 
@@ -391,7 +391,7 @@ void CObject3D::SetVertexPosition(const int nID, const VECTOR3& rPos)
 //============================================================
 VECTOR3 CObject3D::GetVertexPosition(const int nID)
 {
-	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
+	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 	VECTOR3 pos;		// 頂点座標の代入用
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
@@ -545,7 +545,7 @@ void CObject3D::CalcDrawMatrix(void)
 //============================================================
 void CObject3D::SetVtx(void)
 {
-	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
+	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 
 	// 頂点バッファをロックし、頂点情報へのポインタを取得
 	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
@@ -613,7 +613,7 @@ void CObject3D::SetAnimTex
 	const int nHeightPtrn	// テクスチャの縦の分割数
 )
 {
-	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
+	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 	float fWidthRate	= 1.0f / nWidthPtrn;	// 横の分割数の割合
 	float fHeightRate	= 1.0f / nHeightPtrn;	// 縦の分割数の割合
 	int nWidthCurrent	= nPattern % nWidthPtrn;					// 現在の横のパターン
@@ -646,7 +646,7 @@ void CObject3D::SetScrollTex
 	const float fOffsetV	// テクスチャの縦座標のオフセット位置
 )
 {
-	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
+	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
 
@@ -720,7 +720,7 @@ void CObject3D::DrawShader(CShader* pShader)
 //============================================================
 void CObject3D::NormalizeNormal(void)
 {
-	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
+	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 
 	// 頂点バッファをロックし、頂点情報へのポインタを取得
 	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);

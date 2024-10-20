@@ -199,7 +199,7 @@ void CObjectMeshDome::SetVec3Rotation(const VECTOR3& rRot)
 //============================================================
 //	生成処理
 //============================================================
-CObjectMeshDome *CObjectMeshDome::Create
+CObjectMeshDome* CObjectMeshDome::Create
 (
 	const VECTOR3& rPos,		// 位置
 	const VECTOR3& rRot,		// 向き
@@ -210,7 +210,7 @@ CObjectMeshDome *CObjectMeshDome::Create
 )
 {
 	// オブジェクトメッシュドームの生成
-	CObjectMeshDome *pMeshDome = new CObjectMeshDome;
+	CObjectMeshDome* pMeshDome = new CObjectMeshDome;
 	if (pMeshDome == nullptr)
 	{ // 生成に失敗した場合
 
@@ -260,7 +260,7 @@ CObjectMeshDome *CObjectMeshDome::Create
 //============================================================
 //	レンダーステート情報の取得処理
 //============================================================
-CRenderState *CObjectMeshDome::GetRenderState(void)
+CRenderState* CObjectMeshDome::GetRenderState(void)
 {
 	// インスタンス未使用
 	assert(m_pRenderState != nullptr);
@@ -286,13 +286,13 @@ void CObjectMeshDome::BindTexture(const int nTextureID)
 //============================================================
 //	テクスチャ割当処理 (パス)
 //============================================================
-void CObjectMeshDome::BindTexture(const char *pTexturePath)
+void CObjectMeshDome::BindTexture(const char* pTexturePath)
 {
 	if (pTexturePath != nullptr)
 	{ // 割り当てるテクスチャパスがある場合
 
 		// テクスチャインデックスを設定
-		CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
+		CTexture* pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
 		m_nTextureID = pTexture->Regist(pTexturePath);
 	}
 	else
@@ -442,7 +442,7 @@ void CObjectMeshDome::SetTexPattern(const POSGRID2& rTexPart)
 //============================================================
 void CObjectMeshDome::SetVtx(void)
 {
-	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
+	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 	VECTOR3 vecPos;		// 頂点位置の計算用
 	VECTOR3 vecNor;		// 法線ベクトルの計算用
 	float fRotWidth, fRotHeight;	// 頂点位置の方向の計算用
@@ -512,7 +512,7 @@ void CObjectMeshDome::SetVtx(void)
 //============================================================
 void CObjectMeshDome::SetIdx(void)
 {
-	WORD *pIdx;	// インデックス情報へのポインタ
+	WORD* pIdx;	// インデックス情報へのポインタ
 	if (m_pIdxBuff != nullptr)
 	{ // 使用中の場合
 
@@ -568,7 +568,7 @@ void CObjectMeshDome::SetIdx(void)
 //============================================================
 void CObjectMeshDome::SetScrollTex(const float fTexU, const float fTexV)
 {
-	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
+	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 	float fRateWidth  = ((float)(m_texPart.x) / (float)(m_part.x));		// テクスチャ横分割数の割合
 	float fRateHeight = ((float)(m_texPart.y) / (float)(m_part.y - 1));	// テクスチャ縦分割数の割合
 	if (m_pVtxBuff != nullptr)

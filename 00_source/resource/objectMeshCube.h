@@ -126,11 +126,11 @@ public:
 	VECTOR3 GetVec3Position(void) const override	{ return m_meshCube.pos; }			// 位置取得
 	VECTOR3 GetVec3Rotation(void) const override	{ return m_meshCube.rot; }			// 向き取得
 	VECTOR3 GetVec3Size(void) const override		{ return m_meshCube.size; }			// 大きさ取得
-	MATRIX *GetPtrMtxWorld(void) override			{ return &m_meshCube.mtxWorld; }	// マトリックスポインタ取得
+	MATRIX* GetPtrMtxWorld(void) override			{ return &m_meshCube.mtxWorld; }	// マトリックスポインタ取得
 	MATRIX GetMtxWorld(void) const override			{ return m_meshCube.mtxWorld; }		// マトリックス取得
 
 	// 静的メンバ関数
-	static CObjectMeshCube *Create	// 生成
+	static CObjectMeshCube* Create	// 生成
 	( // 引数
 		const VECTOR3&	rPos,		// 位置
 		const VECTOR3&	rRot,		// 向き
@@ -148,7 +148,7 @@ public:
 	);
 
 	// メンバ関数
-	CRenderState *GetRenderState(void);					// レンダーステート情報取得
+	CRenderState* GetRenderState(void);					// レンダーステート情報取得
 	void BindTexture(const SFaceTex textureID);			// テクスチャ割当
 	void SetCubeAlpha(const float fAlpha);				// キューブ透明度設定
 	void SetCubeColor(const COLOR& rCol);				// キューブ色設定
@@ -190,7 +190,7 @@ private:
 	// メンバ変数
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;	// 頂点バッファへのポインタ
 	LPDIRECT3DINDEXBUFFER9 m_pIdxBuff;	// インデックスバッファへのポインタ
-	CRenderState *m_pRenderState;		// レンダーステートの情報
+	CRenderState* m_pRenderState;		// レンダーステートの情報
 	SMeshCube m_meshCube;	// メッシュキューブの情報
 	EOrigin m_origin;		// 原点
 	int m_nNumVtx;			// 必要頂点数

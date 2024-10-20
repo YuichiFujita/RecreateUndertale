@@ -14,8 +14,8 @@
 //************************************************************
 //	静的メンバ変数宣言
 //************************************************************
-CObject *CObject::m_apTop[DIM_MAX][object::MAX_PRIO] = {};	// 先頭のオブジェクトへのポインタ
-CObject *CObject::m_apCur[DIM_MAX][object::MAX_PRIO] = {};	// 最後尾のオブジェクトへのポインタ
+CObject* CObject::m_apTop[DIM_MAX][object::MAX_PRIO] = {};	// 先頭のオブジェクトへのポインタ
+CObject* CObject::m_apCur[DIM_MAX][object::MAX_PRIO] = {};	// 最後尾のオブジェクトへのポインタ
 DWORD CObject::m_dwNextID = 0;	// 次のユニークID
 int CObject::m_nNumAll = 0;		// オブジェクトの総数
 
@@ -293,13 +293,12 @@ void CObject::ReleaseAll(const std::vector<ELabel> label)
 		{ // 優先順位の総数分繰り返す
 
 			// オブジェクトの先頭を代入
-			CObject *pObject = m_apTop[nCntDim][nCntPri];
+			CObject* pObject = m_apTop[nCntDim][nCntPri];
 			while (pObject != nullptr)
 			{ // オブジェクトが使用されている場合繰り返す
 
 				// 次のオブジェクトを代入
-				CObject *pObjectNext = pObject->m_pNext;
-
+				CObject* pObjectNext = pObject->m_pNext;
 				if (pObject->m_label == LABEL_NONE)
 				{ // 自動破棄しないラベルの場合
 
@@ -346,13 +345,12 @@ void CObject::ReleaseAll(const ELabel label)
 		{ // 優先順位の総数分繰り返す
 
 			// オブジェクトの先頭を代入
-			CObject *pObject = m_apTop[nCntDim][nCntPri];
+			CObject* pObject = m_apTop[nCntDim][nCntPri];
 			while (pObject != nullptr)
 			{ // オブジェクトが使用されている場合繰り返す
 
 				// 次のオブジェクトを代入
-				CObject *pObjectNext = pObject->m_pNext;
-
+				CObject* pObjectNext = pObject->m_pNext;
 				if (pObject->m_label == LABEL_NONE)
 				{ // 自動破棄しないラベルの場合
 
@@ -395,13 +393,12 @@ void CObject::ReleaseAll(void)
 		{ // 優先順位の総数分繰り返す
 
 			// オブジェクトの先頭を代入
-			CObject *pObject = m_apTop[nCntDim][nCntPri];
+			CObject* pObject = m_apTop[nCntDim][nCntPri];
 			while (pObject != nullptr)
 			{ // オブジェクトが使用されている場合繰り返す
 
 				// 次のオブジェクトを代入
-				CObject *pObjectNext = pObject->m_pNext;
-
+				CObject* pObjectNext = pObject->m_pNext;
 				if (pObject->m_label == LABEL_NONE)
 				{ // 自動破棄しないラベルの場合
 
@@ -446,12 +443,12 @@ void CObject::UpdateAll(const float fDeltaTime)
 		{ // 優先順位の総数分繰り返す
 
 			// オブジェクトの先頭を代入
-			CObject *pObject = m_apTop[nCntDim][nCntPri];
+			CObject* pObject = m_apTop[nCntDim][nCntPri];
 			while (pObject != nullptr)
 			{ // オブジェクトが使用されている場合繰り返す
 
 				// 次のオブジェクトを代入
-				CObject *pObjectNext = pObject->m_pNext;
+				CObject* pObjectNext = pObject->m_pNext;
 				if (pObject->m_label == LABEL_NONE)
 				{ // 自動更新しないラベルの場合
 
@@ -487,7 +484,7 @@ void CObject::UpdateAll(const float fDeltaTime)
 //============================================================
 void CObject::DrawAll(void)
 {
-	CLoading *pLoading = GET_MANAGER->GetLoading();	// ローディング
+	CLoading* pLoading = GET_MANAGER->GetLoading();	// ローディング
 
 	// ロード中の場合抜ける
 	assert(pLoading != nullptr);
@@ -500,12 +497,12 @@ void CObject::DrawAll(void)
 		{ // 優先順位の総数分繰り返す
 
 			// オブジェクトの先頭を代入
-			CObject *pObject = m_apTop[nCntDim][nCntPri];
+			CObject* pObject = m_apTop[nCntDim][nCntPri];
 			while (pObject != nullptr)
 			{ // オブジェクトが使用されている場合繰り返す
 
 				// 次のオブジェクトを代入
-				CObject *pObjectNext = pObject->m_pNext;
+				CObject* pObjectNext = pObject->m_pNext;
 
 #ifdef _DEBUG
 				if (!pObject->m_bDebugDisp)
@@ -548,13 +545,12 @@ void CObject::DeathAll(void)
 		{ // 優先順位の総数分繰り返す
 
 			// オブジェクトの先頭を代入
-			CObject *pObject = m_apTop[nCntDim][nCntPri];
+			CObject* pObject = m_apTop[nCntDim][nCntPri];
 			while (pObject != nullptr)
 			{ // オブジェクトが使用されている場合繰り返す
 
 				// 次のオブジェクトを代入
-				CObject *pObjectNext = pObject->m_pNext;
-
+				CObject* pObjectNext = pObject->m_pNext;
 				if (!pObject->m_bDeath)
 				{ // 死亡フラグが立っていない場合
 
@@ -624,12 +620,12 @@ void CObject::SetEnableDebugDispAll(const bool bDisp2D, const bool bDisp3D)
 		{ // 優先順位の総数分繰り返す
 
 			// オブジェクトの先頭を代入
-			CObject *pObject = m_apTop[nCntDim][nCntPri];
+			CObject* pObject = m_apTop[nCntDim][nCntPri];
 			while (pObject != nullptr)
 			{ // オブジェクトが使用されている場合繰り返す
 
 				// 次のオブジェクトを代入
-				CObject *pObjectNext = pObject->m_pNext;
+				CObject* pObjectNext = pObject->m_pNext;
 
 				// 引数の表示フラグを設定
 				pObject->m_bDebugDisp = aDisp[nCntDim];

@@ -193,7 +193,7 @@ void CObjectMeshWall::SetVec2Size(const VECTOR2& rSize)
 //============================================================
 //	生成処理
 //============================================================
-CObjectMeshWall *CObjectMeshWall::Create
+CObjectMeshWall* CObjectMeshWall::Create
 (
 	const VECTOR3& rPos,	// 位置
 	const VECTOR3& rRot,	// 向き
@@ -203,7 +203,7 @@ CObjectMeshWall *CObjectMeshWall::Create
 )
 {
 	// オブジェクトメッシュウォールの生成
-	CObjectMeshWall *pMeshWall = new CObjectMeshWall;
+	CObjectMeshWall* pMeshWall = new CObjectMeshWall;
 	if (pMeshWall == nullptr)
 	{ // 生成に失敗した場合
 
@@ -250,7 +250,7 @@ CObjectMeshWall *CObjectMeshWall::Create
 //============================================================
 //	レンダーステート情報の取得処理
 //============================================================
-CRenderState *CObjectMeshWall::GetRenderState(void)
+CRenderState* CObjectMeshWall::GetRenderState(void)
 {
 	// インスタンス未使用
 	assert(m_pRenderState != nullptr);
@@ -276,13 +276,13 @@ void CObjectMeshWall::BindTexture(const int nTextureID)
 //============================================================
 //	テクスチャ割当処理 (パス)
 //============================================================
-void CObjectMeshWall::BindTexture(const char *pTexturePath)
+void CObjectMeshWall::BindTexture(const char* pTexturePath)
 {
 	if (pTexturePath != nullptr)
 	{ // 割り当てるテクスチャパスがある場合
 
 		// テクスチャインデックスを設定
-		CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
+		CTexture* pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
 		m_nTextureID = pTexture->Regist(pTexturePath);
 	}
 	else
@@ -386,7 +386,7 @@ HRESULT CObjectMeshWall::SetPattern(const POSGRID2& rPart)
 //============================================================
 void CObjectMeshWall::SetVtx(void)
 {
-	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
+	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
 
@@ -431,7 +431,7 @@ void CObjectMeshWall::SetVtx(void)
 //============================================================
 void CObjectMeshWall::SetIdx(void)
 {
-	WORD *pIdx;	// インデックス情報へのポインタ
+	WORD* pIdx;	// インデックス情報へのポインタ
 	if (m_pIdxBuff != nullptr)
 	{ // 使用中の場合
 
@@ -472,7 +472,7 @@ void CObjectMeshWall::SetIdx(void)
 //============================================================
 void CObjectMeshWall::SetScrollTex(const float fTexU, const float fTexV)
 {
-	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
+	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
 

@@ -48,11 +48,11 @@ public:
 	VECTOR3 GetVec3Position(void) const override	{ return m_pos; }		// 位置取得
 	VECTOR3 GetVec3Rotation(void) const override	{ return m_rot; }		// 向き取得
 	VECTOR3 GetVec3Size(void) const override		{ return m_size; }		// 大きさ取得
-	MATRIX *GetPtrMtxWorld(void) override			{ return &m_mtxWorld; }	// マトリックスポインタ取得
+	MATRIX* GetPtrMtxWorld(void) override			{ return &m_mtxWorld; }	// マトリックスポインタ取得
 	MATRIX GetMtxWorld(void) const override			{ return m_mtxWorld; }	// マトリックス取得
 
 	// 静的メンバ関数
-	static CObject3D *Create	// 生成
+	static CObject3D* Create	// 生成
 	( // 引数
 		const VECTOR3& rPos,	// 位置
 		const VECTOR3& rSize,	// 大きさ
@@ -62,9 +62,9 @@ public:
 	);
 
 	// メンバ関数
-	CRenderState *GetRenderState(void);			// レンダーステート情報取得
+	CRenderState* GetRenderState(void);			// レンダーステート情報取得
 	void BindTexture(const int nTextureID);		// テクスチャ割当 (インデックス)
-	void BindTexture(const char *pTexturePath);	// テクスチャ割当 (パス)
+	void BindTexture(const char* pTexturePath);	// テクスチャ割当 (パス)
 	void SetAlpha(const float fAlpha);			// 透明度設定
 	void SetColor(const COLOR& rCol);			// 色設定
 	void SetOrigin(const EOrigin origin);		// 原点設定
@@ -109,8 +109,8 @@ private:
 
 	// メンバ変数
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;	// 頂点バッファへのポインタ
-	CRenderState *m_pRenderState;		// レンダーステートの情報
-	VECTOR3 *m_pPosGapBuff;	// 座標のずれバッファへのポインタ
+	CRenderState* m_pRenderState;		// レンダーステートの情報
+	VECTOR3* m_pPosGapBuff;	// 座標のずれバッファへのポインタ
 	MATRIX	m_mtxWorld;		// ワールドマトリックス
 	VECTOR3	m_pos;			// 位置
 	VECTOR3	m_rot;			// 向き

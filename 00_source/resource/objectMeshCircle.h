@@ -48,11 +48,11 @@ public:
 	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
 	VECTOR3 GetVec3Position(void) const override	{ return m_meshCircle.pos; }		// 位置取得
 	VECTOR3 GetVec3Rotation(void) const override	{ return m_meshCircle.rot; }		// 向き取得
-	MATRIX *GetPtrMtxWorld(void) override			{ return &m_meshCircle.mtxWorld; }	// マトリックスポインタ取得
+	MATRIX* GetPtrMtxWorld(void) override			{ return &m_meshCircle.mtxWorld; }	// マトリックスポインタ取得
 	MATRIX GetMtxWorld(void) const override			{ return m_meshCircle.mtxWorld; }	// マトリックス取得
 
 	// 静的メンバ関数
-	static CObjectMeshCircle *Create	// 生成
+	static CObjectMeshCircle* Create	// 生成
 	( // 引数
 		const VECTOR3& rPos,	// 位置
 		const VECTOR3& rRot,	// 向き
@@ -62,9 +62,9 @@ public:
 	);
 
 	// メンバ関数
-	CRenderState *GetRenderState(void);			// レンダーステート情報取得
+	CRenderState* GetRenderState(void);			// レンダーステート情報取得
 	void BindTexture(const int nTextureID);		// テクスチャ割当 (インデックス)
-	void BindTexture(const char *pTexturePath);	// テクスチャ割当 (パス)
+	void BindTexture(const char* pTexturePath);	// テクスチャ割当 (パス)
 	void SetAlpha(const float fAlpha);			// 透明度設定
 	void SetColor(const COLOR& rCol);			// 色設定
 	void SetRadius(const float fRadius);		// 半径設定
@@ -91,7 +91,7 @@ private:
 	// メンバ変数
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;	// 頂点バッファへのポインタ
 	LPDIRECT3DINDEXBUFFER9 m_pIdxBuff;	// インデックスバッファへのポインタ
-	CRenderState *m_pRenderState;		// レンダーステートの情報
+	CRenderState* m_pRenderState;		// レンダーステートの情報
 	SMeshCircle m_meshCircle;			// メッシュサークルの情報
 	POSGRID2 m_part;	// 分割数
 	int m_nNumVtx;		// 必要頂点数

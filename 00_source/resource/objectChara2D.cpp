@@ -82,10 +82,10 @@ void CObjectChara2D::Draw(CShader* pShader)
 //============================================================
 //	生成処理
 //============================================================
-CObjectChara2D *CObjectChara2D::Create(const VECTOR3& rPos, const VECTOR3& rRot)
+CObjectChara2D* CObjectChara2D::Create(const VECTOR3& rPos, const VECTOR3& rRot)
 {
 	// オブジェクトキャラクター2Dの生成
-	CObjectChara2D *pObjectChara2D = new CObjectChara2D;
+	CObjectChara2D* pObjectChara2D = new CObjectChara2D;
 	if (pObjectChara2D == nullptr)
 	{ // 生成に失敗した場合
 
@@ -117,7 +117,7 @@ CObjectChara2D *CObjectChara2D::Create(const VECTOR3& rPos, const VECTOR3& rRot)
 //============================================================
 //	キャラクター情報割当
 //============================================================
-void CObjectChara2D::BindCharaData(const char *pCharaPath)
+void CObjectChara2D::BindCharaData(const char* pCharaPath)
 {
 	// 割り当てるモーションパスが存在しない場合抜ける
 	if (pCharaPath == nullptr) { assert(false); return; }
@@ -138,7 +138,7 @@ void CObjectChara2D::SetMotion(const int nType)
 	m_info.nType = nType;
 
 	// 変数をポインタ化し簡略化
-	SChara *pInfoChara = &m_info.vecMotion[nType].infoChara;	// キャラクター情報
+	SChara* pInfoChara = &m_info.vecMotion[nType].infoChara;	// キャラクター情報
 
 	// 指定テクスチャの割当
 	BindTexture(pInfoChara->sPathTexture.c_str());
@@ -272,7 +272,7 @@ VECTOR3 CObjectChara2D::GetCollOffsetPosition(void) const
 void CObjectChara2D::CalcDrawMatrix(void)
 {
 	VECTOR3 offset = m_info.vecMotion[m_info.nType].infoChara.offset;	// オフセット
-	MATRIX *pMtxWorld = GetPtrMtxWorld();	// ワールドマトリックス
+	MATRIX* pMtxWorld = GetPtrMtxWorld();	// ワールドマトリックス
 	MATRIX mtxRot, mtxTrans, mtxOffset;		// 計算用マトリックス
 	VECTOR3 pos = GetVec3Position();		// 位置
 	VECTOR3 rot = GetVec3Rotation();		// 向き

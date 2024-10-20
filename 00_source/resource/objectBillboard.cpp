@@ -214,7 +214,7 @@ void CObjectBillboard::Draw(CShader* pShader)
 //============================================================
 //	生成処理
 //============================================================
-CObjectBillboard *CObjectBillboard::Create
+CObjectBillboard* CObjectBillboard::Create
 (
 	const VECTOR3& rPos,	// 位置
 	const VECTOR3& rSize,	// 大きさ
@@ -225,7 +225,7 @@ CObjectBillboard *CObjectBillboard::Create
 )
 {
 	// オブジェクトビルボードの生成
-	CObjectBillboard *pBillboard = new CObjectBillboard;
+	CObjectBillboard* pBillboard = new CObjectBillboard;
 	if (pBillboard == nullptr)
 	{ // 生成に失敗した場合
 
@@ -335,7 +335,7 @@ void CObjectBillboard::SetVec3Size(const VECTOR3& rSize)
 //============================================================
 //	レンダーステート情報の取得処理
 //============================================================
-CRenderState *CObjectBillboard::GetRenderState(void)
+CRenderState* CObjectBillboard::GetRenderState(void)
 {
 	// インスタンス未使用
 	assert(m_pRenderState != nullptr);
@@ -361,13 +361,13 @@ void CObjectBillboard::BindTexture(const int nTextureID)
 //============================================================
 //	テクスチャ割当処理 (パス)
 //============================================================
-void CObjectBillboard::BindTexture(const char *pTexturePath)
+void CObjectBillboard::BindTexture(const char* pTexturePath)
 {
 	if (pTexturePath != nullptr)
 	{ // 割り当てるテクスチャパスがある場合
 
 		// テクスチャインデックスを設定
-		CTexture *pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
+		CTexture* pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
 		m_nTextureID = pTexture->Regist(pTexturePath);
 	}
 	else
@@ -455,7 +455,7 @@ void CObjectBillboard::SetRotate(const ERotate rotate)
 //============================================================
 void CObjectBillboard::SetVtx(void)
 {
-	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
+	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 
 	// 頂点バッファをロックし、頂点情報へのポインタを取得
 	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);

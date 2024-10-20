@@ -250,7 +250,7 @@ void CObjectMeshCube::SetVec3Size(const VECTOR3& rSize)
 //============================================================
 //	生成処理
 //============================================================
-CObjectMeshCube *CObjectMeshCube::Create
+CObjectMeshCube* CObjectMeshCube::Create
 (
 	const VECTOR3& rPos,		// 位置
 	const VECTOR3& rRot,		// 向き
@@ -268,7 +268,7 @@ CObjectMeshCube *CObjectMeshCube::Create
 )
 {
 	// オブジェクトメッシュキューブの生成
-	CObjectMeshCube *pMeshCube = new CObjectMeshCube;
+	CObjectMeshCube* pMeshCube = new CObjectMeshCube;
 	if (pMeshCube == nullptr)
 	{ // 生成に失敗した場合
 
@@ -339,7 +339,7 @@ CObjectMeshCube *CObjectMeshCube::Create
 //============================================================
 //	レンダーステート情報の取得処理
 //============================================================
-CRenderState *CObjectMeshCube::GetRenderState(void)
+CRenderState* CObjectMeshCube::GetRenderState(void)
 {
 	// インスタンス未使用
 	assert(m_pRenderState != nullptr);
@@ -536,7 +536,7 @@ void CObjectMeshCube::SetOrigin(const EOrigin origin)
 //============================================================
 void CObjectMeshCube::SetVtx(void)
 {
-	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
+	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 	int nLoop = 0;		// キューブの描画数
 	float fSetBord = 0.0f, fUseBord = 0.0f;	// 頂点座標計算用
 	VECTOR2 texPart = VEC2_ZERO;			// テクスチャ分割数の計算用
@@ -583,7 +583,7 @@ void CObjectMeshCube::SetVtx(void)
 
 					break;
 
-				case ORIGIN_DOWN:	// 下
+				case ORIGIN_DOWN:	// 下原点
 
 					// 頂点座標の設定
 					pVtx[0].pos.x = (m_meshCube.size.x * SET_POS_DATA[nVtxID].x) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxID].x);
@@ -631,7 +631,7 @@ void CObjectMeshCube::SetVtx(void)
 //============================================================
 void CObjectMeshCube::SetIdx(void)
 {
-	WORD *pIdx;			// インデックス情報へのポインタ
+	WORD* pIdx;			// インデックス情報へのポインタ
 	int nNumVtx = 0;	// 頂点数の計測用
 	int nLoop = 0;		// キューブの描画数
 	if (m_pIdxBuff != nullptr)
