@@ -82,10 +82,10 @@ void CMultiModel::Draw(CShader *pShader)
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;			// デバイスのポインタ
 	CRenderState *pRenderState = GetRenderState();	// レンダーステートの情報
 	CModel::SModel modelData = GetModelData();		// モデルの情報
-	D3DXVECTOR3 pos = GetVec3Position();	// モデルの位置
-	D3DXVECTOR3 rot = GetVec3Rotation();	// モデルの向き
-	D3DXVECTOR3 scale = GetVec3Scale();		// モデルの拡大率
-	MATRIX mtxScale, mtxRot, mtxTrans;		// 計算用マトリックス
+	VECTOR3 pos = GetVec3Position();	// モデルの位置
+	VECTOR3 rot = GetVec3Rotation();	// モデルの向き
+	VECTOR3 scale = GetVec3Scale();		// モデルの拡大率
+	MATRIX mtxScale, mtxRot, mtxTrans;	// 計算用マトリックス
 	MATRIX mtxWorld;		// ワールドマトリックス
 	MATRIX mtxParent;		// 親のマトリックス
 	D3DMATERIAL9 matDef;	// 現在のマテリアル保存用
@@ -157,7 +157,7 @@ void CMultiModel::Draw(CShader *pShader)
 //============================================================
 //	生成処理
 //============================================================
-CMultiModel *CMultiModel::Create(const D3DXVECTOR3& rPos, const D3DXVECTOR3& rRot, const D3DXVECTOR3& rScale)
+CMultiModel *CMultiModel::Create(const VECTOR3& rPos, const VECTOR3& rRot, const VECTOR3& rScale)
 {
 	// マルチモデルの生成
 	CMultiModel *pMultiModel = new CMultiModel;
@@ -226,7 +226,7 @@ void CMultiModel::DrawNormal(void)
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;		// デバイスのポインタ
 	CModel::SModel modelData = GetModelData();	// モデルの情報
-	D3DXVECTOR3 scale = GetVec3Scale();			// モデルの拡大率
+	VECTOR3 scale = GetVec3Scale();				// モデルの拡大率
 	MATRIX mtxWorld = GetMtxWorld();			// ワールドマトリックス
 	for (int nCntMat = 0; nCntMat < (int)modelData.dwNumMat; nCntMat++)
 	{ // マテリアルの数分繰り返す
@@ -259,7 +259,7 @@ void CMultiModel::DrawShader(CShader *pShader)
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;		// デバイスのポインタ
 	CModel::SModel modelData = GetModelData();	// モデルの情報
-	D3DXVECTOR3 scale = GetVec3Scale();			// モデルの拡大率
+	VECTOR3 scale = GetVec3Scale();				// モデルの拡大率
 	MATRIX mtxWorld = GetMtxWorld();			// ワールドマトリックス
 
 	// 描画開始

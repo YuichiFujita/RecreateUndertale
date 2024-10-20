@@ -44,34 +44,34 @@ namespace
 
 	namespace logo
 	{
-		const D3DXVECTOR3 POS_NEVER	= D3DXVECTOR3(340.0f,  140.0f, 0.0f);	// タイトルロゴの位置 (NEVER)
-		const D3DXVECTOR3 POS_GIVE	= D3DXVECTOR3(710.0f,  310.0f, 0.0f);	// タイトルロゴの位置 (GIVE)
-		const D3DXVECTOR3 POS_UP	= D3DXVECTOR3(1050.0f, 320.0f, 0.0f);	// タイトルロゴの位置 (UP!)
-		const D3DXVECTOR3 POS[] =	// 位置配列
+		const VECTOR3 POS_NEVER	= VECTOR3(340.0f,  140.0f, 0.0f);	// タイトルロゴの位置 (NEVER)
+		const VECTOR3 POS_GIVE	= VECTOR3(710.0f,  310.0f, 0.0f);	// タイトルロゴの位置 (GIVE)
+		const VECTOR3 POS_UP	= VECTOR3(1050.0f, 320.0f, 0.0f);	// タイトルロゴの位置 (UP!)
+		const VECTOR3 POS[] =	// 位置配列
 		{
 			POS_NEVER,	// NEVERの位置
 			POS_GIVE,	// GIVEの位置
 			POS_UP,		// UP!の位置
 		};
 
-		const D3DXVECTOR3 SIZE	= D3DXVECTOR3(666.0f, 290.0f, 0.0f) * 0.8f;	// タイトルロゴの大きさ
-		const float	INIT_SCALE	= 15.0f;	// タイトルロゴの初期拡大率
-		const float	SUB_SCALE	= 0.65f;	// タイトルロゴ拡大率の減算量
+		const VECTOR3 SIZE	= VECTOR3(666.0f, 290.0f, 0.0f) * 0.8f;	// タイトルロゴの大きさ
+		const float INIT_SCALE	= 15.0f;	// タイトルロゴの初期拡大率
+		const float SUB_SCALE	= 0.65f;	// タイトルロゴ拡大率の減算量
 	}
 
 	namespace select
 	{
-		const D3DXVECTOR3 POS	= D3DXVECTOR3(350.0f, 560.0f, 0.0f);	// 選択の位置
-		const D3DXVECTOR3 SPACE	= D3DXVECTOR3(560.0f, 0.0f, 0.0f);		// 選択の空間
-		const D3DXVECTOR3 SIZE	= D3DXVECTOR3(420.0f, 140.0f, 0.0f);	// 選択の大きさ
-		const COLOR CHOICE_COL	= COLOR(1.0f, 1.0f, 1.0f, 1.0f);		// 選択中カラー
-		const COLOR DEFAULT_COL	= COLOR(0.5f, 0.5f, 0.5f, 1.0f);		// 非選択中カラー
+		const VECTOR3 POS	= VECTOR3(350.0f, 560.0f, 0.0f);		// 選択の位置
+		const VECTOR3 SPACE	= VECTOR3(560.0f, 0.0f, 0.0f);			// 選択の空間
+		const VECTOR3 SIZE	= VECTOR3(420.0f, 140.0f, 0.0f);		// 選択の大きさ
+		const COLOR CHOICE_COL	= COLOR(1.0f, 1.0f, 1.0f, 1.0f);	// 選択中カラー
+		const COLOR DEFAULT_COL	= COLOR(0.5f, 0.5f, 0.5f, 1.0f);	// 非選択中カラー
 	}
 
 	namespace selectBG
 	{
-		const D3DXVECTOR3 POS	= D3DXVECTOR3(640.0f, 560.0f, 0.0f);				// 選択背景の位置
-		const D3DXVECTOR3 SIZE	= D3DXVECTOR3((float)SCREEN_WIDTH, 120.0f, 0.0f);	// 選択背景の大きさ
+		const VECTOR3 POS	= VECTOR3(640.0f, 560.0f, 0.0f);				// 選択背景の位置
+		const VECTOR3 SIZE	= VECTOR3((float)SCREEN_WIDTH, 120.0f, 0.0f);	// 選択背景の大きさ
 		const COLOR COL = COLOR(0.0f, 0.0f, 0.0f, 0.5f);	// 選択背景の色
 	}
 }

@@ -37,9 +37,9 @@ namespace
 
 	namespace select
 	{
-		const D3DXVECTOR3 POS	= D3DXVECTOR3(640.0f, 210.0f, 0.0f);	// セレクトメニューの位置
-		const D3DXVECTOR3 SIZE	= D3DXVECTOR3(440.0f, 110.0f, 0.0f);	// セレクトメニューの大きさ
-		const D3DXVECTOR3 SPACE	= D3DXVECTOR3(0.0f, 150.0f, 0.0f);		// セレクトメニューの空白
+		const VECTOR3 POS	= VECTOR3(640.0f, 210.0f, 0.0f);	// セレクトメニューの位置
+		const VECTOR3 SIZE	= VECTOR3(440.0f, 110.0f, 0.0f);	// セレクトメニューの大きさ
+		const VECTOR3 SPACE	= VECTOR3(0.0f, 150.0f, 0.0f);		// セレクトメニューの空白
 	}
 }
 

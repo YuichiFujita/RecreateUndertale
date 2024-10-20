@@ -94,7 +94,7 @@ HRESULT CSceneGame::Init(void)
 
 #if 1
 	// TODO：プレイヤーの生成
-	CPlayer::Create(D3DXVECTOR3(0.0f, 0.0f, -1.0f));
+	CPlayer::Create(VECTOR3(0.0f, 0.0f, -1.0f));
 #endif
 
 	// ステージの生成

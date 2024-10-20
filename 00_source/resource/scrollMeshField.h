@@ -32,26 +32,26 @@ public:
 	// オーバーライド関数
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
-	void Update(const float fDeltaTime) override;			// 更新
-	void Draw(CShader *pShader = nullptr) override;			// 描画
-	void SetVec3Position(const D3DXVECTOR3& rPos) override;	// 位置設定
-	void SetVec3Rotation(const D3DXVECTOR3& rRot) override;	// 向き設定
-	void SetVec2Size(const VECTOR2& rSize) override;		// 大きさ設定
+	void Update(const float fDeltaTime) override;		// 更新
+	void Draw(CShader *pShader = nullptr) override;		// 描画
+	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
+	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
+	void SetVec2Size(const VECTOR2& rSize) override;	// 大きさ設定
 
 	// 静的メンバ関数
 	static CScrollMeshField *Create	// 生成
 	( // 引数
-		const float fMoveU,			// 横座標の移動量
-		const float fMoveV,			// 縦座標の移動量
-		const D3DXVECTOR3& rPos,	// 位置
-		const D3DXVECTOR3& rRot,	// 向き
-		const VECTOR2& rSize,		// 大きさ
-		const COLOR& rCol,			// 色
-		const POSGRID2& rPart		// 分割数
+		const float fMoveU,		// 横座標の移動量
+		const float fMoveV,		// 縦座標の移動量
+		const VECTOR3& rPos,	// 位置
+		const VECTOR3& rRot,	// 向き
+		const VECTOR2& rSize,	// 大きさ
+		const COLOR& rCol,		// 色
+		const POSGRID2& rPart	// 分割数
 	);
 
 	// メンバ関数
-	void SetTerrain(const POSGRID2& rPart, D3DXVECTOR3 *pPosGap);	// 地形設定
+	void SetTerrain(const POSGRID2& rPart, VECTOR3 *pPosGap);	// 地形設定
 	void SetAlpha(const float fAlpha);			// 透明度設定
 	void SetColor(const COLOR& rCol);			// 色設定
 	HRESULT SetPattern(const POSGRID2& rPart);	// 分割数設定

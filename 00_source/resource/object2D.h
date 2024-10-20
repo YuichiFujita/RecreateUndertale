@@ -32,14 +32,14 @@ public:
 	// オーバーライド関数
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
-	void Update(const float fDeltaTime) override;			// 更新
-	void Draw(CShader *pShader = nullptr) override;			// 描画
-	void SetVec3Position(const D3DXVECTOR3& rPos) override;	// 位置設定
-	void SetVec3Rotation(const D3DXVECTOR3& rRot) override;	// 向き設定
-	void SetVec3Size(const D3DXVECTOR3& rSize) override;	// 大きさ設定
-	D3DXVECTOR3 GetVec3Position(void) const override	{ return m_pos; }	// 位置取得
-	D3DXVECTOR3 GetVec3Rotation(void) const override	{ return m_rot; }	// 向き取得
-	D3DXVECTOR3 GetVec3Size(void) const override		{ return m_size; }	// 大きさ取得
+	void Update(const float fDeltaTime) override;		// 更新
+	void Draw(CShader *pShader = nullptr) override;		// 描画
+	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
+	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
+	void SetVec3Size(const VECTOR3& rSize) override;	// 大きさ設定
+	VECTOR3 GetVec3Position(void) const override	{ return m_pos; }	// 位置取得
+	VECTOR3 GetVec3Rotation(void) const override	{ return m_rot; }	// 向き取得
+	VECTOR3 GetVec3Size(void) const override		{ return m_size; }	// 大きさ取得
 
 	// メンバ関数
 	CRenderState *GetRenderState(void);			// レンダーステート情報取得
@@ -54,10 +54,10 @@ public:
 	// 静的メンバ関数
 	static CObject2D *Create	// 生成
 	( // 引数
-		const D3DXVECTOR3& rPos,				// 位置
-		const D3DXVECTOR3& rSize = VEC3_ONE,	// 大きさ
-		const D3DXVECTOR3& rRot = VEC3_ZERO,	// 向き
-		const COLOR& rCol = color::White()		// 色
+		const VECTOR3& rPos,				// 位置
+		const VECTOR3& rSize = VEC3_ONE,	// 大きさ
+		const VECTOR3& rRot = VEC3_ZERO,	// 向き
+		const COLOR& rCol = color::White()	// 色
 	);
 
 protected:
@@ -84,9 +84,9 @@ private:
 	// メンバ変数
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;	// 頂点バッファへのポインタ
 	CRenderState *m_pRenderState;		// レンダーステートの情報
-	D3DXVECTOR3	m_pos;		// 位置
-	D3DXVECTOR3	m_rot;		// 向き
-	D3DXVECTOR3	m_size;		// 大きさ
+	VECTOR3	m_pos;			// 位置
+	VECTOR3	m_rot;			// 向き
+	VECTOR3	m_size;			// 大きさ
 	COLOR	m_col;			// 色
 	float	m_fAngle;		// 対角線の角度
 	float	m_fLength;		// 対角線の長さ

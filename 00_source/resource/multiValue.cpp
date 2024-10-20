@@ -145,7 +145,7 @@ void CMultiValue::SetPriority(const int nPriority)
 //============================================================
 //	位置の設定処理
 //============================================================
-void CMultiValue::SetVec3Position(const D3DXVECTOR3& rPos)
+void CMultiValue::SetVec3Position(const VECTOR3& rPos)
 {
 	// 引数の位置を設定
 	m_pos = rPos;
@@ -157,7 +157,7 @@ void CMultiValue::SetVec3Position(const D3DXVECTOR3& rPos)
 //============================================================
 //	向きの設定処理
 //============================================================
-void CMultiValue::SetVec3Rotation(const D3DXVECTOR3& rRot)
+void CMultiValue::SetVec3Rotation(const VECTOR3& rRot)
 {
 	// 設定する向きを保存
 	m_rot = rRot;
@@ -177,7 +177,7 @@ void CMultiValue::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 //	大きさの設定処理
 //============================================================
-void CMultiValue::SetVec3Size(const D3DXVECTOR3& rSize)
+void CMultiValue::SetVec3Size(const VECTOR3& rSize)
 {
 	// 設定する大きさを保存
 	m_size = rSize;
@@ -202,12 +202,12 @@ CMultiValue *CMultiValue::Create
 	const CValue::EType type,	// 数字種類
 	const int nNum,				// 数字
 	const int nDigit,			// 桁数
-	const D3DXVECTOR3& rPos,	// 位置
-	const D3DXVECTOR3& rSize,	// 大きさ
-	const D3DXVECTOR3& rSpace,	// 空白
+	const VECTOR3& rPos,		// 位置
+	const VECTOR3& rSize,		// 大きさ
+	const VECTOR3& rSpace,		// 空白
 	const EAlignX alignX,		// 横配置
 	const EAlignY alignY,		// 縦配置
-	const D3DXVECTOR3& rRot,	// 向き
+	const VECTOR3& rRot,		// 向き
 	const COLOR& rCol			// 色
 )
 {
@@ -488,7 +488,7 @@ void CMultiValue::SetColor(const COLOR& rCol)
 //============================================================
 //	空白の設定処理
 //============================================================
-void CMultiValue::SetSpace(const D3DXVECTOR3& rSpace)
+void CMultiValue::SetSpace(const VECTOR3& rSpace)
 {
 	// 引数の空白を設定
 	m_space = rSpace;
@@ -550,13 +550,13 @@ float CMultiValue::GetValueHeight(void) const
 //============================================================
 //	数字全体の大きさ取得処理
 //============================================================
-D3DXVECTOR3 CMultiValue::GetValueSize(void) const
+VECTOR3 CMultiValue::GetValueSize(void) const
 {
 	// 数字がない場合抜ける
 	if ((int)m_listValue.size() <= 0) { assert(false); return VEC3_ZERO; }
 
 	// 数字全体の大きさを返す
-	return D3DXVECTOR3(GetValueWidth(), GetValueHeight(), 0.0f);
+	return VECTOR3(GetValueWidth(), GetValueHeight(), 0.0f);
 }
 
 //============================================================
@@ -567,15 +567,15 @@ void CMultiValue::SetPositionRelative(void)
 	// 数字がない場合抜ける
 	if ((int)m_listValue.size() <= 0) { return; }
 
-	D3DXVECTOR3 sizeValue	= GetValueSize() * 0.5f;	// 数字全体の大きさ
-	D3DXVECTOR3 sizeHead	= m_listValue.front()->GetVec3Size() * 0.5f;		// 先頭数字の大きさ
-	D3DXVECTOR3 rotStart	= D3DXVECTOR3(m_rot.z + HALF_PI, m_rot.z, 0.0f);	// 文字の開始向き
+	VECTOR3 sizeValue	= GetValueSize() * 0.5f;	// 数字全体の大きさ
+	VECTOR3 sizeHead	= m_listValue.front()->GetVec3Size() * 0.5f;	// 先頭数字の大きさ
+	VECTOR3 rotStart	= VECTOR3(m_rot.z + HALF_PI, m_rot.z, 0.0f);	// 文字の開始向き
 
-	D3DXVECTOR3 posOffset = VEC3_ZERO;	// 文字の開始オフセット
+	VECTOR3 posOffset = VEC3_ZERO;	// 文字の開始オフセット
 	posOffset.x = -sizeValue.x + sizeHead.x - (sizeValue.x * (m_alignX - 1));
 	posOffset.y = -sizeValue.y + sizeHead.y - (sizeValue.y * (m_alignY - 1));
 
-	D3DXVECTOR3 posStart = VEC3_ZERO;	// 文字の開始位置
+	VECTOR3 posStart = VEC3_ZERO;	// 文字の開始位置
 	posStart.x = m_pos.x + sinf(rotStart.x) * posOffset.x + sinf(rotStart.y) * posOffset.y;	// 開始位置X
 	posStart.y = m_pos.y + cosf(rotStart.x) * posOffset.x + cosf(rotStart.y) * posOffset.y;	// 開始位置Y
 

@@ -288,7 +288,7 @@ void CParticle3D::Draw(CShader * /*pShader*/)
 //============================================================
 //	位置の設定処理
 //============================================================
-void CParticle3D::SetVec3Position(const D3DXVECTOR3& rPos)
+void CParticle3D::SetVec3Position(const VECTOR3& rPos)
 {
 	// 位置を設定
 	m_pos = rPos;
@@ -297,7 +297,7 @@ void CParticle3D::SetVec3Position(const D3DXVECTOR3& rPos)
 //============================================================
 //	生成処理
 //============================================================
-CParticle3D *CParticle3D::Create(const EType type, const D3DXVECTOR3& rPos, const COLOR& rCol)
+CParticle3D *CParticle3D::Create(const EType type, const VECTOR3& rPos, const COLOR& rCol)
 {
 	// パーティクル3Dの生成
 	CParticle3D *pParticle3D = new CParticle3D;
@@ -370,10 +370,10 @@ void CParticle3D::SetType(const EType type)
 //============================================================
 //	ダメージ
 //============================================================
-void CParticle3D::Damage(const D3DXVECTOR3& rPos, const COLOR& rCol)
+void CParticle3D::Damage(const VECTOR3& rPos, const COLOR& rCol)
 {
-	D3DXVECTOR3 move = VEC3_ZERO;	// 移動量の代入用
-	D3DXVECTOR3 rot  = VEC3_ZERO;	// 向きの代入用
+	VECTOR3 move = VEC3_ZERO;	// 移動量の代入用
+	VECTOR3 rot  = VEC3_ZERO;	// 向きの代入用
 	if ((m_nLife + 1) % 12 == 0)
 	{ // 寿命が12の倍数の場合
 
@@ -417,12 +417,12 @@ void CParticle3D::Damage(const D3DXVECTOR3& rPos, const COLOR& rCol)
 //============================================================
 //	回復
 //============================================================
-void CParticle3D::Heal(const D3DXVECTOR3& rPos, const COLOR& rCol)
+void CParticle3D::Heal(const VECTOR3& rPos, const COLOR& rCol)
 {
-	D3DXVECTOR3 vec  = VEC3_ZERO;	// ベクトルの設定用
-	D3DXVECTOR3 pos  = VEC3_ZERO;	// 位置の代入用
-	D3DXVECTOR3 move = VEC3_ZERO;	// 移動量の代入用
-	D3DXVECTOR3 rot  = VEC3_ZERO;	// 向きの代入用
+	VECTOR3 vec  = VEC3_ZERO;	// ベクトルの設定用
+	VECTOR3 pos  = VEC3_ZERO;	// 位置の代入用
+	VECTOR3 move = VEC3_ZERO;	// 移動量の代入用
+	VECTOR3 rot  = VEC3_ZERO;	// 向きの代入用
 	for (int nCntPart = 0; nCntPart < heal::SPAWN; nCntPart++)
 	{ // 生成されるエフェクト数分繰り返す
 
@@ -463,13 +463,13 @@ void CParticle3D::Heal(const D3DXVECTOR3& rPos, const COLOR& rCol)
 //============================================================
 //	炎
 //============================================================
-void CParticle3D::Fire(const D3DXVECTOR3& rPos)
+void CParticle3D::Fire(const VECTOR3& rPos)
 {
-	D3DXVECTOR3	pos  = VEC3_ZERO;	// 位置の代入用
-	D3DXVECTOR3	move = VEC3_ZERO;	// 移動量の代入用
-	D3DXVECTOR3	rot  = VEC3_ZERO;	// 向きの代入用
-	float		fRadius = 0.0f;		// 半径の代入用
-	float		fSubRad = 0.0f;		// 半径減算量の代入用
+	VECTOR3 pos  = VEC3_ZERO;	// 位置の代入用
+	VECTOR3 move = VEC3_ZERO;	// 移動量の代入用
+	VECTOR3 rot  = VEC3_ZERO;	// 向きの代入用
+	float fRadius = 0.0f;		// 半径の代入用
+	float fSubRad = 0.0f;		// 半径減算量の代入用
 	for (int nCntPart = 0; nCntPart < fire::SPAWN; nCntPart++)
 	{ // 生成されるエフェクト数分繰り返す
 
@@ -514,13 +514,13 @@ void CParticle3D::Fire(const D3DXVECTOR3& rPos)
 //============================================================
 //	小爆発
 //============================================================
-void CParticle3D::SmallExplosion(const D3DXVECTOR3& rPos)
+void CParticle3D::SmallExplosion(const VECTOR3& rPos)
 {
-	D3DXVECTOR3 vec  = VEC3_ZERO;	// ベクトルの設定用
-	D3DXVECTOR3 pos  = VEC3_ZERO;	// 位置の代入用
-	D3DXVECTOR3 move = VEC3_ZERO;	// 移動量の代入用
-	D3DXVECTOR3 rot  = VEC3_ZERO;	// 向きの代入用
-	int nLife = 0;	// 寿命の代入用
+	VECTOR3 vec  = VEC3_ZERO;	// ベクトルの設定用
+	VECTOR3 pos  = VEC3_ZERO;	// 位置の代入用
+	VECTOR3 move = VEC3_ZERO;	// 移動量の代入用
+	VECTOR3 rot  = VEC3_ZERO;	// 向きの代入用
+	int nLife = 0;				// 寿命の代入用
 	for (int nCntPart = 0; nCntPart < smallExplosion::smoke::SPAWN; nCntPart++)
 	{ // 生成されるエフェクト数分繰り返す
 
@@ -605,13 +605,13 @@ void CParticle3D::SmallExplosion(const D3DXVECTOR3& rPos)
 //============================================================
 //	大爆発
 //============================================================
-void CParticle3D::BigExplosion(const D3DXVECTOR3& rPos)
+void CParticle3D::BigExplosion(const VECTOR3& rPos)
 {
-	D3DXVECTOR3 vec  = VEC3_ZERO;	// ベクトルの設定用
-	D3DXVECTOR3 pos  = VEC3_ZERO;	// 位置の代入用
-	D3DXVECTOR3 move = VEC3_ZERO;	// 移動量の代入用
-	D3DXVECTOR3 rot  = VEC3_ZERO;	// 向きの代入用
-	int nLife = 0;	// 寿命の代入用
+	VECTOR3 vec  = VEC3_ZERO;	// ベクトルの設定用
+	VECTOR3 pos  = VEC3_ZERO;	// 位置の代入用
+	VECTOR3 move = VEC3_ZERO;	// 移動量の代入用
+	VECTOR3 rot  = VEC3_ZERO;	// 向きの代入用
+	int nLife = 0;				// 寿命の代入用
 	for (int nCntPart = 0; nCntPart < bigExplosion::smoke::SPAWN; nCntPart++)
 	{ // 生成されるエフェクト数分繰り返す
 
@@ -696,14 +696,14 @@ void CParticle3D::BigExplosion(const D3DXVECTOR3& rPos)
 //============================================================
 //	プレイヤーダメージ
 //============================================================
-void CParticle3D::PlayerDamage(const D3DXVECTOR3& rPos)
+void CParticle3D::PlayerDamage(const VECTOR3& rPos)
 {
-	D3DXVECTOR3	vec  = VEC3_ZERO;		// ベクトルの設定用
-	D3DXVECTOR3	pos  = VEC3_ZERO;		// 位置の代入用
-	D3DXVECTOR3	move = VEC3_ZERO;		// 移動量の代入用
-	D3DXVECTOR3	rot  = VEC3_ZERO;		// 向きの代入用
-	COLOR		col  = color::White();	// 色の代入用
-	int nLife = 0;	// 寿命の代入用
+	VECTOR3 vec  = VEC3_ZERO;	// ベクトルの設定用
+	VECTOR3 pos  = VEC3_ZERO;	// 位置の代入用
+	VECTOR3 move = VEC3_ZERO;	// 移動量の代入用
+	VECTOR3 rot  = VEC3_ZERO;	// 向きの代入用
+	COLOR col = color::White();	// 色の代入用
+	int nLife = 0;				// 寿命の代入用
 
 	// 生成数を設定
 	int nSpawn = (rand() % playerDamage::EFF_SPAWN) + playerDamage::RAND_SPAWN;

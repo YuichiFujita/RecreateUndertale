@@ -97,12 +97,12 @@ HRESULT CObject3D::Init(void)
 	}
 
 	// 座標のずれバッファのメモリ確保
-	m_pPosGapBuff = new D3DXVECTOR3[MAX_VERTEX];
+	m_pPosGapBuff = new VECTOR3[MAX_VERTEX];
 	if (m_pPosGapBuff != nullptr)
 	{ // 確保に成功した場合
 
 		// メモリクリア
-		memset(m_pPosGapBuff, 0, sizeof(D3DXVECTOR3) * MAX_VERTEX);
+		memset(m_pPosGapBuff, 0, sizeof(VECTOR3) * MAX_VERTEX);
 	}
 	else
 	{ // 生成に失敗した場合
@@ -189,11 +189,11 @@ void CObject3D::Draw(CShader *pShader)
 //============================================================
 CObject3D *CObject3D::Create
 (
-	const D3DXVECTOR3& rPos,	// 位置
-	const D3DXVECTOR3& rSize,	// 大きさ
-	const D3DXVECTOR3& rRot,	// 向き
-	const COLOR& rCol,			// 色
-	const EOrigin origin		// 原点
+	const VECTOR3& rPos,	// 位置
+	const VECTOR3& rSize,	// 大きさ
+	const VECTOR3& rRot,	// 向き
+	const COLOR& rCol,		// 色
+	const EOrigin origin	// 原点
 )
 {
 	// オブジェクト3Dの生成
@@ -238,7 +238,7 @@ CObject3D *CObject3D::Create
 //============================================================
 //	位置の設定処理
 //============================================================
-void CObject3D::SetVec3Position(const D3DXVECTOR3& rPos)
+void CObject3D::SetVec3Position(const VECTOR3& rPos)
 {
 	// 引数の位置を設定
 	m_pos = rPos;
@@ -250,7 +250,7 @@ void CObject3D::SetVec3Position(const D3DXVECTOR3& rPos)
 //============================================================
 //	向きの設定処理
 //============================================================
-void CObject3D::SetVec3Rotation(const D3DXVECTOR3& rRot)
+void CObject3D::SetVec3Rotation(const VECTOR3& rRot)
 {
 	// 引数の向きを設定
 	m_rot = rRot;
@@ -265,7 +265,7 @@ void CObject3D::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 //	大きさの設定処理
 //============================================================
-void CObject3D::SetVec3Size(const D3DXVECTOR3& rSize)
+void CObject3D::SetVec3Size(const VECTOR3& rSize)
 {
 	// 引数の大きさを代入
 	m_size = rSize;
@@ -359,7 +359,7 @@ void CObject3D::SetOrigin(const EOrigin origin)
 //============================================================
 //	頂点位置の設定処理
 //============================================================
-void CObject3D::SetVertexPosition(const int nID, const D3DXVECTOR3& rPos)
+void CObject3D::SetVertexPosition(const int nID, const VECTOR3& rPos)
 {
 	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
 	if (m_pVtxBuff != nullptr)
@@ -389,10 +389,10 @@ void CObject3D::SetVertexPosition(const int nID, const D3DXVECTOR3& rPos)
 //============================================================
 //	頂点位置取得処理
 //============================================================
-D3DXVECTOR3 CObject3D::GetVertexPosition(const int nID)
+VECTOR3 CObject3D::GetVertexPosition(const int nID)
 {
 	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
-	D3DXVECTOR3 pos;	// 頂点座標の代入用
+	VECTOR3 pos;		// 頂点座標の代入用
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
 
@@ -420,7 +420,7 @@ D3DXVECTOR3 CObject3D::GetVertexPosition(const int nID)
 //============================================================
 //	座標のずれの設定処理
 //============================================================
-void CObject3D::SetGapPosition(const int nID, const D3DXVECTOR3& rPos)
+void CObject3D::SetGapPosition(const int nID, const VECTOR3& rPos)
 {
 	if (m_pPosGapBuff != nullptr)
 	{ // 使用中の場合
@@ -438,9 +438,9 @@ void CObject3D::SetGapPosition(const int nID, const D3DXVECTOR3& rPos)
 //============================================================
 //	座標のずれ取得処理
 //============================================================
-D3DXVECTOR3 CObject3D::GetGapPosition(const int nID)
+VECTOR3 CObject3D::GetGapPosition(const int nID)
 {
-	D3DXVECTOR3 pos = VEC3_ZERO;	// 頂点のずれの代入用
+	VECTOR3 pos = VEC3_ZERO;	// 頂点のずれの代入用
 	if (m_pPosGapBuff != nullptr)
 	{ // 使用中の場合
 
@@ -460,15 +460,15 @@ D3DXVECTOR3 CObject3D::GetGapPosition(const int nID)
 //============================================================
 //	ポリゴンの着地取得処理
 //============================================================
-float CObject3D::GetPositionHeight(const D3DXVECTOR3&rPos)
+float CObject3D::GetPositionHeight(const VECTOR3& rPos)
 {
-	D3DXVECTOR3 aVtxPos[MAX_VERTEX];	// ポリゴンの頂点座標 [※] 0：左上 1：右上 2：左下 3：右下
-	D3DXVECTOR3 nor;	// 法線ベクトル
+	VECTOR3 aVtxPos[MAX_VERTEX];	// ポリゴンの頂点座標 [※] 0：左上 1：右上 2：左下 3：右下
+	VECTOR3 nor;	// 法線ベクトル
 	for (int nCnt = 0; nCnt < MAX_VERTEX; nCnt++)
 	{ // 頂点数分繰り返す
 
-		MATRIX mtxWorld, mtxRot, mtxTrans;			// 計算用マトリックス
-		D3DXVECTOR3 pos = GetVertexPosition(nCnt);	// 頂点座標
+		MATRIX mtxWorld, mtxRot, mtxTrans;		// 計算用マトリックス
+		VECTOR3 pos = GetVertexPosition(nCnt);	// 頂点座標
 		
 		// ワールドマトリックスの初期化
 		D3DXMatrixIdentity(&mtxWorld);
@@ -486,7 +486,7 @@ float CObject3D::GetPositionHeight(const D3DXVECTOR3&rPos)
 		D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxTrans);
 
 		// 計算したマトリックスから座標を設定
-		aVtxPos[nCnt] = D3DXVECTOR3(mtxWorld._41, mtxWorld._42, mtxWorld._43);
+		aVtxPos[nCnt] = mtxWorld.GetPosition();
 	}
 
 	if (collision::TriangleOuterPillar(aVtxPos[0], aVtxPos[1], aVtxPos[2], rPos))
@@ -555,20 +555,20 @@ void CObject3D::SetVtx(void)
 	case ORIGIN_CENTER:	// 中央
 
 		// 頂点座標の設定
-		pVtx[0].pos = D3DXVECTOR3(-m_size.x * 0.5f,  m_size.y * 0.5f,  m_size.z * 0.5f);
-		pVtx[1].pos = D3DXVECTOR3( m_size.x * 0.5f,  m_size.y * 0.5f,  m_size.z * 0.5f);
-		pVtx[2].pos = D3DXVECTOR3(-m_size.x * 0.5f, -m_size.y * 0.5f, -m_size.z * 0.5f);
-		pVtx[3].pos = D3DXVECTOR3( m_size.x * 0.5f, -m_size.y * 0.5f, -m_size.z * 0.5f);
+		pVtx[0].pos = VECTOR3(-m_size.x * 0.5f,  m_size.y * 0.5f,  m_size.z * 0.5f);
+		pVtx[1].pos = VECTOR3( m_size.x * 0.5f,  m_size.y * 0.5f,  m_size.z * 0.5f);
+		pVtx[2].pos = VECTOR3(-m_size.x * 0.5f, -m_size.y * 0.5f, -m_size.z * 0.5f);
+		pVtx[3].pos = VECTOR3( m_size.x * 0.5f, -m_size.y * 0.5f, -m_size.z * 0.5f);
 
 		break;
 
 	case ORIGIN_DOWN:	// 下
 
 		// 頂点座標の設定
-		pVtx[0].pos = D3DXVECTOR3(-m_size.x * 0.5f, m_size.y,  m_size.z * 0.5f);
-		pVtx[1].pos = D3DXVECTOR3( m_size.x * 0.5f, m_size.y,  m_size.z * 0.5f);
-		pVtx[2].pos = D3DXVECTOR3(-m_size.x * 0.5f,     0.0f, -m_size.z * 0.5f);
-		pVtx[3].pos = D3DXVECTOR3( m_size.x * 0.5f,     0.0f, -m_size.z * 0.5f);
+		pVtx[0].pos = VECTOR3(-m_size.x * 0.5f, m_size.y,  m_size.z * 0.5f);
+		pVtx[1].pos = VECTOR3( m_size.x * 0.5f, m_size.y,  m_size.z * 0.5f);
+		pVtx[2].pos = VECTOR3(-m_size.x * 0.5f,     0.0f, -m_size.z * 0.5f);
+		pVtx[3].pos = VECTOR3( m_size.x * 0.5f,     0.0f, -m_size.z * 0.5f);
 
 		break;
 

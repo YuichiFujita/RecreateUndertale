@@ -84,17 +84,17 @@ void CStage::Uninit(void)
 //============================================================
 //	位置の補正処理
 //============================================================
-void CStage::LimitPosition(D3DXVECTOR3& rPos, const float fRadius)
+void CStage::LimitPosition(VECTOR3& rPos, const float fRadius)
 {
 	// XY平面角柱の内側制限
 	collision::InBoxPillarXY
 	( // 引数
 		rPos,				// 判定位置
 		VEC3_ZERO,			// 判定原点位置
-		VEC3_ALL(fRadius),	// 判定サイズ(右・上・後)
-		VEC3_ALL(fRadius),	// 判定サイズ(左・下・前)
-		D3DXVECTOR3(fabsf(m_limit.fRight), fabsf(m_limit.fUp), 0.0f),	// 判定原点サイズ(右・上・後)
-		D3DXVECTOR3(fabsf(m_limit.fLeft), fabsf(m_limit.fDown), 0.0f)	// 判定原点サイズ(左・下・前)
+		VECTOR3(fRadius),	// 判定サイズ(右・上・後)
+		VECTOR3(fRadius),	// 判定サイズ(左・下・前)
+		VECTOR3(fabsf(m_limit.fRight), fabsf(m_limit.fUp), 0.0f),	// 判定原点サイズ(右・上・後)
+		VECTOR3(fabsf(m_limit.fLeft), fabsf(m_limit.fDown), 0.0f)	// 判定原点サイズ(左・下・前)
 	);
 }
 
@@ -164,9 +164,9 @@ HRESULT CStage::BindStage(const char *pStagePath)
 	CObject::ReleaseAll(CObject::LABEL_TILE);
 
 	// TODO：後で消す
-	CTileColl::Create(CTileColl::TYPE_TRIANGLE,	D3DXVECTOR3(SIZE_TILE * -2.0f, SIZE_TILE * 2.0f, -1.0f));
-	CTileColl::Create(CTileColl::TYPE_BOX,		D3DXVECTOR3(SIZE_TILE *  0.0f, SIZE_TILE * 2.0f, -1.0f));
-	CTileColl::Create(CTileColl::TYPE_TRIANGLE,	D3DXVECTOR3(SIZE_TILE *  2.0f, SIZE_TILE * 2.0f, -1.0f));
+	CTileColl::Create(CTileColl::TYPE_TRIANGLE,	VECTOR3(SIZE_TILE * -2.0f, SIZE_TILE * 2.0f, -1.0f));
+	CTileColl::Create(CTileColl::TYPE_BOX,		VECTOR3(SIZE_TILE *  0.0f, SIZE_TILE * 2.0f, -1.0f));
+	CTileColl::Create(CTileColl::TYPE_TRIANGLE,	VECTOR3(SIZE_TILE *  2.0f, SIZE_TILE * 2.0f, -1.0f));
 
 	// ファイルを開く
 	std::ifstream file(pStagePath);	// ファイルストリーム
@@ -310,8 +310,8 @@ HRESULT CStage::LoadMap(std::ifstream *pFile, std::string& rString)
 
 		if (str == "MAP")
 		{
-			D3DXVECTOR3 pos = VEC3_ZERO;	// 位置
-			int nType = 0;					// 種類
+			VECTOR3 pos = VEC3_ZERO;	// 位置
+			int nType = 0;				// 種類
 			do { // END_MAPを読み込むまでループ
 
 				// 文字列を読み込む
@@ -372,8 +372,8 @@ HRESULT CStage::LoadSpawn(std::ifstream *pFile, std::string& rString)
 
 		if (str == "SPAWN")
 		{
-			std::string passPrev;			// 遷移元ルームパス
-			D3DXVECTOR3 pos = VEC3_ZERO;	// 位置
+			std::string passPrev;		// 遷移元ルームパス
+			VECTOR3 pos = VEC3_ZERO;	// 位置
 			CPlayer::EAngle angle = (CPlayer::EAngle)0;	// 角度
 			do { // END_SPAWNを読み込むまでループ
 
@@ -457,8 +457,8 @@ HRESULT CStage::LoadTrans(std::ifstream *pFile, std::string& rString)
 
 		if (str == "TRANS")
 		{
-			std::string passNext;			// 遷移先ルームパス
-			D3DXVECTOR3 pos = VEC3_ZERO;	// 位置
+			std::string passNext;		// 遷移先ルームパス
+			VECTOR3 pos = VEC3_ZERO;	// 位置
 			do { // END_TRANSを読み込むまでループ
 
 				// 文字列を読み込む

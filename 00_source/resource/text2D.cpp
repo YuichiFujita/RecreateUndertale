@@ -150,7 +150,7 @@ void CText2D::SetEnableDraw(const bool bDraw)
 //============================================================
 //	位置の設定処理
 //============================================================
-void CText2D::SetVec3Position(const D3DXVECTOR3& rPos)
+void CText2D::SetVec3Position(const VECTOR3& rPos)
 {
 	// 引数の位置を設定
 	m_pos = rPos;
@@ -162,7 +162,7 @@ void CText2D::SetVec3Position(const D3DXVECTOR3& rPos)
 //============================================================
 //	向きの設定処理
 //============================================================
-void CText2D::SetVec3Rotation(const D3DXVECTOR3& rRot)
+void CText2D::SetVec3Rotation(const VECTOR3& rRot)
 {
 	// 設定する向きを保存
 	m_rot = rRot;
@@ -186,12 +186,12 @@ CText2D *CText2D::Create
 (
 	const std::string &rFilePath,	// フォントパス
 	const bool bItalic,				// イタリック
-	const D3DXVECTOR3& rPos,		// 原点位置
+	const VECTOR3& rPos,			// 原点位置
 	const float fCharHeight,		// 文字縦幅
 	const float fLineHeight,		// 行間縦幅
 	const EAlignX alignX,			// 横配置
 	const EAlignY alignY,			// 縦配置
-	const D3DXVECTOR3& rRot,		// 原点向き
+	const VECTOR3& rRot,			// 原点向き
 	const COLOR& rCol				// 色
 )
 {
@@ -579,7 +579,7 @@ void CText2D::SetPositionRelative(void)
 	float fFrontHeight	= m_listString.front()->GetCharHeight() * 0.5f;	// 先頭文字列の縦幅
 	float fStartOffset	= -fTextHeight + fFrontHeight - (fTextHeight * (m_alignY - 1));	// 文字列の開始位置オフセット
 
-	D3DXVECTOR3 posStart = VEC3_ZERO;	// 文字の開始位置
+	VECTOR3 posStart = VEC3_ZERO;	// 文字の開始位置
 	posStart.x = m_pos.x + sinf(m_rot.z) * fStartOffset;	// 開始位置X
 	posStart.y = m_pos.y + cosf(m_rot.z) * fStartOffset;	// 開始位置Y
 

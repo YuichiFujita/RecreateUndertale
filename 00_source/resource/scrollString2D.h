@@ -44,11 +44,11 @@ public:
 		const std::string &rFilePath,	// フォントパス
 		const bool bItalic,				// イタリック
 		const std::string &rStr,		// 指定文字列
-		const D3DXVECTOR3 &rPos,		// 原点位置
+		const VECTOR3 &rPos,			// 原点位置
 		const float fNextTime = 0.1f,			// 文字表示の待機時間
 		const float fHeight = 100.0f,			// 文字縦幅
 		const EAlignX alignX = XALIGN_CENTER,	// 横配置
-		const D3DXVECTOR3& rRot = VEC3_ZERO,	// 原点向き
+		const VECTOR3& rRot = VEC3_ZERO,		// 原点向き
 		const COLOR& rCol = color::White()		// 色
 	);
 	static CScrollString2D *Create	// 生成 (ワイド文字列)
@@ -56,11 +56,11 @@ public:
 		const std::string &rFilePath,	// フォントパス
 		const bool bItalic,				// イタリック
 		const std::wstring &rStr,		// 指定文字列
-		const D3DXVECTOR3 &rPos,		// 原点位置
+		const VECTOR3 &rPos,			// 原点位置
 		const float fNextTime = 0.1f,			// 文字表示の待機時間
 		const float fHeight = 100.0f,			// 文字縦幅
 		const EAlignX alignX = XALIGN_CENTER,	// 横配置
-		const D3DXVECTOR3& rRot = VEC3_ZERO,	// 原点向き
+		const VECTOR3& rRot = VEC3_ZERO,		// 原点向き
 		const COLOR& rCol = color::White()		// 色
 	);
 

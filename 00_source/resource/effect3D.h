@@ -56,21 +56,21 @@ public:
 	// 静的メンバ関数
 	static CEffect3D *Create	// 生成
 	( // 引数
-		const D3DXVECTOR3&	rPos,		// 位置
-		const float			fRadius,	// 半径
-		const EType			type		= TYPE_NORMAL,		// テクスチャ
-		const int			nLife		= 10,				// 寿命
-		const D3DXVECTOR3&	rMove		= VEC3_ZERO,		// 移動量
-		const D3DXVECTOR3&	rRot		= VEC3_ZERO,		// 向き
-		const COLOR&		rCol		= color::White(),	// 色
-		const float			fSubSize	= 0.0f,				// 半径の減算量
+		const VECTOR3&	rPos,		// 位置
+		const float		fRadius,	// 半径
+		const EType		type		= TYPE_NORMAL,		// テクスチャ
+		const int		nLife		= 10,				// 寿命
+		const VECTOR3&	rMove		= VEC3_ZERO,		// 移動量
+		const VECTOR3&	rRot		= VEC3_ZERO,		// 向き
+		const COLOR&	rCol		= color::White(),	// 色
+		const float		fSubSize	= 0.0f,				// 半径の減算量
 		const CRenderState::EBlend	blend	= CRenderState::BLEND_ADD,	// αブレンド状況
 		const CObject::ELabel		label	= LABEL_EFFECT				// オブジェクトラベル
 	);
 
 private:
 	// メンバ変数
-	D3DXVECTOR3 m_move;		// 移動量
+	VECTOR3 m_move;			// 移動量
 	const EType m_type;		// 種類定数
 	int		m_nLife;		// 寿命
 	float	m_fSubSize;		// 大きさの減算量

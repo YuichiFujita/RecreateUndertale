@@ -19,8 +19,8 @@ namespace
 {
 	const char *LOAD_FOLDER = "data\\MODEL";	// モデルフォルダ相対パス
 
-	const D3DXVECTOR3 INIT_VTXMIN = D3DXVECTOR3( 9999.0f,  9999.0f,  9999.0f);	// モデルの最小の頂点座標の初期値
-	const D3DXVECTOR3 INIT_VTXMAX = D3DXVECTOR3(-9999.0f, -9999.0f, -9999.0f);	// モデルの最大の頂点座標の初期値
+	const VECTOR3 INIT_VTXMIN = VECTOR3( 9999.0f,  9999.0f,  9999.0f);	// モデルの最小の頂点座標の初期値
+	const VECTOR3 INIT_VTXMAX = VECTOR3(-9999.0f, -9999.0f, -9999.0f);	// モデルの最大の頂点座標の初期値
 }
 
 //************************************************************
@@ -319,10 +319,10 @@ HRESULT CModel::SetCollisionModel(SMapInfo *pMapInfo)
 	// マップ情報の指定がない場合エラー
 	if (pMapInfo == nullptr) { return E_FAIL; }
 
-	int			nNumVtx;	// モデルの頂点数
-	DWORD		dwSizeFVF;	// モデルの頂点フォーマットのサイズ
-	BYTE		*pVtxBuff;	// モデルの頂点バッファへのポインタ
-	D3DXVECTOR3	vtx;		// モデルの頂点座標
+	int		nNumVtx;	// モデルの頂点数
+	DWORD	dwSizeFVF;	// モデルの頂点フォーマットのサイズ
+	BYTE	*pVtxBuff;	// モデルの頂点バッファへのポインタ
+	VECTOR3	vtx;		// モデルの頂点座標
 
 	// モデルの頂点数を取得
 	nNumVtx = pMapInfo->modelData.pMesh->GetNumVertices();
@@ -337,7 +337,7 @@ HRESULT CModel::SetCollisionModel(SMapInfo *pMapInfo)
 	{ // モデルの頂点数分繰り返す
 
 		// モデルの頂点座標を代入
-		vtx = *(D3DXVECTOR3*)pVtxBuff;
+		vtx = *(VECTOR3*)pVtxBuff;
 
 		// x頂点座標の設定
 		if (vtx.x < pMapInfo->modelData.vtxMin.x)

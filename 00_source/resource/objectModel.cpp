@@ -147,7 +147,7 @@ void CObjectModel::Draw(CShader *pShader)
 //============================================================
 //	位置の設定処理
 //============================================================
-void CObjectModel::SetVec3Position(const D3DXVECTOR3& rPos)
+void CObjectModel::SetVec3Position(const VECTOR3& rPos)
 {
 	// 引数の位置を設定
 	m_pos = rPos;
@@ -156,7 +156,7 @@ void CObjectModel::SetVec3Position(const D3DXVECTOR3& rPos)
 //============================================================
 //	向きの設定処理
 //============================================================
-void CObjectModel::SetVec3Rotation(const D3DXVECTOR3& rRot)
+void CObjectModel::SetVec3Rotation(const VECTOR3& rRot)
 {
 	// 引数の向きを設定
 	m_rot = rRot;
@@ -168,7 +168,7 @@ void CObjectModel::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 //	拡大率の設定処理
 //============================================================
-void CObjectModel::SetVec3Scale(const D3DXVECTOR3& rScale)
+void CObjectModel::SetVec3Scale(const VECTOR3& rScale)
 {
 	// 引数の拡大率を代入
 	m_scale = rScale;
@@ -177,7 +177,7 @@ void CObjectModel::SetVec3Scale(const D3DXVECTOR3& rScale)
 //============================================================
 //	生成処理
 //============================================================
-CObjectModel *CObjectModel::Create(const D3DXVECTOR3& rPos, const D3DXVECTOR3& rRot, const D3DXVECTOR3& rScale)
+CObjectModel *CObjectModel::Create(const VECTOR3& rPos, const VECTOR3& rRot, const VECTOR3& rScale)
 {
 	// オブジェクトモデルの生成
 	CObjectModel *pModel = new CObjectModel;

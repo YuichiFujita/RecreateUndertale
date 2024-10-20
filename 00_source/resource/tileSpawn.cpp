@@ -56,7 +56,7 @@ HRESULT CTileSpawn::Init(void)
 	BindTexture(TEXTURE_FILE);
 
 	// ëÂÇ´Ç≥Çê›íË
-	SetVec3Size(D3DXVECTOR3(SIZE_TILE, SIZE_TILE, 0.0f));
+	SetVec3Size(VECTOR3(SIZE_TILE, SIZE_TILE, 0.0f));
 
 	// ê¨å˜Çï‘Ç∑
 	return S_OK;
@@ -92,7 +92,7 @@ void CTileSpawn::Draw(CShader *pShader)
 //============================================================
 //	ê∂ê¨èàóù
 //============================================================
-CTileSpawn *CTileSpawn::Create(const char *pPrevPath, const D3DXVECTOR3& rPos)
+CTileSpawn *CTileSpawn::Create(const char *pPrevPath, const VECTOR3& rPos)
 {
 	// èoåªÉ^ÉCÉãÇÃê∂ê¨
 	CTileSpawn *pTileSpawn = new CTileSpawn(pPrevPath);

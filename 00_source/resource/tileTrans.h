@@ -40,20 +40,20 @@ public:
 	void Draw(CShader *pShader = nullptr) override;	// 描画
 
 	// 静的メンバ関数
-	static CTileTrans *Create(const char *pNextPath, const D3DXVECTOR3& rPos);	// 生成
+	static CTileTrans *Create(const char *pNextPath, const VECTOR3& rPos);	// 生成
 	static CListManager<CTileTrans> *GetList(void);	// リスト取得
 
 	static void CollisionTile	// 遷移タイルとの当たり判定
 	( // 引数
-		const D3DXVECTOR3& rPos,		// 位置
-		const D3DXVECTOR3& rRot,		// 向き
+		const VECTOR3& rPos,			// 位置
+		const VECTOR3& rRot,			// 向き
 		const CObjectChara2D *pChara2D	// キャラクター2D情報
 	);
 	static void CollisionTile	// 遷移タイルとの当たり判定
 	( // 引数
-		const D3DXVECTOR3& rPos,		// 位置
-		const D3DXVECTOR3& rSizeUp,		// 大きさ (右/上/後)
-		const D3DXVECTOR3& rSizeDown	// 大きさ (左/下/前)
+		const VECTOR3& rPos,		// 位置
+		const VECTOR3& rSizeUp,		// 大きさ (右/上/後)
+		const VECTOR3& rSizeDown	// 大きさ (左/下/前)
 	);
 
 private:

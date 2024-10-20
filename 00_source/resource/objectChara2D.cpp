@@ -82,7 +82,7 @@ void CObjectChara2D::Draw(CShader *pShader)
 //============================================================
 //	生成処理
 //============================================================
-CObjectChara2D *CObjectChara2D::Create(const D3DXVECTOR3 &rPos, const D3DXVECTOR3 &rRot)
+CObjectChara2D *CObjectChara2D::Create(const VECTOR3 &rPos, const VECTOR3 &rRot)
 {
 	// オブジェクトキャラクター2Dの生成
 	CObjectChara2D *pObjectChara2D = new CObjectChara2D;
@@ -227,46 +227,42 @@ bool CObjectChara2D::IsCombo(void) const
 //============================================================
 //	原点オフセット反映位置の計算処理
 //============================================================
-D3DXVECTOR3 CObjectChara2D::CalcOriginOffsetPosition(const D3DXVECTOR3& rPos, const D3DXVECTOR3& rRot) const
+VECTOR3 CObjectChara2D::CalcOriginOffsetPosition(const VECTOR3& rPos, const VECTOR3& rRot) const
 {
-	const D3DXVECTOR3& rOffset = m_info.vecMotion[m_info.nType].infoChara.offset;	// オフセット
-
 	// オフセット反映位置の計算結果を返す
+	const VECTOR3& rOffset = m_info.vecMotion[m_info.nType].infoChara.offset;	// オフセット
 	return CalcOffsetPosition(rPos, rRot, rOffset);
 }
 
 //============================================================
 //	判定原点オフセット反映位置の計算処理
 //============================================================
-D3DXVECTOR3 CObjectChara2D::CalcCollOffsetPosition(const D3DXVECTOR3& rPos, const D3DXVECTOR3& rRot) const
+VECTOR3 CObjectChara2D::CalcCollOffsetPosition(const VECTOR3& rPos, const VECTOR3& rRot) const
 {
-	const D3DXVECTOR3& rOffset = m_info.vecMotion[m_info.nType].infoColl.offset;	// オフセット
-
 	// オフセット反映位置の計算結果を返す
+	const VECTOR3& rOffset = m_info.vecMotion[m_info.nType].infoColl.offset;	// オフセット
 	return CalcOffsetPosition(rPos, rRot, rOffset);
 }
 
 //============================================================
 //	原点オフセット反映位置の取得処理
 //============================================================
-D3DXVECTOR3 CObjectChara2D::GetOriginOffsetPosition(void) const
+VECTOR3 CObjectChara2D::GetOriginOffsetPosition(void) const
 {
-	const D3DXVECTOR3& rPos = GetVec3Position();	// 位置
-	const D3DXVECTOR3& rRot = GetVec3Rotation();	// 向き
-
 	// 原点オフセット反映位置の計算結果を返す
+	const VECTOR3& rPos = GetVec3Position();	// 位置
+	const VECTOR3& rRot = GetVec3Rotation();	// 向き
 	return CalcOriginOffsetPosition(rPos, rRot);
 }
 
 //============================================================
 //	判定原点オフセット反映位置の取得処理
 //============================================================
-D3DXVECTOR3 CObjectChara2D::GetCollOffsetPosition(void) const
+VECTOR3 CObjectChara2D::GetCollOffsetPosition(void) const
 {
-	const D3DXVECTOR3& rPos = GetVec3Position();	// 位置
-	const D3DXVECTOR3& rRot = GetVec3Rotation();	// 向き
-
 	// 判定原点オフセット反映位置の計算結果を返す
+	const VECTOR3& rPos = GetVec3Position();	// 位置
+	const VECTOR3& rRot = GetVec3Rotation();	// 向き
 	return CalcCollOffsetPosition(rPos, rRot);
 }
 
@@ -275,11 +271,11 @@ D3DXVECTOR3 CObjectChara2D::GetCollOffsetPosition(void) const
 //============================================================
 void CObjectChara2D::CalcDrawMatrix(void)
 {
-	D3DXVECTOR3 offset = m_info.vecMotion[m_info.nType].infoChara.offset;	// オフセット
+	VECTOR3 offset = m_info.vecMotion[m_info.nType].infoChara.offset;	// オフセット
 	MATRIX *pMtxWorld = GetPtrMtxWorld();	// ワールドマトリックス
 	MATRIX mtxRot, mtxTrans, mtxOffset;		// 計算用マトリックス
-	D3DXVECTOR3 pos = GetVec3Position();	// 位置
-	D3DXVECTOR3 rot = GetVec3Rotation();	// 向き
+	VECTOR3 pos = GetVec3Position();		// 位置
+	VECTOR3 rot = GetVec3Rotation();		// 向き
 
 	// ワールドマトリックスの初期化
 	D3DXMatrixIdentity(pMtxWorld);
@@ -300,11 +296,11 @@ void CObjectChara2D::CalcDrawMatrix(void)
 //============================================================
 //	オフセット反映位置の計算処理
 //============================================================
-D3DXVECTOR3 CObjectChara2D::CalcOffsetPosition
+VECTOR3 CObjectChara2D::CalcOffsetPosition
 (
-	const D3DXVECTOR3& rPos,	// 位置
-	const D3DXVECTOR3& rRot,	// 向き
-	const D3DXVECTOR3& rOffset	// オフセット
+	const VECTOR3& rPos,	// 位置
+	const VECTOR3& rRot,	// 向き
+	const VECTOR3& rOffset	// オフセット
 ) const
 {
 	MATRIX mtxWorld, mtxRot, mtxTrans, mtxOffset;	// 計算用マトリックス

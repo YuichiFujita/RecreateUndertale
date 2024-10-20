@@ -26,9 +26,9 @@ namespace
 
 	namespace frame
 	{
-		const D3DXVECTOR3 POS	= D3DXVECTOR3(155.0f, 362.5f, 0.0f);	// フレーム位置
-		const D3DXVECTOR3 ROT	= VEC3_ZERO;							// フレーム向き
-		const D3DXVECTOR3 SIZE	= D3DXVECTOR3(200.0f, 205.0f, 0.0f);	// フレーム大きさ
+		const VECTOR3 POS	= VECTOR3(155.0f, 362.5f, 0.0f);	// フレーム位置
+		const VECTOR3 ROT	= VEC3_ZERO;						// フレーム向き
+		const VECTOR3 SIZE	= VECTOR3(200.0f, 205.0f, 0.0f);	// フレーム大きさ
 	}
 
 	namespace select
@@ -39,18 +39,18 @@ namespace
 		const float	CHAR_HEIGHT	= 43.0f;	// 文字縦幅
 		const float	LINE_HEIGHT	= 53.0f;	// 行間縦幅
 
-		const EAlignX ALIGN_X	= XALIGN_LEFT;		// 横配置
-		const D3DXVECTOR3 POS	= D3DXVECTOR3(125.0f, 308.5f, 0.0f);	// 位置
-		const D3DXVECTOR3 ROT	= VEC3_ZERO;		// 向き
-		const COLOR COL_DEFAULT	= color::White();	// 通常色
-		const COLOR COL_CHOICE	= color::Yellow();	// 選択色
+		const VECTOR3	POS	= VECTOR3(125.0f, 308.5f, 0.0f);	// 位置
+		const VECTOR3	ROT	= VEC3_ZERO;				// 向き
+		const COLOR		COL_DEFAULT	= color::White();	// 通常色
+		const COLOR		COL_CHOICE	= color::Yellow();	// 選択色
+		const EAlignX	ALIGN_X = XALIGN_LEFT;			// 横配置
 	}
 
 	namespace soul
 	{
-		const char *PASS		= "data\\TEXTURE\\spr_heartsmall.png";	// ソウルカーソルテクスチャパス
-		const D3DXVECTOR3 POS	= D3DXVECTOR3(97.5f, 308.5f, 0.0f);		// ソウルカーソル位置
-		const D3DXVECTOR3 SIZE	= D3DXVECTOR3(26.5f, 26.5f, 0.0f);		// ソウルカーソル大きさ
+		const char *PASS	= "data\\TEXTURE\\spr_heartsmall.png";	// ソウルカーソルテクスチャパス
+		const VECTOR3 POS	= VECTOR3(97.5f, 308.5f, 0.0f);		// ソウルカーソル位置
+		const VECTOR3 SIZE	= VECTOR3(26.5f, 26.5f, 0.0f);		// ソウルカーソル大きさ
 	}
 }
 
@@ -112,7 +112,7 @@ HRESULT CMenuSelectUI::Init(void)
 	{ // 選択肢の項目数分繰り返す
 
 		// 文字位置オフセット
-		D3DXVECTOR3 offset = D3DXVECTOR3(0.0f, select::LINE_HEIGHT * i, 0.0f);
+		VECTOR3 offset = VECTOR3(0.0f, select::LINE_HEIGHT * i, 0.0f);
 
 		// 選択肢の生成
 		m_apSelect[i] = CString2D::Create
@@ -265,7 +265,7 @@ void CMenuSelectUI::UpdateSelect(void)
 	}
 
 	// 文字位置オフセットを計算
-	D3DXVECTOR3 offset = D3DXVECTOR3(0.0f, select::LINE_HEIGHT * m_nCurSelect, 0.0f);
+	VECTOR3 offset = VECTOR3(0.0f, select::LINE_HEIGHT * m_nCurSelect, 0.0f);
 
 	// ソウルカーソルの位置を移動
 	m_pSoul->SetVec3Position(soul::POS + offset);

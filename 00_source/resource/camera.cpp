@@ -22,7 +22,7 @@ namespace
 	// カメラ基本情報
 	namespace basic
 	{
-		const D3DXVECTOR3 INIT_VECU = D3DXVECTOR3(0.0f, 1.0f, 0.0f);	// 上方向ベクトルの初期値
+		const VECTOR3 INIT_VECU	= VECTOR3(0.0f, 1.0f, 0.0f);	// 上方向ベクトルの初期値
 		const float VIEW_NEAR	= 10.0f;	// モデルが見えるZ軸の最小値
 		const float VIEW_FAR	= 10000.0f;	// モデルが見えるZ軸の最大値
 		const float MIN_DIS		= 1.0f;		// カメラの視点から注視点への距離の最小
@@ -38,8 +38,8 @@ namespace
 	// 固定カメラ情報
 	namespace none
 	{
-		const D3DXVECTOR3 POSR	= D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 注視点位置
-		const D3DXVECTOR3 ROT	= D3DXVECTOR3(HALF_PI, 0.0f, 0.0f);	// 向き
+		const VECTOR3 POSR		= VECTOR3(0.0f, 0.0f, 0.0f);	// 注視点位置
+		const VECTOR3 ROT		= VECTOR3(HALF_PI, 0.0f, 0.0f);	// 向き
 		const float DISTANCE	= 100.0f;	// 追従カメラの距離
 		const float REV_POS		= 1.0f;		// カメラ位置の補正係数
 		const float REV_ROT		= 1.0f;		// カメラ向きの補正係数
@@ -48,7 +48,7 @@ namespace
 	// 追従カメラ情報
 	namespace follow
 	{
-		const D3DXVECTOR3 ROT	= D3DXVECTOR3(HALF_PI, 0.0f, 0.0f);	// 向き
+		const VECTOR3 ROT		= VECTOR3(HALF_PI, 0.0f, 0.0f);	// 向き
 		const float DISTANCE	= 100.0f;	// 追従カメラの距離
 		const float REV_POS		= 1.0f;		// カメラ位置の補正係数
 		const float REV_ROT		= 1.0f;		// カメラ向きの補正係数
@@ -237,7 +237,7 @@ void CCamera::SetCamera(void)
 //============================================================
 //	視点の設定処理
 //============================================================
-void CCamera::SetPositionV(const D3DXVECTOR3& rPosV)
+void CCamera::SetPositionV(const VECTOR3& rPosV)
 {
 	SCamera *pCamera = &m_camera;	// メインカメラ情報
 
@@ -253,7 +253,7 @@ void CCamera::SetPositionV(const D3DXVECTOR3& rPosV)
 //============================================================
 //	注視点の設定処理
 //============================================================
-void CCamera::SetPositionR(const D3DXVECTOR3& rPosR)
+void CCamera::SetPositionR(const VECTOR3& rPosR)
 {
 	SCamera *pCamera = &m_camera;	// メインカメラ情報
 
@@ -269,7 +269,7 @@ void CCamera::SetPositionR(const D3DXVECTOR3& rPosR)
 //============================================================
 //	向きの設定処理
 //============================================================
-void CCamera::SetRotation(const D3DXVECTOR3& rRot)
+void CCamera::SetRotation(const VECTOR3& rRot)
 {
 	SCamera *pCamera = &m_camera;	// メインカメラ情報
 
@@ -374,7 +374,7 @@ void CCamera::InitFollow(void)
 	//----------------------------------------------------
 	//	位置の更新
 	//----------------------------------------------------
-	D3DXVECTOR3 posLook = pPlayer->GetVec3Position();	// 視界中心座標
+	VECTOR3 posLook = pPlayer->GetVec3Position();	// 視界中心座標
 
 	// 視界の中心座標をステージ範囲に抑える
 	pStage->LimitPosition(posLook, 0.0f);
@@ -523,7 +523,7 @@ void CCamera::UpdateNone(void)
 	//----------------------------------------------------
 	//	向きの更新
 	//----------------------------------------------------
-	D3DXVECTOR3 diffRot = VEC3_ZERO;	// 差分向き
+	VECTOR3 diffRot = VEC3_ZERO;	// 差分向き
 
 	// 目標向きの設定
 	m_camera.destRot = none::ROT;
@@ -546,8 +546,8 @@ void CCamera::UpdateNone(void)
 	//----------------------------------------------------
 	//	位置の更新
 	//----------------------------------------------------
-	D3DXVECTOR3 diffPosV = VEC3_ZERO;	// 視点の差分位置
-	D3DXVECTOR3 diffPosR = VEC3_ZERO;	// 注視点の差分位置
+	VECTOR3 diffPosV = VEC3_ZERO;	// 視点の差分位置
+	VECTOR3 diffPosR = VEC3_ZERO;	// 注視点の差分位置
 
 	// 注視点の更新
 	m_camera.destPosR = none::POSR;
@@ -585,7 +585,7 @@ void CCamera::UpdateFollow(void)
 	//----------------------------------------------------
 	//	向きの更新
 	//----------------------------------------------------
-	D3DXVECTOR3 diffRot = VEC3_ZERO;	// 差分向き
+	VECTOR3 diffRot = VEC3_ZERO;	// 差分向き
 
 	// 目標向きの設定
 	m_camera.destRot = follow::ROT;
@@ -608,8 +608,8 @@ void CCamera::UpdateFollow(void)
 	//----------------------------------------------------
 	//	位置の更新
 	//----------------------------------------------------
-	D3DXVECTOR3 diffPosV = VEC3_ZERO;	// 視点の差分位置
-	D3DXVECTOR3 diffPosR = VEC3_ZERO;	// 注視点の差分位置
+	VECTOR3 diffPosV = VEC3_ZERO;	// 視点の差分位置
+	VECTOR3 diffPosR = VEC3_ZERO;	// 注視点の差分位置
 
 	// 注視点の更新
 	m_camera.destPosR = pPlayer->GetVec3Position();	// プレイヤーを視界の中心に
@@ -651,8 +651,8 @@ void CCamera::UpdateControl(void)
 //============================================================
 void CCamera::UpdateMove(void)
 {
-	CInputMouse *pMouse = GET_INPUTMOUSE;		// マウス情報
-	D3DXVECTOR3 mouseMove = pMouse->GetMove();	// マウス移動量
+	CInputMouse *pMouse = GET_INPUTMOUSE;	// マウス情報
+	VECTOR3 mouseMove = pMouse->GetMove();	// マウス移動量
 
 	// マウス操作の更新
 	if (pMouse->IsPress(CInputMouse::KEY_LEFT) && pMouse->IsPress(CInputMouse::KEY_RIGHT))
@@ -677,8 +677,8 @@ void CCamera::UpdateMove(void)
 //============================================================
 void CCamera::UpdateDistance(void)
 {
-	CInputMouse *pMouse = GET_INPUTMOUSE;		// マウス情報
-	D3DXVECTOR3 mouseMove = pMouse->GetMove();	// マウス移動量
+	CInputMouse *pMouse = GET_INPUTMOUSE;	// マウス情報
+	VECTOR3 mouseMove = pMouse->GetMove();	// マウス移動量
 
 	// マウス操作の更新
 	if (mouseMove.z != 0.0f)
@@ -697,8 +697,8 @@ void CCamera::UpdateDistance(void)
 //============================================================
 void CCamera::UpdateRotation(void)
 {
-	CInputMouse *pMouse = GET_INPUTMOUSE;		// マウス情報
-	D3DXVECTOR3 mouseMove = pMouse->GetMove();	// マウス移動量
+	CInputMouse *pMouse = GET_INPUTMOUSE;	// マウス情報
+	VECTOR3 mouseMove = pMouse->GetMove();	// マウス移動量
 
 	// マウス操作の更新
 	if (pMouse->IsPress(CInputMouse::KEY_LEFT) && !pMouse->IsPress(CInputMouse::KEY_RIGHT))
@@ -749,7 +749,7 @@ void CCamera::UpdateSwing(void)
 	// カメラ操作状態の場合抜ける
 	if (m_state == STATE_CONTROL) { return; }
 
-	SCamera *pCamera = &m_camera;			// カメラ情報
+	SCamera *pCamera = &m_camera;		// カメラ情報
 	SSwing  *pSwing  = &m_camera.swing;	// カメラ揺れ情報
 
 	if (pSwing->fShiftLength > 0.0f)
@@ -757,9 +757,9 @@ void CCamera::UpdateSwing(void)
 
 		D3DXQUATERNION quat;	// クォータニオン
 		MATRIX mtxRot;			// 回転マトリックス
-		D3DXVECTOR3 offset;		// 位置ずれオフセット
+		VECTOR3 offset;			// 位置ずれオフセット
 		float fRotY;			// 位置ずれ向き
-		D3DXVECTOR3 vecAxis = pCamera->posR - pCamera->posV;	// 回転軸ベクトル
+		VECTOR3 vecAxis = pCamera->posR - pCamera->posV;	// 回転軸ベクトル
 
 		// クォータニオンを作成
 		D3DXVec3Normalize(&vecAxis, &vecAxis);	// 回転軸を正規化
@@ -773,7 +773,7 @@ void CCamera::UpdateSwing(void)
 
 		// 位置ずれオフセットを設定
 		float fCalcTemp = pSwing->fShiftLength * (fabsf(pCamera->fDis) * basic::REV_DIS);
-		offset = D3DXVECTOR3(sinf(fRotY) * fCalcTemp, 0.0f, cosf(fRotY) * fCalcTemp);
+		offset = VECTOR3(sinf(fRotY) * fCalcTemp, 0.0f, cosf(fRotY) * fCalcTemp);
 
 		// オフセットを反映した回転マトリックスを座標変換
 		D3DXVec3TransformCoord(&pSwing->shiftPos, &offset, &mtxRot);

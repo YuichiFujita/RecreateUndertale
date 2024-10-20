@@ -52,14 +52,12 @@
 // VECTOR2関係
 #define VEC2_ZERO	(VECTOR2(0.0f, 0.0f))	// 0クリア
 #define VEC2_ONE	(VECTOR2(1.0f, 1.0f))	// 1クリア
-#define VEC2_ALL(f)	(VECTOR2((f), (f))		// 同値クリア
 
 // VECTOR3関係
-#define VEC3_ZERO	(D3DXVECTOR3(0.0f, 0.0f, 0.0f))	// 0クリア
-#define VEC3_ONE	(D3DXVECTOR3(1.0f, 1.0f, 1.0f))	// 1クリア
-#define VEC3_ALL(f)	(D3DXVECTOR3((f), (f), (f)))	// 同値クリア
-#define SCREEN_CENT	(D3DXVECTOR3(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f, 0.0f))	// ウインドウの中央座標
-#define SCREEN_SIZE	(D3DXVECTOR3((float)SCREEN_WIDTH, (float)SCREEN_HEIGHT, 0.0f))	// ウインドウの画面サイズ
+#define VEC3_ZERO	(VECTOR3(0.0f, 0.0f, 0.0f))	// 0クリア
+#define VEC3_ONE	(VECTOR3(1.0f, 1.0f, 1.0f))	// 1クリア
+#define SCREEN_CENT	(VECTOR3(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f, 0.0f))	// ウインドウの中央座標
+#define SCREEN_SIZE	(VECTOR3((float)SCREEN_WIDTH, (float)SCREEN_HEIGHT, 0.0f))	// ウインドウの画面サイズ
 
 // POSGRID2関係
 #define GRID2_ZERO	(POSGRID2(0, 0))	// 0クリア
@@ -666,13 +664,13 @@ struct MATRIX : public D3DXMATRIX
 		@brief	マトリックス位置の取得
 		@return	マトリックスの位置
 	*/
-	inline D3DXVECTOR3 GetPosition(void) const { return D3DXVECTOR3(this->_41, this->_42, this->_43); }
+	inline VECTOR3 GetPosition(void) const { return VECTOR3(this->_41, this->_42, this->_43); }
 
 	/*
 		@brief	マトリックス向きの取得
 		@return	マトリックスの向き
 	*/
-	inline D3DXVECTOR3 GetRotation(void) const
+	inline VECTOR3 GetRotation(void) const
 	{
 		float fYaw, fPitch, fRoll;	// 計算結果の保存用
 		float fCosPitch;			// 向き計算用
@@ -696,16 +694,16 @@ struct MATRIX : public D3DXMATRIX
 		}
 
 		// マトリックスの向きを返す
-		return D3DXVECTOR3(fPitch, fYaw, fRoll);
+		return VECTOR3(fPitch, fYaw, fRoll);
 	}
 
 	/*
 		@brief	マトリックス拡大率の取得
 		@return	マトリックスの拡大率
 	*/
-	inline D3DXVECTOR3 GetScale(void) const
+	inline VECTOR3 GetScale(void) const
 	{
-		D3DXVECTOR3 scale;
+		VECTOR3 scale;
 		scale.x = sqrtf(this->_11 * this->_11 + this->_12 * this->_12 + this->_13 * this->_13);
 		scale.y = sqrtf(this->_21 * this->_21 + this->_22 * this->_22 + this->_23 * this->_23);
 		scale.z = sqrtf(this->_31 * this->_31 + this->_32 * this->_32 + this->_33 * this->_33);
@@ -817,10 +815,10 @@ namespace useful
 	);
 	void NormalizeNormal	// 法線の正規化
 	( // 引数
-		const D3DXVECTOR3& rPosLeft,	// 左位置
-		const D3DXVECTOR3& rPosCenter,	// 中心位置
-		const D3DXVECTOR3& rPosRight,	// 右位置
-		D3DXVECTOR3& rNor				// 法線
+		const VECTOR3& rPosLeft,	// 左位置
+		const VECTOR3& rPosCenter,	// 中心位置
+		const VECTOR3& rPosRight,	// 右位置
+		VECTOR3& rNor				// 法線
 	);
 	void ReplaceConsecChar	// 文字列内の連続文字の置換
 	( // 引数
@@ -853,17 +851,17 @@ namespace useful
 
 	float RandomRot(void);			// ランダム向き取得
 	void NormalizeRot(float& rRot);	// 向きの正規化
-	void NormalizeRot(D3DXVECTOR3& rRot);			// 三軸向きの正規化
+	void NormalizeRot(VECTOR3& rRot);				// 三軸向きの正規化
 	void PathToBaseName(std::string *pPath);		// パスのベースネーム変換
 	void StandardizePathPart(std::string *pPath);	// パス区切りの標準化
 	std::string SandString(const std::string &rTop, const std::string &rMain, const std::string &rCur);		// 文字列の左右追加 (マルチバイト文字列)
 	std::wstring SandString(const std::wstring &rTop, const std::wstring &rMain, const std::wstring &rCur);	// 文字列の左右追加 (ワイド文字列)
 	std::wstring MultiByteToWide(const std::string &rSrcStr);	// マルチバイト文字列のワイド文字列変換
 	std::string WideToMultiByte(const std::wstring &rSrcStr);	// ワイド文字列のマルチバイト文字列変換
-	void VecToRot(const D3DXVECTOR3& rVec, float *pPhi, float *pTheta);		// ベクトルの向き変換
-	void RotToVec(const float fPhi, const float fTheta, D3DXVECTOR3 *pVec);	// 向きのベクトル変換
-	float GetTexWidthFromAspect(const float fHeight, const int nTexID);		// 縦幅からアスペクト比を考慮した横幅取得
-	float GetTexHeightFromAspect(const float fWidth, const int nTexID);		// 横幅からアスペクト比を考慮した縦幅取得
+	void VecToRot(const VECTOR3& rVec, float *pPhi, float *pTheta);		// ベクトルの向き変換
+	void RotToVec(const float fPhi, const float fTheta, VECTOR3 *pVec);	// 向きのベクトル変換
+	float GetTexWidthFromAspect(const float fHeight, const int nTexID);	// 縦幅からアスペクト比を考慮した横幅取得
+	float GetTexHeightFromAspect(const float fWidth, const int nTexID);	// 横幅からアスペクト比を考慮した縦幅取得
 
 	// テンプレート関数
 	template<class T> T *ZeroClear(T *pClear);	// ゼロクリア

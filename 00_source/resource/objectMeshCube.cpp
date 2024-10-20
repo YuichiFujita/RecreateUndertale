@@ -17,28 +17,28 @@
 //************************************************************
 namespace
 {
-	const D3DXVECTOR3 SET_POS_DATA[] =	// 頂点座標設定用
+	const VECTOR3 SET_POS_DATA[] =	// 頂点座標設定用
 	{
-		D3DXVECTOR3(-1.0f, +1.0f, -1.0f), D3DXVECTOR3(-1.0f, -1.0f, -1.0f),
-		D3DXVECTOR3(+1.0f, +1.0f, -1.0f), D3DXVECTOR3(+1.0f, -1.0f, -1.0f),
-		D3DXVECTOR3(+1.0f, +1.0f, +1.0f), D3DXVECTOR3(+1.0f, -1.0f, +1.0f),
-		D3DXVECTOR3(-1.0f, +1.0f, +1.0f), D3DXVECTOR3(-1.0f, -1.0f, +1.0f),
+		VECTOR3(-1.0f, +1.0f, -1.0f), VECTOR3(-1.0f, -1.0f, -1.0f),
+		VECTOR3(+1.0f, +1.0f, -1.0f), VECTOR3(+1.0f, -1.0f, -1.0f),
+		VECTOR3(+1.0f, +1.0f, +1.0f), VECTOR3(+1.0f, -1.0f, +1.0f),
+		VECTOR3(-1.0f, +1.0f, +1.0f), VECTOR3(-1.0f, -1.0f, +1.0f),
 	};
 
-	const D3DXVECTOR3 SET_NOR_DATA[] =	// 法線ベクトル設定用
+	const VECTOR3 SET_NOR_DATA[] =	// 法線ベクトル設定用
 	{
-		D3DXVECTOR3(-1.0f, 0.0f, 0.0f), D3DXVECTOR3(-1.0f, 0.0f, 0.0f),
-		D3DXVECTOR3(+1.0f, 0.0f, 0.0f), D3DXVECTOR3(+1.0f, 0.0f, 0.0f),
-		D3DXVECTOR3(+1.0f, 0.0f, 0.0f), D3DXVECTOR3(+1.0f, 0.0f, 0.0f),
-		D3DXVECTOR3(-1.0f, 0.0f, 0.0f), D3DXVECTOR3(-1.0f, 0.0f, 0.0f),
-		D3DXVECTOR3(0.0f, +1.0f, 0.0f), D3DXVECTOR3(0.0f, -1.0f, 0.0f),
-		D3DXVECTOR3(0.0f, +1.0f, 0.0f), D3DXVECTOR3(0.0f, -1.0f, 0.0f),
-		D3DXVECTOR3(0.0f, +1.0f, 0.0f), D3DXVECTOR3(0.0f, -1.0f, 0.0f),
-		D3DXVECTOR3(0.0f, +1.0f, 0.0f), D3DXVECTOR3(0.0f, -1.0f, 0.0f),
-		D3DXVECTOR3(0.0f, 0.0f, -1.0f), D3DXVECTOR3(0.0f, 0.0f, -1.0f),
-		D3DXVECTOR3(0.0f, 0.0f, -1.0f), D3DXVECTOR3(0.0f, 0.0f, -1.0f),
-		D3DXVECTOR3(0.0f, 0.0f, +1.0f), D3DXVECTOR3(0.0f, 0.0f, +1.0f),
-		D3DXVECTOR3(0.0f, 0.0f, +1.0f), D3DXVECTOR3(0.0f, 0.0f, +1.0f),
+		VECTOR3(-1.0f, 0.0f, 0.0f), VECTOR3(-1.0f, 0.0f, 0.0f),
+		VECTOR3(+1.0f, 0.0f, 0.0f), VECTOR3(+1.0f, 0.0f, 0.0f),
+		VECTOR3(+1.0f, 0.0f, 0.0f), VECTOR3(+1.0f, 0.0f, 0.0f),
+		VECTOR3(-1.0f, 0.0f, 0.0f), VECTOR3(-1.0f, 0.0f, 0.0f),
+		VECTOR3(0.0f, +1.0f, 0.0f), VECTOR3(0.0f, -1.0f, 0.0f),
+		VECTOR3(0.0f, +1.0f, 0.0f), VECTOR3(0.0f, -1.0f, 0.0f),
+		VECTOR3(0.0f, +1.0f, 0.0f), VECTOR3(0.0f, -1.0f, 0.0f),
+		VECTOR3(0.0f, +1.0f, 0.0f), VECTOR3(0.0f, -1.0f, 0.0f),
+		VECTOR3(0.0f, 0.0f, -1.0f), VECTOR3(0.0f, 0.0f, -1.0f),
+		VECTOR3(0.0f, 0.0f, -1.0f), VECTOR3(0.0f, 0.0f, -1.0f),
+		VECTOR3(0.0f, 0.0f, +1.0f), VECTOR3(0.0f, 0.0f, +1.0f),
+		VECTOR3(0.0f, 0.0f, +1.0f), VECTOR3(0.0f, 0.0f, +1.0f),
 	};
 
 	const VECTOR2 SET_TEX_DATA[] =	// テクスチャ座標設定用
@@ -217,7 +217,7 @@ void CObjectMeshCube::Draw(CShader *pShader)
 //============================================================
 //	位置の設定処理
 //============================================================
-void CObjectMeshCube::SetVec3Position(const D3DXVECTOR3& rPos)
+void CObjectMeshCube::SetVec3Position(const VECTOR3& rPos)
 {
 	// 引数の位置を設定
 	m_meshCube.pos = rPos;
@@ -226,7 +226,7 @@ void CObjectMeshCube::SetVec3Position(const D3DXVECTOR3& rPos)
 //============================================================
 //	向きの設定処理
 //============================================================
-void CObjectMeshCube::SetVec3Rotation(const D3DXVECTOR3& rRot)
+void CObjectMeshCube::SetVec3Rotation(const VECTOR3& rRot)
 {
 	// 引数の向きを設定
 	m_meshCube.rot = rRot;
@@ -238,7 +238,7 @@ void CObjectMeshCube::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 //	大きさの設定処理
 //============================================================
-void CObjectMeshCube::SetVec3Size(const D3DXVECTOR3& rSize)
+void CObjectMeshCube::SetVec3Size(const VECTOR3& rSize)
 {
 	// 引数の大きさを設定
 	m_meshCube.size = rSize;
@@ -252,9 +252,9 @@ void CObjectMeshCube::SetVec3Size(const D3DXVECTOR3& rSize)
 //============================================================
 CObjectMeshCube *CObjectMeshCube::Create
 (
-	const D3DXVECTOR3& rPos,	// 位置
-	const D3DXVECTOR3& rRot,	// 向き
-	const D3DXVECTOR3& rSize,	// 大きさ
+	const VECTOR3& rPos,		// 位置
+	const VECTOR3& rRot,		// 向き
+	const VECTOR3& rSize,		// 大きさ
 	const COLOR& rCubeCol,		// キューブ色
 	const COLOR& rBorderCol,	// 縁取り色
 	const EBorder bordState,	// 縁取り状態

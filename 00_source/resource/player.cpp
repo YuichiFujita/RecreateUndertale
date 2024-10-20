@@ -178,7 +178,7 @@ HRESULT CPlayer::ChangeState(CPlayerState *pState)
 //============================================================
 //	生成処理
 //============================================================
-CPlayer *CPlayer::Create(const D3DXVECTOR3& rPos)
+CPlayer *CPlayer::Create(const VECTOR3& rPos)
 {
 	// プレイヤーの生成
 	CPlayer *pPlayer = new CPlayer;
@@ -219,7 +219,7 @@ CListManager<CPlayer> *CPlayer::GetList(void)
 //============================================================
 //	部屋の遷移処理
 //============================================================
-void CPlayer::TransRoom(const D3DXVECTOR3& rPos, const EAngle angle)
+void CPlayer::TransRoom(const VECTOR3& rPos, const EAngle angle)
 {
 	// 引数位置を設定
 	m_oldPos = rPos;

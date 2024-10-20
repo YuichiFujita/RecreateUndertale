@@ -46,21 +46,21 @@ public:
 	// オーバーライド関数
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
-	void Update(const float fDeltaTime) override;			// 更新
-	void Draw(CShader *pShader = nullptr) override;			// 描画
-	void SetPriority(const int nPriority) override;			// 優先順位設定
-	void SetVec3Position(const D3DXVECTOR3& rPos) override;	// 位置設定
-	void SetVec3Rotation(const D3DXVECTOR3& rRot) override;	// 向き設定
-	D3DXVECTOR3 GetVec3Position(void) const override	{ return m_pCylinder->GetVec3Position(); }	// 位置取得
-	D3DXVECTOR3 GetVec3Rotation(void) const override	{ return m_pCylinder->GetVec3Rotation(); }	// 向き取得
-	MATRIX *GetPtrMtxWorld(void) override				{ return m_pCylinder->GetPtrMtxWorld(); }	// マトリックスポインタ取得
-	MATRIX GetMtxWorld(void) const override				{ return m_pCylinder->GetMtxWorld(); }		// マトリックス取得
+	void Update(const float fDeltaTime) override;		// 更新
+	void Draw(CShader *pShader = nullptr) override;		// 描画
+	void SetPriority(const int nPriority) override;		// 優先順位設定
+	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
+	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
+	VECTOR3 GetVec3Position(void) const override	{ return m_pCylinder->GetVec3Position(); }	// 位置取得
+	VECTOR3 GetVec3Rotation(void) const override	{ return m_pCylinder->GetVec3Rotation(); }	// 向き取得
+	MATRIX *GetPtrMtxWorld(void) override			{ return m_pCylinder->GetPtrMtxWorld(); }	// マトリックスポインタ取得
+	MATRIX GetMtxWorld(void) const override			{ return m_pCylinder->GetMtxWorld(); }		// マトリックス取得
 
 	// 静的メンバ関数
 	static CObjectMeshTube *Create	// 生成
 	( // 引数
-		const D3DXVECTOR3& rPos,	// 位置
-		const D3DXVECTOR3& rRot,	// 向き
+		const VECTOR3& rPos,		// 位置
+		const VECTOR3& rRot,		// 向き
 		const COLOR& rCol,			// 色
 		const POSGRID2& rPart,		// 分割数
 		const POSGRID2& rTexPart,	// テクスチャ分割数

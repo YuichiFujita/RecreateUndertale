@@ -15,8 +15,8 @@
 //************************************************************
 namespace
 {
-	const COLOR   COL_FRAME[] = { color::White(), color::Black() };	// フレーム色
-	const D3DXVECTOR3 BORD_THICK = D3DXVECTOR3(18.0f, 18.0f, 0.0f);	// 縁取り太さ
+	const COLOR COL_FRAME[] = { color::White(), color::Black() };	// フレーム色
+	const VECTOR3 BORD_THICK = VECTOR3(18.0f, 18.0f, 0.0f);	// 縁取り太さ
 	const int PRIORITY = 6;	// フレーム2Dの優先順位
 }
 
@@ -138,7 +138,7 @@ void CFrame2D::SetPriority(const int nPriority)
 //============================================================
 //	位置の設定処理
 //============================================================
-void CFrame2D::SetVec3Position(const D3DXVECTOR3& rPos)
+void CFrame2D::SetVec3Position(const VECTOR3& rPos)
 {
 	// 引数の位置を設定
 	m_pos = rPos;
@@ -152,7 +152,7 @@ void CFrame2D::SetVec3Position(const D3DXVECTOR3& rPos)
 //============================================================
 //	向きの設定処理
 //============================================================
-void CFrame2D::SetVec3Rotation(const D3DXVECTOR3& rRot)
+void CFrame2D::SetVec3Rotation(const VECTOR3& rRot)
 {
 	// 引数の向きを設定
 	m_rot = rRot;
@@ -170,7 +170,7 @@ void CFrame2D::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 //	大きさの設定処理
 //============================================================
-void CFrame2D::SetVec3Size(const D3DXVECTOR3& rSize)
+void CFrame2D::SetVec3Size(const VECTOR3& rSize)
 {
 	// 引数の大きさを設定
 	m_size = rSize;
@@ -187,9 +187,9 @@ void CFrame2D::SetVec3Size(const D3DXVECTOR3& rSize)
 //============================================================
 CFrame2D *CFrame2D::Create
 (
-	const D3DXVECTOR3& rPos,	// 位置
-	const D3DXVECTOR3& rRot,	// 向き
-	const D3DXVECTOR3& rSize	// 大きさ
+	const VECTOR3& rPos,	// 位置
+	const VECTOR3& rRot,	// 向き
+	const VECTOR3& rSize	// 大きさ
 )
 {
 	// フレーム2Dの生成

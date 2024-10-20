@@ -32,30 +32,30 @@ public:
 	// オーバーライド関数
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
-	void Update(const float fDeltaTime) override;			// 更新
-	void Draw(CShader *pShader = nullptr) override;			// 描画
-	void SetVec3Size(const D3DXVECTOR3& rSize) override;	// 大きさ設定
+	void Update(const float fDeltaTime) override;		// 更新
+	void Draw(CShader *pShader = nullptr) override;		// 描画
+	void SetVec3Size(const VECTOR3& rSize) override;	// 大きさ設定
 
 	// 静的メンバ関数
 	static CChar2D *Create	// 生成 (マルチバイト文字)
 	( // 引数
-		const std::string &rFilePath,	// フォントパス
-		const bool bItalic,				// イタリック
-		const std::string &rChar,		// 指定文字
-		const D3DXVECTOR3& rPos = VEC3_ZERO,	// 位置
-		const float fHeight = 100.0f,			// 縦幅
-		const D3DXVECTOR3& rRot = VEC3_ZERO,	// 向き
-		const COLOR& rCol = color::White()		// 色
+		const std::string &rFilePath,		// フォントパス
+		const bool bItalic,					// イタリック
+		const std::string &rChar,			// 指定文字
+		const VECTOR3& rPos = VEC3_ZERO,	// 位置
+		const float fHeight = 100.0f,		// 縦幅
+		const VECTOR3& rRot = VEC3_ZERO,	// 向き
+		const COLOR& rCol = color::White()	// 色
 	);
 	static CChar2D *Create	// 生成 (ワイド文字)
 	( // 引数
-		const std::string &rFilePath,	// フォントパス
-		const bool bItalic,				// イタリック
-		const wchar_t wcChar,			// 指定文字
-		const D3DXVECTOR3& rPos = VEC3_ZERO,	// 位置
-		const float fHeight = 100.0f,			// 縦幅
-		const D3DXVECTOR3& rRot = VEC3_ZERO,	// 向き
-		const COLOR& rCol = color::White()		// 色
+		const std::string &rFilePath,		// フォントパス
+		const bool bItalic,					// イタリック
+		const wchar_t wcChar,				// 指定文字
+		const VECTOR3& rPos = VEC3_ZERO,	// 位置
+		const float fHeight = 100.0f,		// 縦幅
+		const VECTOR3& rRot = VEC3_ZERO,	// 向き
+		const COLOR& rCol = color::White()	// 色
 	);
 
 	// メンバ関数

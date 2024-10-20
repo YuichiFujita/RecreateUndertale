@@ -238,7 +238,7 @@ void CMotion::Set(const int nType, const int nBlendFrame)
 //============================================================
 //	原点位置の設定処理
 //============================================================
-void CMotion::SetOriginPosition(const D3DXVECTOR3& rPos, const int nParts)
+void CMotion::SetOriginPosition(const VECTOR3& rPos, const int nParts)
 {
 	if (nParts > NONE_IDX && nParts < m_funcGetNumParts())
 	{ // 使用可能なインデックスの場合
@@ -252,7 +252,7 @@ void CMotion::SetOriginPosition(const D3DXVECTOR3& rPos, const int nParts)
 //============================================================
 //	原点向きの設定処理
 //============================================================
-void CMotion::SetOriginRotation(const D3DXVECTOR3& rRot, const int nParts)
+void CMotion::SetOriginRotation(const VECTOR3& rRot, const int nParts)
 {
 	if (nParts > NONE_IDX && nParts < m_funcGetNumParts())
 	{ // 使用可能なインデックスの場合
@@ -355,7 +355,7 @@ bool CMotion::IsRightWeaponCollision(void)
 //============================================================
 //	原点位置の取得処理
 //============================================================
-D3DXVECTOR3 CMotion::GetOriginPosition(const int nParts)
+VECTOR3 CMotion::GetOriginPosition(const int nParts)
 {
 	if (nParts > NONE_IDX && nParts < m_funcGetNumParts())
 	{ // 使用可能なインデックスの場合
@@ -372,7 +372,7 @@ D3DXVECTOR3 CMotion::GetOriginPosition(const int nParts)
 //============================================================
 //	原点向きの取得処理
 //============================================================
-D3DXVECTOR3 CMotion::GetOriginRotation(const int nParts)
+VECTOR3 CMotion::GetOriginRotation(const int nParts)
 {
 	if (nParts > NONE_IDX && nParts < m_funcGetNumParts())
 	{ // 使用可能なインデックスの場合
@@ -438,15 +438,14 @@ void CMotion::UpdateMove(void)
 {
 	if (m_pChara == nullptr) { return; }	// オブジェクトキャラクター未設定
 
-	MATRIX		mtxChara	= m_pChara->GetMtxWorld();		// キャラマトリックス
-	D3DXVECTOR3	posSetChara	= m_pChara->GetVec3Position();	// キャラ設定位置
-	D3DXVECTOR3	posOldChara	= mtxChara.GetPosition();		// キャラ過去位置
-	D3DXVECTOR3	posCurChara	= VEC3_ZERO;					// キャラ現在位置
+	MATRIX	mtxChara	= m_pChara->GetMtxWorld();		// キャラマトリックス
+	VECTOR3	posSetChara	= m_pChara->GetVec3Position();	// キャラ設定位置
+	VECTOR3	posOldChara	= mtxChara.GetPosition();		// キャラ過去位置
+	VECTOR3	posCurChara	= VEC3_ZERO;					// キャラ現在位置
 
 	// 移動量を求める
 	float fRate = 1.0f / (float)m_info.vecMotion[m_info.nType].vecKey[m_info.nKey].nFrame;	// キーフレーム割合
-	D3DXVECTOR3 moveRate = m_info.vecMotion[m_info.nType].vecKey[m_info.nKey].move * fRate;	// フレーム移動量
-
+	VECTOR3 moveRate = m_info.vecMotion[m_info.nType].vecKey[m_info.nKey].move * fRate;		// フレーム移動量
 	if (m_info.vecMotion[m_info.nType].vecKey[m_info.nKey].nFrame > 0)
 	{ // フレームが設定されている場合
 
@@ -482,8 +481,8 @@ void CMotion::UpdateMotion(void)
 	{ // パーツ数分繰り返す
 
 		// 位置・向きの差分を求める
-		D3DXVECTOR3 diffPos = m_info.vecMotion[nType].vecKey[nNextKey].vecParts[nCntParts].pos - m_info.vecMotion[nType].vecKey[nKey].vecParts[nCntParts].pos;
-		D3DXVECTOR3 diffRot = m_info.vecMotion[nType].vecKey[nNextKey].vecParts[nCntParts].rot - m_info.vecMotion[nType].vecKey[nKey].vecParts[nCntParts].rot;
+		VECTOR3 diffPos = m_info.vecMotion[nType].vecKey[nNextKey].vecParts[nCntParts].pos - m_info.vecMotion[nType].vecKey[nKey].vecParts[nCntParts].pos;
+		VECTOR3 diffRot = m_info.vecMotion[nType].vecKey[nNextKey].vecParts[nCntParts].rot - m_info.vecMotion[nType].vecKey[nKey].vecParts[nCntParts].rot;
 		useful::NormalizeRot(diffRot);	// 差分向きの正規化
 
 		// 現在のパーツの位置・向きを更新
@@ -552,8 +551,8 @@ void CMotion::UpdateBlend(void)
 	{ // パーツ数分繰り返す
 
 		// 位置・向きの差分を求める
-		D3DXVECTOR3 diffPos = m_info.vecMotion[m_info.nType].vecKey[0].vecParts[nCntParts].pos - m_blend.vecParts[nCntParts].pos;
-		D3DXVECTOR3 diffRot = m_info.vecMotion[m_info.nType].vecKey[0].vecParts[nCntParts].rot - m_blend.vecParts[nCntParts].rot;
+		VECTOR3 diffPos = m_info.vecMotion[m_info.nType].vecKey[0].vecParts[nCntParts].pos - m_blend.vecParts[nCntParts].pos;
+		VECTOR3 diffRot = m_info.vecMotion[m_info.nType].vecKey[0].vecParts[nCntParts].rot - m_blend.vecParts[nCntParts].rot;
 		useful::NormalizeRot(diffRot);	// 差分向きの正規化
 
 		// 現在のパーツの位置・向きを更新

@@ -119,7 +119,7 @@ void CScroll2D::Draw(CShader *pShader)
 //============================================================
 //	位置の設定処理
 //============================================================
-void CScroll2D::SetVec3Position(const D3DXVECTOR3& rPos)
+void CScroll2D::SetVec3Position(const VECTOR3& rPos)
 {
 	// 位置の設定
 	CObject2D::SetVec3Position(rPos);
@@ -131,7 +131,7 @@ void CScroll2D::SetVec3Position(const D3DXVECTOR3& rPos)
 //============================================================
 //	向きの設定処理
 //============================================================
-void CScroll2D::SetVec3Rotation(const D3DXVECTOR3& rRot)
+void CScroll2D::SetVec3Rotation(const VECTOR3& rRot)
 {
 	// 向きの設定
 	CObject2D::SetVec3Rotation(rRot);
@@ -143,7 +143,7 @@ void CScroll2D::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 //	大きさの設定処理
 //============================================================
-void CScroll2D::SetVec3Size(const D3DXVECTOR3& rSize)
+void CScroll2D::SetVec3Size(const VECTOR3& rSize)
 {
 	// 大きさの設定
 	CObject2D::SetVec3Size(rSize);
@@ -157,12 +157,12 @@ void CScroll2D::SetVec3Size(const D3DXVECTOR3& rSize)
 //============================================================
 CScroll2D *CScroll2D::Create
 (
-	const float fMoveU,			// 横座標の移動量
-	const float fMoveV,			// 縦座標の移動量
-	const D3DXVECTOR3& rPos,	// 位置
-	const D3DXVECTOR3& rSize,	// 大きさ
-	const D3DXVECTOR3& rRot,	// 向き
-	const COLOR& rCol			// 色
+	const float fMoveU,		// 横座標の移動量
+	const float fMoveV,		// 縦座標の移動量
+	const VECTOR3& rPos,	// 位置
+	const VECTOR3& rSize,	// 大きさ
+	const VECTOR3& rRot,	// 向き
+	const COLOR& rCol		// 色
 )
 {
 	// スクロール2Dの生成

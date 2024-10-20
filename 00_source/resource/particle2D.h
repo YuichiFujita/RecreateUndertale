@@ -41,16 +41,16 @@ public:
 	// オーバーライド関数
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
-	void Update(const float fDeltaTime) override;	// 更新
-	void Draw(CShader *pShader = nullptr) override;	// 描画
-	void SetVec3Position(const D3DXVECTOR3& rPos) override;	// 位置設定
-	D3DXVECTOR3 GetVec3Position(void) const override { return m_pos; }	// 位置取得
+	void Update(const float fDeltaTime) override;		// 更新
+	void Draw(CShader *pShader = nullptr) override;		// 描画
+	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
+	VECTOR3 GetVec3Position(void) const override { return m_pos; }	// 位置取得
 
 	// 静的メンバ関数
 	static CParticle2D *Create	// 生成
 	( // 引数
-		const EType type,			// 種類
-		const D3DXVECTOR3& rPos,	// 位置
+		const EType type,		// 種類
+		const VECTOR3& rPos,	// 位置
 		const COLOR& rCol = color::White()	// 色
 	);
 
@@ -67,15 +67,15 @@ private:
 	void Release(void) override { CObject::Release(); }	// 破棄
 
 	// メンバ関数
-	void Damage(const D3DXVECTOR3& rPos, const COLOR& rCol);	// ダメージ
-	void Item(const D3DXVECTOR3& rPos, const COLOR& rCol);		// アイテム
-	void GetItem(const D3DXVECTOR3& rPos, const COLOR& rCol);	// アイテム取得
+	void Damage(const VECTOR3& rPos, const COLOR& rCol);	// ダメージ
+	void Item(const VECTOR3& rPos, const COLOR& rCol);		// アイテム
+	void GetItem(const VECTOR3& rPos, const COLOR& rCol);	// アイテム取得
 
 	// メンバ変数
-	D3DXVECTOR3 m_pos;	// 位置
-	COLOR m_col;		// 色
-	EType m_type;		// 種類
-	int m_nLife;		// 寿命
+	VECTOR3 m_pos;	// 位置
+	COLOR m_col;	// 色
+	EType m_type;	// 種類
+	int m_nLife;	// 寿命
 };
 
 #endif	// _PARTICLE2D_H_

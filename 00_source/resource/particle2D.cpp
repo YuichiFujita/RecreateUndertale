@@ -175,7 +175,7 @@ void CParticle2D::Draw(CShader * /*pShader*/)
 //============================================================
 //	位置の設定処理
 //============================================================
-void CParticle2D::SetVec3Position(const D3DXVECTOR3& rPos)
+void CParticle2D::SetVec3Position(const VECTOR3& rPos)
 {
 	// 位置を設定
 	m_pos = rPos;
@@ -184,7 +184,7 @@ void CParticle2D::SetVec3Position(const D3DXVECTOR3& rPos)
 //============================================================
 //	生成処理
 //============================================================
-CParticle2D *CParticle2D::Create(const EType type, const D3DXVECTOR3& rPos, const COLOR& rCol)
+CParticle2D *CParticle2D::Create(const EType type, const VECTOR3& rPos, const COLOR& rCol)
 {
 	// パーティクル2Dの生成
 	CParticle2D *pParticle2D = new CParticle2D;
@@ -257,10 +257,10 @@ void CParticle2D::SetType(const EType type)
 //============================================================
 //	ダメージパーティクル2D処理
 //============================================================
-void CParticle2D::Damage(const D3DXVECTOR3& rPos, const COLOR& rCol)
+void CParticle2D::Damage(const VECTOR3& rPos, const COLOR& rCol)
 {
-	D3DXVECTOR3 move = VEC3_ZERO;	// 移動量の代入用
-	D3DXVECTOR3 rot = VEC3_ZERO;	// 向きの代入用
+	VECTOR3 move = VEC3_ZERO;	// 移動量の代入用
+	VECTOR3 rot = VEC3_ZERO;	// 向きの代入用
 	if ((m_nLife + 1) % 9 == 0)
 	{ // 寿命が9の倍数の場合
 
@@ -304,10 +304,10 @@ void CParticle2D::Damage(const D3DXVECTOR3& rPos, const COLOR& rCol)
 //============================================================
 //	アイテムパーティクル2D処理
 //============================================================
-void CParticle2D::Item(const D3DXVECTOR3& rPos, const COLOR& rCol)
+void CParticle2D::Item(const VECTOR3& rPos, const COLOR& rCol)
 {
-	D3DXVECTOR3 move = VEC3_ZERO;	// 移動量の代入用
-	D3DXVECTOR3 rot = VEC3_ZERO;	// 向きの代入用
+	VECTOR3 move = VEC3_ZERO;	// 移動量の代入用
+	VECTOR3 rot = VEC3_ZERO;	// 向きの代入用
 	for (int nCntPart = 0; nCntPart < item::SPAWN; nCntPart++)
 	{ // 生成されるエフェクト数分繰り返す
 
@@ -347,10 +347,10 @@ void CParticle2D::Item(const D3DXVECTOR3& rPos, const COLOR& rCol)
 //============================================================
 //	アイテム取得パーティクル2D処理
 //============================================================
-void CParticle2D::GetItem(const D3DXVECTOR3& rPos, const COLOR& rCol)
+void CParticle2D::GetItem(const VECTOR3& rPos, const COLOR& rCol)
 {
-	D3DXVECTOR3 move = VEC3_ZERO;	// 移動量の代入用
-	D3DXVECTOR3 rot = VEC3_ZERO;	// 向きの代入用
+	VECTOR3 move = VEC3_ZERO;	// 移動量の代入用
+	VECTOR3 rot = VEC3_ZERO;	// 向きの代入用
 	for (int nCntPart = 0; nCntPart < itemGet::SPAWN; nCntPart++)
 	{ // 生成されるエフェクト数分繰り返す
 

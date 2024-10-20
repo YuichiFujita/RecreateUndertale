@@ -25,129 +25,130 @@ namespace
 
 	namespace frame
 	{
-		const D3DXVECTOR3 POS	= D3DXVECTOR3(555.0f, 386.5f, 0.0f);	// フレーム位置
-		const D3DXVECTOR3 ROT	= VEC3_ZERO;							// フレーム向き
-		const D3DXVECTOR3 SIZE	= D3DXVECTOR3(525.0f, 600.0f, 0.0f);	// フレーム大きさ
+		const VECTOR3 POS	= VECTOR3(555.0f, 386.5f, 0.0f);	// フレーム位置
+		const VECTOR3 ROT	= VEC3_ZERO;						// フレーム向き
+		const VECTOR3 SIZE	= VECTOR3(525.0f, 600.0f, 0.0f);	// フレーム大きさ
 	}
 
 	namespace name
 	{
-		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(320.0f, 140.0f, 0.0f);	// 位置
-		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
-		const COLOR			COL = color::White();	// 色
+		const VECTOR3	POS = VECTOR3(320.0f, 140.0f, 0.0f);	// 位置
+		const VECTOR3	ROT = VEC3_ZERO;		// 向き
+		const COLOR		COL = color::White();	// 色
+		const EAlignX	ALIGN_X = XALIGN_LEFT;	// 横配置
 	}
 
 	namespace lvhp_title
 	{
-		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
-		const EAlignY		ALIGN_Y = YALIGN_TOP;	// 縦配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(320.0f, 200.5f, 0.0f);	// 位置
-		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
-		const COLOR			COL = color::White();	// 色
-		const float	LINE_HEIGHT = 53.0f;			// 行間縦幅
+
+		const VECTOR3	POS = VECTOR3(320.0f, 200.5f, 0.0f);	// 位置
+		const VECTOR3	ROT = VEC3_ZERO;		// 向き
+		const COLOR		COL = color::White();	// 色
+		const EAlignX	ALIGN_X = XALIGN_LEFT;	// 横配置
+		const EAlignY	ALIGN_Y = YALIGN_TOP;	// 縦配置
+		const float		LINE_HEIGHT = 53.0f;	// 行間縦幅
 	}
 
 	namespace lvhp_value
 	{
-		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
-		const EAlignY		ALIGN_Y = YALIGN_TOP;	// 縦配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(402.0f, 200.5f, 0.0f);	// 位置
-		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
-		const COLOR			COL = color::White();	// 色
-		const float	LINE_HEIGHT = 53.0f;			// 行間縦幅
+		const VECTOR3	POS = VECTOR3(402.0f, 200.5f, 0.0f);	// 位置
+		const VECTOR3	ROT = VEC3_ZERO;		// 向き
+		const COLOR		COL = color::White();	// 色
+		const EAlignX	ALIGN_X = XALIGN_LEFT;	// 横配置
+		const EAlignY	ALIGN_Y = YALIGN_TOP;	// 縦配置
+		const float		LINE_HEIGHT = 53.0f;	// 行間縦幅
 	}
 
 	namespace atkdef_title
 	{
-		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
-		const EAlignY		ALIGN_Y = YALIGN_TOP;	// 縦配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(320.0f, 330.5f, 0.0f);	// 位置
-		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
-		const COLOR			COL = color::White();	// 色
-		const float	LINE_HEIGHT = 53.0f;			// 行間縦幅
+		const VECTOR3	POS = VECTOR3(320.0f, 330.5f, 0.0f);	// 位置
+		const VECTOR3	ROT = VEC3_ZERO;		// 向き
+		const COLOR		COL = color::White();	// 色
+		const EAlignX	ALIGN_X = XALIGN_LEFT;	// 横配置
+		const EAlignY	ALIGN_Y = YALIGN_TOP;	// 縦配置
+		const float		LINE_HEIGHT = 53.0f;	// 行間縦幅
 	}
 
 	namespace atkdef_value
 	{
-		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
-		const EAlignY		ALIGN_Y = YALIGN_TOP;	// 縦配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(402.0f, 330.5f, 0.0f);	// 位置
-		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
-		const COLOR			COL = color::White();	// 色
-		const float	LINE_HEIGHT = 53.0f;			// 行間縦幅
+		const VECTOR3	POS = VECTOR3(402.0f, 330.5f, 0.0f);	// 位置
+		const VECTOR3	ROT = VEC3_ZERO;		// 向き
+		const COLOR		COL = color::White();	// 色
+		const EAlignX	ALIGN_X = XALIGN_LEFT;	// 横配置
+		const EAlignY	ALIGN_Y = YALIGN_TOP;	// 縦配置
+		const float		LINE_HEIGHT = 53.0f;	// 行間縦幅
 	}
 
 	namespace expnext_title
 	{
-		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
-		const EAlignY		ALIGN_Y = YALIGN_TOP;	// 縦配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(570.0f, 330.5f, 0.0f);	// 位置
-		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
-		const COLOR			COL = color::White();	// 色
-		const float	LINE_HEIGHT = 53.0f;			// 行間縦幅
+		const VECTOR3	POS = VECTOR3(570.0f, 330.5f, 0.0f);	// 位置
+		const VECTOR3	ROT = VEC3_ZERO;		// 向き
+		const COLOR		COL = color::White();	// 色
+		const EAlignX	ALIGN_X = XALIGN_LEFT;	// 横配置
+		const EAlignY	ALIGN_Y = YALIGN_TOP;	// 縦配置
+		const float		LINE_HEIGHT = 53.0f;	// 行間縦幅
 	}
 
 	namespace expnext_value
 	{
-		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
-		const EAlignY		ALIGN_Y = YALIGN_TOP;	// 縦配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(672.0f, 330.5f, 0.0f);	// 位置
-		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
-		const COLOR			COL = color::White();	// 色
-		const float	LINE_HEIGHT = 53.0f;			// 行間縦幅
+		const VECTOR3	POS = VECTOR3(672.0f, 330.5f, 0.0f);	// 位置
+		const VECTOR3	ROT = VEC3_ZERO;		// 向き
+		const COLOR		COL = color::White();	// 色
+		const EAlignX	ALIGN_X = XALIGN_LEFT;	// 横配置
+		const EAlignY	ALIGN_Y = YALIGN_TOP;	// 縦配置
+		const float		LINE_HEIGHT = 53.0f;	// 行間縦幅
 	}
 
 	namespace wpnamr_title
 	{
-		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
-		const EAlignY		ALIGN_Y = YALIGN_TOP;	// 縦配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(320.0f, 460.5f, 0.0f);	// 位置
-		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
-		const COLOR			COL = color::White();	// 色
-		const float	LINE_HEIGHT = 53.0f;			// 行間縦幅
+		const VECTOR3	POS = VECTOR3(320.0f, 460.5f, 0.0f);	// 位置
+		const VECTOR3	ROT = VEC3_ZERO;		// 向き
+		const COLOR		COL = color::White();	// 色
+		const EAlignX	ALIGN_X = XALIGN_LEFT;	// 横配置
+		const EAlignY	ALIGN_Y = YALIGN_TOP;	// 縦配置
+		const float		LINE_HEIGHT = 53.0f;	// 行間縦幅
 	}
 
 	namespace wpnamr_name
 	{
-		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
-		const EAlignY		ALIGN_Y = YALIGN_TOP;	// 縦配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(402.0f, 460.5f, 0.0f);	// 位置
-		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
-		const COLOR			COL = color::White();	// 色
-		const float	LINE_HEIGHT = 53.0f;			// 行間縦幅
+		const VECTOR3	POS = VECTOR3(402.0f, 460.5f, 0.0f);	// 位置
+		const VECTOR3	ROT = VEC3_ZERO;		// 向き
+		const COLOR		COL = color::White();	// 色
+		const EAlignX	ALIGN_X = XALIGN_LEFT;	// 横配置
+		const EAlignY	ALIGN_Y = YALIGN_TOP;	// 縦配置
+		const float		LINE_HEIGHT = 53.0f;	// 行間縦幅
 	}
 
 	namespace gold_title
 	{
-		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(320.0f, 615.5f, 0.0f);	// 位置
-		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
-		const COLOR			COL = color::White();	// 色
+		const VECTOR3	POS = VECTOR3(320.0f, 615.5f, 0.0f);	// 位置
+		const VECTOR3	ROT = VEC3_ZERO;		// 向き
+		const COLOR		COL = color::White();	// 色
+		const EAlignX	ALIGN_X = XALIGN_LEFT;	// 横配置
 	}
 
 	namespace gold_value
 	{
-		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(423.0f, 615.5f, 0.0f);	// 位置
-		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
-		const COLOR			COL = color::White();	// 色
+		const VECTOR3	POS = VECTOR3(423.0f, 615.5f, 0.0f);	// 位置
+		const VECTOR3	ROT = VEC3_ZERO;		// 向き
+		const COLOR		COL = color::White();	// 色
+		const EAlignX	ALIGN_X = XALIGN_LEFT;	// 横配置
 	}
 
 	namespace kills_title
 	{
-		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(500.0f, 615.5f, 0.0f);	// 位置
-		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
-		const COLOR			COL = color::White();	// 色
+		const VECTOR3	POS = VECTOR3(500.0f, 615.5f, 0.0f);	// 位置
+		const VECTOR3	ROT = VEC3_ZERO;		// 向き
+		const COLOR		COL = color::White();	// 色
+		const EAlignX	ALIGN_X = XALIGN_LEFT;	// 横配置
 	}
 
 	namespace kills_value
 	{
-		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(627.0f, 615.5f, 0.0f);	// 位置
-		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
-		const COLOR			COL = color::White();	// 色
+		const VECTOR3	POS = VECTOR3(627.0f, 615.5f, 0.0f);	// 位置
+		const VECTOR3	ROT = VEC3_ZERO;		// 向き
+		const COLOR		COL = color::White();	// 色
+		const EAlignX	ALIGN_X = XALIGN_LEFT;	// 横配置
 	}
 }
 

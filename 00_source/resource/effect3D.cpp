@@ -112,11 +112,11 @@ void CEffect3D::Uninit(void)
 //============================================================
 void CEffect3D::Update(const float fDeltaTime)
 {
-	D3DXVECTOR3 pos	 = GetVec3Position();	// 位置
-	D3DXVECTOR3 rot	 = GetVec3Rotation();	// 向き
-	D3DXVECTOR3 size = GetVec3Size();		// 大きさ
-	COLOR col		 = GetColor();			// 色
-	float fRadius	 = size.x;				// 半径
+	VECTOR3 pos = GetVec3Position();	// 位置
+	VECTOR3 rot = GetVec3Rotation();	// 向き
+	VECTOR3 size = GetVec3Size();		// 大きさ
+	COLOR col = GetColor();				// 色
+	float fRadius = size.x;				// 半径
 	if (m_nLife <= 0		// 寿命を迎えた
 	||  fRadius <= 0.0f)	// 半径が0.0f以下
 	{ // 上記のどれかになった場合
@@ -154,7 +154,7 @@ void CEffect3D::Update(const float fDeltaTime)
 	CObjectBillboard::SetVec3Rotation(rot);
 
 	// 大きさを設定
-	CObjectBillboard::SetVec3Size(D3DXVECTOR3(fRadius, fRadius, 0.0f));
+	CObjectBillboard::SetVec3Size(VECTOR3(fRadius, fRadius, 0.0f));
 
 	// 色を設定
 	CObjectBillboard::SetColor(col);
@@ -189,12 +189,12 @@ void CEffect3D::SetAlphaBlend(const CRenderState::EBlend blend)
 //============================================================
 CEffect3D *CEffect3D::Create
 (
-	const D3DXVECTOR3& rPos,			// 位置
+	const VECTOR3& rPos,				// 位置
 	const float fRadius,				// 半径
 	const EType type,					// テクスチャ
 	const int nLife,					// 寿命
-	const D3DXVECTOR3& rMove,			// 移動量
-	const D3DXVECTOR3& rRot,			// 向き
+	const VECTOR3& rMove,				// 移動量
+	const VECTOR3& rRot,				// 向き
 	const COLOR& rCol,					// 色
 	const float fSubSize,				// 半径の減算量
 	const CRenderState::EBlend blend,	// αブレンド状況
@@ -230,7 +230,7 @@ CEffect3D *CEffect3D::Create
 		pEffect3D->SetVec3Rotation(rRot);
 
 		// 大きさを設定
-		pEffect3D->SetVec3Size(D3DXVECTOR3(fRadius, fRadius, 0.0f));
+		pEffect3D->SetVec3Size(VECTOR3(fRadius, fRadius, 0.0f));
 
 		// 色を設定
 		pEffect3D->SetColor(rCol);

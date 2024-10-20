@@ -160,7 +160,7 @@ void CObjectMeshWall::Draw(CShader *pShader)
 //============================================================
 //	位置の設定処理
 //============================================================
-void CObjectMeshWall::SetVec3Position(const D3DXVECTOR3& rPos)
+void CObjectMeshWall::SetVec3Position(const VECTOR3& rPos)
 {
 	// 引数の位置を設定
 	m_meshWall.pos = rPos;
@@ -169,7 +169,7 @@ void CObjectMeshWall::SetVec3Position(const D3DXVECTOR3& rPos)
 //============================================================
 //	向きの設定処理
 //============================================================
-void CObjectMeshWall::SetVec3Rotation(const D3DXVECTOR3& rRot)
+void CObjectMeshWall::SetVec3Rotation(const VECTOR3& rRot)
 {
 	// 引数の向きを設定
 	m_meshWall.rot = rRot;
@@ -195,11 +195,11 @@ void CObjectMeshWall::SetVec2Size(const VECTOR2& rSize)
 //============================================================
 CObjectMeshWall *CObjectMeshWall::Create
 (
-	const D3DXVECTOR3& rPos,	// 位置
-	const D3DXVECTOR3& rRot,	// 向き
-	const VECTOR2& rSize,		// 大きさ
-	const COLOR& rCol,			// 色
-	const POSGRID2& rPart		// 分割数
+	const VECTOR3& rPos,	// 位置
+	const VECTOR3& rRot,	// 向き
+	const VECTOR2& rSize,	// 大きさ
+	const COLOR& rCol,		// 色
+	const POSGRID2& rPart	// 分割数
 )
 {
 	// オブジェクトメッシュウォールの生成
@@ -400,7 +400,7 @@ void CObjectMeshWall::SetVtx(void)
 			{ // 横の分割数 +1回繰り返す
 
 				// 頂点座標の設定
-				pVtx[0].pos = D3DXVECTOR3
+				pVtx[0].pos = VECTOR3
 				( // 引数
 					nCntWidth * (m_meshWall.size.x / (float)m_part.x) - (m_meshWall.size.x * 0.5f),	// x
 					-(nCntHeight * (m_meshWall.size.y / (float)m_part.y)) + m_meshWall.size.y,		// y
@@ -408,7 +408,7 @@ void CObjectMeshWall::SetVtx(void)
 				);
 
 				// 法線ベクトルの設定
-				pVtx[0].nor = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
+				pVtx[0].nor = VECTOR3(0.0f, 0.0f, -1.0f);
 
 				// 頂点カラーの設定
 				pVtx[0].col = m_meshWall.col;

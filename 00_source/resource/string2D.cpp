@@ -149,7 +149,7 @@ void CString2D::SetEnableDraw(const bool bDraw)
 //============================================================
 //	位置の設定処理
 //============================================================
-void CString2D::SetVec3Position(const D3DXVECTOR3& rPos)
+void CString2D::SetVec3Position(const VECTOR3& rPos)
 {
 	// 引数の位置を設定
 	m_pos = rPos;
@@ -161,7 +161,7 @@ void CString2D::SetVec3Position(const D3DXVECTOR3& rPos)
 //============================================================
 //	向きの設定処理
 //============================================================
-void CString2D::SetVec3Rotation(const D3DXVECTOR3& rRot)
+void CString2D::SetVec3Rotation(const VECTOR3& rRot)
 {
 	// 設定する向きを保存
 	m_rot = rRot;
@@ -186,10 +186,10 @@ CString2D *CString2D::Create
 	const std::string &rFilePath,	// フォントパス
 	const bool bItalic,				// イタリック
 	const std::string &rStr,		// 指定文字列
-	const D3DXVECTOR3 &rPos,		// 原点位置
+	const VECTOR3 &rPos,			// 原点位置
 	const float fHeight,			// 文字縦幅
 	const EAlignX alignX,			// 横配置
-	const D3DXVECTOR3& rRot,		// 原点向き
+	const VECTOR3& rRot,			// 原点向き
 	const COLOR& rCol				// 色
 )
 {
@@ -252,10 +252,10 @@ CString2D *CString2D::Create
 	const std::string &rFilePath,	// フォントパス
 	const bool bItalic,				// イタリック
 	const std::wstring &rStr,		// 指定文字列
-	const D3DXVECTOR3 &rPos,		// 原点位置
+	const VECTOR3 &rPos,			// 原点位置
 	const float fHeight,			// 文字縦幅
 	const EAlignX alignX,			// 横配置
-	const D3DXVECTOR3& rRot,		// 原点向き
+	const VECTOR3& rRot,			// 原点向き
 	const COLOR& rCol				// 色
 )
 {
@@ -555,7 +555,7 @@ void CString2D::SetPositionRelative(void)
 	fStartOffset += fHeadWidth + fHeadOffsetLU;		// 先頭文字のブラックボックス分ずらす
 	fStartOffset += (fStrWidth * (m_alignX - 1));	// 指定された横配置にする
 
-	D3DXVECTOR3 posStart = VEC3_ZERO;	// 文字の開始位置
+	VECTOR3 posStart = VEC3_ZERO;	// 文字の開始位置
 	posStart.x = m_pos.x + sinf(fHeadRot) * fStartOffset;	// 開始位置X
 	posStart.y = m_pos.y + cosf(fHeadRot) * fStartOffset;	// 開始位置Y
 

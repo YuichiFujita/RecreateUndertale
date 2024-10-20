@@ -24,12 +24,12 @@ namespace
 		COLOR(0.4f, 0.4f, 0.4f, 1.0f),
 	};
 
-	const D3DXVECTOR3 DIRECTION[] =	// 設定用方向ベクトル
+	const VECTOR3 DIRECTION[] =	// 設定用方向ベクトル
 	{
-		D3DXVECTOR3( 0.22f, -0.97f,  0.54f),
-		D3DXVECTOR3(-0.38f,  0.78f, -0.54f),
-		D3DXVECTOR3( 0.89f, -0.21f,  0.44f),
-		D3DXVECTOR3(-0.96f,  0.15f, -0.44f),
+		VECTOR3( 0.22f, -0.97f,  0.54f),
+		VECTOR3(-0.38f,  0.78f, -0.54f),
+		VECTOR3( 0.89f, -0.21f,  0.44f),
+		VECTOR3(-0.96f,  0.15f, -0.44f),
 	};
 }
 
@@ -68,8 +68,8 @@ HRESULT CLight::Init(void)
 	for (int nCntLight = 0; nCntLight < light::MAX_NUM; nCntLight++)
 	{ // 使用するライト数分繰り返す
 
-		COLOR diffuse = DIFFUSE[nCntLight];	// 設定用拡散光カラー
-		D3DXVECTOR3 direction = DIRECTION[nCntLight];	// 設定用方向ベクトル
+		COLOR	diffuse		= DIFFUSE[nCntLight];	// 設定用拡散光カラー
+		VECTOR3	direction	= DIRECTION[nCntLight];	// 設定用方向ベクトル
 
 		// 構造体の要素をクリア
 		ZeroMemory(&m_aLight[nCntLight], sizeof(D3DLIGHT9));

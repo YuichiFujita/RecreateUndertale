@@ -36,10 +36,10 @@ public:
 private:
 	// メンバ関数
 	int ControlMove(void);	// 移動操作
-	void UpdatePosition(D3DXVECTOR3& rPos, const float fDeltaTime);	// 位置更新
+	void UpdatePosition(VECTOR3& rPos, const float fDeltaTime);	// 位置更新
 
 	// メンバ変数
-	D3DXVECTOR3 m_move;	// 移動量
+	VECTOR3 m_move;	// 移動量
 };
 
 #endif	// _PLAYER_STATE_NORMAL_H_

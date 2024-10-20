@@ -37,9 +37,9 @@ public:
 	// 静的メンバ関数
 	static CMultiModel *Create	// 生成
 	( // 引数
-		const D3DXVECTOR3& rPos,				// 位置
-		const D3DXVECTOR3& rRot,				// 向き
-		const D3DXVECTOR3& rScale = VEC3_ONE	// 大きさ
+		const VECTOR3& rPos,	// 位置
+		const VECTOR3& rRot,	// 向き
+		const VECTOR3& rScale = VEC3_ONE	// 大きさ
 	);
 
 	// メンバ関数

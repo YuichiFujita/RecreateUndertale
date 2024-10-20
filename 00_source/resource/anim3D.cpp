@@ -136,12 +136,12 @@ void CAnim3D::Draw(CShader *pShader)
 //============================================================
 CAnim3D *CAnim3D::Create
 (
-	const POSGRID2& rPtrn,		// テクスチャ分割数
-	const D3DXVECTOR3& rPos,	// 位置
-	const float fNextTime,		// パターン変更時間
-	const D3DXVECTOR3& rSize,	// 大きさ
-	const D3DXVECTOR3& rRot,	// 向き
-	const COLOR& rCol			// 色
+	const POSGRID2& rPtrn,	// テクスチャ分割数
+	const VECTOR3& rPos,	// 位置
+	const float fNextTime,	// パターン変更時間
+	const VECTOR3& rSize,	// 大きさ
+	const VECTOR3& rRot,	// 向き
+	const COLOR& rCol		// 色
 )
 {
 	// アニメーション3Dの生成
@@ -189,7 +189,7 @@ CAnim3D *CAnim3D::Create
 //============================================================
 //	位置の設定処理
 //============================================================
-void CAnim3D::SetVec3Position(const D3DXVECTOR3& rPos)
+void CAnim3D::SetVec3Position(const VECTOR3& rPos)
 {
 	// 位置の設定
 	CObject3D::SetVec3Position(rPos);
@@ -201,7 +201,7 @@ void CAnim3D::SetVec3Position(const D3DXVECTOR3& rPos)
 //============================================================
 //	向きの設定処理
 //============================================================
-void CAnim3D::SetVec3Rotation(const D3DXVECTOR3& rRot)
+void CAnim3D::SetVec3Rotation(const VECTOR3& rRot)
 {
 	// 向きの設定
 	CObject3D::SetVec3Rotation(rRot);
@@ -213,7 +213,7 @@ void CAnim3D::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 //	大きさの設定処理
 //============================================================
-void CAnim3D::SetVec3Size(const D3DXVECTOR3& rSize)
+void CAnim3D::SetVec3Size(const VECTOR3& rSize)
 {
 	// 大きさの設定
 	CObject3D::SetVec3Size(rSize);

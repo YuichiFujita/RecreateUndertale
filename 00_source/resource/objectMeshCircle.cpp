@@ -168,7 +168,7 @@ void CObjectMeshCircle::Draw(CShader *pShader)
 //============================================================
 //	位置の設定処理
 //============================================================
-void CObjectMeshCircle::SetVec3Position(const D3DXVECTOR3& rPos)
+void CObjectMeshCircle::SetVec3Position(const VECTOR3& rPos)
 {
 	// 引数の位置を設定
 	m_meshCircle.pos = rPos;
@@ -177,7 +177,7 @@ void CObjectMeshCircle::SetVec3Position(const D3DXVECTOR3& rPos)
 //============================================================
 //	向きの設定処理
 //============================================================
-void CObjectMeshCircle::SetVec3Rotation(const D3DXVECTOR3& rRot)
+void CObjectMeshCircle::SetVec3Rotation(const VECTOR3& rRot)
 {
 	// 引数の向きを設定
 	m_meshCircle.rot = rRot;
@@ -191,11 +191,11 @@ void CObjectMeshCircle::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 CObjectMeshCircle *CObjectMeshCircle::Create
 (
-	const D3DXVECTOR3& rPos,	// 位置
-	const D3DXVECTOR3& rRot,	// 向き
-	const COLOR& rCol,			// 色
-	const POSGRID2& rPart,		// 分割数
-	const float fRadius			// 半径
+	const VECTOR3& rPos,	// 位置
+	const VECTOR3& rRot,	// 向き
+	const COLOR& rCol,		// 色
+	const POSGRID2& rPart,	// 分割数
+	const float fRadius		// 半径
 )
 {
 	// オブジェクトメッシュサークルの生成
@@ -417,7 +417,7 @@ void CObjectMeshCircle::SetVtx(void)
 				// 頂点座標の方向を設定
 				float fRotWidth  = D3DXToRadian(nCntWidth * (360 / (float)m_part.x));	// 頂点位置の設定方向
 				float fDisHeight = (((m_meshCircle.fRadius / (float)m_part.y) * -(nCntHeight - m_part.y)));	// 頂点位置の設定距離
-				D3DXVECTOR3 vecPos = D3DXVECTOR3
+				VECTOR3 vecPos = VECTOR3
 				( // 引数
 					sinf(fRotWidth) * fDisHeight,	// x
 					0.0f,							// y
@@ -428,7 +428,7 @@ void CObjectMeshCircle::SetVtx(void)
 				pVtx[0].pos = vecPos;
 
 				// 法線ベクトルの設定
-				pVtx[0].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+				pVtx[0].nor = VECTOR3(0.0f, 1.0f, 0.0f);
 
 				// 頂点カラーの設定
 				pVtx[0].col = m_meshCircle.col;

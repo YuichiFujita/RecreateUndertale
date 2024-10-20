@@ -53,8 +53,8 @@ public:
 		{}
 
 		// メンバ変数
-		D3DXVECTOR3 pos;	// モデル位置
-		D3DXVECTOR3 rot;	// モデル向き
+		VECTOR3 pos;	// モデル位置
+		VECTOR3 rot;	// モデル向き
 	};
 
 	// キー管理構造体
@@ -70,8 +70,8 @@ public:
 
 		// メンバ変数
 		std::vector<SParts> vecParts;	// パーツ情報
-		D3DXVECTOR3 move;	// キー移動量
-		int nFrame;			// キー再生フレーム数
+		VECTOR3 move;	// キー移動量
+		int nFrame;		// キー再生フレーム数
 	};
 
 	// モーション管理構造体
@@ -157,9 +157,9 @@ public:
 	void SetEnableUpdate(const bool bUpdate);	// 更新状況設定
 	void SetNumParts(const int nNumParts);		// パーツ数設定
 	void ClearVector(void);						// モーション情報の動的配列クリア
-	void Set(const int nType, const int nBlendFrame = 0);				// 設定
-	void SetOriginPosition(const D3DXVECTOR3& rPos, const int nParts);	// 原点位置の設定
-	void SetOriginRotation(const D3DXVECTOR3& rRot, const int nParts);	// 原点向きの設定
+	void Set(const int nType, const int nBlendFrame = 0);			// 設定
+	void SetOriginPosition(const VECTOR3& rPos, const int nParts);	// 原点位置の設定
+	void SetOriginRotation(const VECTOR3& rRot, const int nParts);	// 原点向きの設定
 
 	int GetNumType(void);					// 種類総数取得
 	int GetNumKey(const int nType);			// キー総数取得
@@ -167,8 +167,8 @@ public:
 	bool IsCombo(const int nType) const;	// コンボ取得
 	bool IsLeftWeaponCollision(void);		// 左の攻撃判定フラグ取得
 	bool IsRightWeaponCollision(void);		// 右の攻撃判定フラグ取得
-	D3DXVECTOR3 GetOriginPosition(const int nParts);	// 原点位置の取得
-	D3DXVECTOR3 GetOriginRotation(const int nParts);	// 原点向きの取得
+	VECTOR3 GetOriginPosition(const int nParts);	// 原点位置の取得
+	VECTOR3 GetOriginRotation(const int nParts);	// 原点向きの取得
 
 	int GetType(void) const			{ return m_info.nType; }			// 種類取得
 	int GetKey(void) const			{ return m_info.nKey; }				// キー番号取得

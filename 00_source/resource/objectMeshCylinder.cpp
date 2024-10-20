@@ -179,7 +179,7 @@ void CObjectMeshCylinder::Draw(CShader *pShader)
 //============================================================
 //	位置の設定処理
 //============================================================
-void CObjectMeshCylinder::SetVec3Position(const D3DXVECTOR3& rPos)
+void CObjectMeshCylinder::SetVec3Position(const VECTOR3& rPos)
 {
 	// 引数の位置を設定
 	m_meshCylinder.pos = rPos;
@@ -188,7 +188,7 @@ void CObjectMeshCylinder::SetVec3Position(const D3DXVECTOR3& rPos)
 //============================================================
 //	向きの設定処理
 //============================================================
-void CObjectMeshCylinder::SetVec3Rotation(const D3DXVECTOR3& rRot)
+void CObjectMeshCylinder::SetVec3Rotation(const VECTOR3& rRot)
 {
 	// 引数の向きを設定
 	m_meshCylinder.rot = rRot;
@@ -202,8 +202,8 @@ void CObjectMeshCylinder::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 CObjectMeshCylinder *CObjectMeshCylinder::Create
 (
-	const D3DXVECTOR3& rPos,	// 位置
-	const D3DXVECTOR3& rRot,	// 向き
+	const VECTOR3& rPos,		// 位置
+	const VECTOR3& rRot,		// 向き
 	const COLOR& rCol,			// 色
 	const POSGRID2& rPart,		// 分割数
 	const POSGRID2& rTexPart,	// テクスチャ分割数
@@ -460,8 +460,8 @@ void CObjectMeshCylinder::SetTexPattern(const POSGRID2& rTexPart)
 void CObjectMeshCylinder::SetVtx(void)
 {
 	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
-	D3DXVECTOR3 vecPos;	// 頂点位置の計算用
-	D3DXVECTOR3 vecNor;	// 法線ベクトルの計算用
+	VECTOR3 vecPos;		// 頂点位置の計算用
+	VECTOR3 vecNor;		// 法線ベクトルの計算用
 	float fRateWidth  = ((float)(m_texPart.x) / (float)(m_part.x));	// テクスチャ横分割数の割合
 	float fRateHeight = ((float)(m_texPart.y) / (float)(m_part.y));	// テクスチャ縦分割数の割合
 	if (m_pVtxBuff != nullptr)
@@ -477,7 +477,7 @@ void CObjectMeshCylinder::SetVtx(void)
 			{ // 横の分割数 +1回繰り返す
 
 				// 頂点座標の方向を設定
-				vecPos = D3DXVECTOR3
+				vecPos = VECTOR3
 				( // 引数
 					sinf(D3DXToRadian(nCntWidth * (360 / (float)m_part.x))) * m_meshCylinder.fRadius,	// x
 					(nCntHeight * (m_meshCylinder.fHeight / (float)m_part.y)),							// y
@@ -488,7 +488,7 @@ void CObjectMeshCylinder::SetVtx(void)
 				pVtx[0].pos = vecPos;
 
 				// 法線ベクトルの方向を設定
-				vecNor = D3DXVECTOR3(vecPos.x, 0.0f, vecPos.z);
+				vecNor = VECTOR3(vecPos.x, 0.0f, vecPos.z);
 
 				// ベクトルを正規化
 				D3DXVec3Normalize(&vecNor, &vecNor);

@@ -72,7 +72,7 @@ HRESULT CTileColl::Init(void)
 	}
 
 	// 大きさを設定
-	SetVec3Size(D3DXVECTOR3(SIZE_TILE, SIZE_TILE, 0.0f));
+	SetVec3Size(VECTOR3(SIZE_TILE, SIZE_TILE, 0.0f));
 
 	if (m_pList == nullptr)
 	{ // リストマネージャーが存在しない場合
@@ -135,7 +135,7 @@ void CTileColl::Draw(CShader *pShader)
 //============================================================
 //	生成処理
 //============================================================
-CTileColl *CTileColl::Create(const EType type, const D3DXVECTOR3& rPos)
+CTileColl *CTileColl::Create(const EType type, const VECTOR3& rPos)
 {
 	// 判定タイルの生成
 	CTileColl *pTileColl = new CTileColl;
@@ -181,21 +181,21 @@ CListManager<CTileColl> *CTileColl::GetList(void)
 //============================================================
 void CTileColl::CollisionTile
 (
-	D3DXVECTOR3& rPosCur,			// 現在位置
-	const D3DXVECTOR3& rPosOld,		// 過去位置
-	const D3DXVECTOR3& rRot,		// 向き
+	VECTOR3& rPosCur,				// 現在位置
+	const VECTOR3& rPosOld,			// 過去位置
+	const VECTOR3& rRot,			// 向き
 	const CObjectChara2D *pChara2D	// キャラクター2D情報
 )
 {
 	// キャラクター2Dが存在しない場合抜ける
 	if (pChara2D == nullptr) { assert(false); return; }
 
-	D3DXVECTOR3 posCur = pChara2D->CalcCollOffsetPosition(rPosCur, rRot);	// 判定原点の現在位置
-	D3DXVECTOR3 posOld = pChara2D->CalcCollOffsetPosition(rPosOld, rRot);	// 判定原点の過去位置
-	D3DXVECTOR3 sizeColl = pChara2D->GetCollSize() * 0.5f;					// 判定大きさ
+	VECTOR3 posCur = pChara2D->CalcCollOffsetPosition(rPosCur, rRot);	// 判定原点の現在位置
+	VECTOR3 posOld = pChara2D->CalcCollOffsetPosition(rPosOld, rRot);	// 判定原点の過去位置
+	VECTOR3 sizeColl = pChara2D->GetCollSize() * 0.5f;					// 判定大きさ
 
 	// 判定原点の現在位置を保存
-	D3DXVECTOR3 posSave = posCur;
+	VECTOR3 posSave = posCur;
 
 	// 遷移タイルとの当たり判定
 	CollisionTile(posCur, posOld, sizeColl, sizeColl);
@@ -209,10 +209,10 @@ void CTileColl::CollisionTile
 //============================================================
 void CTileColl::CollisionTile
 (
-	D3DXVECTOR3& rPosCur,			// 現在位置
-	const D3DXVECTOR3& rPosOld,		// 過去位置
-	const D3DXVECTOR3& rSizeUp,		// 大きさ (右/上/後)
-	const D3DXVECTOR3& rSizeDown	// 大きさ (左/下/前)
+	VECTOR3& rPosCur,			// 現在位置
+	const VECTOR3& rPosOld,		// 過去位置
+	const VECTOR3& rSizeUp,		// 大きさ (右/上/後)
+	const VECTOR3& rSizeDown	// 大きさ (左/下/前)
 )
 {
 	// 遷移タイルがない場合抜ける
@@ -222,8 +222,8 @@ void CTileColl::CollisionTile
 	for (const auto& rList : list)
 	{ // 要素数分繰り返す
 
-		D3DXVECTOR3 posTile  = rList->GetVec3Position();		// タイル位置
-		D3DXVECTOR3 sizeTile = rList->GetVec3Size() * 0.5f;	// タイル大きさ
+		VECTOR3 posTile  = rList->GetVec3Position();	// タイル位置
+		VECTOR3 sizeTile = rList->GetVec3Size() * 0.5f;	// タイル大きさ
 
 		// XY平面の角柱の衝突判定
 		collision::ResponseBoxPillarXY

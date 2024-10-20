@@ -33,23 +33,23 @@ public:
 	// オーバーライド関数
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
-	void Update(const float fDeltaTime) override;			// 更新
-	void Draw(CShader *pShader = nullptr) override;			// 描画
-	void SetVec3Position(const D3DXVECTOR3& rPos) override;	// 位置設定
-	void SetVec3Rotation(const D3DXVECTOR3& rRot) override;	// 向き設定
-	void SetVec3Scale(const D3DXVECTOR3& rScale) override;	// 拡大率設定
-	D3DXVECTOR3 GetVec3Position(void) const override	{ return m_pos; }		// 位置取得
-	D3DXVECTOR3 GetVec3Rotation(void) const override	{ return m_rot; }		// 向き取得
-	D3DXVECTOR3 GetVec3Scale(void) const override		{ return m_scale; }		// 拡大率取得
-	MATRIX *GetPtrMtxWorld(void) override				{ return &m_mtxWorld; }	// マトリックスポインタ取得
-	MATRIX GetMtxWorld(void) const override				{ return m_mtxWorld; }	// マトリックス取得
+	void Update(const float fDeltaTime) override;		// 更新
+	void Draw(CShader *pShader = nullptr) override;		// 描画
+	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
+	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
+	void SetVec3Scale(const VECTOR3& rScale) override;	// 拡大率設定
+	VECTOR3 GetVec3Position(void) const override	{ return m_pos; }		// 位置取得
+	VECTOR3 GetVec3Rotation(void) const override	{ return m_rot; }		// 向き取得
+	VECTOR3 GetVec3Scale(void) const override		{ return m_scale; }		// 拡大率取得
+	MATRIX *GetPtrMtxWorld(void) override			{ return &m_mtxWorld; }	// マトリックスポインタ取得
+	MATRIX GetMtxWorld(void) const override			{ return m_mtxWorld; }	// マトリックス取得
 
 	// 静的メンバ関数
 	static CObjectModel *Create	// 生成
 	( // 引数
-		const D3DXVECTOR3& rPos,	// 位置
-		const D3DXVECTOR3& rRot,	// 向き
-		const D3DXVECTOR3& rScale = VEC3_ONE	// 大きさ
+		const VECTOR3& rPos,	// 位置
+		const VECTOR3& rRot,	// 向き
+		const VECTOR3& rScale = VEC3_ONE	// 大きさ
 	);
 
 	// メンバ関数
@@ -86,11 +86,11 @@ private:
 	CRenderState	*m_pRenderState;	// レンダーステートの情報
 	D3DXMATERIAL	*m_pMat;			// マテリアルへのポインタ
 	CModel::SModel	m_modelData;		// モデル情報
-	MATRIX			m_mtxWorld;			// ワールドマトリックス
-	D3DXVECTOR3		m_pos;				// 位置
-	D3DXVECTOR3		m_rot;				// 向き
-	D3DXVECTOR3		m_scale;			// 拡大率
-	int				m_nModelID;			// モデルインデックス
+	MATRIX	m_mtxWorld;	// ワールドマトリックス
+	VECTOR3	m_pos;		// 位置
+	VECTOR3	m_rot;		// 向き
+	VECTOR3	m_scale;	// 拡大率
+	int		m_nModelID;	// モデルインデックス
 };
 
 #endif	// _OBJECTMODEL_H_

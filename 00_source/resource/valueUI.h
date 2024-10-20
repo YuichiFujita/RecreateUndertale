@@ -42,69 +42,69 @@ public:
 	void Draw(CShader *pShader = nullptr) override;	// 描画
 	void SetPriority(const int nPriority) override;	// 優先順位設定
 	void SetEnableDraw(const bool bDraw) override;	// 描画状況設定
-	void SetVec3Position(const D3DXVECTOR3& rPos) override;				// 位置設定
-	D3DXVECTOR3 GetVec3Position(void) const override { return m_pos; }	// 位置取得
+	void SetVec3Position(const VECTOR3& rPos) override;				// 位置設定
+	VECTOR3 GetVec3Position(void) const override { return m_pos; }	// 位置取得
 
 	// 静的メンバ関数
 	static CValueUI *Create	// 生成 (テクスチャ指定なし)
 	( // 引数
-		const CValue::EType type,		// 数字種類
-		const int nDigit,				// 桁数
-		const D3DXVECTOR3& rPos,		// 位置
-		const D3DXVECTOR3& rSpace,		// 行間
-		const D3DXVECTOR3& rSpaceValue,	// 数字行間
-		const D3DXVECTOR3& rSizeTitle,	// タイトル大きさ
-		const D3DXVECTOR3& rSizeValue,	// 数字大きさ
-		const D3DXVECTOR3& rRotTitle = VEC3_ZERO,	// タイトル向き
-		const D3DXVECTOR3& rRotValue = VEC3_ZERO,	// 数字向き
+		const CValue::EType type,	// 数字種類
+		const int nDigit,			// 桁数
+		const VECTOR3& rPos,		// 位置
+		const VECTOR3& rSpace,		// 行間
+		const VECTOR3& rSpaceValue,	// 数字行間
+		const VECTOR3& rSizeTitle,	// タイトル大きさ
+		const VECTOR3& rSizeValue,	// 数字大きさ
+		const VECTOR3& rRotTitle = VEC3_ZERO,		// タイトル向き
+		const VECTOR3& rRotValue = VEC3_ZERO,		// 数字向き
 		const COLOR& rColTitle = color::White(),	// タイトル色
 		const COLOR& rColValue = color::White()		// 数字色
 	);
 	static CValueUI *Create	// 生成 (テクスチャインデックス指定)
 	( // 引数
-		const int nTextureID,			// タイトルテクスチャインデックス
-		const CValue::EType type,		// 数字種類
-		const int nDigit,				// 桁数
-		const D3DXVECTOR3& rPos,		// 位置
-		const D3DXVECTOR3& rSpace,		// 行間
-		const D3DXVECTOR3& rSpaceValue,	// 数字行間
-		const D3DXVECTOR3& rSizeTitle,	// タイトル大きさ
-		const D3DXVECTOR3& rSizeValue,	// 数字大きさ
-		const D3DXVECTOR3& rRotTitle = VEC3_ZERO,	// タイトル向き
-		const D3DXVECTOR3& rRotValue = VEC3_ZERO,	// 数字向き
+		const int nTextureID,		// タイトルテクスチャインデックス
+		const CValue::EType type,	// 数字種類
+		const int nDigit,			// 桁数
+		const VECTOR3& rPos,		// 位置
+		const VECTOR3& rSpace,		// 行間
+		const VECTOR3& rSpaceValue,	// 数字行間
+		const VECTOR3& rSizeTitle,	// タイトル大きさ
+		const VECTOR3& rSizeValue,	// 数字大きさ
+		const VECTOR3& rRotTitle = VEC3_ZERO,		// タイトル向き
+		const VECTOR3& rRotValue = VEC3_ZERO,		// 数字向き
 		const COLOR& rColTitle = color::White(),	// タイトル色
 		const COLOR& rColValue = color::White()		// 数字色
 	);
 	static CValueUI *Create	// 生成 (テクスチャパス指定)
 	( // 引数
-		const char *pTexturePath,		// タイトルテクスチャパス
-		const CValue::EType type,		// 数字種類
-		const int nDigit,				// 桁数
-		const D3DXVECTOR3& rPos,		// 位置
-		const D3DXVECTOR3& rSpace,		// 行間
-		const D3DXVECTOR3& rSpaceValue,	// 数字行間
-		const D3DXVECTOR3& rSizeTitle,	// タイトル大きさ
-		const D3DXVECTOR3& rSizeValue,	// 数字大きさ
-		const D3DXVECTOR3& rRotTitle = VEC3_ZERO,	// タイトル向き
-		const D3DXVECTOR3& rRotValue = VEC3_ZERO,	// 数字向き
+		const char *pTexturePath,	// タイトルテクスチャパス
+		const CValue::EType type,	// 数字種類
+		const int nDigit,			// 桁数
+		const VECTOR3& rPos,		// 位置
+		const VECTOR3& rSpace,		// 行間
+		const VECTOR3& rSpaceValue,	// 数字行間
+		const VECTOR3& rSizeTitle,	// タイトル大きさ
+		const VECTOR3& rSizeValue,	// 数字大きさ
+		const VECTOR3& rRotTitle = VEC3_ZERO,		// タイトル向き
+		const VECTOR3& rRotValue = VEC3_ZERO,		// 数字向き
 		const COLOR& rColTitle = color::White(),	// タイトル色
 		const COLOR& rColValue = color::White()		// 数字色
 	);
 
 	// メンバ関数
-	void SetSpace(const D3DXVECTOR3& rSpace);			// 行間設定
+	void SetSpace(const VECTOR3& rSpace);				// 行間設定
 	void BindTextureTitle(const int nTextureID);		// タイトルテクスチャ割当 (インデックス)
 	void BindTextureTitle(const char *pTexturePath);	// タイトルテクスチャ割当 (パス)
-	void SetRotationTitle(const D3DXVECTOR3& rRot);		// タイトル向き設定
-	void SetSizeTitle(const D3DXVECTOR3& rSize);		// タイトル大きさ設定
+	void SetRotationTitle(const VECTOR3& rRot);			// タイトル向き設定
+	void SetSizeTitle(const VECTOR3& rSize);			// タイトル大きさ設定
 	void SetAlphaTitle(const float fAlpha);				// タイトル透明度設定
 	void SetColorTitle(const COLOR& rCol);				// タイトル色設定
-	D3DXVECTOR3 GetSpace(void) const			{ return m_space; }						// 行間取得
-	D3DXVECTOR3 GetRotationTitle(void) const	{ return m_pTitle->GetVec3Rotation(); }	// タイトル向き取得
-	D3DXVECTOR3 GetSizeTitle(void) const		{ return m_pTitle->GetVec3Size(); }		// タイトル大きさ取得
-	float GetAlphaTitle(void) const				{ return m_pTitle->GetAlpha(); }		// タイトル透明度取得
-	COLOR GetColorTitle(void) const				{ return m_pTitle->GetColor(); }		// タイトル色取得
-	CMultiValue *GetMultiValue(void) const		{ return m_pValue; }					// 数字情報取得
+	VECTOR3 GetSpace(void) const			{ return m_space; }						// 行間取得
+	VECTOR3 GetRotationTitle(void) const	{ return m_pTitle->GetVec3Rotation(); }	// タイトル向き取得
+	VECTOR3 GetSizeTitle(void) const		{ return m_pTitle->GetVec3Size(); }		// タイトル大きさ取得
+	float GetAlphaTitle(void) const			{ return m_pTitle->GetAlpha(); }		// タイトル透明度取得
+	COLOR GetColorTitle(void) const			{ return m_pTitle->GetColor(); }		// タイトル色取得
+	CMultiValue *GetMultiValue(void) const	{ return m_pValue; }					// 数字情報取得
 
 private:
 	// オーバーライド関数
@@ -116,8 +116,8 @@ private:
 	// メンバ変数
 	CObject2D *m_pTitle;	// タイトル情報
 	CMultiValue *m_pValue;	// 数字情報
-	D3DXVECTOR3 m_pos;		// 位置
-	D3DXVECTOR3 m_space;	// 行間
+	VECTOR3 m_pos;			// 位置
+	VECTOR3 m_space;		// 行間
 };
 
 #endif	// _VALUE_UI_H_

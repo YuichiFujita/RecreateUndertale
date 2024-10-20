@@ -23,9 +23,9 @@ namespace
 
 	namespace frame
 	{
-		const D3DXVECTOR3 POS	= D3DXVECTOR3(155.0f, 160.0f, 0.0f);	// フレーム位置
-		const D3DXVECTOR3 ROT	= VEC3_ZERO;							// フレーム向き
-		const D3DXVECTOR3 SIZE	= D3DXVECTOR3(200.0f, 145.0f, 0.0f);	// フレーム大きさ
+		const VECTOR3 POS	= VECTOR3(155.0f, 160.0f, 0.0f);	// フレーム位置
+		const VECTOR3 ROT	= VEC3_ZERO;						// フレーム向き
+		const VECTOR3 SIZE	= VECTOR3(200.0f, 145.0f, 0.0f);	// フレーム大きさ
 	}
 
 	namespace name
@@ -34,10 +34,10 @@ namespace
 		const bool	ITALIC	= false;	// イタリック
 		const float	HEIGHT	= 26.0f;	// 文字縦幅
 
-		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(68.0f, 115.0f, 0.0f);	// 位置
-		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
-		const COLOR			COL = color::White();	// 色
+		const VECTOR3	POS = VECTOR3(68.0f, 115.0f, 0.0f);	// 位置
+		const VECTOR3	ROT = VEC3_ZERO;		// 向き
+		const COLOR		COL = color::White();	// 色
+		const EAlignX	ALIGN_X = XALIGN_LEFT;	// 横配置
 	}
 
 	namespace status
@@ -48,11 +48,11 @@ namespace
 		const float	CHAR_HEIGHT	= 22.0f;	// 文字縦幅
 		const float	LINE_HEIGHT	= 26.0f;	// 行間縦幅
 
-		const EAlignX		ALIGN_X = XALIGN_LEFT;		// 横配置
-		const EAlignY		ALIGN_Y = YALIGN_BOTTOM;	// 縦配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(68.0f, 225.5f, 0.0f);		// 位置
-		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
-		const COLOR			COL = color::White();	// 色
+		const VECTOR3	POS = VECTOR3(68.0f, 225.5f, 0.0f);	// 位置
+		const VECTOR3	ROT = VEC3_ZERO;			// 向き
+		const COLOR		COL = color::White();		// 色
+		const EAlignX	ALIGN_X = XALIGN_LEFT;		// 横配置
+		const EAlignY	ALIGN_Y = YALIGN_BOTTOM;	// 縦配置
 	}
 
 	namespace value
@@ -62,11 +62,11 @@ namespace
 		const float	CHAR_HEIGHT	= status::CHAR_HEIGHT;	// 文字縦幅
 		const float	LINE_HEIGHT = status::LINE_HEIGHT;	// 行間縦幅
 
-		const EAlignX		ALIGN_X = XALIGN_LEFT;		// 横配置
-		const EAlignY		ALIGN_Y = YALIGN_BOTTOM;	// 縦配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(115.0f, status::POS.y, 0.0f);	// 位置
-		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
-		const COLOR			COL = color::White();	// 色
+		const VECTOR3	POS = VECTOR3(115.0f, status::POS.y, 0.0f);	// 位置
+		const VECTOR3	ROT = VEC3_ZERO;			// 向き
+		const COLOR		COL = color::White();		// 色
+		const EAlignX	ALIGN_X = XALIGN_LEFT;		// 横配置
+		const EAlignY	ALIGN_Y = YALIGN_BOTTOM;	// 縦配置
 	}
 }
 

@@ -44,17 +44,17 @@ public:
 	// 静的メンバ関数
 	static CTimerUI *Create	// 生成
 	( // 引数
-		const float fTime,				// 開始時間
-		const float fLimit,				// 制限時間
-		const D3DXVECTOR3& rPos,		// 位置
-		const D3DXVECTOR3& rSizeValue,	// 数字の大きさ
-		const D3DXVECTOR3& rSizePart,	// 区切りの大きさ
-		const D3DXVECTOR3& rSpaceValue,	// 数字の空白
-		const D3DXVECTOR3& rSpacePart,	// 区切りの空白
+		const float fTime,			// 開始時間
+		const float fLimit,			// 制限時間
+		const VECTOR3& rPos,		// 位置
+		const VECTOR3& rSizeValue,	// 数字の大きさ
+		const VECTOR3& rSizePart,	// 区切りの大きさ
+		const VECTOR3& rSpaceValue,	// 数字の空白
+		const VECTOR3& rSpacePart,	// 区切りの空白
 		const CValue::EType type = CValue::TYPE_NORMAL,	// 数字種類
 		const EAlignX alignX = XALIGN_CENTER,			// 横配置
 		const EAlignY alignY = YALIGN_CENTER,			// 縦配置
-		const D3DXVECTOR3& rRot = VEC3_ZERO,			// 向き
+		const VECTOR3& rRot = VEC3_ZERO,				// 向き
 		const COLOR& rCol = color::White()				// 色
 	);
 

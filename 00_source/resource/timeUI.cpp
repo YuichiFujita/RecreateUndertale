@@ -279,7 +279,7 @@ void CTimeUI::SetEnableDraw(const bool bDraw)
 //============================================================
 //	位置の設定処理
 //============================================================
-void CTimeUI::SetVec3Position(const D3DXVECTOR3& rPos)
+void CTimeUI::SetVec3Position(const VECTOR3& rPos)
 {
 	// 引数の位置を設定
 	m_pos = rPos;
@@ -291,7 +291,7 @@ void CTimeUI::SetVec3Position(const D3DXVECTOR3& rPos)
 //============================================================
 //	向きの設定処理
 //============================================================
-void CTimeUI::SetVec3Rotation(const D3DXVECTOR3& rRot)
+void CTimeUI::SetVec3Rotation(const VECTOR3& rRot)
 {
 	// 引数の向きを設定
 	m_rot = rRot;
@@ -321,17 +321,17 @@ void CTimeUI::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 CTimeUI *CTimeUI::Create
 (
-	const float fTime,				// 表示時間
-	const D3DXVECTOR3& rPos,		// 位置
-	const D3DXVECTOR3& rSizeValue,	// 数字の大きさ
-	const D3DXVECTOR3& rSizePart,	// 区切りの大きさ
-	const D3DXVECTOR3& rSpaceValue,	// 数字の空白
-	const D3DXVECTOR3& rSpacePart,	// 区切りの空白
-	const CValue::EType type,		// 数字種類
-	const EAlignX alignX,			// 横配置
-	const EAlignY alignY,			// 縦配置
-	const D3DXVECTOR3& rRot,		// 向き
-	const COLOR& rCol				// 色
+	const float fTime,			// 表示時間
+	const VECTOR3& rPos,		// 位置
+	const VECTOR3& rSizeValue,	// 数字の大きさ
+	const VECTOR3& rSizePart,	// 区切りの大きさ
+	const VECTOR3& rSpaceValue,	// 数字の空白
+	const VECTOR3& rSpacePart,	// 区切りの空白
+	const CValue::EType type,	// 数字種類
+	const EAlignX alignX,		// 横配置
+	const EAlignY alignY,		// 縦配置
+	const VECTOR3& rRot,		// 向き
+	const COLOR& rCol			// 色
 )
 {
 	// タイムUIの生成
@@ -431,7 +431,7 @@ void CTimeUI::SetValueType(const CValue::EType type)
 //============================================================
 //	数字の大きさの設定処理
 //============================================================
-void CTimeUI::SetSizeValue(const D3DXVECTOR3& rSize)
+void CTimeUI::SetSizeValue(const VECTOR3& rSize)
 {
 	// 設定された数字の大きさを保存
 	m_sizeValue = rSize;
@@ -451,7 +451,7 @@ void CTimeUI::SetSizeValue(const D3DXVECTOR3& rSize)
 //============================================================
 //	区切りの大きさの設定処理
 //============================================================
-void CTimeUI::SetSizePart(const D3DXVECTOR3& rSize)
+void CTimeUI::SetSizePart(const VECTOR3& rSize)
 {
 	// 設定された区切りの大きさを保存
 	m_sizePart = rSize;
@@ -471,7 +471,7 @@ void CTimeUI::SetSizePart(const D3DXVECTOR3& rSize)
 //============================================================
 //	数字の空白の設定処理
 //============================================================
-void CTimeUI::SetSpaceValue(const D3DXVECTOR3& rSpace)
+void CTimeUI::SetSpaceValue(const VECTOR3& rSpace)
 {
 	// 引数の数字の空白を設定
 	m_spaceValue = rSpace;
@@ -483,7 +483,7 @@ void CTimeUI::SetSpaceValue(const D3DXVECTOR3& rSpace)
 //============================================================
 //	区切りの空白の設定処理
 //============================================================
-void CTimeUI::SetSpacePart(const D3DXVECTOR3& rSpace)
+void CTimeUI::SetSpacePart(const VECTOR3& rSpace)
 {
 	// 引数の区切りの空白を設定
 	m_spacePart = rSpace;
@@ -604,10 +604,10 @@ float CTimeUI::GetTimeHeight(void) const
 //============================================================
 //	数字全体の大きさ取得処理
 //============================================================
-D3DXVECTOR3 CTimeUI::GetTimeSize(void) const
+VECTOR3 CTimeUI::GetTimeSize(void) const
 {
 	// 数字全体の大きさを返す
-	return D3DXVECTOR3(GetTimeWidth(), GetTimeHeight(), 0.0f);
+	return VECTOR3(GetTimeWidth(), GetTimeHeight(), 0.0f);
 }
 
 //============================================================
@@ -617,17 +617,17 @@ void CTimeUI::SetPositionRelative(void)
 {
 	int nValueID = 0;	// 数字の生成数
 	int nPartID = 0;	// 区切りの生成数
-	D3DXVECTOR3 spaceValue = m_spaceValue * 0.5f;	// 数字の空白
-	D3DXVECTOR3 spacePart = m_spacePart * 0.5f;		// 区切りの空白
-	D3DXVECTOR3 sizeTime = GetTimeSize() * 0.5f;	// タイム全体の大きさ
-	D3DXVECTOR3 sizeHead = m_apValue[0]->GetVec3Size() * 0.5f;	// 先頭数字の大きさ
-	D3DXVECTOR3 rotStart = D3DXVECTOR3(m_rot.z + HALF_PI, m_rot.z, 0.0f);	// 文字の開始向き
+	VECTOR3 spaceValue = m_spaceValue * 0.5f;	// 数字の空白
+	VECTOR3 spacePart = m_spacePart * 0.5f;		// 区切りの空白
+	VECTOR3 sizeTime = GetTimeSize() * 0.5f;	// タイム全体の大きさ
+	VECTOR3 sizeHead = m_apValue[0]->GetVec3Size() * 0.5f;	// 先頭数字の大きさ
+	VECTOR3 rotStart = VECTOR3(m_rot.z + HALF_PI, m_rot.z, 0.0f);	// 文字の開始向き
 
-	D3DXVECTOR3 posOffset = VEC3_ZERO;	// 文字の開始オフセット
+	VECTOR3 posOffset = VEC3_ZERO;	// 文字の開始オフセット
 	posOffset.x = -sizeTime.x - spaceValue.x + sizeHead.x - (sizeTime.x * (m_alignX - 1));	// 開始オフセットX
 	posOffset.y = -sizeTime.y - spaceValue.y + sizeHead.y - (sizeTime.y * (m_alignY - 1));	// 開始オフセットY
 
-	D3DXVECTOR3 posStart = VEC3_ZERO;	// 文字の開始位置
+	VECTOR3 posStart = VEC3_ZERO;	// 文字の開始位置
 	posStart.x = m_pos.x + sinf(rotStart.x) * posOffset.x + sinf(rotStart.y) * posOffset.y;	// 開始位置X
 	posStart.y = m_pos.y + cosf(rotStart.x) * posOffset.x + cosf(rotStart.y) * posOffset.y;	// 開始位置Y
 

@@ -42,8 +42,8 @@ public:
 
 		// メンバ変数
 		std::string strPath;	// モデルパス
-		D3DXVECTOR3 pos;		// 位置
-		D3DXVECTOR3 rot;		// 向き
+		VECTOR3 pos;			// 位置
+		VECTOR3 rot;			// 向き
 		int nParentID;			// 親インデックス
 	};
 

@@ -151,7 +151,7 @@ void CValueUI::SetEnableDraw(const bool bDraw)
 //============================================================
 //	位置の設定処理
 //============================================================
-void CValueUI::SetVec3Position(const D3DXVECTOR3& rPos)
+void CValueUI::SetVec3Position(const VECTOR3& rPos)
 {
 	// 引数の位置を設定
 	m_pos = rPos;
@@ -165,17 +165,17 @@ void CValueUI::SetVec3Position(const D3DXVECTOR3& rPos)
 //============================================================
 CValueUI *CValueUI::Create
 (
-	const CValue::EType type,		// 数字種類
-	const int nDigit,				// 桁数
-	const D3DXVECTOR3& rPos,		// 位置
-	const D3DXVECTOR3& rSpace,		// 行間
-	const D3DXVECTOR3& rSpaceValue,	// 数字行間
-	const D3DXVECTOR3& rSizeTitle,	// タイトル大きさ
-	const D3DXVECTOR3& rSizeValue,	// 数字大きさ
-	const D3DXVECTOR3& rRotTitle,	// タイトル向き
-	const D3DXVECTOR3& rRotValue,	// 数字向き
-	const COLOR& rColTitle,			// タイトル色
-	const COLOR& rColValue			// 数字色
+	const CValue::EType type,	// 数字種類
+	const int nDigit,			// 桁数
+	const VECTOR3& rPos,		// 位置
+	const VECTOR3& rSpace,		// 行間
+	const VECTOR3& rSpaceValue,	// 数字行間
+	const VECTOR3& rSizeTitle,	// タイトル大きさ
+	const VECTOR3& rSizeValue,	// 数字大きさ
+	const VECTOR3& rRotTitle,	// タイトル向き
+	const VECTOR3& rRotValue,	// 数字向き
+	const COLOR& rColTitle,		// タイトル色
+	const COLOR& rColValue		// 数字色
 )
 {
 	// 数字UIの生成
@@ -242,18 +242,18 @@ CValueUI *CValueUI::Create
 //============================================================
 CValueUI *CValueUI::Create
 (
-	const int nTextureID,			// タイトルテクスチャインデックス
-	const CValue::EType type,		// 数字種類
-	const int nDigit,				// 桁数
-	const D3DXVECTOR3& rPos,		// 位置
-	const D3DXVECTOR3& rSpace,		// 行間
-	const D3DXVECTOR3& rSpaceValue,	// 数字行間
-	const D3DXVECTOR3& rSizeTitle,	// タイトル大きさ
-	const D3DXVECTOR3& rSizeValue,	// 数字大きさ
-	const D3DXVECTOR3& rRotTitle,	// タイトル向き
-	const D3DXVECTOR3& rRotValue,	// 数字向き
-	const COLOR& rColTitle,			// タイトル色
-	const COLOR& rColValue			// 数字色
+	const int nTextureID,		// タイトルテクスチャインデックス
+	const CValue::EType type,	// 数字種類
+	const int nDigit,			// 桁数
+	const VECTOR3& rPos,		// 位置
+	const VECTOR3& rSpace,		// 行間
+	const VECTOR3& rSpaceValue,	// 数字行間
+	const VECTOR3& rSizeTitle,	// タイトル大きさ
+	const VECTOR3& rSizeValue,	// 数字大きさ
+	const VECTOR3& rRotTitle,	// タイトル向き
+	const VECTOR3& rRotValue,	// 数字向き
+	const COLOR& rColTitle,		// タイトル色
+	const COLOR& rColValue		// 数字色
 )
 {
 	// 数字UIの生成
@@ -292,18 +292,18 @@ CValueUI *CValueUI::Create
 //============================================================
 CValueUI *CValueUI::Create
 (
-	const char *pTexturePath,		// タイトルテクスチャパス
-	const CValue::EType type,		// 数字種類
-	const int nDigit,				// 桁数
-	const D3DXVECTOR3& rPos,		// 位置
-	const D3DXVECTOR3& rSpace,		// 行間
-	const D3DXVECTOR3& rSpaceValue,	// 数字行間
-	const D3DXVECTOR3& rSizeTitle,	// タイトル大きさ
-	const D3DXVECTOR3& rSizeValue,	// 数字大きさ
-	const D3DXVECTOR3& rRotTitle,	// タイトル向き
-	const D3DXVECTOR3& rRotValue,	// 数字向き
-	const COLOR& rColTitle,			// タイトル色
-	const COLOR& rColValue			// 数字色
+	const char *pTexturePath,	// タイトルテクスチャパス
+	const CValue::EType type,	// 数字種類
+	const int nDigit,			// 桁数
+	const VECTOR3& rPos,		// 位置
+	const VECTOR3& rSpace,		// 行間
+	const VECTOR3& rSpaceValue,	// 数字行間
+	const VECTOR3& rSizeTitle,	// タイトル大きさ
+	const VECTOR3& rSizeValue,	// 数字大きさ
+	const VECTOR3& rRotTitle,	// タイトル向き
+	const VECTOR3& rRotValue,	// 数字向き
+	const COLOR& rColTitle,		// タイトル色
+	const COLOR& rColValue		// 数字色
 )
 {
 	// 数字UIの生成
@@ -340,7 +340,7 @@ CValueUI *CValueUI::Create
 //============================================================
 //	行間の設定処理
 //============================================================
-void CValueUI::SetSpace(const D3DXVECTOR3& rSpace)
+void CValueUI::SetSpace(const VECTOR3& rSpace)
 {
 	// 引数の行間を設定
 	m_space = rSpace;
@@ -386,7 +386,7 @@ void CValueUI::BindTextureTitle(const char *pTexturePath)
 //============================================================
 //	タイトル向きの設定処理
 //============================================================
-void CValueUI::SetRotationTitle(const D3DXVECTOR3& rRot)
+void CValueUI::SetRotationTitle(const VECTOR3& rRot)
 {
 	// 引数の向きを設定
 	m_pTitle->SetVec3Rotation(rRot);
@@ -395,7 +395,7 @@ void CValueUI::SetRotationTitle(const D3DXVECTOR3& rRot)
 //============================================================
 //	タイトル大きさの設定処理
 //============================================================
-void CValueUI::SetSizeTitle(const D3DXVECTOR3& rSize)
+void CValueUI::SetSizeTitle(const VECTOR3& rSize)
 {
 	// 引数の大きさを設定
 	m_pTitle->SetVec3Size(rSize);

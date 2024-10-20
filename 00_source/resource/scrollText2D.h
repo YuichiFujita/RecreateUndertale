@@ -47,13 +47,13 @@ public:
 	( // 引数
 		const std::string &rFilePath,			// フォントパス
 		const bool bItalic,						// イタリック
-		const D3DXVECTOR3& rPos,				// 原点位置
+		const VECTOR3& rPos,					// 原点位置
 		const float fNextTime = 0.1f,			// 文字表示の待機時間
 		const float fCharHeight = 100.0f,		// 文字縦幅
 		const float fLineHeight = 100.0f,		// 行間縦幅
 		const EAlignX alignX = XALIGN_CENTER,	// 横配置
 		const EAlignY alignY = YALIGN_CENTER,	// 縦配置
-		const D3DXVECTOR3& rRot = VEC3_ZERO,	// 原点向き
+		const VECTOR3& rRot = VEC3_ZERO,		// 原点向き
 		const COLOR& rCol = color::White()		// 色
 	);
 

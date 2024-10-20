@@ -55,24 +55,24 @@ public:
 	void SetPriority(const int nPriority) override;		// 優先順位設定
 	void SetEnableUpdate(const bool bUpdate) override;	// 更新状況設定
 	void SetEnableDraw(const bool bDraw) override;		// 描画状況設定
-	void SetVec3Position(const D3DXVECTOR3& rPos) override;				// 位置設定
-	void SetVec3Rotation(const D3DXVECTOR3& rRot) override;				// 向き設定
-	D3DXVECTOR3 GetVec3Position(void) const override { return m_pos; }	// 位置取得
-	D3DXVECTOR3 GetVec3Rotation(void) const override { return m_rot; }	// 向き取得
+	void SetVec3Position(const VECTOR3& rPos) override;				// 位置設定
+	void SetVec3Rotation(const VECTOR3& rRot) override;				// 向き設定
+	VECTOR3 GetVec3Position(void) const override { return m_pos; }	// 位置取得
+	VECTOR3 GetVec3Rotation(void) const override { return m_rot; }	// 向き取得
 
 	// 静的メンバ関数
 	static CTimeUI *Create	// 生成
 	( // 引数
-		const float fTime,				// 表示時間
-		const D3DXVECTOR3& rPos,		// 位置
-		const D3DXVECTOR3& rSizeValue,	// 数字の大きさ
-		const D3DXVECTOR3& rSizePart,	// 区切りの大きさ
-		const D3DXVECTOR3& rSpaceValue,	// 数字の空白
-		const D3DXVECTOR3& rSpacePart,	// 区切りの空白
+		const float fTime,			// 表示時間
+		const VECTOR3& rPos,		// 位置
+		const VECTOR3& rSizeValue,	// 数字の大きさ
+		const VECTOR3& rSizePart,	// 区切りの大きさ
+		const VECTOR3& rSpaceValue,	// 数字の空白
+		const VECTOR3& rSpacePart,	// 区切りの空白
 		const CValue::EType type = CValue::TYPE_NORMAL,	// 数字種類
 		const EAlignX alignX = XALIGN_CENTER,			// 横配置
 		const EAlignY alignY = YALIGN_CENTER,			// 縦配置
-		const D3DXVECTOR3& rRot = VEC3_ZERO,			// 向き
+		const VECTOR3& rRot = VEC3_ZERO,				// 向き
 		const COLOR& rCol = color::White()				// 色
 	);
 
@@ -85,22 +85,22 @@ public:
 
 	// メンバ関数
 	void SetValueType(const CValue::EType type);	// 数字の種類設定
-	void SetSizeValue(const D3DXVECTOR3& rSize);	// 区切りの大きさ設定
-	void SetSizePart(const D3DXVECTOR3& rSize);		// 数字の大きさ設定
-	void SetSpaceValue(const D3DXVECTOR3& rSpace);	// 区切りの空白設定
-	void SetSpacePart(const D3DXVECTOR3& rSpace);	// 数字の空白設定
+	void SetSizeValue(const VECTOR3& rSize);		// 区切りの大きさ設定
+	void SetSizePart(const VECTOR3& rSize);			// 数字の大きさ設定
+	void SetSpaceValue(const VECTOR3& rSpace);		// 区切りの空白設定
+	void SetSpacePart(const VECTOR3& rSpace);		// 数字の空白設定
 	void SetAlpha(const float fAlpha);				// 透明度の設定
 	void SetColor(const COLOR& rCol);				// 色の設定
 	void SetAlignX(const EAlignX align);			// 横配置設定
 	void SetAlignY(const EAlignY align);			// 縦配置設定
 	float GetTimeWidth(void) const;					// タイム全体の横幅取得
 	float GetTimeHeight(void) const;				// タイム全体の縦幅取得
-	D3DXVECTOR3 GetTimeSize(void) const;			// タイム全体の大きさ取得
+	VECTOR3 GetTimeSize(void) const;				// タイム全体の大きさ取得
 	CValue::EType GetValueType(void) const	{ return m_type; }			// 数字の種類取得
-	D3DXVECTOR3 GetSizeValue(void) const	{ return m_sizeValue; }		// 区切りの大きさ取得
-	D3DXVECTOR3 GetSizePart(void) const		{ return m_sizePart; }		// 数字の大きさ取得
-	D3DXVECTOR3 GetSpaceValue(void) const	{ return m_spaceValue; }	// 区切りの空白取得
-	D3DXVECTOR3 GetSpacePart(void) const	{ return m_spacePart; }		// 数字の空白取得
+	VECTOR3 GetSizeValue(void) const		{ return m_sizeValue; }		// 区切りの大きさ取得
+	VECTOR3 GetSizePart(void) const			{ return m_sizePart; }		// 数字の大きさ取得
+	VECTOR3 GetSpaceValue(void) const		{ return m_spaceValue; }	// 区切りの空白取得
+	VECTOR3 GetSpacePart(void) const		{ return m_spacePart; }		// 数字の空白取得
 	float GetAlpha(void) const				{ return m_col.a; }			// 透明度の設定
 	COLOR GetColor(void) const				{ return m_col;}			// 色の設定
 	EAlignX GetAlignX(void) const			{ return m_alignX; }		// 横配置取得
@@ -117,17 +117,17 @@ private:
 	// メンバ変数
 	CValue *m_apValue[timeUI::MAX_DIGIT];	// 数値の情報
 	CObject2D *m_apPart[timeUI::MAX_PART];	// 区切りの情報
-	CValue::EType m_type;		// 数字種類
-	D3DXVECTOR3 m_pos;			// 原点位置
-	D3DXVECTOR3 m_rot;			// 原点向き
-	D3DXVECTOR3 m_sizeValue;	// 数字の大きさ
-	D3DXVECTOR3 m_sizePart;		// 区切りの大きさ
-	D3DXVECTOR3 m_spaceValue;	// 数字の空白
-	D3DXVECTOR3 m_spacePart;	// 区切りの空白
-	COLOR m_col;				// 色
-	EAlignX m_alignX;			// 横配置
-	EAlignY m_alignY;			// 縦配置
-	float m_fTime;				// 表示時間
+	CValue::EType m_type;	// 数字種類
+	VECTOR3 m_pos;			// 原点位置
+	VECTOR3 m_rot;			// 原点向き
+	VECTOR3 m_sizeValue;	// 数字の大きさ
+	VECTOR3 m_sizePart;		// 区切りの大きさ
+	VECTOR3 m_spaceValue;	// 数字の空白
+	VECTOR3 m_spacePart;	// 区切りの空白
+	COLOR m_col;			// 色
+	EAlignX m_alignX;		// 横配置
+	EAlignY m_alignY;		// 縦配置
+	float m_fTime;			// 表示時間
 };
 
 #endif	// _TIME_UI_H_

@@ -44,22 +44,22 @@ public:
 	// オーバーライド関数
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
-	void Update(const float fDeltaTime) override;			// 更新
-	void Draw(CShader *pShader = nullptr) override;			// 描画
-	void SetPriority(const int nPriority) override;			// 優先順位設定
-	void SetVec3Position(const D3DXVECTOR3& rPos) override;	// 位置設定
-	void SetVec3Rotation(const D3DXVECTOR3& rRot) override;	// 向き設定
-	void SetVec3Size(const D3DXVECTOR3& rSize) override;	// 大きさ設定
-	D3DXVECTOR3 GetVec3Position(void) const override	{ return m_pos; }	// 位置取得
-	D3DXVECTOR3 GetVec3Rotation(void) const override	{ return m_rot; }	// 向き取得
-	D3DXVECTOR3 GetVec3Size(void) const override		{ return m_size; }	// 大きさ取得
+	void Update(const float fDeltaTime) override;		// 更新
+	void Draw(CShader *pShader = nullptr) override;		// 描画
+	void SetPriority(const int nPriority) override;		// 優先順位設定
+	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
+	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
+	void SetVec3Size(const VECTOR3& rSize) override;	// 大きさ設定
+	VECTOR3 GetVec3Position(void) const override	{ return m_pos; }	// 位置取得
+	VECTOR3 GetVec3Rotation(void) const override	{ return m_rot; }	// 向き取得
+	VECTOR3 GetVec3Size(void) const override		{ return m_size; }	// 大きさ取得
 
 	// 静的メンバ関数
 	static CFrame2D *Create	// 生成
 	( // 引数
-		const D3DXVECTOR3& rPos,	// 位置
-		const D3DXVECTOR3& rRot,	// 向き
-		const D3DXVECTOR3& rSize	// 大きさ
+		const VECTOR3& rPos,	// 位置
+		const VECTOR3& rRot,	// 向き
+		const VECTOR3& rSize	// 大きさ
 	);
 
 private:
@@ -68,9 +68,9 @@ private:
 
 	// メンバ変数
 	CObject2D *m_apFrame[POLYGON_MAX];	// フレーム情報
-	D3DXVECTOR3 m_pos;	// 位置
-	D3DXVECTOR3 m_rot;	// 向き
-	D3DXVECTOR3 m_size;	// 大きさ
+	VECTOR3 m_pos;	// 位置
+	VECTOR3 m_rot;	// 向き
+	VECTOR3 m_size;	// 大きさ
 };
 
 #endif	// _FRAME2D_H_

@@ -40,12 +40,11 @@ namespace
 		const int	PRIORITY		= 4;		// 物語表示ポリゴンの優先順位
 		const float	SCROLL_MOVE		= -0.002f;	// スクロールの移動量
 		const float	SCROLL_OFFSET	= 0.324f;	// スクロールポリゴンのテクスチャオフセット
-
 		const float	WAIT_TIME_DISP		= 5.0f;	// 物語遷移の待機時間 (表示のみ)
 		const float	WAIT_TIME_SCROLL	= 5.0f;	// 物語遷移の待機時間 (スクロール)
 
-		const D3DXVECTOR3 POS	= D3DXVECTOR3(SCREEN_CENT.x, 225.0f, 0.0f);	// ストーリー位置
-		const D3DXVECTOR3 SIZE	= D3DXVECTOR3(605.0f, 302.5f, 0.0f);		// ストーリー大きさ
+		const VECTOR3 POS	= VECTOR3(SCREEN_CENT.x, 225.0f, 0.0f);	// ストーリー位置
+		const VECTOR3 SIZE	= VECTOR3(605.0f, 302.5f, 0.0f);		// ストーリー大きさ
 	}
 
 	namespace text
@@ -61,7 +60,7 @@ namespace
 		const float	WAIT_TIME_NOR	= 0.105f;	// 文字表示の待機時間 (通常速度)
 		const float	WAIT_TIME_SLOW	= 0.7f;		// 文字表示の待機時間 (速度低下)
 
-		const D3DXVECTOR3 POS = D3DXVECTOR3(SCREEN_CENT.x - story::SIZE.x * 0.5f, 460.0f, 0.0f);	// テキスト位置
+		const VECTOR3 POS = VECTOR3(SCREEN_CENT.x - story::SIZE.x * 0.5f, 460.0f, 0.0f);	// テキスト位置
 		const EAlignX ALIGN_X = XALIGN_LEFT;	// 横配置
 		const EAlignY ALIGN_Y = YALIGN_TOP;		// 縦配置
 	}

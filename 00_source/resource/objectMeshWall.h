@@ -32,35 +32,35 @@ public:
 	// メッシュウォール構造体
 	struct SMeshWall
 	{
-		D3DXVECTOR3	pos;		// 位置
-		D3DXVECTOR3	rot;		// 向き
-		VECTOR2		size;		// 大きさ
-		COLOR		col;		// 色
-		MATRIX		mtxWorld;	// ワールドマトリックス
+		VECTOR3	pos;		// 位置
+		VECTOR3	rot;		// 向き
+		VECTOR2	size;		// 大きさ
+		COLOR	col;		// 色
+		MATRIX	mtxWorld;	// ワールドマトリックス
 	};
 
 	// オーバーライド関数
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
-	void Update(const float fDeltaTime) override;			// 更新
-	void Draw(CShader *pShader = nullptr) override;			// 描画
-	void SetVec3Position(const D3DXVECTOR3& rPos) override;	// 位置設定
-	void SetVec3Rotation(const D3DXVECTOR3& rRot) override;	// 向き設定
-	void SetVec2Size(const VECTOR2& rSize) override;		// 大きさ設定
-	D3DXVECTOR3 GetVec3Position(void) const override	{ return m_meshWall.pos; }			// 位置取得
-	D3DXVECTOR3 GetVec3Rotation(void) const override	{ return m_meshWall.rot; }			// 向き取得
-	VECTOR2 GetVec2Size(void) const override			{ return m_meshWall.size; }			// 大きさ取得
-	MATRIX *GetPtrMtxWorld(void) override				{ return &m_meshWall.mtxWorld; }	// マトリックスポインタ取得
-	MATRIX GetMtxWorld(void) const override				{ return m_meshWall.mtxWorld; }		// マトリックス取得
+	void Update(const float fDeltaTime) override;		// 更新
+	void Draw(CShader *pShader = nullptr) override;		// 描画
+	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
+	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
+	void SetVec2Size(const VECTOR2& rSize) override;	// 大きさ設定
+	VECTOR3 GetVec3Position(void) const override	{ return m_meshWall.pos; }			// 位置取得
+	VECTOR3 GetVec3Rotation(void) const override	{ return m_meshWall.rot; }			// 向き取得
+	VECTOR2 GetVec2Size(void) const override		{ return m_meshWall.size; }			// 大きさ取得
+	MATRIX *GetPtrMtxWorld(void) override			{ return &m_meshWall.mtxWorld; }	// マトリックスポインタ取得
+	MATRIX GetMtxWorld(void) const override			{ return m_meshWall.mtxWorld; }		// マトリックス取得
 
 	// 静的メンバ関数
 	static CObjectMeshWall *Create	// 生成
 	( // 引数
-		const D3DXVECTOR3& rPos,	// 位置
-		const D3DXVECTOR3& rRot,	// 向き
-		const VECTOR2& rSize,		// 大きさ
-		const COLOR& rCol,			// 色
-		const POSGRID2& rPart		// 分割数
+		const VECTOR3& rPos,	// 位置
+		const VECTOR3& rRot,	// 向き
+		const VECTOR2& rSize,	// 大きさ
+		const COLOR& rCol,		// 色
+		const POSGRID2& rPart	// 分割数
 	);
 
 	// メンバ関数
@@ -97,7 +97,6 @@ private:
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;	// 頂点バッファへのポインタ
 	LPDIRECT3DINDEXBUFFER9 m_pIdxBuff;	// インデックスバッファへのポインタ
 	CRenderState *m_pRenderState;		// レンダーステートの情報
-
 	SMeshWall m_meshWall;	// メッシュウォールの情報
 	POSGRID2 m_part;		// 分割数
 	int m_nNumVtx;			// 必要頂点数

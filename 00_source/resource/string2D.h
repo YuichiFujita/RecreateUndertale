@@ -37,15 +37,15 @@ public:
 	// オーバーライド関数
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
-	void Update(const float fDeltaTime) override;			// 更新
-	void Draw(CShader *pShader = nullptr) override;			// 描画
-	void SetPriority(const int nPriority) override;			// 優先順位設定
-	void SetEnableUpdate(const bool bUpdate) override;		// 更新状況設定
-	void SetEnableDraw(const bool bDraw) override;			// 描画状況設定
-	void SetVec3Position(const D3DXVECTOR3& rPos) override;	// 位置設定
-	void SetVec3Rotation(const D3DXVECTOR3& rRot) override;	// 向き設定
-	D3DXVECTOR3 GetVec3Position(void) const override { return m_pos; }	// 位置取得
-	D3DXVECTOR3 GetVec3Rotation(void) const override { return m_rot; }	// 向き取得
+	void Update(const float fDeltaTime) override;		// 更新
+	void Draw(CShader *pShader = nullptr) override;		// 描画
+	void SetPriority(const int nPriority) override;		// 優先順位設定
+	void SetEnableUpdate(const bool bUpdate) override;	// 更新状況設定
+	void SetEnableDraw(const bool bDraw) override;		// 描画状況設定
+	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
+	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
+	VECTOR3 GetVec3Position(void) const override { return m_pos; }	// 位置取得
+	VECTOR3 GetVec3Rotation(void) const override { return m_rot; }	// 向き取得
 
 	// 静的メンバ関数
 	static CString2D *Create	// 生成 (マルチバイト文字列)
@@ -53,10 +53,10 @@ public:
 		const std::string &rFilePath,	// フォントパス
 		const bool bItalic,				// イタリック
 		const std::string &rStr,		// 指定文字列
-		const D3DXVECTOR3 &rPos,		// 原点位置
+		const VECTOR3 &rPos,			// 原点位置
 		const float fHeight = 100.0f,			// 文字縦幅
 		const EAlignX alignX = XALIGN_CENTER,	// 横配置
-		const D3DXVECTOR3& rRot = VEC3_ZERO,	// 原点向き
+		const VECTOR3& rRot = VEC3_ZERO,		// 原点向き
 		const COLOR& rCol = color::White()		// 色
 	);
 	static CString2D *Create	// 生成 (ワイド文字列)
@@ -64,10 +64,10 @@ public:
 		const std::string &rFilePath,	// フォントパス
 		const bool bItalic,				// イタリック
 		const std::wstring &rStr,		// 指定文字列
-		const D3DXVECTOR3 &rPos,		// 原点位置
+		const VECTOR3 &rPos,			// 原点位置
 		const float fHeight = 100.0f,			// 文字縦幅
 		const EAlignX alignX = XALIGN_CENTER,	// 横配置
-		const D3DXVECTOR3& rRot = VEC3_ZERO,	// 原点向き
+		const VECTOR3& rRot = VEC3_ZERO,		// 原点向き
 		const COLOR& rCol = color::White()		// 色
 	);
 
@@ -88,7 +88,7 @@ public:
 	float GetStrWidth(void) const;					// 文字列の横幅取得
 	CChar2D *GetChar2D(const int nCharID) const;	// 文字の取得
 	float GetAlpha(void) const			{ return m_col.a; }				// 透明度取得
-	COLOR GetColor(void) const		{ return m_col; }					// 色取得
+	COLOR GetColor(void) const			{ return m_col; }				// 色取得
 	float GetCharHeight(void) const		{ return m_fCharHeight; }		// 文字の縦幅取得
 	EAlignX GetAlignX(void) const		{ return m_alignX; }			// 横配置取得
 	int GetNumChar(void) const			{ return (int)m_wsStr.size(); }	// 文字数取得
@@ -106,8 +106,8 @@ private:
 	CChar2D **m_ppChar;		// 文字ポリゴンの情報
 	CFontChar *m_pFontChar;	// フォント文字
 	std::wstring m_wsStr;	// 指定文字列
-	D3DXVECTOR3 m_pos;		// 位置
-	D3DXVECTOR3 m_rot;		// 向き
+	VECTOR3 m_pos;			// 位置
+	VECTOR3 m_rot;			// 向き
 	COLOR m_col;			// 色
 	EAlignX m_alignX;		// 横配置
 	float m_fCharHeight;	// 文字の縦幅

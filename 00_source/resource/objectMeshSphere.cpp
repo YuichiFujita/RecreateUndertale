@@ -144,7 +144,7 @@ void CObjectMeshSphere::SetPriority(const int nPriority)
 //============================================================
 //	位置の設定処理
 //============================================================
-void CObjectMeshSphere::SetVec3Position(const D3DXVECTOR3& rPos)
+void CObjectMeshSphere::SetVec3Position(const VECTOR3& rPos)
 {
 	for (int i = 0; i < DOME_MAX; i++)
 	{ // 半球の総数分繰り返す
@@ -157,13 +157,13 @@ void CObjectMeshSphere::SetVec3Position(const D3DXVECTOR3& rPos)
 //============================================================
 //	向きの設定処理
 //============================================================
-void CObjectMeshSphere::SetVec3Rotation(const D3DXVECTOR3& rRot)
+void CObjectMeshSphere::SetVec3Rotation(const VECTOR3& rRot)
 {
 	for (int i = 0; i < DOME_MAX; i++)
 	{ // 半球の総数分繰り返す
 
 		// 引数の向きを設定
-		D3DXVECTOR3 rot = rRot;
+		VECTOR3 rot = rRot;
 		rot.x += ((float)i * D3DX_PI);
 		m_apDome[i]->SetVec3Rotation(rot);
 	}
@@ -174,8 +174,8 @@ void CObjectMeshSphere::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 CObjectMeshSphere *CObjectMeshSphere::Create
 (
-	const D3DXVECTOR3& rPos,	// 位置
-	const D3DXVECTOR3& rRot,	// 向き
+	const VECTOR3& rPos,		// 位置
+	const VECTOR3& rRot,		// 向き
 	const COLOR& rCol,			// 色
 	const POSGRID2& rPart,		// 分割数
 	const POSGRID2& rTexPart,	// テクスチャ分割数

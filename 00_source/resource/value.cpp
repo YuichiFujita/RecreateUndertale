@@ -113,11 +113,11 @@ void CValue::Draw(CShader *pShader)
 //============================================================
 CValue *CValue::Create
 (
-	const EType type,			// 数字種類
-	const D3DXVECTOR3& rPos,	// 位置
-	const D3DXVECTOR3& rSize,	// 大きさ
-	const D3DXVECTOR3& rRot,	// 向き
-	const COLOR& rCol			// 色
+	const EType type,		// 数字種類
+	const VECTOR3& rPos,	// 位置
+	const VECTOR3& rSize,	// 大きさ
+	const VECTOR3& rRot,	// 向き
+	const COLOR& rCol		// 色
 )
 {
 	// 数字の生成

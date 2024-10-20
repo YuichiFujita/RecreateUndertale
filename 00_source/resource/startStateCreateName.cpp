@@ -36,10 +36,10 @@ namespace
 		const bool	ITALIC	= false;	// イタリック
 		const float	HEIGHT	= 42.0f;	// 文字縦幅
 
-		const EAlignX		ALIGN_X = XALIGN_CENTER;	// 横配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(SCREEN_CENT.x, 80.0f, 0.0f);	// 位置
-		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
-		const COLOR			COL = color::White();	// 色
+		const VECTOR3	POS = VECTOR3(SCREEN_CENT.x, 80.0f, 0.0f);	// 位置
+		const VECTOR3	ROT = VEC3_ZERO;			// 向き
+		const COLOR		COL = color::White();		// 色
+		const EAlignX	ALIGN_X = XALIGN_CENTER;	// 横配置
 	}
 	
 	namespace name
@@ -48,18 +48,18 @@ namespace
 		const bool	ITALIC = false;	// イタリック
 		const float	HEIGHT = 42.0f;	// 文字縦幅
 
-		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(360.0f, 155.0f, 0.0f);	// 位置
-		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
-		const COLOR			COL = color::White();	// 色
+		const VECTOR3	POS = VECTOR3(360.0f, 155.0f, 0.0f);	// 位置
+		const VECTOR3	ROT = VEC3_ZERO;		// 向き
+		const COLOR		COL = color::White();	// 色
+		const EAlignX	ALIGN_X = XALIGN_LEFT;	// 横配置
 	}
 
 	namespace select
 	{	
-		const D3DXVECTOR3 POS[CStartStateCreateName::YSELECT_MAX][CStartStateCreateName::XSELECT_MAX] =	// 位置配列
+		const VECTOR3 POS[CStartStateCreateName::YSELECT_MAX][CStartStateCreateName::XSELECT_MAX] =	// 位置配列
 		{
-			{ D3DXVECTOR3(180.0f, 530.0f, 0.0f), D3DXVECTOR3(440.0f, 530.0f, 0.0f), D3DXVECTOR3(750.0f, 530.0f, 0.0f) },
-			{ D3DXVECTOR3(220.0f, 630.0f, 0.0f), D3DXVECTOR3(460.0f, 630.0f, 0.0f), D3DXVECTOR3(700.0f, 630.0f, 0.0f) },
+			{ VECTOR3(180.0f, 530.0f, 0.0f), VECTOR3(440.0f, 530.0f, 0.0f), VECTOR3(750.0f, 530.0f, 0.0f) },
+			{ VECTOR3(220.0f, 630.0f, 0.0f), VECTOR3(460.0f, 630.0f, 0.0f), VECTOR3(700.0f, 630.0f, 0.0f) },
 		};
 
 		const CStartStateCreateName::ETypeChar INIT_TYPE = CStartStateCreateName::TYPECHAR_HIRAGANA;	// 初期文字セット
@@ -70,11 +70,10 @@ namespace
 		const float	HEIGHT		= 42.0f;	// 文字縦幅
 		const float	NEXT_TIME	= 0.035f;	// 文字振動の待機時間
 		const float	MOVE		= 1.0f;		// 振動移動量
-
-		const EAlignX ALIGN_X	= XALIGN_CENTER;	// 横配置
-		const D3DXVECTOR3 ROT	= VEC3_ZERO;		// 向き
+		const VECTOR3 ROT		= VEC3_ZERO;		// 向き
 		const COLOR COL_DEFAULT	= color::White();	// 通常色
 		const COLOR COL_CHOICE	= color::Yellow();	// 選択色
+		const EAlignX ALIGN_X	= XALIGN_CENTER;	// 横配置
 	}
 }
 
@@ -492,10 +491,10 @@ HRESULT CStartStateCreateName::ChangeChar(const ETypeChar typeChar)
 //============================================================
 HRESULT CStartStateCreateName::LoadArray(const ETypeChar typeChar)
 {
-	D3DXVECTOR3 posOffset	= VEC3_ZERO;	// 文字生成位置
-	D3DXVECTOR3 posStart	= VEC3_ZERO;	// 文字開始位置
-	VECTOR2 charOffset		= VEC2_ZERO;	// 文字のオフセット
-	float fSpaceOffset		= 0.0f;			// 空白のオフセット
+	VECTOR3 posOffset	= VEC3_ZERO;	// 文字生成位置
+	VECTOR3 posStart	= VEC3_ZERO;	// 文字開始位置
+	VECTOR2 charOffset	= VEC2_ZERO;	// 文字のオフセット
+	float fSpaceOffset	= 0.0f;			// 空白のオフセット
 
 	// ファイルを開く
 	std::ifstream file(PASS_CHAR[typeChar]);	// ファイルストリーム

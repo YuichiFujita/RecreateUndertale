@@ -44,11 +44,11 @@ public:
 	// 静的メンバ関数
 	static CValue *Create	// 生成
 	( // 引数
-		const EType type = TYPE_NORMAL,			// 数字種類
-		const D3DXVECTOR3& rPos = VEC3_ZERO,	// 位置
-		const D3DXVECTOR3& rSize = VEC3_ONE,	// 大きさ
-		const D3DXVECTOR3& rRot = VEC3_ZERO,	// 向き
-		const COLOR& rCol = color::White()		// 色
+		const EType type = TYPE_NORMAL,		// 数字種類
+		const VECTOR3& rPos = VEC3_ZERO,	// 位置
+		const VECTOR3& rSize = VEC3_ONE,	// 大きさ
+		const VECTOR3& rRot = VEC3_ZERO,	// 向き
+		const COLOR& rCol = color::White()	// 色
 	);
 
 	// メイン関数

@@ -70,7 +70,7 @@ void CPlayerStateNormal::Uninit(void)
 int CPlayerStateNormal::Update(const float fDeltaTime)
 {
 	// プレイヤー位置を取得
-	D3DXVECTOR3 posPlayer = m_pContext->GetVec3Position();
+	VECTOR3 posPlayer = m_pContext->GetVec3Position();
 
 	// 移動の操作
 	int nCurMotion = ControlMove();	// 現在のモーション取得
@@ -207,7 +207,7 @@ int CPlayerStateNormal::ControlMove(void)
 //============================================================
 //	位置の更新処理
 //============================================================
-void CPlayerStateNormal::UpdatePosition(D3DXVECTOR3& rPosPlayer, const float fDeltaTime)
+void CPlayerStateNormal::UpdatePosition(VECTOR3& rPosPlayer, const float fDeltaTime)
 {
 	// プレイヤーを移動させる
 	rPosPlayer += m_move * fDeltaTime;

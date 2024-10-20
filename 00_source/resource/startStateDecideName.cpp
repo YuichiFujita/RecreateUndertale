@@ -35,11 +35,11 @@ namespace
 		const float	CHAR_HEIGHT	= 42.0f;	// 文字縦幅
 		const float	LINE_HEIGHT	= 54.0f;	// 行間縦幅
 
-		const EAlignX		ALIGN_X = XALIGN_LEFT;		// 横配置
-		const EAlignY		ALIGN_Y = YALIGN_CENTER;	// 縦配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(270.0f, 130.0f, 0.0f);	// 位置
-		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
-		const COLOR			COL = color::White();	// 色
+		const VECTOR3	POS = VECTOR3(270.0f, 130.0f, 0.0f);	// 位置
+		const VECTOR3	ROT = VEC3_ZERO;			// 向き
+		const COLOR		COL = color::White();		// 色
+		const EAlignX	ALIGN_X = XALIGN_LEFT;		// 横配置
+		const EAlignY	ALIGN_Y = YALIGN_CENTER;	// 縦配置
 	}
 
 	namespace name
@@ -54,10 +54,10 @@ namespace
 		const float	MOVE_POS	= 1.5f;		// 位置のランダム振動量
 		const float MOVE_ROT	= 0.011f;	// 向きのランダム変動量
 
-		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
-		const D3DXVECTOR3	INIT_POS = D3DXVECTOR3(360.0f, 155.0f, 0.0f);	// 初期位置
-		const D3DXVECTOR3	ROT = VEC3_ZERO;		// 向き
-		const COLOR			COL = color::White();	// 色
+		const VECTOR3	INIT_POS = VECTOR3(360.0f, 155.0f, 0.0f);	// 初期位置
+		const VECTOR3	ROT = VEC3_ZERO;		// 向き
+		const COLOR		COL = color::White();	// 色
+		const EAlignX	ALIGN_X = XALIGN_LEFT;	// 横配置
 	}
 
 	namespace select
@@ -67,11 +67,11 @@ namespace
 		const float	CHAR_HEIGHT	= 42.0f;	// 文字縦幅
 		const float	LINE_WIDTH	= 500.0f;	// 列間縦幅
 
-		const EAlignX ALIGN_X = XALIGN_LEFT;		// 横配置
-		const D3DXVECTOR3 POS = D3DXVECTOR3(180.0f, 615.0f, 0.0f);	// 位置
-		const D3DXVECTOR3 ROT = VEC3_ZERO;			// 向き
+		const VECTOR3 POS = VECTOR3(180.0f, 615.0f, 0.0f);	// 位置
+		const VECTOR3 ROT = VEC3_ZERO;				// 向き
 		const COLOR COL_DEFAULT	= color::White();	// 通常色
 		const COLOR COL_CHOICE	= color::Yellow();	// 選択色
+		const EAlignX ALIGN_X = XALIGN_LEFT;		// 横配置
 	}
 }
 
@@ -182,7 +182,7 @@ HRESULT CStartStateDecideName::Init(void)
 	{ // 選択肢の総数分繰り返す
 
 		// 文字位置オフセット
-		D3DXVECTOR3 offset = D3DXVECTOR3(select::LINE_WIDTH * i, 0.0f, 0.0f);
+		VECTOR3 offset = VECTOR3(select::LINE_WIDTH * i, 0.0f, 0.0f);
 
 		// 選択肢の生成
 		m_apSelect[i] = CString2D::Create
@@ -342,7 +342,7 @@ void CStartStateDecideName::ShakeName(const float fDeltaTime)
 	if (m_fCurTimeShake >= name::WAIT_TIME)
 	{ // 待機し終わった場合
 
-		D3DXVECTOR3 rotName = VEC3_ZERO;			// 名前向き
+		VECTOR3 rotName = VEC3_ZERO;				// 名前向き
 		float fRefRand = (float)(rand() % 3 - 1);	// ランダム参照値
 
 		// 現在の待機時間を初期化
@@ -366,8 +366,8 @@ void CStartStateDecideName::MoveName(const float fDeltaTime)
 	float fRate = easing::Liner(m_fCurTimeMove, 0.0f, MOVE_TIME);
 
 	// 目標への差分を計算
-	D3DXVECTOR3 posDest = D3DXVECTOR3(m_fNameDestPosX, name::DEST_POSY, 0.0f);	// 目標位置
-	D3DXVECTOR3 posDiff = posDest - name::INIT_POS;				// 差分位置
+	VECTOR3 posDest = VECTOR3(m_fNameDestPosX, name::DEST_POSY, 0.0f);	// 目標位置
+	VECTOR3 posDiff = posDest - name::INIT_POS;					// 差分位置
 	float fHeightDiff = name::DEST_HEIGHT - name::INIT_HEIGHT;	// 差分縦幅
 
 	// 経過時刻を進める

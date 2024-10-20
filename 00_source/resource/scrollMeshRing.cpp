@@ -110,7 +110,7 @@ void CScrollMeshRing::Draw(CShader *pShader)
 //============================================================
 //	位置の設定処理
 //============================================================
-void CScrollMeshRing::SetVec3Position(const D3DXVECTOR3& rPos)
+void CScrollMeshRing::SetVec3Position(const VECTOR3& rPos)
 {
 	// 位置の設定
 	CObjectMeshRing::SetVec3Position(rPos);
@@ -122,7 +122,7 @@ void CScrollMeshRing::SetVec3Position(const D3DXVECTOR3& rPos)
 //============================================================
 //	向きの設定処理
 //============================================================
-void CScrollMeshRing::SetVec3Rotation(const D3DXVECTOR3& rRot)
+void CScrollMeshRing::SetVec3Rotation(const VECTOR3& rRot)
 {
 	// 向きの設定
 	CObjectMeshRing::SetVec3Rotation(rRot);
@@ -148,13 +148,13 @@ void CScrollMeshRing::SetVec2Size(const VECTOR2& rSize)
 //============================================================
 CScrollMeshRing *CScrollMeshRing::Create
 (
-	const float fMoveU,			// 横座標の移動量
-	const float fMoveV,			// 縦座標の移動量
-	const D3DXVECTOR3& rPos,	// 位置
-	const D3DXVECTOR3& rRot,	// 向き
-	const VECTOR2& rSize,		// 大きさ
-	const COLOR& rCol,			// 色
-	const POSGRID2& rPart		// 分割数
+	const float fMoveU,		// 横座標の移動量
+	const float fMoveV,		// 縦座標の移動量
+	const VECTOR3& rPos,	// 位置
+	const VECTOR3& rRot,	// 向き
+	const VECTOR2& rSize,	// 大きさ
+	const COLOR& rCol,		// 色
+	const POSGRID2& rPart	// 分割数
 )
 {
 	// スクロールメッシュリングの生成

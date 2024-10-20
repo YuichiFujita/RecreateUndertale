@@ -55,29 +55,29 @@ public:
 		~SSwing() {}
 
 		// メンバ変数
-		D3DXVECTOR3	shiftPos;		// 位置ずれ量
-		float		fShiftAngle;	// 位置をずらす角度
-		float		fShiftLength;	// 位置をずらす距離
-		float		fSubAngle;		// ずらす角度の減算量
-		float		fSubLength;		// ずらす距離の減算量
+		VECTOR3	shiftPos;		// 位置ずれ量
+		float	fShiftAngle;	// 位置をずらす角度
+		float	fShiftLength;	// 位置をずらす距離
+		float	fSubAngle;		// ずらす角度の減算量
+		float	fSubLength;		// ずらす距離の減算量
 	};
 
 	// カメラ構造体
 	struct SCamera
 	{
-		D3DXVECTOR3	 posV;		// 現在の視点
-		D3DXVECTOR3	 posR;		// 現在の注視点
-		D3DXVECTOR3	 destPosV;	// 目標の視点
-		D3DXVECTOR3	 destPosR;	// 目標の注視点
-		D3DXVECTOR3	 vecU;		// 上方向ベクトル
-		D3DXVECTOR3	 rot;		// 現在の向き
-		D3DXVECTOR3	 destRot;	// 目標の向き
-		float		 fDis;		// 現在の視点と注視点の距離
-		float		 fDestDis;	// 目標の視点と注視点の距離
-		SSwing		 swing;		// カメラ揺れ情報
+		VECTOR3 posV;			// 現在の視点
+		VECTOR3 posR;			// 現在の注視点
+		VECTOR3 destPosV;		// 目標の視点
+		VECTOR3 destPosR;		// 目標の注視点
+		VECTOR3 vecU;			// 上方向ベクトル
+		VECTOR3 rot;			// 現在の向き
+		VECTOR3 destRot;		// 目標の向き
+		float fDis;				// 現在の視点と注視点の距離
+		float fDestDis;			// 目標の視点と注視点の距離
+		SSwing swing;			// カメラ揺れ情報
 		D3DVIEWPORT9 viewport;	// ビューポート情報
-		MATRIX		 mtxProj;	// プロジェクションマトリックス
-		MATRIX		 mtxView;	// ビューマトリックス
+		MATRIX mtxProj;			// プロジェクションマトリックス
+		MATRIX mtxView;			// ビューマトリックス
 	};
 
 	// メンバ関数
@@ -94,18 +94,18 @@ public:
 	EState GetState(void) const;				// カメラ状態取得
 	void SetSwing(const SSwing swing);			// カメラ揺れ設定
 	void SetEnableUpdate(const bool bUpdate);	// 更新状況設定
-	void SetPositionV(const D3DXVECTOR3& rPos);	// 視点設定
-	void SetPositionR(const D3DXVECTOR3& rPos);	// 注視点設定
-	void SetRotation(const D3DXVECTOR3& rRot);	// 向き設定
+	void SetPositionV(const VECTOR3& rPos);		// 視点設定
+	void SetPositionR(const VECTOR3& rPos);		// 注視点設定
+	void SetRotation(const VECTOR3& rRot);		// 向き設定
 	void SetDistance(const float fDis);			// 距離設定
-	D3DXVECTOR3 GetPositionV(void) const		{ return m_camera.posV; }		// 現在の視点取得
-	D3DXVECTOR3 GetDestPositionV(void) const	{ return m_camera.destPosV; }	// 目標の視点取得
-	D3DXVECTOR3 GetPositionR(void) const		{ return m_camera.posR; }		// 現在の注視点取得
-	D3DXVECTOR3 GetDestPositionR(void) const	{ return m_camera.destPosR; }	// 目標の注視点取得
-	D3DXVECTOR3 GetRotation(void) const			{ return m_camera.rot; }		// 現在の向き取得
-	D3DXVECTOR3 GetDestRotation(void) const		{ return m_camera.destRot; }	// 目標の向き取得
-	float GetDistance(void) const				{ return m_camera.fDis; }		// 現在の距離取得
-	float GetDestDistance(void) const			{ return m_camera.fDestDis; }	// 目標の距離取得
+	VECTOR3 GetPositionV(void) const		{ return m_camera.posV; }		// 現在の視点取得
+	VECTOR3 GetDestPositionV(void) const	{ return m_camera.destPosV; }	// 目標の視点取得
+	VECTOR3 GetPositionR(void) const		{ return m_camera.posR; }		// 現在の注視点取得
+	VECTOR3 GetDestPositionR(void) const	{ return m_camera.destPosR; }	// 目標の注視点取得
+	VECTOR3 GetRotation(void) const			{ return m_camera.rot; }		// 現在の向き取得
+	VECTOR3 GetDestRotation(void) const		{ return m_camera.destRot; }	// 目標の向き取得
+	float GetDistance(void) const			{ return m_camera.fDis; }		// 現在の距離取得
+	float GetDestDistance(void) const		{ return m_camera.fDestDis; }	// 目標の距離取得
 
 	// 静的メンバ関数
 	static CCamera *Create(void);				// 生成

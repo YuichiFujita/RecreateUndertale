@@ -18,9 +18,9 @@ namespace
 
 	namespace frame
 	{
-		const D3DXVECTOR3 POS	= D3DXVECTOR3(560.0f, 362.5f, 0.0f);	// フレーム位置
-		const D3DXVECTOR3 ROT	= VEC3_ZERO;							// フレーム向き
-		const D3DXVECTOR3 SIZE	= D3DXVECTOR3(380.0f, 450.0f, 0.0f);	// フレーム大きさ
+		const VECTOR3 POS	= VECTOR3(560.0f, 362.5f, 0.0f);	// フレーム位置
+		const VECTOR3 ROT	= VEC3_ZERO;						// フレーム向き
+		const VECTOR3 SIZE	= VECTOR3(380.0f, 450.0f, 0.0f);	// フレーム大きさ
 	}
 }
 

@@ -34,21 +34,21 @@ public:
 	// オーバーライド関数
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
-	void Update(const float fDeltaTime) override;			// 更新
-	void Draw(CShader *pShader = nullptr) override;			// 描画
-	void SetVec3Position(const D3DXVECTOR3& rPos) override;	// 位置設定
-	void SetVec3Rotation(const D3DXVECTOR3& rRot) override;	// 向き設定
-	void SetVec3Size(const D3DXVECTOR3& rSize) override;	// 大きさ設定
+	void Update(const float fDeltaTime) override;		// 更新
+	void Draw(CShader *pShader = nullptr) override;		// 描画
+	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
+	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
+	void SetVec3Size(const VECTOR3& rSize) override;	// 大きさ設定
 
 	// 静的メンバ関数
 	static CAnim3D *Create	// 生成
 	( // 引数
-		const POSGRID2& rPtrn,		// テクスチャ分割数
-		const D3DXVECTOR3& rPos,	// 位置
-		const float fNextTime = DEF_NEXT,		// パターン変更時間
-		const D3DXVECTOR3& rSize = VEC3_ONE,	// 大きさ
-		const D3DXVECTOR3& rRot = VEC3_ZERO,	// 向き
-		const COLOR& rCol = color::White()		// 色
+		const POSGRID2& rPtrn,	// テクスチャ分割数
+		const VECTOR3& rPos,	// 位置
+		const float fNextTime = DEF_NEXT,	// パターン変更時間
+		const VECTOR3& rSize = VEC3_ONE,	// 大きさ
+		const VECTOR3& rRot = VEC3_ZERO,	// 向き
+		const COLOR& rCol = color::White()	// 色
 	);
 
 	// メンバ関数

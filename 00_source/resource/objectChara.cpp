@@ -163,7 +163,7 @@ void CObjectChara::SetEnableDraw(const bool bDraw)
 //============================================================
 //	位置の設定処理
 //============================================================
-void CObjectChara::SetVec3Position(const D3DXVECTOR3& rPos)
+void CObjectChara::SetVec3Position(const VECTOR3& rPos)
 {
 	// 引数の位置を設定
 	m_pos = rPos;
@@ -172,7 +172,7 @@ void CObjectChara::SetVec3Position(const D3DXVECTOR3& rPos)
 //============================================================
 //	向きの設定処理
 //============================================================
-void CObjectChara::SetVec3Rotation(const D3DXVECTOR3& rRot)
+void CObjectChara::SetVec3Rotation(const VECTOR3& rRot)
 {
 	// 引数の向きを設定
 	m_rot = rRot;
@@ -184,7 +184,7 @@ void CObjectChara::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 //	生成処理
 //============================================================
-CObjectChara *CObjectChara::Create(const D3DXVECTOR3 &rPos, const D3DXVECTOR3 &rRot)
+CObjectChara *CObjectChara::Create(const VECTOR3 &rPos, const VECTOR3 &rRot)
 {
 	// オブジェクトキャラクターの生成
 	CObjectChara *pObjectChara = new CObjectChara;
@@ -230,11 +230,11 @@ void CObjectChara::SetMotion(const int nType, const int nBlendFrame)
 //============================================================
 void CObjectChara::SetPartsInfo
 (
-	const int nID,				// パーツインデックス
-	const int nParentID,		// 親インデックス
-	const D3DXVECTOR3& rPos,	// 位置
-	const D3DXVECTOR3& rRot,	// 向き
-	const char *pFileName		// ファイル名
+	const int nID,			// パーツインデックス
+	const int nParentID,	// 親インデックス
+	const VECTOR3& rPos,	// 位置
+	const VECTOR3& rRot,	// 向き
+	const char *pFileName	// ファイル名
 )
 {
 	// インデックスが非正規の場合抜ける
@@ -357,7 +357,7 @@ void CObjectChara::SetPartsInfo(CCharacter::SPartsInfo& rInfo)
 //============================================================
 //	パーツ位置の設定処理
 //============================================================
-void CObjectChara::SetPartsPosition(const int nPartsID, const D3DXVECTOR3& rPos)
+void CObjectChara::SetPartsPosition(const int nPartsID, const VECTOR3& rPos)
 {
 	if (nPartsID < GetNumParts())
 	{ // 使用可能なインデックスの場合
@@ -371,7 +371,7 @@ void CObjectChara::SetPartsPosition(const int nPartsID, const D3DXVECTOR3& rPos)
 //============================================================
 //	パーツ向きの設定処理
 //============================================================
-void CObjectChara::SetPartsRotation(const int nPartsID, const D3DXVECTOR3& rRot)
+void CObjectChara::SetPartsRotation(const int nPartsID, const VECTOR3& rRot)
 {
 	if (nPartsID < GetNumParts())
 	{ // 使用可能なインデックスの場合
@@ -385,7 +385,7 @@ void CObjectChara::SetPartsRotation(const int nPartsID, const D3DXVECTOR3& rRot)
 //============================================================
 //	パーツ位置取得処理
 //============================================================
-D3DXVECTOR3 CObjectChara::GetPartsPosition(const int nPartsID) const
+VECTOR3 CObjectChara::GetPartsPosition(const int nPartsID) const
 {
 	if (nPartsID < GetNumParts())
 	{ // 使用可能なインデックスの場合
@@ -402,7 +402,7 @@ D3DXVECTOR3 CObjectChara::GetPartsPosition(const int nPartsID) const
 //============================================================
 //	パーツ向き取得処理
 //============================================================
-D3DXVECTOR3 CObjectChara::GetPartsRotation(const int nPartsID) const
+VECTOR3 CObjectChara::GetPartsRotation(const int nPartsID) const
 {
 	if (nPartsID < GetNumParts())
 	{ // 使用可能なインデックスの場合

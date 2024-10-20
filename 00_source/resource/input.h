@@ -112,7 +112,7 @@ public:
 	bool IsAnyPress(void);			// 全プレス取得
 	bool IsAnyTrigger(void);		// 全トリガー取得
 	bool IsAnyRelease(void);		// 全リリース取得
-	D3DXVECTOR3 GetMove(void);		// 移動量取得
+	VECTOR3 GetMove(void);			// 移動量取得
 
 private:
 	// メンバ変数

@@ -53,13 +53,13 @@ void useful::DivideDigitNum
 //============================================================
 void useful::NormalizeNormal
 (
-	const D3DXVECTOR3& rPosLeft,	// 左位置
-	const D3DXVECTOR3& rPosCenter,	// 中心位置
-	const D3DXVECTOR3& rPosRight,	// 右位置
-	D3DXVECTOR3& rNor				// 法線
+	const VECTOR3& rPosLeft,	// 左位置
+	const VECTOR3& rPosCenter,	// 中心位置
+	const VECTOR3& rPosRight,	// 右位置
+	VECTOR3& rNor				// 法線
 )
 {
-	D3DXVECTOR3 vecLine[2];	// 辺ベクトル
+	VECTOR3 vecLine[2];	// 辺ベクトル
 
 	// 辺ベクトルを求める
 	vecLine[0] = rPosLeft - rPosCenter;
@@ -222,7 +222,7 @@ void useful::NormalizeRot(float& rRot)
 //============================================================
 //	三軸向きの正規化
 //============================================================
-void useful::NormalizeRot(D3DXVECTOR3& rRot)
+void useful::NormalizeRot(VECTOR3& rRot)
 {
 	// 全ての向きを正規化
 	NormalizeRot(rRot.x);
@@ -360,7 +360,7 @@ std::string useful::WideToMultiByte(const std::wstring &rSrcStr)
 //============================================================
 //	ベクトルの向き変換
 //============================================================
-void useful::VecToRot(const D3DXVECTOR3& rVec, float *pPhi, float *pTheta)
+void useful::VecToRot(const VECTOR3& rVec, float *pPhi, float *pTheta)
 {
 	// 方位角の計算
 	*pPhi = atan2f(rVec.y, rVec.x);
@@ -372,7 +372,7 @@ void useful::VecToRot(const D3DXVECTOR3& rVec, float *pPhi, float *pTheta)
 //============================================================
 //	向きのベクトル変換
 //============================================================
-void useful::RotToVec(const float fPhi, const float fTheta, D3DXVECTOR3 *pVec)
+void useful::RotToVec(const float fPhi, const float fTheta, VECTOR3 *pVec)
 {
 	// ベクトルの計算
 	pVec->x = sinf(fTheta) * cosf(fPhi);

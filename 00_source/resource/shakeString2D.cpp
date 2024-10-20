@@ -90,7 +90,7 @@ void CShakeString2D::Draw(CShader *pShader)
 //============================================================
 //	位置の設定処理
 //============================================================
-void CShakeString2D::SetVec3Position(const D3DXVECTOR3& rPos)
+void CShakeString2D::SetVec3Position(const VECTOR3& rPos)
 {
 	// 親クラスの位置を設定
 	CString2D::SetVec3Position(rPos);
@@ -107,12 +107,12 @@ CShakeString2D *CShakeString2D::Create
 	const std::string &rFilePath,	// フォントパス
 	const bool bItalic,				// イタリック
 	const std::string &rStr,		// 指定文字列
-	const D3DXVECTOR3 &rPos,		// 原点位置
+	const VECTOR3 &rPos,			// 原点位置
 	const float fNextTime,			// 文字振動の待機時間
 	const float fMove,				// 振動移動量
 	const float fHeight,			// 文字縦幅
 	const EAlignX alignX,			// 横配置
-	const D3DXVECTOR3& rRot,		// 原点向き
+	const VECTOR3& rRot,			// 原点向き
 	const COLOR& rCol				// 色
 )
 {
@@ -181,12 +181,12 @@ CShakeString2D *CShakeString2D::Create
 	const std::string &rFilePath,	// フォントパス
 	const bool bItalic,				// イタリック
 	const std::wstring &rStr,		// 指定文字列
-	const D3DXVECTOR3 &rPos,		// 原点位置
+	const VECTOR3 &rPos,			// 原点位置
 	const float fNextTime,			// 文字振動の待機時間
 	const float fMove,				// 振動移動量
 	const float fHeight,			// 文字縦幅
 	const EAlignX alignX,			// 横配置
-	const D3DXVECTOR3& rRot,		// 原点向き
+	const VECTOR3& rRot,			// 原点向き
 	const COLOR& rCol				// 色
 )
 {
@@ -261,7 +261,7 @@ void CShakeString2D::UpdateShake(const float fDeltaTime)
 		m_fCurTime = 0.0f;
 
 		// ランダムに振動させる
-		D3DXVECTOR3 offset = VEC3_ZERO;	// 位置オフセット
+		VECTOR3 offset = VEC3_ZERO;	// 位置オフセット
 		offset.x = m_fShakeMove * (float)(rand() % 3 - 1);
 		offset.y = m_fShakeMove * (float)(rand() % 3 - 1);
 

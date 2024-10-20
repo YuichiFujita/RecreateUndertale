@@ -35,7 +35,7 @@ public:
 	void Draw(CShader *pShader = nullptr) override;	// •`‰æ
 
 	// Ã“Iƒƒ“ƒoŠÖ”
-	static CTileSpawn *Create(const char *pPrevPath, const D3DXVECTOR3& rPos);	// ¶¬
+	static CTileSpawn *Create(const char *pPrevPath, const VECTOR3& rPos);	// ¶¬
 
 private:
 	// ƒƒ“ƒo•Ï”

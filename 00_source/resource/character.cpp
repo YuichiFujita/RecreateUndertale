@@ -235,8 +235,8 @@ HRESULT CCharacter::SearchFolderAll(std::string sFolderPath)
 HRESULT CCharacter::LoadSetup(SCharaData *pInfoChara, const char *pCharaPath)
 {
 	SPartsInfo *pInfoParts = &pInfoChara->infoParts;	// パーツ情報
-	D3DXVECTOR3 pos = VEC3_ZERO;	// 位置の代入用
-	D3DXVECTOR3 rot = VEC3_ZERO;	// 向きの代入用
+	VECTOR3 pos = VEC3_ZERO;	// 位置の代入用
+	VECTOR3 rot = VEC3_ZERO;	// 向きの代入用
 	int nID = 0;	// インデックスの代入用
 
 	// ファイルを開く
@@ -345,11 +345,11 @@ HRESULT CCharacter::LoadSetup(SCharaData *pInfoChara, const char *pCharaPath)
 //============================================================
 HRESULT CCharacter::LoadMotionSetup(CMotion::SInfo *pInfoMotion, const SPartsInfo *pInfoParts, const char *pMotionPath)
 {
-	D3DXVECTOR3 pos = VEC3_ZERO;	// 読込位置
-	D3DXVECTOR3 rot = VEC3_ZERO;	// 読込向き
-	int nCurKey		= 0;			// 現在のキー番号
-	int nCurParts	= 0;			// 現在のパーツ番号
-	int nCastBool	= 0;			// bool型変換
+	VECTOR3 pos = VEC3_ZERO;	// 読込位置
+	VECTOR3 rot = VEC3_ZERO;	// 読込向き
+	int nCurKey		= 0;		// 現在のキー番号
+	int nCurParts	= 0;		// 現在のパーツ番号
+	int nCastBool	= 0;		// bool型変換
 
 	// ファイルを開く
 	std::ifstream file(pMotionPath);	// ファイルストリーム

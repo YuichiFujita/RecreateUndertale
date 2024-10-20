@@ -34,10 +34,10 @@ namespace
 		const bool	ITALIC	= false;	// イタリック
 		const float	HEIGHT	= 22.5f;	// 文字縦幅
 
-		const EAlignX		ALIGN_X = XALIGN_CENTER;	// 横配置
-		const COLOR			COL = COLOR(0.5f, 0.5f, 0.5f, 1.0f);			// 色
-		const D3DXVECTOR3	POS = D3DXVECTOR3(SCREEN_CENT.x, 545.0f, 0.0f);	// 位置
-		const D3DXVECTOR3	ROT = VEC3_ZERO;	// 向き
+		const VECTOR3	POS = VECTOR3(SCREEN_CENT.x, 545.0f, 0.0f);	// 位置
+		const VECTOR3	ROT = VEC3_ZERO;							// 向き
+		const COLOR		COL = COLOR(0.5f, 0.5f, 0.5f, 1.0f);		// 色
+		const EAlignX	ALIGN_X = XALIGN_CENTER;	// 横配置
 	}
 }
 

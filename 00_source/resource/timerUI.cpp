@@ -119,18 +119,18 @@ void CTimerUI::SetTime(const float fTime)
 //============================================================
 CTimerUI *CTimerUI::Create
 (
-	const float fTime,				// 開始時間
-	const float fLimit,				// 制限時間
-	const D3DXVECTOR3& rPos,		// 位置
-	const D3DXVECTOR3& rSizeValue,	// 数字の大きさ
-	const D3DXVECTOR3& rSizePart,	// 区切りの大きさ
-	const D3DXVECTOR3& rSpaceValue,	// 数字の空白
-	const D3DXVECTOR3& rSpacePart,	// 区切りの空白
-	const CValue::EType type,		// 数字種類
-	const EAlignX alignX,			// 横配置
-	const EAlignY alignY,			// 縦配置
-	const D3DXVECTOR3& rRot,		// 向き
-	const COLOR& rCol				// 色
+	const float fTime,			// 開始時間
+	const float fLimit,			// 制限時間
+	const VECTOR3& rPos,		// 位置
+	const VECTOR3& rSizeValue,	// 数字の大きさ
+	const VECTOR3& rSizePart,	// 区切りの大きさ
+	const VECTOR3& rSpaceValue,	// 数字の空白
+	const VECTOR3& rSpacePart,	// 区切りの空白
+	const CValue::EType type,	// 数字種類
+	const EAlignX alignX,		// 横配置
+	const EAlignY alignY,		// 縦配置
+	const VECTOR3& rRot,		// 向き
+	const COLOR& rCol			// 色
 )
 {
 	// タイマーUIの生成

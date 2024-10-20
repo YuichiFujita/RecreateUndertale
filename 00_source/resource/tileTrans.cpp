@@ -65,7 +65,7 @@ HRESULT CTileTrans::Init(void)
 	BindTexture(TEXTURE_FILE);
 
 	// 大きさを設定
-	SetVec3Size(D3DXVECTOR3(SIZE_TILE, SIZE_TILE, 0.0f));
+	SetVec3Size(VECTOR3(SIZE_TILE, SIZE_TILE, 0.0f));
 
 	if (m_pList == nullptr)
 	{ // リストマネージャーが存在しない場合
@@ -128,7 +128,7 @@ void CTileTrans::Draw(CShader *pShader)
 //============================================================
 //	生成処理
 //============================================================
-CTileTrans *CTileTrans::Create(const char *pNextPath, const D3DXVECTOR3& rPos)
+CTileTrans *CTileTrans::Create(const char *pNextPath, const VECTOR3& rPos)
 {
 	// 遷移タイルの生成
 	CTileTrans *pTileTrans = new CTileTrans(pNextPath);
@@ -171,16 +171,16 @@ CListManager<CTileTrans> *CTileTrans::GetList(void)
 //============================================================
 void CTileTrans::CollisionTile
 (
-	const D3DXVECTOR3& rPos,		// 位置
-	const D3DXVECTOR3& rRot,		// 向き
+	const VECTOR3& rPos,			// 位置
+	const VECTOR3& rRot,			// 向き
 	const CObjectChara2D *pChara2D	// キャラクター2D情報
 )
 {
 	// キャラクター2Dが存在しない場合抜ける
 	if (pChara2D == nullptr) { assert(false); return; }
 
-	D3DXVECTOR3 posOffset = pChara2D->CalcCollOffsetPosition(rPos, rRot);	// 判定原点位置
-	D3DXVECTOR3 sizeColl = pChara2D->GetCollSize() * 0.5f;					// 判定大きさ
+	VECTOR3 posOffset = pChara2D->CalcCollOffsetPosition(rPos, rRot);	// 判定原点位置
+	VECTOR3 sizeColl = pChara2D->GetCollSize() * 0.5f;					// 判定大きさ
 
 	// 遷移タイルとの当たり判定
 	CollisionTile(posOffset, sizeColl, sizeColl);
@@ -191,9 +191,9 @@ void CTileTrans::CollisionTile
 //============================================================
 void CTileTrans::CollisionTile
 (
-	const D3DXVECTOR3& rPos,		// 位置
-	const D3DXVECTOR3& rSizeUp,		// 大きさ (右/上/後)
-	const D3DXVECTOR3& rSizeDown	// 大きさ (左/下/前)
+	const VECTOR3& rPos,		// 位置
+	const VECTOR3& rSizeUp,		// 大きさ (右/上/後)
+	const VECTOR3& rSizeDown	// 大きさ (左/下/前)
 )
 {
 	// 遷移タイルがない場合抜ける
@@ -203,8 +203,8 @@ void CTileTrans::CollisionTile
 	for (const auto& rList : list)
 	{ // 要素数分繰り返す
 
-		D3DXVECTOR3 posTile  = rList->GetVec3Position();	// タイル位置
-		D3DXVECTOR3 sizeTile = rList->GetVec3Size() * 0.5f;	// タイル大きさ
+		VECTOR3 posTile  = rList->GetVec3Position();	// タイル位置
+		VECTOR3 sizeTile = rList->GetVec3Size() * 0.5f;	// タイル大きさ
 
 		// XY平面の矩形の当たり判定
 		bool bHit = collision::BoxXY

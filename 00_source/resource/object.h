@@ -36,29 +36,29 @@ namespace object
 // 頂点情報 [2D]
 struct VERTEX_2D
 {
-	D3DXVECTOR3	pos;	// 頂点座標
-	float		rhw;	// 座標変換用係数 (1.0fで固定)
-	D3DCOLOR	col;	// 頂点カラー
-	VECTOR2		tex;	// テクスチャ座標
+	VECTOR3	 pos;	// 頂点座標
+	float	 rhw;	// 座標変換用係数 (1.0fで固定)
+	D3DCOLOR col;	// 頂点カラー
+	VECTOR2	 tex;	// テクスチャ座標
 };
 
 // 頂点情報 [3D]
 struct VERTEX_3D
 {
-	D3DXVECTOR3	pos;	// 頂点座標
-	D3DXVECTOR3	nor;	// 法線ベクトル
-	D3DCOLOR	col;	// 頂点カラー
-	VECTOR2		tex;	// テクスチャ座標
+	VECTOR3	 pos;	// 頂点座標
+	VECTOR3	 nor;	// 法線ベクトル
+	D3DCOLOR col;	// 頂点カラー
+	VECTOR2	 tex;	// テクスチャ座標
 };
 
 // 頂点情報 [MULTEX3D]
 struct VERTEX_MULTEX3D
 {
-	D3DXVECTOR3	pos;	// 頂点座標
-	D3DXVECTOR3	nor;	// 法線ベクトル
-	D3DCOLOR	col;	// 頂点カラー
-	VECTOR2		tex0;	// テクスチャ座標_0枚目
-	VECTOR2		tex1;	// テクスチャ座標_1枚目
+	VECTOR3	 pos;	// 頂点座標
+	VECTOR3	 nor;	// 法線ベクトル
+	D3DCOLOR col;	// 頂点カラー
+	VECTOR2	 tex0;	// テクスチャ座標_0枚目
+	VECTOR2	 tex1;	// テクスチャ座標_1枚目
 };
 
 //************************************************************
@@ -112,17 +112,17 @@ public:
 	virtual inline void SetEnableUpdate(const bool bUpdate)	{ m_bUpdate = bUpdate; }	// 更新状況設定
 	virtual inline void SetEnableDraw(const bool bDraw)		{ m_bDraw = bDraw; }		// 描画状況設定
 	virtual inline void SetVec2Position(const VECTOR2&)		{ assert(false); }			// 二軸の位置設定
-	virtual inline void SetVec3Position(const D3DXVECTOR3&)	{ assert(false); }			// 三軸の位置設定
-	virtual inline void SetVec3Rotation(const D3DXVECTOR3&)	{ assert(false); }			// 向き設定
+	virtual inline void SetVec3Position(const VECTOR3&)		{ assert(false); }			// 三軸の位置設定
+	virtual inline void SetVec3Rotation(const VECTOR3&)		{ assert(false); }			// 向き設定
 	virtual inline void SetVec2Size(const VECTOR2&)			{ assert(false); }			// 二軸の大きさ設定
-	virtual inline void SetVec3Size(const D3DXVECTOR3&)		{ assert(false); }			// 三軸の大きさ設定
-	virtual inline void SetVec3Scale(const D3DXVECTOR3&)	{ assert(false); }			// 拡大率設定
+	virtual inline void SetVec3Size(const VECTOR3&)			{ assert(false); }			// 三軸の大きさ設定
+	virtual inline void SetVec3Scale(const VECTOR3&)		{ assert(false); }			// 拡大率設定
 	virtual inline VECTOR2 GetVec2Position(void) const		{ assert(false); return VEC2_ZERO; }	// 二軸の位置取得
-	virtual inline D3DXVECTOR3 GetVec3Position(void) const	{ assert(false); return VEC3_ZERO; }	// 三軸の位置取得
-	virtual inline D3DXVECTOR3 GetVec3Rotation(void) const	{ assert(false); return VEC3_ZERO; }	// 向き取得
+	virtual inline VECTOR3 GetVec3Position(void) const		{ assert(false); return VEC3_ZERO; }	// 三軸の位置取得
+	virtual inline VECTOR3 GetVec3Rotation(void) const		{ assert(false); return VEC3_ZERO; }	// 向き取得
 	virtual inline VECTOR2 GetVec2Size(void) const			{ assert(false); return VEC2_ZERO; }	// 二軸の大きさ取得
-	virtual inline D3DXVECTOR3 GetVec3Size(void) const		{ assert(false); return VEC3_ZERO; }	// 三軸の大きさ取得
-	virtual inline D3DXVECTOR3 GetVec3Scale(void) const		{ assert(false); return VEC3_ZERO; }	// 拡大率取得
+	virtual inline VECTOR3 GetVec3Size(void) const			{ assert(false); return VEC3_ZERO; }	// 三軸の大きさ取得
+	virtual inline VECTOR3 GetVec3Scale(void) const			{ assert(false); return VEC3_ZERO; }	// 拡大率取得
 	virtual inline MATRIX *GetPtrMtxWorld(void)				{ assert(false); return nullptr; }		// マトリックスポインタ取得
 	virtual inline MATRIX GetMtxWorld(void) const			{ assert(false); return {}; }			// マトリックス取得
 

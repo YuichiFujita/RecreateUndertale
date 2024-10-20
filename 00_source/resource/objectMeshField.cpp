@@ -185,7 +185,7 @@ void CObjectMeshField::Draw(CShader *pShader)
 //============================================================
 //	位置の設定処理
 //============================================================
-void CObjectMeshField::SetVec3Position(const D3DXVECTOR3& rPos)
+void CObjectMeshField::SetVec3Position(const VECTOR3& rPos)
 {
 	// 引数の位置を設定
 	m_meshField.pos = rPos;
@@ -194,7 +194,7 @@ void CObjectMeshField::SetVec3Position(const D3DXVECTOR3& rPos)
 //============================================================
 //	向きの設定処理
 //============================================================
-void CObjectMeshField::SetVec3Rotation(const D3DXVECTOR3& rRot)
+void CObjectMeshField::SetVec3Rotation(const VECTOR3& rRot)
 {
 	// 引数の向きを設定
 	m_meshField.rot = rRot;
@@ -220,11 +220,11 @@ void CObjectMeshField::SetVec2Size(const VECTOR2& rSize)
 //============================================================
 CObjectMeshField *CObjectMeshField::Create
 (
-	const D3DXVECTOR3& rPos,	// 位置
-	const D3DXVECTOR3& rRot,	// 向き
-	const VECTOR2& rSize,		// 大きさ
-	const COLOR& rCol,			// 色
-	const POSGRID2& rPart		// 分割数
+	const VECTOR3& rPos,	// 位置
+	const VECTOR3& rRot,	// 向き
+	const VECTOR2& rSize,	// 大きさ
+	const COLOR& rCol,		// 色
+	const POSGRID2& rPart	// 分割数
 )
 {
 	// オブジェクトメッシュフィールドの生成
@@ -419,12 +419,12 @@ HRESULT CObjectMeshField::SetPattern(const POSGRID2& rPart)
 	assert(m_pPosGapBuff == nullptr);
 
 	// 座標のずれバッファのメモリ確保
-	m_pPosGapBuff = new D3DXVECTOR3[m_nNumVtx];
+	m_pPosGapBuff = new VECTOR3[m_nNumVtx];
 	if (m_pPosGapBuff != nullptr)
 	{ // 確保に成功した場合
 
 		// メモリクリア
-		memset(m_pPosGapBuff, 0, sizeof(D3DXVECTOR3) * m_nNumVtx);
+		memset(m_pPosGapBuff, 0, sizeof(VECTOR3) * m_nNumVtx);
 	}
 	else
 	{ // 確保に失敗した場合
@@ -442,12 +442,12 @@ HRESULT CObjectMeshField::SetPattern(const POSGRID2& rPart)
 	assert(m_pNorBuff == nullptr);
 
 	// 法線バッファのメモリ確保
-	m_pNorBuff = new D3DXVECTOR3[nNorBuff];
+	m_pNorBuff = new VECTOR3[nNorBuff];
 	if (m_pNorBuff != nullptr)
 	{ // 確保に成功した場合
 	
 		// メモリクリア
-		memset(m_pNorBuff, 0, sizeof(D3DXVECTOR3) * nNorBuff);
+		memset(m_pNorBuff, 0, sizeof(VECTOR3) * nNorBuff);
 	}
 	else
 	{ // 確保に失敗した場合
@@ -494,7 +494,7 @@ HRESULT CObjectMeshField::SetPattern(const POSGRID2& rPart)
 //============================================================
 //	座標のずれの設定処理
 //============================================================
-void CObjectMeshField::SetGapPosition(const int nID, const D3DXVECTOR3& rPos)
+void CObjectMeshField::SetGapPosition(const int nID, const VECTOR3& rPos)
 {
 	if (m_pPosGapBuff != nullptr)
 	{ // 使用中の場合
@@ -517,9 +517,9 @@ void CObjectMeshField::SetGapPosition(const int nID, const D3DXVECTOR3& rPos)
 //============================================================
 //	座標のずれ取得処理
 //============================================================
-D3DXVECTOR3 CObjectMeshField::GetGapPosition(const int nID)
+VECTOR3 CObjectMeshField::GetGapPosition(const int nID)
 {
-	D3DXVECTOR3 pos = VEC3_ZERO;	// 頂点のずれの代入用
+	VECTOR3 pos = VEC3_ZERO;	// 頂点のずれの代入用
 	if (m_pPosGapBuff != nullptr)
 	{ // 使用中の場合
 
@@ -706,7 +706,7 @@ void CObjectMeshField::NormalizeNormal(void)
 	for (int nCntVtx = 0; nCntVtx < m_nNumVtx; nCntVtx++)
 	{ // 頂点数分繰り返す
 
-		D3DXVECTOR3 nor = VEC3_ZERO;	// 法線設定用
+		VECTOR3 nor = VEC3_ZERO;	// 法線設定用
 		for (int nCntNor = 0; nCntNor < m_pNumNorBuff[nCntVtx]; nCntNor++)
 		{ // 設定されている法線数分繰り返す
 
@@ -734,7 +734,7 @@ void CObjectMeshField::NormalizeNormal(void)
 //============================================================
 //	メッシュの着地処理
 //============================================================
-bool CObjectMeshField::LandPosition(D3DXVECTOR3& rPos, D3DXVECTOR3& rMove)
+bool CObjectMeshField::LandPosition(VECTOR3& rPos, VECTOR3& rMove)
 {
 	float fLandHeight = GetPositionHeight(rPos);	// 着地位置
 	if (rPos.y < fLandHeight)
@@ -757,7 +757,7 @@ bool CObjectMeshField::LandPosition(D3DXVECTOR3& rPos, D3DXVECTOR3& rMove)
 //============================================================
 //	メッシュの頂点位置の設定処理
 //============================================================
-void CObjectMeshField::SetMeshVertexPosition(const int nID, const D3DXVECTOR3& rPos)
+void CObjectMeshField::SetMeshVertexPosition(const int nID, const VECTOR3& rPos)
 {
 	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
 	if (m_pVtxBuff != nullptr)
@@ -784,7 +784,7 @@ void CObjectMeshField::SetMeshVertexPosition(const int nID, const D3DXVECTOR3& r
 //============================================================
 //	地形の設定処理
 //============================================================
-void CObjectMeshField::SetTerrain(const POSGRID2& rPart, D3DXVECTOR3 *pPosGap)
+void CObjectMeshField::SetTerrain(const POSGRID2& rPart, VECTOR3 *pPosGap)
 {
 	if (rPart != m_part)
 	{ // 分割数が違う場合
@@ -813,10 +813,10 @@ void CObjectMeshField::SetTerrain(const POSGRID2& rPart, D3DXVECTOR3 *pPosGap)
 //============================================================
 //	メッシュの頂点位置の設定処理
 //============================================================
-D3DXVECTOR3 CObjectMeshField::GetMeshVertexPosition(const int nID)
+VECTOR3 CObjectMeshField::GetMeshVertexPosition(const int nID)
 {
 	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
-	D3DXVECTOR3 pos;	// 頂点座標の代入用
+	VECTOR3 pos;		// 頂点座標の代入用
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
 
@@ -844,16 +844,16 @@ D3DXVECTOR3 CObjectMeshField::GetMeshVertexPosition(const int nID)
 //============================================================
 //	メッシュの範囲内取得処理
 //============================================================
-bool CObjectMeshField::IsPositionRange(const D3DXVECTOR3&rPos)
+bool CObjectMeshField::IsPositionRange(const VECTOR3&rPos)
 {
-	D3DXVECTOR3 aVtxPos[4];		// ポリゴンの頂点座標
-	D3DXVECTOR3 aVtxMtxPos[4];	// ポリゴンの位置・向き反映を行った頂点座標
+	VECTOR3 aVtxPos[4];		// ポリゴンの頂点座標
+	VECTOR3 aVtxMtxPos[4];	// ポリゴンの位置・向き反映を行った頂点座標
 
 	// メッシュの頂点位置を設定
-	aVtxPos[0] = D3DXVECTOR3(m_meshField.pos.x - m_meshField.size.x * 0.5f, 0.0f, m_meshField.pos.z + m_meshField.size.y * 0.5f);	// 左上
-	aVtxPos[1] = D3DXVECTOR3(m_meshField.pos.x - m_meshField.size.x * 0.5f, 0.0f, m_meshField.pos.z - m_meshField.size.y * 0.5f);	// 左下
-	aVtxPos[2] = D3DXVECTOR3(m_meshField.pos.x + m_meshField.size.x * 0.5f, 0.0f, m_meshField.pos.z - m_meshField.size.y * 0.5f);	// 右下
-	aVtxPos[3] = D3DXVECTOR3(m_meshField.pos.x + m_meshField.size.x * 0.5f, 0.0f, m_meshField.pos.z + m_meshField.size.y * 0.5f);	// 右上
+	aVtxPos[0] = VECTOR3(m_meshField.pos.x - m_meshField.size.x * 0.5f, 0.0f, m_meshField.pos.z + m_meshField.size.y * 0.5f);	// 左上
+	aVtxPos[1] = VECTOR3(m_meshField.pos.x - m_meshField.size.x * 0.5f, 0.0f, m_meshField.pos.z - m_meshField.size.y * 0.5f);	// 左下
+	aVtxPos[2] = VECTOR3(m_meshField.pos.x + m_meshField.size.x * 0.5f, 0.0f, m_meshField.pos.z - m_meshField.size.y * 0.5f);	// 右下
+	aVtxPos[3] = VECTOR3(m_meshField.pos.x + m_meshField.size.x * 0.5f, 0.0f, m_meshField.pos.z + m_meshField.size.y * 0.5f);	// 右上
 
 	for (int nCntVtx = 0; nCntVtx < 4; nCntVtx++)
 	{ // 三角形ポリゴンの頂点数分繰り返す
@@ -876,7 +876,7 @@ bool CObjectMeshField::IsPositionRange(const D3DXVECTOR3&rPos)
 		D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxTrans);
 
 		// 計算したマトリックスから座標を設定
-		aVtxMtxPos[nCntVtx] = D3DXVECTOR3(mtxWorld._41, mtxWorld._42, mtxWorld._43);
+		aVtxMtxPos[nCntVtx] = mtxWorld.GetPosition();
 	}
 
 	// 判定を返す
@@ -886,13 +886,13 @@ bool CObjectMeshField::IsPositionRange(const D3DXVECTOR3&rPos)
 //============================================================
 //	メッシュの着地位置の取得処理 (回転非考慮)
 //============================================================
-float CObjectMeshField::GetPositionHeight(const D3DXVECTOR3& rPos)
+float CObjectMeshField::GetPositionHeight(const VECTOR3& rPos)
 {
 	int nWidth  = (int)(( rPos.x + m_meshField.size.x * 0.5f) / (m_meshField.size.x / m_part.x));	// 横の分割位置
 	int nHeight = (int)((-rPos.z + m_meshField.size.y * 0.5f) / (m_meshField.size.y / m_part.y));	// 縦の分割位置
 	int nNumVtx = nWidth + (nHeight * (m_part.x + 1));	// 分割位置の左上頂点番号
-	D3DXVECTOR3 nor;		// 法線ベクトル
-	D3DXVECTOR3 aVtxPos[4];	// ポリゴンの頂点座標
+	VECTOR3 nor;		// 法線ベクトル
+	VECTOR3 aVtxPos[4];	// ポリゴンの頂点座標
 
 	for (int nCntHeight = 0; nCntHeight < 3; nCntHeight++)
 	{ // 縦の判定確認数分繰り返す
@@ -959,14 +959,14 @@ float CObjectMeshField::GetPositionHeight(const D3DXVECTOR3& rPos)
 //============================================================
 //	メッシュの着地位置の取得処理 (回転考慮)
 //============================================================
-float CObjectMeshField::GetPositionRotateHeight(const D3DXVECTOR3&rPos)
+float CObjectMeshField::GetPositionRotateHeight(const VECTOR3& rPos)
 {
-	int nNumCul;		// 法線ベクトル用の頂点計算用
-	int nNumVtx;		// 法線を求める頂点番号
-	D3DXVECTOR3 nor;	// 法線ベクトル
-	D3DXVECTOR3 pos;	// ターゲット位置
-	D3DXVECTOR3 aVtxPos[NUM_VTX_TRIANGLE];		// ポリゴンの頂点座標
-	D3DXVECTOR3 aVtxMtxPos[NUM_VTX_TRIANGLE];	// ポリゴンの位置・向き反映を行った頂点座標
+	int nNumCul;	// 法線ベクトル用の頂点計算用
+	int nNumVtx;	// 法線を求める頂点番号
+	VECTOR3 nor;	// 法線ベクトル
+	VECTOR3 pos;	// ターゲット位置
+	VECTOR3 aVtxPos[NUM_VTX_TRIANGLE];		// ポリゴンの頂点座標
+	VECTOR3 aVtxMtxPos[NUM_VTX_TRIANGLE];	// ポリゴンの位置・向き反映を行った頂点座標
 	for (int nCntVtx = 0; nCntVtx < 2; nCntVtx++)
 	{ // 四角ポリゴンに使用する三角の数分繰り返す
 
@@ -1014,7 +1014,7 @@ float CObjectMeshField::GetPositionRotateHeight(const D3DXVECTOR3&rPos)
 						D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxTrans);
 
 						// 計算したマトリックスから座標を設定
-						aVtxMtxPos[nCntTriangle] = D3DXVECTOR3(mtxWorld._41, mtxWorld._42, mtxWorld._43);
+						aVtxMtxPos[nCntTriangle] = mtxWorld.GetPosition();
 					}
 
 					if (collision::TriangleOuterPillar(aVtxMtxPos[0], aVtxMtxPos[1], aVtxMtxPos[2], rPos))
@@ -1062,7 +1062,7 @@ void CObjectMeshField::SetVtx(bool bNor)
 				nNumVtx = nCntWidth + (nCntHeight * (m_part.x + 1));
 
 				// 頂点座標の設定
-				pVtx[0].pos = D3DXVECTOR3
+				pVtx[0].pos = VECTOR3
 				( // 引数
 					nCntWidth * (m_meshField.size.x / (float)m_part.x) - (m_meshField.size.x * 0.5f),		// x
 					0.0f,																					// y
@@ -1235,11 +1235,10 @@ void CObjectMeshField::DrawShader(CShader *pShader)
 //============================================================
 //	法線の取得処理 (左)
 //============================================================
-D3DXVECTOR3 CObjectMeshField::GetNormalLeft(VERTEX_3D *pVtx)
+VECTOR3 CObjectMeshField::GetNormalLeft(VERTEX_3D *pVtx)
 {
-	D3DXVECTOR3 nor;	// 法線代入用
-
 	// 法線の正規化
+	VECTOR3 nor;	// 法線代入用
 	useful::NormalizeNormal
 	( // 引数
 		pVtx[m_part.x + 1].pos,	// 左位置
@@ -1255,11 +1254,10 @@ D3DXVECTOR3 CObjectMeshField::GetNormalLeft(VERTEX_3D *pVtx)
 //============================================================
 //	法線の取得処理 (左上)
 //============================================================
-D3DXVECTOR3 CObjectMeshField::GetNormalLeftTop(VERTEX_3D *pVtx)
+VECTOR3 CObjectMeshField::GetNormalLeftTop(VERTEX_3D *pVtx)
 {
-	D3DXVECTOR3 nor;	// 法線代入用
-
 	// 法線の正規化
+	VECTOR3 nor;	// 法線代入用
 	useful::NormalizeNormal
 	( // 引数
 		pVtx[-(m_part.x + 2)].pos,	// 左位置
@@ -1275,11 +1273,10 @@ D3DXVECTOR3 CObjectMeshField::GetNormalLeftTop(VERTEX_3D *pVtx)
 //============================================================
 //	法線の取得処理 (左下)
 //============================================================
-D3DXVECTOR3 CObjectMeshField::GetNormalLeftBottom(VERTEX_3D *pVtx)
+VECTOR3 CObjectMeshField::GetNormalLeftBottom(VERTEX_3D *pVtx)
 {
-	D3DXVECTOR3 nor;	// 法線代入用
-
 	// 法線の正規化
+	VECTOR3 nor;	// 法線代入用
 	useful::NormalizeNormal
 	( // 引数
 		pVtx[-1].pos,				// 左位置
@@ -1295,11 +1292,10 @@ D3DXVECTOR3 CObjectMeshField::GetNormalLeftBottom(VERTEX_3D *pVtx)
 //============================================================
 //	法線の取得処理 (右)
 //============================================================
-D3DXVECTOR3 CObjectMeshField::GetNormalRight(VERTEX_3D *pVtx)
+VECTOR3 CObjectMeshField::GetNormalRight(VERTEX_3D *pVtx)
 {
-	D3DXVECTOR3 nor;	// 法線代入用
-
 	// 法線の正規化
+	VECTOR3 nor;	// 法線代入用
 	useful::NormalizeNormal
 	( // 引数
 		pVtx[-(m_part.x + 1)].pos,	// 左位置
@@ -1315,11 +1311,10 @@ D3DXVECTOR3 CObjectMeshField::GetNormalRight(VERTEX_3D *pVtx)
 //============================================================
 //	法線の取得処理 (右上)
 //============================================================
-D3DXVECTOR3 CObjectMeshField::GetNormalRightTop(VERTEX_3D *pVtx)
+VECTOR3 CObjectMeshField::GetNormalRightTop(VERTEX_3D *pVtx)
 {
-	D3DXVECTOR3 nor;	// 法線代入用
-
 	// 法線の正規化
+	VECTOR3 nor;	// 法線代入用
 	useful::NormalizeNormal
 	( // 引数
 		pVtx[1].pos,			// 左位置
@@ -1335,11 +1330,10 @@ D3DXVECTOR3 CObjectMeshField::GetNormalRightTop(VERTEX_3D *pVtx)
 //============================================================
 //	法線の取得処理 (右下)
 //============================================================
-D3DXVECTOR3 CObjectMeshField::GetNormalRightBottom(VERTEX_3D *pVtx)
+VECTOR3 CObjectMeshField::GetNormalRightBottom(VERTEX_3D *pVtx)
 {
-	D3DXVECTOR3 nor;	// 法線代入用
-
 	// 法線の正規化
+	VECTOR3 nor;	// 法線代入用
 	useful::NormalizeNormal
 	( // 引数
 		pVtx[m_part.x + 2].pos,	// 左位置

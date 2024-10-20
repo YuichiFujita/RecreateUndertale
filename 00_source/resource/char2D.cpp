@@ -101,7 +101,7 @@ void CChar2D::Draw(CShader *pShader)
 //============================================================
 //	大きさの設定処理
 //============================================================
-void CChar2D::SetVec3Size(const D3DXVECTOR3& /*rSize*/)
+void CChar2D::SetVec3Size(const VECTOR3& /*rSize*/)
 {
 	/*
 		こっちで大きさを自由に変えられると
@@ -121,9 +121,9 @@ CChar2D *CChar2D::Create
 	const std::string &rFilePath,	// フォントパス
 	const bool bItalic,				// イタリック
 	const std::string &rChar,		// 指定文字
-	const D3DXVECTOR3& rPos,		// 位置
+	const VECTOR3& rPos,			// 位置
 	const float fHeight,			// 縦幅
-	const D3DXVECTOR3& rRot,		// 向き
+	const VECTOR3& rRot,			// 向き
 	const COLOR& rCol				// 色
 )
 {
@@ -177,9 +177,9 @@ CChar2D *CChar2D::Create
 	const std::string &rFilePath,	// フォントパス
 	const bool bItalic,				// イタリック
 	const wchar_t wcChar,			// 指定文字
-	const D3DXVECTOR3& rPos,		// 位置
+	const VECTOR3& rPos,			// 位置
 	const float fHeight,			// 縦幅
-	const D3DXVECTOR3& rRot,		// 向き
+	const VECTOR3& rRot,			// 向き
 	const COLOR& rCol				// 色
 )
 {
@@ -290,7 +290,7 @@ void CChar2D::SetCharHeight(const float fHeight)
 	m_fSizeRate = fHeight / (float)status.Height;
 
 	// 大きさを設定
-	CObject2D::SetVec3Size(D3DXVECTOR3(fTexWidth, fHeight, 0.0f));
+	CObject2D::SetVec3Size(VECTOR3(fTexWidth, fHeight, 0.0f));
 }
 
 //============================================================

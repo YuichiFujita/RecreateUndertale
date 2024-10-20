@@ -27,31 +27,31 @@ namespace
 	const bool	ITALIC	 = false;	// イタリック
 	const float	HEIGHT	 = 42.0f;	// 文字縦幅
 	const int	PRIORITY = 6;		// アイテムメニューの優先順位
-	const D3DXVECTOR3 CURSOR_OFFSET = D3DXVECTOR3(22.0f, 0.0f, 0.0f);	// カーソルオフセット
+	const VECTOR3 CURSOR_OFFSET = VECTOR3(22.0f, 0.0f, 0.0f);	// カーソルオフセット
 
 	namespace frame
 	{
-		const D3DXVECTOR3 POS	= D3DXVECTOR3(545.0f, 347.5f, 0.0f);	// フレーム位置
-		const D3DXVECTOR3 ROT	= VEC3_ZERO;							// フレーム向き
-		const D3DXVECTOR3 SIZE	= D3DXVECTOR3(500.0f, 520.0f, 0.0f);	// フレーム大きさ
+		const VECTOR3 POS	= VECTOR3(545.0f, 347.5f, 0.0f);	// フレーム位置
+		const VECTOR3 ROT	= VEC3_ZERO;						// フレーム向き
+		const VECTOR3 SIZE	= VECTOR3(500.0f, 520.0f, 0.0f);	// フレーム大きさ
 	}
 
 	namespace select
 	{
-		const EAlignX ALIGN_X	= XALIGN_CENTER;	// 横配置
-		const D3DXVECTOR3 POS	= D3DXVECTOR3(380.0f, 555.0f, 0.0f);	// 位置
-		const D3DXVECTOR3 SPACE	= D3DXVECTOR3(160.0f, 0.0f, 0.0f);		// 空白
-		const D3DXVECTOR3 ROT	= VEC3_ZERO;		// 向き
-		const COLOR COL			= color::White();	// 通常色
+		const VECTOR3	POS		= VECTOR3(380.0f, 555.0f, 0.0f);	// 位置
+		const VECTOR3	SPACE	= VECTOR3(160.0f, 0.0f, 0.0f);		// 空白
+		const VECTOR3	ROT		= VEC3_ZERO;		// 向き
+		const COLOR		COL		= color::White();	// 通常色
+		const EAlignX	ALIGN_X = XALIGN_CENTER;	// 横配置
 	}
 
 	namespace item
 	{
-		const EAlignX ALIGN_X	= XALIGN_LEFT;		// 横配置
-		const D3DXVECTOR3 POS	= D3DXVECTOR3(360.0f, 145.0f, 0.0f);	// 位置
-		const D3DXVECTOR3 SPACE	= D3DXVECTOR3(0.0f, 49.0f, 0.0f);		// 空白
-		const D3DXVECTOR3 ROT	= VEC3_ZERO;		// 向き
-		const COLOR COL			= color::White();	// 通常色
+		const VECTOR3	POS		= VECTOR3(360.0f, 145.0f, 0.0f);	// 位置
+		const VECTOR3	SPACE	= VECTOR3(0.0f, 49.0f, 0.0f);		// 空白
+		const VECTOR3	ROT		= VEC3_ZERO;		// 向き
+		const COLOR		COL		= color::White();	// 通常色
+		const EAlignX	ALIGN_X = XALIGN_LEFT;		// 横配置
 	}
 }
 
@@ -121,7 +121,7 @@ HRESULT CSelectItemUI::Init(void)
 	{ // 選択肢の総数分繰り返す
 
 		// 文字位置オフセットを計算
-		D3DXVECTOR3 offset = select::SPACE * (float)i;
+		VECTOR3 offset = select::SPACE * (float)i;
 
 		// 選択の生成
 		m_apSelect[i] = CString2D::Create
@@ -167,7 +167,7 @@ HRESULT CSelectItemUI::Init(void)
 #endif
 
 		// 文字位置オフセットを計算
-		D3DXVECTOR3 offset = item::SPACE * (float)i;
+		VECTOR3 offset = item::SPACE * (float)i;
 
 		// アイテム名の生成
 		m_vecItemName[i].m_pName = CString2D::Create
@@ -356,7 +356,7 @@ void CSelectItemUI::UpdateSelectAct(void)
 	}
 
 	// ソウルカーソルの位置を移動
-	const D3DXVECTOR3 offset = D3DXVECTOR3(m_apSelect[m_nCurSelectAct]->GetStrWidth() * 0.5f, 0.0f, 0.0f) + CURSOR_OFFSET;	// カーソルオフセット
+	const VECTOR3 offset = VECTOR3(m_apSelect[m_nCurSelectAct]->GetStrWidth() * 0.5f, 0.0f, 0.0f) + CURSOR_OFFSET;	// カーソルオフセット
 	SetSoulPosition(m_apSelect[m_nCurSelectAct]->GetVec3Position() - offset);
 }
 
@@ -427,7 +427,7 @@ HRESULT CItemUI::Init(void)
 	( // 引数
 		SCREEN_CENT,
 		VEC3_ZERO,
-		D3DXVECTOR3(1000.0f, 300.0f, 0.0f)
+		VECTOR3(1000.0f, 300.0f, 0.0f)
 	);
 	if (m_pTextBox == nullptr)
 	{ // 生成に失敗した場合

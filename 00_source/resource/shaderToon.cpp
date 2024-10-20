@@ -169,7 +169,7 @@ void CToonShader::SetLightDirect(MATRIX *pMtxWorld, const int nLightID)
 {
 	if (!IsEffectOK()) { assert(false); return; }	// エフェクト未使用
 
-	D3DXVECTOR3	dirLight = GET_MANAGER->GetLight()->GetLight(nLightID).Direction;	// ライト方向計算用
+	VECTOR3		dirLight = GET_MANAGER->GetLight()->GetLight(nLightID).Direction;	// ライト方向計算用
 	D3DXVECTOR4	setLight = D3DXVECTOR4(dirLight.x, dirLight.y, dirLight.z, 0.0f);	// ライト方向設定用
 	MATRIX		mtxInvWorld;	// ワールドマトリックス逆行列
 
@@ -178,7 +178,7 @@ void CToonShader::SetLightDirect(MATRIX *pMtxWorld, const int nLightID)
 	D3DXVec4Transform(&setLight, &setLight, &mtxInvWorld);	// マトリックスをベクトルに変換
 
 	// ライトの方向ベクトルを正規化
-	dirLight = D3DXVECTOR3(setLight.x, setLight.y, setLight.z);			// 計算したベクトルを代入
+	dirLight = VECTOR3(setLight.x, setLight.y, setLight.z);				// 計算したベクトルを代入
 	D3DXVec3Normalize(&dirLight, &dirLight);							// ベクトルを正規化
 	setLight = D3DXVECTOR4(dirLight.x, dirLight.y, dirLight.z, 0.0f);	// 正規化したベクトルを設定
 

@@ -25,7 +25,7 @@ namespace
 		const float	LINE_HEIGHT	= 62.0f;	// 行間縦幅
 		const float	WAIT_TIME	= 0.105f;	// 文字表示の待機時間
 
-		const D3DXVECTOR3 POS = D3DXVECTOR3(100.0f, 460.0f, 0.0f);	// テキスト位置
+		const VECTOR3 POS = VECTOR3(100.0f, 460.0f, 0.0f);	// テキスト位置
 		const EAlignX ALIGN_X = XALIGN_LEFT;	// 横配置
 		const EAlignY ALIGN_Y = YALIGN_TOP;		// 縦配置
 	}
@@ -133,9 +133,9 @@ void CFrameText2D::Draw(CShader *pShader)
 //============================================================
 CFrameText2D *CFrameText2D::Create
 (
-	const D3DXVECTOR3& rPos,	// 位置
-	const D3DXVECTOR3& rRot,	// 向き
-	const D3DXVECTOR3& rSize	// 大きさ
+	const VECTOR3& rPos,	// 位置
+	const VECTOR3& rRot,	// 向き
+	const VECTOR3& rSize	// 大きさ
 )
 {
 	// フレームテキスト2Dの生成

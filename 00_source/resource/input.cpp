@@ -593,10 +593,10 @@ bool CInputMouse::IsAnyRelease(void)
 //============================================================
 //	移動量取得処理
 //============================================================
-D3DXVECTOR3 CInputMouse::GetMove(void)
+VECTOR3 CInputMouse::GetMove(void)
 {
 	// マウスの移動量を返す
-	return D3DXVECTOR3
+	return VECTOR3
 	(
 		(float)m_keyStatePress.lX,	// 横移動量
 		(float)m_keyStatePress.lY,	// 縦移動量
@@ -1125,7 +1125,7 @@ float CInputPad::GetPressRStickRot(int nPadID)
 float CInputPad::GetPressLStickTilt(int nPadID)
 {
 	// Lスティックの傾きを返す
-	D3DXVECTOR3	vecLTilt = D3DXVECTOR3((float)GetPressLStickX(nPadID), (float)GetPressLStickY(nPadID), 0.0f);	// Lスティック各軸の傾き量
+	VECTOR3	vecLTilt = VECTOR3((float)GetPressLStickX(nPadID), (float)GetPressLStickY(nPadID), 0.0f);	// Lスティック各軸の傾き量
 	return sqrtf(vecLTilt.x * vecLTilt.x + vecLTilt.y * vecLTilt.y) * 0.5f;
 }
 
@@ -1135,7 +1135,7 @@ float CInputPad::GetPressLStickTilt(int nPadID)
 float CInputPad::GetPressRStickTilt(int nPadID)
 {
 	// Rスティックの傾きを返す
-	D3DXVECTOR3	vecRTilt = D3DXVECTOR3((float)GetPressRStickX(nPadID), (float)GetPressRStickY(nPadID), 0.0f);	// Rスティック各軸の傾き量
+	VECTOR3	vecRTilt = VECTOR3((float)GetPressRStickX(nPadID), (float)GetPressRStickY(nPadID), 0.0f);	// Rスティック各軸の傾き量
 	return sqrtf(vecRTilt.x * vecRTilt.x + vecRTilt.y * vecRTilt.y) * 0.5f;
 }
 

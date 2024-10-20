@@ -239,7 +239,7 @@ void CObjectTornado::Draw(CShader *pShader)
 //============================================================
 //	位置の設定処理
 //============================================================
-void CObjectTornado::SetVec3Position(const D3DXVECTOR3& rPos)
+void CObjectTornado::SetVec3Position(const VECTOR3& rPos)
 {
 	// 引数の位置を設定
 	m_tornado.pos = rPos;
@@ -250,23 +250,23 @@ void CObjectTornado::SetVec3Position(const D3DXVECTOR3& rPos)
 //============================================================
 CObjectTornado *CObjectTornado::Create
 (
-	const D3DXVECTOR3& rPos,		// 位置
-	const D3DXVECTOR3& rGrowRot,	// 成長向き
-	const COLOR& rCol,				// 色
-	MATRIX *pMtxParent,				// 親のマトリックス
-	const int	nNumAround,			// 渦の周回数
-	const int	nPattern,			// 渦の分割数
-	const float	fMoveRot,			// 向きの変更量
-	const float	fThickness,			// ポリゴンの太さ
-	const float	fOuterPlusY,		// ポリゴン外周のY座標加算量
-	const float	fSetWidth,			// 生成時の横ずれ量
-	const float	fSetAlpha,			// 生成時の透明度
-	const float	fAddWidth,			// 横ずれの加算量
-	const float	fAddHeight,			// 縦ずれの加算量
-	const float	fSubAlpha,			// 透明度の減算量
-	const float	fGrowWidth,			// 横ずれの成長量
-	const float	fGrowHeight,		// 縦ずれの成長量
-	const float	fGrowAlpha			// 透明度の成長量
+	const VECTOR3& rPos,		// 位置
+	const VECTOR3& rGrowRot,	// 成長向き
+	const COLOR& rCol,			// 色
+	MATRIX *pMtxParent,			// 親のマトリックス
+	const int	nNumAround,		// 渦の周回数
+	const int	nPattern,		// 渦の分割数
+	const float	fMoveRot,		// 向きの変更量
+	const float	fThickness,		// ポリゴンの太さ
+	const float	fOuterPlusY,	// ポリゴン外周のY座標加算量
+	const float	fSetWidth,		// 生成時の横ずれ量
+	const float	fSetAlpha,		// 生成時の透明度
+	const float	fAddWidth,		// 横ずれの加算量
+	const float	fAddHeight,		// 縦ずれの加算量
+	const float	fSubAlpha,		// 透明度の減算量
+	const float	fGrowWidth,		// 横ずれの成長量
+	const float	fGrowHeight,	// 縦ずれの成長量
+	const float	fGrowAlpha		// 透明度の成長量
 )
 {
 	// オブジェクト竜巻の生成
@@ -487,7 +487,7 @@ void CObjectTornado::SetColor(const COLOR& rCol)
 //============================================================
 //	成長向きの設定処理
 //============================================================
-void CObjectTornado::SetRotationGrow(const D3DXVECTOR3& rRot)
+void CObjectTornado::SetRotationGrow(const VECTOR3& rRot)
 {
 	// 引数の成長向きを設定
 	m_tornado.growRot = rRot;
@@ -586,7 +586,7 @@ void CObjectTornado::SetSubAlpha(const float fSubAlpha)
 void CObjectTornado::SetVtx(void)
 {
 	VERTEX_3D *pVtx;	// 頂点情報へのポインタ
-	D3DXVECTOR3 vecPos;	// 竜巻の頂点方向ベクトル
+	VECTOR3 vecPos;		// 竜巻の頂点方向ベクトル
 	float fWidth  = m_tornado.fSetWidth;	// 頂点方向の横ずれ量
 	float fHeight = 0.0f;					// 頂点方向の縦ずれ量
 	float fAlpha  = m_tornado.fSetAlpha;	// 頂点カラーの透明度

@@ -35,7 +35,7 @@ public:
 	// メンバ関数
 	HRESULT Init(void);	// 初期化
 	void Uninit(void);	// 終了
-	void LimitPosition(D3DXVECTOR3& rPos, const float fRadius);	// 位置範囲補正
+	void LimitPosition(VECTOR3& rPos, const float fRadius);		// 位置範囲補正
 	void SetLimit(const SLimit& rLimit)	{ m_limit = rLimit; }	// ステージ範囲設定
 	SLimit GetLimit(void) const			{ return m_limit; }		// ステージ範囲取得
 

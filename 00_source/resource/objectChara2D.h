@@ -38,8 +38,8 @@ public:
 		{}
 
 		// メンバ変数
-		D3DXVECTOR3 offset;	// 判定原点オフセット
-		D3DXVECTOR3 size;	// 判定大きさ
+		VECTOR3 offset;	// 判定原点オフセット
+		VECTOR3 size;	// 判定大きさ
 	};
 
 	// キャラクター管理構造体
@@ -95,10 +95,10 @@ public:
 		std::vector<float> vecNextTime;	// パターン変更時間配列
 		std::string sPathTexture;		// テクスチャパス
 		POSGRID2 ptrnTexture;			// テクスチャ分割数
-		int nMaxPtrn;		// 最大パターン数
-		D3DXVECTOR3 offset;	// 原点オフセット
-		D3DXVECTOR3 size;	// キャラクター大きさ
-		bool bLoop;			// ループON/OFF
+		int nMaxPtrn;	// 最大パターン数
+		VECTOR3 offset;	// 原点オフセット
+		VECTOR3 size;	// キャラクター大きさ
+		bool bLoop;		// ループON/OFF
 	};
 
 	// モーション管理構造体
@@ -142,7 +142,7 @@ public:
 	void Draw(CShader *pShader = nullptr) override;	// 描画
 
 	// 静的メンバ関数
-	static CObjectChara2D *Create(const D3DXVECTOR3& rPos, const D3DXVECTOR3& rRot = VEC3_ZERO);	// 生成
+	static CObjectChara2D *Create(const VECTOR3& rPos, const VECTOR3& rRot = VEC3_ZERO);	// 生成
 
 	// メンバ関数
 	void BindCharaData(const char *pCharaPath);	// キャラクター情報割当
@@ -156,23 +156,23 @@ public:
 	int GetNumType(void)		{ return m_info.GetNumMotion(); }	// 種類総数取得
 	float GetCancelTime(const int nType) const	{ return m_info.vecMotion[nType].fCancelTime; }				// キャンセル時間取得
 	float GetComboTime(const int nType) const	{ return m_info.vecMotion[nType].fComboTime; }				// コンボ時間取得
-	D3DXVECTOR3 GetCollSize(void) const			{ return m_info.vecMotion[m_info.nType].infoColl.size; }	// 判定大きさ取得
+	VECTOR3 GetCollSize(void) const				{ return m_info.vecMotion[m_info.nType].infoColl.size; }	// 判定大きさ取得
 
-	D3DXVECTOR3 CalcOriginOffsetPosition(const D3DXVECTOR3& rPos, const D3DXVECTOR3& rRot) const;	// 原点オフセット反映位置計算
-	D3DXVECTOR3 CalcCollOffsetPosition(const D3DXVECTOR3& rPos, const D3DXVECTOR3& rRot) const;		// 判定原点オフセット反映位置計算
-	D3DXVECTOR3 GetOriginOffsetPosition(void) const;	// 原点オフセット反映位置取得
-	D3DXVECTOR3 GetCollOffsetPosition(void) const;		// 判定原点オフセット反映位置取得
+	VECTOR3 CalcOriginOffsetPosition(const VECTOR3& rPos, const VECTOR3& rRot) const;	// 原点オフセット反映位置計算
+	VECTOR3 CalcCollOffsetPosition(const VECTOR3& rPos, const VECTOR3& rRot) const;		// 判定原点オフセット反映位置計算
+	VECTOR3 GetOriginOffsetPosition(void) const;	// 原点オフセット反映位置取得
+	VECTOR3 GetCollOffsetPosition(void) const;		// 判定原点オフセット反映位置取得
 
 private:
 	// オーバーライド関数
 	void CalcDrawMatrix(void) override;	// 描画マトリックス計算
 
 	// メンバ関数
-	D3DXVECTOR3 CalcOffsetPosition	// オフセット反映位置計算
+	VECTOR3 CalcOffsetPosition	// オフセット反映位置計算
 	( // 引数
-		const D3DXVECTOR3& rPos,	// 位置
-		const D3DXVECTOR3& rRot,	// 向き
-		const D3DXVECTOR3& rOffset	// オフセット
+		const VECTOR3& rPos,	// 位置
+		const VECTOR3& rRot,	// 向き
+		const VECTOR3& rOffset	// オフセット
 	) const;
 
 	// メンバ変数

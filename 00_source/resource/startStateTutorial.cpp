@@ -29,10 +29,10 @@ namespace
 		const bool	ITALIC	= false;	// イタリック
 		const float	HEIGHT	= 42.0f;	// 文字縦幅
 
-		const EAlignX		ALIGN_X = XALIGN_CENTER;	// 横配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(SCREEN_CENT.x, 65.0f, 0.0f);	// 位置
-		const D3DXVECTOR3	ROT = VEC3_ZERO;								// 向き
-		const COLOR			COL = COLOR(0.75f, 0.75f, 0.75f, 1.0f);			// 色
+		const VECTOR3	POS = VECTOR3(SCREEN_CENT.x, 65.0f, 0.0f);	// 位置
+		const VECTOR3	ROT = VEC3_ZERO;							// 向き
+		const COLOR		COL = COLOR(0.75f, 0.75f, 0.75f, 1.0f);		// 色
+		const EAlignX	ALIGN_X = XALIGN_CENTER;	// 横配置
 	}
 
 	namespace control
@@ -42,11 +42,11 @@ namespace
 		const float	CHAR_HEIGHT	= 42.0f;	// 文字縦幅
 		const float	LINE_HEIGHT	= 54.0f;	// 行間縦幅
 
-		const D3DXVECTOR3	POS = D3DXVECTOR3(150.0f, 262.0f, 0.0f);	// 位置
-		const D3DXVECTOR3	ROT = VEC3_ZERO;							// 向き
-		const COLOR			COL = COLOR(0.75f, 0.75f, 0.75f, 1.0f);		// 色
-		const EAlignX		ALIGN_X = XALIGN_LEFT;		// 横配置
-		const EAlignY		ALIGN_Y = YALIGN_CENTER;	// 縦配置
+		const VECTOR3	POS = VECTOR3(150.0f, 262.0f, 0.0f);	// 位置
+		const VECTOR3	ROT = VEC3_ZERO;						// 向き
+		const COLOR		COL = COLOR(0.75f, 0.75f, 0.75f, 1.0f);	// 色
+		const EAlignX	ALIGN_X = XALIGN_LEFT;		// 横配置
+		const EAlignY	ALIGN_Y = YALIGN_CENTER;	// 縦配置
 	}
 
 	namespace rule
@@ -55,10 +55,10 @@ namespace
 		const bool	ITALIC	= false;	// イタリック
 		const float	HEIGHT	= 42.0f;	// 文字縦幅
 
-		const EAlignX		ALIGN_X = XALIGN_LEFT;	// 横配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(150.0f, 450.0f, 0.0f);	// 位置
-		const D3DXVECTOR3	ROT = VEC3_ZERO;							// 向き
-		const COLOR			COL = COLOR(0.75f, 0.75f, 0.75f, 1.0f);		// 色
+		const VECTOR3	POS = VECTOR3(150.0f, 450.0f, 0.0f);	// 位置
+		const VECTOR3	ROT = VEC3_ZERO;						// 向き
+		const COLOR		COL = COLOR(0.75f, 0.75f, 0.75f, 1.0f);	// 色
+		const EAlignX	ALIGN_X = XALIGN_LEFT;	// 横配置
 	}
 
 	namespace select
@@ -68,11 +68,11 @@ namespace
 		const float	CHAR_HEIGHT	= 42.0f;	// 文字縦幅
 		const float	LINE_HEIGHT	= 54.0f;	// 行間縦幅
 
-		const EAlignX ALIGN_X = XALIGN_LEFT;	// 横配置
-		const D3DXVECTOR3 POS = D3DXVECTOR3(255.0f, 535.0f, 0.0f);	// 位置
-		const D3DXVECTOR3 ROT = VEC3_ZERO;			// 向き
-		const COLOR COL_DEFAULT	= color::White();	// 通常色
-		const COLOR COL_CHOICE	= color::Yellow();	// 選択色
+		const VECTOR3	POS = VECTOR3(255.0f, 535.0f, 0.0f);	// 位置
+		const VECTOR3	ROT = VEC3_ZERO;				// 向き
+		const COLOR		COL_DEFAULT	= color::White();	// 通常色
+		const COLOR		COL_CHOICE	= color::Yellow();	// 選択色
+		const EAlignX	ALIGN_X = XALIGN_LEFT;	// 横配置
 	}
 
 	namespace virsion
@@ -81,10 +81,10 @@ namespace
 		const bool	ITALIC	= false;	// イタリック
 		const float	HEIGHT	= 22.5f;	// 文字縦幅
 
-		const EAlignX		ALIGN_X = XALIGN_CENTER;	// 横配置
-		const D3DXVECTOR3	POS = D3DXVECTOR3(SCREEN_CENT.x, 706.0f, 0.0f);	// 位置
-		const D3DXVECTOR3	ROT = VEC3_ZERO;								// 向き
-		const COLOR			COL = COLOR(0.5f, 0.5f, 0.5f, 1.0f);			// 色
+		const VECTOR3	POS = VECTOR3(SCREEN_CENT.x, 706.0f, 0.0f);	// 位置
+		const VECTOR3	ROT = VEC3_ZERO;							// 向き
+		const COLOR		COL = COLOR(0.5f, 0.5f, 0.5f, 1.0f);		// 色
+		const EAlignX	ALIGN_X = XALIGN_CENTER;	// 横配置
 	}
 }
 
@@ -197,7 +197,7 @@ HRESULT CStartStateTutorial::Init(void)
 	{ // 選択肢の総数分繰り返す
 
 		// 文字位置オフセット
-		D3DXVECTOR3 offset = D3DXVECTOR3(0.0f, select::LINE_HEIGHT * i, 0.0f);
+		VECTOR3 offset = VECTOR3(0.0f, select::LINE_HEIGHT * i, 0.0f);
 
 		// 選択肢の生成
 		m_apSelect[i] = CString2D::Create

@@ -14,12 +14,12 @@
 //============================================================
 bool collision::BoxXY
 (
-	const D3DXVECTOR3& rCenterPos,		// 判定位置
-	const D3DXVECTOR3& rTargetPos,		// 判定目標位置
-	const D3DXVECTOR3& rCenterSizeUp,	// 判定大きさ (右/上/後)
-	const D3DXVECTOR3& rCenterSizeDown,	// 判定大きさ (左/下/前)
-	const D3DXVECTOR3& rTargetSizeUp,	// 判定目標大きさ (右/上/後)
-	const D3DXVECTOR3& rTargetSizeDown	// 判定目標大きさ (左/下/前)
+	const VECTOR3& rCenterPos,		// 判定位置
+	const VECTOR3& rTargetPos,		// 判定目標位置
+	const VECTOR3& rCenterSizeUp,	// 判定大きさ (右/上/後)
+	const VECTOR3& rCenterSizeDown,	// 判定大きさ (左/下/前)
+	const VECTOR3& rTargetSizeUp,	// 判定目標大きさ (右/上/後)
+	const VECTOR3& rTargetSizeDown	// 判定目標大きさ (左/下/前)
 )
 {
 	if (rCenterPos.x + rCenterSizeUp.x   > rTargetPos.x - rTargetSizeDown.x
@@ -39,12 +39,12 @@ bool collision::BoxXY
 //============================================================
 bool collision::BoxXZ
 (
-	const D3DXVECTOR3& rCenterPos,		// 判定位置
-	const D3DXVECTOR3& rTargetPos,		// 判定目標位置
-	const D3DXVECTOR3& rCenterSizeUp,	// 判定大きさ (右/上/後)
-	const D3DXVECTOR3& rCenterSizeDown,	// 判定大きさ (左/下/前)
-	const D3DXVECTOR3& rTargetSizeUp,	// 判定目標大きさ (右/上/後)
-	const D3DXVECTOR3& rTargetSizeDown	// 判定目標大きさ (左/下/前)
+	const VECTOR3& rCenterPos,		// 判定位置
+	const VECTOR3& rTargetPos,		// 判定目標位置
+	const VECTOR3& rCenterSizeUp,	// 判定大きさ (右/上/後)
+	const VECTOR3& rCenterSizeDown,	// 判定大きさ (左/下/前)
+	const VECTOR3& rTargetSizeUp,	// 判定目標大きさ (右/上/後)
+	const VECTOR3& rTargetSizeDown	// 判定目標大きさ (左/下/前)
 )
 {
 	if (rCenterPos.x + rCenterSizeUp.x   > rTargetPos.x - rTargetSizeDown.x
@@ -64,12 +64,12 @@ bool collision::BoxXZ
 //============================================================
 bool collision::Box3D
 (
-	D3DXVECTOR3 centerPos,		// 判定位置
-	D3DXVECTOR3 targetPos,		// 判定目標位置
-	D3DXVECTOR3 centerSizeUp,	// 判定サイズ(右・上・後)
-	D3DXVECTOR3 centerSizeDown,	// 判定サイズ(左・下・前)
-	D3DXVECTOR3 targetSizeUp,	// 判定目標サイズ(右・上・後)
-	D3DXVECTOR3 targetSizeDown	// 判定目標サイズ(左・下・前)
+	VECTOR3 centerPos,		// 判定位置
+	VECTOR3 targetPos,		// 判定目標位置
+	VECTOR3 centerSizeUp,	// 判定サイズ(右・上・後)
+	VECTOR3 centerSizeDown,	// 判定サイズ(左・下・前)
+	VECTOR3 targetSizeUp,	// 判定目標サイズ(右・上・後)
+	VECTOR3 targetSizeDown	// 判定目標サイズ(左・下・前)
 )
 {
 	if (centerPos.x + centerSizeUp.x   > targetPos.x - targetSizeDown.x
@@ -93,8 +93,8 @@ bool collision::Box3D
 //============================================================
 bool collision::Circle2D
 (
-	D3DXVECTOR3 centerPos,	// 判定位置
-	D3DXVECTOR3 targetPos,	// 判定目標位置
+	VECTOR3 centerPos,		// 判定位置
+	VECTOR3 targetPos,		// 判定目標位置
 	float fCenterRadius,	// 判定半径
 	float fTargetRadius,	// 判定目標半径
 	float *pLength			// 判定目標との距離
@@ -127,8 +127,8 @@ bool collision::Circle2D
 //============================================================
 bool collision::Circle3D
 (
-	D3DXVECTOR3 centerPos,	// 判定位置
-	D3DXVECTOR3 targetPos,	// 判定目標位置
+	VECTOR3 centerPos,		// 判定位置
+	VECTOR3 targetPos,		// 判定目標位置
 	float fCenterRadius,	// 判定半径
 	float fTargetRadius		// 判定目標半径
 )
@@ -154,12 +154,12 @@ bool collision::Circle3D
 //============================================================
 bool collision::Sector
 (
-	D3DXVECTOR3 centerPos,	// 判定位置
-	D3DXVECTOR3 targetPos,	// 判定目標位置
-	float fCenterRot,		// 判定向き
-	float fRadius,			// 視界範囲
-	float fAngle,			// 視野角
-	float *pLength			// 判定目標との距離
+	VECTOR3 centerPos,	// 判定位置
+	VECTOR3 targetPos,	// 判定目標位置
+	float fCenterRot,	// 判定向き
+	float fRadius,		// 視界範囲
+	float fAngle,		// 視野角
+	float *pLength		// 判定目標との距離
 )
 {
 	bool bHit = false;	// 当たり判定の結果
@@ -178,9 +178,9 @@ bool collision::Sector
 	if (fLength < fRadius * fRadius)
 	{ // 円の範囲内の場合
 
-		float fRotEdge[2];		// 扇形の縁の角度     [※] 0：左 1：右
-		D3DXVECTOR3 posEdge[2];	// 扇形の縁の先端位置 [※] 0：左 1：右
-		D3DXVECTOR3 vecEdge[2];	// 扇形の縁ベクトル   [※] 0：左 1：右
+		float fRotEdge[2];	// 扇形の縁の角度     [※] 0：左 1：右
+		VECTOR3 posEdge[2];	// 扇形の縁の先端位置 [※] 0：左 1：右
+		VECTOR3 vecEdge[2];	// 扇形の縁ベクトル   [※] 0：左 1：右
 
 		// 引数の角度の半分の値を求める
 		float fHalfAngle = fAngle * 0.5f;
@@ -212,7 +212,7 @@ bool collision::Sector
 		vecEdge[1].y = 0.0f;
 
 		// 左端と位置のベクトルを求める
-		D3DXVECTOR3 vecToPos = targetPos - centerPos;
+		VECTOR3 vecToPos = targetPos - centerPos;
 
 		if ((vecEdge[0].z * vecToPos.x) - (vecEdge[0].x * vecToPos.z) < 0
 		&&  (vecEdge[1].z * vecToPos.x) - (vecEdge[1].x * vecToPos.z) > 0)
@@ -232,13 +232,13 @@ bool collision::Sector
 //============================================================
 bool collision::ResponseBoxPillarXY
 (
-	D3DXVECTOR3& rCenterPos,			// 判定位置
-	const D3DXVECTOR3& rCenterPosOld,	// 判定過去位置
-	const D3DXVECTOR3& rTargetPos,		// 判定目標位置
-	const D3DXVECTOR3& rCenterSizeUp,	// 判定大きさ (右/上/後)
-	const D3DXVECTOR3& rCenterSizeDown,	// 判定大きさ (左/下/前)
-	const D3DXVECTOR3& rTargetSizeUp,	// 判定目標大きさ (右/上/後)
-	const D3DXVECTOR3& rTargetSizeDown	// 判定目標大きさ (左/下/前)
+	VECTOR3& rCenterPos,			// 判定位置
+	const VECTOR3& rCenterPosOld,	// 判定過去位置
+	const VECTOR3& rTargetPos,		// 判定目標位置
+	const VECTOR3& rCenterSizeUp,	// 判定大きさ (右/上/後)
+	const VECTOR3& rCenterSizeDown,	// 判定大きさ (左/下/前)
+	const VECTOR3& rTargetSizeUp,	// 判定目標大きさ (右/上/後)
+	const VECTOR3& rTargetSizeDown	// 判定目標大きさ (左/下/前)
 )
 {
 	bool bHit = false;	// 衝突判定結果
@@ -306,13 +306,13 @@ bool collision::ResponseBoxPillarXY
 //============================================================
 bool collision::ResponseBoxPillarXZ
 (
-	D3DXVECTOR3& rCenterPos,			// 判定位置
-	const D3DXVECTOR3& rCenterPosOld,	// 判定過去位置
-	const D3DXVECTOR3& rTargetPos,		// 判定目標位置
-	const D3DXVECTOR3& rCenterSizeUp,	// 判定大きさ (右/上/後)
-	const D3DXVECTOR3& rCenterSizeDown,	// 判定大きさ (左/下/前)
-	const D3DXVECTOR3& rTargetSizeUp,	// 判定目標大きさ (右/上/後)
-	const D3DXVECTOR3& rTargetSizeDown	// 判定目標大きさ (左/下/前)
+	VECTOR3& rCenterPos,			// 判定位置
+	const VECTOR3& rCenterPosOld,	// 判定過去位置
+	const VECTOR3& rTargetPos,		// 判定目標位置
+	const VECTOR3& rCenterSizeUp,	// 判定大きさ (右/上/後)
+	const VECTOR3& rCenterSizeDown,	// 判定大きさ (左/下/前)
+	const VECTOR3& rTargetSizeUp,	// 判定目標大きさ (右/上/後)
+	const VECTOR3& rTargetSizeDown	// 判定目標大きさ (左/下/前)
 )
 {
 	bool bHit = false;	// 衝突判定結果
@@ -380,10 +380,10 @@ bool collision::ResponseBoxPillarXZ
 //============================================================
 bool collision::CirclePillar
 (
-	D3DXVECTOR3& rCenterPos,	// 判定位置
-	D3DXVECTOR3 targetPos,		// 判定目標位置
-	float fCenterRadius,		// 判定半径
-	float fTargetRadius			// 判定目標半径
+	VECTOR3& rCenterPos,	// 判定位置
+	VECTOR3 targetPos,		// 判定目標位置
+	float fCenterRadius,	// 判定半径
+	float fTargetRadius		// 判定目標半径
 )
 {
 	// 判定位置と判定目標位置の距離を求める
@@ -411,17 +411,17 @@ bool collision::CirclePillar
 //============================================================
 bool collision::ResponseBox3D
 (
-	D3DXVECTOR3& rCenterPos,			// 判定位置
-	const D3DXVECTOR3& rCenterPosOld,	// 判定過去位置
-	const D3DXVECTOR3& rTargetPos,		// 判定目標位置
-	const D3DXVECTOR3& rCenterSizeUp,	// 判定サイズ(右・上・後)
-	const D3DXVECTOR3& rCenterSizeDown,	// 判定サイズ(左・下・前)
-	const D3DXVECTOR3& rTargetSizeUp,	// 判定目標サイズ(右・上・後)
-	const D3DXVECTOR3& rTargetSizeDown,	// 判定目標サイズ(左・下・前)
-	D3DXVECTOR3 *pMove,	// 移動量
-	bool *pUp,			// 上からの判定
-	bool *pSide,		// 横からの判定
-	bool *pDown			// 下からの判定
+	VECTOR3& rCenterPos,			// 判定位置
+	const VECTOR3& rCenterPosOld,	// 判定過去位置
+	const VECTOR3& rTargetPos,		// 判定目標位置
+	const VECTOR3& rCenterSizeUp,	// 判定サイズ(右・上・後)
+	const VECTOR3& rCenterSizeDown,	// 判定サイズ(左・下・前)
+	const VECTOR3& rTargetSizeUp,	// 判定目標サイズ(右・上・後)
+	const VECTOR3& rTargetSizeDown,	// 判定目標サイズ(左・下・前)
+	VECTOR3 *pMove,	// 移動量
+	bool *pUp,		// 上からの判定
+	bool *pSide,	// 横からの判定
+	bool *pDown		// 下からの判定
 )
 {
 	// 左右の当たり判定
@@ -605,10 +605,10 @@ bool collision::ResponseBox3D
 //============================================================
 bool collision::ResponseCircle3D
 (
-	D3DXVECTOR3& rCenterPos,	// 判定位置
-	D3DXVECTOR3 targetPos,		// 判定目標位置
-	float fCenterRadius,		// 判定半径
-	float fTargetRadius			// 判定目標半径
+	VECTOR3& rCenterPos,	// 判定位置
+	VECTOR3 targetPos,		// 判定目標位置
+	float fCenterRadius,	// 判定半径
+	float fTargetRadius		// 判定目標半径
 )
 {
 	// 判定位置と判定目標位置の距離を求める
@@ -619,8 +619,8 @@ bool collision::ResponseCircle3D
 	if (fLength < ((fCenterRadius + fTargetRadius) * (fCenterRadius + fTargetRadius)))
 	{ // 判定内の場合
 
-		D3DXVECTOR3 vecRev = rCenterPos - targetPos;	// 補正方向
-		D3DXVECTOR3 sphere;	// 球座標
+		VECTOR3 vecRev = rCenterPos - targetPos;	// 補正方向
+		VECTOR3 sphere;	// 球座標
 		float fPhi, fTheta;	// 方位角・仰角
 
 		// ベクトルを向きに変換し、向きから球座標を求める
@@ -643,19 +643,19 @@ bool collision::ResponseCircle3D
 //============================================================
 bool collision::ResponseCapsule3D
 (
-	D3DXVECTOR3 *pCenterPos,	// 判定位置
-	D3DXVECTOR3& rTargetPos,	// 判定目標位置
-	float fCenterRadius,		// 判定半径
-	float fTargetRadius,		// 判定目標半径
-	float fTargetHeight			// 判定目標縦幅
+	VECTOR3 *pCenterPos,	// 判定位置
+	VECTOR3& rTargetPos,	// 判定目標位置
+	float fCenterRadius,	// 判定半径
+	float fTargetRadius,	// 判定目標半径
+	float fTargetHeight		// 判定目標縦幅
 )
 {
 	bool bHit = false;	// 衝突判定結果
-	float fHalfHeight = (fTargetHeight - (fTargetRadius * 2.0f)) * 0.5f;			// 円柱縦幅の半分
-	D3DXVECTOR3 centUp   = *pCenterPos + D3DXVECTOR3(0.0f, fCenterRadius, 0.0f);	// 判定位置の上
-	D3DXVECTOR3 centDown = *pCenterPos - D3DXVECTOR3(0.0f, fCenterRadius, 0.0f);	// 判定位置の下
-	D3DXVECTOR3 targUp   = rTargetPos + D3DXVECTOR3(0.0f, fHalfHeight, 0.0f);		// 判定目標位置の上
-	D3DXVECTOR3 targDown = rTargetPos - D3DXVECTOR3(0.0f, fHalfHeight, 0.0f);		// 判定目標位置の下
+	float fHalfHeight = (fTargetHeight - (fTargetRadius * 2.0f)) * 0.5f;	// 円柱縦幅の半分
+	VECTOR3 centUp   = *pCenterPos + VECTOR3(0.0f, fCenterRadius, 0.0f);	// 判定位置の上
+	VECTOR3 centDown = *pCenterPos - VECTOR3(0.0f, fCenterRadius, 0.0f);	// 判定位置の下
+	VECTOR3 targUp   = rTargetPos + VECTOR3(0.0f, fHalfHeight, 0.0f);		// 判定目標位置の上
+	VECTOR3 targDown = rTargetPos - VECTOR3(0.0f, fHalfHeight, 0.0f);		// 判定目標位置の下
 	if (centDown.y >= targUp.y)
 	{ // 円柱判定の上側にいる場合
 
@@ -702,16 +702,16 @@ bool collision::ResponseCapsule3D
 //============================================================
 bool collision::ResponseSingleX
 (
-	D3DXVECTOR3& rCenterPos,	// 判定位置
-	D3DXVECTOR3& rCenterPosOld,	// 判定過去位置
-	D3DXVECTOR3 targetPos,		// 判定目標位置
-	D3DXVECTOR3 centerSizeUp,	// 判定サイズ(右・上・後)
-	D3DXVECTOR3 centerSizeDown,	// 判定サイズ(左・下・前)
-	D3DXVECTOR3 targetSizeUp,	// 判定目標サイズ(右・上・後)
-	D3DXVECTOR3 targetSizeDown,	// 判定目標サイズ(左・下・前)
-	D3DXVECTOR3 *pMove,	// 移動量
-	bool *pLeft,		// 左からの判定
-	bool *pRight		// 右からの判定
+	VECTOR3& rCenterPos,	// 判定位置
+	VECTOR3& rCenterPosOld,	// 判定過去位置
+	VECTOR3 targetPos,		// 判定目標位置
+	VECTOR3 centerSizeUp,	// 判定サイズ(右・上・後)
+	VECTOR3 centerSizeDown,	// 判定サイズ(左・下・前)
+	VECTOR3 targetSizeUp,	// 判定目標サイズ(右・上・後)
+	VECTOR3 targetSizeDown,	// 判定目標サイズ(左・下・前)
+	VECTOR3 *pMove,	// 移動量
+	bool *pLeft,	// 左からの判定
+	bool *pRight	// 右からの判定
 )
 {
 	// 左右の当たり判定
@@ -781,16 +781,16 @@ bool collision::ResponseSingleX
 //============================================================
 bool collision::ResponseSingleY
 (
-	D3DXVECTOR3& rCenterPos,	// 判定位置
-	D3DXVECTOR3& rCenterPosOld,	// 判定過去位置
-	D3DXVECTOR3 targetPos,		// 判定目標位置
-	D3DXVECTOR3 centerSizeUp,	// 判定サイズ(右・上・後)
-	D3DXVECTOR3 centerSizeDown,	// 判定サイズ(左・下・前)
-	D3DXVECTOR3 targetSizeUp,	// 判定目標サイズ(右・上・後)
-	D3DXVECTOR3 targetSizeDown,	// 判定目標サイズ(左・下・前)
-	D3DXVECTOR3 *pMove,	// 移動量
-	bool *pDown,		// 下からの判定
-	bool *pUp			// 上からの判定
+	VECTOR3& rCenterPos,	// 判定位置
+	VECTOR3& rCenterPosOld,	// 判定過去位置
+	VECTOR3 targetPos,		// 判定目標位置
+	VECTOR3 centerSizeUp,	// 判定サイズ(右・上・後)
+	VECTOR3 centerSizeDown,	// 判定サイズ(左・下・前)
+	VECTOR3 targetSizeUp,	// 判定目標サイズ(右・上・後)
+	VECTOR3 targetSizeDown,	// 判定目標サイズ(左・下・前)
+	VECTOR3 *pMove,	// 移動量
+	bool *pDown,	// 下からの判定
+	bool *pUp		// 上からの判定
 )
 {
 	// 上下の当たり判定
@@ -860,16 +860,16 @@ bool collision::ResponseSingleY
 //============================================================
 bool collision::ResponseSingleZ
 (
-	D3DXVECTOR3& rCenterPos,	// 判定位置
-	D3DXVECTOR3& rCenterPosOld,	// 判定過去位置
-	D3DXVECTOR3 targetPos,		// 判定目標位置
-	D3DXVECTOR3 centerSizeUp,	// 判定サイズ(右・上・後)
-	D3DXVECTOR3 centerSizeDown,	// 判定サイズ(左・下・前)
-	D3DXVECTOR3 targetSizeUp,	// 判定目標サイズ(右・上・後)
-	D3DXVECTOR3 targetSizeDown,	// 判定目標サイズ(左・下・前)
-	D3DXVECTOR3 *pMove,	// 移動量
-	bool *pBefore,		// 前からの判定
-	bool *pAfter		// 後からの判定
+	VECTOR3& rCenterPos,	// 判定位置
+	VECTOR3& rCenterPosOld,	// 判定過去位置
+	VECTOR3 targetPos,		// 判定目標位置
+	VECTOR3 centerSizeUp,	// 判定サイズ(右・上・後)
+	VECTOR3 centerSizeDown,	// 判定サイズ(左・下・前)
+	VECTOR3 targetSizeUp,	// 判定目標サイズ(右・上・後)
+	VECTOR3 targetSizeDown,	// 判定目標サイズ(左・下・前)
+	VECTOR3 *pMove,	// 移動量
+	bool *pBefore,	// 前からの判定
+	bool *pAfter	// 後からの判定
 )
 {
 	// 前後の当たり判定
@@ -939,12 +939,12 @@ bool collision::ResponseSingleZ
 //============================================================
 bool collision::InBoxPillarXY
 (
-	D3DXVECTOR3& rCenterPos,			// 判定位置
-	const D3DXVECTOR3& rOriginPos,		// 判定原点位置
-	const D3DXVECTOR3& rCenterSizeUp,	// 判定サイズ(右・上・後)
-	const D3DXVECTOR3& rCenterSizeDown,	// 判定サイズ(左・下・前)
-	const D3DXVECTOR3& rOriginSizeUp,	// 判定原点サイズ(右・上・後)
-	const D3DXVECTOR3& rOriginSizeDown	// 判定原点サイズ(左・下・前)
+	VECTOR3& rCenterPos,			// 判定位置
+	const VECTOR3& rOriginPos,		// 判定原点位置
+	const VECTOR3& rCenterSizeUp,	// 判定サイズ(右・上・後)
+	const VECTOR3& rCenterSizeDown,	// 判定サイズ(左・下・前)
+	const VECTOR3& rOriginSizeUp,	// 判定原点サイズ(右・上・後)
+	const VECTOR3& rOriginSizeDown	// 判定原点サイズ(左・下・前)
 )
 {
 	bool bHit = false;	// 判定結果
@@ -974,12 +974,12 @@ bool collision::InBoxPillarXY
 //============================================================
 bool collision::InBoxPillarXZ
 (
-	D3DXVECTOR3& rCenterPos,			// 判定位置
-	const D3DXVECTOR3& rOriginPos,		// 判定原点位置
-	const D3DXVECTOR3& rCenterSizeUp,	// 判定サイズ(右・上・後)
-	const D3DXVECTOR3& rCenterSizeDown,	// 判定サイズ(左・下・前)
-	const D3DXVECTOR3& rOriginSizeUp,	// 判定原点サイズ(右・上・後)
-	const D3DXVECTOR3& rOriginSizeDown	// 判定原点サイズ(左・下・前)
+	VECTOR3& rCenterPos,			// 判定位置
+	const VECTOR3& rOriginPos,		// 判定原点位置
+	const VECTOR3& rCenterSizeUp,	// 判定サイズ(右・上・後)
+	const VECTOR3& rCenterSizeDown,	// 判定サイズ(左・下・前)
+	const VECTOR3& rOriginSizeUp,	// 判定原点サイズ(右・上・後)
+	const VECTOR3& rOriginSizeDown	// 判定原点サイズ(左・下・前)
 )
 {
 	bool bHit = false;	// 判定結果
@@ -1009,10 +1009,10 @@ bool collision::InBoxPillarXZ
 //============================================================
 bool collision::InCirclePillar
 (
-	D3DXVECTOR3& rCenterPos,	// 判定位置
-	D3DXVECTOR3 originPos,		// 判定原点位置
-	float fCenterRadius,		// 判定半径
-	float fOriginRadius			// 判定原点半径
+	VECTOR3& rCenterPos,	// 判定位置
+	VECTOR3 originPos,		// 判定原点位置
+	float fCenterRadius,	// 判定半径
+	float fOriginRadius		// 判定原点半径
 )
 {
 	// 判定位置と判定目標位置の距離を求める
@@ -1042,16 +1042,16 @@ bool collision::InCirclePillar
 //============================================================
 float collision::LineOuterProduct
 (
-	D3DXVECTOR3 posLeft,	// 境界線左座標
-	D3DXVECTOR3 posRight,	// 境界線右座標
-	D3DXVECTOR3 pos			// 判定位置
+	VECTOR3 posLeft,	// 境界線左座標
+	VECTOR3 posRight,	// 境界線右座標
+	VECTOR3 pos			// 判定位置
 )
 {
 	// 境界線ベクトルを求める
-	D3DXVECTOR3 vecLine = posRight - posLeft;
+	VECTOR3 vecLine = posRight - posLeft;
 
 	// 左端と位置のベクトルを求める
-	D3DXVECTOR3 vecToPos = pos - posLeft;
+	VECTOR3 vecToPos = pos - posLeft;
 
 	// 外積の計算結果を返す
 	return (vecLine.z * vecToPos.x) - (vecLine.x * vecToPos.z);
@@ -1064,16 +1064,16 @@ float collision::LineOuterProduct
 //============================================================
 float collision::LineHeightOuterProduct
 (
-	D3DXVECTOR3 posLeft,	// 境界線左座標
-	D3DXVECTOR3 posRight,	// 境界線右座標
-	D3DXVECTOR3 pos			// 判定位置
+	VECTOR3 posLeft,	// 境界線左座標
+	VECTOR3 posRight,	// 境界線右座標
+	VECTOR3 pos			// 判定位置
 )
 {
 	// 境界線ベクトルを求める
-	D3DXVECTOR3 vecLine = posRight - posLeft;
+	VECTOR3 vecLine = posRight - posLeft;
 
 	// 左端と位置のベクトルを求める
-	D3DXVECTOR3 vecToPos = pos - posLeft;
+	VECTOR3 vecToPos = pos - posLeft;
 
 	// 外積の計算結果を返す
 	return (vecLine.y * vecToPos.x) - (vecLine.x * vecToPos.y);
@@ -1084,10 +1084,10 @@ float collision::LineHeightOuterProduct
 //============================================================
 bool collision::TriangleOuterPillar
 (
-	D3DXVECTOR3 pos0,	// 三角の各頂点
-	D3DXVECTOR3 pos1,	// 三角の各頂点
-	D3DXVECTOR3 pos2,	// 三角の各頂点
-	D3DXVECTOR3 pos		// 判定位置
+	VECTOR3 pos0,	// 三角の各頂点
+	VECTOR3 pos1,	// 三角の各頂点
+	VECTOR3 pos2,	// 三角の各頂点
+	VECTOR3 pos		// 判定位置
 )
 {
 	if (collision::LineOuterProduct(pos0, pos1, pos) <= 0.0f
@@ -1108,11 +1108,11 @@ bool collision::TriangleOuterPillar
 //============================================================
 bool collision::BoxOuterPillar
 (
-	D3DXVECTOR3 pos0,	// 四角の各頂点
-	D3DXVECTOR3 pos1,	// 四角の各頂点
-	D3DXVECTOR3 pos2,	// 四角の各頂点
-	D3DXVECTOR3 pos3,	// 四角の各頂点
-	D3DXVECTOR3 pos		// 判定位置
+	VECTOR3 pos0,	// 四角の各頂点
+	VECTOR3 pos1,	// 四角の各頂点
+	VECTOR3 pos2,	// 四角の各頂点
+	VECTOR3 pos3,	// 四角の各頂点
+	VECTOR3 pos		// 判定位置
 )
 {
 	if (collision::LineOuterProduct(pos0, pos1, pos) <= 0.0f

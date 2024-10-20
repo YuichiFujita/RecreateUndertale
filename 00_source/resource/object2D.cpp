@@ -155,10 +155,10 @@ void CObject2D::Draw(CShader * /*pShader*/)
 //============================================================
 CObject2D *CObject2D::Create
 (
-	const D3DXVECTOR3& rPos,	// 位置
-	const D3DXVECTOR3& rSize,	// 大きさ
-	const D3DXVECTOR3& rRot,	// 向き
-	const COLOR& rCol			// 色
+	const VECTOR3& rPos,	// 位置
+	const VECTOR3& rSize,	// 大きさ
+	const VECTOR3& rRot,	// 向き
+	const COLOR& rCol		// 色
 )
 {
 	// オブジェクト2Dの生成
@@ -200,7 +200,7 @@ CObject2D *CObject2D::Create
 //============================================================
 //	位置の設定処理
 //============================================================
-void CObject2D::SetVec3Position(const D3DXVECTOR3& rPos)
+void CObject2D::SetVec3Position(const VECTOR3& rPos)
 {
 	// 引数の位置を設定
 	m_pos = rPos;
@@ -212,7 +212,7 @@ void CObject2D::SetVec3Position(const D3DXVECTOR3& rPos)
 //============================================================
 //	向きの設定処理
 //============================================================
-void CObject2D::SetVec3Rotation(const D3DXVECTOR3& rRot)
+void CObject2D::SetVec3Rotation(const VECTOR3& rRot)
 {
 	// 引数の向きを設定
 	m_rot = rRot;
@@ -227,7 +227,7 @@ void CObject2D::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 //	大きさの設定処理
 //============================================================
-void CObject2D::SetVec3Size(const D3DXVECTOR3& rSize)
+void CObject2D::SetVec3Size(const VECTOR3& rSize)
 {
 	// 引数の大きさを代入
 	m_size = rSize;

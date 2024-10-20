@@ -26,14 +26,14 @@ public:
 	// モデル構造体
 	struct SModel
 	{
-		LPD3DXMESH		pMesh;			// メッシュ (頂点情報) へのポインタ
-		LPD3DXBUFFER	pBuffMat;		// マテリアルへのポインタ
-		DWORD			dwNumMat;		// マテリアルの数
-		D3DXVECTOR3		vtxMin;			// 最小の頂点座標
-		D3DXVECTOR3		vtxMax;			// 最大の頂点座標
-		D3DXVECTOR3		size;			// 大きさ
-		float			fRadius;		// 半径
-		int				*pTextureID;	// テクスチャインデックス
+		LPD3DXMESH pMesh;		// メッシュ (頂点情報) へのポインタ
+		LPD3DXBUFFER pBuffMat;	// マテリアルへのポインタ
+		DWORD dwNumMat;			// マテリアルの数
+		VECTOR3 vtxMin;			// 最小の頂点座標
+		VECTOR3 vtxMax;			// 最大の頂点座標
+		VECTOR3 size;			// 大きさ
+		float fRadius;			// 半径
+		int* pTextureID;		// テクスチャインデックス
 	};
 
 	// マップ情報構造体

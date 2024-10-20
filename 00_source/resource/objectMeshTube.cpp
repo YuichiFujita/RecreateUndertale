@@ -173,7 +173,7 @@ void CObjectMeshTube::SetPriority(const int nPriority)
 //============================================================
 //	位置の設定処理
 //============================================================
-void CObjectMeshTube::SetVec3Position(const D3DXVECTOR3& rPos)
+void CObjectMeshTube::SetVec3Position(const VECTOR3& rPos)
 {
 	// 引数の位置を設定
 	m_pCylinder->SetVec3Position(rPos);
@@ -185,7 +185,7 @@ void CObjectMeshTube::SetVec3Position(const D3DXVECTOR3& rPos)
 //============================================================
 //	向きの設定処理
 //============================================================
-void CObjectMeshTube::SetVec3Rotation(const D3DXVECTOR3& rRot)
+void CObjectMeshTube::SetVec3Rotation(const VECTOR3& rRot)
 {
 	// 引数の向きを設定
 	m_pCylinder->SetVec3Rotation(rRot);
@@ -199,8 +199,8 @@ void CObjectMeshTube::SetVec3Rotation(const D3DXVECTOR3& rRot)
 //============================================================
 CObjectMeshTube *CObjectMeshTube::Create
 (
-	const D3DXVECTOR3& rPos,	// 位置
-	const D3DXVECTOR3& rRot,	// 向き
+	const VECTOR3& rPos,		// 位置
+	const VECTOR3& rRot,		// 向き
 	const COLOR& rCol,			// 色
 	const POSGRID2& rPart,		// 分割数
 	const POSGRID2& rTexPart,	// テクスチャ分割数
@@ -447,9 +447,9 @@ void CObjectMeshTube::SetPositionRelative(void)
 {
 	MATRIX mtxOffset, mtxBottom, mtxTop;	// マトリックス計算用
 	MATRIX mtxCylinder = CalcCylinderMtxWorld();	// シリンダーマトリックス
-	D3DXVECTOR3 posCylinder = m_pCylinder->GetVec3Position();	// シリンダー位置
-	D3DXVECTOR3 rotCylinder = m_pCylinder->GetVec3Rotation();	// シリンダー向き
-	float fHeightCylinder   = m_pCylinder->GetHeight();			// シリンダー縦幅
+	VECTOR3 posCylinder = m_pCylinder->GetVec3Position();	// シリンダー位置
+	VECTOR3 rotCylinder = m_pCylinder->GetVec3Rotation();	// シリンダー向き
+	float fHeightCylinder = m_pCylinder->GetHeight();		// シリンダー縦幅
 
 	// 向きオフセットマトリックスを作成・掛け合わせる
 	D3DXMatrixRotationYawPitchRoll(&mtxOffset, 0.0f, D3DX_PI, 0.0f);
@@ -474,8 +474,8 @@ void CObjectMeshTube::SetPositionRelative(void)
 MATRIX CObjectMeshTube::CalcCylinderMtxWorld(void) const
 {
 	MATRIX  mtxRot, mtxTrans, mtxWorld;	// 計算用マトリックス
-	D3DXVECTOR3 posCylinder = m_pCylinder->GetVec3Position();	// シリンダー位置
-	D3DXVECTOR3 rotCylinder = m_pCylinder->GetVec3Rotation();	// シリンダー向き
+	VECTOR3 posCylinder = m_pCylinder->GetVec3Position();	// シリンダー位置
+	VECTOR3 rotCylinder = m_pCylinder->GetVec3Rotation();	// シリンダー向き
 
 	// ワールドマトリックスの初期化
 	D3DXMatrixIdentity(&mtxWorld);

@@ -65,14 +65,14 @@ public:
 	HRESULT ChangeState(CPlayerState *pState);		// 状態変更
 
 	// 静的メンバ関数
-	static CPlayer *Create(const D3DXVECTOR3& rPos);	// 生成
-	static CListManager<CPlayer> *GetList(void);		// リスト取得
+	static CPlayer *Create(const VECTOR3& rPos);	// 生成
+	static CListManager<CPlayer> *GetList(void);	// リスト取得
 
 	// メンバ関数
-	void TransRoom(const D3DXVECTOR3& rPos, const EAngle angle);	// 部屋遷移
-	D3DXVECTOR3 GetOldPosition(void) const	{ return m_oldPos; }	// 過去位置取得
-	void SetAngle(const EAngle angle)		{ m_angle = angle; }	// 向き設定
-	EAngle GetAngle(void) const				{ return m_angle; }		// 向き取得
+	void TransRoom(const VECTOR3& rPos, const EAngle angle);	// 部屋遷移
+	VECTOR3 GetOldPosition(void) const	{ return m_oldPos; }	// 過去位置取得
+	void SetAngle(const EAngle angle)	{ m_angle = angle; }	// 向き設定
+	EAngle GetAngle(void) const			{ return m_angle; }		// 向き取得
 
 private:
 	// メンバ関数
@@ -85,7 +85,7 @@ private:
 	// メンバ変数
 	CListManager<CPlayer>::AIterator m_iterator;	// イテレーター
 	CPlayerState *m_pState;	// 状態
-	D3DXVECTOR3	m_oldPos;	// 過去位置
+	VECTOR3 m_oldPos;		// 過去位置
 	EAngle m_angle;			// 向き
 };
 

@@ -110,7 +110,7 @@ void CScrollMeshField::Draw(CShader *pShader)
 //============================================================
 //	位置の設定処理
 //============================================================
-void CScrollMeshField::SetVec3Position(const D3DXVECTOR3& rPos)
+void CScrollMeshField::SetVec3Position(const VECTOR3& rPos)
 {
 	// 位置の設定
 	CObjectMeshField::SetVec3Position(rPos);
@@ -122,7 +122,7 @@ void CScrollMeshField::SetVec3Position(const D3DXVECTOR3& rPos)
 //============================================================
 //	向きの設定処理
 //============================================================
-void CScrollMeshField::SetVec3Rotation(const D3DXVECTOR3& rRot)
+void CScrollMeshField::SetVec3Rotation(const VECTOR3& rRot)
 {
 	// 向きの設定
 	CObjectMeshField::SetVec3Rotation(rRot);
@@ -148,13 +148,13 @@ void CScrollMeshField::SetVec2Size(const VECTOR2& rSize)
 //============================================================
 CScrollMeshField *CScrollMeshField::Create
 (
-	const float fMoveU,			// 横座標の移動量
-	const float fMoveV,			// 縦座標の移動量
-	const D3DXVECTOR3& rPos,	// 位置
-	const D3DXVECTOR3& rRot,	// 向き
-	const VECTOR2& rSize,		// 大きさ
-	const COLOR& rCol,			// 色
-	const POSGRID2& rPart		// 分割数
+	const float fMoveU,		// 横座標の移動量
+	const float fMoveV,		// 縦座標の移動量
+	const VECTOR3& rPos,	// 位置
+	const VECTOR3& rRot,	// 向き
+	const VECTOR2& rSize,	// 大きさ
+	const COLOR& rCol,		// 色
+	const POSGRID2& rPart	// 分割数
 )
 {
 	// スクロールメッシュフィールドの生成
@@ -211,7 +211,7 @@ CScrollMeshField *CScrollMeshField::Create
 //============================================================
 //	地形の設定処理
 //============================================================
-void CScrollMeshField::SetTerrain(const POSGRID2& rPart, D3DXVECTOR3 *pPosGap)
+void CScrollMeshField::SetTerrain(const POSGRID2& rPart, VECTOR3 *pPosGap)
 {
 	// 地形の設定
 	CObjectMeshField::SetTerrain(rPart, pPosGap);

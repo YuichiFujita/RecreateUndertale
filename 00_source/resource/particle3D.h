@@ -44,16 +44,16 @@ public:
 	// オーバーライド関数
 	HRESULT Init(void) override;	// 初期化
 	void Uninit(void) override;		// 終了
-	void Update(const float fDeltaTime) override;	// 更新
-	void Draw(CShader *pShader = nullptr) override;	// 描画
-	void SetVec3Position(const D3DXVECTOR3& rPos) override;	// 位置設定
-	D3DXVECTOR3 GetVec3Position(void) const override { return m_pos; }	// 位置取得
+	void Update(const float fDeltaTime) override;		// 更新
+	void Draw(CShader *pShader = nullptr) override;		// 描画
+	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
+	VECTOR3 GetVec3Position(void) const override { return m_pos; }	// 位置取得
 
 	// 静的メンバ関数
 	static CParticle3D *Create	// 生成
 	( // 引数
-		const EType type,			// 種類
-		const D3DXVECTOR3& rPos,	// 位置
+		const EType type,		// 種類
+		const VECTOR3& rPos,	// 位置
 		const COLOR& rCol = color::White()	// 色
 	);
 
@@ -70,19 +70,19 @@ private:
 	void Release(void) override { CObject::Release(); }	// 破棄
 
 	// メンバ関数
-	void Damage(const D3DXVECTOR3& rPos, const COLOR& rCol);	// ダメージ
-	void Heal(const D3DXVECTOR3& rPos, const COLOR& rCol);		// 回復
+	void Damage(const VECTOR3& rPos, const COLOR& rCol);	// ダメージ
+	void Heal(const VECTOR3& rPos, const COLOR& rCol);		// 回復
 
-	void Fire(const D3DXVECTOR3& rPos);				// 炎
-	void SmallExplosion(const D3DXVECTOR3& rPos);	// 小爆発
-	void BigExplosion(const D3DXVECTOR3& rPos);		// 大爆発
-	void PlayerDamage(const D3DXVECTOR3& rPos);		// プレイヤーダメージ
+	void Fire(const VECTOR3& rPos);				// 炎
+	void SmallExplosion(const VECTOR3& rPos);	// 小爆発
+	void BigExplosion(const VECTOR3& rPos);		// 大爆発
+	void PlayerDamage(const VECTOR3& rPos);		// プレイヤーダメージ
 
 	// メンバ変数
-	D3DXVECTOR3 m_pos;	// 位置
-	COLOR m_col;		// 色
-	EType m_type;		// 種類
-	int m_nLife;		// 寿命
+	VECTOR3 m_pos;	// 位置
+	COLOR m_col;	// 色
+	EType m_type;	// 種類
+	int m_nLife;	// 寿命
 };
 
 #endif	// _PARTICLE3D_H_
