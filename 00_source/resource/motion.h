@@ -182,7 +182,7 @@ public:
 	int GetComboFrame(const int nType) const	{ return m_info.vecMotion[nType].nComboFrame; }		// モーションコンボフレーム取得
 
 	// 静的メンバ関数
-	static CMotion *Create(CObjectChara *pChara);	// 生成
+	static CMotion* Create(CObjectChara* pChara);	// 生成
 	static void Release(CMotion*& prMotion);		// 破棄
 
 private:
@@ -194,7 +194,7 @@ private:
 	// メンバ変数
 	const std::function<int(void)> m_funcGetNumParts;	// パーツ数取得関数ポインタ
 	CMultiModel** m_ppModel;	// モデル情報
-	CObjectChara *m_pChara;		// オブジェクトキャラクター情報
+	CObjectChara* m_pChara;		// オブジェクトキャラクター情報
 	SInfo  m_info;	// モーション情報
 	SBlend m_blend;	// ブレンド情報
 	bool m_bUpdate;	// 更新状況

@@ -32,13 +32,13 @@ public:
 	AIterator GetBegin(void);	// リスト先頭取得
 	AIterator GetEnd(void);		// リスト最後尾取得
 	AIterator GetIndex(const int nID);		// リストインデックス取得
-	AIterator AddList(T *pObject);			// リスト追加
+	AIterator AddList(T* pObject);			// リスト追加
 	void DelList(const AIterator iterator);	// リスト削除
 	int GetNumAll(void);			// リスト内の要素数取得
 	std::list<T*> GetList(void);	// リスト取得
 
 	// 静的メンバ関数
-	static CListManager *Create(void);	// 生成
+	static CListManager* Create(void);	// 生成
 	static void Release(CListManager*& prListManager);	// 破棄
 
 private:
@@ -129,7 +129,7 @@ std::_List_iterator<std::_List_val<std::_List_simple_types<T*>>> CListManager<T>
 //	リスト追加処理
 //============================================================
 template<class T>
-std::_List_iterator<std::_List_val<std::_List_simple_types<T*>>> CListManager<T>::AddList(T *pObject)
+std::_List_iterator<std::_List_val<std::_List_simple_types<T*>>> CListManager<T>::AddList(T* pObject)
 {
 	// リストの最後尾にオブジェクトを追加し、イテレーターを返す
 	return m_list.insert(m_list.end(), pObject);
@@ -165,10 +165,10 @@ template<class T> std::list<T*> CListManager<T>::GetList(void)
 //============================================================
 //	生成処理
 //============================================================
-template<class T> CListManager<T> *CListManager<T>::Create(void)
+template<class T> CListManager<T>* CListManager<T>::Create(void)
 {
 	// リストマネージャーの生成
-	CListManager *pListManager = new CListManager;
+	CListManager* pListManager = new CListManager;
 	if (pListManager == nullptr)
 	{ // 生成に失敗した場合
 

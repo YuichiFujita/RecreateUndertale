@@ -39,7 +39,7 @@ public:
 	std::vector<T> GetList(void);		// 配列取得
 
 	// 静的メンバ関数
-	static CRandom *Create(void);	// 生成
+	static CRandom* Create(void);	// 生成
 	static void Release(CRandom*& prRandom);	// 破棄
 
 private:
@@ -167,10 +167,10 @@ template<class T> std::vector<T> CRandom<T>::GetList(void)
 //============================================================
 //	生成処理
 //============================================================
-template<class T> CRandom<T> *CRandom<T>::Create(void)
+template<class T> CRandom<T>* CRandom<T>::Create(void)
 {
 	// ランダムの生成
-	CRandom *pRandom = new CRandom;
+	CRandom* pRandom = new CRandom;
 	if (pRandom == nullptr)
 	{ // 生成に失敗した場合
 

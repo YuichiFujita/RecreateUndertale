@@ -14,7 +14,7 @@
 //============================================================
 //	文字列配列の読込処理
 //============================================================
-void loadtext::LoadVector(std::ifstream *pFile, std::vector<std::wstring> *pVecStr)
+void loadtext::LoadVector(std::ifstream* pFile, std::vector<std::wstring>* pVecStr)
 {
 	// 動的配列ポインタがない場合抜ける
 	if (pVecStr == nullptr) { assert(false); return; }
@@ -53,7 +53,7 @@ void loadtext::LoadVector(std::ifstream *pFile, std::vector<std::wstring> *pVecS
 //============================================================
 //	テキストの読込処理 (文字列)
 //============================================================
-std::vector<std::wstring> loadtext::LoadText(const char *pFilePath, const char *pTextStr)
+std::vector<std::wstring> loadtext::LoadText(const char* pFilePath, const char* pTextStr)
 {
 	std::vector<std::wstring> vecStr;	// 文字列の動的配列
 	std::string sLoadStart;				// 読込開始の文字列
@@ -111,7 +111,7 @@ std::vector<std::wstring> loadtext::LoadText(const char *pFilePath, const char *
 //============================================================
 //	テキストの読込処理 (インデックス)
 //============================================================
-std::vector<std::wstring> loadtext::LoadText(const char *pFilePath, const int nTextID)
+std::vector<std::wstring> loadtext::LoadText(const char* pFilePath, const int nTextID)
 {
 	// テキストの読込
 	return LoadText(pFilePath, std::to_string(nTextID).c_str());
@@ -120,7 +120,7 @@ std::vector<std::wstring> loadtext::LoadText(const char *pFilePath, const int nT
 //============================================================
 //	テキストの割当処理
 //============================================================
-void loadtext::BindText(CText2D *pText2D, const std::vector<std::wstring>& rVecStr)
+void loadtext::BindText(CText2D* pText2D, const std::vector<std::wstring>& rVecStr)
 {
 	for (int i = 0; i < (int)rVecStr.size(); i++)
 	{ // 文字列数分繰り返す
@@ -133,7 +133,7 @@ void loadtext::BindText(CText2D *pText2D, const std::vector<std::wstring>& rVecS
 //============================================================
 //	文字列の割当処理
 //============================================================
-void loadtext::BindString(CString2D *pString2D, const std::vector<std::wstring>& rVecStr)
+void loadtext::BindString(CString2D* pString2D, const std::vector<std::wstring>& rVecStr)
 {
 	// 文字列が一つではない場合エラー
 	assert((int)rVecStr.size() == 1);

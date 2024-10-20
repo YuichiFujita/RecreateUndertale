@@ -97,7 +97,7 @@ bool collision::Circle2D
 	VECTOR3 targetPos,		// 判定目標位置
 	float fCenterRadius,	// 判定半径
 	float fTargetRadius,	// 判定目標半径
-	float *pLength			// 判定目標との距離
+	float* pLength			// 判定目標との距離
 )
 {
 	// 判定位置と判定目標位置の距離を求める
@@ -159,7 +159,7 @@ bool collision::Sector
 	float fCenterRot,	// 判定向き
 	float fRadius,		// 視界範囲
 	float fAngle,		// 視野角
-	float *pLength		// 判定目標との距離
+	float* pLength		// 判定目標との距離
 )
 {
 	bool bHit = false;	// 当たり判定の結果
@@ -418,10 +418,10 @@ bool collision::ResponseBox3D
 	const VECTOR3& rCenterSizeDown,	// 判定サイズ(左・下・前)
 	const VECTOR3& rTargetSizeUp,	// 判定目標サイズ(右・上・後)
 	const VECTOR3& rTargetSizeDown,	// 判定目標サイズ(左・下・前)
-	VECTOR3 *pMove,	// 移動量
-	bool *pUp,		// 上からの判定
-	bool *pSide,	// 横からの判定
-	bool *pDown		// 下からの判定
+	VECTOR3* pMove,	// 移動量
+	bool* pUp,		// 上からの判定
+	bool* pSide,	// 横からの判定
+	bool* pDown		// 下からの判定
 )
 {
 	// 左右の当たり判定
@@ -643,7 +643,7 @@ bool collision::ResponseCircle3D
 //============================================================
 bool collision::ResponseCapsule3D
 (
-	VECTOR3 *pCenterPos,	// 判定位置
+	VECTOR3* pCenterPos,	// 判定位置
 	VECTOR3& rTargetPos,	// 判定目標位置
 	float fCenterRadius,	// 判定半径
 	float fTargetRadius,	// 判定目標半径
@@ -709,9 +709,9 @@ bool collision::ResponseSingleX
 	VECTOR3 centerSizeDown,	// 判定サイズ(左・下・前)
 	VECTOR3 targetSizeUp,	// 判定目標サイズ(右・上・後)
 	VECTOR3 targetSizeDown,	// 判定目標サイズ(左・下・前)
-	VECTOR3 *pMove,	// 移動量
-	bool *pLeft,	// 左からの判定
-	bool *pRight	// 右からの判定
+	VECTOR3* pMove,	// 移動量
+	bool* pLeft,	// 左からの判定
+	bool* pRight	// 右からの判定
 )
 {
 	// 左右の当たり判定
@@ -788,9 +788,9 @@ bool collision::ResponseSingleY
 	VECTOR3 centerSizeDown,	// 判定サイズ(左・下・前)
 	VECTOR3 targetSizeUp,	// 判定目標サイズ(右・上・後)
 	VECTOR3 targetSizeDown,	// 判定目標サイズ(左・下・前)
-	VECTOR3 *pMove,	// 移動量
-	bool *pDown,	// 下からの判定
-	bool *pUp		// 上からの判定
+	VECTOR3* pMove,	// 移動量
+	bool* pDown,	// 下からの判定
+	bool* pUp		// 上からの判定
 )
 {
 	// 上下の当たり判定
@@ -867,9 +867,9 @@ bool collision::ResponseSingleZ
 	VECTOR3 centerSizeDown,	// 判定サイズ(左・下・前)
 	VECTOR3 targetSizeUp,	// 判定目標サイズ(右・上・後)
 	VECTOR3 targetSizeDown,	// 判定目標サイズ(左・下・前)
-	VECTOR3 *pMove,	// 移動量
-	bool *pBefore,	// 前からの判定
-	bool *pAfter	// 後からの判定
+	VECTOR3* pMove,	// 移動量
+	bool* pBefore,	// 前からの判定
+	bool* pAfter	// 後からの判定
 )
 {
 	// 前後の当たり判定

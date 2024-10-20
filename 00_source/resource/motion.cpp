@@ -319,7 +319,7 @@ bool CMotion::IsCombo(const int nType) const
 //============================================================
 bool CMotion::IsLeftWeaponCollision(void)
 {
-	SMotion *pMotion = &m_info.vecMotion[m_info.nType];			// 現在のモーション情報
+	SMotion* pMotion = &m_info.vecMotion[m_info.nType];			// 現在のモーション情報
 	if (pMotion->collLeft.nMin == NONE_IDX) { return false; }	// 開始カウント未設定
 	if (pMotion->collLeft.nMax == NONE_IDX) { return false; }	// 終了カウント未設定
 
@@ -338,7 +338,7 @@ bool CMotion::IsLeftWeaponCollision(void)
 //============================================================
 bool CMotion::IsRightWeaponCollision(void)
 {
-	SMotion *pMotion = &m_info.vecMotion[m_info.nType];			// 現在のモーション情報
+	SMotion* pMotion = &m_info.vecMotion[m_info.nType];			// 現在のモーション情報
 	if (pMotion->collRight.nMin == NONE_IDX) { return false; }	// 開始カウント未設定
 	if (pMotion->collRight.nMax == NONE_IDX) { return false; }	// 終了カウント未設定
 
@@ -389,10 +389,10 @@ VECTOR3 CMotion::GetOriginRotation(const int nParts)
 //============================================================
 //	生成処理
 //============================================================
-CMotion *CMotion::Create(CObjectChara *pChara)
+CMotion* CMotion::Create(CObjectChara* pChara)
 {
 	// モーションの生成
-	CMotion *pMotion = new CMotion(std::bind(&CObjectChara::GetNumParts, pChara));
+	CMotion* pMotion = new CMotion(std::bind(&CObjectChara::GetNumParts, pChara));
 	if (pMotion == nullptr)
 	{ // 生成に失敗した場合
 

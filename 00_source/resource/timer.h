@@ -53,12 +53,12 @@ public:
 	void Draw(CShader* pShader = nullptr) override;	// 描画
 
 	// 静的メンバ関数
-	static CTimer *Create	// 生成
+	static CTimer* Create	// 生成
 	( // 引数
 		const float fTime,	// 開始時間
 		const float fLimit	// 制限時間
 	);
-	static CListManager<CTimer> *GetList(void);		// リスト取得
+	static CListManager<CTimer>* GetList(void);		// リスト取得
 	static void EnableStopAll(const bool bStop);	// 全タイマー計測状況設定
 
 	// メンバ関数
@@ -85,7 +85,7 @@ private:
 	void CalcTime(void);	// 時間計算
 
 	// 静的メンバ変数
-	static CListManager<CTimer> *m_pList;	// オブジェクトリスト
+	static CListManager<CTimer>* m_pList;	// オブジェクトリスト
 
 	// メンバ変数
 	CListManager<CTimer>::AIterator m_iterator;		// イテレーター

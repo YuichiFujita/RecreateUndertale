@@ -20,7 +20,7 @@ namespace
 //************************************************************
 //	静的メンバ変数宣言
 //************************************************************
-CListManager<CTimer> *CTimer::m_pList = nullptr;	// オブジェクトリスト
+CListManager<CTimer>* CTimer::m_pList = nullptr;	// オブジェクトリスト
 
 //************************************************************
 //	子クラス [CTimer] のメンバ関数
@@ -150,14 +150,14 @@ void CTimer::Draw(CShader* /*pShader*/)
 //============================================================
 //	生成処理
 //============================================================
-CTimer *CTimer::Create
+CTimer* CTimer::Create
 (
 	const float fTime,	// 開始時間
 	const float fLimit	// 制限時間
 )
 {
 	// タイマーの生成
-	CTimer *pTimer = new CTimer;
+	CTimer* pTimer = new CTimer;
 	if (pTimer == nullptr)
 	{ // 生成に失敗した場合
 
@@ -189,7 +189,7 @@ CTimer *CTimer::Create
 //============================================================
 //	リスト取得処理
 //============================================================
-CListManager<CTimer> *CTimer::GetList(void)
+CListManager<CTimer>* CTimer::GetList(void)
 {
 	// オブジェクトリストを返す
 	return m_pList;

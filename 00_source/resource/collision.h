@@ -49,7 +49,7 @@ namespace collision
 		VECTOR3 targetPos,			// 判定目標位置
 		float fCenterRadius,		// 判定半径
 		float fTargetRadius,		// 判定目標半径
-		float *pLength = nullptr	// 判定目標との距離
+		float* pLength = nullptr	// 判定目標との距離
 	);
 	bool Circle3D	// 3軸の円の当たり判定
 	( // 引数
@@ -65,7 +65,7 @@ namespace collision
 		float fCenterRot,			// 判定向き
 		float fRadius,				// 視界範囲
 		float fAngle,				// 視野角
-		float *pLength = nullptr	// 判定目標との距離
+		float* pLength = nullptr	// 判定目標との距離
 	);
 
 	bool ResponseBoxPillarXY	// XY平面の角柱の衝突判定
@@ -105,10 +105,10 @@ namespace collision
 		const VECTOR3& rCenterSizeDown,	// 判定サイズ(左・下・前)
 		const VECTOR3& rTargetSizeUp,	// 判定目標サイズ(右・上・後)
 		const VECTOR3& rTargetSizeDown,	// 判定目標サイズ(左・下・前)
-		VECTOR3 *pMove = nullptr,		// 移動量
-		bool *pUp = nullptr,	// 上からの判定
-		bool *pSide = nullptr,	// 横からの判定
-		bool *pDown = nullptr	// 下からの判定
+		VECTOR3* pMove = nullptr,		// 移動量
+		bool* pUp = nullptr,	// 上からの判定
+		bool* pSide = nullptr,	// 横からの判定
+		bool* pDown = nullptr	// 下からの判定
 	);
 	bool ResponseCircle3D	// 三軸の円の衝突判定
 	( // 引数
@@ -119,7 +119,7 @@ namespace collision
 	);
 	bool ResponseCapsule3D	// 三軸のカプセルの衝突判定
 	( // 引数
-		VECTOR3 *pCenterPos,	// 判定位置
+		VECTOR3* pCenterPos,	// 判定位置
 		VECTOR3& rTargetPos,	// 判定目標位置
 		float fCenterRadius,	// 判定半径
 		float fTargetRadius,	// 判定目標半径
@@ -135,9 +135,9 @@ namespace collision
 		VECTOR3 centerSizeDown,		// 判定サイズ(左・下・前)
 		VECTOR3 targetSizeUp,		// 判定目標サイズ(右・上・後)
 		VECTOR3 targetSizeDown,		// 判定目標サイズ(左・下・前)
-		VECTOR3 *pMove = nullptr,	// 移動量
-		bool *pLeft = nullptr,		// 左からの判定
-		bool *pRight = nullptr		// 右からの判定
+		VECTOR3* pMove = nullptr,	// 移動量
+		bool* pLeft = nullptr,		// 左からの判定
+		bool* pRight = nullptr		// 右からの判定
 	);
 	bool ResponseSingleY	// Y軸の衝突判定
 	( // 引数
@@ -148,9 +148,9 @@ namespace collision
 		VECTOR3 centerSizeDown,		// 判定サイズ(左・下・前)
 		VECTOR3 targetSizeUp,		// 判定目標サイズ(右・上・後)
 		VECTOR3 targetSizeDown,		// 判定目標サイズ(左・下・前)
-		VECTOR3 *pMove = nullptr,	// 移動量
-		bool *pDown = nullptr,		// 下からの判定
-		bool *pUp = nullptr			// 上からの判定
+		VECTOR3* pMove = nullptr,	// 移動量
+		bool* pDown = nullptr,		// 下からの判定
+		bool* pUp = nullptr			// 上からの判定
 	);
 	bool ResponseSingleZ	// Z軸の衝突判定
 	( // 引数
@@ -161,9 +161,9 @@ namespace collision
 		VECTOR3 centerSizeDown,		// 判定サイズ(左・下・前)
 		VECTOR3 targetSizeUp,		// 判定目標サイズ(右・上・後)
 		VECTOR3 targetSizeDown,		// 判定目標サイズ(左・下・前)
-		VECTOR3 *pMove = nullptr,	// 移動量
-		bool *pBefore = nullptr,	// 前からの判定
-		bool *pAfter = nullptr		// 後からの判定
+		VECTOR3* pMove = nullptr,	// 移動量
+		bool* pBefore = nullptr,	// 前からの判定
+		bool* pAfter = nullptr		// 後からの判定
 	);
 
 	bool InBoxPillarXY	// XY平面角柱の内側制限

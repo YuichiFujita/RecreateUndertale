@@ -24,7 +24,7 @@
 //============================================================
 void useful::DivideDigitNum
 (
-	int *pNumDivide,	// 分解結果の格納配列
+	int* pNumDivide,	// 分解結果の格納配列
 	const int nNum,		// 分解する数値
 	const int nMaxDigit	// 分解する数字の桁数
 )
@@ -79,7 +79,7 @@ void useful::NormalizeNormal
 //============================================================
 void useful::ReplaceConsecChar
 (
-	std::string *pDestStr,		// 置き換えを行う文字列
+	std::string* pDestStr,		// 置き換えを行う文字列
 	const char cRepChar,		// 検出する文字
 	const std::string& rRepStr,	// 置き換える文字列
 	const int nRepStrLength		// 置き換える文字列の長さ (通常はstringのsize)
@@ -132,8 +132,8 @@ VECTOR2 useful::CalcPosParabola
 	const float fDestPosX,	// 最大X座標
 	const float fDestPosY,	// 最大Y座標
 	const float fTime,		// 経過時間
-	float *pMaxTime,		// 最大経過時間
-	float *pMaxPosY			// 最大到達Y座標
+	float* pMaxTime,		// 最大経過時間
+	float* pMaxPosY			// 最大到達Y座標
 )
 {
 	const float fMaxTime	= fDestPosX / fMoveX;	// 最大経過時間
@@ -171,8 +171,8 @@ VECTOR2 useful::CalcMoveParabola
 	const float fDestPosX,	// 最大X座標
 	const float fDestPosY,	// 最大Y座標
 	const float fTime,		// 経過時間
-	float *pMaxTime,		// 最大経過時間
-	float *pMaxPosY			// 最大到達Y座標
+	float* pMaxTime,		// 最大経過時間
+	float* pMaxPosY			// 最大到達Y座標
 )
 {
 	const float fMaxTime	= fDestPosX / fMoveX;	// 最大経過時間
@@ -233,7 +233,7 @@ void useful::NormalizeRot(VECTOR3& rRot)
 //============================================================
 //	パスのベースネーム変換
 //============================================================
-void useful::PathToBaseName(std::string *pPath)
+void useful::PathToBaseName(std::string* pPath)
 {
 	std::filesystem::path fsPath(*pPath);	// パス
 
@@ -244,7 +244,7 @@ void useful::PathToBaseName(std::string *pPath)
 //============================================================
 //	パス区切りの標準化
 //============================================================
-void useful::StandardizePathPart(std::string *pPath)
+void useful::StandardizePathPart(std::string* pPath)
 {
 	// スラッシュを置換
 	ReplaceConsecChar
@@ -360,7 +360,7 @@ std::string useful::WideToMultiByte(const std::wstring& rSrcStr)
 //============================================================
 //	ベクトルの向き変換
 //============================================================
-void useful::VecToRot(const VECTOR3& rVec, float *pPhi, float *pTheta)
+void useful::VecToRot(const VECTOR3& rVec, float* pPhi, float* pTheta)
 {
 	// 方位角の計算
 	*pPhi = atan2f(rVec.y, rVec.x);
@@ -372,7 +372,7 @@ void useful::VecToRot(const VECTOR3& rVec, float *pPhi, float *pTheta)
 //============================================================
 //	向きのベクトル変換
 //============================================================
-void useful::RotToVec(const float fPhi, const float fTheta, VECTOR3 *pVec)
+void useful::RotToVec(const float fPhi, const float fTheta, VECTOR3* pVec)
 {
 	// ベクトルの計算
 	pVec->x = sinf(fTheta) * cosf(fPhi);
