@@ -356,7 +356,7 @@ void CSelectItemUI::UpdateSelectAct(void)
 	}
 
 	// ソウルカーソルの位置を移動
-	const VECTOR3 offset = VECTOR3(m_apSelect[m_nCurSelectAct]->GetStrWidth()*  0.5f, 0.0f, 0.0f) + CURSOR_OFFSET;	// カーソルオフセット
+	const VECTOR3 offset = VECTOR3(m_apSelect[m_nCurSelectAct]->GetStrWidth() * 0.5f, 0.0f, 0.0f) + CURSOR_OFFSET;	// カーソルオフセット
 	SetSoulPosition(m_apSelect[m_nCurSelectAct]->GetVec3Position() - offset);
 }
 
