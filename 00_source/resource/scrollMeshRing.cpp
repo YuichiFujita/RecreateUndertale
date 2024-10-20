@@ -283,7 +283,7 @@ void CScrollMeshRing::SetOuterPlusY(const float fOuterPlusY)
 //============================================================
 //	分割数の設定処理
 //============================================================
-HRESULT CScrollMeshRing::SetPattern(const POSGRID2 & rPart)
+HRESULT CScrollMeshRing::SetPattern(const POSGRID2& rPart)
 {
 	// 分割数の設定
 	if (FAILED(CObjectMeshRing::SetPattern(rPart)))
@@ -304,7 +304,7 @@ HRESULT CScrollMeshRing::SetPattern(const POSGRID2 & rPart)
 //============================================================
 //	テクスチャ分割数の設定処理
 //============================================================
-void CScrollMeshRing::SetTexPattern(const POSGRID2 & rTexPart)
+void CScrollMeshRing::SetTexPattern(const POSGRID2& rTexPart)
 {
 	// テクスチャ分割数の設定
 	CObjectMeshRing::SetTexPattern(rTexPart);

@@ -96,7 +96,7 @@ void CRenderState::Reset(void)
 //============================================================
 //	レンダーステート情報の設定処理
 //============================================================
-void CRenderState::SetInfoRenderState(const SInfo & rInfo)
+void CRenderState::SetInfoRenderState(const SInfo& rInfo)
 {
 	// 引数のレンダーステート情報を設定
 	m_info = rInfo;
