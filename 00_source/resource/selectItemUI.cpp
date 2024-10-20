@@ -22,8 +22,8 @@
 //************************************************************
 namespace
 {
-	const char*	FONT	 = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
-	const char*	PASS	 = "data\\TEXT\\selectItem.txt";				// テキストパス
+	const char	*FONT	 = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
+	const char	*PASS	 = "data\\TEXT\\selectItem.txt";				// テキストパス
 	const bool	ITALIC	 = false;	// イタリック
 	const float	HEIGHT	 = 42.0f;	// 文字縦幅
 	const int	PRIORITY = 6;		// アイテムメニューの優先順位
@@ -61,7 +61,7 @@ namespace
 //============================================================
 //	コンストラクタ
 //============================================================
-CSelectItemUI::CSelectItemUI(AFuncUninit funcUninit, CObject2D *pSoul) : CSelectUI(funcUninit, pSoul),
+CSelectItemUI::CSelectItemUI(AFuncUninit funcUninit, CObject2D* pSoul) : CSelectUI(funcUninit, pSoul),
 	m_pItemMenu		 (nullptr),		// アイテムメニュー情報
 	m_state			 (STATE_ITEM),	// 状態
 	m_nCurSelectItem (0),			// 現在の選択アイテム
@@ -308,7 +308,7 @@ void CSelectItemUI::SetEnableDraw(const bool bDraw)
 void CSelectItemUI::UpdateSelectItem(void)
 {
 	// 選択肢操作
-	CInputKeyboard *pKey = GET_INPUTKEY;		// キーボード情報
+	CInputKeyboard* pKey = GET_INPUTKEY;		// キーボード情報
 	int nMaxItem = (int)m_vecItemName.size();	// アイテムの総数
 	if (pKey->IsTrigger(DIK_DOWN))
 	{
@@ -343,7 +343,7 @@ void CSelectItemUI::UpdateDecideItem(void)
 void CSelectItemUI::UpdateSelectAct(void)
 {
 	// 選択肢操作
-	CInputKeyboard *pKey = GET_INPUTKEY;	// キーボード情報
+	CInputKeyboard* pKey = GET_INPUTKEY;	// キーボード情報
 	if (pKey->IsTrigger(DIK_RIGHT))
 	{
 		// 右に選択をずらす
@@ -356,7 +356,7 @@ void CSelectItemUI::UpdateSelectAct(void)
 	}
 
 	// ソウルカーソルの位置を移動
-	const VECTOR3 offset = VECTOR3(m_apSelect[m_nCurSelectAct]->GetStrWidth() * 0.5f, 0.0f, 0.0f) + CURSOR_OFFSET;	// カーソルオフセット
+	const VECTOR3 offset = VECTOR3(m_apSelect[m_nCurSelectAct]->GetStrWidth()*  0.5f, 0.0f, 0.0f) + CURSOR_OFFSET;	// カーソルオフセット
 	SetSoulPosition(m_apSelect[m_nCurSelectAct]->GetVec3Position() - offset);
 }
 
@@ -484,14 +484,14 @@ void CItemUI::Draw(CShader* /*pShader*/)
 //============================================================
 //	生成処理
 //============================================================
-CItemUI *CItemUI::Create
+CItemUI* CItemUI::Create
 (
 	const CSelectItemUI::ESelect choiceAct,	// 選択中行動
 	const int nChoiceItemIdx				// 選択中アイテムインデックス
 )
 {
 	// アイテムUIの生成
-	CItemUI *pItemUI = nullptr;	// アイテムUI情報
+	CItemUI* pItemUI = nullptr;	// アイテムUI情報
 	switch (choiceAct)
 	{ // 選択肢ごとの処理
 	case CSelectItemUI::SELECT_USE:

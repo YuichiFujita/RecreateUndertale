@@ -52,7 +52,7 @@ public:
 	void Draw(CShader* pShader = nullptr) override;	// 描画
 
 	// 静的メンバ関数
-	static CMenuSelectUI *Create(void);	// 生成
+	static CMenuSelectUI* Create(void);	// 生成
 
 	// メンバ関数
 	bool IsChoiceSelect(void) const { return (m_pSelectMenu != nullptr); }	// 選択中状況取得
@@ -68,10 +68,10 @@ private:
 	HRESULT ChangeSelectMenu(const CMenuSelectUI::ESelect select);	// 選択メニュー変更
 
 	// メンバ変数
-	CString2D *m_apSelect[SELECT_MAX];	// 選択肢情報
-	CFrame2D *m_pFrame;			// フレーム情報
-	CObject2D *m_pSoul;			// ソウルカーソル情報
-	CSelectUI *m_pSelectMenu;	// 選択メニュー情報
+	CString2D* m_apSelect[SELECT_MAX];	// 選択肢情報
+	CFrame2D* m_pFrame;			// フレーム情報
+	CObject2D* m_pSoul;			// ソウルカーソル情報
+	CSelectUI* m_pSelectMenu;	// 選択メニュー情報
 	int m_nCurSelect;			// 現在の選択肢
 };
 
@@ -83,7 +83,7 @@ public:
 	using AFuncUninit = const std::function<void(void)>;	// 選択メニュー終了関数のポインタ型
 
 	// コンストラクタ
-	CSelectUI(AFuncUninit funcUninit, CObject2D *pSoul);
+	CSelectUI(AFuncUninit funcUninit, CObject2D* pSoul);
 
 	// デストラクタ
 	~CSelectUI() override;
@@ -96,10 +96,10 @@ public:
 	void SetEnableDraw(const bool bDraw) override;	// 描画状況設定
 
 	// 静的メンバ関数
-	static CSelectUI *Create	// 生成
+	static CSelectUI* Create	// 生成
 	( // 引数
 		AFuncUninit funcUninit,	// 選択メニュー終了関数
-		CObject2D *pSoul,		// ソウルカーソル情報
+		CObject2D* pSoul,		// ソウルカーソル情報
 		const CMenuSelectUI::ESelect select	// 選択肢
 	);
 
@@ -121,8 +121,8 @@ private:
 
 	// メンバ変数
 	AFuncUninit m_funcUninitMenu;	// 選択メニュー終了関数ポインタ
-	CObject2D *m_pSoul;	// ソウルカーソル情報
-	CFrame2D *m_pFrame;	// フレーム情報
+	CObject2D* m_pSoul;	// ソウルカーソル情報
+	CFrame2D* m_pFrame;	// フレーム情報
 };
 
 #endif	// _MENU_SELECT_UI_H_

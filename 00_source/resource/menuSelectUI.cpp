@@ -48,7 +48,7 @@ namespace
 
 	namespace soul
 	{
-		const char *PASS	= "data\\TEXTURE\\spr_heartsmall.png";	// ソウルカーソルテクスチャパス
+		const char* PASS	= "data\\TEXTURE\\spr_heartsmall.png";	// ソウルカーソルテクスチャパス
 		const VECTOR3 POS	= VECTOR3(97.5f, 308.5f, 0.0f);		// ソウルカーソル位置
 		const VECTOR3 SIZE	= VECTOR3(26.5f, 26.5f, 0.0f);		// ソウルカーソル大きさ
 	}
@@ -220,10 +220,10 @@ void CMenuSelectUI::Draw(CShader* /*pShader*/)
 //============================================================
 //	生成処理
 //============================================================
-CMenuSelectUI *CMenuSelectUI::Create(void)
+CMenuSelectUI* CMenuSelectUI::Create(void)
 {
 	// セレクトメニューの生成
-	CMenuSelectUI *pMenuSelectUI = new CMenuSelectUI;
+	CMenuSelectUI* pMenuSelectUI = new CMenuSelectUI;
 	if (pMenuSelectUI == nullptr)
 	{ // 生成に失敗した場合
 
@@ -252,7 +252,7 @@ CMenuSelectUI *CMenuSelectUI::Create(void)
 void CMenuSelectUI::UpdateSelect(void)
 {
 	// 選択肢操作
-	CInputKeyboard *pKey = GET_INPUTKEY;	// キーボード情報
+	CInputKeyboard* pKey = GET_INPUTKEY;	// キーボード情報
 	if (pKey->IsTrigger(DIK_DOWN))
 	{
 		// 上に選択をずらす
@@ -326,7 +326,7 @@ HRESULT CMenuSelectUI::ChangeSelectMenu(const CMenuSelectUI::ESelect select)
 //============================================================
 //	コンストラクタ
 //============================================================
-CSelectUI::CSelectUI(AFuncUninit funcUninit, CObject2D *pSoul) : CObject(CObject::LABEL_UI, CObject::DIM_3D, MENU_PRIO),
+CSelectUI::CSelectUI(AFuncUninit funcUninit, CObject2D* pSoul) : CObject(CObject::LABEL_UI, CObject::DIM_3D, MENU_PRIO),
 	m_funcUninitMenu (funcUninit),	// 選択メニュー終了関数ポインタ
 	m_pSoul			 (pSoul),		// ソウルカーソル情報
 	m_pFrame		 (nullptr)		// フレーム情報
@@ -419,15 +419,15 @@ void CSelectUI::SetEnableDraw(const bool bDraw)
 //============================================================
 //	生成処理
 //============================================================
-CSelectUI *CSelectUI::Create
+CSelectUI* CSelectUI::Create
 (
 	AFuncUninit funcUninit,	// 選択メニュー終了関数
-	CObject2D *pSoul,		// ソウルカーソル情報
+	CObject2D* pSoul,		// ソウルカーソル情報
 	const CMenuSelectUI::ESelect select	// 選択肢
 )
 {
 	// セレクトUIの生成
-	CSelectUI *pSelectUI = nullptr;	// セレクトUI情報
+	CSelectUI* pSelectUI = nullptr;	// セレクトUI情報
 	switch (select)
 	{ // 選択肢ごとの処理
 	case CMenuSelectUI::SELECT_ITEM:

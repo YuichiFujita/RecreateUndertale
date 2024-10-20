@@ -62,11 +62,11 @@ public:
 	void Uninit(void) override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
 	void Draw(CShader* pShader = nullptr) override;	// 描画
-	HRESULT ChangeState(CPlayerState *pState);		// 状態変更
+	HRESULT ChangeState(CPlayerState* pState);		// 状態変更
 
 	// 静的メンバ関数
-	static CPlayer *Create(const VECTOR3& rPos);	// 生成
-	static CListManager<CPlayer> *GetList(void);	// リスト取得
+	static CPlayer* Create(const VECTOR3& rPos);	// 生成
+	static CListManager<CPlayer>* GetList(void);	// リスト取得
 
 	// メンバ関数
 	void TransRoom(const VECTOR3& rPos, const EAngle angle);	// 部屋遷移
@@ -80,11 +80,11 @@ private:
 	void UpdateMotion(int nCurMotion, const float fDeltaTime);	// モーション・キャラクター2Dの更新
 
 	// 静的メンバ変数
-	static CListManager<CPlayer> *m_pList;	// オブジェクトリスト
+	static CListManager<CPlayer>* m_pList;	// オブジェクトリスト
 
 	// メンバ変数
 	CListManager<CPlayer>::AIterator m_iterator;	// イテレーター
-	CPlayerState *m_pState;	// 状態
+	CPlayerState* m_pState;	// 状態
 	VECTOR3 m_oldPos;		// 過去位置
 	EAngle m_angle;			// 向き
 };

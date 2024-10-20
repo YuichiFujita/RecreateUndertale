@@ -106,10 +106,10 @@ void CMenuUI::Draw(CShader* /*pShader*/)
 //============================================================
 //	生成処理
 //============================================================
-CMenuUI *CMenuUI::Create(void)
+CMenuUI* CMenuUI::Create(void)
 {
 	// フィールドメニューの生成
-	CMenuUI *pMenuUI = new CMenuUI;
+	CMenuUI* pMenuUI = new CMenuUI;
 	if (pMenuUI == nullptr)
 	{ // 生成に失敗した場合
 

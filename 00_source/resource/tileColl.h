@@ -48,15 +48,15 @@ public:
 	void Draw(CShader* pShader = nullptr) override;	// 描画
 
 	// 静的メンバ関数
-	static CTileColl *Create(const EType type, const VECTOR3& rPos);	// 生成
-	static CListManager<CTileColl> *GetList(void);	// リスト取得
+	static CTileColl* Create(const EType type, const VECTOR3& rPos);	// 生成
+	static CListManager<CTileColl>* GetList(void);	// リスト取得
 
 	static void CollisionTile	// 判定タイルとの当たり判定
 	( // 引数
 		VECTOR3& rPosCur,				// 現在位置
 		const VECTOR3& rPosOld,			// 過去位置
 		const VECTOR3& rRot,			// 向き
-		const CObjectChara2D *pChara2D	// キャラクター2D情報
+		const CObjectChara2D* pChara2D	// キャラクター2D情報
 	);
 	static void CollisionTile	// 判定タイルとの当たり判定
 	( // 引数
@@ -72,7 +72,7 @@ public:
 
 private:
 	// 静的メンバ変数
-	static CListManager<CTileColl> *m_pList;	// オブジェクトリスト
+	static CListManager<CTileColl>* m_pList;	// オブジェクトリスト
 
 	// メンバ変数
 	CListManager<CTileColl>::AIterator m_iterator;	// イテレーター

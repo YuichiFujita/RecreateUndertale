@@ -108,10 +108,10 @@ bool CMenuManager::IsChoiceSelect(void) const
 //============================================================
 //	生成処理
 //============================================================
-CMenuManager *CMenuManager::Create(void)
+CMenuManager* CMenuManager::Create(void)
 {
 	// フィールドメニューマネージャーの生成
-	CMenuManager *pMenuManager = new CMenuManager;
+	CMenuManager* pMenuManager = new CMenuManager;
 	if (pMenuManager == nullptr)
 	{ // 生成に失敗した場合
 

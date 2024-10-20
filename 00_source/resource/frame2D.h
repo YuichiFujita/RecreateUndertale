@@ -55,7 +55,7 @@ public:
 	VECTOR3 GetVec3Size(void) const override		{ return m_size; }	// 大きさ取得
 
 	// 静的メンバ関数
-	static CFrame2D *Create	// 生成
+	static CFrame2D* Create	// 生成
 	( // 引数
 		const VECTOR3& rPos,	// 位置
 		const VECTOR3& rRot,	// 向き
@@ -67,7 +67,7 @@ private:
 	void Release(void) override { CObject::Release(); }	// 破棄
 
 	// メンバ変数
-	CObject2D *m_apFrame[POLYGON_MAX];	// フレーム情報
+	CObject2D* m_apFrame[POLYGON_MAX];	// フレーム情報
 	VECTOR3 m_pos;	// 位置
 	VECTOR3 m_rot;	// 向き
 	VECTOR3 m_size;	// 大きさ

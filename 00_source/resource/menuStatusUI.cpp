@@ -247,10 +247,10 @@ void CMenuStatusUI::Draw(CShader* /*pShader*/)
 //============================================================
 //	生成処理
 //============================================================
-CMenuStatusUI *CMenuStatusUI::Create(void)
+CMenuStatusUI* CMenuStatusUI::Create(void)
 {
 	// ミニステータスメニューの生成
-	CMenuStatusUI *pMenuStatusUI = new CMenuStatusUI;
+	CMenuStatusUI* pMenuStatusUI = new CMenuStatusUI;
 	if (pMenuStatusUI == nullptr)
 	{ // 生成に失敗した場合
 

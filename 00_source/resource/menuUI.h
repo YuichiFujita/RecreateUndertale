@@ -51,7 +51,7 @@ public:
 	void Draw(CShader* pShader = nullptr) override;	// 描画
 
 	// 静的メンバ関数
-	static CMenuUI *Create(void);	// 生成
+	static CMenuUI* Create(void);	// 生成
 
 	// メンバ関数
 	bool IsChoiceSelect(void) const { return m_pSelectMenu->IsChoiceSelect(); }	// 選択中状況取得
@@ -61,8 +61,8 @@ private:
 	void Release(void) override { CObject::Release(); }	// 破棄
 
 	// メンバ変数
-	CMenuStatusUI *m_pStatusMenu;	// ステータスメニュー情報
-	CMenuSelectUI *m_pSelectMenu;	// セレクトメニュー情報
+	CMenuStatusUI* m_pStatusMenu;	// ステータスメニュー情報
+	CMenuSelectUI* m_pSelectMenu;	// セレクトメニュー情報
 };
 
 #endif	// _MENU_UI_H_

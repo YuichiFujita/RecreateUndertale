@@ -26,7 +26,7 @@
 //************************************************************
 namespace
 {
-	const char *INIT_PASS = "data\\ROOM\\room004.txt";	// セットアップテキスト相対パス	// TODO：この定数を外部読み込みできるようにしないと
+	const char* INIT_PASS = "data\\ROOM\\room004.txt";	// セットアップテキスト相対パス	// TODO：この定数を外部読み込みできるようにしないと
 }
 
 //************************************************************
@@ -101,9 +101,9 @@ void CStage::LimitPosition(VECTOR3& rPos, const float fRadius)
 //============================================================
 //	遷移先ルームの設定処理
 //============================================================
-void CStage::SetFadeRoom(const char *pRoomPath)
+void CStage::SetFadeRoom(const char* pRoomPath)
 {
-	CFade *pFade = GET_MANAGER->GetFade();	// フェード情報
+	CFade* pFade = GET_MANAGER->GetFade();	// フェード情報
 
 	// ルームパスの保存
 	m_sPrevRoomPath = m_sNextRoomPath;	// 遷移元
@@ -116,10 +116,10 @@ void CStage::SetFadeRoom(const char *pRoomPath)
 //============================================================
 //	生成処理
 //============================================================
-CStage *CStage::Create(void)
+CStage* CStage::Create(void)
 {
 	// ステージの生成
-	CStage *pStage = new CStage;
+	CStage* pStage = new CStage;
 	if (pStage == nullptr)
 	{ // 生成に失敗した場合
 
@@ -158,7 +158,7 @@ void CStage::Release(CStage*& prStage)
 //============================================================
 //	ステージ割当処理
 //============================================================
-HRESULT CStage::BindStage(const char *pStagePath)
+HRESULT CStage::BindStage(const char* pStagePath)
 {
 	// ラベルタイルのオブジェクト全破棄
 	CObject::ReleaseAll(CObject::LABEL_TILE);
@@ -239,7 +239,7 @@ HRESULT CStage::BindStage(const char *pStagePath)
 //============================================================
 //	ステージ範囲情報の読込処理
 //============================================================
-HRESULT CStage::LoadLimit(std::ifstream *pFile, std::string& rString)
+HRESULT CStage::LoadLimit(std::ifstream* pFile, std::string& rString)
 {
 	// ファイルストリームが未設定の場合抜ける
 	if (pFile == nullptr) { assert(false); return E_FAIL; }
@@ -293,7 +293,7 @@ HRESULT CStage::LoadLimit(std::ifstream *pFile, std::string& rString)
 //============================================================
 //	マップタイル情報の読込処理
 //============================================================
-HRESULT CStage::LoadMap(std::ifstream *pFile, std::string& rString)
+HRESULT CStage::LoadMap(std::ifstream* pFile, std::string& rString)
 {
 	// ファイルストリームが未設定の場合抜ける
 	if (pFile == nullptr) { assert(false); return E_FAIL; }
@@ -355,7 +355,7 @@ HRESULT CStage::LoadMap(std::ifstream *pFile, std::string& rString)
 //============================================================
 //	出現タイル情報の読込処理
 //============================================================
-HRESULT CStage::LoadSpawn(std::ifstream *pFile, std::string& rString)
+HRESULT CStage::LoadSpawn(std::ifstream* pFile, std::string& rString)
 {
 	// ファイルストリームが未設定の場合抜ける
 	if (pFile == nullptr) { assert(false); return E_FAIL; }
@@ -440,7 +440,7 @@ HRESULT CStage::LoadSpawn(std::ifstream *pFile, std::string& rString)
 //============================================================
 //	遷移タイル情報の読込処理
 //============================================================
-HRESULT CStage::LoadTrans(std::ifstream *pFile, std::string& rString)
+HRESULT CStage::LoadTrans(std::ifstream* pFile, std::string& rString)
 {
 	// ファイルストリームが未設定の場合抜ける
 	if (pFile == nullptr) { assert(false); return E_FAIL; }

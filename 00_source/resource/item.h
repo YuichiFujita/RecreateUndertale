@@ -42,7 +42,7 @@ public:
 	virtual std::string Detail(void) const;	// 使用時の詳細文字列
 
 	// 静的メンバ関数
-	static CItemData *Create(const EType type);	// 生成
+	static CItemData* Create(const EType type);	// 生成
 
 	// メンバ関数
 	void SetName(const char* pName)			{ m_sName = pName; }		// アイテム名設定
@@ -80,13 +80,13 @@ public:
 	const CItemData& GetInfo(const int nID);	// アイテム情報取得
 
 	// 静的メンバ関数
-	static CItem *Create(void);			// 生成
+	static CItem* Create(void);			// 生成
 	static void Release(CItem*& pItem);	// 破棄
 
 private:
 	// メンバ関数
 	HRESULT LoadSetup(void);	// セットアップ
-	ATextBox LoadText(std::ifstream& rFile, const char *pEndStr);	// テキストセットアップ
+	ATextBox LoadText(std::ifstream& rFile, const char* pEndStr);	// テキストセットアップ
 
 	// メンバ変数
 	std::vector<CItemData*> m_vecItemData;	// アイテム動的配列

@@ -18,7 +18,7 @@ namespace
 {
 	namespace text
 	{
-		const char *FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
+		const char*	FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
 		const int	PRIORITY	= 6;		// テキストの優先順位
 		const bool	ITALIC		= false;	// イタリック
 		const float	CHAR_HEIGHT	= 45.0f;	// 文字縦幅
@@ -131,7 +131,7 @@ void CFrameText2D::Draw(CShader* pShader)
 //============================================================
 //	生成処理
 //============================================================
-CFrameText2D *CFrameText2D::Create
+CFrameText2D* CFrameText2D::Create
 (
 	const VECTOR3& rPos,	// 位置
 	const VECTOR3& rRot,	// 向き
@@ -139,7 +139,7 @@ CFrameText2D *CFrameText2D::Create
 )
 {
 	// フレームテキスト2Dの生成
-	CFrameText2D *pFrameText2D = new CFrameText2D;
+	CFrameText2D* pFrameText2D = new CFrameText2D;
 	if (pFrameText2D == nullptr)
 	{ // 生成に失敗した場合
 

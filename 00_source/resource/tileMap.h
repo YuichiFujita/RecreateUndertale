@@ -45,7 +45,7 @@ public:
 	void Draw(CShader* pShader = nullptr) override;	// •`‰æ
 
 	// Ã“Iƒƒ“ƒoŠÖ”
-	static CTileMap *Create(const EType type, const VECTOR3& rPos);	// ¶¬
+	static CTileMap* Create(const EType type, const VECTOR3& rPos);	// ¶¬
 
 	// ƒƒ“ƒoŠÖ”
 	void SetType(const EType type);					// í—Şİ’è

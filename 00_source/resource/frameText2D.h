@@ -36,7 +36,7 @@ public:
 	void Draw(CShader* pShader = nullptr) override;	// 描画
 
 	// 静的メンバ関数
-	static CFrameText2D *Create	// 生成
+	static CFrameText2D* Create	// 生成
 	( // 引数
 		const VECTOR3& rPos,	// 位置
 		const VECTOR3& rRot,	// 向き
@@ -56,7 +56,7 @@ public:
 
 private:
 	// メンバ変数
-	CScrollText2D *m_pText;	// テキスト情報
+	CScrollText2D* m_pText;	// テキスト情報
 };
 
 #endif	// _FRAME_TEXT2D_H_

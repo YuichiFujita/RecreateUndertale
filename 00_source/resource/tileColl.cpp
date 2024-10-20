@@ -16,7 +16,7 @@
 //************************************************************
 namespace
 {
-	const char *TEXTURE_FILE[] =	// テクスチャファイル
+	const char* TEXTURE_FILE[] =	// テクスチャファイル
 	{
 		"data\\TEXTURE\\DEBUG\\collision000.png",	// 矩形
 		"data\\TEXTURE\\DEBUG\\collision001.png",	// 三角
@@ -32,7 +32,7 @@ static_assert(NUM_ARRAY(TEXTURE_FILE) == CTileColl::TYPE_MAX, "ERROR : Type Coun
 //************************************************************
 //	静的メンバ変数宣言
 //************************************************************
-CListManager<CTileColl> *CTileColl::m_pList = nullptr;	// オブジェクトリスト
+CListManager<CTileColl>* CTileColl::m_pList = nullptr;	// オブジェクトリスト
 
 //************************************************************
 //	子クラス [CTileColl] のメンバ関数
@@ -135,10 +135,10 @@ void CTileColl::Draw(CShader* pShader)
 //============================================================
 //	生成処理
 //============================================================
-CTileColl *CTileColl::Create(const EType type, const VECTOR3& rPos)
+CTileColl* CTileColl::Create(const EType type, const VECTOR3& rPos)
 {
 	// 判定タイルの生成
-	CTileColl *pTileColl = new CTileColl;
+	CTileColl* pTileColl = new CTileColl;
 	if (pTileColl == nullptr)
 	{ // 生成に失敗した場合
 
@@ -170,7 +170,7 @@ CTileColl *CTileColl::Create(const EType type, const VECTOR3& rPos)
 //============================================================
 //	リスト取得処理
 //============================================================
-CListManager<CTileColl> *CTileColl::GetList(void)
+CListManager<CTileColl>* CTileColl::GetList(void)
 {
 	// オブジェクトリストを返す
 	return m_pList;
@@ -184,7 +184,7 @@ void CTileColl::CollisionTile
 	VECTOR3& rPosCur,				// 現在位置
 	const VECTOR3& rPosOld,			// 過去位置
 	const VECTOR3& rRot,			// 向き
-	const CObjectChara2D *pChara2D	// キャラクター2D情報
+	const CObjectChara2D* pChara2D	// キャラクター2D情報
 )
 {
 	// キャラクター2Dが存在しない場合抜ける

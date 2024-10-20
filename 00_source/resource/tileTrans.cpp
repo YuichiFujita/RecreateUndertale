@@ -18,14 +18,14 @@
 //************************************************************
 namespace
 {
-	const char *TEXTURE_FILE = "data\\TEXTURE\\DEBUG\\trans000.png";
+	const char* TEXTURE_FILE = "data\\TEXTURE\\DEBUG\\trans000.png";
 	const int PRIORITY = 3;	// 遷移タイルの優先順位
 }
 
 //************************************************************
 //	静的メンバ変数宣言
 //************************************************************
-CListManager<CTileTrans> *CTileTrans::m_pList = nullptr;	// オブジェクトリスト
+CListManager<CTileTrans>* CTileTrans::m_pList = nullptr;	// オブジェクトリスト
 
 //************************************************************
 //	子クラス [CTileTrans] のメンバ関数
@@ -33,7 +33,7 @@ CListManager<CTileTrans> *CTileTrans::m_pList = nullptr;	// オブジェクトリスト
 //============================================================
 //	コンストラクタ
 //============================================================
-CTileTrans::CTileTrans(const char *pNextPath) : CObject3D(CObject::LABEL_TILE, CObject::DIM_3D, PRIORITY),
+CTileTrans::CTileTrans(const char* pNextPath) : CObject3D(CObject::LABEL_TILE, CObject::DIM_3D, PRIORITY),
 	m_sNextStagePath	(pNextPath)	// 遷移先ステージパス
 {
 
@@ -128,10 +128,10 @@ void CTileTrans::Draw(CShader* pShader)
 //============================================================
 //	生成処理
 //============================================================
-CTileTrans *CTileTrans::Create(const char *pNextPath, const VECTOR3& rPos)
+CTileTrans* CTileTrans::Create(const char* pNextPath, const VECTOR3& rPos)
 {
 	// 遷移タイルの生成
-	CTileTrans *pTileTrans = new CTileTrans(pNextPath);
+	CTileTrans* pTileTrans = new CTileTrans(pNextPath);
 	if (pTileTrans == nullptr)
 	{ // 生成に失敗した場合
 
@@ -160,7 +160,7 @@ CTileTrans *CTileTrans::Create(const char *pNextPath, const VECTOR3& rPos)
 //============================================================
 //	リスト取得処理
 //============================================================
-CListManager<CTileTrans> *CTileTrans::GetList(void)
+CListManager<CTileTrans>* CTileTrans::GetList(void)
 {
 	// オブジェクトリストを返す
 	return m_pList;
@@ -173,7 +173,7 @@ void CTileTrans::CollisionTile
 (
 	const VECTOR3& rPos,			// 位置
 	const VECTOR3& rRot,			// 向き
-	const CObjectChara2D *pChara2D	// キャラクター2D情報
+	const CObjectChara2D* pChara2D	// キャラクター2D情報
 )
 {
 	// キャラクター2Dが存在しない場合抜ける

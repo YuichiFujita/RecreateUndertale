@@ -73,7 +73,7 @@ private:
 	// アイテム構造体
 	struct SItem
 	{
-		CString2D *m_pName;	// アイテム名情報
+		CString2D* m_pName;	// アイテム名情報
 		int nItemID;		// アイテムインデックス
 	};
 
@@ -85,8 +85,8 @@ private:
 
 	// メンバ変数
 	std::vector<SItem> m_vecItemName;	// アイテム情報
-	CString2D *m_apSelect[SELECT_MAX];	// 選択情報
-	CItemUI *m_pItemMenu;	// アイテムメニュー情報
+	CString2D* m_apSelect[SELECT_MAX];	// 選択情報
+	CItemUI* m_pItemMenu;	// アイテムメニュー情報
 	EState m_state;			// 状態
 	int m_nCurSelectItem;	// 現在の選択アイテム
 	int m_nCurSelectAct;	// 現在の選択行動
@@ -109,7 +109,7 @@ public:
 	void Draw(CShader* pShader = nullptr) override;	// 描画
 
 	// 静的メンバ関数
-	static CItemUI *Create	// 生成
+	static CItemUI* Create	// 生成
 	( // 引数
 		const CSelectItemUI::ESelect choiceAct,	// 選択中行動
 		const int nChoiceItemIdx				// 選択中アイテムインデックス
@@ -138,7 +138,7 @@ private:
 
 	// メンバ変数
 	const int m_nChoiceItemIdx;	// 選択中アイテムインデックス
-	CFrameText2D *m_pTextBox;	// テキストボックス情報
+	CFrameText2D* m_pTextBox;	// テキストボックス情報
 	int m_nCurTextIdx;			// 現在のテキストインデックス
 };
 

@@ -17,7 +17,7 @@
 //************************************************************
 namespace
 {
-	const char *LOAD_TXT = "data\\TXT\\item.txt";	// アイテムテキスト相対パス
+	const char* LOAD_TXT = "data\\TXT\\item.txt";	// アイテムテキスト相対パス
 }
 
 //************************************************************
@@ -74,10 +74,10 @@ std::string CItemData::Detail(void) const
 //============================================================
 //	生成処理
 //============================================================
-CItemData *CItemData::Create(const EType type)
+CItemData* CItemData::Create(const EType type)
 {
 	// アイテム情報の生成
-	CItemData *pItemData = nullptr;	// アイテム情報
+	CItemData* pItemData = nullptr;	// アイテム情報
 	switch (type)
 	{ // 種類ごとの処理
 	case TYPE_NONE:
@@ -202,10 +202,10 @@ const CItemData& CItem::GetInfo(const int nID)
 //============================================================
 //	生成処理
 //============================================================
-CItem *CItem::Create(void)
+CItem* CItem::Create(void)
 {
 	// アイテムの生成
-	CItem *pItem = new CItem;
+	CItem* pItem = new CItem;
 	if (pItem == nullptr)
 	{ // 生成に失敗した場合
 
@@ -328,7 +328,7 @@ HRESULT CItem::LoadSetup(void)
 //============================================================
 //	テキスト情報のセットアップ処理
 //============================================================
-ATextBox CItem::LoadText(std::ifstream& rFile, const char *pEndStr)
+ATextBox CItem::LoadText(std::ifstream& rFile, const char* pEndStr)
 {
 	ATextBox text = {};	// 読込テキスト情報
 	int nBoxIdx = 0;	// テキストボックスインデックス

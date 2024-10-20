@@ -30,7 +30,7 @@ namespace
 //============================================================
 //	コンストラクタ
 //============================================================
-CSelectPhoneUI::CSelectPhoneUI(AFuncUninit funcUninit, CObject2D *pSoul) : CSelectUI(funcUninit, pSoul)
+CSelectPhoneUI::CSelectPhoneUI(AFuncUninit funcUninit, CObject2D* pSoul) : CSelectUI(funcUninit, pSoul)
 {
 
 }

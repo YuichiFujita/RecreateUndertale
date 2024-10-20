@@ -14,7 +14,7 @@
 //************************************************************
 namespace
 {
-	const char *TEXTURE_FILE[] =	// テクスチャファイル
+	const char* TEXTURE_FILE[] =	// テクスチャファイル
 	{
 		nullptr,	// テクスチャなし
 		"data\\TEXTURE\\RUINS\\spr_fallpoint.png",		// 初期落下地点
@@ -103,10 +103,10 @@ void CTileMap::Draw(CShader* pShader)
 //============================================================
 //	生成処理
 //============================================================
-CTileMap *CTileMap::Create(const EType type, const VECTOR3& rPos)
+CTileMap* CTileMap::Create(const EType type, const VECTOR3& rPos)
 {
 	// マップタイルの生成
-	CTileMap *pTileMap = new CTileMap;
+	CTileMap* pTileMap = new CTileMap;
 	if (pTileMap == nullptr)
 	{ // 生成に失敗した場合
 

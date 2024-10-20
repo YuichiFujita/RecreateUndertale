@@ -28,7 +28,7 @@ class CTileTrans : public CObject3D
 {
 public:
 	// コンストラクタ
-	explicit CTileTrans(const char *pNextPath);
+	explicit CTileTrans(const char* pNextPath);
 
 	// デストラクタ
 	~CTileTrans();
@@ -40,14 +40,14 @@ public:
 	void Draw(CShader* pShader = nullptr) override;	// 描画
 
 	// 静的メンバ関数
-	static CTileTrans *Create(const char *pNextPath, const VECTOR3& rPos);	// 生成
-	static CListManager<CTileTrans> *GetList(void);	// リスト取得
+	static CTileTrans* Create(const char* pNextPath, const VECTOR3& rPos);	// 生成
+	static CListManager<CTileTrans>* GetList(void);	// リスト取得
 
 	static void CollisionTile	// 遷移タイルとの当たり判定
 	( // 引数
 		const VECTOR3& rPos,			// 位置
 		const VECTOR3& rRot,			// 向き
-		const CObjectChara2D *pChara2D	// キャラクター2D情報
+		const CObjectChara2D* pChara2D	// キャラクター2D情報
 	);
 	static void CollisionTile	// 遷移タイルとの当たり判定
 	( // 引数
@@ -58,7 +58,7 @@ public:
 
 private:
 	// 静的メンバ変数
-	static CListManager<CTileTrans> *m_pList;	// オブジェクトリスト
+	static CListManager<CTileTrans>* m_pList;	// オブジェクトリスト
 
 	// メンバ変数
 	CListManager<CTileTrans>::AIterator m_iterator;	// イテレーター

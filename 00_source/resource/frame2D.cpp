@@ -185,7 +185,7 @@ void CFrame2D::SetVec3Size(const VECTOR3& rSize)
 //============================================================
 //	ê∂ê¨èàóù
 //============================================================
-CFrame2D *CFrame2D::Create
+CFrame2D* CFrame2D::Create
 (
 	const VECTOR3& rPos,	// à íu
 	const VECTOR3& rRot,	// å¸Ç´
@@ -193,7 +193,7 @@ CFrame2D *CFrame2D::Create
 )
 {
 	// ÉtÉåÅ[ÉÄ2DÇÃê∂ê¨
-	CFrame2D *pFrame2D = new CFrame2D;
+	CFrame2D* pFrame2D = new CFrame2D;
 	if (pFrame2D == nullptr)
 	{ // ê∂ê¨Ç…é∏îsÇµÇΩèÍçá
 

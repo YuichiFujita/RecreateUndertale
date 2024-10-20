@@ -24,7 +24,7 @@ namespace
 //************************************************************
 //	静的メンバ変数宣言
 //************************************************************
-CListManager<CPlayer> *CPlayer::m_pList = nullptr;	// オブジェクトリスト
+CListManager<CPlayer>* CPlayer::m_pList = nullptr;	// オブジェクトリスト
 
 //************************************************************
 //	子クラス [CPlayer] のメンバ関数
@@ -147,7 +147,7 @@ void CPlayer::Draw(CShader* pShader)
 //============================================================
 //	状態の変更処理
 //============================================================
-HRESULT CPlayer::ChangeState(CPlayerState *pState)
+HRESULT CPlayer::ChangeState(CPlayerState* pState)
 {
 	// 状態の生成に失敗している場合抜ける
 	if (pState == nullptr) { assert(false); return E_FAIL; }
@@ -178,10 +178,10 @@ HRESULT CPlayer::ChangeState(CPlayerState *pState)
 //============================================================
 //	生成処理
 //============================================================
-CPlayer *CPlayer::Create(const VECTOR3& rPos)
+CPlayer* CPlayer::Create(const VECTOR3& rPos)
 {
 	// プレイヤーの生成
-	CPlayer *pPlayer = new CPlayer;
+	CPlayer* pPlayer = new CPlayer;
 	if (pPlayer == nullptr)
 	{ // 生成に失敗した場合
 
@@ -210,7 +210,7 @@ CPlayer *CPlayer::Create(const VECTOR3& rPos)
 //============================================================
 //	リスト取得処理
 //============================================================
-CListManager<CPlayer> *CPlayer::GetList(void)
+CListManager<CPlayer>* CPlayer::GetList(void)
 {
 	// オブジェクトリストを返す
 	return m_pList;

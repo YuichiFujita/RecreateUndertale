@@ -23,7 +23,7 @@ class CTileSpawn : public CObject3D
 {
 public:
 	// コンストラクタ
-	CTileSpawn(const char *pPrevPath);
+	CTileSpawn(const char* pPrevPath);
 
 	// デストラクタ
 	~CTileSpawn();
@@ -35,7 +35,7 @@ public:
 	void Draw(CShader* pShader = nullptr) override;	// 描画
 
 	// 静的メンバ関数
-	static CTileSpawn *Create(const char *pPrevPath, const VECTOR3& rPos);	// 生成
+	static CTileSpawn* Create(const char* pPrevPath, const VECTOR3& rPos);	// 生成
 
 private:
 	// メンバ変数

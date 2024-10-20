@@ -28,7 +28,7 @@ class CSelectPhoneUI : public CSelectUI
 {
 public:
 	// コンストラクタ
-	CSelectPhoneUI(AFuncUninit funcUninit, CObject2D *pSoul);
+	CSelectPhoneUI(AFuncUninit funcUninit, CObject2D* pSoul);
 
 	// デストラクタ
 	~CSelectPhoneUI() override;

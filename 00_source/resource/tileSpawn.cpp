@@ -14,7 +14,7 @@
 //************************************************************
 namespace
 {
-	const char *TEXTURE_FILE = "data\\TEXTURE\\DEBUG\\spawn000.png";
+	const char* TEXTURE_FILE = "data\\TEXTURE\\DEBUG\\spawn000.png";
 	const int PRIORITY = 3;	// 出現タイルの優先順位
 }
 
@@ -24,7 +24,7 @@ namespace
 //============================================================
 //	コンストラクタ
 //============================================================
-CTileSpawn::CTileSpawn(const char *pPrevPath) : CObject3D(CObject::LABEL_TILE, CObject::DIM_3D, PRIORITY),
+CTileSpawn::CTileSpawn(const char* pPrevPath) : CObject3D(CObject::LABEL_TILE, CObject::DIM_3D, PRIORITY),
 	m_sPrevStagePath	(pPrevPath)	// 遷移元ステージパス
 {
 
@@ -92,10 +92,10 @@ void CTileSpawn::Draw(CShader* pShader)
 //============================================================
 //	生成処理
 //============================================================
-CTileSpawn *CTileSpawn::Create(const char *pPrevPath, const VECTOR3& rPos)
+CTileSpawn* CTileSpawn::Create(const char* pPrevPath, const VECTOR3& rPos)
 {
 	// 出現タイルの生成
-	CTileSpawn *pTileSpawn = new CTileSpawn(pPrevPath);
+	CTileSpawn* pTileSpawn = new CTileSpawn(pPrevPath);
 	if (pTileSpawn == nullptr)
 	{ // 生成に失敗した場合
 

@@ -42,17 +42,17 @@ public:
 	void Draw(CShader* pShader = nullptr) override;	// 描画
 
 	// 静的メンバ関数
-	static CMenuStatusUI *Create(void);	// 生成
+	static CMenuStatusUI* Create(void);	// 生成
 
 private:
 	// オーバーライド関数
 	void Release(void) override { CObject::Release(); }	// 破棄
 
 	// メンバ変数
-	CFrame2D *m_pFrame;	// フレーム情報
-	CString2D *m_pName;	// 名前情報
-	CText2D *m_pStatus;	// ステータス情報
-	CText2D *m_pValue;	// ステータス数値情報
+	CFrame2D* m_pFrame;	// フレーム情報
+	CString2D* m_pName;	// 名前情報
+	CText2D* m_pStatus;	// ステータス情報
+	CText2D* m_pValue;	// ステータス数値情報
 };
 
 #endif	// _MENU_STATUS_UI_H_
