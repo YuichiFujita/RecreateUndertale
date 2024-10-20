@@ -372,7 +372,7 @@ HRESULT CStage::LoadSpawn(std::ifstream *pFile, std::string& rString)
 
 		if (str == "SPAWN")
 		{
-			std::string passPrev;		// 遷移元ルームパス
+			std::string pathPrev;		// 遷移元ルームパス
 			VECTOR3 pos = VEC3_ZERO;	// 位置
 			CPlayer::EAngle angle = (CPlayer::EAngle)0;	// 角度
 			do { // END_SPAWNを読み込むまでループ
@@ -389,10 +389,10 @@ HRESULT CStage::LoadSpawn(std::ifstream *pFile, std::string& rString)
 				else if (str == "PREV_ROOMPASS")
 				{
 					*pFile >> str;		// ＝を読込
-					*pFile >> passPrev;	// 遷移元のルームパスを読込
+					*pFile >> pathPrev;	// 遷移元のルームパスを読込
 
 					// ルームパスを標準化
-					useful::StandardizePathPart(&passPrev);
+					useful::StandardizePathPart(&pathPrev);
 				}
 				else if (str == "POS")
 				{
@@ -415,7 +415,7 @@ HRESULT CStage::LoadSpawn(std::ifstream *pFile, std::string& rString)
 			} while (str != "END_SPAWN");	// END_SPAWNを読み込むまでループ
 
 			// 出現タイルの生成
-			if (CTileSpawn::Create(passPrev.c_str(), pos) == nullptr)
+			if (CTileSpawn::Create(pathPrev.c_str(), pos) == nullptr)
 			{ // 生成に失敗した場合
 
 				// 失敗を返す
@@ -424,7 +424,7 @@ HRESULT CStage::LoadSpawn(std::ifstream *pFile, std::string& rString)
 			}
 
 			// プレイヤー出現先の設定
-			if (passPrev == m_sPrevRoomPath)
+			if (pathPrev == m_sPrevRoomPath)
 			{ // タイルの読込パスとルームの遷移元パスが同じ場合
 
 				// プレイヤーの部屋遷移
@@ -457,7 +457,7 @@ HRESULT CStage::LoadTrans(std::ifstream *pFile, std::string& rString)
 
 		if (str == "TRANS")
 		{
-			std::string passNext;		// 遷移先ルームパス
+			std::string pathNext;		// 遷移先ルームパス
 			VECTOR3 pos = VEC3_ZERO;	// 位置
 			do { // END_TRANSを読み込むまでループ
 
@@ -473,10 +473,10 @@ HRESULT CStage::LoadTrans(std::ifstream *pFile, std::string& rString)
 				else if (str == "NEXT_ROOMPASS")
 				{
 					*pFile >> str;		// ＝を読込
-					*pFile >> passNext;	// 遷移先のルームパスを読込
+					*pFile >> pathNext;	// 遷移先のルームパスを読込
 
 					// ルームパスを標準化
-					useful::StandardizePathPart(&passNext);
+					useful::StandardizePathPart(&pathNext);
 				}
 				else if (str == "POS")
 				{
@@ -488,7 +488,7 @@ HRESULT CStage::LoadTrans(std::ifstream *pFile, std::string& rString)
 			} while (str != "END_TRANS");	// END_TRANSを読み込むまでループ
 
 			// 遷移タイルの生成
-			if (CTileTrans::Create(passNext.c_str(), pos) == nullptr)
+			if (CTileTrans::Create(pathNext.c_str(), pos) == nullptr)
 			{ // 生成に失敗した場合
 
 				// 失敗を返す
