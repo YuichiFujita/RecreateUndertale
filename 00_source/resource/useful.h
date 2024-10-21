@@ -328,12 +328,12 @@ struct POSGRID2
 	// 加算
 	inline POSGRID2 operator+(const POSGRID2& rGrid) const	{ return POSGRID2(x + rGrid.x, y + rGrid.y); }
 	inline POSGRID2 operator+(const int nVal) const			{ return POSGRID2(x + nVal, y + nVal); }
-	inline POSGRID2 operator+() const					{ return *this; }
+	inline POSGRID2 operator+() const						{ return *this; }
 
 	// 減算
 	inline POSGRID2 operator-(const POSGRID2& rGrid) const	{ return POSGRID2(x - rGrid.x, y - rGrid.y); }
 	inline POSGRID2 operator-(const int nVal) const			{ return POSGRID2(x - nVal, y - nVal); }
-	inline POSGRID2 operator-() const					{ return POSGRID2(-x, -y); }
+	inline POSGRID2 operator-() const						{ return POSGRID2(-x, -y); }
 
 	// 乗算
 	inline POSGRID2 operator*(const int nVal) const	{ return POSGRID2(x * nVal, y * nVal); }
@@ -460,12 +460,12 @@ struct POSGRID3
 	// 加算
 	inline POSGRID3 operator+(const POSGRID3& rGrid) const	{ return POSGRID3(x + rGrid.x, y + rGrid.y, z + rGrid.z); }
 	inline POSGRID3 operator+(const int nVal) const			{ return POSGRID3(x + nVal, y + nVal, z + nVal); }
-	inline POSGRID3 operator+() const					{ return *this; }
+	inline POSGRID3 operator+() const						{ return *this; }
 
 	// 減算
 	inline POSGRID3 operator-(const POSGRID3& rGrid) const	{ return POSGRID3(x - rGrid.x, y - rGrid.y, z - rGrid.z); }
 	inline POSGRID3 operator-(const int nVal) const			{ return POSGRID3(x - nVal, y - nVal, z - nVal); }
-	inline POSGRID3 operator-() const					{ return POSGRID3(-x, -y, -z); }
+	inline POSGRID3 operator-() const						{ return POSGRID3(-x, -y, -z); }
 
 	// 乗算
 	inline POSGRID3 operator*(const int nVal) const	{ return POSGRID3(x * nVal, y * nVal, z * nVal); }
@@ -743,21 +743,21 @@ struct COLOR : public D3DXCOLOR
 	//********************************************************
 	//	メンバ関数
 	//********************************************************
-	inline void Black()					{ *this = COLOR(0.0f, 0.0f, 0.0f, 1.0f); }		// 黒色/不透明
+	inline void Black()						{ *this = COLOR(0.0f, 0.0f, 0.0f, 1.0f); }		// 黒色/不透明
 	inline void Black(const float fAlpha)	{ *this = COLOR(0.0f, 0.0f, 0.0f, fAlpha); }	// 黒色/透明度
-	inline void White()					{ *this = COLOR(1.0f, 1.0f, 1.0f, 1.0f); }		// 白色/不透明
+	inline void White()						{ *this = COLOR(1.0f, 1.0f, 1.0f, 1.0f); }		// 白色/不透明
 	inline void White(const float fAlpha)	{ *this = COLOR(1.0f, 1.0f, 1.0f, fAlpha); }	// 白色/透明度
-	inline void Red()					{ *this = COLOR(1.0f, 0.0f, 0.0f, 1.0f); }		// 赤色/不透明
+	inline void Red()						{ *this = COLOR(1.0f, 0.0f, 0.0f, 1.0f); }		// 赤色/不透明
 	inline void Red(const float fAlpha)		{ *this = COLOR(1.0f, 0.0f, 0.0f, fAlpha); }	// 赤色/透明度
-	inline void Green()					{ *this = COLOR(0.0f, 1.0f, 0.0f, 1.0f); }		// 緑色/不透明
+	inline void Green()						{ *this = COLOR(0.0f, 1.0f, 0.0f, 1.0f); }		// 緑色/不透明
 	inline void Green(const float fAlpha)	{ *this = COLOR(0.0f, 1.0f, 0.0f, fAlpha); }	// 緑色/透明度
-	inline void Blue()					{ *this = COLOR(0.0f, 0.0f, 1.0f, 1.0f); }		// 青色/不透明
+	inline void Blue()						{ *this = COLOR(0.0f, 0.0f, 1.0f, 1.0f); }		// 青色/不透明
 	inline void Blue(const float fAlpha)	{ *this = COLOR(0.0f, 0.0f, 1.0f, fAlpha); }	// 青色/透明度
-	inline void Yellow()				{ *this = COLOR(1.0f, 1.0f, 0.0f, 1.0f); }		// 黄色/不透明
+	inline void Yellow()					{ *this = COLOR(1.0f, 1.0f, 0.0f, 1.0f); }		// 黄色/不透明
 	inline void Yellow(const float fAlpha)	{ *this = COLOR(1.0f, 1.0f, 0.0f, fAlpha); }	// 黄色/透明度
-	inline void Cyan()					{ *this = COLOR(0.0f, 1.0f, 1.0f, 1.0f); }		// 水色/不透明
+	inline void Cyan()						{ *this = COLOR(0.0f, 1.0f, 1.0f, 1.0f); }		// 水色/不透明
 	inline void Cyan(const float fAlpha)	{ *this = COLOR(0.0f, 1.0f, 1.0f, fAlpha); }	// 水色/透明度
-	inline void Purple()				{ *this = COLOR(1.0f, 0.0f, 1.0f, 1.0f); }		// 紫色/不透明
+	inline void Purple()					{ *this = COLOR(1.0f, 0.0f, 1.0f, 1.0f); }		// 紫色/不透明
 	inline void Purple(const float fAlpha)	{ *this = COLOR(1.0f, 0.0f, 1.0f, fAlpha); }	// 紫色/透明度
 
 	/*
@@ -849,7 +849,7 @@ namespace useful
 		float* pMaxPosY = nullptr	// 最大到達Y座標
 	);
 
-	float RandomRot();			// ランダム向き取得
+	float RandomRot();				// ランダム向き取得
 	void NormalizeRot(float& rRot);	// 向きの正規化
 	void NormalizeRot(VECTOR3& rRot);				// 三軸向きの正規化
 	void PathToBaseName(std::string* pPath);		// パスのベースネーム変換
@@ -948,21 +948,21 @@ namespace easing
 // カラー関数空間
 namespace color
 {
-	inline COLOR Black()				{ return COLOR(0.0f, 0.0f, 0.0f, 1.0f); }	// 黒色/不透明
+	inline COLOR Black()					{ return COLOR(0.0f, 0.0f, 0.0f, 1.0f); }	// 黒色/不透明
 	inline COLOR Black(const float fAlpha)	{ return COLOR(0.0f, 0.0f, 0.0f, fAlpha); }	// 黒色/透明度
-	inline COLOR White()				{ return COLOR(1.0f, 1.0f, 1.0f, 1.0f); }	// 白色/不透明
+	inline COLOR White()					{ return COLOR(1.0f, 1.0f, 1.0f, 1.0f); }	// 白色/不透明
 	inline COLOR White(const float fAlpha)	{ return COLOR(1.0f, 1.0f, 1.0f, fAlpha); }	// 白色/透明度
-	inline COLOR Red()					{ return COLOR(1.0f, 0.0f, 0.0f, 1.0f); }	// 赤色/不透明
+	inline COLOR Red()						{ return COLOR(1.0f, 0.0f, 0.0f, 1.0f); }	// 赤色/不透明
 	inline COLOR Red(const float fAlpha)	{ return COLOR(1.0f, 0.0f, 0.0f, fAlpha); }	// 赤色/透明度
-	inline COLOR Green()				{ return COLOR(0.0f, 1.0f, 0.0f, 1.0f); }	// 緑色/不透明
+	inline COLOR Green()					{ return COLOR(0.0f, 1.0f, 0.0f, 1.0f); }	// 緑色/不透明
 	inline COLOR Green(const float fAlpha)	{ return COLOR(0.0f, 1.0f, 0.0f, fAlpha); }	// 緑色/透明度
-	inline COLOR Blue()					{ return COLOR(0.0f, 0.0f, 1.0f, 1.0f); }	// 青色/不透明
+	inline COLOR Blue()						{ return COLOR(0.0f, 0.0f, 1.0f, 1.0f); }	// 青色/不透明
 	inline COLOR Blue(const float fAlpha)	{ return COLOR(0.0f, 0.0f, 1.0f, fAlpha); }	// 青色/透明度
-	inline COLOR Yellow()				{ return COLOR(1.0f, 1.0f, 0.0f, 1.0f); }	// 黄色/不透明
+	inline COLOR Yellow()					{ return COLOR(1.0f, 1.0f, 0.0f, 1.0f); }	// 黄色/不透明
 	inline COLOR Yellow(const float fAlpha)	{ return COLOR(1.0f, 1.0f, 0.0f, fAlpha); }	// 黄色/透明度
-	inline COLOR Cyan()					{ return COLOR(0.0f, 1.0f, 1.0f, 1.0f); }	// 水色/不透明
+	inline COLOR Cyan()						{ return COLOR(0.0f, 1.0f, 1.0f, 1.0f); }	// 水色/不透明
 	inline COLOR Cyan(const float fAlpha)	{ return COLOR(0.0f, 1.0f, 1.0f, fAlpha); }	// 水色/透明度
-	inline COLOR Purple()				{ return COLOR(1.0f, 0.0f, 1.0f, 1.0f); }	// 紫色/不透明
+	inline COLOR Purple()					{ return COLOR(1.0f, 0.0f, 1.0f, 1.0f); }	// 紫色/不透明
 	inline COLOR Purple(const float fAlpha)	{ return COLOR(1.0f, 0.0f, 1.0f, fAlpha); }	// 紫色/透明度
 
 	// カラーコード/不透明

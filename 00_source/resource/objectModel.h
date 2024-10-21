@@ -38,11 +38,11 @@ public:
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
 	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
 	void SetVec3Scale(const VECTOR3& rScale) override;	// 拡大率設定
-	VECTOR3 GetVec3Position() const override	{ return m_pos; }		// 位置取得
-	VECTOR3 GetVec3Rotation() const override	{ return m_rot; }		// 向き取得
-	VECTOR3 GetVec3Scale() const override		{ return m_scale; }		// 拡大率取得
-	MATRIX* GetPtrMtxWorld() override			{ return &m_mtxWorld; }	// マトリックスポインタ取得
-	MATRIX GetMtxWorld() const override			{ return m_mtxWorld; }	// マトリックス取得
+	inline VECTOR3 GetVec3Position() const override	{ return m_pos; }		// 位置取得
+	inline VECTOR3 GetVec3Rotation() const override	{ return m_rot; }		// 向き取得
+	inline VECTOR3 GetVec3Scale() const override	{ return m_scale; }		// 拡大率取得
+	inline MATRIX* GetPtrMtxWorld() override		{ return &m_mtxWorld; }	// マトリックスポインタ取得
+	inline MATRIX GetMtxWorld() const override		{ return m_mtxWorld; }	// マトリックス取得
 
 	// 静的メンバ関数
 	static CObjectModel* Create	// 生成
@@ -56,18 +56,18 @@ public:
 	void SetMaterial(const D3DXMATERIAL& rMat, const int nMatID);	// マテリアル設定
 	D3DXMATERIAL GetMaterial(const int nMatID) const;	// マテリアル取得
 	void SetAlpha(const float fAlpha);	// 透明度設定
-	float GetAlpha() const;			// 透明度取得
-	float GetMaxAlpha() const;		// 最大透明度取得
+	float GetAlpha() const;				// 透明度取得
+	float GetMaxAlpha() const;			// 最大透明度取得
 
-	CRenderState* GetRenderState();					// レンダーステート情報取得
+	CRenderState* GetRenderState();						// レンダーステート情報取得
 	void BindModel(const int nModelID);					// モデル割当 (インデックス)
 	void BindModel(const char* pModelPath);				// モデル割当 (パス)
 	void SetAllMaterial(const D3DXMATERIAL& rMat);		// マテリアル全設定
-	void ResetMaterial();							// マテリアル再設定
+	void ResetMaterial();								// マテリアル再設定
 	void SetModelData(const CModel::SModel& rModel);	// モデル情報設定
 	void SetMtxWorld(const MATRIX& rMtxWorld);			// マトリックス設定
-	int GetModelID() const				{ return m_nModelID; }	// モデルインデックス取得
-	CModel::SModel GetModelData() const	{ return m_modelData; }	// モデル情報取得
+	inline int GetModelID() const				{ return m_nModelID; }	// モデルインデックス取得
+	inline CModel::SModel GetModelData() const	{ return m_modelData; }	// モデル情報取得
 
 protected:
 	// メンバ関数
@@ -79,7 +79,7 @@ private:
 
 	// メンバ関数
 	HRESULT SetOriginMaterial(const LPD3DXBUFFER pBuffMat, const int nNumMat);	// 元マテリアル設定
-	void DrawNormal();				// 通常描画
+	void DrawNormal();					// 通常描画
 	void DrawShader(CShader* pShader);	// シェーダー描画
 
 	// メンバ変数

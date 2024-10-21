@@ -58,7 +58,7 @@ public:
 		}
 
 		// テクスチャ分割数・パターン総数の設定
-		HRESULT SetTexPtrn(const POSGRID2& rPtrn)
+		inline HRESULT SetTexPtrn(const POSGRID2& rPtrn)
 		{
 			// テクスチャ分割数・パターン総数を設定
 			ptrnTexture = rPtrn;
@@ -77,7 +77,7 @@ public:
 		}
 
 		// パターン変更時間の設定
-		HRESULT SetNextTime(const float fNextTime)
+		inline HRESULT SetNextTime(const float fNextTime)
 		{
 			if (fNextTime <= 0.0f)					 { return E_FAIL; }	// 変更時間がプラスではない場合失敗
 			if (nMaxPtrn != (int)vecNextTime.size()) { return E_FAIL; }	// パターン最大数と同じサイズではない場合失敗
@@ -128,7 +128,7 @@ public:
 		}
 
 		// メンバ関数
-		int GetNumMotion() { return (int)vecMotion.size(); }	// モーション情報の総数取得
+		inline int GetNumMotion() { return (int)vecMotion.size(); }	// モーション情報の総数取得
 
 		// メンバ変数
 		std::vector<SMotion> vecMotion;	// モーション情報
@@ -152,11 +152,11 @@ public:
 
 	bool IsCancel() const;	// キャンセル取得
 	bool IsCombo() const;	// コンボ取得
-	int GetMotion() const	{ return m_info.nType; }			// モーション取得
-	int GetNumType()		{ return m_info.GetNumMotion(); }	// 種類総数取得
-	float GetCancelTime(const int nType) const	{ return m_info.vecMotion[nType].fCancelTime; }				// キャンセル時間取得
-	float GetComboTime(const int nType) const	{ return m_info.vecMotion[nType].fComboTime; }				// コンボ時間取得
-	VECTOR3 GetCollSize() const				{ return m_info.vecMotion[m_info.nType].infoColl.size; }	// 判定大きさ取得
+	inline int GetMotion() const	{ return m_info.nType; }			// モーション取得
+	inline int GetNumType()			{ return m_info.GetNumMotion(); }	// 種類総数取得
+	inline float GetCancelTime(const int nType) const	{ return m_info.vecMotion[nType].fCancelTime; }				// キャンセル時間取得
+	inline float GetComboTime(const int nType) const	{ return m_info.vecMotion[nType].fComboTime; }				// コンボ時間取得
+	inline VECTOR3 GetCollSize() const					{ return m_info.vecMotion[m_info.nType].infoColl.size; }	// 判定大きさ取得
 
 	VECTOR3 CalcOriginOffsetPosition(const VECTOR3& rPos, const VECTOR3& rRot) const;	// 原点オフセット反映位置計算
 	VECTOR3 CalcCollOffsetPosition(const VECTOR3& rPos, const VECTOR3& rRot) const;		// 判定原点オフセット反映位置計算

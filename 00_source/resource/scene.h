@@ -43,8 +43,8 @@ public:
 	static void Release(CScene*& prScene);	// 破棄
 
 	// メンバ関数
-	void SetMode(const EMode mode)	{ m_mode = mode; }	// モード設定
-	EMode GetMode() const		{ return m_mode; }	// モード取得
+	inline void SetMode(const EMode mode)	{ m_mode = mode; }	// モード設定
+	inline EMode GetMode() const			{ return m_mode; }	// モード取得
 
 private:
 	// メンバ変数

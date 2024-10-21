@@ -45,10 +45,10 @@ public:
 	void SetPriority(const int nPriority) override;		// 優先順位設定
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
 	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
-	VECTOR3 GetVec3Position() const override	{ return m_apDome[DOME_TOP]->GetVec3Position(); }	// 位置取得
-	VECTOR3 GetVec3Rotation() const override	{ return m_apDome[DOME_TOP]->GetVec3Rotation(); }	// 向き取得
-	MATRIX* GetPtrMtxWorld() override			{ return m_apDome[DOME_TOP]->GetPtrMtxWorld(); }	// マトリックスポインタ取得
-	MATRIX GetMtxWorld() const override			{ return m_apDome[DOME_TOP]->GetMtxWorld(); }		// マトリックス取得
+	inline VECTOR3 GetVec3Position() const override	{ return m_apDome[DOME_TOP]->GetVec3Position(); }	// 位置取得
+	inline VECTOR3 GetVec3Rotation() const override	{ return m_apDome[DOME_TOP]->GetVec3Rotation(); }	// 向き取得
+	inline MATRIX* GetPtrMtxWorld() override		{ return m_apDome[DOME_TOP]->GetPtrMtxWorld(); }	// マトリックスポインタ取得
+	inline MATRIX GetMtxWorld() const override		{ return m_apDome[DOME_TOP]->GetMtxWorld(); }		// マトリックス取得
 
 	// 静的メンバ関数
 	static CObjectMeshSphere* Create	// 生成
@@ -70,12 +70,12 @@ public:
 	void SetRadius(const float fRadius);			// 半径設定
 	HRESULT SetPattern(const POSGRID2& rPart);		// 分割数設定
 	void SetTexPattern(const POSGRID2& rTexPart);	// テクスチャ分割数設定
-	int GetTextureIndex() const		{ return m_apDome[DOME_TOP]->GetTextureIndex(); }	// テクスチャインデックス取得
-	float GetAlpha() const			{ return m_apDome[DOME_TOP]->GetAlpha(); }			// 透明度取得
-	COLOR GetColor() const			{ return m_apDome[DOME_TOP]->GetColor(); }			// 色取得
-	float GetRadius() const			{ return m_apDome[DOME_TOP]->GetRadius(); }			// 半径取得
-	POSGRID2 GetPattern() const		{ return m_apDome[DOME_TOP]->GetPattern(); }		// 分割数取得
-	POSGRID2 GetTexPattern() const	{ return m_apDome[DOME_TOP]->GetTexPattern(); }		// テクスチャ分割数取得
+	inline int GetTextureIndex() const		{ return m_apDome[DOME_TOP]->GetTextureIndex(); }	// テクスチャインデックス取得
+	inline float GetAlpha() const			{ return m_apDome[DOME_TOP]->GetAlpha(); }			// 透明度取得
+	inline COLOR GetColor() const			{ return m_apDome[DOME_TOP]->GetColor(); }			// 色取得
+	inline float GetRadius() const			{ return m_apDome[DOME_TOP]->GetRadius(); }			// 半径取得
+	inline POSGRID2 GetPattern() const		{ return m_apDome[DOME_TOP]->GetPattern(); }		// 分割数取得
+	inline POSGRID2 GetTexPattern() const	{ return m_apDome[DOME_TOP]->GetTexPattern(); }		// テクスチャ分割数取得
 
 private:
 	// オーバーライド関数

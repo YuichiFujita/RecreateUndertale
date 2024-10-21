@@ -33,10 +33,10 @@ public:
 	HRESULT Init();	// 初期化
 	void Uninit();	// 終了
 	void AddList(T num, int nAdd = 1);	// 配列追加
-	void AllDeleteList();			// 配列全削除
-	T GetRandomNum();				// ランダム数値取得
-	int GetNumAll();				// 配列内の要素数取得
-	std::vector<T> GetList();		// 配列取得
+	void AllDeleteList();		// 配列全削除
+	T GetRandomNum();			// ランダム数値取得
+	int GetNumAll();			// 配列内の要素数取得
+	std::vector<T> GetList();	// 配列取得
 
 	// 静的メンバ関数
 	static CRandom* Create();	// 生成
@@ -141,9 +141,7 @@ template<class T> T CRandom<T>::GetRandomNum()
 	}
 
 	// 初期値を返す
-	T error;
-	memset(&error, 0, sizeof(error));
-	return error;
+	return {};
 }
 
 //============================================================

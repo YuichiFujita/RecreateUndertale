@@ -57,21 +57,21 @@ public:
 	void Uninit();	// 終了
 	void Update(const float fDeltaTime);		// 更新
 	HRESULT ChangeState(CIntroState* pState);	// 状態変更
-	void NextStory();						// 物語の遷移
+	void NextStory();							// 物語の遷移
 	void ChangeStory(const int nStoryID);		// ストーリー変更
 	void ChangeText(const int nStoryID);		// テキスト変更
-	void StartScrollStory();				// ストーリースクロール開始
-	bool NormalizeScrollStory();			// ストーリースクロール正規化
+	void StartScrollStory();					// ストーリースクロール開始
+	bool NormalizeScrollStory();				// ストーリースクロール正規化
 	void SetEnableSlowText(const bool bSlow);	// 文字送りの速度設定
-	int GetStoryID()	{ return m_nStoryID; }					// 物語インデックス取得
-	int GetNextCharID()	{ return m_pText->GetNextCharID(); }	// 次の表示文字インデックス取得
-	bool IsTextScroll()	{ return m_pText->IsScroll(); }			// テキスト文字送り状況取得
+	inline int GetStoryID()		{ return m_nStoryID; }					// 物語インデックス取得
+	inline int GetNextCharID()	{ return m_pText->GetNextCharID(); }	// 次の表示文字インデックス取得
+	inline bool IsTextScroll()	{ return m_pText->IsScroll(); }			// テキスト文字送り状況取得
 
 	// 静的メンバ関数
 	static CIntroManager* Create();	// 生成
 	static void Release(CIntroManager*& prIntroManager);	// 破棄
-	static void SetEnableLogoSkip(const bool bSkip)	{ m_bLogoSkip = bSkip; }	// ロゴスキップ状況設定
-	static bool IsLogoSkip()					{ return m_bLogoSkip; }		// ロゴスキップ状況取得
+	static inline void SetEnableLogoSkip(const bool bSkip)	{ m_bLogoSkip = bSkip; }	// ロゴスキップ状況設定
+	static inline bool IsLogoSkip()							{ return m_bLogoSkip; }		// ロゴスキップ状況取得
 
 private:
 	// 静的メンバ変数

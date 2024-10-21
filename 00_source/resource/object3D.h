@@ -45,11 +45,11 @@ public:
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
 	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
 	void SetVec3Size(const VECTOR3& rSize) override;	// 大きさ設定
-	VECTOR3 GetVec3Position() const override	{ return m_pos; }		// 位置取得
-	VECTOR3 GetVec3Rotation() const override	{ return m_rot; }		// 向き取得
-	VECTOR3 GetVec3Size() const override		{ return m_size; }		// 大きさ取得
-	MATRIX* GetPtrMtxWorld() override			{ return &m_mtxWorld; }	// マトリックスポインタ取得
-	MATRIX GetMtxWorld() const override			{ return m_mtxWorld; }	// マトリックス取得
+	inline VECTOR3 GetVec3Position() const override	{ return m_pos; }		// 位置取得
+	inline VECTOR3 GetVec3Rotation() const override	{ return m_rot; }		// 向き取得
+	inline VECTOR3 GetVec3Size() const override		{ return m_size; }		// 大きさ取得
+	inline MATRIX* GetPtrMtxWorld() override		{ return &m_mtxWorld; }	// マトリックスポインタ取得
+	inline MATRIX GetMtxWorld() const override		{ return m_mtxWorld; }	// マトリックス取得
 
 	// 静的メンバ関数
 	static CObject3D* Create	// 生成
@@ -62,16 +62,16 @@ public:
 	);
 
 	// メンバ関数
-	CRenderState* GetRenderState();			// レンダーステート情報取得
+	CRenderState* GetRenderState();				// レンダーステート情報取得
 	void BindTexture(const int nTextureID);		// テクスチャ割当 (インデックス)
 	void BindTexture(const char* pTexturePath);	// テクスチャ割当 (パス)
 	void SetAlpha(const float fAlpha);			// 透明度設定
 	void SetColor(const COLOR& rCol);			// 色設定
 	void SetOrigin(const EOrigin origin);		// 原点設定
-	int GetTextureIndex() const		{ return m_nTextureID; }	// テクスチャインデックス取得
-	float GetAlpha() const			{ return m_col.a; }			// 透明度取得
-	COLOR GetColor() const			{ return m_col; }			// 色取得
-	EOrigin GetOrigin() const		{ return m_origin; }		// 原点取得
+	inline int GetTextureIndex() const	{ return m_nTextureID; }	// テクスチャインデックス取得
+	inline float GetAlpha() const		{ return m_col.a; }			// 透明度取得
+	inline COLOR GetColor() const		{ return m_col; }			// 色取得
+	inline EOrigin GetOrigin() const	{ return m_origin; }		// 原点取得
 	void SetVertexPosition(const int nID, const VECTOR3& rPos);		// 頂点位置設定
 	VECTOR3 GetVertexPosition(const int nID);						// 頂点位置取得
 	void SetGapPosition(const int nID, const VECTOR3& rPos);		// 座標のずれ設定
@@ -84,7 +84,7 @@ protected:
 
 	// メンバ関数
 	void SetVtx();	// 頂点情報の設定
-	void SetAnimTex		// アニメーションのテクスチャ座標の設定
+	void SetAnimTex	// アニメーションのテクスチャ座標の設定
 	( // 引数
 		const int nPattern,		// アニメーションパターン
 		const int nWidthPtrn,	// テクスチャの横の分割数
@@ -103,9 +103,9 @@ private:
 	inline void Release() override { CObject::Release(); }	// 破棄
 
 	// メンバ関数
-	void DrawNormal();				// 通常描画
+	void DrawNormal();					// 通常描画
 	void DrawShader(CShader* pShader);	// シェーダー描画
-	void NormalizeNormal();			// 法線の正規化
+	void NormalizeNormal();				// 法線の正規化
 
 	// メンバ変数
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;	// 頂点バッファへのポインタ

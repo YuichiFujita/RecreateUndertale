@@ -55,10 +55,10 @@ public:
 	void Draw(CShader* pShader = nullptr) override;		// 描画
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
 	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
-	VECTOR3 GetVec3Position() const override	{ return m_meshDome.pos; }			// 位置取得
-	VECTOR3 GetVec3Rotation() const override	{ return m_meshDome.rot; }			// 向き取得
-	MATRIX* GetPtrMtxWorld() override			{ return &m_meshDome.mtxWorld; }	// マトリックスポインタ取得
-	MATRIX GetMtxWorld() const override			{ return m_meshDome.mtxWorld; }		// マトリックス取得
+	inline VECTOR3 GetVec3Position() const override	{ return m_meshDome.pos; }			// 位置取得
+	inline VECTOR3 GetVec3Rotation() const override	{ return m_meshDome.rot; }			// 向き取得
+	inline MATRIX* GetPtrMtxWorld() override		{ return &m_meshDome.mtxWorld; }	// マトリックスポインタ取得
+	inline MATRIX GetMtxWorld() const override		{ return m_meshDome.mtxWorld; }		// マトリックス取得
 
 	// 静的メンバ関数
 	static CObjectMeshDome* Create	// 生成
@@ -72,7 +72,7 @@ public:
 	);
 
 	// メンバ関数
-	CRenderState* GetRenderState();				// レンダーステート情報取得
+	CRenderState* GetRenderState();					// レンダーステート情報取得
 	void BindTexture(const int nTextureID);			// テクスチャ割当 (インデックス)
 	void BindTexture(const char* pTexturePath);		// テクスチャ割当 (パス)
 	void SetAlpha(const float fAlpha);				// 透明度設定
@@ -81,18 +81,18 @@ public:
 	void SetTexDir(const ETexDir texDir);			// テクスチャ方向設定
 	HRESULT SetPattern(const POSGRID2& rPart);		// 分割数設定
 	void SetTexPattern(const POSGRID2& rTexPart);	// テクスチャ分割数設定
-	int GetTextureIndex() const		{ return m_nTextureID; }		// テクスチャインデックス取得
-	float GetAlpha() const			{ return m_meshDome.col.a; }	// 透明度取得
-	COLOR GetColor() const			{ return m_meshDome.col; }		// 色取得
-	float GetRadius() const			{ return m_meshDome.fRadius; }	// 半径取得
-	ETexDir GetTexDir() const		{ return m_meshDome.texDir; }	// テクスチャ方向取得
-	POSGRID2 GetPattern() const		{ return m_part; }				// 分割数取得
-	POSGRID2 GetTexPattern() const	{ return m_texPart; }			// テクスチャ分割数取得
+	inline int GetTextureIndex() const		{ return m_nTextureID; }		// テクスチャインデックス取得
+	inline float GetAlpha() const			{ return m_meshDome.col.a; }	// 透明度取得
+	inline COLOR GetColor() const			{ return m_meshDome.col; }		// 色取得
+	inline float GetRadius() const			{ return m_meshDome.fRadius; }	// 半径取得
+	inline ETexDir GetTexDir() const		{ return m_meshDome.texDir; }	// テクスチャ方向取得
+	inline POSGRID2 GetPattern() const		{ return m_part; }				// 分割数取得
+	inline POSGRID2 GetTexPattern() const	{ return m_texPart; }			// テクスチャ分割数取得
 
 protected:
 	// メンバ関数
-	void SetVtx();	// 頂点情報の設定
-	void SetIdx();	// インデックス情報の設定
+	void SetVtx();		// 頂点情報の設定
+	void SetIdx();		// インデックス情報の設定
 	void SetScrollTex	// スクロールのテクスチャ座標の設定
 	( // 引数
 		const float fTexU,	// テクスチャの横座標の開始位置

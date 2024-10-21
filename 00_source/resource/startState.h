@@ -34,7 +34,7 @@ public:
 	virtual void Update(const float fDeltaTime) = 0;	// 更新
 
 	// メンバ関数
-	void SetContext(CStartManager* pContext) { m_pContext = pContext; }	// コンテキスト設定
+	inline void SetContext(CStartManager* pContext) { m_pContext = pContext; }	// コンテキスト設定
 
 protected:
 	// メンバ変数

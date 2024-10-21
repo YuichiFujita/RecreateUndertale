@@ -57,8 +57,8 @@ public:
 	void Uninit();	// 終了
 	void Update(const float fDeltaTime);		// 更新
 	HRESULT ChangeState(CStartState* pState);	// 状態変更
-	void SetName(const std::string& rName)	{ m_sName = rName; }	// 名前設定
-	std::string GetName() const			{ return m_sName; }		// 名前取得
+	inline void SetName(const std::string& rName)	{ m_sName = rName; }	// 名前設定
+	inline std::string GetName() const				{ return m_sName; }		// 名前取得
 
 	// 静的メンバ関数
 	static CStartManager* Create();	// 生成

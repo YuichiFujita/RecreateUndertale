@@ -37,19 +37,19 @@ public:
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
 	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
 	void SetVec3Size(const VECTOR3& rSize) override;	// 大きさ設定
-	VECTOR3 GetVec3Position() const override	{ return m_pos; }	// 位置取得
-	VECTOR3 GetVec3Rotation() const override	{ return m_rot; }	// 向き取得
-	VECTOR3 GetVec3Size() const override		{ return m_size; }	// 大きさ取得
+	inline VECTOR3 GetVec3Position() const override	{ return m_pos; }	// 位置取得
+	inline VECTOR3 GetVec3Rotation() const override	{ return m_rot; }	// 向き取得
+	inline VECTOR3 GetVec3Size() const override		{ return m_size; }	// 大きさ取得
 
 	// メンバ関数
-	CRenderState* GetRenderState();			// レンダーステート情報取得
+	CRenderState* GetRenderState();				// レンダーステート情報取得
 	void BindTexture(const int nTextureID);		// テクスチャ割当 (インデックス)
 	void BindTexture(const char* pTexturePath);	// テクスチャ割当 (パス)
 	void SetAlpha(const float fAlpha);			// 透明度設定
 	void SetColor(const COLOR& rCol);			// 色設定
-	int GetTextureIndex() const	{ return m_nTextureID; }	// テクスチャインデックス取得
-	float GetAlpha() const		{ return m_col.a; }			// 透明度取得
-	COLOR GetColor() const		{ return m_col; }			// 色取得
+	inline int GetTextureIndex() const	{ return m_nTextureID; }	// テクスチャインデックス取得
+	inline float GetAlpha() const		{ return m_col.a; }			// 透明度取得
+	inline COLOR GetColor() const		{ return m_col; }			// 色取得
 
 	// 静的メンバ関数
 	static CObject2D* Create	// 生成
@@ -63,7 +63,7 @@ public:
 protected:
 	// メンバ関数
 	void SetVtx();	// 頂点情報の設定
-	void SetAnimTex		// アニメーションのテクスチャ座標の設定
+	void SetAnimTex	// アニメーションのテクスチャ座標の設定
 	( // 引数
 		const int nPattern,		// アニメーションパターン
 		const int nWidthPtrn,	// テクスチャの横の分割数

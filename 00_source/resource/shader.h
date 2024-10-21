@@ -41,14 +41,14 @@ public:
 	virtual void SetOnlyDiffuse(const COLOR& rDiffuse);					// 拡散光のみ設定
 
 	// メンバ関数
-	void Begin();					// 開始
+	void Begin();						// 開始
 	void BeginPass(const BYTE pass);	// パス開始
-	void EndPass();					// パス終了
-	void End();						// 終了
+	void EndPass();						// パス終了
+	void End();							// 終了
 	void SetMatrix(MATRIX* pMtxWorld);	// マトリックス設定
-	void CommitChanges();			// 状態変更の伝達
-	bool IsEffectOK() const;		// エフェクト使用可能状況の取得
-	LPD3DXEFFECT GetEffect() const;	// エフェクトポインタ取得
+	void CommitChanges();				// 状態変更の伝達
+	bool IsEffectOK() const;			// エフェクト使用可能状況の取得
+	LPD3DXEFFECT GetEffect() const;		// エフェクトポインタ取得
 
 	// 静的メンバ関数
 	static HRESULT Create();	// 生成
@@ -58,9 +58,9 @@ protected:
 	// メンバ関数
 	void SetEffect(const LPD3DXEFFECT pEffect);			// エフェクトポインタ設定
 	void SetTechnique(const D3DXHANDLE pTechnique);		// テクニック関数設定
-	void SetMatrixWorld(const D3DXHANDLE pMtxWorld)		{ m_pMtxWorld = pMtxWorld; }		// ワールドマトリックス設定
-	void SetMatrixView(const D3DXHANDLE pMtxView)		{ m_pMtxView = pMtxView; }			// ビューマトリックス設定
-	void SetMatrixProjection(const D3DXHANDLE pMtxProj)	{ m_pMtxProjection = pMtxProj; }	// プロジェクションマトリックス設定
+	inline void SetMatrixWorld(const D3DXHANDLE pMtxWorld)		{ m_pMtxWorld = pMtxWorld; }		// ワールドマトリックス設定
+	inline void SetMatrixView(const D3DXHANDLE pMtxView)		{ m_pMtxView = pMtxView; }			// ビューマトリックス設定
+	inline void SetMatrixProjection(const D3DXHANDLE pMtxProj)	{ m_pMtxProjection = pMtxProj; }	// プロジェクションマトリックス設定
 
 private:
 	// メンバ変数

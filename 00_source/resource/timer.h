@@ -58,7 +58,7 @@ public:
 		const float fTime,	// 開始時間
 		const float fLimit	// 制限時間
 	);
-	static CListManager<CTimer>* GetList();		// リスト取得
+	static CListManager<CTimer>* GetList();			// リスト取得
 	static void EnableStopAll(const bool bStop);	// 全タイマー計測状況設定
 
 	// メンバ関数
@@ -68,12 +68,12 @@ public:
 	void AddTime(const float fTime);	// 時間加算
 	void SetTime(const float fTime);	// 時間設定
 	void SetLimit(const float fLimit);	// 制限時間設定
-	float GetTime() const	{ return m_fTime; }		// 時間取得
-	float GetLimit() const	{ return m_fLimit; }	// 制限時間取得
-	EState GetState() const	{ return m_state; }		// 計測状態取得
-	int GetMin() const		{ return m_nMin; }		// 分取得
-	int GetSec() const		{ return m_nSec; }		// 秒取得
-	int GetMSec() const		{ return m_nMSec; }		// ミリ秒取得
+	inline float GetTime() const	{ return m_fTime; }		// 時間取得
+	inline float GetLimit() const	{ return m_fLimit; }	// 制限時間取得
+	inline EState GetState() const	{ return m_state; }		// 計測状態取得
+	inline int GetMin() const		{ return m_nMin; }		// 分取得
+	inline int GetSec() const		{ return m_nSec; }		// 秒取得
+	inline int GetMSec() const		{ return m_nMSec; }		// ミリ秒取得
 
 private:
 	// オーバーライド関数

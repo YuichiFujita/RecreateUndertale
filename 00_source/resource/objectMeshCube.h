@@ -123,11 +123,11 @@ public:
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
 	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
 	void SetVec3Size(const VECTOR3& rSize) override;	// 大きさ設定
-	VECTOR3 GetVec3Position() const override	{ return m_meshCube.pos; }			// 位置取得
-	VECTOR3 GetVec3Rotation() const override	{ return m_meshCube.rot; }			// 向き取得
-	VECTOR3 GetVec3Size() const override		{ return m_meshCube.size; }			// 大きさ取得
-	MATRIX* GetPtrMtxWorld() override			{ return &m_meshCube.mtxWorld; }	// マトリックスポインタ取得
-	MATRIX GetMtxWorld() const override			{ return m_meshCube.mtxWorld; }		// マトリックス取得
+	inline VECTOR3 GetVec3Position() const override	{ return m_meshCube.pos; }			// 位置取得
+	inline VECTOR3 GetVec3Rotation() const override	{ return m_meshCube.rot; }			// 向き取得
+	inline VECTOR3 GetVec3Size() const override		{ return m_meshCube.size; }			// 大きさ取得
+	inline MATRIX* GetPtrMtxWorld() override		{ return &m_meshCube.mtxWorld; }	// マトリックスポインタ取得
+	inline MATRIX GetMtxWorld() const override		{ return m_meshCube.mtxWorld; }		// マトリックス取得
 
 	// 静的メンバ関数
 	static CObjectMeshCube* Create	// 生成
@@ -148,7 +148,7 @@ public:
 	);
 
 	// メンバ関数
-	CRenderState* GetRenderState();					// レンダーステート情報取得
+	CRenderState* GetRenderState();						// レンダーステート情報取得
 	void BindTexture(const SFaceTex textureID);			// テクスチャ割当
 	void SetCubeAlpha(const float fAlpha);				// キューブ透明度設定
 	void SetCubeColor(const COLOR& rCol);				// キューブ色設定
@@ -161,18 +161,18 @@ public:
 	void SetTexturePatternY(const VECTOR2& rTexPart);	// テクスチャ分割数Y設定
 	void SetTexturePatternZ(const VECTOR2& rTexPart);	// テクスチャ分割数Z設定
 	void SetOrigin(const EOrigin origin);				// 原点設定
-	SFaceTex GetTextureIndex() const	{ return m_meshCube.texID; }					// テクスチャインデックス取得
-	float GetCubeAlpha() const			{ return m_meshCube.aCol[CUBECOL_CUBE].a; }		// 透明度取得
-	COLOR GetCubeColor() const			{ return m_meshCube.aCol[CUBECOL_CUBE]; }		// キューブ色取得
-	float GetBorderAlpha() const		{ return m_meshCube.aCol[CUBECOL_BORDER].a; }	// 透明度取得
-	COLOR GetBorderColor() const		{ return m_meshCube.aCol[CUBECOL_BORDER]; }		// 縁取り色取得
-	EBorder GetBorderState() const		{ return m_meshCube.bordState; }				// 縁取り状態取得
-	float GetBorderThick() const		{ return m_meshCube.fBordThick; }				// 縁取り太さ取得
-	ETexState GetTextureState() const	{ return m_meshCube.texState; }					// テクスチャ状態取得
-	VECTOR2 GetTexturePatternX() const	{ return m_meshCube.aTexPart[CUBEPART_X]; }		// テクスチャ分割数X取得
-	VECTOR2 GetTexturePatternY() const	{ return m_meshCube.aTexPart[CUBEPART_Y]; }		// テクスチャ分割数Y取得
-	VECTOR2 GetTexturePatternZ() const	{ return m_meshCube.aTexPart[CUBEPART_Z]; }		// テクスチャ分割数Z取得
-	EOrigin GetOrigin() const			{ return m_origin; }							// 原点取得
+	inline SFaceTex GetTextureIndex() const		{ return m_meshCube.texID; }					// テクスチャインデックス取得
+	inline float GetCubeAlpha() const			{ return m_meshCube.aCol[CUBECOL_CUBE].a; }		// 透明度取得
+	inline COLOR GetCubeColor() const			{ return m_meshCube.aCol[CUBECOL_CUBE]; }		// キューブ色取得
+	inline float GetBorderAlpha() const			{ return m_meshCube.aCol[CUBECOL_BORDER].a; }	// 透明度取得
+	inline COLOR GetBorderColor() const			{ return m_meshCube.aCol[CUBECOL_BORDER]; }		// 縁取り色取得
+	inline EBorder GetBorderState() const		{ return m_meshCube.bordState; }				// 縁取り状態取得
+	inline float GetBorderThick() const			{ return m_meshCube.fBordThick; }				// 縁取り太さ取得
+	inline ETexState GetTextureState() const	{ return m_meshCube.texState; }					// テクスチャ状態取得
+	inline VECTOR2 GetTexturePatternX() const	{ return m_meshCube.aTexPart[CUBEPART_X]; }		// テクスチャ分割数X取得
+	inline VECTOR2 GetTexturePatternY() const	{ return m_meshCube.aTexPart[CUBEPART_Y]; }		// テクスチャ分割数Y取得
+	inline VECTOR2 GetTexturePatternZ() const	{ return m_meshCube.aTexPart[CUBEPART_Z]; }		// テクスチャ分割数Z取得
+	inline EOrigin GetOrigin() const			{ return m_origin; }							// 原点取得
 
 protected:
 	// メンバ関数

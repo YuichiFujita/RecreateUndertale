@@ -47,11 +47,11 @@ public:
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
 	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
 	void SetVec2Size(const VECTOR2& rSize) override;	// 大きさ設定
-	VECTOR3 GetVec3Position() const override	{ return m_meshField.pos; }			// 位置取得
-	VECTOR3 GetVec3Rotation() const override	{ return m_meshField.rot; }			// 向き取得
-	VECTOR2 GetVec2Size() const override		{ return m_meshField.size; }		// 大きさ取得
-	MATRIX* GetPtrMtxWorld() override			{ return &m_meshField.mtxWorld; }	// マトリックスポインタ取得
-	MATRIX GetMtxWorld() const override			{ return m_meshField.mtxWorld; }	// マトリックス取得
+	inline VECTOR3 GetVec3Position() const override	{ return m_meshField.pos; }			// 位置取得
+	inline VECTOR3 GetVec3Rotation() const override	{ return m_meshField.rot; }			// 向き取得
+	inline VECTOR2 GetVec2Size() const override		{ return m_meshField.size; }		// 大きさ取得
+	inline MATRIX* GetPtrMtxWorld() override		{ return &m_meshField.mtxWorld; }	// マトリックスポインタ取得
+	inline MATRIX GetMtxWorld() const override		{ return m_meshField.mtxWorld; }	// マトリックス取得
 
 	// 静的メンバ関数
 	static CObjectMeshField* Create	// 生成
@@ -64,25 +64,24 @@ public:
 	);
 
 	// メンバ関数
-	CRenderState* GetRenderState();			// レンダーステート情報取得
+	CRenderState* GetRenderState();				// レンダーステート情報取得
 	void BindTexture(const int nTextureID);		// テクスチャ割当 (インデックス)
 	void BindTexture(const char* pTexturePath);	// テクスチャ割当 (パス)
 	void SetAlpha(const float fAlpha);			// 透明度設定
 	void SetColor(const COLOR& rCol);			// 色設定
 	HRESULT SetPattern(const POSGRID2& rPart);	// 分割数設定
-	int GetTextureIndex() const	{ return m_nTextureID; }		// テクスチャインデックス取得
-	float GetAlpha() const		{ return m_meshField.col.a; }	// 透明度取得
-	COLOR GetColor() const		{ return m_meshField.col; }		// 色取得
-	POSGRID2 GetPattern() const	{ return m_part; }				// 分割数取得
-	int GetNumVertex() const	{ return m_nNumVtx; }			// 頂点数取得
+	inline int GetTextureIndex() const	{ return m_nTextureID; }		// テクスチャインデックス取得
+	inline float GetAlpha() const		{ return m_meshField.col.a; }	// 透明度取得
+	inline COLOR GetColor() const		{ return m_meshField.col; }		// 色取得
+	inline POSGRID2 GetPattern() const	{ return m_part; }				// 分割数取得
+	inline int GetNumVertex() const		{ return m_nNumVtx; }			// 頂点数取得
 
 	void SetGapPosition(const int nID, const VECTOR3& rPos);		// 座標のずれ設定
 	VECTOR3 GetGapPosition(const int nID);							// 座標のずれ取得
-	void NormalizeNormal();										// 法線の正規化
+	void NormalizeNormal();											// 法線の正規化
 	bool LandPosition(VECTOR3& rPos, VECTOR3& rMove);				// メッシュ着地
 	void SetMeshVertexPosition(const int nID, const VECTOR3& rPos);	// メッシュの頂点位置設定
 	void SetTerrain(const POSGRID2& rPart, VECTOR3* pPosGap);		// 地形設定
-
 	VECTOR3 GetMeshVertexPosition(const int nID);		// メッシュの頂点位置取得
 	bool IsPositionRange(const VECTOR3& rPos);			// メッシュの範囲内取得
 	float GetPositionHeight(const VECTOR3& rPos);		// メッシュの着地位置取得 (回転非考慮)
@@ -91,7 +90,7 @@ public:
 protected:
 	// メンバ関数
 	void SetVtx(bool bNor);	// 頂点情報の設定
-	void SetIdx();		// インデックス情報の設定
+	void SetIdx();			// インデックス情報の設定
 	void SetScrollTex		// スクロールのテクスチャ座標の設定
 	( // 引数
 		const float fTexU,	// テクスチャの横座標の開始位置

@@ -42,8 +42,8 @@ public:
 	void Draw(CShader* pShader = nullptr) override;	// 描画
 	void SetPriority(const int nPriority) override;	// 優先順位設定
 	void SetEnableDraw(const bool bDraw) override;	// 描画状況設定
-	void SetVec3Position(const VECTOR3& rPos) override;				// 位置設定
-	VECTOR3 GetVec3Position() const override { return m_pos; }	// 位置取得
+	void SetVec3Position(const VECTOR3& rPos) override;					// 位置設定
+	inline VECTOR3 GetVec3Position() const override { return m_pos; }	// 位置取得
 
 	// 静的メンバ関数
 	static CValueUI* Create	// 生成 (テクスチャ指定なし)
@@ -99,12 +99,12 @@ public:
 	void SetSizeTitle(const VECTOR3& rSize);			// タイトル大きさ設定
 	void SetAlphaTitle(const float fAlpha);				// タイトル透明度設定
 	void SetColorTitle(const COLOR& rCol);				// タイトル色設定
-	VECTOR3 GetSpace() const			{ return m_space; }						// 行間取得
-	VECTOR3 GetRotationTitle() const	{ return m_pTitle->GetVec3Rotation(); }	// タイトル向き取得
-	VECTOR3 GetSizeTitle() const		{ return m_pTitle->GetVec3Size(); }		// タイトル大きさ取得
-	float GetAlphaTitle() const			{ return m_pTitle->GetAlpha(); }		// タイトル透明度取得
-	COLOR GetColorTitle() const			{ return m_pTitle->GetColor(); }		// タイトル色取得
-	CMultiValue* GetMultiValue() const	{ return m_pValue; }					// 数字情報取得
+	inline VECTOR3 GetSpace() const				{ return m_space; }						// 行間取得
+	inline VECTOR3 GetRotationTitle() const		{ return m_pTitle->GetVec3Rotation(); }	// タイトル向き取得
+	inline VECTOR3 GetSizeTitle() const			{ return m_pTitle->GetVec3Size(); }		// タイトル大きさ取得
+	inline float GetAlphaTitle() const			{ return m_pTitle->GetAlpha(); }		// タイトル透明度取得
+	inline COLOR GetColorTitle() const			{ return m_pTitle->GetColor(); }		// タイトル色取得
+	inline CMultiValue* GetMultiValue() const	{ return m_pValue; }					// 数字情報取得
 
 private:
 	// オーバーライド関数

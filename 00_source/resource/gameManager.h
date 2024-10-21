@@ -36,7 +36,7 @@ public:
 	void Uninit();	// 終了
 	void Update(const float fDeltaTime);	// 更新
 	void SetState(const EState state);		// 状態設定
-	EState GetState() const;			// 状態取得
+	EState GetState() const;				// 状態取得
 
 	// 静的メンバ関数
 	static CGameManager* Create();	// 生成
