@@ -50,7 +50,7 @@ CObjectMeshTube::~CObjectMeshTube()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CObjectMeshTube::Init(void)
+HRESULT CObjectMeshTube::Init()
 {
 	// メンバ変数を初期化
 	memset(&m_apCover[0], 0, sizeof(m_apCover));	// 蓋の情報
@@ -107,7 +107,7 @@ HRESULT CObjectMeshTube::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CObjectMeshTube::Uninit(void)
+void CObjectMeshTube::Uninit()
 {
 	for (int i = 0; i < COVER_MAX; i++)
 	{ // 蓋の総数分繰り返す
@@ -443,7 +443,7 @@ void CObjectMeshTube::SetTexPattern(const POSGRID2& rTexPart)
 //============================================================
 //	相対位置の設定処理
 //============================================================
-void CObjectMeshTube::SetPositionRelative(void)
+void CObjectMeshTube::SetPositionRelative()
 {
 	MATRIX mtxOffset, mtxBottom, mtxTop;	// マトリックス計算用
 	MATRIX mtxCylinder = CalcCylinderMtxWorld();	// シリンダーマトリックス
@@ -471,7 +471,7 @@ void CObjectMeshTube::SetPositionRelative(void)
 //============================================================
 //	シリンダーマトリックスの計算結果の取得処理
 //============================================================
-MATRIX CObjectMeshTube::CalcCylinderMtxWorld(void) const
+MATRIX CObjectMeshTube::CalcCylinderMtxWorld() const
 {
 	MATRIX  mtxRot, mtxTrans, mtxWorld;	// 計算用マトリックス
 	VECTOR3 posCylinder = m_pCylinder->GetVec3Position();	// シリンダー位置

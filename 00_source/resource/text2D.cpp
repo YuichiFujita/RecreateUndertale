@@ -50,7 +50,7 @@ CText2D::~CText2D()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CText2D::Init(void)
+HRESULT CText2D::Init()
 {
 	// メンバ変数を初期化
 	m_pFontChar		= nullptr;			// フォント文字
@@ -72,7 +72,7 @@ HRESULT CText2D::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CText2D::Uninit(void)
+void CText2D::Uninit()
 {
 	for (auto& rList : m_listString)
 	{ // 文字列の格納数分繰り返す
@@ -361,7 +361,7 @@ void CText2D::DeleteString(const int nStrID)
 //============================================================
 //	文字列の全削除処理
 //============================================================
-void CText2D::DeleteStringAll(void)
+void CText2D::DeleteStringAll()
 {
 	for (auto& rList : m_listString)
 	{ // 文字列の格納数分繰り返す
@@ -514,7 +514,7 @@ CString2D* CText2D::GetString2D(const int nStrID) const
 //============================================================
 //	テキストの縦幅取得処理
 //============================================================
-float CText2D::GetTextHeight(void) const
+float CText2D::GetTextHeight() const
 {
 	// 文字列がない場合抜ける
 	if ((int)m_listString.size() <= 0) { assert(false); return 0.0f; }
@@ -570,7 +570,7 @@ CString2D* CText2D::CreateString2D(const std::wstring& rStr)
 //============================================================
 //	相対位置の設定処理
 //============================================================
-void CText2D::SetPositionRelative(void)
+void CText2D::SetPositionRelative()
 {
 	// 文字列がない場合抜ける
 	if ((int)m_listString.size() <= 0) { return; }

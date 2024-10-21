@@ -42,7 +42,7 @@ CObjectModel::~CObjectModel()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CObjectModel::Init(void)
+HRESULT CObjectModel::Init()
 {
 	// メンバ変数を初期化
 	memset(&m_modelData, 0, sizeof(m_modelData));	// モデル情報
@@ -71,7 +71,7 @@ HRESULT CObjectModel::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CObjectModel::Uninit(void)
+void CObjectModel::Uninit()
 {
 	// レンダーステートの破棄
 	SAFE_REF_RELEASE(m_pRenderState);
@@ -270,7 +270,7 @@ void CObjectModel::SetAlpha(const float fAlpha)
 //============================================================
 //	透明度取得処理
 //============================================================
-float CObjectModel::GetAlpha(void) const
+float CObjectModel::GetAlpha() const
 {
 	// 最も不透明な透明度を探す
 	float fAlpha = 0.0f;	// 最も不透明なマテリアルの透明度
@@ -292,7 +292,7 @@ float CObjectModel::GetAlpha(void) const
 //============================================================
 //	最大透明度取得処理
 //============================================================
-float CObjectModel::GetMaxAlpha(void) const
+float CObjectModel::GetMaxAlpha() const
 {
 	// マテリアルデータへのポインタを取得
 	D3DXMATERIAL* pOriginMat;	// マテリアルデータへのポインタ
@@ -317,7 +317,7 @@ float CObjectModel::GetMaxAlpha(void) const
 //============================================================
 //	レンダーステート情報の取得処理
 //============================================================
-CRenderState* CObjectModel::GetRenderState(void)
+CRenderState* CObjectModel::GetRenderState()
 {
 	// インスタンス未使用
 	assert(m_pRenderState != nullptr);
@@ -388,7 +388,7 @@ void CObjectModel::SetAllMaterial(const D3DXMATERIAL& rMat)
 //============================================================
 //	マテリアルの再設定処理
 //============================================================
-void CObjectModel::ResetMaterial(void)
+void CObjectModel::ResetMaterial()
 {
 	// 死んでいる場合抜ける
 	if (IsDeath()) { return; }
@@ -495,7 +495,7 @@ HRESULT CObjectModel::SetOriginMaterial(const LPD3DXBUFFER pBuffMat, const int n
 //============================================================
 //	通常描画処理
 //============================================================
-void CObjectModel::DrawNormal(void)
+void CObjectModel::DrawNormal()
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 	for (int nCntMat = 0; nCntMat < (int)m_modelData.dwNumMat; nCntMat++)

@@ -173,10 +173,10 @@ struct VECTOR2 : public D3DXVECTOR2
 	//	メンバ関数
 	//********************************************************
 	/* @brief ベクトルの正規化 */
-	inline void Normal(void) { D3DXVec2Normalize(this, this); }
+	inline void Normal() { D3DXVec2Normalize(this, this); }
 
 	/* @brief ベクトルの反転 */
-	inline void Invert(void) { *this = VECTOR2(-x, -y); }
+	inline void Invert() { *this = VECTOR2(-x, -y); }
 
 	/*
 		@brief	許容される誤差の範囲内にあるか
@@ -193,7 +193,7 @@ struct VECTOR2 : public D3DXVECTOR2
 		@brief	要素がすべてゼロか
 		@return	判定結果
 	*/
-	inline bool IsZero(void) const
+	inline bool IsZero() const
 	{
 		if (x == 0.0f && y == 0.0f) { return true; }
 		return false;
@@ -278,10 +278,10 @@ struct VECTOR3 : public D3DXVECTOR3
 	//	メンバ関数
 	//********************************************************
 	/* @brief ベクトルの正規化 */
-	inline void Normal(void) { D3DXVec3Normalize(this, this); }
+	inline void Normal() { D3DXVec3Normalize(this, this); }
 
 	/* @brief ベクトルの反転 */
-	inline void Invert(void) { *this = VECTOR3(-x, -y, -z); }
+	inline void Invert() { *this = VECTOR3(-x, -y, -z); }
 
 	/*
 		@brief	許容される誤差の範囲内にあるか
@@ -298,7 +298,7 @@ struct VECTOR3 : public D3DXVECTOR3
 		@brief	要素がすべてゼロか
 		@return	判定結果
 	*/
-	inline bool IsZero(void) const
+	inline bool IsZero() const
 	{
 		if (x == 0.0f && y == 0.0f && z == 0.0f) { return true; }
 		return false;
@@ -328,12 +328,12 @@ struct POSGRID2
 	// 加算
 	inline POSGRID2 operator+(const POSGRID2& rGrid) const	{ return POSGRID2(x + rGrid.x, y + rGrid.y); }
 	inline POSGRID2 operator+(const int nVal) const			{ return POSGRID2(x + nVal, y + nVal); }
-	inline POSGRID2 operator+(void) const					{ return *this; }
+	inline POSGRID2 operator+() const					{ return *this; }
 
 	// 減算
 	inline POSGRID2 operator-(const POSGRID2& rGrid) const	{ return POSGRID2(x - rGrid.x, y - rGrid.y); }
 	inline POSGRID2 operator-(const int nVal) const			{ return POSGRID2(x - nVal, y - nVal); }
-	inline POSGRID2 operator-(void) const					{ return POSGRID2(-x, -y); }
+	inline POSGRID2 operator-() const					{ return POSGRID2(-x, -y); }
 
 	// 乗算
 	inline POSGRID2 operator*(const int nVal) const	{ return POSGRID2(x * nVal, y * nVal); }
@@ -423,13 +423,13 @@ struct POSGRID2
 	//	メンバ関数
 	//********************************************************
 	/* @brief 方眼座標の反転 */
-	inline void Invert(void) { *this = POSGRID2(-x, -y); }
+	inline void Invert() { *this = POSGRID2(-x, -y); }
 
 	/*
 		@brief	要素がすべてゼロか
 		@return	判定結果
 	*/
-	inline bool IsZero(void) const
+	inline bool IsZero() const
 	{
 		if (x == 0 && y == 0) { return true; }
 		return false;
@@ -460,12 +460,12 @@ struct POSGRID3
 	// 加算
 	inline POSGRID3 operator+(const POSGRID3& rGrid) const	{ return POSGRID3(x + rGrid.x, y + rGrid.y, z + rGrid.z); }
 	inline POSGRID3 operator+(const int nVal) const			{ return POSGRID3(x + nVal, y + nVal, z + nVal); }
-	inline POSGRID3 operator+(void) const					{ return *this; }
+	inline POSGRID3 operator+() const					{ return *this; }
 
 	// 減算
 	inline POSGRID3 operator-(const POSGRID3& rGrid) const	{ return POSGRID3(x - rGrid.x, y - rGrid.y, z - rGrid.z); }
 	inline POSGRID3 operator-(const int nVal) const			{ return POSGRID3(x - nVal, y - nVal, z - nVal); }
-	inline POSGRID3 operator-(void) const					{ return POSGRID3(-x, -y, -z); }
+	inline POSGRID3 operator-() const					{ return POSGRID3(-x, -y, -z); }
 
 	// 乗算
 	inline POSGRID3 operator*(const int nVal) const	{ return POSGRID3(x * nVal, y * nVal, z * nVal); }
@@ -563,13 +563,13 @@ struct POSGRID3
 	//	メンバ関数
 	//********************************************************
 	/* @brief 方眼座標の反転 */
-	inline void Invert(void) { *this = POSGRID3(-x, -y, -z); }
+	inline void Invert() { *this = POSGRID3(-x, -y, -z); }
 
 	/*
 		@brief	要素がすべてゼロか
 		@return	判定結果
 	*/
-	inline bool IsZero(void) const
+	inline bool IsZero() const
 	{
 		if (x == 0 && y == 0 && z == 0) { return true; }
 		return false;
@@ -610,7 +610,7 @@ struct MATRIX : public D3DXMATRIX
 	//	メンバ関数
 	//********************************************************
 	/* @brief 単位マトリックス化 */
-	inline void Identity(void) { D3DXMatrixIdentity(this); }
+	inline void Identity() { D3DXMatrixIdentity(this); }
 
 	/*
 		@brief	マトリックスを掛け合わせる
@@ -664,13 +664,13 @@ struct MATRIX : public D3DXMATRIX
 		@brief	マトリックス位置の取得
 		@return	マトリックスの位置
 	*/
-	inline VECTOR3 GetPosition(void) const { return VECTOR3(this->_41, this->_42, this->_43); }
+	inline VECTOR3 GetPosition() const { return VECTOR3(this->_41, this->_42, this->_43); }
 
 	/*
 		@brief	マトリックス向きの取得
 		@return	マトリックスの向き
 	*/
-	inline VECTOR3 GetRotation(void) const
+	inline VECTOR3 GetRotation() const
 	{
 		float fYaw, fPitch, fRoll;	// 計算結果の保存用
 		float fCosPitch;			// 向き計算用
@@ -701,7 +701,7 @@ struct MATRIX : public D3DXMATRIX
 		@brief	マトリックス拡大率の取得
 		@return	マトリックスの拡大率
 	*/
-	inline VECTOR3 GetScale(void) const
+	inline VECTOR3 GetScale() const
 	{
 		VECTOR3 scale;
 		scale.x = sqrtf(this->_11 * this->_11 + this->_12 * this->_12 + this->_13 * this->_13);
@@ -743,21 +743,21 @@ struct COLOR : public D3DXCOLOR
 	//********************************************************
 	//	メンバ関数
 	//********************************************************
-	inline void Black(void)					{ *this = COLOR(0.0f, 0.0f, 0.0f, 1.0f); }		// 黒色/不透明
+	inline void Black()					{ *this = COLOR(0.0f, 0.0f, 0.0f, 1.0f); }		// 黒色/不透明
 	inline void Black(const float fAlpha)	{ *this = COLOR(0.0f, 0.0f, 0.0f, fAlpha); }	// 黒色/透明度
-	inline void White(void)					{ *this = COLOR(1.0f, 1.0f, 1.0f, 1.0f); }		// 白色/不透明
+	inline void White()					{ *this = COLOR(1.0f, 1.0f, 1.0f, 1.0f); }		// 白色/不透明
 	inline void White(const float fAlpha)	{ *this = COLOR(1.0f, 1.0f, 1.0f, fAlpha); }	// 白色/透明度
-	inline void Red(void)					{ *this = COLOR(1.0f, 0.0f, 0.0f, 1.0f); }		// 赤色/不透明
+	inline void Red()					{ *this = COLOR(1.0f, 0.0f, 0.0f, 1.0f); }		// 赤色/不透明
 	inline void Red(const float fAlpha)		{ *this = COLOR(1.0f, 0.0f, 0.0f, fAlpha); }	// 赤色/透明度
-	inline void Green(void)					{ *this = COLOR(0.0f, 1.0f, 0.0f, 1.0f); }		// 緑色/不透明
+	inline void Green()					{ *this = COLOR(0.0f, 1.0f, 0.0f, 1.0f); }		// 緑色/不透明
 	inline void Green(const float fAlpha)	{ *this = COLOR(0.0f, 1.0f, 0.0f, fAlpha); }	// 緑色/透明度
-	inline void Blue(void)					{ *this = COLOR(0.0f, 0.0f, 1.0f, 1.0f); }		// 青色/不透明
+	inline void Blue()					{ *this = COLOR(0.0f, 0.0f, 1.0f, 1.0f); }		// 青色/不透明
 	inline void Blue(const float fAlpha)	{ *this = COLOR(0.0f, 0.0f, 1.0f, fAlpha); }	// 青色/透明度
-	inline void Yellow(void)				{ *this = COLOR(1.0f, 1.0f, 0.0f, 1.0f); }		// 黄色/不透明
+	inline void Yellow()				{ *this = COLOR(1.0f, 1.0f, 0.0f, 1.0f); }		// 黄色/不透明
 	inline void Yellow(const float fAlpha)	{ *this = COLOR(1.0f, 1.0f, 0.0f, fAlpha); }	// 黄色/透明度
-	inline void Cyan(void)					{ *this = COLOR(0.0f, 1.0f, 1.0f, 1.0f); }		// 水色/不透明
+	inline void Cyan()					{ *this = COLOR(0.0f, 1.0f, 1.0f, 1.0f); }		// 水色/不透明
 	inline void Cyan(const float fAlpha)	{ *this = COLOR(0.0f, 1.0f, 1.0f, fAlpha); }	// 水色/透明度
-	inline void Purple(void)				{ *this = COLOR(1.0f, 0.0f, 1.0f, 1.0f); }		// 紫色/不透明
+	inline void Purple()				{ *this = COLOR(1.0f, 0.0f, 1.0f, 1.0f); }		// 紫色/不透明
 	inline void Purple(const float fAlpha)	{ *this = COLOR(1.0f, 0.0f, 1.0f, fAlpha); }	// 紫色/透明度
 
 	/*
@@ -787,7 +787,7 @@ struct COLOR : public D3DXCOLOR
 		@brief	透明度がゼロか
 		@return	判定結果
 	*/
-	inline bool IsAlpha(void) const
+	inline bool IsAlpha() const
 	{
 		if (a <= 0.0f) { return true; }
 		return false;
@@ -849,7 +849,7 @@ namespace useful
 		float* pMaxPosY = nullptr	// 最大到達Y座標
 	);
 
-	float RandomRot(void);			// ランダム向き取得
+	float RandomRot();			// ランダム向き取得
 	void NormalizeRot(float& rRot);	// 向きの正規化
 	void NormalizeRot(VECTOR3& rRot);				// 三軸向きの正規化
 	void PathToBaseName(std::string* pPath);		// パスのベースネーム変換
@@ -948,21 +948,21 @@ namespace easing
 // カラー関数空間
 namespace color
 {
-	inline COLOR Black(void)				{ return COLOR(0.0f, 0.0f, 0.0f, 1.0f); }	// 黒色/不透明
+	inline COLOR Black()				{ return COLOR(0.0f, 0.0f, 0.0f, 1.0f); }	// 黒色/不透明
 	inline COLOR Black(const float fAlpha)	{ return COLOR(0.0f, 0.0f, 0.0f, fAlpha); }	// 黒色/透明度
-	inline COLOR White(void)				{ return COLOR(1.0f, 1.0f, 1.0f, 1.0f); }	// 白色/不透明
+	inline COLOR White()				{ return COLOR(1.0f, 1.0f, 1.0f, 1.0f); }	// 白色/不透明
 	inline COLOR White(const float fAlpha)	{ return COLOR(1.0f, 1.0f, 1.0f, fAlpha); }	// 白色/透明度
-	inline COLOR Red(void)					{ return COLOR(1.0f, 0.0f, 0.0f, 1.0f); }	// 赤色/不透明
+	inline COLOR Red()					{ return COLOR(1.0f, 0.0f, 0.0f, 1.0f); }	// 赤色/不透明
 	inline COLOR Red(const float fAlpha)	{ return COLOR(1.0f, 0.0f, 0.0f, fAlpha); }	// 赤色/透明度
-	inline COLOR Green(void)				{ return COLOR(0.0f, 1.0f, 0.0f, 1.0f); }	// 緑色/不透明
+	inline COLOR Green()				{ return COLOR(0.0f, 1.0f, 0.0f, 1.0f); }	// 緑色/不透明
 	inline COLOR Green(const float fAlpha)	{ return COLOR(0.0f, 1.0f, 0.0f, fAlpha); }	// 緑色/透明度
-	inline COLOR Blue(void)					{ return COLOR(0.0f, 0.0f, 1.0f, 1.0f); }	// 青色/不透明
+	inline COLOR Blue()					{ return COLOR(0.0f, 0.0f, 1.0f, 1.0f); }	// 青色/不透明
 	inline COLOR Blue(const float fAlpha)	{ return COLOR(0.0f, 0.0f, 1.0f, fAlpha); }	// 青色/透明度
-	inline COLOR Yellow(void)				{ return COLOR(1.0f, 1.0f, 0.0f, 1.0f); }	// 黄色/不透明
+	inline COLOR Yellow()				{ return COLOR(1.0f, 1.0f, 0.0f, 1.0f); }	// 黄色/不透明
 	inline COLOR Yellow(const float fAlpha)	{ return COLOR(1.0f, 1.0f, 0.0f, fAlpha); }	// 黄色/透明度
-	inline COLOR Cyan(void)					{ return COLOR(0.0f, 1.0f, 1.0f, 1.0f); }	// 水色/不透明
+	inline COLOR Cyan()					{ return COLOR(0.0f, 1.0f, 1.0f, 1.0f); }	// 水色/不透明
 	inline COLOR Cyan(const float fAlpha)	{ return COLOR(0.0f, 1.0f, 1.0f, fAlpha); }	// 水色/透明度
-	inline COLOR Purple(void)				{ return COLOR(1.0f, 0.0f, 1.0f, 1.0f); }	// 紫色/不透明
+	inline COLOR Purple()				{ return COLOR(1.0f, 0.0f, 1.0f, 1.0f); }	// 紫色/不透明
 	inline COLOR Purple(const float fAlpha)	{ return COLOR(1.0f, 0.0f, 1.0f, fAlpha); }	// 紫色/透明度
 
 	// カラーコード/不透明
@@ -987,7 +987,7 @@ namespace color
 namespace material
 {
 	// 黒色マテリアル取得
-	inline D3DXMATERIAL Black(void)
+	inline D3DXMATERIAL Black()
 	{
 		D3DXMATERIAL mat;
 		ZeroMemory(&mat, sizeof(mat));
@@ -996,7 +996,7 @@ namespace material
 	}
 
 	// 白色マテリアル取得
-	inline D3DXMATERIAL White(void)
+	inline D3DXMATERIAL White()
 	{
 		D3DXMATERIAL mat;
 		ZeroMemory(&mat, sizeof(mat));
@@ -1005,7 +1005,7 @@ namespace material
 	}
 
 	// 赤色マテリアル取得
-	inline D3DXMATERIAL Red(void)
+	inline D3DXMATERIAL Red()
 	{
 		D3DXMATERIAL mat;
 		ZeroMemory(&mat, sizeof(mat));
@@ -1014,7 +1014,7 @@ namespace material
 	}
 
 	// 緑色マテリアル取得
-	inline D3DXMATERIAL Green(void)
+	inline D3DXMATERIAL Green()
 	{
 		D3DXMATERIAL mat;
 		ZeroMemory(&mat, sizeof(mat));
@@ -1023,7 +1023,7 @@ namespace material
 	}
 
 	// 青色マテリアル取得
-	inline D3DXMATERIAL Blue(void)
+	inline D3DXMATERIAL Blue()
 	{
 		D3DXMATERIAL mat;
 		ZeroMemory(&mat, sizeof(mat));
@@ -1032,7 +1032,7 @@ namespace material
 	}
 
 	// 黄色マテリアル取得
-	inline D3DXMATERIAL Yellow(void)
+	inline D3DXMATERIAL Yellow()
 	{
 		D3DXMATERIAL mat;
 		ZeroMemory(&mat, sizeof(mat));
@@ -1041,7 +1041,7 @@ namespace material
 	}
 
 	// 水色マテリアル取得
-	inline D3DXMATERIAL Cyan(void)
+	inline D3DXMATERIAL Cyan()
 	{
 		D3DXMATERIAL mat;
 		ZeroMemory(&mat, sizeof(mat));
@@ -1050,7 +1050,7 @@ namespace material
 	}
 
 	// 紫色マテリアル取得
-	inline D3DXMATERIAL Purple(void)
+	inline D3DXMATERIAL Purple()
 	{
 		D3DXMATERIAL mat;
 		ZeroMemory(&mat, sizeof(mat));

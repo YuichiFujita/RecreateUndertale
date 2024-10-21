@@ -53,7 +53,7 @@ CObject3D::~CObject3D()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CObject3D::Init(void)
+HRESULT CObject3D::Init()
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
@@ -122,7 +122,7 @@ HRESULT CObject3D::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CObject3D::Uninit(void)
+void CObject3D::Uninit()
 {
 	// 頂点バッファの破棄
 	SAFE_RELEASE(m_pVtxBuff);
@@ -277,7 +277,7 @@ void CObject3D::SetVec3Size(const VECTOR3& rSize)
 //============================================================
 //	レンダーステート情報の取得処理
 //============================================================
-CRenderState* CObject3D::GetRenderState(void)
+CRenderState* CObject3D::GetRenderState()
 {
 	// インスタンス未使用
 	assert(m_pRenderState != nullptr);
@@ -524,7 +524,7 @@ float CObject3D::GetPositionHeight(const VECTOR3& rPos)
 //============================================================
 //	描画マトリックスの計算処理
 //============================================================
-void CObject3D::CalcDrawMatrix(void)
+void CObject3D::CalcDrawMatrix()
 {
 	MATRIX mtxRot, mtxTrans;	// 計算用マトリックス
 
@@ -543,7 +543,7 @@ void CObject3D::CalcDrawMatrix(void)
 //============================================================
 //	頂点情報の設定処理
 //============================================================
-void CObject3D::SetVtx(void)
+void CObject3D::SetVtx()
 {
 	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 
@@ -667,7 +667,7 @@ void CObject3D::SetScrollTex
 //============================================================
 //	通常描画処理
 //============================================================
-void CObject3D::DrawNormal(void)
+void CObject3D::DrawNormal()
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
@@ -718,7 +718,7 @@ void CObject3D::DrawShader(CShader* pShader)
 //============================================================
 //	法線の正規化処理
 //============================================================
-void CObject3D::NormalizeNormal(void)
+void CObject3D::NormalizeNormal()
 {
 	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 

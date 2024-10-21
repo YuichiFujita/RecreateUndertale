@@ -48,8 +48,8 @@ public:
 	~CTimeUI() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;		// 更新
 	void Draw(CShader* pShader = nullptr) override;		// 描画
 	void SetPriority(const int nPriority) override;		// 優先順位設定
@@ -57,8 +57,8 @@ public:
 	void SetEnableDraw(const bool bDraw) override;		// 描画状況設定
 	void SetVec3Position(const VECTOR3& rPos) override;				// 位置設定
 	void SetVec3Rotation(const VECTOR3& rRot) override;				// 向き設定
-	VECTOR3 GetVec3Position(void) const override { return m_pos; }	// 位置取得
-	VECTOR3 GetVec3Rotation(void) const override { return m_rot; }	// 向き取得
+	VECTOR3 GetVec3Position() const override { return m_pos; }	// 位置取得
+	VECTOR3 GetVec3Rotation() const override { return m_rot; }	// 向き取得
 
 	// 静的メンバ関数
 	static CTimeUI* Create	// 生成
@@ -78,10 +78,10 @@ public:
 
 	// 仮想関数
 	virtual void SetTime(const float fTime);				// 表示時間設定
-	virtual float GetTime(void) const	{ return m_fTime; }	// 表示時間取得
-	virtual int GetMin(void) const		{ return (int)((DWORD)(m_fTime * 1000.0f) / 60000); }		// 分取得
-	virtual int GetSec(void) const		{ return (int)((DWORD)(m_fTime * 1000.0f) / 1000 % 60); }	// 秒取得
-	virtual int GetMSec(void) const		{ return (int)((DWORD)(m_fTime * 1000.0f) % 1000); }		// ミリ秒取得
+	virtual float GetTime() const	{ return m_fTime; }	// 表示時間取得
+	virtual int GetMin() const		{ return (int)((DWORD)(m_fTime * 1000.0f) / 60000); }		// 分取得
+	virtual int GetSec() const		{ return (int)((DWORD)(m_fTime * 1000.0f) / 1000 % 60); }	// 秒取得
+	virtual int GetMSec() const		{ return (int)((DWORD)(m_fTime * 1000.0f) % 1000); }		// ミリ秒取得
 
 	// メンバ関数
 	void SetValueType(const CValue::EType type);	// 数字の種類設定
@@ -93,26 +93,26 @@ public:
 	void SetColor(const COLOR& rCol);				// 色の設定
 	void SetAlignX(const EAlignX align);			// 横配置設定
 	void SetAlignY(const EAlignY align);			// 縦配置設定
-	float GetTimeWidth(void) const;					// タイム全体の横幅取得
-	float GetTimeHeight(void) const;				// タイム全体の縦幅取得
-	VECTOR3 GetTimeSize(void) const;				// タイム全体の大きさ取得
-	CValue::EType GetValueType(void) const	{ return m_type; }			// 数字の種類取得
-	VECTOR3 GetSizeValue(void) const		{ return m_sizeValue; }		// 区切りの大きさ取得
-	VECTOR3 GetSizePart(void) const			{ return m_sizePart; }		// 数字の大きさ取得
-	VECTOR3 GetSpaceValue(void) const		{ return m_spaceValue; }	// 区切りの空白取得
-	VECTOR3 GetSpacePart(void) const		{ return m_spacePart; }		// 数字の空白取得
-	float GetAlpha(void) const				{ return m_col.a; }			// 透明度の設定
-	COLOR GetColor(void) const				{ return m_col;}			// 色の設定
-	EAlignX GetAlignX(void) const			{ return m_alignX; }		// 横配置取得
-	EAlignY GetAlignY(void) const			{ return m_alignY; }		// 縦配置取得
+	float GetTimeWidth() const;					// タイム全体の横幅取得
+	float GetTimeHeight() const;				// タイム全体の縦幅取得
+	VECTOR3 GetTimeSize() const;				// タイム全体の大きさ取得
+	CValue::EType GetValueType() const	{ return m_type; }			// 数字の種類取得
+	VECTOR3 GetSizeValue() const		{ return m_sizeValue; }		// 区切りの大きさ取得
+	VECTOR3 GetSizePart() const			{ return m_sizePart; }		// 数字の大きさ取得
+	VECTOR3 GetSpaceValue() const		{ return m_spaceValue; }	// 区切りの空白取得
+	VECTOR3 GetSpacePart() const		{ return m_spacePart; }		// 数字の空白取得
+	float GetAlpha() const				{ return m_col.a; }			// 透明度の設定
+	COLOR GetColor() const				{ return m_col;}			// 色の設定
+	EAlignX GetAlignX() const			{ return m_alignX; }		// 横配置取得
+	EAlignY GetAlignY() const			{ return m_alignY; }		// 縦配置取得
 
 private:
 	// オーバーライド関数
-	void Release(void) override { CObject::Release(); }	// 破棄
+	inline void Release() override { CObject::Release(); }	// 破棄
 
 	// メンバ関数
-	void SetPositionRelative(void);	// 相対位置設定
-	void SetTexNum(void);			// 数字のテクスチャ座標設定
+	void SetPositionRelative();	// 相対位置設定
+	void SetTexNum();			// 数字のテクスチャ座標設定
 
 	// メンバ変数
 	CValue* m_apValue[timeUI::MAX_DIGIT];	// 数値の情報

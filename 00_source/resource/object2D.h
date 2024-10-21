@@ -30,26 +30,26 @@ public:
 	~CObject2D() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;		// 更新
 	void Draw(CShader* pShader = nullptr) override;		// 描画
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
 	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
 	void SetVec3Size(const VECTOR3& rSize) override;	// 大きさ設定
-	VECTOR3 GetVec3Position(void) const override	{ return m_pos; }	// 位置取得
-	VECTOR3 GetVec3Rotation(void) const override	{ return m_rot; }	// 向き取得
-	VECTOR3 GetVec3Size(void) const override		{ return m_size; }	// 大きさ取得
+	VECTOR3 GetVec3Position() const override	{ return m_pos; }	// 位置取得
+	VECTOR3 GetVec3Rotation() const override	{ return m_rot; }	// 向き取得
+	VECTOR3 GetVec3Size() const override		{ return m_size; }	// 大きさ取得
 
 	// メンバ関数
-	CRenderState* GetRenderState(void);			// レンダーステート情報取得
+	CRenderState* GetRenderState();			// レンダーステート情報取得
 	void BindTexture(const int nTextureID);		// テクスチャ割当 (インデックス)
 	void BindTexture(const char* pTexturePath);	// テクスチャ割当 (パス)
 	void SetAlpha(const float fAlpha);			// 透明度設定
 	void SetColor(const COLOR& rCol);			// 色設定
-	int GetTextureIndex(void) const	{ return m_nTextureID; }	// テクスチャインデックス取得
-	float GetAlpha(void) const		{ return m_col.a; }			// 透明度取得
-	COLOR GetColor(void) const		{ return m_col; }			// 色取得
+	int GetTextureIndex() const	{ return m_nTextureID; }	// テクスチャインデックス取得
+	float GetAlpha() const		{ return m_col.a; }			// 透明度取得
+	COLOR GetColor() const		{ return m_col; }			// 色取得
 
 	// 静的メンバ関数
 	static CObject2D* Create	// 生成
@@ -62,7 +62,7 @@ public:
 
 protected:
 	// メンバ関数
-	void SetVtx(void);	// 頂点情報の設定
+	void SetVtx();	// 頂点情報の設定
 	void SetAnimTex		// アニメーションのテクスチャ座標の設定
 	( // 引数
 		const int nPattern,		// アニメーションパターン
@@ -79,7 +79,7 @@ protected:
 
 private:
 	// オーバーライド関数
-	void Release(void) override { CObject::Release(); }	// 破棄
+	inline void Release() override { CObject::Release(); }	// 破棄
 
 	// メンバ変数
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;	// 頂点バッファへのポインタ

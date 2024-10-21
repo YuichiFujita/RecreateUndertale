@@ -41,7 +41,7 @@ CSceneTitle::~CSceneTitle()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CSceneTitle::Init(void)
+HRESULT CSceneTitle::Init()
 {
 	// シーンの初期化
 	if (FAILED(CScene::Init()))
@@ -76,7 +76,7 @@ HRESULT CSceneTitle::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CSceneTitle::Uninit(void)
+void CSceneTitle::Uninit()
 {
 	// タイトルマネージャーの破棄
 	SAFE_REF_RELEASE(m_pTitleManager);
@@ -101,7 +101,7 @@ void CSceneTitle::Update(const float fDeltaTime)
 //============================================================
 //	タイトルマネージャー取得処理
 //============================================================
-CTitleManager* CSceneTitle::GetTitleManager(void)
+CTitleManager* CSceneTitle::GetTitleManager()
 {
 	// インスタンス未使用
 	assert(m_pTitleManager != nullptr);

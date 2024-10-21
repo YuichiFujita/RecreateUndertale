@@ -326,7 +326,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 //============================================================
 //	読込処理
 //============================================================
-HRESULT CManager::Load(void)
+HRESULT CManager::Load()
 {
 #if NDEBUG	// Release版以外では全読込を行わない
 
@@ -409,7 +409,7 @@ HRESULT CManager::Load(void)
 //============================================================
 //	終了処理
 //============================================================
-void CManager::Uninit(void)
+void CManager::Uninit()
 {
 	//--------------------------------------------------------
 	//	デバッグ用
@@ -496,7 +496,7 @@ void CManager::Uninit(void)
 //============================================================
 //	更新処理
 //============================================================
-void CManager::Update(void)
+void CManager::Update()
 {
 	// デバッグ情報の更新・描画
 	assert(m_pDebug != nullptr);
@@ -548,7 +548,7 @@ void CManager::Update(void)
 //============================================================
 //	描画処理
 //============================================================
-void CManager::Draw(void)
+void CManager::Draw()
 {
 	// レンダラーの描画
 	assert(m_pRenderer != nullptr);
@@ -591,7 +591,7 @@ CManager* CManager::Create(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 //============================================================
 //	取得処理
 //============================================================
-CManager* CManager::GetInstance(void)
+CManager* CManager::GetInstance()
 {
 	// インスタンス未使用
 	assert(m_pManager != nullptr);
@@ -616,7 +616,7 @@ void CManager::Release(CManager*& prManager)
 //============================================================
 //	ウインドウ破棄処理
 //============================================================
-void CManager::ReleaseWindow(void)
+void CManager::ReleaseWindow()
 {
 	// ウインドウを破棄する
 	DestroyWindow(m_pManager->m_hWnd);	// WM_DESTROYメッセージを送る
@@ -762,7 +762,7 @@ void CManager::SetLoadScene
 //============================================================
 //	モードの設定処理 (ロード：OFF)
 //============================================================
-HRESULT CManager::SetMode(void)
+HRESULT CManager::SetMode()
 {
 	// サウンドの停止
 	assert(m_pSound != nullptr);
@@ -801,7 +801,7 @@ HRESULT CManager::SetMode(void)
 //============================================================
 //	モードの設定処理 (ロード：ON)
 //============================================================
-HRESULT CManager::SetLoadMode(void)
+HRESULT CManager::SetLoadMode()
 {
 	// サウンドの停止
 	assert(m_pSound != nullptr);
@@ -860,7 +860,7 @@ HRESULT CManager::SetLoadMode(void)
 //============================================================
 //	モードの取得処理
 //============================================================
-CScene::EMode CManager::GetMode(void)
+CScene::EMode CManager::GetMode()
 {
 	// インスタンス未使用
 	assert(m_pScene != nullptr);
@@ -872,7 +872,7 @@ CScene::EMode CManager::GetMode(void)
 //============================================================
 //	デルタタイム取得処理
 //============================================================
-CDeltaTime* CManager::GetDeltaTime(void)
+CDeltaTime* CManager::GetDeltaTime()
 {
 	// インスタンス未使用
 	assert(m_pDeltaTime != nullptr);
@@ -884,7 +884,7 @@ CDeltaTime* CManager::GetDeltaTime(void)
 //============================================================
 //	レンダラー取得処理
 //============================================================
-CRenderer* CManager::GetRenderer(void)
+CRenderer* CManager::GetRenderer()
 {
 	// インスタンス未使用
 	assert(m_pRenderer != nullptr);
@@ -896,7 +896,7 @@ CRenderer* CManager::GetRenderer(void)
 //============================================================
 //	キーボード取得処理
 //============================================================
-CInputKeyboard* CManager::GetKeyboard(void)
+CInputKeyboard* CManager::GetKeyboard()
 {
 	// インスタンス未使用
 	assert(m_pKeyboard != nullptr);
@@ -908,7 +908,7 @@ CInputKeyboard* CManager::GetKeyboard(void)
 //============================================================
 //	マウス取得処理
 //============================================================
-CInputMouse* CManager::GetMouse(void)
+CInputMouse* CManager::GetMouse()
 {
 	// インスタンス未使用
 	assert(m_pMouse != nullptr);
@@ -920,7 +920,7 @@ CInputMouse* CManager::GetMouse(void)
 //============================================================
 //	パッド取得処理
 //============================================================
-CInputPad* CManager::GetPad(void)
+CInputPad* CManager::GetPad()
 {
 	// インスタンス未使用
 	assert(m_pPad != nullptr);
@@ -932,7 +932,7 @@ CInputPad* CManager::GetPad(void)
 //============================================================
 //	サウンド取得処理
 //============================================================
-CSound* CManager::GetSound(void)
+CSound* CManager::GetSound()
 {
 	// インスタンス未使用
 	assert(m_pSound != nullptr);
@@ -944,7 +944,7 @@ CSound* CManager::GetSound(void)
 //============================================================
 //	カメラ取得処理
 //============================================================
-CCamera* CManager::GetCamera(void)
+CCamera* CManager::GetCamera()
 {
 	// インスタンス未使用
 	assert(m_pCamera != nullptr);
@@ -956,7 +956,7 @@ CCamera* CManager::GetCamera(void)
 //============================================================
 //	ライト取得処理
 //============================================================
-CLight* CManager::GetLight(void)
+CLight* CManager::GetLight()
 {
 	// インスタンス未使用
 	assert(m_pLight != nullptr);
@@ -968,7 +968,7 @@ CLight* CManager::GetLight(void)
 //============================================================
 //	テクスチャ取得処理
 //============================================================
-CTexture* CManager::GetTexture(void)
+CTexture* CManager::GetTexture()
 {
 	// インスタンス未使用
 	assert(m_pTexture != nullptr);
@@ -980,7 +980,7 @@ CTexture* CManager::GetTexture(void)
 //============================================================
 //	モデル取得処理
 //============================================================
-CModel* CManager::GetModel(void)
+CModel* CManager::GetModel()
 {
 	// インスタンス未使用
 	assert(m_pModel != nullptr);
@@ -992,7 +992,7 @@ CModel* CManager::GetModel(void)
 //============================================================
 //	フォント取得処理
 //============================================================
-CFont* CManager::GetFont(void)
+CFont* CManager::GetFont()
 {
 	// インスタンス未使用
 	assert(m_pFont != nullptr);
@@ -1004,7 +1004,7 @@ CFont* CManager::GetFont(void)
 //============================================================
 //	キャラクター取得処理
 //============================================================
-CCharacter* CManager::GetCharacter(void)
+CCharacter* CManager::GetCharacter()
 {
 	// インスタンス未使用
 	assert(m_pCharacter != nullptr);
@@ -1016,7 +1016,7 @@ CCharacter* CManager::GetCharacter(void)
 //============================================================
 //	キャラクター2D取得処理
 //============================================================
-CCharacter2D* CManager::GetCharacter2D(void)
+CCharacter2D* CManager::GetCharacter2D()
 {
 	// インスタンス未使用
 	assert(m_pCharacter2D != nullptr);
@@ -1028,7 +1028,7 @@ CCharacter2D* CManager::GetCharacter2D(void)
 //============================================================
 //	アイテム取得処理
 //============================================================
-CItem* CManager::GetItem(void)
+CItem* CManager::GetItem()
 {
 	// インスタンス未使用
 	assert(m_pItem != nullptr);
@@ -1040,7 +1040,7 @@ CItem* CManager::GetItem(void)
 //============================================================
 //	フェード取得処理
 //============================================================
-CFade* CManager::GetFade(void)
+CFade* CManager::GetFade()
 {
 	// インスタンス未使用
 	assert(m_pFade != nullptr);
@@ -1052,7 +1052,7 @@ CFade* CManager::GetFade(void)
 //============================================================
 //	ローディング取得処理
 //============================================================
-CLoading* CManager::GetLoading(void)
+CLoading* CManager::GetLoading()
 {
 	// インスタンス未使用
 	assert(m_pLoading != nullptr);
@@ -1064,7 +1064,7 @@ CLoading* CManager::GetLoading(void)
 //============================================================
 //	シーン取得処理
 //============================================================
-CScene* CManager::GetScene(void)
+CScene* CManager::GetScene()
 {
 	// インスタンス未使用
 	assert(m_pScene != nullptr);
@@ -1076,7 +1076,7 @@ CScene* CManager::GetScene(void)
 //============================================================
 //	データ保存取得処理
 //============================================================
-CRetention* CManager::GetRetention(void)
+CRetention* CManager::GetRetention()
 {
 	// インスタンス未使用
 	assert(m_pRetention != nullptr);
@@ -1088,7 +1088,7 @@ CRetention* CManager::GetRetention(void)
 //============================================================
 //	デバッグ表示取得処理
 //============================================================
-CDebugProc* CManager::GetDebugProc(void)
+CDebugProc* CManager::GetDebugProc()
 {
 	// インスタンス未使用
 	assert(m_pDebugProc != nullptr);
@@ -1100,7 +1100,7 @@ CDebugProc* CManager::GetDebugProc(void)
 //============================================================
 //	デバッグ取得処理
 //============================================================
-CDebug* CManager::GetDebug(void)
+CDebug* CManager::GetDebug()
 {
 	// インスタンス未使用
 	assert(m_pDebug != nullptr);

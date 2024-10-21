@@ -41,7 +41,7 @@ CSceneStart::~CSceneStart()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CSceneStart::Init(void)
+HRESULT CSceneStart::Init()
 {
 	// シーンの初期化
 	if (FAILED(CScene::Init()))
@@ -73,7 +73,7 @@ HRESULT CSceneStart::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CSceneStart::Uninit(void)
+void CSceneStart::Uninit()
 {
 	// スタートマネージャーの破棄
 	SAFE_REF_RELEASE(m_pStartManager);
@@ -98,7 +98,7 @@ void CSceneStart::Update(const float fDeltaTime)
 //============================================================
 //	スタートマネージャー取得処理
 //============================================================
-CStartManager* CSceneStart::GetStartManager(void)
+CStartManager* CSceneStart::GetStartManager()
 {
 	// インスタンス未使用
 	assert(m_pStartManager != nullptr);

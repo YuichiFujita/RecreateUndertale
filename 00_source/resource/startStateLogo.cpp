@@ -67,7 +67,7 @@ CStartStateLogo::~CStartStateLogo()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CStartStateLogo::Init(void)
+HRESULT CStartStateLogo::Init()
 {
 	// メンバ変数を初期化
 	m_pLogo		= nullptr;	// タイトルロゴ
@@ -101,7 +101,7 @@ HRESULT CStartStateLogo::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CStartStateLogo::Uninit(void)
+void CStartStateLogo::Uninit()
 {
 	// タイトルロゴの終了
 	SAFE_UNINIT(m_pLogo);
@@ -191,7 +191,7 @@ void CStartStateLogo::UpdateDispTrans(const float fDeltaTime)
 //============================================================
 //	コマンド入力の更新処理
 //============================================================
-void CStartStateLogo::UpdateCommand(void)
+void CStartStateLogo::UpdateCommand()
 {
 	// BALL効果音が再生済みの場合抜ける
 	if (m_bSndBall) { return; }

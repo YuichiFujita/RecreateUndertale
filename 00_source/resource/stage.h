@@ -33,17 +33,17 @@ public:
 	};
 
 	// メンバ関数
-	HRESULT Init(void);	// 初期化
-	void Uninit(void);	// 終了
-	void LimitPosition(VECTOR3& rPos, const float fRadius);		// 位置範囲補正
-	void SetLimit(const SLimit& rLimit)	{ m_limit = rLimit; }	// ステージ範囲設定
-	SLimit GetLimit(void) const			{ return m_limit; }		// ステージ範囲取得
+	HRESULT Init();	// 初期化
+	void Uninit();	// 終了
+	void LimitPosition(VECTOR3& rPos, const float fRadius);				// 位置範囲補正
+	inline void SetLimit(const SLimit& rLimit)	{ m_limit = rLimit; }	// ステージ範囲設定
+	inline SLimit GetLimit() const				{ return m_limit; }		// ステージ範囲取得
 
 	void SetFadeRoom(const char* pStagePath);	// 遷移先ルーム設定
-	HRESULT BindNextRoom(void) { return BindStage(m_sNextRoomPath.c_str()); }	// 遷移先ルーム割当
+	inline HRESULT BindNextRoom() { return BindStage(m_sNextRoomPath.c_str()); }	// 遷移先ルーム割当
 
 	// 静的メンバ関数
-	static CStage* Create(void);			// 生成
+	static CStage* Create();				// 生成
 	static void Release(CStage*& prStage);	// 破棄
 
 private:

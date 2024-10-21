@@ -32,13 +32,13 @@ public:
 	using AMotion = CObjectChara2D::SInfo;
 
 	// メンバ関数
-	HRESULT Init(void);		// キャラクター初期化
-	void Uninit(void);		// キャラクター終了
-	HRESULT LoadAll(void);	// キャラクター全読込
+	HRESULT Init();		// キャラクター初期化
+	void Uninit();		// キャラクター終了
+	HRESULT LoadAll();	// キャラクター全読込
 	AMotion Regist(const char* pCharaPath);	// キャラクター登録
 
 	// 静的メンバ関数
-	static CCharacter2D* Create(void);	// 生成
+	static CCharacter2D* Create();	// 生成
 	static void Release(CCharacter2D*& prCharacter2D);	// 破棄
 
 private:

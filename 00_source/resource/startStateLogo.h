@@ -35,14 +35,14 @@ public:
 	~CStartStateLogo() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
 
 private:
 	// メンバ関数
 	void UpdateDispTrans(const float fDeltaTime);	// 操作表示・遷移更新
-	void UpdateCommand(void);	// コマンド入力更新
+	void UpdateCommand();	// コマンド入力更新
 
 	// メンバ変数
 	std::string m_sFragInput;	// キー入力フラグ

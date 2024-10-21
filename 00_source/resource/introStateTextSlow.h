@@ -29,8 +29,8 @@ public:
 	~CIntroStateTextSlow() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
 };
 

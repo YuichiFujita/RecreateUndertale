@@ -106,7 +106,7 @@ CStartStateDecideName::~CStartStateDecideName()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CStartStateDecideName::Init(void)
+HRESULT CStartStateDecideName::Init()
 {
 	// メンバ変数を初期化
 	memset(&m_apSelect[0], 0, sizeof(m_apSelect));	// 選択肢
@@ -211,7 +211,7 @@ HRESULT CStartStateDecideName::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CStartStateDecideName::Uninit(void)
+void CStartStateDecideName::Uninit()
 {
 	// タイトルの終了
 	SAFE_UNINIT(m_pTitle);
@@ -255,7 +255,7 @@ void CStartStateDecideName::Update(const float fDeltaTime)
 //============================================================
 //	選択の更新処理
 //============================================================
-void CStartStateDecideName::UpdateSelect(void)
+void CStartStateDecideName::UpdateSelect()
 {
 	CInputKeyboard* pKey = GET_INPUTKEY;	// キーボード情報
 
@@ -284,7 +284,7 @@ void CStartStateDecideName::UpdateSelect(void)
 //============================================================
 //	決定の更新処理
 //============================================================
-void CStartStateDecideName::UpdateDecide(void)
+void CStartStateDecideName::UpdateDecide()
 {
 	if (input::Decide())
 	{
@@ -313,7 +313,7 @@ void CStartStateDecideName::UpdateDecide(void)
 //============================================================
 //	ゲーム画面の遷移処理
 //============================================================
-void CStartStateDecideName::TransGame(void)
+void CStartStateDecideName::TransGame()
 {
 	// タイトルの終了
 	SAFE_UNINIT(m_pTitle);

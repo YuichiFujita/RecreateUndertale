@@ -43,7 +43,7 @@ CIntroStateFade::~CIntroStateFade()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CIntroStateFade::Init(void)
+HRESULT CIntroStateFade::Init()
 {
 	// フェードを開始する
 	CFade* pFade = GET_MANAGER->GetFade();	// フェード情報
@@ -56,7 +56,7 @@ HRESULT CIntroStateFade::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CIntroStateFade::Uninit(void)
+void CIntroStateFade::Uninit()
 {
 	// 自身の破棄
 	delete this;

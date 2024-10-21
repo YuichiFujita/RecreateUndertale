@@ -60,15 +60,15 @@ public:
 	~CStartStateCreateName() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
 
 private:
 	// メンバ関数
-	void ControlSelect(void);	// 選択操作
-	void UpdateSelect(void);	// 選択更新
-	void UpdateDecide(void);	// 決定更新
+	void ControlSelect();	// 選択操作
+	void UpdateSelect();	// 選択更新
+	void UpdateDecide();	// 決定更新
 	HRESULT ChangeChar(const ETypeChar typeChar);	// 文字変更
 	HRESULT LoadArray(const ETypeChar typeChar);	// 配置読込
 

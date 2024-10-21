@@ -29,8 +29,8 @@ public:
 	~CShakeString2D() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;		// 更新
 	void Draw(CShader* pShader = nullptr) override;		// 描画
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
@@ -64,10 +64,10 @@ public:
 	);
 
 	// メンバ関数
-	void SetNextTime(const float fNextTime)		{ m_fNextTime = fNextTime; }	// 文字振動の待機時間設定
-	float GetNextTime(void) const				{ return m_fNextTime; }			// 文字振動の待機時間取得
-	void SetShakeMove(const float fShakeMove)	{ m_fShakeMove = fShakeMove; }	// 振動の移動量設定
-	float GetShakeMove(void) const				{ return m_fShakeMove; }		// 振動の移動量取得
+	inline void SetNextTime(const float fNextTime)		{ m_fNextTime = fNextTime; }	// 文字振動の待機時間設定
+	inline float GetNextTime() const					{ return m_fNextTime; }			// 文字振動の待機時間取得
+	inline void SetShakeMove(const float fShakeMove)	{ m_fShakeMove = fShakeMove; }	// 振動の移動量設定
+	inline float GetShakeMove() const					{ return m_fShakeMove; }		// 振動の移動量取得
 
 private:
 	// メンバ関数

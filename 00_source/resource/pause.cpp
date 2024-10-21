@@ -75,7 +75,7 @@ CPause::~CPause()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CPause::Init(void)
+HRESULT CPause::Init()
 {
 	// メンバ変数を初期化
 	memset(&m_apSelect[0], 0, sizeof(m_apSelect));	// 選択情報
@@ -139,7 +139,7 @@ HRESULT CPause::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CPause::Uninit(void)
+void CPause::Uninit()
 {
 	// 背景情報の終了
 	SAFE_UNINIT(m_pBG);
@@ -207,7 +207,7 @@ void CPause::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CPause::Draw(void)
+void CPause::Draw()
 {
 
 }
@@ -215,7 +215,7 @@ void CPause::Draw(void)
 //============================================================
 //	ポーズ状況取得処理
 //============================================================
-bool CPause::IsPause(void)
+bool CPause::IsPause()
 {
 	// ポーズ状況を返す
 	return m_bPause;
@@ -240,7 +240,7 @@ void CPause::SetEnableDraw(const bool bDraw)
 //============================================================
 //	生成処理
 //============================================================
-CPause* CPause::Create(void)
+CPause* CPause::Create()
 {
 	// ポーズの生成
 	CPause* pPause = new CPause;
@@ -304,7 +304,7 @@ void CPause::SetEnableDebugDisp(const bool bDisp)
 //============================================================
 #ifdef _DEBUG
 
-bool CPause::IsDebugDisp(void) const
+bool CPause::IsDebugDisp() const
 {
 	// デバッグ表示状況を返す
 	return m_pBG->IsDebugDisp();
@@ -315,7 +315,7 @@ bool CPause::IsDebugDisp(void) const
 //============================================================
 //	選択操作処理
 //============================================================
-void CPause::Select(void)
+void CPause::Select()
 {
 	CInputKeyboard*	pKeyboard	= GET_INPUTKEY;	// キーボード
 	CInputPad*		pPad		= GET_INPUTPAD;	// パッド

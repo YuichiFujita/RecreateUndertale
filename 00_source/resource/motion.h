@@ -24,7 +24,7 @@ class CMotion
 {
 public:
 	// コンストラクタ
-	CMotion(std::function<int(void)> funcGetNumParts);
+	CMotion(std::function<int()> funcGetNumParts);
 
 	// デストラクタ
 	~CMotion();
@@ -89,7 +89,7 @@ public:
 		}
 
 		// メンバ関数
-		int GetNumKey(void) { return (int)vecKey.size(); }	// キー情報の総数取得
+		int GetNumKey() { return (int)vecKey.size(); }	// キー情報の総数取得
 
 		// メンバ変数
 		std::vector<SKey> vecKey;	// キー情報
@@ -118,7 +118,7 @@ public:
 		}
 
 		// メンバ関数
-		int GetNumMotion(void) { return (int)vecMotion.size(); }	// モーション情報の総数取得
+		int GetNumMotion() { return (int)vecMotion.size(); }	// モーション情報の総数取得
 
 		// メンバ変数
 		std::vector<SMotion> vecMotion;		// モーション情報
@@ -148,33 +148,33 @@ public:
 	};
 
 	// メンバ関数
-	HRESULT Init(void);	// 初期化
-	void Uninit(void);	// 終了
+	HRESULT Init();	// 初期化
+	void Uninit();	// 終了
 	void Update(const float fDeltaTime);		// 更新
 	void BindPartsData(CMultiModel** ppModel);	// パーツ情報設定
 	void SetAllInfo(const SInfo& rInfo);		// モーション情報全設定
 	void AddInfo(const SMotion& rMotion);		// モーション情報追加
 	void SetEnableUpdate(const bool bUpdate);	// 更新状況設定
 	void SetNumParts(const int nNumParts);		// パーツ数設定
-	void ClearVector(void);						// モーション情報の動的配列クリア
+	void ClearVector();						// モーション情報の動的配列クリア
 	void Set(const int nType, const int nBlendFrame = 0);			// 設定
 	void SetOriginPosition(const VECTOR3& rPos, const int nParts);	// 原点位置の設定
 	void SetOriginRotation(const VECTOR3& rRot, const int nParts);	// 原点向きの設定
 
-	int GetNumType(void);					// 種類総数取得
+	int GetNumType();					// 種類総数取得
 	int GetNumKey(const int nType);			// キー総数取得
 	bool IsCancel(const int nType) const;	// キャンセル取得
 	bool IsCombo(const int nType) const;	// コンボ取得
-	bool IsLeftWeaponCollision(void);		// 左の攻撃判定フラグ取得
-	bool IsRightWeaponCollision(void);		// 右の攻撃判定フラグ取得
+	bool IsLeftWeaponCollision();		// 左の攻撃判定フラグ取得
+	bool IsRightWeaponCollision();		// 右の攻撃判定フラグ取得
 	VECTOR3 GetOriginPosition(const int nParts);	// 原点位置の取得
 	VECTOR3 GetOriginRotation(const int nParts);	// 原点向きの取得
 
-	int GetType(void) const			{ return m_info.nType; }			// 種類取得
-	int GetKey(void) const			{ return m_info.nKey; }				// キー番号取得
-	int GetKeyCounter(void) const	{ return m_info.nKeyCounter; }		// モーションキーカウンター取得
-	int GetWholeCounter(void) const	{ return m_info.nWholeCounter; }	// モーション全体カウンター取得
-	bool IsFinish(void) const		{ return m_info.bFinish; }			// 終了取得
+	int GetType() const			{ return m_info.nType; }			// 種類取得
+	int GetKey() const			{ return m_info.nKey; }				// キー番号取得
+	int GetKeyCounter() const	{ return m_info.nKeyCounter; }		// モーションキーカウンター取得
+	int GetWholeCounter() const	{ return m_info.nWholeCounter; }	// モーション全体カウンター取得
+	bool IsFinish() const		{ return m_info.bFinish; }			// 終了取得
 	bool IsLoop(const int nType) const			{ return m_info.vecMotion[nType].bLoop; }			// ループ取得
 	bool IsWeaponDisp(const int nType) const	{ return m_info.vecMotion[nType].bWeaponDisp; }		// 武器表示取得
 	int GetWholeFrame(const int nType) const	{ return m_info.vecMotion[nType].nWholeFrame; }		// モーション全体フレーム数取得
@@ -187,12 +187,12 @@ public:
 
 private:
 	// メンバ関数
-	void UpdateMove(void);		// 移動更新
-	void UpdateMotion(void);	// モーション更新
-	void UpdateBlend(void);		// ブレンド更新
+	void UpdateMove();		// 移動更新
+	void UpdateMotion();	// モーション更新
+	void UpdateBlend();		// ブレンド更新
 
 	// メンバ変数
-	const std::function<int(void)> m_funcGetNumParts;	// パーツ数取得関数ポインタ
+	const std::function<int()> m_funcGetNumParts;	// パーツ数取得関数ポインタ
 	CMultiModel** m_ppModel;	// モデル情報
 	CObjectChara* m_pChara;		// オブジェクトキャラクター情報
 	SInfo  m_info;	// モーション情報

@@ -58,7 +58,7 @@ CObjectMeshCylinder::~CObjectMeshCylinder()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CObjectMeshCylinder::Init(void)
+HRESULT CObjectMeshCylinder::Init()
 {
 	// メンバ変数を初期化
 	m_pVtxBuff		= nullptr;		// 頂点バッファ
@@ -102,7 +102,7 @@ HRESULT CObjectMeshCylinder::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CObjectMeshCylinder::Uninit(void)
+void CObjectMeshCylinder::Uninit()
 {
 	// 頂点バッファの破棄
 	SAFE_RELEASE(m_pVtxBuff);
@@ -265,7 +265,7 @@ CObjectMeshCylinder* CObjectMeshCylinder::Create
 //============================================================
 //	レンダーステート情報の取得処理
 //============================================================
-CRenderState* CObjectMeshCylinder::GetRenderState(void)
+CRenderState* CObjectMeshCylinder::GetRenderState()
 {
 	// インスタンス未使用
 	assert(m_pRenderState != nullptr);
@@ -457,7 +457,7 @@ void CObjectMeshCylinder::SetTexPattern(const POSGRID2& rTexPart)
 //============================================================
 //	頂点情報の設定処理
 //============================================================
-void CObjectMeshCylinder::SetVtx(void)
+void CObjectMeshCylinder::SetVtx()
 {
 	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 	VECTOR3 vecPos;		// 頂点位置の計算用
@@ -519,7 +519,7 @@ void CObjectMeshCylinder::SetVtx(void)
 //============================================================
 //	インデックス情報の設定処理
 //============================================================
-void CObjectMeshCylinder::SetIdx(void)
+void CObjectMeshCylinder::SetIdx()
 {
 	WORD* pIdx;	// インデックス情報へのポインタ
 	if (m_pIdxBuff != nullptr)
@@ -597,7 +597,7 @@ void CObjectMeshCylinder::SetScrollTex(const float fTexU, const float fTexV)
 //============================================================
 //	通常描画処理
 //============================================================
-void CObjectMeshCylinder::DrawNormal(void)
+void CObjectMeshCylinder::DrawNormal()
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 

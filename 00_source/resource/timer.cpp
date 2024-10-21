@@ -53,7 +53,7 @@ CTimer::~CTimer()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CTimer::Init(void)
+HRESULT CTimer::Init()
 {
 	// メンバ変数を初期化
 	m_funcCount = nullptr;		// 計測関数ポインタ
@@ -90,7 +90,7 @@ HRESULT CTimer::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CTimer::Uninit(void)
+void CTimer::Uninit()
 {
 	// リストから自身のオブジェクトを削除
 	m_pList->DelList(m_iterator);
@@ -189,7 +189,7 @@ CTimer* CTimer::Create
 //============================================================
 //	リスト取得処理
 //============================================================
-CListManager<CTimer>* CTimer::GetList(void)
+CListManager<CTimer>* CTimer::GetList()
 {
 	// オブジェクトリストを返す
 	return m_pList;
@@ -217,7 +217,7 @@ void CTimer::EnableStopAll(const bool bStop)
 //============================================================
 //	計測開始処理
 //============================================================
-void CTimer::Start(void)
+void CTimer::Start()
 {
 	if (m_state != STATE_COUNT)
 	{ // タイムの計測中ではない場合
@@ -233,7 +233,7 @@ void CTimer::Start(void)
 //============================================================
 //	計測終了処理
 //============================================================
-void CTimer::End(void)
+void CTimer::End()
 {
 	if (m_state == STATE_COUNT)
 	{ // タイムの計測中の場合
@@ -337,7 +337,7 @@ void CTimer::CountDown(const float fDeltaTime)
 //============================================================
 //	時間の計算処理
 //============================================================
-void CTimer::CalcTime(void)
+void CTimer::CalcTime()
 {
 	m_lTime	= (DWORD)(m_fTime * 1000.0f);	// 秒をミリ秒に変換
 	m_nMin	= (int)(m_lTime / 60000);		// 分を計算

@@ -81,45 +81,45 @@ public:
 	};
 
 	// メンバ関数
-	HRESULT Init(void);	// 初期化
-	void Uninit(void);	// 終了
+	HRESULT Init();	// 初期化
+	void Uninit();	// 終了
 	void Update(const float fDeltaTime);	// 更新
-	void SetCamera(void);		// カメラ設定
-	SCamera GetCamera(void);	// カメラ取得
-	void InitNone(void);		// 固定カメラ初期化
-	void InitFollow(void);		// 追従カメラ初期化
-	void ResetSwing(void);		// カメラ揺れ初期化
+	void SetCamera();		// カメラ設定
+	SCamera GetCamera();	// カメラ取得
+	void InitNone();		// 固定カメラ初期化
+	void InitFollow();		// 追従カメラ初期化
+	void ResetSwing();		// カメラ揺れ初期化
 
 	void SetState(const EState state, const bool bInit = true);	// カメラ状態設定
-	EState GetState(void) const;				// カメラ状態取得
+	EState GetState() const;				// カメラ状態取得
 	void SetSwing(const SSwing swing);			// カメラ揺れ設定
 	void SetEnableUpdate(const bool bUpdate);	// 更新状況設定
 	void SetPositionV(const VECTOR3& rPos);		// 視点設定
 	void SetPositionR(const VECTOR3& rPos);		// 注視点設定
 	void SetRotation(const VECTOR3& rRot);		// 向き設定
 	void SetDistance(const float fDis);			// 距離設定
-	VECTOR3 GetPositionV(void) const		{ return m_camera.posV; }		// 現在の視点取得
-	VECTOR3 GetDestPositionV(void) const	{ return m_camera.destPosV; }	// 目標の視点取得
-	VECTOR3 GetPositionR(void) const		{ return m_camera.posR; }		// 現在の注視点取得
-	VECTOR3 GetDestPositionR(void) const	{ return m_camera.destPosR; }	// 目標の注視点取得
-	VECTOR3 GetRotation(void) const			{ return m_camera.rot; }		// 現在の向き取得
-	VECTOR3 GetDestRotation(void) const		{ return m_camera.destRot; }	// 目標の向き取得
-	float GetDistance(void) const			{ return m_camera.fDis; }		// 現在の距離取得
-	float GetDestDistance(void) const		{ return m_camera.fDestDis; }	// 目標の距離取得
+	VECTOR3 GetPositionV() const		{ return m_camera.posV; }		// 現在の視点取得
+	VECTOR3 GetDestPositionV() const	{ return m_camera.destPosV; }	// 目標の視点取得
+	VECTOR3 GetPositionR() const		{ return m_camera.posR; }		// 現在の注視点取得
+	VECTOR3 GetDestPositionR() const	{ return m_camera.destPosR; }	// 目標の注視点取得
+	VECTOR3 GetRotation() const			{ return m_camera.rot; }		// 現在の向き取得
+	VECTOR3 GetDestRotation() const		{ return m_camera.destRot; }	// 目標の向き取得
+	float GetDistance() const			{ return m_camera.fDis; }		// 現在の距離取得
+	float GetDestDistance() const		{ return m_camera.fDestDis; }	// 目標の距離取得
 
 	// 静的メンバ関数
-	static CCamera* Create(void);				// 生成
+	static CCamera* Create();				// 生成
 	static void Release(CCamera*& prCamera);	// 破棄
 
 private:
 	// メンバ関数
-	void UpdateNone(void);		// 固定カメラ更新
-	void UpdateFollow(void);	// 追従カメラ更新
-	void UpdateControl(void);	// 操作カメラ更新
-	void UpdateMove(void);		// 位置更新
-	void UpdateDistance(void);	// 距離更新
-	void UpdateRotation(void);	// 向き更新
-	void UpdateSwing(void);		// カメラ揺れ更新
+	void UpdateNone();		// 固定カメラ更新
+	void UpdateFollow();	// 追従カメラ更新
+	void UpdateControl();	// 操作カメラ更新
+	void UpdateMove();		// 位置更新
+	void UpdateDistance();	// 距離更新
+	void UpdateRotation();	// 向き更新
+	void UpdateSwing();		// カメラ揺れ更新
 
 	// メンバ変数
 	SCamera	m_camera;	// カメラの情報

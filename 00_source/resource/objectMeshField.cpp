@@ -55,7 +55,7 @@ CObjectMeshField::~CObjectMeshField()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CObjectMeshField::Init(void)
+HRESULT CObjectMeshField::Init()
 {
 	// メンバ変数を初期化
 	m_pVtxBuff		= nullptr;		// 頂点バッファ
@@ -99,7 +99,7 @@ HRESULT CObjectMeshField::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CObjectMeshField::Uninit(void)
+void CObjectMeshField::Uninit()
 {
 	// 頂点バッファの破棄
 	SAFE_RELEASE(m_pVtxBuff);
@@ -275,7 +275,7 @@ CObjectMeshField* CObjectMeshField::Create
 //============================================================
 //	レンダーステート情報の取得処理
 //============================================================
-CRenderState* CObjectMeshField::GetRenderState(void)
+CRenderState* CObjectMeshField::GetRenderState()
 {
 	// インスタンス未使用
 	assert(m_pRenderState != nullptr);
@@ -544,7 +544,7 @@ VECTOR3 CObjectMeshField::GetGapPosition(const int nID)
 //============================================================
 //	法線の正規化処理
 //============================================================
-void CObjectMeshField::NormalizeNormal(void)
+void CObjectMeshField::NormalizeNormal()
 {
 	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 	int nNumNor = 0;	// 法線データ格納用
@@ -1096,7 +1096,7 @@ void CObjectMeshField::SetVtx(bool bNor)
 //============================================================
 //	インデックス情報の設定処理
 //============================================================
-void CObjectMeshField::SetIdx(void)
+void CObjectMeshField::SetIdx()
 {
 	WORD* pIdx;	// インデックス情報へのポインタ
 	if (m_pIdxBuff != nullptr)
@@ -1168,7 +1168,7 @@ void CObjectMeshField::SetScrollTex(const float fTexU, const float fTexV)
 //============================================================
 //	通常描画処理
 //============================================================
-void CObjectMeshField::DrawNormal(void)
+void CObjectMeshField::DrawNormal()
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 

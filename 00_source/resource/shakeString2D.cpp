@@ -36,7 +36,7 @@ CShakeString2D::~CShakeString2D()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CShakeString2D::Init(void)
+HRESULT CShakeString2D::Init()
 {
 	// メンバ変数を初期化
 	m_posSave	 = VEC3_ZERO;	// 保存位置
@@ -60,7 +60,7 @@ HRESULT CShakeString2D::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CShakeString2D::Uninit(void)
+void CShakeString2D::Uninit()
 {
 	// 文字列2Dの終了
 	CString2D::Uninit();

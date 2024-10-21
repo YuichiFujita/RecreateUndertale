@@ -38,7 +38,7 @@ public:
 		{}
 
 		// 比較演算子オーバーロード
-		bool operator<(const SKey& rKey) const
+		inline bool operator<(const SKey& rKey) const
 		{
 			// 情報をまとめて比較
 			return std::tie(sFilePath, bItalic) < std::tie(rKey.sFilePath, rKey.bItalic);
@@ -67,9 +67,9 @@ public:
 	};
 
 	// メンバ関数
-	HRESULT Init(void);		// フォント初期化
-	void Uninit(void);		// フォント終了
-	HRESULT LoadAll(void);	// フォント全読込
+	HRESULT Init();		// フォント初期化
+	void Uninit();		// フォント終了
+	HRESULT LoadAll();	// フォント全読込
 	HRESULT Load(const std::string& rFilePath);	// フォント読込
 	SFont Regist(const std::string& rFilePath, const bool bItalic = false);	// フォント登録
 	CFontChar::SChar RegistChar	// フォント文字登録
@@ -80,7 +80,7 @@ public:
 	);
 
 	// 静的メンバ関数
-	static CFont* Create(void);				// 生成
+	static CFont* Create();					// 生成
 	static void Release(CFont*& prFont);	// 破棄
 
 private:

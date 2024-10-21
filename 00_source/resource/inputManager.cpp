@@ -16,7 +16,7 @@
 //============================================================
 //	確定操作
 //============================================================
-bool input::Decide(void)
+bool input::Decide()
 {
 	CInputKeyboard* pKey = GET_INPUTKEY;	// キーボード情報
 	return (pKey->IsTrigger(DIK_Z) || pKey->IsTrigger(DIK_RETURN));
@@ -25,7 +25,7 @@ bool input::Decide(void)
 //============================================================
 //	キャンセル操作
 //============================================================
-bool input::Cancel(void)
+bool input::Cancel()
 {
 	CInputKeyboard* pKey = GET_INPUTKEY;	// キーボード情報
 	return (pKey->IsTrigger(DIK_X) || pKey->IsTrigger(DIK_LSHIFT) || pKey->IsTrigger(DIK_RSHIFT));
@@ -34,7 +34,7 @@ bool input::Cancel(void)
 //============================================================
 //	フィールドメニュー操作
 //============================================================
-bool input::FieldMenu(void)
+bool input::FieldMenu()
 {
 	CInputKeyboard* pKey = GET_INPUTKEY;	// キーボード情報
 	return (pKey->IsTrigger(DIK_C) || pKey->IsTrigger(DIK_LCONTROL) || pKey->IsTrigger(DIK_RCONTROL));

@@ -29,8 +29,8 @@ public:
 	~CMultiModel() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
 	void Draw(CShader* pShader = nullptr) override;	// 描画
 
@@ -45,11 +45,11 @@ public:
 	// メンバ関数
 	void SetParentObject(CObject* pObject);		// 親オブジェクト設定
 	void SetParentModel(CMultiModel* pModel);	// 親オブジェクト設定
-	void DeleteParentObject(void);				// 親オブジェクト削除
+	void DeleteParentObject();					// 親オブジェクト削除
 
 private:
 	// メンバ関数
-	void DrawNormal(void);	// 通常描画
+	void DrawNormal();	// 通常描画
 	void DrawShader(CShader* pShader);	// シェーダー描画
 
 	// メンバ変数

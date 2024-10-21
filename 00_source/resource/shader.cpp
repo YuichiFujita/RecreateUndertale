@@ -40,7 +40,7 @@ CShader::~CShader()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CShader::Init(void)
+HRESULT CShader::Init()
 {
 	// メンバ変数を初期化
 	m_pEffect			= nullptr;	// エフェクトポインタ
@@ -56,7 +56,7 @@ HRESULT CShader::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CShader::Uninit(void)
+void CShader::Uninit()
 {
 	// エフェクトの破棄
 	SAFE_RELEASE(m_pEffect);
@@ -129,7 +129,7 @@ void CShader::SetOnlyDiffuse(const COLOR& /*rDiffuse*/)
 //============================================================
 //	開始処理
 //============================================================
-void CShader::Begin(void)
+void CShader::Begin()
 {
 	if (m_pEffect == nullptr) { assert(false); return; }	// エフェクト未使用
 
@@ -151,7 +151,7 @@ void CShader::BeginPass(const BYTE pass)
 //============================================================
 //	パス終了処理
 //============================================================
-void CShader::EndPass(void)
+void CShader::EndPass()
 {
 	if (m_pEffect == nullptr) { assert(false); return; }	// エフェクト未使用
 
@@ -162,7 +162,7 @@ void CShader::EndPass(void)
 //============================================================
 //	終了処理
 //============================================================
-void CShader::End(void)
+void CShader::End()
 {
 	if (m_pEffect == nullptr) { assert(false); return; }	// エフェクト未使用
 
@@ -194,7 +194,7 @@ void CShader::SetMatrix(MATRIX* pMtxWorld)
 //============================================================
 //	状態変更の伝達処理
 //============================================================
-void CShader::CommitChanges(void)
+void CShader::CommitChanges()
 {
 	if (m_pEffect == nullptr) { assert(false); return; }	// エフェクト未使用
 
@@ -205,7 +205,7 @@ void CShader::CommitChanges(void)
 //============================================================
 //	エフェクト使用可能状況の取得処理
 //============================================================
-bool CShader::IsEffectOK(void) const
+bool CShader::IsEffectOK() const
 {
 	// エフェクトポインタの使用状況を返す
 	return (m_pEffect != nullptr) ? true : false;
@@ -214,7 +214,7 @@ bool CShader::IsEffectOK(void) const
 //============================================================
 //	エフェクトポインタ取得処理
 //============================================================
-LPD3DXEFFECT CShader::GetEffect(void) const
+LPD3DXEFFECT CShader::GetEffect() const
 {
 	// エフェクトポインタを返す
 	return m_pEffect;
@@ -223,7 +223,7 @@ LPD3DXEFFECT CShader::GetEffect(void) const
 //============================================================
 //	生成処理
 //============================================================
-HRESULT CShader::Create(void)
+HRESULT CShader::Create()
 {
 	// トゥーンシェーダーの生成
 	CToonShader* pToonShader = CToonShader::Create();
@@ -252,7 +252,7 @@ HRESULT CShader::Create(void)
 //============================================================
 //	破棄処理
 //============================================================
-void CShader::Release(void)
+void CShader::Release()
 {
 	// トゥーンシェーダーの破棄
 	CToonShader::Release();

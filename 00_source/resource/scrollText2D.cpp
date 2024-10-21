@@ -40,7 +40,7 @@ CScrollText2D::~CScrollText2D()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CScrollText2D::Init(void)
+HRESULT CScrollText2D::Init()
 {
 	// メンバ変数を初期化
 	m_labelSE	= CSound::LABEL_NONE;	// 文字送り再生SEラベル
@@ -68,7 +68,7 @@ HRESULT CScrollText2D::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CScrollText2D::Uninit(void)
+void CScrollText2D::Uninit()
 {
 	// 全文字情報配列をクリア
 	m_vecChar.clear();
@@ -259,7 +259,7 @@ void CScrollText2D::DeleteString(const int nStrID)
 //============================================================
 //	文字列の全削除処理
 //============================================================
-void CScrollText2D::DeleteStringAll(void)
+void CScrollText2D::DeleteStringAll()
 {
 	// 文字列の全削除
 	CText2D::DeleteStringAll();

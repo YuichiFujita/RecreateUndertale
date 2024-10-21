@@ -57,7 +57,7 @@ CTileColl::~CTileColl()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CTileColl::Init(void)
+HRESULT CTileColl::Init()
 {
 	// メンバ変数を初期化
 	m_type = TYPE_BOX;	// 種類
@@ -98,7 +98,7 @@ HRESULT CTileColl::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CTileColl::Uninit(void)
+void CTileColl::Uninit()
 {
 	// リストから自身のオブジェクトを削除
 	m_pList->DelList(m_iterator);
@@ -170,7 +170,7 @@ CTileColl* CTileColl::Create(const EType type, const VECTOR3& rPos)
 //============================================================
 //	リスト取得処理
 //============================================================
-CListManager<CTileColl>* CTileColl::GetList(void)
+CListManager<CTileColl>* CTileColl::GetList()
 {
 	// オブジェクトリストを返す
 	return m_pList;

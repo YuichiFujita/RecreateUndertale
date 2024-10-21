@@ -117,7 +117,7 @@ HRESULT CSound::Init(HWND hWnd)
 //============================================================
 //	終了処理
 //============================================================
-void CSound::Uninit(void)
+void CSound::Uninit()
 {
 	for (int nCntSound = 0; nCntSound < LABEL_MAX; nCntSound++)
 	{
@@ -319,7 +319,7 @@ void CSound::Stop(ELabel label)
 //============================================================
 //	セグメント停止 (全て)
 //============================================================
-void CSound::Stop(void)
+void CSound::Stop()
 {
 	// 一時停止
 	for (int nCntSound = 0; nCntSound < LABEL_MAX; nCntSound++)

@@ -34,7 +34,7 @@ CObjectChara2D::~CObjectChara2D()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CObjectChara2D::Init(void)
+HRESULT CObjectChara2D::Init()
 {
 	// アニメーション3Dの初期化
 	if (FAILED(CAnim3D::Init()))
@@ -52,7 +52,7 @@ HRESULT CObjectChara2D::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CObjectChara2D::Uninit(void)
+void CObjectChara2D::Uninit()
 {
 	// アニメーション3Dの終了
 	CAnim3D::Uninit();
@@ -193,7 +193,7 @@ void CObjectChara2D::SetAllInfo(const SInfo& rInfo)
 //============================================================
 //	キャンセル取得処理
 //============================================================
-bool CObjectChara2D::IsCancel(void) const
+bool CObjectChara2D::IsCancel() const
 {
 	float fCancelTime = m_info.vecMotion[m_info.nType].fCancelTime;	// キャンセル可能時間
 	if (fCancelTime >= 0.0f)
@@ -210,7 +210,7 @@ bool CObjectChara2D::IsCancel(void) const
 //============================================================
 //	コンボ取得処理
 //============================================================
-bool CObjectChara2D::IsCombo(void) const
+bool CObjectChara2D::IsCombo() const
 {
 	float fComboTime = m_info.vecMotion[m_info.nType].fComboTime;	// コンボ可能時間
 	if (fComboTime >= 0.0f)
@@ -247,7 +247,7 @@ VECTOR3 CObjectChara2D::CalcCollOffsetPosition(const VECTOR3& rPos, const VECTOR
 //============================================================
 //	原点オフセット反映位置の取得処理
 //============================================================
-VECTOR3 CObjectChara2D::GetOriginOffsetPosition(void) const
+VECTOR3 CObjectChara2D::GetOriginOffsetPosition() const
 {
 	// 原点オフセット反映位置の計算結果を返す
 	const VECTOR3& rPos = GetVec3Position();	// 位置
@@ -258,7 +258,7 @@ VECTOR3 CObjectChara2D::GetOriginOffsetPosition(void) const
 //============================================================
 //	判定原点オフセット反映位置の取得処理
 //============================================================
-VECTOR3 CObjectChara2D::GetCollOffsetPosition(void) const
+VECTOR3 CObjectChara2D::GetCollOffsetPosition() const
 {
 	// 判定原点オフセット反映位置の計算結果を返す
 	const VECTOR3& rPos = GetVec3Position();	// 位置
@@ -269,7 +269,7 @@ VECTOR3 CObjectChara2D::GetCollOffsetPosition(void) const
 //============================================================
 //	描画マトリックスの計算処理
 //============================================================
-void CObjectChara2D::CalcDrawMatrix(void)
+void CObjectChara2D::CalcDrawMatrix()
 {
 	VECTOR3 offset = m_info.vecMotion[m_info.nType].infoChara.offset;	// オフセット
 	MATRIX* pMtxWorld = GetPtrMtxWorld();	// ワールドマトリックス

@@ -58,7 +58,7 @@ CRenderState::~CRenderState()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CRenderState::Init(void)
+HRESULT CRenderState::Init()
 {
 	// メンバ変数を初期化
 	m_info = m_save;	// レンダーステート情報
@@ -70,7 +70,7 @@ HRESULT CRenderState::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CRenderState::Uninit(void)
+void CRenderState::Uninit()
 {
 
 }
@@ -78,7 +78,7 @@ void CRenderState::Uninit(void)
 //============================================================
 //	設定処理
 //============================================================
-void CRenderState::Set(void)
+void CRenderState::Set()
 {
 	// 設定中のレンダーステートを設定
 	SetRenderState(m_info);
@@ -87,7 +87,7 @@ void CRenderState::Set(void)
 //============================================================
 //	再設定処理
 //============================================================
-void CRenderState::Reset(void)
+void CRenderState::Reset()
 {
 	// 保存済みのレンダーステートに戻す
 	SetRenderState(m_save);
@@ -105,7 +105,7 @@ void CRenderState::SetInfoRenderState(const SInfo& rInfo)
 //============================================================
 //	レンダーステート情報の取得処理
 //============================================================
-CRenderState::SInfo CRenderState::GetInfoRenderState(void)
+CRenderState::SInfo CRenderState::GetInfoRenderState()
 {
 	// レンダーステート情報を返す
 	return m_info;
@@ -128,7 +128,7 @@ void CRenderState::SetAlphaBlend(const EBlend blend)
 //============================================================
 //	生成処理
 //============================================================
-CRenderState* CRenderState::Create(void)
+CRenderState* CRenderState::Create()
 {
 	// レンダーステートの生成
 	CRenderState* pRenderState = new CRenderState;
@@ -182,7 +182,7 @@ void CRenderState::BindDevice(LPDIRECT3DDEVICE9* ppDevice)
 //============================================================
 //	レンダーステート情報の初期化処理
 //============================================================
-void CRenderState::InitRenderState(void)
+void CRenderState::InitRenderState()
 {
 	// αブレンド情報を初期化
 	m_save.blendAlpha.op		= D3DBLENDOP_ADD;
@@ -212,7 +212,7 @@ void CRenderState::InitRenderState(void)
 //============================================================
 //	保存レンダーステート情報の取得処理
 //============================================================
-CRenderState::SInfo CRenderState::GetSaveRenderState(void)
+CRenderState::SInfo CRenderState::GetSaveRenderState()
 {
 	// 保存レンダーステート情報を返す
 	return m_save;

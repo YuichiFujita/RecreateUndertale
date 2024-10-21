@@ -77,12 +77,12 @@ public:
 	};
 
 	// メンバ関数
-	HRESULT Init(void);	// 初期化
-	void Uninit(void);	// 終了
-	void Set(void);		// 設定
-	void Reset(void);	// 再設定
+	HRESULT Init();	// 初期化
+	void Uninit();	// 終了
+	void Set();		// 設定
+	void Reset();	// 再設定
 	void SetInfoRenderState(const SInfo& rInfo);	// レンダーステート情報設定
-	SInfo GetInfoRenderState(void);					// レンダーステート情報取得
+	SInfo GetInfoRenderState();					// レンダーステート情報取得
 	void SetAlphaBlend(const EBlend blend);			// αブレンド情報設定
 
 	void SetAlphaFunc(const D3DCMPFUNC func)	{ m_info.testAlpha.func		= func; }		// αテストの情報設定
@@ -95,11 +95,11 @@ public:
 	void SetLighting(const bool bLight)			{ m_info.bLight	= bLight; }	// ライティング設定
 
 	// 静的メンバ関数
-	static CRenderState* Create(void);	// 生成
+	static CRenderState* Create();	// 生成
 	static void Release(CRenderState*& prRenderState);		// 破棄
 	static void BindDevice(LPDIRECT3DDEVICE9* ppDevice);	// デバイス割当
-	static void InitRenderState(void);		// レンダーステート情報初期化
-	static SInfo GetSaveRenderState(void);	// 保存レンダーステート情報取得
+	static void InitRenderState();		// レンダーステート情報初期化
+	static SInfo GetSaveRenderState();	// 保存レンダーステート情報取得
 
 private:
 	// 静的メンバ関数

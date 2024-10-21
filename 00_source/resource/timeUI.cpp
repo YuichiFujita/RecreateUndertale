@@ -68,7 +68,7 @@ CTimeUI::~CTimeUI()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CTimeUI::Init(void)
+HRESULT CTimeUI::Init()
 {
 	// メンバ変数を初期化
 	memset(&m_apValue[0], 0, sizeof(m_apValue));	// 数値の情報
@@ -131,7 +131,7 @@ HRESULT CTimeUI::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CTimeUI::Uninit(void)
+void CTimeUI::Uninit()
 {
 	for (int nCntValue = 0; nCntValue < timeUI::MAX_DIGIT; nCntValue++)
 	{ // 数字の数分繰り返す
@@ -556,7 +556,7 @@ void CTimeUI::SetAlignY(const EAlignY align)
 //============================================================
 //	タイム全体の横幅取得処理
 //============================================================
-float CTimeUI::GetTimeWidth(void) const
+float CTimeUI::GetTimeWidth() const
 {
 	float fTimeWidth = 0.0f;				// タイム全体の横幅
 	int nEndNumID = timeUI::MAX_DIGIT - 1;	// 終端数字のインデックス
@@ -580,7 +580,7 @@ float CTimeUI::GetTimeWidth(void) const
 //============================================================
 //	タイム全体の縦幅取得処理
 //============================================================
-float CTimeUI::GetTimeHeight(void) const
+float CTimeUI::GetTimeHeight() const
 {
 	float fTimeHeight = 0.0f;				// タイム全体の縦幅
 	int nEndNumID = timeUI::MAX_DIGIT - 1;	// 終端数字のインデックス
@@ -604,7 +604,7 @@ float CTimeUI::GetTimeHeight(void) const
 //============================================================
 //	数字全体の大きさ取得処理
 //============================================================
-VECTOR3 CTimeUI::GetTimeSize(void) const
+VECTOR3 CTimeUI::GetTimeSize() const
 {
 	// 数字全体の大きさを返す
 	return VECTOR3(GetTimeWidth(), GetTimeHeight(), 0.0f);
@@ -613,7 +613,7 @@ VECTOR3 CTimeUI::GetTimeSize(void) const
 //============================================================
 //	相対位置の設定処理
 //============================================================
-void CTimeUI::SetPositionRelative(void)
+void CTimeUI::SetPositionRelative()
 {
 	int nValueID = 0;	// 数字の生成数
 	int nPartID = 0;	// 区切りの生成数
@@ -678,7 +678,7 @@ void CTimeUI::SetPositionRelative(void)
 //============================================================
 //	数字のテクスチャ座標の設定処理
 //============================================================
-void CTimeUI::SetTexNum(void)
+void CTimeUI::SetTexNum()
 {
 	int aNumDivide[timeUI::MAX_DIGIT];	// 数値分解用
 

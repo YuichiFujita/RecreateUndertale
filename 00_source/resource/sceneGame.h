@@ -38,16 +38,16 @@ public:
 	~CSceneGame() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
 
 	// 静的メンバ関数
-	static CGameManager* GetGameManager(void);	// ゲームマネージャー取得
-	static CMenuManager* GetMenuManager(void);	// メニューマネージャー取得
-	static CPause* GetPause(void);		// ポーズ取得
-	static CStage* GetStage(void);		// ステージ取得
-	static CPlayer* GetPlayer(void);	// プレイヤー取得
+	static CGameManager* GetGameManager();	// ゲームマネージャー取得
+	static CMenuManager* GetMenuManager();	// メニューマネージャー取得
+	static CPause* GetPause();		// ポーズ取得
+	static CStage* GetStage();		// ステージ取得
+	static CPlayer* GetPlayer();	// プレイヤー取得
 
 private:
 	// 静的メンバ変数

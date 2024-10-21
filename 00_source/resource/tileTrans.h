@@ -34,14 +34,14 @@ public:
 	~CTileTrans();
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
 	void Draw(CShader* pShader = nullptr) override;	// 描画
 
 	// 静的メンバ関数
 	static CTileTrans* Create(const char* pNextPath, const VECTOR3& rPos);	// 生成
-	static CListManager<CTileTrans>* GetList(void);	// リスト取得
+	static CListManager<CTileTrans>* GetList();	// リスト取得
 
 	static void CollisionTile	// 遷移タイルとの当たり判定
 	( // 引数

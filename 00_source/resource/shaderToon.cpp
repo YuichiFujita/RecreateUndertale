@@ -64,7 +64,7 @@ CToonShader::~CToonShader()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CToonShader::Init(void)
+HRESULT CToonShader::Init()
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイス情報
 	LPD3DXBUFFER pError  = nullptr;	// コンパイルエラー情報
@@ -156,7 +156,7 @@ HRESULT CToonShader::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CToonShader::Uninit(void)
+void CToonShader::Uninit()
 {
 	// シェーダーの終了
 	CShader::Uninit();
@@ -302,7 +302,7 @@ void CToonShader::SetOnlyDiffuse(const COLOR& rDiffuse)
 //============================================================
 //	生成処理
 //============================================================
-CToonShader* CToonShader::Create(void)
+CToonShader* CToonShader::Create()
 {
 	// インスタンス使用中
 	assert(m_pShader == nullptr);
@@ -335,7 +335,7 @@ CToonShader* CToonShader::Create(void)
 //============================================================
 //	取得処理
 //============================================================
-CToonShader* CToonShader::GetInstance(void)
+CToonShader* CToonShader::GetInstance()
 {
 	// インスタンス未使用
 	assert(m_pShader != nullptr);
@@ -347,7 +347,7 @@ CToonShader* CToonShader::GetInstance(void)
 //============================================================
 //	破棄処理
 //============================================================
-void CToonShader::Release(void)
+void CToonShader::Release()
 {
 	// トゥーンシェーダーの終了
 	assert(m_pShader != nullptr);

@@ -49,7 +49,7 @@ CObjectTornado::~CObjectTornado()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CObjectTornado::Init(void)
+HRESULT CObjectTornado::Init()
 {
 	// メンバ変数を初期化
 	m_pVtxBuff		= nullptr;	// 頂点バッファ
@@ -115,7 +115,7 @@ HRESULT CObjectTornado::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CObjectTornado::Uninit(void)
+void CObjectTornado::Uninit()
 {
 	// 頂点バッファの破棄
 	SAFE_RELEASE(m_pVtxBuff);
@@ -399,7 +399,7 @@ HRESULT CObjectTornado::SetVortex(const int nNumAround, const int nPattern)
 //============================================================
 //	レンダーステート情報の取得処理
 //============================================================
-CRenderState* CObjectTornado::GetRenderState(void)
+CRenderState* CObjectTornado::GetRenderState()
 {
 	// インスタンス未使用
 	assert(m_pRenderState != nullptr);
@@ -445,7 +445,7 @@ void CObjectTornado::BindTexture(const char* pTexturePath)
 //============================================================
 //	親マトリックス削除処理
 //============================================================
-void CObjectTornado::DeleteMatrixParent(void)
+void CObjectTornado::DeleteMatrixParent()
 {
 	// 親マトリックスをnullptrにする
 	m_tornado.pMtxParent = nullptr;
@@ -583,7 +583,7 @@ void CObjectTornado::SetSubAlpha(const float fSubAlpha)
 //============================================================
 //	頂点情報の設定処理
 //============================================================
-void CObjectTornado::SetVtx(void)
+void CObjectTornado::SetVtx()
 {
 	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 	VECTOR3 vecPos;		// 竜巻の頂点方向ベクトル
@@ -657,7 +657,7 @@ void CObjectTornado::SetVtx(void)
 //============================================================
 //	通常描画処理
 //============================================================
-void CObjectTornado::DrawNormal(void)
+void CObjectTornado::DrawNormal()
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 

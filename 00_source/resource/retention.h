@@ -24,11 +24,11 @@ public:
 	~CRetention();
 
 	// メンバ関数
-	HRESULT Init(void);	// 初期化
-	void Uninit(void);	// 終了
+	HRESULT Init();	// 初期化
+	void Uninit();	// 終了
 
 	// 静的メンバ関数
-	static CRetention* Create(void);	// 生成
+	static CRetention* Create();	// 生成
 	static void Release(CRetention*& prRetention);	// 破棄
 };
 

@@ -42,7 +42,7 @@ CObjectChara::~CObjectChara()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CObjectChara::Init(void)
+HRESULT CObjectChara::Init()
 {
 	// メンバ変数を初期化
 	D3DXMatrixIdentity(&m_mtxWorld);	// ワールドマトリックス
@@ -70,7 +70,7 @@ HRESULT CObjectChara::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CObjectChara::Uninit(void)
+void CObjectChara::Uninit()
 {
 	// モーションの破棄
 	SAFE_REF_RELEASE(m_pMotion);
@@ -463,7 +463,7 @@ void CObjectChara::SetAllMaterial(const D3DXMATERIAL& rMat)
 //============================================================
 //	マテリアル再設定処理
 //============================================================
-void CObjectChara::ResetMaterial(void)
+void CObjectChara::ResetMaterial()
 {
 	for (auto& rVec : m_vecParts)
 	{ // パーツ数分繰り返す
@@ -489,7 +489,7 @@ void CObjectChara::SetAlpha(const float fAlpha)
 //============================================================
 //	透明度取得処理
 //============================================================
-float CObjectChara::GetAlpha(void) const
+float CObjectChara::GetAlpha() const
 {
 	// 最も不透明な透明度を探す
 	float fAlpha = 0.0f;	// 最も不透明なマテリアルの透明度
@@ -512,7 +512,7 @@ float CObjectChara::GetAlpha(void) const
 //============================================================
 //	最大透明度取得処理
 //============================================================
-float CObjectChara::GetMaxAlpha(void) const
+float CObjectChara::GetMaxAlpha() const
 {
 	// 最も不透明な透明度を探す
 	float fAlpha = 0.0f;	// 最も不透明なマテリアルの透明度

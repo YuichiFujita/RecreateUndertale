@@ -41,7 +41,7 @@ CSceneIntro::~CSceneIntro()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CSceneIntro::Init(void)
+HRESULT CSceneIntro::Init()
 {
 	// シーンの初期化
 	if (FAILED(CScene::Init()))
@@ -73,7 +73,7 @@ HRESULT CSceneIntro::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CSceneIntro::Uninit(void)
+void CSceneIntro::Uninit()
 {
 	// イントロマネージャーの破棄
 	SAFE_REF_RELEASE(m_pIntroManager);
@@ -98,7 +98,7 @@ void CSceneIntro::Update(const float fDeltaTime)
 //============================================================
 //	イントロマネージャー取得処理
 //============================================================
-CIntroManager* CSceneIntro::GetIntroManager(void)
+CIntroManager* CSceneIntro::GetIntroManager()
 {
 	// インスタンス未使用
 	assert(m_pIntroManager != nullptr);

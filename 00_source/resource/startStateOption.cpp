@@ -74,7 +74,7 @@ CStartStateOption::~CStartStateOption()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CStartStateOption::Init(void)
+HRESULT CStartStateOption::Init()
 {
 	// メンバ変数を初期化
 	memset(&m_apSelect[0], 0, sizeof(m_apSelect));	// 選択肢
@@ -134,7 +134,7 @@ HRESULT CStartStateOption::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CStartStateOption::Uninit(void)
+void CStartStateOption::Uninit()
 {
 	// タイトルの終了
 	SAFE_UNINIT(m_pTitle);
@@ -165,7 +165,7 @@ void CStartStateOption::Update(const float fDeltaTime)
 //============================================================
 //	選択の更新処理
 //============================================================
-void CStartStateOption::UpdateSelect(void)
+void CStartStateOption::UpdateSelect()
 {
 	CInputKeyboard* pKey = GET_INPUTKEY;	// キーボード情報
 
@@ -194,7 +194,7 @@ void CStartStateOption::UpdateSelect(void)
 //============================================================
 //	決定の更新処理
 //============================================================
-void CStartStateOption::UpdateDecide(void)
+void CStartStateOption::UpdateDecide()
 {
 	if (input::Decide())
 	{

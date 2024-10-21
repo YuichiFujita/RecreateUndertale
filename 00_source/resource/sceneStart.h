@@ -34,12 +34,12 @@ public:
 	~CSceneStart() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
 
 	// 静的メンバ関数
-	static CStartManager* GetStartManager(void);	// スタートマネージャー取得
+	static CStartManager* GetStartManager();	// スタートマネージャー取得
 
 private:
 	// 静的メンバ変数

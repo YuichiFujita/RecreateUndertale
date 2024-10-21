@@ -30,8 +30,8 @@ public:
 	~CChar2D() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;		// 更新
 	void Draw(CShader* pShader = nullptr) override;		// 描画
 	void SetVec3Size(const VECTOR3& rSize) override;	// 大きさ設定
@@ -67,14 +67,14 @@ public:
 	void SetChar(const std::string& rChar);		// 文字の設定 (マルチバイト文字)
 	void SetChar(const wchar_t wcChar);			// 文字の設定 (ワイド文字)
 	void SetCharHeight(const float fHeight);	// 文字の縦幅設定
-	VECTOR2 GetOffsetBlackBoxLU(void);			// ブラックボックスの左上オフセット取得
-	VECTOR2 GetOffsetBlackBoxRD(void);			// ブラックボックスの右下オフセット取得
+	VECTOR2 GetOffsetBlackBoxLU();				// ブラックボックスの左上オフセット取得
+	VECTOR2 GetOffsetBlackBoxRD();				// ブラックボックスの右下オフセット取得
 
-	bool IsTexEmpty(void) const		{ return m_bTexEmpty; }	// テクスチャ透明フラグ取得
-	wchar_t GetWideChar(void) const	{ return m_wcChar; }	// 文字取得 (ワイド文字)
-	std::string GetChar(void) const;	// 文字取得 (マルチバイト文字)
-	float GetOffsetOrigin(void);		// 原点のオフセット取得
-	float GetNext(void);				// 次の文字までの距離取得
+	inline bool IsTexEmpty() const		{ return m_bTexEmpty; }	// テクスチャ透明フラグ取得
+	inline wchar_t GetWideChar() const	{ return m_wcChar; }	// 文字取得 (ワイド文字)
+	std::string GetChar() const;	// 文字取得 (マルチバイト文字)
+	float GetOffsetOrigin();		// 原点のオフセット取得
+	float GetNext();				// 次の文字までの距離取得
 
 private:
 	// メンバ変数

@@ -44,14 +44,14 @@ public:
 	};
 
 	// メンバ関数
-	HRESULT Init(void);		// モデル初期化
-	void Uninit(void);		// モデル終了
-	HRESULT LoadAll(void);	// モデル全読込
+	HRESULT Init();		// モデル初期化
+	void Uninit();		// モデル終了
+	HRESULT LoadAll();	// モデル全読込
 	int Regist(std::string sFilePath);	// モデル登録
 	SModel* GetInfo(const int nID);		// モデル情報取得
 
 	// 静的メンバ関数
-	static CModel* Create(void);			// 生成
+	static CModel* Create();				// 生成
 	static void Release(CModel* &pModel);	// 破棄
 
 private:

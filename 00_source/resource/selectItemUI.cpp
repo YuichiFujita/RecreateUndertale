@@ -83,7 +83,7 @@ CSelectItemUI::~CSelectItemUI()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CSelectItemUI::Init(void)
+HRESULT CSelectItemUI::Init()
 {
 	// メンバ変数を初期化
 	memset(&m_apSelect[0], 0, sizeof(m_apSelect));	// 選択情報
@@ -203,7 +203,7 @@ HRESULT CSelectItemUI::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CSelectItemUI::Uninit(void)
+void CSelectItemUI::Uninit()
 {
 	for (int i = 0; i < SELECT_MAX; i++)
 	{ // 選択肢の総数分繰り返す
@@ -305,7 +305,7 @@ void CSelectItemUI::SetEnableDraw(const bool bDraw)
 //============================================================
 //	アイテム選択の更新処理
 //============================================================
-void CSelectItemUI::UpdateSelectItem(void)
+void CSelectItemUI::UpdateSelectItem()
 {
 	// 選択肢操作
 	CInputKeyboard* pKey = GET_INPUTKEY;		// キーボード情報
@@ -328,7 +328,7 @@ void CSelectItemUI::UpdateSelectItem(void)
 //============================================================
 //	アイテム決定の更新処理
 //============================================================
-void CSelectItemUI::UpdateDecideItem(void)
+void CSelectItemUI::UpdateDecideItem()
 {
 	if (input::Decide())
 	{
@@ -340,7 +340,7 @@ void CSelectItemUI::UpdateDecideItem(void)
 //============================================================
 //	行動選択の更新処理
 //============================================================
-void CSelectItemUI::UpdateSelectAct(void)
+void CSelectItemUI::UpdateSelectAct()
 {
 	// 選択肢操作
 	CInputKeyboard* pKey = GET_INPUTKEY;	// キーボード情報
@@ -363,7 +363,7 @@ void CSelectItemUI::UpdateSelectAct(void)
 //============================================================
 //	行動決定の更新処理
 //============================================================
-void CSelectItemUI::UpdateDecideAct(void)
+void CSelectItemUI::UpdateDecideAct()
 {
 	if (input::Decide())
 	{
@@ -416,7 +416,7 @@ CItemUI::~CItemUI()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CItemUI::Init(void)
+HRESULT CItemUI::Init()
 {
 	// メンバ変数を初期化
 	m_pTextBox = nullptr;	// テキストボックス情報
@@ -444,7 +444,7 @@ HRESULT CItemUI::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CItemUI::Uninit(void)
+void CItemUI::Uninit()
 {
 	// テキストボックスの終了
 	SAFE_UNINIT(m_pTextBox);

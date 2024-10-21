@@ -46,25 +46,25 @@ public:
 	~CMenuSelectUI() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
 	void Draw(CShader* pShader = nullptr) override;	// 描画
 
 	// 静的メンバ関数
-	static CMenuSelectUI* Create(void);	// 生成
+	static CMenuSelectUI* Create();	// 生成
 
 	// メンバ関数
-	bool IsChoiceSelect(void) const { return (m_pSelectMenu != nullptr); }	// 選択中状況取得
+	inline bool IsChoiceSelect() const { return (m_pSelectMenu != nullptr); }	// 選択中状況取得
 
 private:
 	// オーバーライド関数
-	void Release(void) override { CObject::Release(); }	// 破棄
+	inline void Release() override { CObject::Release(); }	// 破棄
 
 	// メンバ関数
-	void UpdateSelect(void);		// 選択更新
-	void UpdateDecide(void);		// 決定更新
-	void UninitSelectMenu(void);	// 選択メニュー終了
+	void UpdateSelect();		// 選択更新
+	void UpdateDecide();		// 決定更新
+	void UninitSelectMenu();	// 選択メニュー終了
 	HRESULT ChangeSelectMenu(const CMenuSelectUI::ESelect select);	// 選択メニュー変更
 
 	// メンバ変数
@@ -80,7 +80,7 @@ class CSelectUI : public CObject
 {
 public:
 	// エイリアス定義
-	using AFuncUninit = const std::function<void(void)>;	// 選択メニュー終了関数のポインタ型
+	using AFuncUninit = const std::function<void()>;	// 選択メニュー終了関数のポインタ型
 
 	// コンストラクタ
 	CSelectUI(AFuncUninit funcUninit, CObject2D* pSoul);
@@ -89,8 +89,8 @@ public:
 	~CSelectUI() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
 	void Draw(CShader* pShader = nullptr) override;	// 描画
 	void SetEnableDraw(const bool bDraw) override;	// 描画状況設定
@@ -104,20 +104,20 @@ public:
 	);
 
 	// メンバ関数
-	void SetFramePosition(const VECTOR3& rPos)	{ m_pFrame->SetVec3Position(rPos); }	// フレーム位置設定
-	void SetFrameRotation(const VECTOR3& rRot)	{ m_pFrame->SetVec3Rotation(rRot); }	// フレーム向き設定
-	void SetFrameSize(const VECTOR3& rSize)		{ m_pFrame->SetVec3Size(rSize); }		// フレーム大きさ設定
-	void SetSoulPosition(const VECTOR3& rPos)	{ m_pSoul->SetVec3Position(rPos); }		// ソウルカーソル位置設定
-	void SetSoulCursorDraw(const bool bDraw)	{ m_pSoul->SetEnableDraw(bDraw); }		// ソウルカーソル描画状況設定
-	VECTOR3 GetFramePosition(void) const		{ return m_pFrame->GetVec3Position(); }	// フレーム位置取得
-	VECTOR3 GetFrameRotation(void) const		{ return m_pFrame->GetVec3Rotation(); }	// フレーム向き取得
-	VECTOR3 GetFrameSize(void) const			{ return m_pFrame->GetVec3Size(); }		// フレーム大きさ取得
-	VECTOR3 GetSoulPosition(void) const			{ return m_pSoul->GetVec3Position(); }	// ソウルカーソル位置取得
-	bool IsSoulCursorDraw(void) const			{ return m_pSoul->IsDraw(); }			// ソウルカーソル描画状況取得
+	inline void SetFramePosition(const VECTOR3& rPos)	{ m_pFrame->SetVec3Position(rPos); }	// フレーム位置設定
+	inline void SetFrameRotation(const VECTOR3& rRot)	{ m_pFrame->SetVec3Rotation(rRot); }	// フレーム向き設定
+	inline void SetFrameSize(const VECTOR3& rSize)		{ m_pFrame->SetVec3Size(rSize); }		// フレーム大きさ設定
+	inline void SetSoulPosition(const VECTOR3& rPos)	{ m_pSoul->SetVec3Position(rPos); }		// ソウルカーソル位置設定
+	inline void SetSoulCursorDraw(const bool bDraw)		{ m_pSoul->SetEnableDraw(bDraw); }		// ソウルカーソル描画状況設定
+	inline VECTOR3 GetFramePosition() const	{ return m_pFrame->GetVec3Position(); }	// フレーム位置取得
+	inline VECTOR3 GetFrameRotation() const	{ return m_pFrame->GetVec3Rotation(); }	// フレーム向き取得
+	inline VECTOR3 GetFrameSize() const		{ return m_pFrame->GetVec3Size(); }		// フレーム大きさ取得
+	inline VECTOR3 GetSoulPosition() const	{ return m_pSoul->GetVec3Position(); }	// ソウルカーソル位置取得
+	inline bool IsSoulCursorDraw() const	{ return m_pSoul->IsDraw(); }			// ソウルカーソル描画状況取得
 
 private:
 	// オーバーライド関数
-	void Release(void) override { CObject::Release(); }	// 破棄
+	inline void Release() override { CObject::Release(); }	// 破棄
 
 	// メンバ変数
 	AFuncUninit m_funcUninitMenu;	// 選択メニュー終了関数ポインタ

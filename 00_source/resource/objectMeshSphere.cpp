@@ -47,7 +47,7 @@ CObjectMeshSphere::~CObjectMeshSphere()
 //============================================================
 //	‰Šú‰»ˆ—
 //============================================================
-HRESULT CObjectMeshSphere::Init(void)
+HRESULT CObjectMeshSphere::Init()
 {
 	// ƒƒ“ƒo•Ï”‚ğ‰Šú‰»
 	memset(&m_apDome[0], 0, sizeof(m_apDome));	// ”¼‹…‚Ìî•ñ
@@ -88,7 +88,7 @@ HRESULT CObjectMeshSphere::Init(void)
 //============================================================
 //	I—¹ˆ—
 //============================================================
-void CObjectMeshSphere::Uninit(void)
+void CObjectMeshSphere::Uninit()
 {
 	for (int i = 0; i < DOME_MAX; i++)
 	{ // ”¼‹…‚Ì‘”•ªŒJ‚è•Ô‚·

@@ -52,7 +52,7 @@ CAnim3D::~CAnim3D()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CAnim3D::Init(void)
+HRESULT CAnim3D::Init()
 {
 	// メンバ変数を初期化
 	m_funcPattern	= nullptr;		// パターン変更関数ポインタ
@@ -94,7 +94,7 @@ HRESULT CAnim3D::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CAnim3D::Uninit(void)
+void CAnim3D::Uninit()
 {
 	// パターン変更時間の破棄
 	SAFE_DEL_ARRAY(m_pNextTime);
@@ -362,7 +362,7 @@ void CAnim3D::SetEnableLoop(const bool bLoop)
 //============================================================
 //	現在パターンの初期化処理
 //============================================================
-void CAnim3D::ResetCurPtrn(void)
+void CAnim3D::ResetCurPtrn()
 {
 	// 終了フラグをOFFにする
 	m_bFinish = false;

@@ -29,13 +29,13 @@ public:
 	~CPlayerStateNormal() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	int Update(const float fDeltaTime) override;	// 更新
 
 private:
 	// メンバ関数
-	int ControlMove(void);	// 移動操作
+	int ControlMove();	// 移動操作
 	void UpdatePosition(VECTOR3& rPos, const float fDeltaTime);	// 位置更新
 
 	// メンバ変数

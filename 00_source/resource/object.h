@@ -99,9 +99,9 @@ public:
 	virtual ~CObject();
 
 	// 純粋仮想関数
-	virtual HRESULT Init(void)	= 0;	// 初期化
-	virtual void Uninit(void)	= 0;	// 終了
-	virtual void Release(void)	= 0;	// 破棄
+	virtual HRESULT Init()	= 0;	// 初期化
+	virtual void Uninit()	= 0;	// 終了
+	virtual void Release()	= 0;	// 破棄
 	virtual void Update(const float fDeltaTime)		= 0;	// 更新
 	virtual void Draw(CShader* pShader = nullptr)	= 0;	// 描画
 
@@ -117,40 +117,40 @@ public:
 	virtual inline void SetVec2Size(const VECTOR2&)			{ assert(false); }			// 二軸の大きさ設定
 	virtual inline void SetVec3Size(const VECTOR3&)			{ assert(false); }			// 三軸の大きさ設定
 	virtual inline void SetVec3Scale(const VECTOR3&)		{ assert(false); }			// 拡大率設定
-	virtual inline VECTOR2 GetVec2Position(void) const		{ assert(false); return VEC2_ZERO; }	// 二軸の位置取得
-	virtual inline VECTOR3 GetVec3Position(void) const		{ assert(false); return VEC3_ZERO; }	// 三軸の位置取得
-	virtual inline VECTOR3 GetVec3Rotation(void) const		{ assert(false); return VEC3_ZERO; }	// 向き取得
-	virtual inline VECTOR2 GetVec2Size(void) const			{ assert(false); return VEC2_ZERO; }	// 二軸の大きさ取得
-	virtual inline VECTOR3 GetVec3Size(void) const			{ assert(false); return VEC3_ZERO; }	// 三軸の大きさ取得
-	virtual inline VECTOR3 GetVec3Scale(void) const			{ assert(false); return VEC3_ZERO; }	// 拡大率取得
-	virtual inline MATRIX* GetPtrMtxWorld(void)				{ assert(false); return nullptr; }		// マトリックスポインタ取得
-	virtual inline MATRIX GetMtxWorld(void) const			{ assert(false); return {}; }			// マトリックス取得
+	virtual inline VECTOR2 GetVec2Position() const			{ assert(false); return VEC2_ZERO; }	// 二軸の位置取得
+	virtual inline VECTOR3 GetVec3Position() const			{ assert(false); return VEC3_ZERO; }	// 三軸の位置取得
+	virtual inline VECTOR3 GetVec3Rotation() const			{ assert(false); return VEC3_ZERO; }	// 向き取得
+	virtual inline VECTOR2 GetVec2Size() const				{ assert(false); return VEC2_ZERO; }	// 二軸の大きさ取得
+	virtual inline VECTOR3 GetVec3Size() const				{ assert(false); return VEC3_ZERO; }	// 三軸の大きさ取得
+	virtual inline VECTOR3 GetVec3Scale() const				{ assert(false); return VEC3_ZERO; }	// 拡大率取得
+	virtual inline MATRIX* GetPtrMtxWorld()					{ assert(false); return nullptr; }		// マトリックスポインタ取得
+	virtual inline MATRIX GetMtxWorld() const				{ assert(false); return {}; }			// マトリックス取得
 
 	// 静的メンバ関数
 	static void	ReleaseAll(const std::vector<ELabel> label);	// 全破棄 (複数ラベル指定)
-	static void	ReleaseAll(const ELabel label);			// 全破棄 (ラベル指定)
-	static void	ReleaseAll(void);						// 全破棄
-	static void	UpdateAll(const float fDeltaTime);		// 全更新
-	static void	DrawAll(void);							// 全描画
-	static int	GetNumAll(void) { return m_nNumAll; }	// 総数取得
-	static CObject* GetTop(const EDim dimension, const int nPriority) { return m_apTop[dimension][nPriority]; }	// 先頭オブジェクト取得
-	static CObject* GetCur(const EDim dimension, const int nPriority) { return m_apCur[dimension][nPriority]; }	// 最後尾オブジェクト取得
+	static void	ReleaseAll(const ELabel label);		// 全破棄 (ラベル指定)
+	static void	ReleaseAll();						// 全破棄
+	static void	UpdateAll(const float fDeltaTime);	// 全更新
+	static void	DrawAll();							// 全描画
+	static int	GetNumAll() { return m_nNumAll; }	// 総数取得
+	static inline CObject* GetTop(const EDim dimension, const int nPriority) { return m_apTop[dimension][nPriority]; }	// 先頭オブジェクト取得
+	static inline CObject* GetCur(const EDim dimension, const int nPriority) { return m_apCur[dimension][nPriority]; }	// 最後尾オブジェクト取得
 
 	// メンバ関数
-	inline ELabel	GetLabel(void) const		{ return m_label; }		// ラベル取得
-	inline EDim		GetDimension(void) const	{ return m_dimension; }	// 次元取得
-	inline int		GetPriority(void) const		{ return m_nPriority; }	// 優先順位取得
-	inline DWORD	GetUniqueID(void) const		{ return m_dwID; }		// ユニークID取得
-	inline bool		IsUpdate(void) const		{ return m_bUpdate; }	// 更新状況取得
-	inline bool		IsDraw(void) const			{ return m_bDraw; }		// 描画状況取得
-	inline bool		IsDeath(void) const			{ return m_bDeath; }	// 死亡フラグ取得
-	inline CObject*	GetObject(void)				{ return this; }		// オブジェクト取得
-	inline CObject*	GetPrev(void) const			{ return m_pPrev; }		// 前オブジェクト取得
-	inline CObject*	GetNext(void) const			{ return m_pNext; }		// 次オブジェクト取得
+	inline ELabel	GetLabel() const		{ return m_label; }		// ラベル取得
+	inline EDim		GetDimension() const	{ return m_dimension; }	// 次元取得
+	inline int		GetPriority() const		{ return m_nPriority; }	// 優先順位取得
+	inline DWORD	GetUniqueID() const		{ return m_dwID; }		// ユニークID取得
+	inline bool		IsUpdate() const		{ return m_bUpdate; }	// 更新状況取得
+	inline bool		IsDraw() const			{ return m_bDraw; }		// 描画状況取得
+	inline bool		IsDeath() const			{ return m_bDeath; }	// 死亡フラグ取得
+	inline CObject*	GetObject()				{ return this; }		// オブジェクト取得
+	inline CObject*	GetPrev() const			{ return m_pPrev; }		// 前オブジェクト取得
+	inline CObject*	GetNext() const			{ return m_pNext; }		// 次オブジェクト取得
 
 private:
 	// 静的メンバ関数
-	static void DeathAll(void);	// 全死亡
+	static void DeathAll();	// 全死亡
 
 	// 静的メンバ変数
 	static CObject*	m_apTop[DIM_MAX][object::MAX_PRIO];	// 先頭のオブジェクトへのポインタ
@@ -175,8 +175,8 @@ public:
 	static void	SetEnableDebugDispAll(const bool bDisp2D, const bool bDisp3D);	// 全表示状況設定
 
 	// メンバ関数
-	void SetEnableDebugDisp(const bool bDisp) { m_bDebugDisp = bDisp; }	// 表示状況設定
-	bool IsDebugDisp(void) const { return m_bDebugDisp; }	// 表示状況取得
+	inline void SetEnableDebugDisp(const bool bDisp) { m_bDebugDisp = bDisp; }	// 表示状況設定
+	inline bool IsDebugDisp() const { return m_bDebugDisp; }	// 表示状況取得
 
 private:
 	// メンバ変数

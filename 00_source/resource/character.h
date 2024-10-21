@@ -57,7 +57,7 @@ public:
 		}
 
 		// メンバ関数
-		int GetNumParts(void) { return vecParts.size(); }	// パーツ情報の総数取得
+		inline int GetNumParts() { return vecParts.size(); }	// パーツ情報の総数取得
 
 		// メンバ変数
 		std::vector<SParts> vecParts;	// パーツ情報
@@ -75,13 +75,13 @@ public:
 	};
 
 	// メンバ関数
-	HRESULT Init(void);		// キャラクター初期化
-	void Uninit(void);		// キャラクター終了
-	HRESULT LoadAll(void);	// キャラクター全読込
+	HRESULT Init();		// キャラクター初期化
+	void Uninit();		// キャラクター終了
+	HRESULT LoadAll();	// キャラクター全読込
 	SCharaData Regist(const char* pCharaPath);	// キャラクター登録
 
 	// 静的メンバ関数
-	static CCharacter* Create(void);	// 生成
+	static CCharacter* Create();	// 生成
 	static void Release(CCharacter*& prCharacter);	// 破棄
 
 private:

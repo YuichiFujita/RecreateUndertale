@@ -58,7 +58,7 @@ CObjectMeshRing::~CObjectMeshRing()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CObjectMeshRing::Init(void)
+HRESULT CObjectMeshRing::Init()
 {
 	// メンバ変数を初期化
 	m_pVtxBuff		= nullptr;		// 頂点バッファ
@@ -103,7 +103,7 @@ HRESULT CObjectMeshRing::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CObjectMeshRing::Uninit(void)
+void CObjectMeshRing::Uninit()
 {
 	// 頂点バッファの破棄
 	SAFE_RELEASE(m_pVtxBuff);
@@ -270,7 +270,7 @@ CObjectMeshRing* CObjectMeshRing::Create
 //============================================================
 //	レンダーステート情報の取得処理
 //============================================================
-CRenderState* CObjectMeshRing::GetRenderState(void)
+CRenderState* CObjectMeshRing::GetRenderState()
 {
 	// インスタンス未使用
 	assert(m_pRenderState != nullptr);
@@ -474,7 +474,7 @@ void CObjectMeshRing::SetTexPattern(const POSGRID2& rTexPart)
 //============================================================
 //	頂点情報の設定処理
 //============================================================
-void CObjectMeshRing::SetVtx(void)
+void CObjectMeshRing::SetVtx()
 {
 	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 	VECTOR3 vecPos;		// 頂点位置の計算用
@@ -530,7 +530,7 @@ void CObjectMeshRing::SetVtx(void)
 //============================================================
 //	インデックス情報の設定処理
 //============================================================
-void CObjectMeshRing::SetIdx(void)
+void CObjectMeshRing::SetIdx()
 {
 	WORD* pIdx;	// インデックス情報へのポインタ
 	if (m_pIdxBuff != nullptr)
@@ -608,7 +608,7 @@ void CObjectMeshRing::SetScrollTex(const float fTexU, const float fTexV)
 //============================================================
 //	通常描画処理
 //============================================================
-void CObjectMeshRing::DrawNormal(void)
+void CObjectMeshRing::DrawNormal()
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 

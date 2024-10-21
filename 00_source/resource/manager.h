@@ -53,16 +53,16 @@ public:
 
 	// メンバ関数
 	HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow);	// 初期化
-	HRESULT Load(void);	// 読込
-	void Uninit(void);	// 終了
-	void Update(void);	// 更新
-	void Draw(void);	// 描画
+	HRESULT Load();	// 読込
+	void Uninit();	// 終了
+	void Update();	// 更新
+	void Draw();	// 描画
 
 	// 静的メンバ関数
 	static CManager* Create(HINSTANCE hInstance, HWND hWnd, BOOL bWindow);	// 生成
-	static CManager* GetInstance(void);			// 取得
+	static CManager* GetInstance();			// 取得
 	static void Release(CManager*& prManager);	// 破棄
-	static void ReleaseWindow(void);			// ウインドウ破棄
+	static void ReleaseWindow();			// ウインドウ破棄
 
 	// メンバ関数
 	HRESULT InitScene(const CScene::EMode mode);	// シーン初期化
@@ -85,30 +85,30 @@ public:
 		const COLOR colFade		= color::Black(0.0f)	// フェード色
 	);
 
-	HRESULT SetMode(void);			// モード設定 (ロード：OFF)
-	HRESULT SetLoadMode(void);		// モード設定 (ロード：ON)
-	CScene::EMode GetMode(void);	// モード取得
+	HRESULT SetMode();			// モード設定 (ロード：OFF)
+	HRESULT SetLoadMode();		// モード設定 (ロード：ON)
+	CScene::EMode GetMode();	// モード取得
 
-	CDeltaTime*		GetDeltaTime(void);		// デルタタイム取得
-	CRenderer*		GetRenderer(void);		// レンダラー取得
-	CInputKeyboard*	GetKeyboard(void);		// キーボード取得
-	CInputMouse*	GetMouse(void);			// マウス取得
-	CInputPad*		GetPad(void);			// パッド取得
-	CSound*			GetSound(void);			// サウンド取得
-	CCamera*		GetCamera(void);		// カメラ取得
-	CLight*			GetLight(void);			// ライト取得
-	CTexture*		GetTexture(void);		// テクスチャ取得
-	CModel*			GetModel(void);			// モデル取得
-	CFont*			GetFont(void);			// フォント取得
-	CCharacter*		GetCharacter(void);		// キャラクター取得
-	CCharacter2D*	GetCharacter2D(void);	// キャラクター2D取得
-	CItem*			GetItem(void);			// アイテム取得
-	CFade*			GetFade(void);			// フェード取得
-	CLoading*		GetLoading(void);		// ローディング取得
-	CScene*			GetScene(void);			// シーン取得
-	CRetention*		GetRetention(void);		// データ保存取得
-	CDebugProc*		GetDebugProc(void);		// デバッグ表示取得
-	CDebug*			GetDebug(void);			// デバッグ取得
+	CDeltaTime*		GetDeltaTime();		// デルタタイム取得
+	CRenderer*		GetRenderer();		// レンダラー取得
+	CInputKeyboard*	GetKeyboard();		// キーボード取得
+	CInputMouse*	GetMouse();			// マウス取得
+	CInputPad*		GetPad();			// パッド取得
+	CSound*			GetSound();			// サウンド取得
+	CCamera*		GetCamera();		// カメラ取得
+	CLight*			GetLight();			// ライト取得
+	CTexture*		GetTexture();		// テクスチャ取得
+	CModel*			GetModel();			// モデル取得
+	CFont*			GetFont();			// フォント取得
+	CCharacter*		GetCharacter();		// キャラクター取得
+	CCharacter2D*	GetCharacter2D();	// キャラクター2D取得
+	CItem*			GetItem();			// アイテム取得
+	CFade*			GetFade();			// フェード取得
+	CLoading*		GetLoading();		// ローディング取得
+	CScene*			GetScene();			// シーン取得
+	CRetention*		GetRetention();		// データ保存取得
+	CDebugProc*		GetDebugProc();		// デバッグ表示取得
+	CDebug*			GetDebug();			// デバッグ取得
 
 private:
 	// 静的メンバ変数

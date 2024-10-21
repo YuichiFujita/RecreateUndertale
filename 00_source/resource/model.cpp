@@ -51,7 +51,7 @@ CModel::~CModel()
 //============================================================
 //	モデル初期化処理
 //============================================================
-HRESULT CModel::Init(void)
+HRESULT CModel::Init()
 {
 	// モデル連想配列を初期化
 	m_mapModel.clear();
@@ -63,7 +63,7 @@ HRESULT CModel::Init(void)
 //============================================================
 //	モデル終了処理
 //============================================================
-void CModel::Uninit(void)
+void CModel::Uninit()
 {
 	for (auto& rMap : m_mapModel)
 	{ // モデルの要素数分繰り返す
@@ -85,7 +85,7 @@ void CModel::Uninit(void)
 //============================================================
 //	モデル全読込処理
 //============================================================
-HRESULT CModel::LoadAll(void)
+HRESULT CModel::LoadAll()
 {
 	// モデルの全読込
 	if (FAILED(SearchFolderAll(LOAD_FOLDER)))
@@ -190,7 +190,7 @@ CModel::SModel* CModel::GetInfo(const int nID)
 //============================================================
 //	生成処理
 //============================================================
-CModel* CModel::Create(void)
+CModel* CModel::Create()
 {
 	// モデルの生成
 	CModel* pModel = new CModel;

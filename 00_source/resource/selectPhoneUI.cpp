@@ -46,7 +46,7 @@ CSelectPhoneUI::~CSelectPhoneUI()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CSelectPhoneUI::Init(void)
+HRESULT CSelectPhoneUI::Init()
 {
 	// セレクトUIの初期化
 	if (FAILED(CSelectUI::Init()))
@@ -73,7 +73,7 @@ HRESULT CSelectPhoneUI::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CSelectPhoneUI::Uninit(void)
+void CSelectPhoneUI::Uninit()
 {
 	// セレクトUIの終了
 	CSelectUI::Uninit();

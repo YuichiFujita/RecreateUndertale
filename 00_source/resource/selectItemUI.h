@@ -45,8 +45,8 @@ public:
 	~CSelectItemUI() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
 	void Draw(CShader* pShader = nullptr) override;	// 描画
 	void SetEnableDraw(const bool bDraw) override;	// 描画状況設定
@@ -78,10 +78,10 @@ private:
 	};
 
 	// メンバ関数
-	void UpdateSelectItem(void);	// アイテム選択更新
-	void UpdateDecideItem(void);	// アイテム決定更新
-	void UpdateSelectAct(void);		// 行動選択更新
-	void UpdateDecideAct(void);		// 行動決定更新
+	void UpdateSelectItem();	// アイテム選択更新
+	void UpdateDecideItem();	// アイテム決定更新
+	void UpdateSelectAct();		// 行動選択更新
+	void UpdateDecideAct();		// 行動決定更新
 
 	// メンバ変数
 	std::vector<SItem> m_vecItemName;	// アイテム情報
@@ -103,8 +103,8 @@ public:
 	~CItemUI() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
 	void Draw(CShader* pShader = nullptr) override;	// 描画
 
@@ -116,25 +116,25 @@ public:
 	);
 
 	// メンバ関数
-	HRESULT PushFrontString(const std::string& rStr)	{ return m_pTextBox->PushFrontString(rStr); }	// 文字列の先頭追加 (マルチバイト文字列)
-	HRESULT PushFrontString(const std::wstring& rStr)	{ return m_pTextBox->PushFrontString(rStr); }	// 文字列の先頭追加 (ワイド文字列)
-	HRESULT PushBackString(const std::string& rStr)		{ return m_pTextBox->PushBackString(rStr); }	// 文字列の最後尾追加 (マルチバイト文字列)
-	HRESULT PushBackString(const std::wstring& rStr)	{ return m_pTextBox->PushBackString(rStr); }	// 文字列の最後尾追加 (ワイド文字列)
-	void DeleteString(const int nStrID)			{ m_pTextBox->DeleteString(nStrID); }		// 文字列削除
-	void DeleteStringAll(void)					{ m_pTextBox->DeleteStringAll(); }			// 文字列全削除
-	void ChangeTextBox(const AText& rText)		{ m_pTextBox->ChangeText(rText); }			// テキスト変更
-	void SetTextBoxEnableDraw(const bool bDraw)	{ m_pTextBox->SetTextEnableDraw(bDraw); };	// 描画状況設定
-	bool IsTextBoxScroll(void) const	{ return m_pTextBox->IsTextScroll(); }	// 文字送り状況取得
-	int GetChoiceItemIdx(void) const	{ return m_nChoiceItemIdx; }			// 選択中アイテムインデックス取得
-	int GetCurTextIdx(void) const		{ return m_nCurTextIdx; }				// 現在のテキストインデックス取得
+	inline HRESULT PushFrontString(const std::string& rStr)		{ return m_pTextBox->PushFrontString(rStr); }	// 文字列の先頭追加 (マルチバイト文字列)
+	inline HRESULT PushFrontString(const std::wstring& rStr)	{ return m_pTextBox->PushFrontString(rStr); }	// 文字列の先頭追加 (ワイド文字列)
+	inline HRESULT PushBackString(const std::string& rStr)		{ return m_pTextBox->PushBackString(rStr); }	// 文字列の最後尾追加 (マルチバイト文字列)
+	inline HRESULT PushBackString(const std::wstring& rStr)		{ return m_pTextBox->PushBackString(rStr); }	// 文字列の最後尾追加 (ワイド文字列)
+	inline void DeleteString(const int nStrID)			{ m_pTextBox->DeleteString(nStrID); }		// 文字列削除
+	inline void DeleteStringAll()						{ m_pTextBox->DeleteStringAll(); }			// 文字列全削除
+	inline void ChangeTextBox(const AText& rText)		{ m_pTextBox->ChangeText(rText); }			// テキスト変更
+	inline void SetTextBoxEnableDraw(const bool bDraw)	{ m_pTextBox->SetTextEnableDraw(bDraw); };	// 描画状況設定
+	inline bool IsTextBoxScroll() const	{ return m_pTextBox->IsTextScroll(); }	// 文字送り状況取得
+	inline int GetChoiceItemIdx() const	{ return m_nChoiceItemIdx; }			// 選択中アイテムインデックス取得
+	inline int GetCurTextIdx() const	{ return m_nCurTextIdx; }				// 現在のテキストインデックス取得
 
 protected:
 	// 純粋仮想関数
-	virtual void NextText(void) = 0 { m_nCurTextIdx++; }	// テキストボックス進行
+	virtual inline void NextText() = 0 { m_nCurTextIdx++; }	// テキストボックス進行
 
 private:
 	// オーバーライド関数
-	void Release(void) override { CObject::Release(); }	// 破棄
+	inline void Release() override { CObject::Release(); }	// 破棄
 
 	// メンバ変数
 	const int m_nChoiceItemIdx;	// 選択中アイテムインデックス

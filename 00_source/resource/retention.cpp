@@ -31,7 +31,7 @@ CRetention::~CRetention()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CRetention::Init(void)
+HRESULT CRetention::Init()
 {
 	// 成功を返す
 	return S_OK;
@@ -40,7 +40,7 @@ HRESULT CRetention::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CRetention::Uninit(void)
+void CRetention::Uninit()
 {
 
 }
@@ -48,7 +48,7 @@ void CRetention::Uninit(void)
 //============================================================
 //	生成処理
 //============================================================
-CRetention* CRetention::Create(void)
+CRetention* CRetention::Create()
 {
 	// データ保存の生成
 	CRetention* pRetention = new CRetention;

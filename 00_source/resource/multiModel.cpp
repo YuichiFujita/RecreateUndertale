@@ -35,7 +35,7 @@ CMultiModel::~CMultiModel()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CMultiModel::Init(void)
+HRESULT CMultiModel::Init()
 {
 	// メンバ変数を初期化
 	m_pParent = nullptr;	// 親モデルへのポインタ
@@ -59,7 +59,7 @@ HRESULT CMultiModel::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CMultiModel::Uninit(void)
+void CMultiModel::Uninit()
 {
 	// オブジェクトモデルの終了
 	CObjectModel::Uninit();
@@ -213,7 +213,7 @@ void CMultiModel::SetParentModel(CMultiModel* pModel)
 //============================================================
 //	親オブジェクト削除処理
 //============================================================
-void CMultiModel::DeleteParentObject(void)
+void CMultiModel::DeleteParentObject()
 {
 	// 親オブジェクトをnullptrにする
 	m_pParent = nullptr;
@@ -222,7 +222,7 @@ void CMultiModel::DeleteParentObject(void)
 //============================================================
 //	通常描画処理
 //============================================================
-void CMultiModel::DrawNormal(void)
+void CMultiModel::DrawNormal()
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;		// デバイスのポインタ
 	CModel::SModel modelData = GetModelData();	// モデルの情報

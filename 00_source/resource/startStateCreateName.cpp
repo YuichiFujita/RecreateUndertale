@@ -105,7 +105,7 @@ CStartStateCreateName::~CStartStateCreateName()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CStartStateCreateName::Init(void)
+HRESULT CStartStateCreateName::Init()
 {
 	// メンバ変数を初期化
 	m_pTitle	= nullptr;				// タイトル
@@ -226,7 +226,7 @@ HRESULT CStartStateCreateName::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CStartStateCreateName::Uninit(void)
+void CStartStateCreateName::Uninit()
 {
 	// タイトルの終了
 	SAFE_UNINIT(m_pTitle);
@@ -267,7 +267,7 @@ void CStartStateCreateName::Update(const float fDeltaTime)
 //============================================================
 //	選択の操作処理
 //============================================================
-void CStartStateCreateName::ControlSelect(void)
+void CStartStateCreateName::ControlSelect()
 {
 	CInputKeyboard* pKey = GET_INPUTKEY;	// キーボード情報
 	if (pKey->IsTrigger(DIK_LEFT))
@@ -345,7 +345,7 @@ void CStartStateCreateName::ControlSelect(void)
 //============================================================
 //	選択の更新処理
 //============================================================
-void CStartStateCreateName::UpdateSelect(void)
+void CStartStateCreateName::UpdateSelect()
 {
 	// 前回の選択肢を保存
 	m_oldSelect = m_curSelect;
@@ -365,7 +365,7 @@ void CStartStateCreateName::UpdateSelect(void)
 //============================================================
 //	決定の更新処理
 //============================================================
-void CStartStateCreateName::UpdateDecide(void)
+void CStartStateCreateName::UpdateDecide()
 {
 	if (input::Decide())
 	{

@@ -32,7 +32,7 @@ CGameManager::~CGameManager()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CGameManager::Init(void)
+HRESULT CGameManager::Init()
 {
 	// メンバ変数を初期化
 	m_state = STATE_NORMAL;	// 状態
@@ -44,7 +44,7 @@ HRESULT CGameManager::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CGameManager::Uninit(void)
+void CGameManager::Uninit()
 {
 
 }
@@ -78,7 +78,7 @@ void CGameManager::SetState(const EState state)
 //============================================================
 //	状態取得処理
 //============================================================
-CGameManager::EState CGameManager::GetState(void) const
+CGameManager::EState CGameManager::GetState() const
 {
 	// 状態を返す
 	return m_state;
@@ -87,7 +87,7 @@ CGameManager::EState CGameManager::GetState(void) const
 //============================================================
 //	生成処理
 //============================================================
-CGameManager* CGameManager::Create(void)
+CGameManager* CGameManager::Create()
 {
 	// ゲームマネージャーの生成
 	CGameManager* pGameManager = new CGameManager;

@@ -30,8 +30,8 @@ public:
 	~CScrollMeshRing() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;		// 更新
 	void Draw(CShader* pShader = nullptr) override;		// 描画
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
@@ -62,9 +62,9 @@ public:
 	void SetTexU(const float fTexU);	// 横座標の開始位置設定
 	void SetTexV(const float fTexV);	// 縦座標の開始位置設定
 	void SetMoveU(const float fMoveU);	// 横座標の移動量設定
-	float GetMoveU(void) const;			// 横座標の移動量取得
+	float GetMoveU() const;				// 横座標の移動量取得
 	void SetMoveV(const float fMoveV);	// 縦座標の移動量設定
-	float GetMoveV(void) const;			// 縦座標の移動量取得
+	float GetMoveV() const;				// 縦座標の移動量取得
 
 private:
 	// メンバ変数

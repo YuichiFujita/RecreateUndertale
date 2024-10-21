@@ -32,7 +32,7 @@ CIntroStateScroll::~CIntroStateScroll()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CIntroStateScroll::Init(void)
+HRESULT CIntroStateScroll::Init()
 {
 	// 物語のスクロールを開始する
 	m_pContext->StartScrollStory();
@@ -44,7 +44,7 @@ HRESULT CIntroStateScroll::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CIntroStateScroll::Uninit(void)
+void CIntroStateScroll::Uninit()
 {
 	// 自身の破棄
 	delete this;

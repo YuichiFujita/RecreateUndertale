@@ -49,7 +49,7 @@ CMonoShader::~CMonoShader()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CMonoShader::Init(void)
+HRESULT CMonoShader::Init()
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイス情報
 	LPD3DXBUFFER pError  = nullptr;	// コンパイルエラー情報
@@ -128,7 +128,7 @@ HRESULT CMonoShader::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CMonoShader::Uninit(void)
+void CMonoShader::Uninit()
 {
 	// シェーダーの終了
 	CShader::Uninit();
@@ -150,7 +150,7 @@ void CMonoShader::SetColor(const COLOR& rCol)
 //============================================================
 //	生成処理
 //============================================================
-CMonoShader* CMonoShader::Create(void)
+CMonoShader* CMonoShader::Create()
 {
 	// インスタンス使用中
 	assert(m_pShader == nullptr);
@@ -183,7 +183,7 @@ CMonoShader* CMonoShader::Create(void)
 //============================================================
 //	取得処理
 //============================================================
-CMonoShader* CMonoShader::GetInstance(void)
+CMonoShader* CMonoShader::GetInstance()
 {
 	// インスタンス未使用
 	assert(m_pShader != nullptr);
@@ -195,7 +195,7 @@ CMonoShader* CMonoShader::GetInstance(void)
 //============================================================
 //	破棄処理
 //============================================================
-void CMonoShader::Release(void)
+void CMonoShader::Release()
 {
 	// 単色描画シェーダーの終了
 	assert(m_pShader != nullptr);

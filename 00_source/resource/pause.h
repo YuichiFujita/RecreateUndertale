@@ -43,28 +43,28 @@ public:
 	~CPause();
 
 	// メンバ関数
-	HRESULT Init(void);	// 初期化
-	void Uninit(void);	// 終了
+	HRESULT Init();	// 初期化
+	void Uninit();	// 終了
 	void Update(const float fDeltaTime);	// 更新
-	void Draw(void);						// 描画
-	bool IsPause(void);						// ポーズ状況取得
+	void Draw();						// 描画
+	bool IsPause();						// ポーズ状況取得
 	void SetEnableDraw(const bool bDraw);	// 描画状況設定
 
 	// 静的メンバ関数
-	static CPause* Create(void);			// 生成
+	static CPause* Create();			// 生成
 	static void Release(CPause*& prPause);	// 破棄
 
 #ifdef _DEBUG
 
 	// メンバ関数
 	void SetEnableDebugDisp(const bool bDisp);	// デバッグ表示状況設定
-	bool IsDebugDisp(void) const;	// デバッグ表示状況取得
+	bool IsDebugDisp() const;	// デバッグ表示状況取得
 
 #endif	// _DEBUG
 
 private:
 	// メンバ関数
-	void Select(void);	// 選択操作
+	void Select();	// 選択操作
 
 	// メンバ変数
 	CObject2D* m_apSelect[SELECT_MAX];	// 選択情報

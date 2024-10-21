@@ -39,7 +39,7 @@ CItemNone::~CItemNone()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CItemNone::Init(void)
+HRESULT CItemNone::Init()
 {
 	// アイテム情報の初期化
 	if (FAILED(CItemData::Init()))
@@ -57,7 +57,7 @@ HRESULT CItemNone::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CItemNone::Uninit(void)
+void CItemNone::Uninit()
 {
 	// アイテム情報の終了
 	CItemData::Uninit();
@@ -66,7 +66,7 @@ void CItemNone::Uninit(void)
 //============================================================
 //	アイテム使用処理
 //============================================================
-void CItemNone::Use(void) const
+void CItemNone::Use() const
 {
 
 }
@@ -74,7 +74,7 @@ void CItemNone::Use(void) const
 //============================================================
 //	アイテム情報処理
 //============================================================
-void CItemNone::Info(void) const
+void CItemNone::Info() const
 {
 
 }
@@ -82,7 +82,7 @@ void CItemNone::Info(void) const
 //============================================================
 //	アイテム破棄処理
 //============================================================
-void CItemNone::Drop(void) const
+void CItemNone::Drop() const
 {
 
 }
@@ -90,7 +90,7 @@ void CItemNone::Drop(void) const
 //============================================================
 //	アイテム名前処理
 //============================================================
-std::string CItemNone::Detail(void) const
+std::string CItemNone::Detail() const
 {
 	// アイテム名前処理
 	std::string sDetail = CItemData::Detail();	// アイテム詳細

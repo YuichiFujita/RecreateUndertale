@@ -88,7 +88,7 @@ CCamera::~CCamera()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CCamera::Init(void)
+HRESULT CCamera::Init()
 {
 	//--------------------------------------------------------
 	//	メンバ変数を初期化
@@ -133,7 +133,7 @@ HRESULT CCamera::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CCamera::Uninit(void)
+void CCamera::Uninit()
 {
 
 }
@@ -178,7 +178,7 @@ void CCamera::Update(const float fDeltaTime)
 //============================================================
 //	カメラ設定処理
 //============================================================
-void CCamera::SetCamera(void)
+void CCamera::SetCamera()
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
@@ -301,7 +301,7 @@ void CCamera::SetDistance(const float fDis)
 //============================================================
 //	カメラ取得処理
 //============================================================
-CCamera::SCamera CCamera::GetCamera(void)
+CCamera::SCamera CCamera::GetCamera()
 {
 	// カメラの情報を返す
 	return m_camera;
@@ -310,7 +310,7 @@ CCamera::SCamera CCamera::GetCamera(void)
 //============================================================
 //	固定カメラ初期化処理
 //============================================================
-void CCamera::InitNone(void)
+void CCamera::InitNone()
 {
 	// カメラ固定状態ではない場合抜ける
 	if (m_state != STATE_NONE) { return; }
@@ -344,7 +344,7 @@ void CCamera::InitNone(void)
 //============================================================
 //	追従カメラ初期化処理
 //============================================================
-void CCamera::InitFollow(void)
+void CCamera::InitFollow()
 {
 	// カメラ追従状態ではない場合抜ける
 	if (m_state != STATE_FOLLOW) { return; }
@@ -391,7 +391,7 @@ void CCamera::InitFollow(void)
 //============================================================
 //	カメラ揺れの初期化処理
 //============================================================
-void CCamera::ResetSwing(void)
+void CCamera::ResetSwing()
 {
 	// カメラ揺れ情報を初期化
 	SSwing* pSwing = &m_camera.swing;
@@ -443,7 +443,7 @@ void CCamera::SetState(const EState state, const bool bInit)
 //============================================================
 //	カメラ状態取得処理
 //============================================================
-CCamera::EState CCamera::GetState(void) const
+CCamera::EState CCamera::GetState() const
 {
 	// 状態を返す
 	return m_state;
@@ -473,7 +473,7 @@ void CCamera::SetEnableUpdate(const bool bUpdate)
 //============================================================
 //	生成処理
 //============================================================
-CCamera* CCamera::Create(void)
+CCamera* CCamera::Create()
 {
 	// カメラの生成
 	CCamera* pCamera = new CCamera;
@@ -515,7 +515,7 @@ void CCamera::Release(CCamera*& prCamera)
 //============================================================
 //	固定カメラの更新処理
 //============================================================
-void CCamera::UpdateNone(void)
+void CCamera::UpdateNone()
 {
 	// カメラ固定状態ではない場合抜ける
 	if (m_state != STATE_NONE) { return; }
@@ -569,7 +569,7 @@ void CCamera::UpdateNone(void)
 //============================================================
 //	追従カメラ追従の更新処理
 //============================================================
-void CCamera::UpdateFollow(void)
+void CCamera::UpdateFollow()
 {
 	// カメラ追従状態ではない場合抜ける
 	if (m_state != STATE_FOLLOW) { return; }
@@ -634,7 +634,7 @@ void CCamera::UpdateFollow(void)
 //============================================================
 //	操作カメラの更新処理
 //============================================================
-void CCamera::UpdateControl(void)
+void CCamera::UpdateControl()
 {
 	// 位置の更新
 	UpdateMove();
@@ -649,7 +649,7 @@ void CCamera::UpdateControl(void)
 //============================================================
 //	位置の更新処理
 //============================================================
-void CCamera::UpdateMove(void)
+void CCamera::UpdateMove()
 {
 	CInputMouse* pMouse = GET_INPUTMOUSE;	// マウス情報
 	VECTOR3 mouseMove = pMouse->GetMove();	// マウス移動量
@@ -675,7 +675,7 @@ void CCamera::UpdateMove(void)
 //============================================================
 //	距離の更新処理
 //============================================================
-void CCamera::UpdateDistance(void)
+void CCamera::UpdateDistance()
 {
 	CInputMouse* pMouse = GET_INPUTMOUSE;	// マウス情報
 	VECTOR3 mouseMove = pMouse->GetMove();	// マウス移動量
@@ -695,7 +695,7 @@ void CCamera::UpdateDistance(void)
 //============================================================
 //	向きの更新処理
 //============================================================
-void CCamera::UpdateRotation(void)
+void CCamera::UpdateRotation()
 {
 	CInputMouse* pMouse = GET_INPUTMOUSE;	// マウス情報
 	VECTOR3 mouseMove = pMouse->GetMove();	// マウス移動量
@@ -744,7 +744,7 @@ void CCamera::UpdateRotation(void)
 //============================================================
 //	カメラ揺れの更新処理
 //============================================================
-void CCamera::UpdateSwing(void)
+void CCamera::UpdateSwing()
 {
 	// カメラ操作状態の場合抜ける
 	if (m_state == STATE_CONTROL) { return; }

@@ -90,7 +90,7 @@ CDebug::~CDebug() {}
 //============================================================
 #ifdef _DEBUG
 
-HRESULT CDebug::Init(void)
+HRESULT CDebug::Init()
 {
 	// メンバ変数を初期化
 	m_nFps				= 0;					// FPSカウンタ
@@ -110,7 +110,7 @@ HRESULT CDebug::Init(void)
 
 #else	// NDEBUG
 
-HRESULT CDebug::Init(void) { return S_OK; }
+HRESULT CDebug::Init() { return S_OK; }
 
 #endif	// _DEBUG
 
@@ -119,14 +119,14 @@ HRESULT CDebug::Init(void) { return S_OK; }
 //============================================================
 #ifdef _DEBUG
 
-void CDebug::Uninit(void)
+void CDebug::Uninit()
 {
 
 }
 
 #else	// NDEBUG
 
-void CDebug::Uninit(void) {}
+void CDebug::Uninit() {}
 
 #endif	// _DEBUG
 
@@ -162,7 +162,7 @@ void CDebug::MeasureFps(const DWORD /*dwCurrentTime*/) {}
 //============================================================
 #ifdef _DEBUG
 
-void CDebug::AddFrameCount(void)
+void CDebug::AddFrameCount()
 {
 	// フレームカウントを加算
 	m_dwFrameCount++;
@@ -170,7 +170,7 @@ void CDebug::AddFrameCount(void)
 
 #else	// NDEBUG
 
-void CDebug::AddFrameCount(void) {}
+void CDebug::AddFrameCount() {}
 
 #endif	// _DEBUG
 
@@ -179,7 +179,7 @@ void CDebug::AddFrameCount(void) {}
 //============================================================
 #ifdef _DEBUG
 
-int CDebug::GetFps(void) const
+int CDebug::GetFps() const
 {
 	// FPSを返す
 	return m_nFps;
@@ -187,7 +187,7 @@ int CDebug::GetFps(void) const
 
 #else	// NDEBUG
 
-int CDebug::GetFps(void) const { return 0; }
+int CDebug::GetFps() const { return 0; }
 
 #endif	// _DEBUG
 
@@ -196,7 +196,7 @@ int CDebug::GetFps(void) const { return 0; }
 //============================================================
 #ifdef _DEBUG
 
-void CDebug::SetFillMode(void)
+void CDebug::SetFillMode()
 {
 	// 塗りつぶしモードを現在のモードに設定
 	GET_DEVICE->SetRenderState(D3DRS_FILLMODE, m_fillMode);
@@ -204,7 +204,7 @@ void CDebug::SetFillMode(void)
 
 #else	// NDEBUG
 
-void CDebug::SetFillMode(void) {}
+void CDebug::SetFillMode() {}
 
 #endif	// _DEBUG
 
@@ -213,7 +213,7 @@ void CDebug::SetFillMode(void) {}
 //============================================================
 #ifdef _DEBUG
 
-void CDebug::UpdateDebugControl(void)
+void CDebug::UpdateDebugControl()
 {
 	// デバッグ表示変更
 	ChangeDispDebug();
@@ -256,7 +256,7 @@ void CDebug::UpdateDebugControl(void)
 
 #else	// NDEBUG
 
-void CDebug::UpdateDebugControl(void) {}
+void CDebug::UpdateDebugControl() {}
 
 #endif	// _DEBUG
 
@@ -265,7 +265,7 @@ void CDebug::UpdateDebugControl(void) {}
 //============================================================
 #ifdef _DEBUG
 
-void CDebug::DrawDebugControl(void)
+void CDebug::DrawDebugControl()
 {
 	CDebugProc* pDebugProc = GET_MANAGER->GetDebugProc();	// デバッグプロックの情報
 
@@ -304,7 +304,7 @@ void CDebug::DrawDebugControl(void)
 
 #else	// NDEBUG
 
-void CDebug::DrawDebugControl(void) {}
+void CDebug::DrawDebugControl() {}
 
 #endif	// _DEBUG
 
@@ -313,7 +313,7 @@ void CDebug::DrawDebugControl(void) {}
 //============================================================
 #ifdef _DEBUG
 
-void CDebug::DrawDebugData(void)
+void CDebug::DrawDebugData()
 {
 	CDebugProc* pDebugProc = GET_MANAGER->GetDebugProc();	// デバッグプロックの情報
 
@@ -326,14 +326,14 @@ void CDebug::DrawDebugData(void)
 
 #else	// NDEBUG
 
-void CDebug::DrawDebugData(void) {}
+void CDebug::DrawDebugData() {}
 
 #endif	// _DEBUG
 
 //============================================================
 //	生成処理
 //============================================================
-CDebug* CDebug::Create(void)
+CDebug* CDebug::Create()
 {
 	// デバッグの生成
 	CDebug* pDebug = new CDebug;
@@ -380,7 +380,7 @@ void CDebug::Release(CDebug*& prDebug)
 //============================================================
 //	デバッグ表示変更処理
 //============================================================
-void CDebug::ChangeDispDebug(void)
+void CDebug::ChangeDispDebug()
 {
 	if (GET_INPUTKEY->IsTrigger(KEY_DEBUG_DISP))
 	{
@@ -392,7 +392,7 @@ void CDebug::ChangeDispDebug(void)
 //============================================================
 //	カメラ操作変更処理
 //============================================================
-void CDebug::ChangeControlCamera(void)
+void CDebug::ChangeControlCamera()
 {
 	if (GET_INPUTKEY->IsTrigger(KEY_CAMERA_CONTROL))
 	{
@@ -420,7 +420,7 @@ void CDebug::ChangeControlCamera(void)
 //============================================================
 //	塗りつぶしモード変更処理
 //============================================================
-void CDebug::ChangeFillMode(void)
+void CDebug::ChangeFillMode()
 {
 	if (GET_INPUTKEY->IsTrigger(KEY_FILLMODE))
 	{
@@ -432,7 +432,7 @@ void CDebug::ChangeFillMode(void)
 //============================================================
 //	2Dオブジェクト表示変更処理
 //============================================================
-void CDebug::ChangeDisp2D(void)
+void CDebug::ChangeDisp2D()
 {
 	if (GET_INPUTKEY->IsTrigger(KEY_2D_DISP))
 	{
@@ -447,7 +447,7 @@ void CDebug::ChangeDisp2D(void)
 //============================================================
 //	エディターモード変更処理
 //============================================================
-void CDebug::ChangeEditMode(void)
+void CDebug::ChangeEditMode()
 {
 	if (GET_INPUTKEY->IsTrigger(KEY_EDITMODE))
 	{
@@ -459,7 +459,7 @@ void CDebug::ChangeEditMode(void)
 //============================================================
 //	ポーズ表示変更処理
 //============================================================
-void CDebug::ChangeDispPause(void)
+void CDebug::ChangeDispPause()
 {
 	if (GET_INPUTKEY->IsTrigger(KEY_PAUSE_DISP))
 	{

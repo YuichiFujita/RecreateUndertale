@@ -33,7 +33,7 @@ CStartManager::~CStartManager()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CStartManager::Init(void)
+HRESULT CStartManager::Init()
 {
 	// メンバ変数を初期化
 	m_pState = nullptr;	// 状態
@@ -48,7 +48,7 @@ HRESULT CStartManager::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CStartManager::Uninit(void)
+void CStartManager::Uninit()
 {
 	// 状態の終了
 	SAFE_UNINIT(m_pState);
@@ -98,7 +98,7 @@ HRESULT CStartManager::ChangeState(CStartState* pState)
 //============================================================
 //	生成処理
 //============================================================
-CStartManager* CStartManager::Create(void)
+CStartManager* CStartManager::Create()
 {
 	// スタートマネージャーの生成
 	CStartManager* pStartManager = new CStartManager;

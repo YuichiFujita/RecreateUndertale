@@ -116,18 +116,18 @@ public:
 	};
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;		// 更新
 	void Draw(CShader* pShader = nullptr) override;		// 描画
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
 	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
 	void SetVec3Size(const VECTOR3& rSize) override;	// 大きさ設定
-	VECTOR3 GetVec3Position(void) const override	{ return m_meshCube.pos; }			// 位置取得
-	VECTOR3 GetVec3Rotation(void) const override	{ return m_meshCube.rot; }			// 向き取得
-	VECTOR3 GetVec3Size(void) const override		{ return m_meshCube.size; }			// 大きさ取得
-	MATRIX* GetPtrMtxWorld(void) override			{ return &m_meshCube.mtxWorld; }	// マトリックスポインタ取得
-	MATRIX GetMtxWorld(void) const override			{ return m_meshCube.mtxWorld; }		// マトリックス取得
+	VECTOR3 GetVec3Position() const override	{ return m_meshCube.pos; }			// 位置取得
+	VECTOR3 GetVec3Rotation() const override	{ return m_meshCube.rot; }			// 向き取得
+	VECTOR3 GetVec3Size() const override		{ return m_meshCube.size; }			// 大きさ取得
+	MATRIX* GetPtrMtxWorld() override			{ return &m_meshCube.mtxWorld; }	// マトリックスポインタ取得
+	MATRIX GetMtxWorld() const override			{ return m_meshCube.mtxWorld; }		// マトリックス取得
 
 	// 静的メンバ関数
 	static CObjectMeshCube* Create	// 生成
@@ -148,7 +148,7 @@ public:
 	);
 
 	// メンバ関数
-	CRenderState* GetRenderState(void);					// レンダーステート情報取得
+	CRenderState* GetRenderState();					// レンダーステート情報取得
 	void BindTexture(const SFaceTex textureID);			// テクスチャ割当
 	void SetCubeAlpha(const float fAlpha);				// キューブ透明度設定
 	void SetCubeColor(const COLOR& rCol);				// キューブ色設定
@@ -161,30 +161,30 @@ public:
 	void SetTexturePatternY(const VECTOR2& rTexPart);	// テクスチャ分割数Y設定
 	void SetTexturePatternZ(const VECTOR2& rTexPart);	// テクスチャ分割数Z設定
 	void SetOrigin(const EOrigin origin);				// 原点設定
-	SFaceTex GetTextureIndex(void) const	{ return m_meshCube.texID; }					// テクスチャインデックス取得
-	float GetCubeAlpha(void) const			{ return m_meshCube.aCol[CUBECOL_CUBE].a; }		// 透明度取得
-	COLOR GetCubeColor(void) const			{ return m_meshCube.aCol[CUBECOL_CUBE]; }		// キューブ色取得
-	float GetBorderAlpha(void) const		{ return m_meshCube.aCol[CUBECOL_BORDER].a; }	// 透明度取得
-	COLOR GetBorderColor(void) const		{ return m_meshCube.aCol[CUBECOL_BORDER]; }		// 縁取り色取得
-	EBorder GetBorderState(void) const		{ return m_meshCube.bordState; }				// 縁取り状態取得
-	float GetBorderThick(void) const		{ return m_meshCube.fBordThick; }				// 縁取り太さ取得
-	ETexState GetTextureState(void) const	{ return m_meshCube.texState; }					// テクスチャ状態取得
-	VECTOR2 GetTexturePatternX(void) const	{ return m_meshCube.aTexPart[CUBEPART_X]; }		// テクスチャ分割数X取得
-	VECTOR2 GetTexturePatternY(void) const	{ return m_meshCube.aTexPart[CUBEPART_Y]; }		// テクスチャ分割数Y取得
-	VECTOR2 GetTexturePatternZ(void) const	{ return m_meshCube.aTexPart[CUBEPART_Z]; }		// テクスチャ分割数Z取得
-	EOrigin GetOrigin(void) const			{ return m_origin; }							// 原点取得
+	SFaceTex GetTextureIndex() const	{ return m_meshCube.texID; }					// テクスチャインデックス取得
+	float GetCubeAlpha() const			{ return m_meshCube.aCol[CUBECOL_CUBE].a; }		// 透明度取得
+	COLOR GetCubeColor() const			{ return m_meshCube.aCol[CUBECOL_CUBE]; }		// キューブ色取得
+	float GetBorderAlpha() const		{ return m_meshCube.aCol[CUBECOL_BORDER].a; }	// 透明度取得
+	COLOR GetBorderColor() const		{ return m_meshCube.aCol[CUBECOL_BORDER]; }		// 縁取り色取得
+	EBorder GetBorderState() const		{ return m_meshCube.bordState; }				// 縁取り状態取得
+	float GetBorderThick() const		{ return m_meshCube.fBordThick; }				// 縁取り太さ取得
+	ETexState GetTextureState() const	{ return m_meshCube.texState; }					// テクスチャ状態取得
+	VECTOR2 GetTexturePatternX() const	{ return m_meshCube.aTexPart[CUBEPART_X]; }		// テクスチャ分割数X取得
+	VECTOR2 GetTexturePatternY() const	{ return m_meshCube.aTexPart[CUBEPART_Y]; }		// テクスチャ分割数Y取得
+	VECTOR2 GetTexturePatternZ() const	{ return m_meshCube.aTexPart[CUBEPART_Z]; }		// テクスチャ分割数Z取得
+	EOrigin GetOrigin() const			{ return m_origin; }							// 原点取得
 
 protected:
 	// メンバ関数
-	void SetVtx(void);	// 頂点情報の設定
-	void SetIdx(void);	// インデックス情報の設定
+	void SetVtx();	// 頂点情報の設定
+	void SetIdx();	// インデックス情報の設定
 
 private:
 	// オーバーライド関数
-	void Release(void) override { CObject::Release(); }	// 破棄
+	inline void Release() override { CObject::Release(); }	// 破棄
 
 	// メンバ関数
-	void DrawNormal(void);	// 通常描画
+	void DrawNormal();	// 通常描画
 	void DrawShader(CShader* pShader);	// シェーダー描画
 
 	// メンバ変数

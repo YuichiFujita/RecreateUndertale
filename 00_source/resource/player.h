@@ -58,25 +58,25 @@ public:
 	~CPlayer();
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
 	void Draw(CShader* pShader = nullptr) override;	// 描画
 	HRESULT ChangeState(CPlayerState* pState);		// 状態変更
 
 	// 静的メンバ関数
 	static CPlayer* Create(const VECTOR3& rPos);	// 生成
-	static CListManager<CPlayer>* GetList(void);	// リスト取得
+	static CListManager<CPlayer>* GetList();		// リスト取得
 
 	// メンバ関数
-	void TransRoom(const VECTOR3& rPos, const EAngle angle);	// 部屋遷移
-	VECTOR3 GetOldPosition(void) const	{ return m_oldPos; }	// 過去位置取得
-	void SetAngle(const EAngle angle)	{ m_angle = angle; }	// 向き設定
-	EAngle GetAngle(void) const			{ return m_angle; }		// 向き取得
+	void TransRoom(const VECTOR3& rPos, const EAngle angle);			// 部屋遷移
+	inline VECTOR3 GetOldPosition() const		{ return m_oldPos; }	// 過去位置取得
+	inline void SetAngle(const EAngle angle)	{ m_angle = angle; }	// 向き設定
+	inline EAngle GetAngle() const				{ return m_angle; }		// 向き取得
 
 private:
 	// メンバ関数
-	void UpdateOldPosition(void);	// 過去位置の更新
+	void UpdateOldPosition();	// 過去位置の更新
 	void UpdateMotion(int nCurMotion, const float fDeltaTime);	// モーション・キャラクター2Dの更新
 
 	// 静的メンバ変数

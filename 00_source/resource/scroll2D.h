@@ -30,8 +30,8 @@ public:
 	~CScroll2D() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;		// 更新
 	void Draw(CShader* pShader = nullptr) override;		// 描画
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
@@ -58,14 +58,14 @@ public:
 	void SetOffsetV(const float fOffsetV);	// 縦座標のオフセット位置設定
 	void SetMoveU(const float fMoveU);		// 横座標の移動量設定
 	void SetMoveV(const float fMoveV);		// 縦座標の移動量設定
-	float GetTexU(void)		{ return m_fTexU; }		// 横座標の開始位置取得
-	float GetTexV(void)		{ return m_fTexV; }		// 縦座標の開始位置取得
-	float GetOffsetU(void)	{ return m_fOffsetU; }	// 横座標のオフセット位置取得
-	float GetOffsetV(void)	{ return m_fOffsetV; }	// 縦座標のオフセット位置取得
-	float GetMoveU(void)	{ return m_fMoveU; }	// 横座標の移動量取得
-	float GetMoveV(void)	{ return m_fMoveV; }	// 縦座標の移動量取得
-	int GetNumLoopU(void)	{ return m_nNumLoopU; }	// 横パターン繰り返し数取得
-	int GetNumLoopV(void)	{ return m_nNumLoopV; }	// 縦パターン繰り返し数取得
+	inline float GetTexU()		{ return m_fTexU; }		// 横座標の開始位置取得
+	inline float GetTexV()		{ return m_fTexV; }		// 縦座標の開始位置取得
+	inline float GetOffsetU()	{ return m_fOffsetU; }	// 横座標のオフセット位置取得
+	inline float GetOffsetV()	{ return m_fOffsetV; }	// 縦座標のオフセット位置取得
+	inline float GetMoveU()		{ return m_fMoveU; }	// 横座標の移動量取得
+	inline float GetMoveV()		{ return m_fMoveV; }	// 縦座標の移動量取得
+	inline int GetNumLoopU()	{ return m_nNumLoopU; }	// 横パターン繰り返し数取得
+	inline int GetNumLoopV()	{ return m_nNumLoopV; }	// 縦パターン繰り返し数取得
 
 private:
 	// メンバ関数

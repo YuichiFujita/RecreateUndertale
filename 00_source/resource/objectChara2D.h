@@ -128,7 +128,7 @@ public:
 		}
 
 		// メンバ関数
-		int GetNumMotion(void) { return (int)vecMotion.size(); }	// モーション情報の総数取得
+		int GetNumMotion() { return (int)vecMotion.size(); }	// モーション情報の総数取得
 
 		// メンバ変数
 		std::vector<SMotion> vecMotion;	// モーション情報
@@ -136,8 +136,8 @@ public:
 	};
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
 	void Draw(CShader* pShader = nullptr) override;	// 描画
 
@@ -150,22 +150,22 @@ public:
 	void AddInfo(const SMotion& rMotion);		// モーション情報追加
 	void SetAllInfo(const SInfo& rInfo);		// モーション情報全設定
 
-	bool IsCancel(void) const;	// キャンセル取得
-	bool IsCombo(void) const;	// コンボ取得
-	int GetMotion(void) const	{ return m_info.nType; }			// モーション取得
-	int GetNumType(void)		{ return m_info.GetNumMotion(); }	// 種類総数取得
+	bool IsCancel() const;	// キャンセル取得
+	bool IsCombo() const;	// コンボ取得
+	int GetMotion() const	{ return m_info.nType; }			// モーション取得
+	int GetNumType()		{ return m_info.GetNumMotion(); }	// 種類総数取得
 	float GetCancelTime(const int nType) const	{ return m_info.vecMotion[nType].fCancelTime; }				// キャンセル時間取得
 	float GetComboTime(const int nType) const	{ return m_info.vecMotion[nType].fComboTime; }				// コンボ時間取得
-	VECTOR3 GetCollSize(void) const				{ return m_info.vecMotion[m_info.nType].infoColl.size; }	// 判定大きさ取得
+	VECTOR3 GetCollSize() const				{ return m_info.vecMotion[m_info.nType].infoColl.size; }	// 判定大きさ取得
 
 	VECTOR3 CalcOriginOffsetPosition(const VECTOR3& rPos, const VECTOR3& rRot) const;	// 原点オフセット反映位置計算
 	VECTOR3 CalcCollOffsetPosition(const VECTOR3& rPos, const VECTOR3& rRot) const;		// 判定原点オフセット反映位置計算
-	VECTOR3 GetOriginOffsetPosition(void) const;	// 原点オフセット反映位置取得
-	VECTOR3 GetCollOffsetPosition(void) const;		// 判定原点オフセット反映位置取得
+	VECTOR3 GetOriginOffsetPosition() const;	// 原点オフセット反映位置取得
+	VECTOR3 GetCollOffsetPosition() const;		// 判定原点オフセット反映位置取得
 
 private:
 	// オーバーライド関数
-	void CalcDrawMatrix(void) override;	// 描画マトリックス計算
+	void CalcDrawMatrix() override;	// 描画マトリックス計算
 
 	// メンバ関数
 	VECTOR3 CalcOffsetPosition	// オフセット反映位置計算

@@ -29,18 +29,18 @@ public:
 	~CDebug();
 
 	// メンバ関数
-	HRESULT Init(void);	// 初期化
-	void Uninit(void);	// 終了
+	HRESULT Init();	// 初期化
+	void Uninit();	// 終了
 	void MeasureFps(const DWORD dwCurrentTime);	// FPS測定
-	void AddFrameCount(void);		// フレームカウント加算
-	int  GetFps(void) const;		// FPS取得
-	void SetFillMode(void);			// 塗りつぶしモード設定
-	void UpdateDebugControl(void);	// デバッグ操作更新
-	void DrawDebugControl(void);	// デバッグ操作表示
-	void DrawDebugData(void);		// デバッグ情報表示
+	void AddFrameCount();		// フレームカウント加算
+	int  GetFps() const;		// FPS取得
+	void SetFillMode();			// 塗りつぶしモード設定
+	void UpdateDebugControl();	// デバッグ操作更新
+	void DrawDebugControl();	// デバッグ操作表示
+	void DrawDebugData();		// デバッグ情報表示
 
 	// 静的メンバ関数
-	static CDebug* Create(void);			// 生成
+	static CDebug* Create();			// 生成
 	static void Release(CDebug*& pDebug);	// 破棄
 
 private:
@@ -48,12 +48,12 @@ private:
 #ifdef _DEBUG
 
 	// メンバ関数
-	void ChangeDispDebug(void);		// デバッグ表示変更
-	void ChangeControlCamera(void);	// カメラ操作変更
-	void ChangeFillMode(void);		// 塗りつぶしモード変更
-	void ChangeDisp2D(void);		// 2Dオブジェクト表示変更
-	void ChangeEditMode(void);		// エディターモード変更
-	void ChangeDispPause(void);		// ポーズ表示変更
+	void ChangeDispDebug();		// デバッグ表示変更
+	void ChangeControlCamera();	// カメラ操作変更
+	void ChangeFillMode();		// 塗りつぶしモード変更
+	void ChangeDisp2D();		// 2Dオブジェクト表示変更
+	void ChangeEditMode();		// エディターモード変更
+	void ChangeDispPause();		// ポーズ表示変更
 
 	// メンバ変数
 	int  m_nFps;	// FPSカウンタ

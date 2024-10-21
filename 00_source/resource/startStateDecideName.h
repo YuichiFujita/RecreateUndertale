@@ -35,8 +35,8 @@ public:
 	~CStartStateDecideName() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
 
 private:
@@ -49,9 +49,9 @@ private:
 	};
 
 	// メンバ関数
-	void UpdateSelect(void);	// 選択更新
-	void UpdateDecide(void);	// 決定更新
-	void TransGame(void);		// ゲーム画面遷移
+	void UpdateSelect();	// 選択更新
+	void UpdateDecide();	// 決定更新
+	void TransGame();		// ゲーム画面遷移
 	void ShakeName(const float fDeltaTime);	// 名前振動
 	void MoveName(const float fDeltaTime);	// 名前移動
 

@@ -30,16 +30,16 @@ public:
 	~CRandom();
 
 	// メンバ関数
-	HRESULT Init(void);	// 初期化
-	void Uninit(void);	// 終了
+	HRESULT Init();	// 初期化
+	void Uninit();	// 終了
 	void AddList(T num, int nAdd = 1);	// 配列追加
-	void AllDeleteList(void);			// 配列全削除
-	T GetRandomNum(void);				// ランダム数値取得
-	int GetNumAll(void);				// 配列内の要素数取得
-	std::vector<T> GetList(void);		// 配列取得
+	void AllDeleteList();			// 配列全削除
+	T GetRandomNum();				// ランダム数値取得
+	int GetNumAll();				// 配列内の要素数取得
+	std::vector<T> GetList();		// 配列取得
 
 	// 静的メンバ関数
-	static CRandom* Create(void);	// 生成
+	static CRandom* Create();	// 生成
 	static void Release(CRandom*& prRandom);	// 破棄
 
 private:
@@ -73,7 +73,7 @@ template<class T> CRandom<T>::~CRandom()
 //============================================================
 //	初期化処理
 //============================================================
-template<class T> HRESULT CRandom<T>::Init(void)
+template<class T> HRESULT CRandom<T>::Init()
 {
 	// オブジェクト配列の全要素を削除
 	m_vector.clear();
@@ -85,7 +85,7 @@ template<class T> HRESULT CRandom<T>::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-template<class T> void CRandom<T>::Uninit(void)
+template<class T> void CRandom<T>::Uninit()
 {
 	// オブジェクト配列の全要素を削除
 	m_vector.clear();
@@ -109,7 +109,7 @@ template<class T> void CRandom<T>::AddList(T num, int nAdd)
 //============================================================
 //	配列全削除処理
 //============================================================
-template<class T> void CRandom<T>::AllDeleteList(void)
+template<class T> void CRandom<T>::AllDeleteList()
 {
 	// オブジェクト配列の全要素を削除
 	m_vector.clear();
@@ -118,7 +118,7 @@ template<class T> void CRandom<T>::AllDeleteList(void)
 //============================================================
 //	ランダム数値取得処理
 //============================================================
-template<class T> T CRandom<T>::GetRandomNum(void)
+template<class T> T CRandom<T>::GetRandomNum()
 {
 	int nNumArray = (int)(m_vector.size());	// 配列の要素数
 	if (nNumArray > 0)
@@ -149,7 +149,7 @@ template<class T> T CRandom<T>::GetRandomNum(void)
 //============================================================
 //	配列内の要素数の取得処理
 //============================================================
-template<class T> int CRandom<T>::GetNumAll(void)
+template<class T> int CRandom<T>::GetNumAll()
 {
 	// 配列内の要素数を返す
 	return (int)m_vector.size();
@@ -158,7 +158,7 @@ template<class T> int CRandom<T>::GetNumAll(void)
 //============================================================
 //	配列取得処理
 //============================================================
-template<class T> std::vector<T> CRandom<T>::GetList(void)
+template<class T> std::vector<T> CRandom<T>::GetList()
 {
 	// オブジェクト配列を返す
 	return m_vector;
@@ -167,7 +167,7 @@ template<class T> std::vector<T> CRandom<T>::GetList(void)
 //============================================================
 //	生成処理
 //============================================================
-template<class T> CRandom<T>* CRandom<T>::Create(void)
+template<class T> CRandom<T>* CRandom<T>::Create()
 {
 	// ランダムの生成
 	CRandom* pRandom = new CRandom;

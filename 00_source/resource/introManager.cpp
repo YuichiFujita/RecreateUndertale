@@ -97,7 +97,7 @@ CIntroManager::~CIntroManager()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CIntroManager::Init(void)
+HRESULT CIntroManager::Init()
 {
 	// メンバ変数を初期化
 	m_pStory	= nullptr;	// ストーリー
@@ -182,7 +182,7 @@ HRESULT CIntroManager::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CIntroManager::Uninit(void)
+void CIntroManager::Uninit()
 {
 	// 状態の終了
 	SAFE_UNINIT(m_pState);
@@ -255,7 +255,7 @@ HRESULT CIntroManager::ChangeState(CIntroState* pState)
 //============================================================
 //	物語の遷移処理
 //============================================================
-void CIntroManager::NextStory(void)
+void CIntroManager::NextStory()
 {
 	// 物語を次に進める
 	m_nStoryID++;
@@ -349,7 +349,7 @@ void CIntroManager::ChangeText(const int nStoryID)
 //============================================================
 //	ストーリースクロールの開始
 //============================================================
-void CIntroManager::StartScrollStory(void)
+void CIntroManager::StartScrollStory()
 {
 	// 物語のスクロールを開始する
 	m_pStory->SetMoveV(story::SCROLL_MOVE);
@@ -358,7 +358,7 @@ void CIntroManager::StartScrollStory(void)
 //============================================================
 //	ストーリースクロールの正規化
 //============================================================
-bool CIntroManager::NormalizeScrollStory(void)
+bool CIntroManager::NormalizeScrollStory()
 {
 	if (m_pStory->GetNumLoopV() >= 1)
 	{ // テクスチャがワンループした場合
@@ -386,7 +386,7 @@ void CIntroManager::SetEnableSlowText(const bool bSlow)
 //============================================================
 //	生成処理
 //============================================================
-CIntroManager* CIntroManager::Create(void)
+CIntroManager* CIntroManager::Create()
 {
 	// イントロマネージャーの生成
 	CIntroManager* pIntroManager = new CIntroManager;

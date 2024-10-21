@@ -29,12 +29,12 @@ public:
 	~CItemNone() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
-	void Use(void) const override;	// アイテム使用
-	void Info(void) const override;	// アイテム情報
-	void Drop(void) const override;	// アイテム破棄
-	std::string Detail(void) const override;	// アイテム名前
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
+	void Use() const override;	// アイテム使用
+	void Info() const override;	// アイテム情報
+	void Drop() const override;	// アイテム破棄
+	std::string Detail() const override;	// アイテム名前
 
 private:
 	// メンバ変数

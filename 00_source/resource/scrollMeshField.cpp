@@ -35,7 +35,7 @@ CScrollMeshField::~CScrollMeshField()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CScrollMeshField::Init(void)
+HRESULT CScrollMeshField::Init()
 {
 	// メンバ変数を初期化
 	m_fTexU  = 0.0f;	// テクスチャ横座標の開始位置
@@ -62,7 +62,7 @@ HRESULT CScrollMeshField::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CScrollMeshField::Uninit(void)
+void CScrollMeshField::Uninit()
 {
 	// メッシュフィールドの終了
 	CObjectMeshField::Uninit();
@@ -303,7 +303,7 @@ void CScrollMeshField::SetMoveU(const float fMoveU)
 //============================================================
 //	横座標の移動量取得処理
 //============================================================
-float CScrollMeshField::GetMoveU(void) const
+float CScrollMeshField::GetMoveU() const
 {
 	// テクスチャ横座標の移動量を返す
 	return m_fMoveU;
@@ -324,7 +324,7 @@ void CScrollMeshField::SetMoveV(const float fMoveV)
 //============================================================
 //	縦座標の移動量取得処理
 //============================================================
-float CScrollMeshField::GetMoveV(void) const
+float CScrollMeshField::GetMoveV() const
 {
 	// テクスチャ縦座標の移動量を返す
 	return m_fMoveV;

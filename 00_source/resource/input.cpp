@@ -89,7 +89,7 @@ HRESULT CInput::Init(HINSTANCE hInstance, HWND /*hWnd*/)
 //============================================================
 //	終了処理
 //============================================================
-void CInput::Uninit(void)
+void CInput::Uninit()
 {
 	// DirectInputデバイスの破棄
 	if (m_pDevice != nullptr)
@@ -189,7 +189,7 @@ HRESULT CInputKeyboard::Init(HINSTANCE hInstance, HWND hWnd)
 //============================================================
 //	終了処理
 //============================================================
-void CInputKeyboard::Uninit(void)
+void CInputKeyboard::Uninit()
 {
 	// 入力の終了
 	CInput::Uninit();
@@ -198,7 +198,7 @@ void CInputKeyboard::Uninit(void)
 //============================================================
 //	更新処理
 //============================================================
-void CInputKeyboard::Update(void)
+void CInputKeyboard::Update()
 {
 	BYTE aKeyState[MAX_KEY];	// キーボードの入力情報
 
@@ -230,7 +230,7 @@ void CInputKeyboard::Update(void)
 //============================================================
 //	プレス初期化処理
 //============================================================
-void CInputKeyboard::InitPress(void)
+void CInputKeyboard::InitPress()
 {
 	// メモリをクリア
 	memset(&m_aKeyStatePress, 0, sizeof(m_aKeyStatePress));
@@ -239,7 +239,7 @@ void CInputKeyboard::InitPress(void)
 //============================================================
 //	トリガー初期化処理
 //============================================================
-void CInputKeyboard::InitTrigger(void)
+void CInputKeyboard::InitTrigger()
 {
 	// メモリをクリア
 	memset(&m_aKeyStateTrigger, 0, sizeof(m_aKeyStateTrigger));
@@ -248,7 +248,7 @@ void CInputKeyboard::InitTrigger(void)
 //============================================================
 //	リリース初期化処理
 //============================================================
-void CInputKeyboard::InitRelease(void)
+void CInputKeyboard::InitRelease()
 {
 	// メモリをクリア
 	memset(&m_aKeyStateRelease, 0, sizeof(m_aKeyStateRelease));
@@ -284,7 +284,7 @@ bool CInputKeyboard::IsRelease(int nKey)
 //============================================================
 //	全プレス取得処理
 //============================================================
-bool CInputKeyboard::IsAnyPress(void)
+bool CInputKeyboard::IsAnyPress()
 {
 	for (int nCntKey = 0; nCntKey < MAX_KEY; nCntKey++)
 	{ // キーの最大数分繰り返す
@@ -302,7 +302,7 @@ bool CInputKeyboard::IsAnyPress(void)
 //============================================================
 //	全トリガー取得処理
 //============================================================
-bool CInputKeyboard::IsAnyTrigger(void)
+bool CInputKeyboard::IsAnyTrigger()
 {
 	for (int nCntKey = 0; nCntKey < MAX_KEY; nCntKey++)
 	{ // キーの最大数分繰り返す
@@ -320,7 +320,7 @@ bool CInputKeyboard::IsAnyTrigger(void)
 //============================================================
 //	全リリース取得処理
 //============================================================
-bool CInputKeyboard::IsAnyRelease(void)
+bool CInputKeyboard::IsAnyRelease()
 {
 	for (int nCntKey = 0; nCntKey < MAX_KEY; nCntKey++)
 	{ // キーの最大数分繰り返す
@@ -472,7 +472,7 @@ HRESULT CInputMouse::Init(HINSTANCE hInstance, HWND hWnd)
 //============================================================
 //	終了処理
 //============================================================
-void CInputMouse::Uninit(void)
+void CInputMouse::Uninit()
 {
 	// 入力の終了
 	CInput::Uninit();
@@ -481,7 +481,7 @@ void CInputMouse::Uninit(void)
 //============================================================
 //	更新処理
 //============================================================
-void CInputMouse::Update(void)
+void CInputMouse::Update()
 {
 	// 入力デバイスからデータを取得
 	DIMOUSESTATE keyState;	// マウスの入力情報
@@ -539,7 +539,7 @@ bool CInputMouse::IsRelease(EKey mouKey)
 //============================================================
 //	全プレス取得処理
 //============================================================
-bool CInputMouse::IsAnyPress(void)
+bool CInputMouse::IsAnyPress()
 {
 	for (int nCntMouKey = 0; nCntMouKey < mouse::MAX_KEY; nCntMouKey++)
 	{ // マウスキーの最大数分繰り返す
@@ -557,7 +557,7 @@ bool CInputMouse::IsAnyPress(void)
 //============================================================
 //	全トリガー取得処理
 //============================================================
-bool CInputMouse::IsAnyTrigger(void)
+bool CInputMouse::IsAnyTrigger()
 {
 	for (int nCntMouKey = 0; nCntMouKey < mouse::MAX_KEY; nCntMouKey++)
 	{ // マウスキーの最大数分繰り返す
@@ -575,7 +575,7 @@ bool CInputMouse::IsAnyTrigger(void)
 //============================================================
 //	全リリース取得処理
 //============================================================
-bool CInputMouse::IsAnyRelease(void)
+bool CInputMouse::IsAnyRelease()
 {
 	for (int nCntMouKey = 0; nCntMouKey < mouse::MAX_KEY; nCntMouKey++)
 	{ // マウスキーの最大数分繰り返す
@@ -593,7 +593,7 @@ bool CInputMouse::IsAnyRelease(void)
 //============================================================
 //	移動量取得処理
 //============================================================
-VECTOR3 CInputMouse::GetMove(void)
+VECTOR3 CInputMouse::GetMove()
 {
 	// マウスの移動量を返す
 	return VECTOR3
@@ -672,7 +672,7 @@ CInputPad::~CInputPad()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CInputPad::Init(void)
+HRESULT CInputPad::Init()
 {
 	// メンバ変数を初期化
 	memset(&m_aVibration[0],		0, sizeof(m_aVibration));		// バイブ情報
@@ -690,7 +690,7 @@ HRESULT CInputPad::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CInputPad::Uninit(void)
+void CInputPad::Uninit()
 {
 	// XInputのステートを無効化
 	XInputEnable(false);
@@ -699,7 +699,7 @@ void CInputPad::Uninit(void)
 //============================================================
 //	更新処理
 //============================================================
-void CInputPad::Update(void)
+void CInputPad::Update()
 {
 	XINPUT_STATE aKeyState[MAX_NUM];	// パッドの入力情報
 	for (int nCntJoyKey = 0; nCntJoyKey < MAX_NUM; nCntJoyKey++)
@@ -1142,7 +1142,7 @@ float CInputPad::GetPressRStickTilt(int nPadID)
 //============================================================
 //	生成処理
 //============================================================
-CInputPad* CInputPad::Create(void)
+CInputPad* CInputPad::Create()
 {
 	// パッドの生成
 	CInputPad* pPad = new CInputPad;

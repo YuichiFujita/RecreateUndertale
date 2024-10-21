@@ -48,7 +48,7 @@ CChar2D::~CChar2D()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CChar2D::Init(void)
+HRESULT CChar2D::Init()
 {
 	// メンバ変数を初期化
 	m_pFontChar		= nullptr;	// フォント文字
@@ -74,7 +74,7 @@ HRESULT CChar2D::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CChar2D::Uninit(void)
+void CChar2D::Uninit()
 {
 	// オブジェクト2Dの終了
 	CObject2D::Uninit();
@@ -296,7 +296,7 @@ void CChar2D::SetCharHeight(const float fHeight)
 //============================================================
 //	ブラックボックスの左上オフセット取得処理
 //============================================================
-VECTOR2 CChar2D::GetOffsetBlackBoxLU(void)
+VECTOR2 CChar2D::GetOffsetBlackBoxLU()
 {
 	CFontChar::SChar infoChar = m_pFontChar->Regist(m_wcChar);	// 文字情報
 
@@ -311,7 +311,7 @@ VECTOR2 CChar2D::GetOffsetBlackBoxLU(void)
 //============================================================
 //	ブラックボックスの右下オフセット取得処理
 //============================================================
-VECTOR2 CChar2D::GetOffsetBlackBoxRD(void)
+VECTOR2 CChar2D::GetOffsetBlackBoxRD()
 {
 	CFontChar::SChar infoChar = m_pFontChar->Regist(m_wcChar);	// 文字情報
 
@@ -326,7 +326,7 @@ VECTOR2 CChar2D::GetOffsetBlackBoxRD(void)
 //============================================================
 //	文字の取得処理 (マルチバイト文字)
 //============================================================
-std::string CChar2D::GetChar(void) const
+std::string CChar2D::GetChar() const
 {
 	std::wstring wsChar;	// 文字列変換用
 
@@ -340,7 +340,7 @@ std::string CChar2D::GetChar(void) const
 //============================================================
 //	原点のオフセット取得処理
 //============================================================
-float CChar2D::GetOffsetOrigin(void)
+float CChar2D::GetOffsetOrigin()
 {
 	CFontChar::SChar infoChar = m_pFontChar->Regist(m_wcChar);	// 文字情報
 
@@ -354,7 +354,7 @@ float CChar2D::GetOffsetOrigin(void)
 //============================================================
 //	次の文字までの距離取得処理
 //============================================================
-float CChar2D::GetNext(void)
+float CChar2D::GetNext()
 {
 	CFontChar::SChar infoChar = m_pFontChar->Regist(m_wcChar);	// 文字情報
 

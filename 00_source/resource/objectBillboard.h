@@ -46,18 +46,18 @@ public:
 	~CObjectBillboard() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;		// 更新
 	void Draw(CShader* pShader = nullptr) override;		// 描画
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
 	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
 	void SetVec3Size(const VECTOR3& rSize) override;	// 大きさ設定
-	VECTOR3 GetVec3Position(void) const override	{ return m_pos; }		// 位置取得
-	VECTOR3 GetVec3Rotation(void) const override	{ return m_rot; }		// 向き取得
-	VECTOR3 GetVec3Size(void) const override		{ return m_size; }		// 大きさ取得
-	MATRIX* GetPtrMtxWorld(void) override			{ return &m_mtxWorld; }	// マトリックスポインタ取得
-	MATRIX GetMtxWorld(void) const override			{ return m_mtxWorld; }	// マトリックス取得
+	VECTOR3 GetVec3Position() const override	{ return m_pos; }		// 位置取得
+	VECTOR3 GetVec3Rotation() const override	{ return m_rot; }		// 向き取得
+	VECTOR3 GetVec3Size() const override		{ return m_size; }		// 大きさ取得
+	MATRIX* GetPtrMtxWorld() override			{ return &m_mtxWorld; }	// マトリックスポインタ取得
+	MATRIX GetMtxWorld() const override			{ return m_mtxWorld; }	// マトリックス取得
 
 	// 静的メンバ関数
 	static CObjectBillboard* Create	// 生成
@@ -71,29 +71,29 @@ public:
 	);
 
 	// メンバ関数
-	CRenderState* GetRenderState(void);			// レンダーステート情報取得
+	CRenderState* GetRenderState();			// レンダーステート情報取得
 	void BindTexture(const int nTextureID);		// テクスチャ割当 (インデックス)
 	void BindTexture(const char* pTexturePath);	// テクスチャ割当 (パス)
 	void SetAlpha(const float fAlpha);			// 透明度設定
 	void SetColor(const COLOR& rCol);			// 色設定
 	void SetOrigin(const EOrigin origin);		// 原点設定
 	void SetRotate(const ERotate rotate);		// 回転設定
-	int GetTextureIndex(void) const	{ return m_nTextureID; }	// テクスチャインデックス取得
-	float GetAlpha(void) const		{ return m_col.a; }			// 透明度取得
-	COLOR GetColor(void) const		{ return m_col; }			// 色取得
-	EOrigin GetOrigin(void) const	{ return m_origin; }		// 原点取得
-	ERotate GetRotate(void) const	{ return m_rotate; }		// 回転取得
+	int GetTextureIndex() const	{ return m_nTextureID; }	// テクスチャインデックス取得
+	float GetAlpha() const		{ return m_col.a; }			// 透明度取得
+	COLOR GetColor() const		{ return m_col; }			// 色取得
+	EOrigin GetOrigin() const	{ return m_origin; }		// 原点取得
+	ERotate GetRotate() const	{ return m_rotate; }		// 回転取得
 
 protected:
 	// メンバ関数
-	void SetVtx(void);	// 頂点情報の設定
+	void SetVtx();	// 頂点情報の設定
 
 private:
 	// オーバーライド関数
-	void Release(void) override { CObject::Release(); }	// 破棄
+	inline void Release() override { CObject::Release(); }	// 破棄
 
 	// メンバ関数
-	void DrawNormal(void);	// 通常描画
+	void DrawNormal();	// 通常描画
 	void DrawShader(CShader* pShader);	// シェーダー描画
 
 	// メンバ変数

@@ -46,7 +46,7 @@ CDebugProc::~CDebugProc()
 //==========================================================
 //デバッグ表示の初期化処理
 //==========================================================
-HRESULT CDebugProc::Init(void)
+HRESULT CDebugProc::Init()
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスへのポインタ
 
@@ -81,7 +81,7 @@ HRESULT CDebugProc::Init(void)
 //==========================================================
 //デバッグ表示の終了処理
 //==========================================================
-void CDebugProc::Uninit(void)
+void CDebugProc::Uninit()
 {
 	// デバッグ表示用フォントの破棄
 	SAFE_RELEASE(m_pFont);
@@ -90,7 +90,7 @@ void CDebugProc::Uninit(void)
 //==========================================================
 //デバッグ表示の更新処理
 //==========================================================
-void CDebugProc::Update(void)
+void CDebugProc::Update()
 {
 
 }
@@ -98,7 +98,7 @@ void CDebugProc::Update(void)
 //==========================================================
 //デバッグ表示の描画処理
 //==========================================================
-void CDebugProc::Draw(void)
+void CDebugProc::Draw()
 {
 	RECT rect = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 
@@ -213,7 +213,7 @@ void CDebugProc::Print(const EPoint point, const char* fmt, ...)
 //==========================================================
 //	生成処理
 //==========================================================
-CDebugProc* CDebugProc::Create(void)
+CDebugProc* CDebugProc::Create()
 {
 	// デバッグ表示の生成
 	CDebugProc* pDebugProc = new CDebugProc;

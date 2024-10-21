@@ -35,8 +35,8 @@ public:
 	~CStartStateTutorial() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
 
 private:
@@ -49,8 +49,8 @@ private:
 	};
 
 	// メンバ関数
-	void UpdateSelect(void);	// 選択更新
-	void UpdateDecide(void);	// 決定更新
+	void UpdateSelect();	// 選択更新
+	void UpdateDecide();	// 決定更新
 
 	// メンバ変数
 	CString2D* m_apSelect[SELECT_MAX];	// 選択肢

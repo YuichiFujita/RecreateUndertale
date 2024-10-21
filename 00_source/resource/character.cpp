@@ -43,7 +43,7 @@ CCharacter::~CCharacter()
 //============================================================
 //	キャラクター初期化処理
 //============================================================
-HRESULT CCharacter::Init(void)
+HRESULT CCharacter::Init()
 {
 	// キャラクター連想配列を初期化
 	m_mapCharacter.clear();
@@ -55,7 +55,7 @@ HRESULT CCharacter::Init(void)
 //============================================================
 //	キャラクター終了処理
 //============================================================
-void CCharacter::Uninit(void)
+void CCharacter::Uninit()
 {
 	for (auto& rMap : m_mapCharacter)
 	{ // キャラクター数分繰り返す
@@ -88,7 +88,7 @@ void CCharacter::Uninit(void)
 //============================================================
 //	キャラクター全読込処理
 //============================================================
-HRESULT CCharacter::LoadAll(void)
+HRESULT CCharacter::LoadAll()
 {
 	// キャラクターの全読込
 	if (FAILED(SearchFolderAll(LOAD_FOLDER)))
@@ -137,7 +137,7 @@ CCharacter::SCharaData CCharacter::Regist(const char* pCharaPath)
 //============================================================
 //	生成処理
 //============================================================
-CCharacter* CCharacter::Create(void)
+CCharacter* CCharacter::Create()
 {
 	// キャラクターの生成
 	CCharacter* pCharacter = new CCharacter;

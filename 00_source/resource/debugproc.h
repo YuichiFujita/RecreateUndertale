@@ -37,17 +37,17 @@ public:
 	~CDebugProc();
 
 	// メンバ関数
-	HRESULT Init(void);
-	void Uninit(void);
-	void Update(void);
-	void Draw(void);
+	HRESULT Init();
+	void Uninit();
+	void Update();
+	void Draw();
 	void Print(const EPoint point, const char* fmt, ...);
 	
 	void SetDisp(const bool bDisp)	{ m_bDisp = bDisp; }	// 表示設定
-	bool IsDisp(void) const			{ return m_bDisp; }		// 表示取得
+	bool IsDisp() const			{ return m_bDisp; }		// 表示取得
 
 	// 静的メンバ関数
-	static CDebugProc* Create(void);				// 生成
+	static CDebugProc* Create();				// 生成
 	static void Release(CDebugProc*& pDebugProc);	// 破棄
 
 private:

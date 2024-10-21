@@ -40,7 +40,7 @@ CIntroStateText::~CIntroStateText()
 //============================================================
 //	‰Šú‰»ˆ—
 //============================================================
-HRESULT CIntroStateText::Init(void)
+HRESULT CIntroStateText::Init()
 {
 	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
@@ -49,7 +49,7 @@ HRESULT CIntroStateText::Init(void)
 //============================================================
 //	I—¹ˆ—
 //============================================================
-void CIntroStateText::Uninit(void)
+void CIntroStateText::Uninit()
 {
 	// ©g‚Ì”jŠü
 	delete this;

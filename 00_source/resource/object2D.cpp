@@ -51,7 +51,7 @@ CObject2D::~CObject2D()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CObject2D::Init(void)
+HRESULT CObject2D::Init()
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
@@ -103,7 +103,7 @@ HRESULT CObject2D::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CObject2D::Uninit(void)
+void CObject2D::Uninit()
 {
 	// 頂点バッファの破棄
 	SAFE_RELEASE(m_pVtxBuff);
@@ -245,7 +245,7 @@ void CObject2D::SetVec3Size(const VECTOR3& rSize)
 //============================================================
 //	レンダーステート情報の取得処理
 //============================================================
-CRenderState* CObject2D::GetRenderState(void)
+CRenderState* CObject2D::GetRenderState()
 {
 	// インスタンス未使用
 	assert(m_pRenderState != nullptr);
@@ -315,7 +315,7 @@ void CObject2D::SetColor(const COLOR& rCol)
 //============================================================
 //	頂点情報の設定処理
 //============================================================
-void CObject2D::SetVtx(void)
+void CObject2D::SetVtx()
 {
 	VERTEX_2D* pVtx;	// 頂点情報へのポインタ
 	if (m_pVtxBuff != nullptr)

@@ -52,7 +52,7 @@ CStage::~CStage()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CStage::Init(void)
+HRESULT CStage::Init()
 {
 	// メンバ変数を初期化
 	memset(&m_limit, 0, sizeof(m_limit));	// ステージ範囲
@@ -76,7 +76,7 @@ HRESULT CStage::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CStage::Uninit(void)
+void CStage::Uninit()
 {
 
 }
@@ -116,7 +116,7 @@ void CStage::SetFadeRoom(const char* pRoomPath)
 //============================================================
 //	生成処理
 //============================================================
-CStage* CStage::Create(void)
+CStage* CStage::Create()
 {
 	// ステージの生成
 	CStage* pStage = new CStage;

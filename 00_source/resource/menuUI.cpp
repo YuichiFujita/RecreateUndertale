@@ -42,7 +42,7 @@ CMenuUI::~CMenuUI()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CMenuUI::Init(void)
+HRESULT CMenuUI::Init()
 {
 	// メンバ変数を初期化
 	m_pStatusMenu = nullptr;	// ステータスメニュー情報
@@ -75,7 +75,7 @@ HRESULT CMenuUI::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CMenuUI::Uninit(void)
+void CMenuUI::Uninit()
 {
 	// ステータスメニューの終了
 	SAFE_UNINIT(m_pStatusMenu);
@@ -106,7 +106,7 @@ void CMenuUI::Draw(CShader* /*pShader*/)
 //============================================================
 //	生成処理
 //============================================================
-CMenuUI* CMenuUI::Create(void)
+CMenuUI* CMenuUI::Create()
 {
 	// フィールドメニューの生成
 	CMenuUI* pMenuUI = new CMenuUI;

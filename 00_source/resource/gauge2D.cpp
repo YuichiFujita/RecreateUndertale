@@ -60,7 +60,7 @@ CGauge2D::~CGauge2D()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CGauge2D::Init(void)
+HRESULT CGauge2D::Init()
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
@@ -115,7 +115,7 @@ HRESULT CGauge2D::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CGauge2D::Uninit(void)
+void CGauge2D::Uninit()
 {
 	// 頂点バッファの破棄
 	SAFE_RELEASE(m_pVtxBuff);
@@ -485,7 +485,7 @@ void CGauge2D::SetEnableDrawFrame(const bool bDraw)
 //============================================================
 //	頂点情報の設定処理
 //============================================================
-void CGauge2D::SetVtx(void)
+void CGauge2D::SetVtx()
 {
 	VERTEX_2D* pVtx;	// 頂点情報へのポインタ
 	if (m_pVtxBuff != nullptr)

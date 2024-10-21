@@ -29,16 +29,16 @@ public:
 	~CMonoShader() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 
 	// メンバ関数
 	void SetColor(const COLOR& rCol);	// ピクセル描画色の設定
 
 	// 静的メンバ関数
-	static CMonoShader* Create(void);		// 生成
-	static CMonoShader* GetInstance(void);	// 取得
-	static void Release(void);				// 破棄
+	static CMonoShader* Create();		// 生成
+	static CMonoShader* GetInstance();	// 取得
+	static void Release();				// 破棄
 
 private:
 	// 静的メンバ変数

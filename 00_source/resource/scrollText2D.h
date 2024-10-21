@@ -30,8 +30,8 @@ public:
 	~CScrollText2D() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
 	void Draw(CShader* pShader = nullptr) override;	// 描画
 	void SetEnableDraw(const bool bDraw) override;	// 描画状況設定
@@ -40,7 +40,7 @@ public:
 	HRESULT PushBackString(const std::string& rStr) override;	// 文字列の最後尾追加 (マルチバイト文字列)
 	HRESULT PushBackString(const std::wstring& rStr) override;	// 文字列の最後尾追加 (ワイド文字列)
 	void DeleteString(const int nStrID) override;				// 文字列削除
-	void DeleteStringAll(void) override;						// 文字列全削除
+	void DeleteStringAll() override;							// 文字列全削除
 
 	// 静的メンバ関数
 	static CScrollText2D* Create	// 生成
@@ -58,14 +58,14 @@ public:
 	);
 
 	// メンバ関数
-	void SetNextTime(const float fNextTime)			{ m_fNextTime = fNextTime; }	// 文字表示の待機時間設定
-	float GetNextTime(void) const					{ return m_fNextTime; }			// 文字表示の待機時間取得
-	void SetEnableScroll(const bool bScroll)		{ m_bScroll = bScroll; }		// 文字送り状況設定
-	bool IsScroll(void) const						{ return m_bScroll; }			// 文字送り状況取得
-	void SetScrollSE(const CSound::ELabel labelSE)	{ m_labelSE = labelSE; }		// 文字送り時の効果音設定
-	CSound::ELabel GetScrollSE(void) const			{ return m_labelSE; }			// 文字送り時の効果音取得
-	int GetNextCharID(void)			{ return m_nNextID; }				// 次の表示文字インデックス取得
-	CChar2D* GetNextChar2D(void)	{ return m_vecChar[m_nNextID]; }	// 次の表示文字取得
+	inline void SetNextTime(const float fNextTime)			{ m_fNextTime = fNextTime; }		// 文字表示の待機時間設定
+	inline float GetNextTime() const						{ return m_fNextTime; }				// 文字表示の待機時間取得
+	inline void SetEnableScroll(const bool bScroll)			{ m_bScroll = bScroll; }			// 文字送り状況設定
+	inline bool IsScroll() const							{ return m_bScroll; }				// 文字送り状況取得
+	inline void SetScrollSE(const CSound::ELabel labelSE)	{ m_labelSE = labelSE; }			// 文字送り時の効果音設定
+	inline CSound::ELabel GetScrollSE() const				{ return m_labelSE; }				// 文字送り時の効果音取得
+	inline int GetNextCharID()								{ return m_nNextID; }				// 次の表示文字インデックス取得
+	inline CChar2D* GetNextChar2D()							{ return m_vecChar[m_nNextID]; }	// 次の表示文字取得
 
 private:
 	// メンバ関数

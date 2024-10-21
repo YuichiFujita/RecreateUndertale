@@ -46,7 +46,7 @@ CPlayerStateNormal::~CPlayerStateNormal()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CPlayerStateNormal::Init(void)
+HRESULT CPlayerStateNormal::Init()
 {
 	// メンバ変数を初期化
 	m_move = VEC3_ZERO;	// 移動量
@@ -58,7 +58,7 @@ HRESULT CPlayerStateNormal::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CPlayerStateNormal::Uninit(void)
+void CPlayerStateNormal::Uninit()
 {
 	// 自身の破棄
 	delete this;
@@ -94,7 +94,7 @@ int CPlayerStateNormal::Update(const float fDeltaTime)
 //============================================================
 //	移動の操作処理
 //============================================================
-int CPlayerStateNormal::ControlMove(void)
+int CPlayerStateNormal::ControlMove()
 {
 	CPlayer::EAngle angle = m_pContext->GetAngle();			// 向き
 	CPlayer::EMotion curMotion = (CPlayer::EMotion)angle;	// 現在のモーション

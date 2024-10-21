@@ -46,12 +46,12 @@ public:
 	~CGauge2D() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;		// 更新
 	void Draw(CShader* pShader = nullptr) override;		// 描画
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
-	VECTOR3 GetVec3Position(void) const override { return m_pos; }	// 位置取得
+	inline VECTOR3 GetVec3Position() const override { return m_pos; }	// 位置取得
 
 	// 静的メンバ関数
 	static CGauge2D* Create	// 生成
@@ -84,23 +84,23 @@ public:
 	void SetAlphaBack(const float fAlpha);			// 裏ゲージ透明度取得
 	void SetColorBack(const COLOR& rCol);			// 裏ゲージ色設定
 	void SetEnableDrawFrame(const bool bDraw);		// 枠表示状況設定
-	int GetNum(void) const				{ return m_nNumGauge; }		// ゲージ取得
-	int GetMaxNum(void) const			{ return m_nMaxNumGauge; }	// ゲージ最大値取得
-	VECTOR3 GetOffsetFrame(void) const	{ return m_offsetFrame; }	// 枠オフセット取得
-	VECTOR3 GetSizeGauge(void) const	{ return m_sizeGauge; }		// ゲージ大きさ取得
-	VECTOR3 GetSizeFrame(void) const	{ return m_sizeFrame; }		// 背景大きさ取得
-	float GetAlphaFront(void) const		{ return m_colFront.a; }	// 表ゲージ透明度取得
-	COLOR GetColorFront(void) const		{ return m_colFront; }		// 表ゲージ色取得
-	float GetAlphaBack(void) const		{ return m_colBack.a; }		// 裏ゲージ透明度取得
-	COLOR GetColorBack(void) const		{ return m_colBack; }		// 裏ゲージ色取得
-	bool IsEnableDrawFrame(void) const	{ return m_bDrawFrame; }	// 枠表示状況取得
+	inline int GetNum() const				{ return m_nNumGauge; }		// ゲージ取得
+	inline int GetMaxNum() const			{ return m_nMaxNumGauge; }	// ゲージ最大値取得
+	inline VECTOR3 GetOffsetFrame() const	{ return m_offsetFrame; }	// 枠オフセット取得
+	inline VECTOR3 GetSizeGauge() const		{ return m_sizeGauge; }		// ゲージ大きさ取得
+	inline VECTOR3 GetSizeFrame() const		{ return m_sizeFrame; }		// 背景大きさ取得
+	inline float GetAlphaFront() const		{ return m_colFront.a; }	// 表ゲージ透明度取得
+	inline COLOR GetColorFront() const		{ return m_colFront; }		// 表ゲージ色取得
+	inline float GetAlphaBack() const		{ return m_colBack.a; }		// 裏ゲージ透明度取得
+	inline COLOR GetColorBack() const		{ return m_colBack; }		// 裏ゲージ色取得
+	inline bool IsEnableDrawFrame() const	{ return m_bDrawFrame; }	// 枠表示状況取得
 
 private:
 	// オーバーライド関数
-	void Release(void) override { CObject::Release(); }	// 破棄
+	inline void Release() override { CObject::Release(); }	// 破棄
 
 	// メンバ関数
-	void SetVtx(void);	// 頂点情報の設定
+	void SetVtx();	// 頂点情報の設定
 
 	// メンバ変数
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;	// 頂点バッファへのポインタ

@@ -47,7 +47,7 @@ CTexture::~CTexture()
 //============================================================
 //	テクスチャ初期化処理
 //============================================================
-HRESULT CTexture::Init(void)
+HRESULT CTexture::Init()
 {
 	// テクスチャ連想配列を初期化
 	m_mapTexture.clear();
@@ -59,7 +59,7 @@ HRESULT CTexture::Init(void)
 //============================================================
 //	テクスチャ終了処理
 //============================================================
-void CTexture::Uninit(void)
+void CTexture::Uninit()
 {
 	for (auto& rMap : m_mapTexture)
 	{ // テクスチャの要素数分繰り返す
@@ -75,7 +75,7 @@ void CTexture::Uninit(void)
 //============================================================
 //	テクスチャ全読込処理
 //============================================================
-HRESULT CTexture::LoadAll(void)
+HRESULT CTexture::LoadAll()
 {
 	// テクスチャの全読込
 	if (FAILED(SearchFolderAll(LOAD_FOLDER)))
@@ -309,7 +309,7 @@ LPDIRECT3DTEXTURE9 CTexture::GetPtr(const int nID)
 //============================================================
 //	生成処理
 //============================================================
-CTexture* CTexture::Create(void)
+CTexture* CTexture::Create()
 {
 	// テクスチャの生成
 	CTexture* pTexture = new CTexture;

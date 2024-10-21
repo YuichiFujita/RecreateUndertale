@@ -147,7 +147,7 @@ HRESULT CRenderer::Init(HWND hWnd, BOOL bWindow)
 //============================================================
 //	終了処理
 //============================================================
-void CRenderer::Uninit(void)
+void CRenderer::Uninit()
 {
 	// スクリーン描画ポリゴンの終了
 	SAFE_UNINIT(m_pDrawScreen);
@@ -177,7 +177,7 @@ void CRenderer::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CRenderer::Draw(void)
+void CRenderer::Draw()
 {
 	CManager*	 pManager	= GET_MANAGER;				// マネージャー
 	CCamera*	 pCamera	= pManager->GetCamera();	// カメラ
@@ -275,7 +275,7 @@ void CRenderer::Draw(void)
 //============================================================
 //	レンダーテクスチャー生成処理
 //============================================================
-HRESULT CRenderer::CreateRenderTexture(void)
+HRESULT CRenderer::CreateRenderTexture()
 {
 	CTexture* pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
 	HRESULT hr;	// 異常終了の確認用
@@ -332,7 +332,7 @@ HRESULT CRenderer::CreateRenderTexture(void)
 //============================================================
 //	デバイス取得処理
 //============================================================
-LPDIRECT3DDEVICE9 CRenderer::GetDevice(void) const
+LPDIRECT3DDEVICE9 CRenderer::GetDevice() const
 {
 	// デバイスのポインタを返す
 	return m_pD3DDevice;
@@ -341,7 +341,7 @@ LPDIRECT3DDEVICE9 CRenderer::GetDevice(void) const
 //============================================================
 //	画面クリア色取得処理
 //============================================================
-COLOR CRenderer::GetClearColor(void) const
+COLOR CRenderer::GetClearColor() const
 {
 	// 画面クリア色を返す
 	return COL_CLEAR;

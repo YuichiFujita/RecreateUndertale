@@ -42,14 +42,14 @@ public:
 	~CTileColl();
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
 	void Draw(CShader* pShader = nullptr) override;	// 描画
 
 	// 静的メンバ関数
 	static CTileColl* Create(const EType type, const VECTOR3& rPos);	// 生成
-	static CListManager<CTileColl>* GetList(void);	// リスト取得
+	static CListManager<CTileColl>* GetList();	// リスト取得
 
 	static void CollisionTile	// 判定タイルとの当たり判定
 	( // 引数
@@ -68,7 +68,7 @@ public:
 
 	// メンバ関数
 	void SetType(const EType type);					// 種類設定
-	EType GetType(void) const { return m_type; }	// 種類取得
+	inline EType GetType() const { return m_type; }	// 種類取得
 
 private:
 	// 静的メンバ変数

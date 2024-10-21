@@ -56,21 +56,21 @@ public:
 	~CTitleManager();
 
 	// メンバ関数
-	HRESULT Init(void);	// 初期化
-	void Uninit(void);	// 終了
+	HRESULT Init();	// 初期化
+	void Uninit();	// 終了
 	void Update(const float fDeltaTime);	// 更新
 
 	// 静的メンバ関数
-	static CTitleManager* Create(void);	// 生成
+	static CTitleManager* Create();	// 生成
 	static void Release(CTitleManager*& prTitleManager);	// 破棄
 
 private:
 	// メンバ関数
-	void UpdateFade(void);	// フェードアウト
-	void UpdateMove(void);	// タイトル移動
-	void UpdateStart(void);	// 遷移決定
-	void ActSelect(void);	// 選択操作
-	void SkipStaging(void);	// 演出スキップ
+	void UpdateFade();	// フェードアウト
+	void UpdateMove();	// タイトル移動
+	void UpdateStart();	// 遷移決定
+	void ActSelect();	// 選択操作
+	void SkipStaging();	// 演出スキップ
 
 	// メンバ変数
 	CObject2D* m_apLogo[LOGO_MAX];		// タイトル表示の情報

@@ -55,7 +55,7 @@ CObjectBillboard::~CObjectBillboard()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CObjectBillboard::Init(void)
+HRESULT CObjectBillboard::Init()
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
@@ -113,7 +113,7 @@ HRESULT CObjectBillboard::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CObjectBillboard::Uninit(void)
+void CObjectBillboard::Uninit()
 {
 	// 頂点バッファの破棄
 	SAFE_RELEASE(m_pVtxBuff);
@@ -335,7 +335,7 @@ void CObjectBillboard::SetVec3Size(const VECTOR3& rSize)
 //============================================================
 //	レンダーステート情報の取得処理
 //============================================================
-CRenderState* CObjectBillboard::GetRenderState(void)
+CRenderState* CObjectBillboard::GetRenderState()
 {
 	// インスタンス未使用
 	assert(m_pRenderState != nullptr);
@@ -453,7 +453,7 @@ void CObjectBillboard::SetRotate(const ERotate rotate)
 //============================================================
 //	頂点情報の設定処理
 //============================================================
-void CObjectBillboard::SetVtx(void)
+void CObjectBillboard::SetVtx()
 {
 	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 
@@ -534,7 +534,7 @@ void CObjectBillboard::SetVtx(void)
 //============================================================
 //	通常描画処理
 //============================================================
-void CObjectBillboard::DrawNormal(void)
+void CObjectBillboard::DrawNormal()
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 

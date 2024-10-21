@@ -42,7 +42,7 @@ CIntroStateEnd::~CIntroStateEnd()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CIntroStateEnd::Init(void)
+HRESULT CIntroStateEnd::Init()
 {
 	// メンバ変数を初期化
 	m_fCurTime = 0.0f;	// 現在の待機時間
@@ -54,7 +54,7 @@ HRESULT CIntroStateEnd::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CIntroStateEnd::Uninit(void)
+void CIntroStateEnd::Uninit()
 {
 	// 自身の破棄
 	delete this;

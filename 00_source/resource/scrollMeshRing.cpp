@@ -35,7 +35,7 @@ CScrollMeshRing::~CScrollMeshRing()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CScrollMeshRing::Init(void)
+HRESULT CScrollMeshRing::Init()
 {
 	// メンバ変数を初期化
 	m_fTexU  = 0.0f;	// テクスチャ横座標の開始位置
@@ -62,7 +62,7 @@ HRESULT CScrollMeshRing::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CScrollMeshRing::Uninit(void)
+void CScrollMeshRing::Uninit()
 {
 	// メッシュリングの終了
 	CObjectMeshRing::Uninit();
@@ -352,7 +352,7 @@ void CScrollMeshRing::SetMoveU(const float fMoveU)
 //============================================================
 //	横座標の移動量取得処理
 //============================================================
-float CScrollMeshRing::GetMoveU(void) const
+float CScrollMeshRing::GetMoveU() const
 {
 	// テクスチャ横座標の移動量を返す
 	return m_fMoveU;
@@ -373,7 +373,7 @@ void CScrollMeshRing::SetMoveV(const float fMoveV)
 //============================================================
 //	縦座標の移動量取得処理
 //============================================================
-float CScrollMeshRing::GetMoveV(void) const
+float CScrollMeshRing::GetMoveV() const
 {
 	// テクスチャ縦座標の移動量を返す
 	return m_fMoveV;

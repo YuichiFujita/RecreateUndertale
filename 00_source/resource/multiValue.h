@@ -30,17 +30,17 @@ public:
 	~CMultiValue() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;		// 更新
 	void Draw(CShader* pShader = nullptr) override;		// 描画
 	void SetPriority(const int nPriority) override;		// 優先順位設定
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
 	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
 	void SetVec3Size(const VECTOR3& rSize) override;	// 大きさ設定
-	VECTOR3 GetVec3Position(void) const override	{ return m_pos; }	// 位置取得
-	VECTOR3 GetVec3Rotation(void) const override	{ return m_rot; }	// 向き取得
-	VECTOR3 GetVec3Size(void) const override		{ return m_size; }	// 大きさ取得
+	inline VECTOR3 GetVec3Position() const override	{ return m_pos; }	// 位置取得
+	inline VECTOR3 GetVec3Rotation() const override	{ return m_rot; }	// 向き取得
+	inline VECTOR3 GetVec3Size() const override		{ return m_size; }	// 大きさ取得
 
 	// 静的メンバ関数
 	static CMultiValue* Create	// 生成
@@ -69,27 +69,28 @@ public:
 	void SetAlpha(const float fAlpha);		// 透明度設定
 	void SetColor(const COLOR& rCol);		// 色設定
 	void SetSpace(const VECTOR3& rSpace);	// 空白設定
-	float GetValueWidth(void) const;		// 数字全体の横幅取得
-	float GetValueHeight(void) const;		// 数字全体の縦幅取得
-	VECTOR3 GetValueSize(void) const;		// 数字全体の大きさ取得
+	float GetValueWidth() const;			// 数字全体の横幅取得
+	float GetValueHeight() const;			// 数字全体の縦幅取得
+	VECTOR3 GetValueSize() const;			// 数字全体の大きさ取得
 
-	int GetNum(void) const		{ return m_nNum; }	// 数値取得
-	int GetMin(void) const		{ return m_nMin; }	// 最小値取得
-	int GetMax(void) const		{ return m_nMax; }	// 最大値取得
-	int GetDigit(void) const	{ return (int)m_listValue.size(); }	// 桁数取得
-	EAlignX GetAlignX(void) const	{ return m_alignX; }	// 横配置取得
-	EAlignY GetAlignY(void) const	{ return m_alignY; }	// 縦配置取得
-	float GetAlpha(void) const		{ return m_col.a; }		// 透明度取得
-	COLOR GetColor(void) const		{ return m_col; }		// 色取得
-	VECTOR3 GetSpace(void) const	{ return m_space; }		// 空白取得
+	inline int GetNum() const	{ return m_nNum; }	// 数値取得
+	inline int GetMin() const	{ return m_nMin; }	// 最小値取得
+	inline int GetMax() const	{ return m_nMax; }	// 最大値取得
+
+	inline int GetDigit() const			{ return (int)m_listValue.size(); }	// 桁数取得
+	inline EAlignX GetAlignX() const	{ return m_alignX; }	// 横配置取得
+	inline EAlignY GetAlignY() const	{ return m_alignY; }	// 縦配置取得
+	inline float GetAlpha() const		{ return m_col.a; }		// 透明度取得
+	inline COLOR GetColor() const		{ return m_col; }		// 色取得
+	inline VECTOR3 GetSpace() const		{ return m_space; }		// 空白取得
 
 private:
 	// オーバーライド関数
-	void Release(void) override { CObject::Release(); }	// 破棄
+	inline void Release() override { CObject::Release(); }	// 破棄
 
 	// メンバ関数
-	void SetPositionRelative(void);	// 相対位置設定
-	void SetTexNum(void);			// 数字のテクスチャ座標設定
+	void SetPositionRelative();	// 相対位置設定
+	void SetTexNum();			// 数字のテクスチャ座標設定
 
 	// メンバ変数
 	std::list<CValue*> m_listValue;	// 数字リスト

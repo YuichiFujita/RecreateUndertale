@@ -45,7 +45,7 @@ CItemUseUI::~CItemUseUI()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CItemUseUI::Init(void)
+HRESULT CItemUseUI::Init()
 {
 	// アイテムUIの初期化
 	if (FAILED(CItemUI::Init()))
@@ -66,7 +66,7 @@ HRESULT CItemUseUI::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CItemUseUI::Uninit(void)
+void CItemUseUI::Uninit()
 {
 	// アイテムUIの終了
 	CItemUI::Uninit();
@@ -93,7 +93,7 @@ void CItemUseUI::Draw(CShader* pShader)
 //============================================================
 //	テキストボックス進行処理
 //============================================================
-void CItemUseUI::NextText(void)
+void CItemUseUI::NextText()
 {
 	int nTextIdx = GetCurTextIdx();			// テキスト進行度インデックス
 	int nItemIdx = GetChoiceItemIdx();		// 選択アイテムインデックス

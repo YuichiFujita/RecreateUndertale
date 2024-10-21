@@ -41,7 +41,7 @@ CTileSpawn::~CTileSpawn()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CTileSpawn::Init(void)
+HRESULT CTileSpawn::Init()
 {
 	// オブジェクト3Dの初期化
 	if (FAILED(CObject3D::Init()))
@@ -65,7 +65,7 @@ HRESULT CTileSpawn::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CTileSpawn::Uninit(void)
+void CTileSpawn::Uninit()
 {
 	// オブジェクト3Dの終了
 	CObject3D::Uninit();

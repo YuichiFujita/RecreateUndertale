@@ -60,16 +60,16 @@ public:
 	};
 
 	// メンバ関数
-	HRESULT Init(void);		// テクスチャ初期化
-	void Uninit(void);		// テクスチャ終了
-	HRESULT LoadAll(void);	// テクスチャ全読込
+	HRESULT Init();		// テクスチャ初期化
+	void Uninit();		// テクスチャ終了
+	HRESULT LoadAll();	// テクスチャ全読込
 	int Regist(const SInfo info);				// テクスチャ登録 (生成)
 	int Regist(std::string sFilePath);			// テクスチャ登録 (パス)
 	STexture GetInfo(const int nID);			// テクスチャ情報取得
 	LPDIRECT3DTEXTURE9 GetPtr(const int nID);	// テクスチャポインタ取得
 
 	// 静的メンバ関数
-	static CTexture* Create(void);				// 生成
+	static CTexture* Create();					// 生成
 	static void Release(CTexture*& pTexture);	// 破棄
 
 private:

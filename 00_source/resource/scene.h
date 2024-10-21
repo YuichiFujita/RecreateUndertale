@@ -34,8 +34,8 @@ public:
 	virtual ~CScene();
 
 	// 仮想関数
-	virtual HRESULT Init(void);	// 初期化
-	virtual void Uninit(void);	// 終了
+	virtual HRESULT Init();	// 初期化
+	virtual void Uninit();	// 終了
 	virtual void Update(const float fDeltaTime);	// 更新
 
 	// 静的メンバ関数
@@ -44,7 +44,7 @@ public:
 
 	// メンバ関数
 	void SetMode(const EMode mode)	{ m_mode = mode; }	// モード設定
-	EMode GetMode(void) const		{ return m_mode; }	// モード取得
+	EMode GetMode() const		{ return m_mode; }	// モード取得
 
 private:
 	// メンバ変数

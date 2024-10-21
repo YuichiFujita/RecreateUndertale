@@ -407,7 +407,7 @@ float useful::GetTexHeightFromAspect(const float fWidth, const int nTexID)
 //============================================================
 //	ƒ‰ƒ“ƒ_ƒ€Œü‚«Žæ“¾
 //============================================================
-float useful::RandomRot(void)
+float useful::RandomRot()
 {
 	// ƒ‰ƒ“ƒ_ƒ€Œü‚«‚ð•Ô‚·
 	return (float)(rand() % 629 - 314) * 0.01f;

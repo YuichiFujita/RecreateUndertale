@@ -39,12 +39,12 @@ public:
 	};
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;		// 更新
 	void Draw(CShader* pShader = nullptr) override;		// 描画
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
-	VECTOR3 GetVec3Position(void) const override { return m_pos; }	// 位置取得
+	inline VECTOR3 GetVec3Position() const override { return m_pos; }	// 位置取得
 
 	// 静的メンバ関数
 	static CParticle2D* Create	// 生成
@@ -58,13 +58,13 @@ public:
 	void SetAlpha(const float fAlpha);	// 透明度設定
 	void SetColor(const COLOR& rCol);	// 色設定
 	void SetType(const EType type);		// 種類設定
-	float GetAlpha(void) const	{ return m_col.a; }	// 透明度取得
-	COLOR GetColor(void) const	{ return m_col; }	// 色取得
-	EType GetType(void) const	{ return m_type; }	// 種類取得
+	inline float GetAlpha() const	{ return m_col.a; }	// 透明度取得
+	inline COLOR GetColor() const	{ return m_col; }	// 色取得
+	inline EType GetType() const	{ return m_type; }	// 種類取得
 
 private:
 	// オーバーライド関数
-	void Release(void) override { CObject::Release(); }	// 破棄
+	inline void Release() override { CObject::Release(); }	// 破棄
 
 	// メンバ関数
 	void Damage(const VECTOR3& rPos, const COLOR& rCol);	// ダメージ

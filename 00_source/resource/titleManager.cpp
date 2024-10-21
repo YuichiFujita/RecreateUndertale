@@ -112,7 +112,7 @@ CTitleManager::~CTitleManager()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CTitleManager::Init(void)
+HRESULT CTitleManager::Init()
 {
 	CTexture* pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
 
@@ -242,7 +242,7 @@ HRESULT CTitleManager::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CTitleManager::Uninit(void)
+void CTitleManager::Uninit()
 {
 	for (int nCntTitle = 0; nCntTitle < LOGO_MAX; nCntTitle++)
 	{ // タイトルロゴの総数分繰り返す
@@ -331,7 +331,7 @@ void CTitleManager::Update(const float fDeltaTime)
 //============================================================
 //	生成処理
 //============================================================
-CTitleManager* CTitleManager::Create(void)
+CTitleManager* CTitleManager::Create()
 {
 	// タイトルマネージャーの生成
 	CTitleManager* pTitleManager = new CTitleManager;
@@ -373,7 +373,7 @@ void CTitleManager::Release(CTitleManager*& prTitleManager)
 //============================================================
 //	フェードアウトの更新処理
 //============================================================
-void CTitleManager::UpdateFade(void)
+void CTitleManager::UpdateFade()
 {
 	COLOR colFade = m_pFade->GetColor();	// フェードの色
 	if (colFade.a > 0.0f)
@@ -416,7 +416,7 @@ void CTitleManager::UpdateFade(void)
 //============================================================
 //	タイトル移動の更新処理
 //============================================================
-void CTitleManager::UpdateMove(void)
+void CTitleManager::UpdateMove()
 {
 	if (m_fScale > 1.0f)
 	{ // 拡大率が最小値より大きい場合
@@ -455,7 +455,7 @@ void CTitleManager::UpdateMove(void)
 //============================================================
 //	遷移決定の更新処理
 //============================================================
-void CTitleManager::UpdateStart(void)
+void CTitleManager::UpdateStart()
 {
 	CInputKeyboard*	pKeyboard	= GET_INPUTKEY;	// キーボード
 	CInputPad*		pPad		= GET_INPUTPAD;	// パッド
@@ -503,7 +503,7 @@ void CTitleManager::UpdateStart(void)
 //============================================================
 //	選択操作処理
 //============================================================
-void CTitleManager::ActSelect(void)
+void CTitleManager::ActSelect()
 {
 	CInputKeyboard*	pKeyboard	= GET_INPUTKEY;	// キーボード
 	CInputPad*		pPad		= GET_INPUTPAD;	// パッド
@@ -541,7 +541,7 @@ void CTitleManager::ActSelect(void)
 //============================================================
 //	演出スキップ処理
 //============================================================
-void CTitleManager::SkipStaging(void)
+void CTitleManager::SkipStaging()
 {
 	// タイトルロゴを表示状態に設定・大きさを正規化
 	for (int nCntTitle = 0; nCntTitle < LOGO_MAX; nCntTitle++)

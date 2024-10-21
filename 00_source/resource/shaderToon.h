@@ -36,8 +36,8 @@ public:
 	~CToonShader() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 
 	// メンバ関数
 	void SetLightDirect(MATRIX* pMtxWorld, const int nLightID);	// ライト方向ベクトル設定
@@ -50,9 +50,9 @@ public:
 	void SetOnlyDiffuse(const COLOR& rDiffuse);					// 拡散光のみ設定
 
 	// 静的メンバ関数
-	static CToonShader* Create(void);		// 生成
-	static CToonShader* GetInstance(void);	// 取得
-	static void Release(void);				// 破棄
+	static CToonShader* Create();		// 生成
+	static CToonShader* GetInstance();	// 取得
+	static void Release();				// 破棄
 
 private:
 	// メンバ関数

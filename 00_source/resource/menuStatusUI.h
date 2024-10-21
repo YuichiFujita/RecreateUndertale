@@ -36,17 +36,17 @@ public:
 	~CMenuStatusUI() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
 	void Draw(CShader* pShader = nullptr) override;	// 描画
 
 	// 静的メンバ関数
-	static CMenuStatusUI* Create(void);	// 生成
+	static CMenuStatusUI* Create();	// 生成
 
 private:
 	// オーバーライド関数
-	void Release(void) override { CObject::Release(); }	// 破棄
+	inline void Release() override { CObject::Release(); }	// 破棄
 
 	// メンバ変数
 	CFrame2D* m_pFrame;	// フレーム情報

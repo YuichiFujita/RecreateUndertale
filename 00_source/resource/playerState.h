@@ -29,8 +29,8 @@ public:
 	virtual ~CPlayerState();
 
 	// 純粋仮想関数
-	virtual HRESULT Init(void)	= 0;	// 初期化
-	virtual void Uninit(void)	= 0;	// 終了
+	virtual HRESULT Init()	= 0;	// 初期化
+	virtual void Uninit()	= 0;	// 終了
 	virtual int Update(const float fDeltaTime) = 0;	// 更新
 
 	// メンバ関数

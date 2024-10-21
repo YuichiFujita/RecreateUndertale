@@ -36,14 +36,14 @@ public:
 	~CValueUI() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
 	void Draw(CShader* pShader = nullptr) override;	// 描画
 	void SetPriority(const int nPriority) override;	// 優先順位設定
 	void SetEnableDraw(const bool bDraw) override;	// 描画状況設定
 	void SetVec3Position(const VECTOR3& rPos) override;				// 位置設定
-	VECTOR3 GetVec3Position(void) const override { return m_pos; }	// 位置取得
+	VECTOR3 GetVec3Position() const override { return m_pos; }	// 位置取得
 
 	// 静的メンバ関数
 	static CValueUI* Create	// 生成 (テクスチャ指定なし)
@@ -99,19 +99,19 @@ public:
 	void SetSizeTitle(const VECTOR3& rSize);			// タイトル大きさ設定
 	void SetAlphaTitle(const float fAlpha);				// タイトル透明度設定
 	void SetColorTitle(const COLOR& rCol);				// タイトル色設定
-	VECTOR3 GetSpace(void) const			{ return m_space; }						// 行間取得
-	VECTOR3 GetRotationTitle(void) const	{ return m_pTitle->GetVec3Rotation(); }	// タイトル向き取得
-	VECTOR3 GetSizeTitle(void) const		{ return m_pTitle->GetVec3Size(); }		// タイトル大きさ取得
-	float GetAlphaTitle(void) const			{ return m_pTitle->GetAlpha(); }		// タイトル透明度取得
-	COLOR GetColorTitle(void) const			{ return m_pTitle->GetColor(); }		// タイトル色取得
-	CMultiValue* GetMultiValue(void) const	{ return m_pValue; }					// 数字情報取得
+	VECTOR3 GetSpace() const			{ return m_space; }						// 行間取得
+	VECTOR3 GetRotationTitle() const	{ return m_pTitle->GetVec3Rotation(); }	// タイトル向き取得
+	VECTOR3 GetSizeTitle() const		{ return m_pTitle->GetVec3Size(); }		// タイトル大きさ取得
+	float GetAlphaTitle() const			{ return m_pTitle->GetAlpha(); }		// タイトル透明度取得
+	COLOR GetColorTitle() const			{ return m_pTitle->GetColor(); }		// タイトル色取得
+	CMultiValue* GetMultiValue() const	{ return m_pValue; }					// 数字情報取得
 
 private:
 	// オーバーライド関数
-	void Release(void) override { CObject::Release(); }	// 破棄
+	inline void Release() override { CObject::Release(); }	// 破棄
 
 	// メンバ関数
-	void SetPositionRelative(void);	// 相対位置設定
+	void SetPositionRelative();	// 相対位置設定
 
 	// メンバ変数
 	CObject2D* m_pTitle;	// タイトル情報

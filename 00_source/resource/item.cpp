@@ -42,7 +42,7 @@ CItemData::~CItemData()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CItemData::Init(void)
+HRESULT CItemData::Init()
 {
 	// 成功を返す
 	return S_OK;
@@ -51,7 +51,7 @@ HRESULT CItemData::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CItemData::Uninit(void)
+void CItemData::Uninit()
 {
 	// 自身の破棄
 	delete this;
@@ -60,7 +60,7 @@ void CItemData::Uninit(void)
 //============================================================
 //	アイテム名前処理
 //============================================================
-std::string CItemData::Detail(void) const
+std::string CItemData::Detail() const
 {
 	std::string sDetail;		// アイテム詳細
 	sDetail.append(" ＊ ");		// 開始アスタリスクを追加
@@ -138,7 +138,7 @@ CItem::~CItem()
 //============================================================
 //	アイテム初期化処理
 //============================================================
-HRESULT CItem::Init(void)
+HRESULT CItem::Init()
 {
 	// アイテム動的配列を初期化
 	m_vecItemData.clear();
@@ -150,7 +150,7 @@ HRESULT CItem::Init(void)
 //============================================================
 //	アイテム終了処理
 //============================================================
-void CItem::Uninit(void)
+void CItem::Uninit()
 {
 	for (auto& rVec : m_vecItemData)
 	{ // 要素数分繰り返す
@@ -166,7 +166,7 @@ void CItem::Uninit(void)
 //============================================================
 //	アイテム全読込処理
 //============================================================
-HRESULT CItem::LoadAll(void)
+HRESULT CItem::LoadAll()
 {
 	// アイテム情報のセットアップ
 	if (FAILED(LoadSetup()))
@@ -202,7 +202,7 @@ const CItemData& CItem::GetInfo(const int nID)
 //============================================================
 //	生成処理
 //============================================================
-CItem* CItem::Create(void)
+CItem* CItem::Create()
 {
 	// アイテムの生成
 	CItem* pItem = new CItem;
@@ -244,7 +244,7 @@ void CItem::Release(CItem*& prItem)
 //============================================================
 //	アイテム情報のセットアップ処理
 //============================================================
-HRESULT CItem::LoadSetup(void)
+HRESULT CItem::LoadSetup()
 {
 	int nIdx = 0;			// アイテムインデックス
 	int nType = NONE_IDX;	// アイテム種類

@@ -45,7 +45,7 @@ CIntroStateLogo::~CIntroStateLogo()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CIntroStateLogo::Init(void)
+HRESULT CIntroStateLogo::Init()
 {
 	// メンバ変数を初期化
 	m_pLogo		= nullptr;	// タイトルロゴ
@@ -74,7 +74,7 @@ HRESULT CIntroStateLogo::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CIntroStateLogo::Uninit(void)
+void CIntroStateLogo::Uninit()
 {
 	// タイトルロゴの終了
 	SAFE_UNINIT(m_pLogo);

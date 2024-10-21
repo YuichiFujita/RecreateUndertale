@@ -29,8 +29,8 @@ public:
 	~CAnim2D() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;		// 更新
 	void Draw(CShader* pShader = nullptr) override;		// 描画
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
@@ -58,8 +58,8 @@ public:
 	void SetCounter(const int nCntChange);			// カウンターの設定
 	void SetEnableStop(const bool bStop);			// 停止状況の設定
 	void SetEnablePlayBack(const bool bPlayBack);	// 逆再生状況の設定
-	int GetPattern(void) const			{ return m_nPattern; }	// パターンの取得
-	int GetLoopAnimation(void) const	{ return m_nNumLoop; }	// パターン繰り返し数の取得
+	inline int GetPattern() const		{ return m_nPattern; }	// パターンの取得
+	inline int GetLoopAnimation() const	{ return m_nNumLoop; }	// パターン繰り返し数の取得
 
 private:
 	// メンバ変数

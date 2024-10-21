@@ -32,13 +32,13 @@ public:
 	~CLight();
 
 	// メンバ関数
-	HRESULT Init(void);	// 初期化
-	void Uninit(void);	// 終了
+	HRESULT Init();	// 初期化
+	void Uninit();	// 終了
 	void Update(const float fDeltaTime);	// 更新
 	D3DLIGHT9 GetLight(const int nID);		// ライト取得
 
 	// 静的メンバ関数
-	static CLight* Create(void);			// 生成
+	static CLight* Create();			// 生成
 	static void Release(CLight*& pLight);	// 破棄
 
 private:

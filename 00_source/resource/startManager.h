@@ -53,15 +53,15 @@ public:
 	~CStartManager();
 
 	// メンバ関数
-	HRESULT Init(void);	// 初期化
-	void Uninit(void);	// 終了
+	HRESULT Init();	// 初期化
+	void Uninit();	// 終了
 	void Update(const float fDeltaTime);		// 更新
 	HRESULT ChangeState(CStartState* pState);	// 状態変更
 	void SetName(const std::string& rName)	{ m_sName = rName; }	// 名前設定
-	std::string GetName(void) const			{ return m_sName; }		// 名前取得
+	std::string GetName() const			{ return m_sName; }		// 名前取得
 
 	// 静的メンバ関数
-	static CStartManager* Create(void);	// 生成
+	static CStartManager* Create();	// 生成
 	static void Release(CStartManager*& prStartManager);	// 破棄
 
 private:

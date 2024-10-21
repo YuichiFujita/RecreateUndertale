@@ -96,7 +96,7 @@ CMenuStatusUI::~CMenuStatusUI()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CMenuStatusUI::Init(void)
+HRESULT CMenuStatusUI::Init()
 {
 	// メンバ変数を初期化
 	m_pFrame	= nullptr;	// フレーム情報
@@ -210,7 +210,7 @@ HRESULT CMenuStatusUI::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CMenuStatusUI::Uninit(void)
+void CMenuStatusUI::Uninit()
 {
 	// フレームの終了
 	SAFE_UNINIT(m_pFrame);
@@ -247,7 +247,7 @@ void CMenuStatusUI::Draw(CShader* /*pShader*/)
 //============================================================
 //	生成処理
 //============================================================
-CMenuStatusUI* CMenuStatusUI::Create(void)
+CMenuStatusUI* CMenuStatusUI::Create()
 {
 	// ミニステータスメニューの生成
 	CMenuStatusUI* pMenuStatusUI = new CMenuStatusUI;

@@ -91,7 +91,7 @@ CObject::~CObject()
 //============================================================
 //	破棄処理
 //============================================================
-void CObject::Release(void)
+void CObject::Release()
 {
 	if (this != nullptr)
 	{ // 使用されている場合
@@ -384,7 +384,7 @@ void CObject::ReleaseAll(const ELabel label)
 //============================================================
 //	全破棄処理
 //============================================================
-void CObject::ReleaseAll(void)
+void CObject::ReleaseAll()
 {
 	for (int nCntDim = 0; nCntDim < DIM_MAX; nCntDim++)
 	{ // 次元の総数分繰り返す
@@ -482,7 +482,7 @@ void CObject::UpdateAll(const float fDeltaTime)
 //============================================================
 //	全描画処理
 //============================================================
-void CObject::DrawAll(void)
+void CObject::DrawAll()
 {
 	CLoading* pLoading = GET_MANAGER->GetLoading();	// ローディング
 
@@ -536,7 +536,7 @@ void CObject::DrawAll(void)
 //============================================================
 //	全死亡処理
 //============================================================
-void CObject::DeathAll(void)
+void CObject::DeathAll()
 {
 	for (int nCntDim = 0; nCntDim < DIM_MAX; nCntDim++)
 	{ // 次元の総数分繰り返す

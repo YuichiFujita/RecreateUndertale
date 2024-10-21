@@ -45,19 +45,19 @@ public:
 	~CFade();
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
 	void Draw(CShader* pShader = nullptr) override;	// 描画
 
 	// 静的メンバ関数
-	static CFade* Create(void);	// 生成
+	static CFade* Create();	// 生成
 
 	// メンバ関数
 	void SetNextMode(const CScene::EMode next)	{ m_modeNext = next; }	// 遷移先モード設定
-	CScene::EMode GetNextMode(void) const		{ return m_modeNext; }	// 遷移先モード取得
-	EFade GetState(void) const	{ return m_fade; }						// フェード状態取得
-	bool IsFade(void) const		{ return m_fade != FADE_NONE; }			// フェード状況取得
+	CScene::EMode GetNextMode() const		{ return m_modeNext; }	// 遷移先モード取得
+	EFade GetState() const	{ return m_fade; }						// フェード状態取得
+	bool IsFade() const		{ return m_fade != FADE_NONE; }			// フェード状況取得
 
 	void SetFade	// フェード開始設定
 	( // 引数
@@ -82,11 +82,11 @@ public:
 		const float fSubIn		= DEF_LEVEL,	// インのα値減少量
 		const COLOR colFade		= color::Black(0.0f)	// フェード色
 	);
-	void SetRoomFade(void);	// 遷移先ルーム設定
+	void SetRoomFade();	// 遷移先ルーム設定
 
 private:
 	// メンバ変数
-	std::function<HRESULT(void)> m_funcSetMode;	// モード設定関数ポインタ
+	std::function<HRESULT()> m_funcSetMode;	// モード設定関数ポインタ
 	CScene::EMode m_modeNext;	// 遷移先モード
 	EFade m_fade;		// フェード状態
 	float m_fWaitTime;	// 現在の余韻時間

@@ -81,7 +81,7 @@ CMenuSelectUI::~CMenuSelectUI()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CMenuSelectUI::Init(void)
+HRESULT CMenuSelectUI::Init()
 {
 	// メンバ変数を初期化
 	memset(&m_apSelect[0], 0, sizeof(m_apSelect));	// 選択肢情報
@@ -171,7 +171,7 @@ HRESULT CMenuSelectUI::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CMenuSelectUI::Uninit(void)
+void CMenuSelectUI::Uninit()
 {
 	// フレームの終了
 	SAFE_UNINIT(m_pFrame);
@@ -220,7 +220,7 @@ void CMenuSelectUI::Draw(CShader* /*pShader*/)
 //============================================================
 //	生成処理
 //============================================================
-CMenuSelectUI* CMenuSelectUI::Create(void)
+CMenuSelectUI* CMenuSelectUI::Create()
 {
 	// セレクトメニューの生成
 	CMenuSelectUI* pMenuSelectUI = new CMenuSelectUI;
@@ -249,7 +249,7 @@ CMenuSelectUI* CMenuSelectUI::Create(void)
 //============================================================
 //	選択の更新処理
 //============================================================
-void CMenuSelectUI::UpdateSelect(void)
+void CMenuSelectUI::UpdateSelect()
 {
 	// 選択肢操作
 	CInputKeyboard* pKey = GET_INPUTKEY;	// キーボード情報
@@ -274,7 +274,7 @@ void CMenuSelectUI::UpdateSelect(void)
 //============================================================
 //	決定の更新処理
 //============================================================
-void CMenuSelectUI::UpdateDecide(void)
+void CMenuSelectUI::UpdateDecide()
 {
 	if (input::Decide())
 	{
@@ -286,7 +286,7 @@ void CMenuSelectUI::UpdateDecide(void)
 //============================================================
 //	選択メニューの終了処理
 //============================================================
-void CMenuSelectUI::UninitSelectMenu(void)
+void CMenuSelectUI::UninitSelectMenu()
 {
 	// 選択メニューの終了
 	SAFE_UNINIT(m_pSelectMenu);
@@ -345,7 +345,7 @@ CSelectUI::~CSelectUI()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CSelectUI::Init(void)
+HRESULT CSelectUI::Init()
 {
 	// メンバ変数を初期化
 	m_pFrame = nullptr;	// フレーム情報
@@ -375,7 +375,7 @@ HRESULT CSelectUI::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CSelectUI::Uninit(void)
+void CSelectUI::Uninit()
 {
 	// フレームの終了
 	SAFE_UNINIT(m_pFrame);

@@ -44,17 +44,17 @@ public:
 	~CObjectMeshTube() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;		// 更新
 	void Draw(CShader* pShader = nullptr) override;		// 描画
 	void SetPriority(const int nPriority) override;		// 優先順位設定
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
 	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
-	VECTOR3 GetVec3Position(void) const override	{ return m_pCylinder->GetVec3Position(); }	// 位置取得
-	VECTOR3 GetVec3Rotation(void) const override	{ return m_pCylinder->GetVec3Rotation(); }	// 向き取得
-	MATRIX* GetPtrMtxWorld(void) override			{ return m_pCylinder->GetPtrMtxWorld(); }	// マトリックスポインタ取得
-	MATRIX GetMtxWorld(void) const override			{ return m_pCylinder->GetMtxWorld(); }		// マトリックス取得
+	VECTOR3 GetVec3Position() const override	{ return m_pCylinder->GetVec3Position(); }	// 位置取得
+	VECTOR3 GetVec3Rotation() const override	{ return m_pCylinder->GetVec3Rotation(); }	// 向き取得
+	MATRIX* GetPtrMtxWorld() override			{ return m_pCylinder->GetPtrMtxWorld(); }	// マトリックスポインタ取得
+	MATRIX GetMtxWorld() const override			{ return m_pCylinder->GetMtxWorld(); }		// マトリックス取得
 
 	// 静的メンバ関数
 	static CObjectMeshTube* Create	// 生成
@@ -78,21 +78,21 @@ public:
 	void SetHeight(const float fHeight);			// 縦幅設定
 	HRESULT SetPattern(const POSGRID2& rPart);		// 分割数設定
 	void SetTexPattern(const POSGRID2& rTexPart);	// テクスチャ分割数設定
-	int GetTextureIndex(void) const		{ return m_pCylinder->GetTextureIndex(); }	// テクスチャインデックス取得
-	float GetAlpha(void) const			{ return m_pCylinder->GetAlpha(); }			// 透明度取得
-	COLOR GetColor(void) const			{ return m_pCylinder->GetColor(); }			// 色取得
-	float GetRadius(void) const			{ return m_pCylinder->GetRadius(); }		// 半径取得
-	float GetHeight(void) const			{ return m_pCylinder->GetHeight(); }		// 縦幅取得
-	POSGRID2 GetPattern(void) const		{ return m_pCylinder->GetPattern(); }		// 分割数取得
-	POSGRID2 GetTexPattern(void) const	{ return m_pCylinder->GetTexPattern(); }	// テクスチャ分割数取得
+	int GetTextureIndex() const		{ return m_pCylinder->GetTextureIndex(); }	// テクスチャインデックス取得
+	float GetAlpha() const			{ return m_pCylinder->GetAlpha(); }			// 透明度取得
+	COLOR GetColor() const			{ return m_pCylinder->GetColor(); }			// 色取得
+	float GetRadius() const			{ return m_pCylinder->GetRadius(); }		// 半径取得
+	float GetHeight() const			{ return m_pCylinder->GetHeight(); }		// 縦幅取得
+	POSGRID2 GetPattern() const		{ return m_pCylinder->GetPattern(); }		// 分割数取得
+	POSGRID2 GetTexPattern() const	{ return m_pCylinder->GetTexPattern(); }	// テクスチャ分割数取得
 
 private:
 	// オーバーライド関数
-	void Release(void) override { CObject::Release(); }	// 破棄
+	inline void Release() override { CObject::Release(); }	// 破棄
 
 	// メンバ関数
-	void SetPositionRelative(void);				// 相対位置設定
-	MATRIX CalcCylinderMtxWorld(void) const;	// シリンダーマトリックス計算結果取得
+	void SetPositionRelative();				// 相対位置設定
+	MATRIX CalcCylinderMtxWorld() const;	// シリンダーマトリックス計算結果取得
 
 	// メンバ変数
 	CObjectMeshCircle* m_apCover[COVER_MAX];	// 蓋の情報

@@ -48,7 +48,7 @@ CValueUI::~CValueUI()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CValueUI::Init(void)
+HRESULT CValueUI::Init()
 {
 	// メンバ変数を初期化
 	m_pTitle	= nullptr;		// タイトル情報
@@ -97,7 +97,7 @@ HRESULT CValueUI::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CValueUI::Uninit(void)
+void CValueUI::Uninit()
 {
 	// タイトル情報の終了
 	SAFE_UNINIT(m_pTitle);
@@ -422,7 +422,7 @@ void CValueUI::SetColorTitle(const COLOR& rCol)
 //============================================================
 //	相対位置の設定処理
 //============================================================
-void CValueUI::SetPositionRelative(void)
+void CValueUI::SetPositionRelative()
 {
 	// タイトルの位置を設定
 	m_pTitle->SetVec3Position(m_pos);

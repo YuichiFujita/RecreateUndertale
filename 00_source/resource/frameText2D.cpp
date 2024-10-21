@@ -54,7 +54,7 @@ CFrameText2D::~CFrameText2D()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CFrameText2D::Init(void)
+HRESULT CFrameText2D::Init()
 {
 	// メンバ変数を初期化
 	m_pText = nullptr;	// テキスト情報
@@ -101,7 +101,7 @@ HRESULT CFrameText2D::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CFrameText2D::Uninit(void)
+void CFrameText2D::Uninit()
 {
 	// テキストの終了
 	SAFE_UNINIT(m_pText);

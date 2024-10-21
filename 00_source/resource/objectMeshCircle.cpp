@@ -50,7 +50,7 @@ CObjectMeshCircle::~CObjectMeshCircle()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CObjectMeshCircle::Init(void)
+HRESULT CObjectMeshCircle::Init()
 {
 	// メンバ変数を初期化
 	m_pVtxBuff		= nullptr;	// 頂点バッファ
@@ -91,7 +91,7 @@ HRESULT CObjectMeshCircle::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CObjectMeshCircle::Uninit(void)
+void CObjectMeshCircle::Uninit()
 {
 	// 頂点バッファの破棄
 	SAFE_RELEASE(m_pVtxBuff);
@@ -246,7 +246,7 @@ CObjectMeshCircle* CObjectMeshCircle::Create
 //============================================================
 //	レンダーステート情報の取得処理
 //============================================================
-CRenderState* CObjectMeshCircle::GetRenderState(void)
+CRenderState* CObjectMeshCircle::GetRenderState()
 {
 	// インスタンス未使用
 	assert(m_pRenderState != nullptr);
@@ -396,7 +396,7 @@ HRESULT CObjectMeshCircle::SetPattern(const POSGRID2& rPart)
 //============================================================
 //	頂点情報の設定処理
 //============================================================
-void CObjectMeshCircle::SetVtx(void)
+void CObjectMeshCircle::SetVtx()
 {
 	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 	if (m_pVtxBuff != nullptr)
@@ -453,7 +453,7 @@ void CObjectMeshCircle::SetVtx(void)
 //============================================================
 //	インデックス情報の設定処理
 //============================================================
-void CObjectMeshCircle::SetIdx(void)
+void CObjectMeshCircle::SetIdx()
 {
 	WORD* pIdx;	// インデックス情報へのポインタ
 	if (m_pIdxBuff != nullptr)
@@ -509,7 +509,7 @@ void CObjectMeshCircle::SetIdx(void)
 //============================================================
 //	通常描画処理
 //============================================================
-void CObjectMeshCircle::DrawNormal(void)
+void CObjectMeshCircle::DrawNormal()
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 

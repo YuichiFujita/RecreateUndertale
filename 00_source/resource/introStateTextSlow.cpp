@@ -40,7 +40,7 @@ CIntroStateTextSlow::~CIntroStateTextSlow()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CIntroStateTextSlow::Init(void)
+HRESULT CIntroStateTextSlow::Init()
 {
 	// 親クラスの初期化
 	if (FAILED(CIntroStateText::Init()))
@@ -58,7 +58,7 @@ HRESULT CIntroStateTextSlow::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CIntroStateTextSlow::Uninit(void)
+void CIntroStateTextSlow::Uninit()
 {
 	// 文字送りの速度を通常に戻す
 	m_pContext->SetEnableSlowText(false);

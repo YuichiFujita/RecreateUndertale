@@ -52,7 +52,7 @@ CMultiValue::~CMultiValue()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CMultiValue::Init(void)
+HRESULT CMultiValue::Init()
 {
 	// メンバ変数を初期化
 	m_pos		= VEC3_ZERO;		// 原点位置
@@ -79,7 +79,7 @@ HRESULT CMultiValue::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CMultiValue::Uninit(void)
+void CMultiValue::Uninit()
 {
 	for (auto& rList : m_listValue)
 	{ // 数字の桁数分繰り返す
@@ -500,7 +500,7 @@ void CMultiValue::SetSpace(const VECTOR3& rSpace)
 //============================================================
 //	数字全体の横幅取得処理
 //============================================================
-float CMultiValue::GetValueWidth(void) const
+float CMultiValue::GetValueWidth() const
 {
 	// 数字がない場合抜ける
 	if ((int)m_listValue.size() <= 0) { assert(false); return 0.0f; }
@@ -525,7 +525,7 @@ float CMultiValue::GetValueWidth(void) const
 //============================================================
 //	数字全体の縦幅取得処理
 //============================================================
-float CMultiValue::GetValueHeight(void) const
+float CMultiValue::GetValueHeight() const
 {
 	// 数字がない場合抜ける
 	if ((int)m_listValue.size() <= 0) { assert(false); return 0.0f; }
@@ -550,7 +550,7 @@ float CMultiValue::GetValueHeight(void) const
 //============================================================
 //	数字全体の大きさ取得処理
 //============================================================
-VECTOR3 CMultiValue::GetValueSize(void) const
+VECTOR3 CMultiValue::GetValueSize() const
 {
 	// 数字がない場合抜ける
 	if ((int)m_listValue.size() <= 0) { assert(false); return VEC3_ZERO; }
@@ -562,7 +562,7 @@ VECTOR3 CMultiValue::GetValueSize(void) const
 //============================================================
 //	相対位置の設定処理
 //============================================================
-void CMultiValue::SetPositionRelative(void)
+void CMultiValue::SetPositionRelative()
 {
 	// 数字がない場合抜ける
 	if ((int)m_listValue.size() <= 0) { return; }
@@ -595,7 +595,7 @@ void CMultiValue::SetPositionRelative(void)
 //============================================================
 //	数字のテクスチャ座標の設定処理
 //============================================================
-void CMultiValue::SetTexNum(void)
+void CMultiValue::SetTexNum()
 {
 	// 数字を桁数ごとに分解
 	int nDigit = (int)m_listValue.size();	// 数値の桁数

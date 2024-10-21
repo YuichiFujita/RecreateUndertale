@@ -37,7 +37,7 @@ CDeltaTime::~CDeltaTime()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CDeltaTime::Init(void)
+HRESULT CDeltaTime::Init()
 {
 	// メンバ変数を初期化
 	m_dwOldTime		= timeGetTime();	// 前回の処理開始時刻
@@ -53,7 +53,7 @@ HRESULT CDeltaTime::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CDeltaTime::Uninit(void)
+void CDeltaTime::Uninit()
 {
 
 }
@@ -61,7 +61,7 @@ void CDeltaTime::Uninit(void)
 //============================================================
 //	更新処理
 //============================================================
-void CDeltaTime::Update(void)
+void CDeltaTime::Update()
 {
 	DWORD dwDiffDeltaTime = 0;	// 処理開始時刻の差分
 
@@ -84,7 +84,7 @@ void CDeltaTime::Update(void)
 //============================================================
 //	生成処理
 //============================================================
-CDeltaTime* CDeltaTime::Create(void)
+CDeltaTime* CDeltaTime::Create()
 {
 	// デルタタイムの生成
 	CDeltaTime* pDeltaTime = new CDeltaTime;

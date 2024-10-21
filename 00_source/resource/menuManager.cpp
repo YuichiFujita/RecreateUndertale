@@ -33,7 +33,7 @@ CMenuManager::~CMenuManager()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CMenuManager::Init(void)
+HRESULT CMenuManager::Init()
 {
 	// メンバ変数を初期化
 	m_pMenu = nullptr;	// フィールドメニュー情報
@@ -45,7 +45,7 @@ HRESULT CMenuManager::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CMenuManager::Uninit(void)
+void CMenuManager::Uninit()
 {
 
 }
@@ -96,7 +96,7 @@ void CMenuManager::SetEnableDrawMenu(const bool bDraw)
 //============================================================
 //	選択中状況の取得処理
 //============================================================
-bool CMenuManager::IsChoiceSelect(void) const
+bool CMenuManager::IsChoiceSelect() const
 {
 	// メニューが閉じている場合抜ける
 	if (m_pMenu == nullptr) { return false; }
@@ -108,7 +108,7 @@ bool CMenuManager::IsChoiceSelect(void) const
 //============================================================
 //	生成処理
 //============================================================
-CMenuManager* CMenuManager::Create(void)
+CMenuManager* CMenuManager::Create()
 {
 	// フィールドメニューマネージャーの生成
 	CMenuManager* pMenuManager = new CMenuManager;

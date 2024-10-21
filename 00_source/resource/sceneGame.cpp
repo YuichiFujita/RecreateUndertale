@@ -48,7 +48,7 @@ CSceneGame::~CSceneGame()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CSceneGame::Init(void)
+HRESULT CSceneGame::Init()
 {
 	//--------------------------------------------------------
 	//	初期生成
@@ -121,7 +121,7 @@ HRESULT CSceneGame::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CSceneGame::Uninit(void)
+void CSceneGame::Uninit()
 {
 	// ゲームマネージャーの破棄
 	SAFE_REF_RELEASE(m_pGameManager);
@@ -189,7 +189,7 @@ void CSceneGame::Update(const float fDeltaTime)
 //============================================================
 //	ゲームマネージャー取得処理
 //============================================================
-CGameManager* CSceneGame::GetGameManager(void)
+CGameManager* CSceneGame::GetGameManager()
 {
 	// インスタンス未使用
 	assert(m_pGameManager != nullptr);
@@ -201,7 +201,7 @@ CGameManager* CSceneGame::GetGameManager(void)
 //============================================================
 //	メニューマネージャー取得処理
 //============================================================
-CMenuManager* CSceneGame::GetMenuManager(void)
+CMenuManager* CSceneGame::GetMenuManager()
 {
 	// インスタンス未使用
 	assert(m_pMenuManager != nullptr);
@@ -213,7 +213,7 @@ CMenuManager* CSceneGame::GetMenuManager(void)
 //============================================================
 //	ポーズ取得処理
 //============================================================
-CPause* CSceneGame::GetPause(void)
+CPause* CSceneGame::GetPause()
 {
 	// インスタンス未使用
 	assert(m_pPause != nullptr);
@@ -225,7 +225,7 @@ CPause* CSceneGame::GetPause(void)
 //============================================================
 //	ステージ取得処理
 //============================================================
-CStage* CSceneGame::GetStage(void)
+CStage* CSceneGame::GetStage()
 {
 	// インスタンス未使用
 	assert(m_pStage != nullptr);
@@ -237,7 +237,7 @@ CStage* CSceneGame::GetStage(void)
 //============================================================
 //	プレイヤー取得処理
 //============================================================
-CPlayer* CSceneGame::GetPlayer(void)
+CPlayer* CSceneGame::GetPlayer()
 {
 	CListManager<CPlayer>* pListManager = CPlayer::GetList();	// プレイヤーリストマネージャー
 	if (pListManager == nullptr)		{ return nullptr; }		// リスト未使用の場合抜ける

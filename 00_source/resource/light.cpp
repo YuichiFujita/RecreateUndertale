@@ -62,7 +62,7 @@ CLight::~CLight()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CLight::Init(void)
+HRESULT CLight::Init()
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 	for (int nCntLight = 0; nCntLight < light::MAX_NUM; nCntLight++)
@@ -98,7 +98,7 @@ HRESULT CLight::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CLight::Uninit(void)
+void CLight::Uninit()
 {
 
 }
@@ -128,7 +128,7 @@ D3DLIGHT9 CLight::GetLight(const int nID)
 //============================================================
 //	生成処理
 //============================================================
-CLight* CLight::Create(void)
+CLight* CLight::Create()
 {
 	// ライトの生成
 	CLight* pLight = new CLight;

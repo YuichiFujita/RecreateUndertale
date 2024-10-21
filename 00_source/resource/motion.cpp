@@ -17,7 +17,7 @@
 //============================================================
 //	コンストラクタ
 //============================================================
-CMotion::CMotion(std::function<int(void)> funcGetNumParts) :
+CMotion::CMotion(std::function<int()> funcGetNumParts) :
 	m_funcGetNumParts(funcGetNumParts),	// パーツ数取得関数ポインタ
 	m_ppModel	(nullptr),	// モデル情報
 	m_pChara	(nullptr),	// オブジェクトキャラクター情報
@@ -37,7 +37,7 @@ CMotion::~CMotion()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CMotion::Init(void)
+HRESULT CMotion::Init()
 {
 	// メンバ変数をクリア
 	m_ppModel	= nullptr;	// モデル情報
@@ -54,7 +54,7 @@ HRESULT CMotion::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CMotion::Uninit(void)
+void CMotion::Uninit()
 {
 	// モーション情報の動的配列のクリア
 	ClearVector();
@@ -161,7 +161,7 @@ void CMotion::SetNumParts(const int nNumParts)
 //============================================================
 //	モーション情報の動的配列のクリア処理
 //============================================================
-void CMotion::ClearVector(void)
+void CMotion::ClearVector()
 {
 	for (auto& rMotionInfo : m_info.vecMotion)
 	{ // モーション情報の要素数分繰り返す
@@ -266,7 +266,7 @@ void CMotion::SetOriginRotation(const VECTOR3& rRot, const int nParts)
 //============================================================
 //	種類の総数取得処理
 //============================================================
-int CMotion::GetNumType(void)
+int CMotion::GetNumType()
 {
 	// モーションの種類の総数を返す
 	return m_info.GetNumMotion();
@@ -317,7 +317,7 @@ bool CMotion::IsCombo(const int nType) const
 //============================================================
 //	左の攻撃判定フラグの取得処理
 //============================================================
-bool CMotion::IsLeftWeaponCollision(void)
+bool CMotion::IsLeftWeaponCollision()
 {
 	SMotion* pMotion = &m_info.vecMotion[m_info.nType];			// 現在のモーション情報
 	if (pMotion->collLeft.nMin == NONE_IDX) { return false; }	// 開始カウント未設定
@@ -336,7 +336,7 @@ bool CMotion::IsLeftWeaponCollision(void)
 //============================================================
 //	右の攻撃判定フラグの取得処理
 //============================================================
-bool CMotion::IsRightWeaponCollision(void)
+bool CMotion::IsRightWeaponCollision()
 {
 	SMotion* pMotion = &m_info.vecMotion[m_info.nType];			// 現在のモーション情報
 	if (pMotion->collRight.nMin == NONE_IDX) { return false; }	// 開始カウント未設定
@@ -434,7 +434,7 @@ void CMotion::Release(CMotion*& prMotion)
 //============================================================
 //	移動の更新処理
 //============================================================
-void CMotion::UpdateMove(void)
+void CMotion::UpdateMove()
 {
 	if (m_pChara == nullptr) { return; }	// オブジェクトキャラクター未設定
 
@@ -468,7 +468,7 @@ void CMotion::UpdateMove(void)
 //============================================================
 //	モーションの更新処理
 //============================================================
-void CMotion::UpdateMotion(void)
+void CMotion::UpdateMotion()
 {
 	int nType = m_info.nType;	// モーション種類
 	int nKey  = m_info.nKey;	// モーションキー番号
@@ -544,7 +544,7 @@ void CMotion::UpdateMotion(void)
 //============================================================
 //	ブレンド更新処理
 //============================================================
-void CMotion::UpdateBlend(void)
+void CMotion::UpdateBlend()
 {
 	// パーツの位置の更新
 	for (int nCntParts = 0; nCntParts < m_funcGetNumParts(); nCntParts++)

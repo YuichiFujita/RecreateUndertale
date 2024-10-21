@@ -42,7 +42,7 @@ CObjectMeshWall::~CObjectMeshWall()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CObjectMeshWall::Init(void)
+HRESULT CObjectMeshWall::Init()
 {
 	// メンバ変数を初期化
 	m_pVtxBuff		= nullptr;		// 頂点バッファ
@@ -83,7 +83,7 @@ HRESULT CObjectMeshWall::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CObjectMeshWall::Uninit(void)
+void CObjectMeshWall::Uninit()
 {
 	// 頂点バッファの破棄
 	SAFE_RELEASE(m_pVtxBuff);
@@ -250,7 +250,7 @@ CObjectMeshWall* CObjectMeshWall::Create
 //============================================================
 //	レンダーステート情報の取得処理
 //============================================================
-CRenderState* CObjectMeshWall::GetRenderState(void)
+CRenderState* CObjectMeshWall::GetRenderState()
 {
 	// インスタンス未使用
 	assert(m_pRenderState != nullptr);
@@ -384,7 +384,7 @@ HRESULT CObjectMeshWall::SetPattern(const POSGRID2& rPart)
 //============================================================
 //	頂点情報の設定処理
 //============================================================
-void CObjectMeshWall::SetVtx(void)
+void CObjectMeshWall::SetVtx()
 {
 	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 	if (m_pVtxBuff != nullptr)
@@ -429,7 +429,7 @@ void CObjectMeshWall::SetVtx(void)
 //============================================================
 //	インデックス情報の設定処理
 //============================================================
-void CObjectMeshWall::SetIdx(void)
+void CObjectMeshWall::SetIdx()
 {
 	WORD* pIdx;	// インデックス情報へのポインタ
 	if (m_pIdxBuff != nullptr)
@@ -501,7 +501,7 @@ void CObjectMeshWall::SetScrollTex(const float fTexU, const float fTexV)
 //============================================================
 //	通常描画処理
 //============================================================
-void CObjectMeshWall::DrawNormal(void)
+void CObjectMeshWall::DrawNormal()
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 

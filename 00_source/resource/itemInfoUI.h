@@ -29,14 +29,14 @@ public:
 	~CItemInfoUI() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
 	void Draw(CShader* pShader = nullptr) override;	// 描画
 
 private:
 	// オーバーライド関数
-	void NextText(void) override;	// テキストボックス進行
+	void NextText() override;	// テキストボックス進行
 };
 
 #endif	// _ITEM_INFO_UI_H_

@@ -187,7 +187,7 @@ CSelectStatusUI::~CSelectStatusUI()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CSelectStatusUI::Init(void)
+HRESULT CSelectStatusUI::Init()
 {
 	// メンバ変数を初期化
 	m_pName			= nullptr;	// 名前情報
@@ -615,7 +615,7 @@ HRESULT CSelectStatusUI::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CSelectStatusUI::Uninit(void)
+void CSelectStatusUI::Uninit()
 {
 	// ソウルカーソルの描画をONにする
 	SetSoulCursorDraw(true);

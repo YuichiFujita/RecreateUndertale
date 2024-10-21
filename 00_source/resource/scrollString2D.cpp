@@ -39,7 +39,7 @@ CScrollString2D::~CScrollString2D()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CScrollString2D::Init(void)
+HRESULT CScrollString2D::Init()
 {
 	// メンバ変数を初期化
 	m_labelSE	= CSound::LABEL_NONE;	// 文字送り再生SEラベル
@@ -64,7 +64,7 @@ HRESULT CScrollString2D::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CScrollString2D::Uninit(void)
+void CScrollString2D::Uninit()
 {
 	// 文字列2Dの終了
 	CString2D::Uninit();

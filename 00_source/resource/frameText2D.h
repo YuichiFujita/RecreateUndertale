@@ -30,8 +30,8 @@ public:
 	~CFrameText2D() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
 	void Draw(CShader* pShader = nullptr) override;	// 描画
 
@@ -45,14 +45,14 @@ public:
 
 	// メンバ関数
 	void ChangeText(const AText& rText);	// テキスト変更
-	HRESULT PushFrontString(const std::string& rStr)	{ return m_pText->PushFrontString(rStr); }	// 文字列の先頭追加 (マルチバイト文字列)
-	HRESULT PushFrontString(const std::wstring& rStr)	{ return m_pText->PushFrontString(rStr); }	// 文字列の先頭追加 (ワイド文字列)
-	HRESULT PushBackString(const std::string& rStr)		{ return m_pText->PushBackString(rStr); }	// 文字列の最後尾追加 (マルチバイト文字列)
-	HRESULT PushBackString(const std::wstring& rStr)	{ return m_pText->PushBackString(rStr); }	// 文字列の最後尾追加 (ワイド文字列)
-	void DeleteString(const int nStrID)			{ m_pText->DeleteString(nStrID); }	// 文字列削除
-	void DeleteStringAll(void)					{ m_pText->DeleteStringAll(); }		// 文字列全削除
-	void SetTextEnableDraw(const bool bDraw)	{ m_pText->SetEnableDraw(bDraw); };	// 描画状況設定
-	bool IsTextScroll(void) const				{ return m_pText->IsScroll(); }		// 文字送り状況取得
+	inline HRESULT PushFrontString(const std::string& rStr)		{ return m_pText->PushFrontString(rStr); }	// 文字列の先頭追加 (マルチバイト文字列)
+	inline HRESULT PushFrontString(const std::wstring& rStr)	{ return m_pText->PushFrontString(rStr); }	// 文字列の先頭追加 (ワイド文字列)
+	inline HRESULT PushBackString(const std::string& rStr)		{ return m_pText->PushBackString(rStr); }	// 文字列の最後尾追加 (マルチバイト文字列)
+	inline HRESULT PushBackString(const std::wstring& rStr)		{ return m_pText->PushBackString(rStr); }	// 文字列の最後尾追加 (ワイド文字列)
+	inline void DeleteString(const int nStrID)		{ m_pText->DeleteString(nStrID); }	// 文字列削除
+	inline void DeleteStringAll()					{ m_pText->DeleteStringAll(); }		// 文字列全削除
+	inline void SetTextEnableDraw(const bool bDraw)	{ m_pText->SetEnableDraw(bDraw); };	// 描画状況設定
+	inline bool IsTextScroll() const				{ return m_pText->IsScroll(); }		// 文字送り状況取得
 
 private:
 	// メンバ変数

@@ -25,10 +25,10 @@ public:
 
 	// 仮想関数
 	virtual HRESULT Init(HINSTANCE hInstance, HWND hWnd);	// 初期化
-	virtual void Uninit(void);	// 終了
+	virtual void Uninit();	// 終了
 
 	// 純粋仮想関数
-	virtual void Update(void) = 0;	// 更新
+	virtual void Update() = 0;	// 更新
 
 protected:
 	// メンバ変数
@@ -52,23 +52,23 @@ public:
 
 	// オーバーライド関数
 	HRESULT Init(HINSTANCE hInstance, HWND hWnd) override;	// 初期化
-	void Uninit(void) override;	// 終了
-	void Update(void) override;	// 更新
+	void Uninit() override;	// 終了
+	void Update() override;	// 更新
 
 	// 静的メンバ関数
 	static CInputKeyboard* Create(HINSTANCE hInstance, HWND hWnd);	// 生成
 	static void Release(CInputKeyboard*& pKeyboard);				// 破棄
 
 	// メンバ関数
-	void InitPress(void);		// プレス初期化
-	void InitTrigger(void);		// トリガー初期化
-	void InitRelease(void);		// リリース初期化
+	void InitPress();		// プレス初期化
+	void InitTrigger();		// トリガー初期化
+	void InitRelease();		// リリース初期化
 	bool IsPress(int nKey);		// プレス取得
 	bool IsTrigger(int nKey);	// トリガー取得
 	bool IsRelease(int nKey);	// リリース取得
-	bool IsAnyPress(void);		// 全プレス取得
-	bool IsAnyTrigger(void);	// 全トリガー取得
-	bool IsAnyRelease(void);	// 全リリース取得
+	bool IsAnyPress();		// 全プレス取得
+	bool IsAnyTrigger();	// 全トリガー取得
+	bool IsAnyRelease();	// 全リリース取得
 
 private:
 	// メンバ変数
@@ -98,8 +98,8 @@ public:
 
 	// オーバーライド関数
 	HRESULT Init(HINSTANCE hInstance, HWND hWnd) override;	// 初期化
-	void Uninit(void) override;	// 終了
-	void Update(void) override;	// 更新
+	void Uninit() override;	// 終了
+	void Update() override;	// 更新
 
 	// 静的メンバ関数
 	static CInputMouse* Create(HINSTANCE hInstance, HWND hWnd);	// 生成
@@ -109,10 +109,10 @@ public:
 	bool IsPress(EKey mouKey);		// プレス取得
 	bool IsTrigger(EKey mouKey);	// トリガー取得
 	bool IsRelease(EKey mouKey);	// リリース取得
-	bool IsAnyPress(void);			// 全プレス取得
-	bool IsAnyTrigger(void);		// 全トリガー取得
-	bool IsAnyRelease(void);		// 全リリース取得
-	VECTOR3 GetMove(void);			// 移動量取得
+	bool IsAnyPress();			// 全プレス取得
+	bool IsAnyTrigger();		// 全トリガー取得
+	bool IsAnyRelease();		// 全リリース取得
+	VECTOR3 GetMove();			// 移動量取得
 
 private:
 	// メンバ変数
@@ -180,13 +180,13 @@ public:
 	};
 
 	// 静的メンバ関数
-	static CInputPad* Create(void);			// 生成
+	static CInputPad* Create();			// 生成
 	static void Release(CInputPad*& pPad);	// 破棄
 
 	// メンバ関数
-	HRESULT Init(void);	// 初期化
-	void Uninit(void);	// 終了
-	void Update(void);	// 更新
+	HRESULT Init();	// 初期化
+	void Uninit();	// 終了
+	void Update();	// 更新
 	void SetVibration(EType type, int nPadID = 0);	// バイブ設定
 	bool IsPress(EKey joyKey, int nPadID = 0);		// プレス取得	(ボタン)
 	bool IsTrigger(EKey joyKey, int nPadID = 0);	// トリガー取得	(ボタン)

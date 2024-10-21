@@ -42,7 +42,7 @@ CCharacter2D::~CCharacter2D()
 //============================================================
 //	キャラクター初期化処理
 //============================================================
-HRESULT CCharacter2D::Init(void)
+HRESULT CCharacter2D::Init()
 {
 	// キャラクター連想配列を初期化
 	m_mapCharacter.clear();
@@ -54,7 +54,7 @@ HRESULT CCharacter2D::Init(void)
 //============================================================
 //	キャラクター終了処理
 //============================================================
-void CCharacter2D::Uninit(void)
+void CCharacter2D::Uninit()
 {
 	for (auto& rMap : m_mapCharacter)
 	{ // キャラクター数分繰り返す
@@ -70,7 +70,7 @@ void CCharacter2D::Uninit(void)
 //============================================================
 //	キャラクター全読込処理
 //============================================================
-HRESULT CCharacter2D::LoadAll(void)
+HRESULT CCharacter2D::LoadAll()
 {
 	// キャラクターの全読込
 	if (FAILED(SearchFolderAll(LOAD_FOLDER)))
@@ -119,7 +119,7 @@ CCharacter2D::AMotion CCharacter2D::Regist(const char* pCharaPath)
 //============================================================
 //	生成処理
 //============================================================
-CCharacter2D* CCharacter2D::Create(void)
+CCharacter2D* CCharacter2D::Create()
 {
 	// キャラクター2Dの生成
 	CCharacter2D* pCharacter = new CCharacter2D;

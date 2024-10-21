@@ -50,7 +50,7 @@ CTileTrans::~CTileTrans()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CTileTrans::Init(void)
+HRESULT CTileTrans::Init()
 {
 	// オブジェクト3Dの初期化
 	if (FAILED(CObject3D::Init()))
@@ -91,7 +91,7 @@ HRESULT CTileTrans::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CTileTrans::Uninit(void)
+void CTileTrans::Uninit()
 {
 	// リストから自身のオブジェクトを削除
 	m_pList->DelList(m_iterator);
@@ -160,7 +160,7 @@ CTileTrans* CTileTrans::Create(const char* pNextPath, const VECTOR3& rPos)
 //============================================================
 //	リスト取得処理
 //============================================================
-CListManager<CTileTrans>* CTileTrans::GetList(void)
+CListManager<CTileTrans>* CTileTrans::GetList()
 {
 	// オブジェクトリストを返す
 	return m_pList;

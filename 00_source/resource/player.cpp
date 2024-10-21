@@ -51,7 +51,7 @@ CPlayer::~CPlayer()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CPlayer::Init(void)
+HRESULT CPlayer::Init()
 {
 	// メンバ変数を初期化
 	m_pState = nullptr;		// 状態
@@ -97,7 +97,7 @@ HRESULT CPlayer::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CPlayer::Uninit(void)
+void CPlayer::Uninit()
 {
 	// 状態の終了
 	SAFE_UNINIT(m_pState);
@@ -210,7 +210,7 @@ CPlayer* CPlayer::Create(const VECTOR3& rPos)
 //============================================================
 //	リスト取得処理
 //============================================================
-CListManager<CPlayer>* CPlayer::GetList(void)
+CListManager<CPlayer>* CPlayer::GetList()
 {
 	// オブジェクトリストを返す
 	return m_pList;
@@ -236,7 +236,7 @@ void CPlayer::TransRoom(const VECTOR3& rPos, const EAngle angle)
 //============================================================
 //	過去位置の更新処理
 //============================================================
-void CPlayer::UpdateOldPosition(void)
+void CPlayer::UpdateOldPosition()
 {
 	// 過去位置を更新
 	m_oldPos = GetVec3Position();

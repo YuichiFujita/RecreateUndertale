@@ -33,7 +33,7 @@ CHitStop::~CHitStop()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CHitStop::Init(void)
+HRESULT CHitStop::Init()
 {
 	// メンバ変数を初期化
 	m_bStop = false;	// 停止状況
@@ -46,7 +46,7 @@ HRESULT CHitStop::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CHitStop::Uninit(void)
+void CHitStop::Uninit()
 {
 
 }
@@ -73,7 +73,7 @@ void CHitStop::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CHitStop::Draw(void)
+void CHitStop::Draw()
 {
 
 }
@@ -93,7 +93,7 @@ void CHitStop::SetStop(const int nCounter)
 //============================================================
 //	生成処理
 //============================================================
-CHitStop* CHitStop::Create(void)
+CHitStop* CHitStop::Create()
 {
 	// ヒットストップの生成
 	CHitStop* pHitStop = new CHitStop;

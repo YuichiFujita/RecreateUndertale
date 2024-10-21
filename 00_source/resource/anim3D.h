@@ -32,8 +32,8 @@ public:
 	~CAnim3D() override;
 
 	// オーバーライド関数
-	HRESULT Init(void) override;	// 初期化
-	void Uninit(void) override;		// 終了
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;		// 更新
 	void Draw(CShader* pShader = nullptr) override;		// 描画
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
@@ -52,28 +52,29 @@ public:
 	);
 
 	// メンバ関数
-	void SetAlpha(const float fAlpha);					// 透明度設定
-	void SetColor(const COLOR& rCol);					// 色設定
-	void SetCurPtrn(const int nPtrn);					// 現在パターン設定
-	void SetTexPtrn(const POSGRID2& rPtrn);				// テクスチャ分割数設定
-	void SetTexPtrnWidth(const int nTexPtrnW);			// テクスチャ横分割数設定
-	void SetTexPtrnHeight(const int nTexPtrnH);			// テクスチャ縦分割数設定
-	void SetEnablePlay(const bool bPlay);				// 再生フラグ設定
-	void SetEnablePlayBack(const bool bPlayBack);		// 逆再生フラグ設定
-	void SetEnableLoop(const bool bLoop);				// ループフラグ設定
-	void ResetCurPtrn(void);							// 現在パターン初期化
-	int GetCurPtrn(void) const	{ return m_nCurPtrn; }	// 現在パターン取得
-	void ResetNumLoop(void)		{ m_nNumLoop = 0; }		// パターン繰り返し数初期化
-	int GetLoopAnim(void) const	{ return m_nNumLoop; }	// パターン繰り返し数取得
-	bool IsPlay(void) const		{ return m_bPlay; }		// 再生フラグ取得
-	bool IsPlayBack(void) const	{ return m_bPlayBack; }	// 逆再生フラグ取得
-	bool IsLoop(void) const		{ return m_bLoop; }		// ループフラグ取得
-	bool IsFinish(void) const	{ return m_bFinish; }	// 終了フラグ取得
-	float GetCurTime(void) const		{ return m_fCurTime; }		// 現在の待機時間
-	float GetCurWholeTime(void) const	{ return m_fCurWholeTime; }	// 現在の全体時間
-	float GetMaxWholeTime(void) const	{ return m_fMaxWholeTime; }	// 総全体時間
-	void SetNextTime(const int nPtrnID, const float fNextTime);		// パターン変更時間設定 (パターン指定)
-	void SetNextTime(const float fNextTime);						// パターン変更時間設定 (全パターン)
+	void SetAlpha(const float fAlpha);				// 透明度設定
+	void SetColor(const COLOR& rCol);				// 色設定
+	void SetCurPtrn(const int nPtrn);				// 現在パターン設定
+	void SetTexPtrn(const POSGRID2& rPtrn);			// テクスチャ分割数設定
+	void SetTexPtrnWidth(const int nTexPtrnW);		// テクスチャ横分割数設定
+	void SetTexPtrnHeight(const int nTexPtrnH);		// テクスチャ縦分割数設定
+	void SetEnablePlay(const bool bPlay);			// 再生フラグ設定
+	void SetEnablePlayBack(const bool bPlayBack);	// 逆再生フラグ設定
+	void SetEnableLoop(const bool bLoop);			// ループフラグ設定
+	void ResetCurPtrn();							// 現在パターン初期化
+	void SetNextTime(const int nPtrnID, const float fNextTime);	// パターン変更時間設定 (パターン指定)
+	void SetNextTime(const float fNextTime);					// パターン変更時間設定 (全パターン)
+
+	inline int GetCurPtrn() const	{ return m_nCurPtrn; }	// 現在パターン取得
+	inline void ResetNumLoop()		{ m_nNumLoop = 0; }		// パターン繰り返し数初期化
+	inline int GetLoopAnim() const	{ return m_nNumLoop; }	// パターン繰り返し数取得
+	inline bool IsPlay() const		{ return m_bPlay; }		// 再生フラグ取得
+	inline bool IsPlayBack() const	{ return m_bPlayBack; }	// 逆再生フラグ取得
+	inline bool IsLoop() const		{ return m_bLoop; }		// ループフラグ取得
+	inline bool IsFinish() const	{ return m_bFinish; }	// 終了フラグ取得
+	inline float GetCurTime() const			{ return m_fCurTime; }		// 現在の待機時間
+	inline float GetCurWholeTime() const	{ return m_fCurWholeTime; }	// 現在の全体時間
+	inline float GetMaxWholeTime() const	{ return m_fMaxWholeTime; }	// 総全体時間
 
 private:
 	// メンバ関数

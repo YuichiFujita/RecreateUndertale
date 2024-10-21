@@ -63,7 +63,7 @@ CLoading::~CLoading()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CLoading::Init(void)
+HRESULT CLoading::Init()
 {
 	// メンバ変数を初期化
 	m_pPromise	= nullptr;		// プロミス
@@ -112,7 +112,7 @@ HRESULT CLoading::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CLoading::Uninit(void)
+void CLoading::Uninit()
 {
 	if (m_func.joinable())
 	{ // 読込関数の処理が終了していない場合
@@ -247,7 +247,7 @@ void CLoading::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CLoading::Draw(void)
+void CLoading::Draw()
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
@@ -319,7 +319,7 @@ HRESULT CLoading::Set(std::function<HRESULT(bool*)> func)
 //============================================================
 //	生成処理
 //============================================================
-CLoading* CLoading::Create(void)
+CLoading* CLoading::Create()
 {
 	// ローディングの生成
 	CLoading* pLoading = new CLoading;

@@ -46,12 +46,12 @@ public:
 	};
 
 	// メンバ関数
-	HRESULT Init(void);	// フォント文字初期化
-	void Uninit(void);	// フォント文字終了
+	HRESULT Init();	// フォント文字初期化
+	void Uninit();	// フォント文字終了
 	SChar Regist(const wchar_t wcChar);	// フォント文字登録
-	const HFONT GetFont(void)			{ return m_hFont; }		// フォントへのポインタ
-	const std::string GetFilePath(void)	{ return m_sFilePath; }	// フォントパス
-	const bool GetItalic(void)			{ return m_bItalic; }	// イタリック
+	inline const HFONT GetFont()			{ return m_hFont; }		// フォントへのポインタ
+	inline const std::string GetFilePath()	{ return m_sFilePath; }	// フォントパス
+	inline const bool GetItalic()			{ return m_bItalic; }	// イタリック
 
 	// 静的メンバ関数
 	static CFontChar* Create(const HFONT hFont, const std::string& rFilePath, const bool bItalic);	// 生成

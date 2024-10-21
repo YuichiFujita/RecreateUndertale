@@ -49,7 +49,7 @@ CString2D::~CString2D()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CString2D::Init(void)
+HRESULT CString2D::Init()
 {
 	// メンバ変数を初期化
 	m_ppChar		= nullptr;			// 文字ポリゴンの情報
@@ -67,7 +67,7 @@ HRESULT CString2D::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CString2D::Uninit(void)
+void CString2D::Uninit()
 {
 	if (m_ppChar != nullptr)
 	{ // 文字列が破棄されていない場合
@@ -478,7 +478,7 @@ void CString2D::SetAlignX(const EAlignX alignX)
 //============================================================
 //	文字列の横幅取得処理
 //============================================================
-float CString2D::GetStrWidth(void) const
+float CString2D::GetStrWidth() const
 {
 	// 文字列がない場合抜ける
 	if ((int)m_wsStr.size() <= 0) { assert(false); return 0.0f; }
@@ -529,7 +529,7 @@ CChar2D *CString2D::GetChar2D(const int nCharID) const
 //============================================================
 //	文字列の取得処理 (マルチバイト文字列)
 //============================================================
-std::string CString2D::GetStr(void) const
+std::string CString2D::GetStr() const
 {
 	// 文字列をマルチバイト変換して返す
 	return useful::WideToMultiByte(m_wsStr);
@@ -538,7 +538,7 @@ std::string CString2D::GetStr(void) const
 //============================================================
 //	相対位置の設定処理
 //============================================================
-void CString2D::SetPositionRelative(void)
+void CString2D::SetPositionRelative()
 {
 	// 文字列がない場合抜ける
 	if ((int)m_wsStr.size() <= 0) { return; }

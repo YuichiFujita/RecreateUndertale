@@ -92,7 +92,7 @@ CObjectMeshCube::~CObjectMeshCube()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CObjectMeshCube::Init(void)
+HRESULT CObjectMeshCube::Init()
 {
 	// メンバ変数を初期化
 	m_pVtxBuff		= nullptr;	// 頂点バッファ
@@ -146,7 +146,7 @@ HRESULT CObjectMeshCube::Init(void)
 //============================================================
 //	終了処理
 //============================================================
-void CObjectMeshCube::Uninit(void)
+void CObjectMeshCube::Uninit()
 {
 	// 頂点バッファの破棄
 	SAFE_RELEASE(m_pVtxBuff);
@@ -339,7 +339,7 @@ CObjectMeshCube* CObjectMeshCube::Create
 //============================================================
 //	レンダーステート情報の取得処理
 //============================================================
-CRenderState* CObjectMeshCube::GetRenderState(void)
+CRenderState* CObjectMeshCube::GetRenderState()
 {
 	// インスタンス未使用
 	assert(m_pRenderState != nullptr);
@@ -534,7 +534,7 @@ void CObjectMeshCube::SetOrigin(const EOrigin origin)
 //============================================================
 //	頂点情報の設定処理
 //============================================================
-void CObjectMeshCube::SetVtx(void)
+void CObjectMeshCube::SetVtx()
 {
 	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 	int nLoop = 0;		// キューブの描画数
@@ -629,7 +629,7 @@ void CObjectMeshCube::SetVtx(void)
 //============================================================
 //	インデックス情報の設定処理
 //============================================================
-void CObjectMeshCube::SetIdx(void)
+void CObjectMeshCube::SetIdx()
 {
 	WORD* pIdx;			// インデックス情報へのポインタ
 	int nNumVtx = 0;	// 頂点数の計測用
@@ -668,7 +668,7 @@ void CObjectMeshCube::SetIdx(void)
 //============================================================
 //	通常描画処理
 //============================================================
-void CObjectMeshCube::DrawNormal(void)
+void CObjectMeshCube::DrawNormal()
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 	int aTexType[NUM_CUBE_FACE];			// テクスチャ設定用
