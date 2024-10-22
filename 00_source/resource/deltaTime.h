@@ -27,13 +27,13 @@ public:
 	HRESULT Init();	// 初期化
 	void Uninit();	// 終了
 	void Update();	// 更新
-	float GetDeltaTime() const		{ return m_fDeltaTime; }	// 経過時間取得
-	float GetDeltaRate() const		{ return m_fDeltaRate; }	// 経過時間の割合取得
-	float GetSlowRate() const		{ return m_fSlowRate; }		// 速度低下の割合取得
-	void SetSlowRate(const float fRate)	{ m_fSlowRate = fRate; }	// 速度低下の割合設定
+	inline float GetDeltaTime() const			{ return m_fDeltaTime; }	// 経過時間取得
+	inline float GetDeltaRate() const			{ return m_fDeltaRate; }	// 経過時間の割合取得
+	inline float GetSlowRate() const			{ return m_fSlowRate; }		// 速度低下の割合取得
+	inline void SetSlowRate(const float fRate)	{ m_fSlowRate = fRate; }	// 速度低下の割合設定
 
 	// 静的メンバ関数
-	static CDeltaTime* Create();				// 生成
+	static CDeltaTime* Create();					// 生成
 	static void Release(CDeltaTime*& prDeltaTime);	// 破棄
 
 private:

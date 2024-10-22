@@ -57,18 +57,18 @@ public:
 
 	// 静的メンバ関数
 	static CInputKeyboard* Create(HINSTANCE hInstance, HWND hWnd);	// 生成
-	static void Release(CInputKeyboard*& pKeyboard);				// 破棄
+	static void Release(CInputKeyboard*& prKeyboard);				// 破棄
 
 	// メンバ関数
-	void InitPress();		// プレス初期化
-	void InitTrigger();		// トリガー初期化
-	void InitRelease();		// リリース初期化
+	void InitPress();			// プレス初期化
+	void InitTrigger();			// トリガー初期化
+	void InitRelease();			// リリース初期化
 	bool IsPress(int nKey);		// プレス取得
 	bool IsTrigger(int nKey);	// トリガー取得
 	bool IsRelease(int nKey);	// リリース取得
-	bool IsAnyPress();		// 全プレス取得
-	bool IsAnyTrigger();	// 全トリガー取得
-	bool IsAnyRelease();	// 全リリース取得
+	bool IsAnyPress();			// 全プレス取得
+	bool IsAnyTrigger();		// 全トリガー取得
+	bool IsAnyRelease();		// 全リリース取得
 
 private:
 	// メンバ変数
@@ -103,16 +103,16 @@ public:
 
 	// 静的メンバ関数
 	static CInputMouse* Create(HINSTANCE hInstance, HWND hWnd);	// 生成
-	static void Release(CInputMouse*& pMouse);					// 破棄
+	static void Release(CInputMouse*& prMouse);					// 破棄
 
 	// メンバ関数
 	bool IsPress(EKey mouKey);		// プレス取得
 	bool IsTrigger(EKey mouKey);	// トリガー取得
 	bool IsRelease(EKey mouKey);	// リリース取得
-	bool IsAnyPress();			// 全プレス取得
-	bool IsAnyTrigger();		// 全トリガー取得
-	bool IsAnyRelease();		// 全リリース取得
-	VECTOR3 GetMove();			// 移動量取得
+	bool IsAnyPress();				// 全プレス取得
+	bool IsAnyTrigger();			// 全トリガー取得
+	bool IsAnyRelease();			// 全リリース取得
+	VECTOR3 GetMove();				// 移動量取得
 
 private:
 	// メンバ変数
@@ -180,8 +180,8 @@ public:
 	};
 
 	// 静的メンバ関数
-	static CInputPad* Create();			// 生成
-	static void Release(CInputPad*& pPad);	// 破棄
+	static CInputPad* Create();				// 生成
+	static void Release(CInputPad*& prPad);	// 破棄
 
 	// メンバ関数
 	HRESULT Init();	// 初期化

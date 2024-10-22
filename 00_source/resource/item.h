@@ -80,8 +80,8 @@ public:
 	const CItemData& GetInfo(const int nID);	// アイテム情報取得
 
 	// 静的メンバ関数
-	static CItem* Create();				// 生成
-	static void Release(CItem*& pItem);	// 破棄
+	static CItem* Create();					// 生成
+	static void Release(CItem*& prItem);	// 破棄
 
 private:
 	// メンバ関数

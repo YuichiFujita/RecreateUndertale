@@ -55,7 +55,7 @@ public:
 
 	// Ã“Iƒƒ“ƒoŠÖ”
 	static CFontChar* Create(const HFONT hFont, const std::string& rFilePath, const bool bItalic);	// ¶¬
-	static void Release(CFontChar*& pFontChar);	// ”jŠü
+	static void Release(CFontChar*& prFontChar);	// ”jŠü
 
 private:
 	// ƒƒ“ƒoŠÖ”

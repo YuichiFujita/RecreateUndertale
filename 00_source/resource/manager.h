@@ -60,9 +60,9 @@ public:
 
 	// 静的メンバ関数
 	static CManager* Create(HINSTANCE hInstance, HWND hWnd, BOOL bWindow);	// 生成
-	static CManager* GetInstance();			// 取得
+	static CManager* GetInstance();				// 取得
 	static void Release(CManager*& prManager);	// 破棄
-	static void ReleaseWindow();			// ウインドウ破棄
+	static void ReleaseWindow();				// ウインドウ破棄
 
 	// メンバ関数
 	HRESULT InitScene(const CScene::EMode mode);	// シーン初期化

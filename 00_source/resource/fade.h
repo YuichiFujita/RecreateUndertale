@@ -54,10 +54,10 @@ public:
 	static CFade* Create();	// 生成
 
 	// メンバ関数
-	void SetNextMode(const CScene::EMode next)	{ m_modeNext = next; }	// 遷移先モード設定
-	CScene::EMode GetNextMode() const		{ return m_modeNext; }	// 遷移先モード取得
-	EFade GetState() const	{ return m_fade; }						// フェード状態取得
-	bool IsFade() const		{ return m_fade != FADE_NONE; }			// フェード状況取得
+	inline void SetNextMode(const CScene::EMode next)	{ m_modeNext = next; }	// 遷移先モード設定
+	inline CScene::EMode GetNextMode() const			{ return m_modeNext; }	// 遷移先モード取得
+	inline EFade GetState() const	{ return m_fade; }							// フェード状態取得
+	inline bool IsFade() const		{ return m_fade != FADE_NONE; }				// フェード状況取得
 
 	void SetFade	// フェード開始設定
 	( // 引数

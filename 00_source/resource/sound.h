@@ -45,11 +45,11 @@ public:
 
 	// メンバ関数
 	HRESULT Init(HWND hWnd);	// 初期化
-	void Uninit();			// 終了
+	void Uninit();				// 終了
 	HRESULT LoadAll(HWND hWnd);	// 全読込
 	HRESULT Play(ELabel label);	// 再生
 	void Stop(ELabel label);	// 停止
-	void Stop();			// 全停止
+	void Stop();				// 全停止
 	void SetVolume(const ELabel label, float fVolume);	// 音量設定
 	float GetVolume(const ELabel label) const;			// 音量取得
 	void SetFrequency(const ELabel label, float fFreq);	// 周波数設定
@@ -57,7 +57,7 @@ public:
 
 	// 静的メンバ関数
 	static CSound* Create(HWND hWnd);		// 生成
-	static void Release(CSound*& pSound);	// 破棄
+	static void Release(CSound*& prSound);	// 破棄
 
 private:
 	// メンバ関数

@@ -44,12 +44,12 @@ public:
 	void Uninit();	// 終了
 	void Update(const float fDeltaTime);	// 更新
 	void Draw();	// 描画
-	HRESULT Set(std::function<HRESULT(bool*)> func);	// ロード開始設定
-	ELoading GetState() const { return m_state; }	// ロード状態取得
+	HRESULT Set(std::function<HRESULT(bool*)> func);		// ロード開始設定
+	inline ELoading GetState() const { return m_state; }	// ロード状態取得
 
 	// 静的メンバ関数
-	static CLoading* Create();				// 生成
-	static void Release(CLoading*& pLoading);	// 破棄
+	static CLoading* Create();					// 生成
+	static void Release(CLoading*& prLoading);	// 破棄
 
 private:
 	// メンバ変数

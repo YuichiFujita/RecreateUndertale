@@ -40,8 +40,8 @@ public:
 	void DrawDebugData();		// デバッグ情報表示
 
 	// 静的メンバ関数
-	static CDebug* Create();			// 生成
-	static void Release(CDebug*& pDebug);	// 破棄
+	static CDebug* Create();				// 生成
+	static void Release(CDebug*& prDebug);	// 破棄
 
 private:
 

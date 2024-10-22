@@ -82,17 +82,16 @@ public:
 	void Set();		// 設定
 	void Reset();	// 再設定
 	void SetInfoRenderState(const SInfo& rInfo);	// レンダーステート情報設定
-	SInfo GetInfoRenderState();					// レンダーステート情報取得
+	SInfo GetInfoRenderState();						// レンダーステート情報取得
 	void SetAlphaBlend(const EBlend blend);			// αブレンド情報設定
 
-	void SetAlphaFunc(const D3DCMPFUNC func)	{ m_info.testAlpha.func		= func; }		// αテストの情報設定
-	void SetAlphaNumRef(const int nRef)			{ m_info.testAlpha.nRef		= nRef; }		// αテストの参照値設定
-	void SetAlphaTest(const bool bTest)			{ m_info.testAlpha.bTest	= bTest; }		// αテストの状況設定
-	void SetZFunc(const D3DCMPFUNC func)		{ m_info.testZ.func			= func; }		// Zテストの情報設定
-	void SetZUpdate(const bool bUpdate)			{ m_info.testZ.bUpdate		= bUpdate; }	// Zテストのバッファ更新設定
-
-	void SetCulling(const D3DCULL cull)			{ m_info.cull	= cull; }	// カリング設定
-	void SetLighting(const bool bLight)			{ m_info.bLight	= bLight; }	// ライティング設定
+	inline void SetAlphaFunc(const D3DCMPFUNC func)	{ m_info.testAlpha.func		= func; }		// αテストの情報設定
+	inline void SetAlphaNumRef(const int nRef)		{ m_info.testAlpha.nRef		= nRef; }		// αテストの参照値設定
+	inline void SetAlphaTest(const bool bTest)		{ m_info.testAlpha.bTest	= bTest; }		// αテストの状況設定
+	inline void SetZFunc(const D3DCMPFUNC func)		{ m_info.testZ.func			= func; }		// Zテストの情報設定
+	inline void SetZUpdate(const bool bUpdate)		{ m_info.testZ.bUpdate		= bUpdate; }	// Zテストのバッファ更新設定
+	inline void SetCulling(const D3DCULL cull)		{ m_info.cull	= cull; }	// カリング設定
+	inline void SetLighting(const bool bLight)		{ m_info.bLight	= bLight; }	// ライティング設定
 
 	// 静的メンバ関数
 	static CRenderState* Create();	// 生成

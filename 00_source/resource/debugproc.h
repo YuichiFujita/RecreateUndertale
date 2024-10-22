@@ -43,12 +43,12 @@ public:
 	void Draw();
 	void Print(const EPoint point, const char* fmt, ...);
 	
-	void SetDisp(const bool bDisp)	{ m_bDisp = bDisp; }	// 表示設定
-	bool IsDisp() const			{ return m_bDisp; }		// 表示取得
+	inline void SetDisp(const bool bDisp)	{ m_bDisp = bDisp; }	// 表示設定
+	inline bool IsDisp() const				{ return m_bDisp; }		// 表示取得
 
 	// 静的メンバ関数
-	static CDebugProc* Create();				// 生成
-	static void Release(CDebugProc*& pDebugProc);	// 破棄
+	static CDebugProc* Create();					// 生成
+	static void Release(CDebugProc*& prDebugProc);	// 破棄
 
 private:
 	static LPD3DXFONT m_pFont;	// フォントへのポインタ
