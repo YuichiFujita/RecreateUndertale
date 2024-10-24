@@ -86,7 +86,7 @@ public:
 	void SetCharHeight(const float fHeight);		// 文字の縦幅設定
 	void SetAlignX(const EAlignX align);			// 横配置設定
 	float GetStrWidth() const;						// 文字列の横幅取得
-	CChar2D* GetChar2D(const int nCharID) const;	// 文字の取得
+	CChar2D* GetChar2D(const int nCharIdx) const;	// 文字の取得
 	std::string GetStr() const;						// 文字列取得 (マルチバイト文字列)
 	inline std::wstring GetWideStr() const	{ return m_wsStr; }				// 文字列取得 (ワイド文字列)
 	inline float GetAlpha() const			{ return m_col.a; }				// 透明度取得

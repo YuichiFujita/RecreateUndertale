@@ -38,7 +38,7 @@ CObjectBillboard::CObjectBillboard(const CObject::ELabel label, const CObject::E
 	m_rotate		(ROTATE_NORMAL),	// 回転
 	m_fAngle		(0.0f),				// 対角線の角度
 	m_fLength		(0.0f),				// 対角線の長さ
-	m_nTextureID	(0)					// テクスチャインデックス
+	m_nTextureIdx	(0)					// テクスチャインデックス
 {
 	// メンバ変数をクリア
 	D3DXMatrixIdentity(&m_mtxWorld);	// ワールドマトリックス
@@ -71,7 +71,7 @@ HRESULT CObjectBillboard::Init()
 	m_rotate		= ROTATE_NORMAL;	// 回転
 	m_fAngle		= 0.0f;				// 対角線の角度
 	m_fLength		= 0.0f;				// 対角線の長さ
-	m_nTextureID	= NONE_IDX;			// テクスチャインデックス
+	m_nTextureIdx	= NONE_IDX;			// テクスチャインデックス
 
 	// 頂点バッファの生成
 	if (FAILED(pDevice->CreateVertexBuffer
@@ -347,13 +347,13 @@ CRenderState* CObjectBillboard::GetRenderState()
 //============================================================
 //	テクスチャ割当処理 (インデックス)
 //============================================================
-void CObjectBillboard::BindTexture(const int nTextureID)
+void CObjectBillboard::BindTexture(const int nTextureIdx)
 {
-	if (nTextureID >= NONE_IDX)
+	if (nTextureIdx >= NONE_IDX)
 	{ // テクスチャインデックスが使用可能な場合
 
 		// テクスチャインデックスを代入
-		m_nTextureID = nTextureID;
+		m_nTextureIdx = nTextureIdx;
 	}
 	else { assert(false); }	// 範囲外
 }
@@ -368,13 +368,13 @@ void CObjectBillboard::BindTexture(const char* pTexturePath)
 
 		// テクスチャインデックスを設定
 		CTexture* pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
-		m_nTextureID = pTexture->Regist(pTexturePath);
+		m_nTextureIdx = pTexture->Regist(pTexturePath);
 	}
 	else
 	{ // 割り当てるテクスチャパスがない場合
 
 		// テクスチャなしインデックスを設定
-		m_nTextureID = NONE_IDX;
+		m_nTextureIdx = NONE_IDX;
 	}
 }
 
@@ -539,7 +539,7 @@ void CObjectBillboard::DrawNormal()
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// テクスチャの設定
-	pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_nTextureID));
+	pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_nTextureIdx));
 
 	// ポリゴンの描画
 	pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
@@ -566,13 +566,13 @@ void CObjectBillboard::DrawShader(CShader* pShader)
 	pShader->SetOnlyDiffuse(m_col);
 
 	// テクスチャを設定
-	pShader->SetTexture(m_nTextureID);
+	pShader->SetTexture(m_nTextureIdx);
 
 	// 状態変更の伝達
 	pShader->CommitChanges();
 
 	// テクスチャの設定
-	pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_nTextureID));
+	pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_nTextureIdx));
 
 	// ポリゴンの描画
 	pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);

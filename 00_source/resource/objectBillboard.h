@@ -72,13 +72,13 @@ public:
 
 	// メンバ関数
 	CRenderState* GetRenderState();				// レンダーステート情報取得
-	void BindTexture(const int nTextureID);		// テクスチャ割当 (インデックス)
+	void BindTexture(const int nTextureIdx);		// テクスチャ割当 (インデックス)
 	void BindTexture(const char* pTexturePath);	// テクスチャ割当 (パス)
 	void SetAlpha(const float fAlpha);			// 透明度設定
 	void SetColor(const COLOR& rCol);			// 色設定
 	void SetOrigin(const EOrigin origin);		// 原点設定
 	void SetRotate(const ERotate rotate);		// 回転設定
-	inline int GetTextureIndex() const	{ return m_nTextureID; }	// テクスチャインデックス取得
+	inline int GetTextureIndex() const	{ return m_nTextureIdx; }	// テクスチャインデックス取得
 	inline float GetAlpha() const		{ return m_col.a; }			// 透明度取得
 	inline COLOR GetColor() const		{ return m_col; }			// 色取得
 	inline EOrigin GetOrigin() const	{ return m_origin; }		// 原点取得
@@ -108,7 +108,7 @@ private:
 	ERotate	m_rotate;		// 回転
 	float	m_fAngle;		// 対角線の角度
 	float	m_fLength;		// 対角線の長さ
-	int		m_nTextureID;	// テクスチャインデックス
+	int		m_nTextureIdx;	// テクスチャインデックス
 };
 
 #endif	// _OBJECTBILLBOARD_H_

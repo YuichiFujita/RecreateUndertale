@@ -242,7 +242,7 @@ CValueUI* CValueUI::Create
 //============================================================
 CValueUI* CValueUI::Create
 (
-	const int nTextureID,		// タイトルテクスチャインデックス
+	const int nTextureIdx,		// タイトルテクスチャインデックス
 	const CValue::EType type,	// 数字種類
 	const int nDigit,			// 桁数
 	const VECTOR3& rPos,		// 位置
@@ -280,7 +280,7 @@ CValueUI* CValueUI::Create
 	{ // 生成に成功した場合
 
 		// テクスチャを割当
-		pValueUI->BindTextureTitle(nTextureID);
+		pValueUI->BindTextureTitle(nTextureIdx);
 
 		// 確保したアドレスを返す
 		return pValueUI;
@@ -352,13 +352,13 @@ void CValueUI::SetSpace(const VECTOR3& rSpace)
 //============================================================
 //	タイトルのテクスチャ割当処理 (インデックス)
 //============================================================
-void CValueUI::BindTextureTitle(const int nTextureID)
+void CValueUI::BindTextureTitle(const int nTextureIdx)
 {
-	if (nTextureID >= NONE_IDX)
+	if (nTextureIdx >= NONE_IDX)
 	{ // テクスチャインデックスが使用可能な場合
 
 		// テクスチャインデックスを代入
-		m_pTitle->BindTexture(nTextureID);
+		m_pTitle->BindTexture(nTextureIdx);
 	}
 	else { assert(false); }	// 範囲外
 }

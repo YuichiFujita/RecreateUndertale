@@ -506,8 +506,8 @@ float CMultiValue::GetValueWidth() const
 	if ((int)m_listValue.size() <= 0) { assert(false); return 0.0f; }
 
 	float fValueWidth = 0.0f;	// 数字全体の縦幅
-	int nEndNumID = (int)m_listValue.size() - 1;	// 終端数字のインデックス
-	for (int i = 0; i < nEndNumID; i++)
+	int nEndNumIdx = (int)m_listValue.size() - 1;	// 終端数字のインデックス
+	for (int i = 0; i < nEndNumIdx; i++)
 	{ // 終端数字を抜いた桁数分繰り返す
 
 		// 次の数字までの列間を加算
@@ -531,8 +531,8 @@ float CMultiValue::GetValueHeight() const
 	if ((int)m_listValue.size() <= 0) { assert(false); return 0.0f; }
 
 	float fValueHeight = 0.0f;	// 数字全体の縦幅
-	int nEndNumID = (int)m_listValue.size() - 1;	// 終端数字のインデックス
-	for (int i = 0; i < nEndNumID; i++)
+	int nEndNumIdx = (int)m_listValue.size() - 1;	// 終端数字のインデックス
+	for (int i = 0; i < nEndNumIdx; i++)
 	{ // 終端数字を抜いた桁数分繰り返す
 
 		// 次の数字までの行間を加算

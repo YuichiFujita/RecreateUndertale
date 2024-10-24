@@ -77,7 +77,7 @@ public:
 	HRESULT Init();		// アイテム初期化
 	void Uninit();		// アイテム終了
 	HRESULT LoadAll();	// アイテム全読込
-	const CItemData& GetInfo(const int nID);	// アイテム情報取得
+	const CItemData& GetInfo(const int nIdx);	// アイテム情報取得
 
 	// 静的メンバ関数
 	static CItem* Create();					// 生成

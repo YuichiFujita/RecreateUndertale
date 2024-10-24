@@ -33,7 +33,7 @@ CObjectMeshCircle::CObjectMeshCircle(const CObject::ELabel label, const CObject:
 	m_part			(GRID2_ZERO),	// 分割数
 	m_nNumVtx		(0),			// 必要頂点数
 	m_nNumIdx		(0),			// 必要インデックス数
-	m_nTextureID	(0)				// テクスチャインデックス
+	m_nTextureIdx	(0)				// テクスチャインデックス
 {
 	// メンバ変数をクリア
 	memset(&m_meshCircle, 0, sizeof(m_meshCircle));	// メッシュサークルの情報
@@ -59,7 +59,7 @@ HRESULT CObjectMeshCircle::Init()
 	m_part			= MIN_PART;	// 分割数
 	m_nNumVtx		= 0;		// 必要頂点数
 	m_nNumIdx		= 0;		// 必要インデックス数
-	m_nTextureID	= NONE_IDX;	// テクスチャインデックス
+	m_nTextureIdx	= NONE_IDX;	// テクスチャインデックス
 
 	m_meshCircle.pos		= VEC3_ZERO;		// 位置
 	m_meshCircle.rot		= VEC3_ZERO;		// 向き
@@ -258,13 +258,13 @@ CRenderState* CObjectMeshCircle::GetRenderState()
 //============================================================
 //	テクスチャ割当処理 (インデックス)
 //============================================================
-void CObjectMeshCircle::BindTexture(const int nTextureID)
+void CObjectMeshCircle::BindTexture(const int nTextureIdx)
 {
-	if (nTextureID >= NONE_IDX)
+	if (nTextureIdx >= NONE_IDX)
 	{ // テクスチャインデックスが使用可能な場合
 
 		// テクスチャインデックスを代入
-		m_nTextureID = nTextureID;
+		m_nTextureIdx = nTextureIdx;
 	}
 	else { assert(false); }	// 範囲外
 }
@@ -279,13 +279,13 @@ void CObjectMeshCircle::BindTexture(const char* pTexturePath)
 
 		// テクスチャインデックスを設定
 		CTexture* pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
-		m_nTextureID = pTexture->Regist(pTexturePath);
+		m_nTextureIdx = pTexture->Regist(pTexturePath);
 	}
 	else
 	{ // 割り当てるテクスチャパスがない場合
 
 		// テクスチャなしインデックスを設定
-		m_nTextureID = NONE_IDX;
+		m_nTextureIdx = NONE_IDX;
 	}
 }
 
@@ -514,7 +514,7 @@ void CObjectMeshCircle::DrawNormal()
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// テクスチャの設定
-	pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_nTextureID));
+	pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_nTextureIdx));
 
 	// 外周ポリゴンの描画
 	pDevice->DrawIndexedPrimitive
@@ -560,13 +560,13 @@ void CObjectMeshCircle::DrawShader(CShader* pShader)
 	pShader->SetOnlyDiffuse(m_meshCircle.col);
 
 	// テクスチャを設定
-	pShader->SetTexture(m_nTextureID);
+	pShader->SetTexture(m_nTextureIdx);
 
 	// 状態変更の伝達
 	pShader->CommitChanges();
 
 	// テクスチャの設定
-	pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_nTextureID));
+	pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_nTextureIdx));
 
 	// 外周ポリゴンの描画
 	pDevice->DrawIndexedPrimitive

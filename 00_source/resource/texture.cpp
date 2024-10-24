@@ -97,7 +97,7 @@ int CTexture::Regist(const SInfo info)
 {
 	HRESULT  hr;			// 異常終了の確認用
 	SMapInfo tempMapInfo;	// マップ情報
-	int nID = m_nNumAll;	// テクスチャ読込番号
+	int nIdx = m_nNumAll;	// テクスチャ読込番号
 
 	// マップ情報のポインタを初期化
 	tempMapInfo.textureData.pTexture = nullptr;	// テクスチャへのポインタ
@@ -146,7 +146,7 @@ int CTexture::Regist(const SInfo info)
 	m_nNumAll++;
 
 	// 読み込んだテクスチャの配列番号を返す
-	return nID;
+	return nIdx;
 }
 
 //============================================================
@@ -156,7 +156,7 @@ int CTexture::Regist(std::string sFilePath)
 {
 	HRESULT  hr;			// 異常終了の確認用
 	SMapInfo tempMapInfo;	// マップ情報
-	int nID = m_nNumAll;	// テクスチャ読込番号
+	int nIdx = m_nNumAll;	// テクスチャ読込番号
 
 	// マップ情報のポインタを初期化
 	tempMapInfo.textureData.pTexture = nullptr;	// テクスチャへのポインタ
@@ -231,20 +231,20 @@ int CTexture::Regist(std::string sFilePath)
 	m_nNumAll++;
 
 	// 読み込んだテクスチャの配列番号を返す
-	return nID;
+	return nIdx;
 }
 
 //============================================================
 //	テクスチャ情報の取得処理
 //============================================================
-CTexture::STexture CTexture::GetInfo(const int nID)
+CTexture::STexture CTexture::GetInfo(const int nIdx)
 {
 	int nArray = (int)m_mapTexture.size();	// 配列要素数
-	if (nID > NONE_IDX && nID < nArray)
+	if (nIdx > NONE_IDX && nIdx < nArray)
 	{ // テクスチャがある場合
 
 		// 引数のテクスチャ情報を返す
-		return m_mapTexture.find(nID)->second.textureData;
+		return m_mapTexture.find(nIdx)->second.textureData;
 	}
 	else
 	{ // テクスチャがない場合
@@ -272,16 +272,16 @@ CTexture::STexture CTexture::GetInfo(const int nID)
 //============================================================
 //	テクスチャポインタの取得処理
 //============================================================
-LPDIRECT3DTEXTURE9 CTexture::GetPtr(const int nID)
+LPDIRECT3DTEXTURE9 CTexture::GetPtr(const int nIdx)
 {
-	if (nID >= 0 && nID < m_nNumAll)
+	if (nIdx >= 0 && nIdx < m_nNumAll)
 	{ // 引数のインデックスが範囲内の場合
 
-		if (nID > NONE_IDX && nID < (int)m_mapTexture.size())
+		if (nIdx > NONE_IDX && nIdx < (int)m_mapTexture.size())
 		{ // テクスチャがある場合
 
 			// 引数のテクスチャポインタを返す
-			return m_mapTexture.find(nID)->second.textureData.pTexture;
+			return m_mapTexture.find(nIdx)->second.textureData.pTexture;
 		}
 		else
 		{ // テクスチャがない場合
@@ -291,7 +291,7 @@ LPDIRECT3DTEXTURE9 CTexture::GetPtr(const int nID)
 			return nullptr;
 		}
 	}
-	else if (nID == NONE_IDX)
+	else if (nIdx == NONE_IDX)
 	{ // 引数のインデックスが -1の場合
 
 		// nullptrを返す

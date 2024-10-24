@@ -165,13 +165,13 @@ void CObjectChara2D::SetMotion(const int nType)
 //============================================================
 void CObjectChara2D::AddInfo(const SMotion& rMotion)
 {
-	int nSetMotionID = m_info.GetNumMotion();	// モーションを設定する配列番号
+	int nSetMotionIdx = m_info.GetNumMotion();	// モーションを設定する配列番号
 
 	// 空の要素を最後尾に追加
 	m_info.vecMotion.emplace_back();
 
 	// 引数のモーション情報を設定
-	m_info.vecMotion[nSetMotionID] = rMotion;
+	m_info.vecMotion[nSetMotionIdx] = rMotion;
 }
 
 //============================================================

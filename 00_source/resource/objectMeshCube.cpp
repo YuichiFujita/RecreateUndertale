@@ -113,7 +113,7 @@ HRESULT CObjectMeshCube::Init()
 	m_meshCube.texState		= TEXSTATE_ONE;	// テクスチャの使用状態
 
 	// テクスチャインデックスの初期化
-	m_meshCube.texID = SFaceTex
+	m_meshCube.texIdx = SFaceTex
 	( // 引数
 		NONE_IDX,	// 全面のテクスチャインデックス
 		NONE_IDX,	// 左のテクスチャインデックス
@@ -260,7 +260,7 @@ CObjectMeshCube* CObjectMeshCube::Create
 	const EBorder bordState,	// 縁取り状態
 	const float fBordThick,		// 縁取り太さ
 	const ETexState texState,	// テクスチャ状態
-	const SFaceTex& rTexID,		// テクスチャ種類
+	const SFaceTex& rTexIdx,		// テクスチャ種類
 	const EOrigin origin,		// 原点
 	const VECTOR2& rTexPartX,	// テクスチャ分割数X
 	const VECTOR2& rTexPartY,	// テクスチャ分割数Y
@@ -287,7 +287,7 @@ CObjectMeshCube* CObjectMeshCube::Create
 		}
 
 		// テクスチャを割当
-		pMeshCube->BindTexture(rTexID);
+		pMeshCube->BindTexture(rTexIdx);
 
 		// 原点を設定
 		pMeshCube->SetOrigin(origin);
@@ -351,10 +351,10 @@ CRenderState* CObjectMeshCube::GetRenderState()
 //============================================================
 //	テクスチャ割当処理
 //============================================================
-void CObjectMeshCube::BindTexture(const SFaceTex textureID)
+void CObjectMeshCube::BindTexture(const SFaceTex textureIdx)
 {
 	// テクスチャインデックスを代入
-	m_meshCube.texID = textureID;
+	m_meshCube.texIdx = textureIdx;
 }
 
 //============================================================
@@ -559,16 +559,16 @@ void CObjectMeshCube::SetVtx()
 			for (int nCntSet = 0; nCntSet < NEED_VTX_CUBE; nCntSet++)
 			{ // 必要頂点・インデックス数分繰り返す
 
-				int nVtxID = nCntSet % NUM_VTX_CUBE;	// 現在の箱の頂点番号
-				int nBoxID = nCntSet / NUM_VTX_CUBE;	// 現在の箱番号
-				if (nVtxID == 0)
+				int nVtxIdx = nCntSet % NUM_VTX_CUBE;	// 現在の箱の頂点番号
+				int nBoxIdx = nCntSet / NUM_VTX_CUBE;	// 現在の箱番号
+				if (nVtxIdx == 0)
 				{ // 頂点の設定が一巡した場合
 
 					// テクスチャ分割数を変更
 					texPart = VECTOR2
 					( // 引数
-						m_meshCube.aTexPart[nBoxID].x,	// x
-						m_meshCube.aTexPart[nBoxID].y	// y
+						m_meshCube.aTexPart[nBoxIdx].x,	// x
+						m_meshCube.aTexPart[nBoxIdx].y	// y
 					);
 				}
 
@@ -577,27 +577,27 @@ void CObjectMeshCube::SetVtx()
 				case ORIGIN_CENTER:	// 中央
 
 					// 頂点座標の設定
-					pVtx[0].pos.x = (m_meshCube.size.x * SET_POS_DATA[nVtxID].x) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxID].x);
-					pVtx[0].pos.y = (m_meshCube.size.y * SET_POS_DATA[nVtxID].y) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxID].y);
-					pVtx[0].pos.z = (m_meshCube.size.z * SET_POS_DATA[nVtxID].z) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxID].z);
+					pVtx[0].pos.x = (m_meshCube.size.x * SET_POS_DATA[nVtxIdx].x) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxIdx].x);
+					pVtx[0].pos.y = (m_meshCube.size.y * SET_POS_DATA[nVtxIdx].y) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxIdx].y);
+					pVtx[0].pos.z = (m_meshCube.size.z * SET_POS_DATA[nVtxIdx].z) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxIdx].z);
 
 					break;
 
 				case ORIGIN_DOWN:	// 下原点
 
 					// 頂点座標の設定
-					pVtx[0].pos.x = (m_meshCube.size.x * SET_POS_DATA[nVtxID].x) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxID].x);
-					pVtx[0].pos.y = (m_meshCube.size.y * SET_POS_DATA[nVtxID].y * 2.0f) * -((nVtxID % 2) - 1) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxID].y);
-					pVtx[0].pos.z = (m_meshCube.size.z * SET_POS_DATA[nVtxID].z) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxID].z);
+					pVtx[0].pos.x = (m_meshCube.size.x * SET_POS_DATA[nVtxIdx].x) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxIdx].x);
+					pVtx[0].pos.y = (m_meshCube.size.y * SET_POS_DATA[nVtxIdx].y * 2.0f) * -((nVtxIdx % 2) - 1) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxIdx].y);
+					pVtx[0].pos.z = (m_meshCube.size.z * SET_POS_DATA[nVtxIdx].z) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxIdx].z);
 
 					break;
 
 				case ORIGIN_UP:		// 上原点
 
 					// 頂点座標の設定
-					pVtx[0].pos.x = (m_meshCube.size.x * SET_POS_DATA[nVtxID].x) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxID].x);
-					pVtx[0].pos.y = (m_meshCube.size.y * SET_POS_DATA[nVtxID].y * 2.0f) * (nVtxID % 2) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxID].y);
-					pVtx[0].pos.z = (m_meshCube.size.z * SET_POS_DATA[nVtxID].z) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxID].z);
+					pVtx[0].pos.x = (m_meshCube.size.x * SET_POS_DATA[nVtxIdx].x) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxIdx].x);
+					pVtx[0].pos.y = (m_meshCube.size.y * SET_POS_DATA[nVtxIdx].y * 2.0f) * (nVtxIdx % 2) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxIdx].y);
+					pVtx[0].pos.z = (m_meshCube.size.z * SET_POS_DATA[nVtxIdx].z) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxIdx].z);
 
 					break;
 
@@ -684,7 +684,7 @@ void CObjectMeshCube::DrawNormal()
 	case TEXSTATE_ONE:		// 同一テクスチャ
 
 		// テクスチャの設定
-		pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_meshCube.texID.All));
+		pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_meshCube.texIdx.All));
 
 		// ポリゴンの描画
 		pDevice->DrawIndexedPrimitive
@@ -703,12 +703,12 @@ void CObjectMeshCube::DrawNormal()
 	case TEXSTATE_SELECT:	// 全選択テクスチャ
 
 		// テクスチャの種類を設定
-		aTexType[0] = m_meshCube.texID.Top;		// 上のテクスチャ
-		aTexType[1] = m_meshCube.texID.Right;	// 右のテクスチャ
-		aTexType[2] = m_meshCube.texID.Near;	// 前のテクスチャ
-		aTexType[3] = m_meshCube.texID.Left;	// 左のテクスチャ
-		aTexType[4] = m_meshCube.texID.Far;		// 後のテクスチャ
-		aTexType[5] = m_meshCube.texID.Bottom;	// 下のテクスチャ
+		aTexType[0] = m_meshCube.texIdx.Top;		// 上のテクスチャ
+		aTexType[1] = m_meshCube.texIdx.Right;	// 右のテクスチャ
+		aTexType[2] = m_meshCube.texIdx.Near;	// 前のテクスチャ
+		aTexType[3] = m_meshCube.texIdx.Left;	// 左のテクスチャ
+		aTexType[4] = m_meshCube.texIdx.Far;		// 後のテクスチャ
+		aTexType[5] = m_meshCube.texIdx.Bottom;	// 下のテクスチャ
 
 		for (int nCntFace = 0; nCntFace < NUM_CUBE_FACE; nCntFace++)
 		{ // 面の総数分繰り返す
@@ -801,10 +801,10 @@ void CObjectMeshCube::DrawShader(CShader* pShader)
 	case TEXSTATE_ONE:		// 同一テクスチャ
 
 		// テクスチャの設定
-		pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_meshCube.texID.All));
+		pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_meshCube.texIdx.All));
 
 		// テクスチャを設定
-		pShader->SetTexture(m_meshCube.texID.All);
+		pShader->SetTexture(m_meshCube.texIdx.All);
 
 		// 状態変更の伝達
 		pShader->CommitChanges();
@@ -826,12 +826,12 @@ void CObjectMeshCube::DrawShader(CShader* pShader)
 	case TEXSTATE_SELECT:	// 全選択テクスチャ
 
 		// テクスチャの種類を設定
-		aTexType[0] = m_meshCube.texID.Top;		// 上のテクスチャ
-		aTexType[1] = m_meshCube.texID.Right;	// 右のテクスチャ
-		aTexType[2] = m_meshCube.texID.Near;	// 前のテクスチャ
-		aTexType[3] = m_meshCube.texID.Left;	// 左のテクスチャ
-		aTexType[4] = m_meshCube.texID.Far;		// 後のテクスチャ
-		aTexType[5] = m_meshCube.texID.Bottom;	// 下のテクスチャ
+		aTexType[0] = m_meshCube.texIdx.Top;		// 上のテクスチャ
+		aTexType[1] = m_meshCube.texIdx.Right;	// 右のテクスチャ
+		aTexType[2] = m_meshCube.texIdx.Near;	// 前のテクスチャ
+		aTexType[3] = m_meshCube.texIdx.Left;	// 左のテクスチャ
+		aTexType[4] = m_meshCube.texIdx.Far;		// 後のテクスチャ
+		aTexType[5] = m_meshCube.texIdx.Bottom;	// 下のテクスチャ
 
 		for (int nCntFace = 0; nCntFace < NUM_CUBE_FACE; nCntFace++)
 		{ // 面の総数分繰り返す

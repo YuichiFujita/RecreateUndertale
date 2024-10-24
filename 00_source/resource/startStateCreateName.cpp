@@ -202,8 +202,8 @@ HRESULT CStartStateCreateName::Init()
 			pSelect->SetPriority(PRIORITY);
 
 			// 文字列を割当
-			int nTextID = CStartManager::TEXT_HIRAGANA + j + (i * XSELECT_MAX);	// テキストインデックス
-			loadtext::BindString(pSelect, loadtext::LoadText(PASS, nTextID));
+			int nTextIdx = CStartManager::TEXT_HIRAGANA + j + (i * XSELECT_MAX);	// テキストインデックス
+			loadtext::BindString(pSelect, loadtext::LoadText(PASS, nTextIdx));
 
 			// 現在の行列の最後尾に生成した文字を追加
 			m_vecSelect.back().push_back(pSelect);

@@ -163,7 +163,7 @@ HRESULT CSelectItemUI::Init()
 		// TODO：ここでアイテムデータのインデックスを保存する
 #if 1
 		// アイテムインデックスを保存
-		m_vecItemName[i].nItemID = rand() % 2;
+		m_vecItemName[i].nItemIdx = rand() % 2;
 #endif
 
 		// 文字位置オフセットを計算
@@ -193,7 +193,7 @@ HRESULT CSelectItemUI::Init()
 		m_vecItemName[i].m_pName->SetPriority(PRIORITY);
 
 		// アイテム名設定
-		m_vecItemName[i].m_pName->SetString(pItem->GetInfo(m_vecItemName[i].nItemID).GetName());
+		m_vecItemName[i].m_pName->SetString(pItem->GetInfo(m_vecItemName[i].nItemIdx).GetName());
 	}
 
 	// 成功を返す
@@ -370,8 +370,8 @@ void CSelectItemUI::UpdateDecideAct()
 		// アイテムメニューの生成
 		m_pItemMenu = CItemUI::Create
 		( // 引数
-			(ESelect)m_nCurSelectAct,				// 選択中行動
-			m_vecItemName[m_nCurSelectItem].nItemID	// 選択中アイテムインデックス
+			(ESelect)m_nCurSelectAct,					// 選択中行動
+			m_vecItemName[m_nCurSelectItem].nItemIdx	// 選択中アイテムインデックス
 		);
 
 		// アイテムメニューの自動描画をOFFにする

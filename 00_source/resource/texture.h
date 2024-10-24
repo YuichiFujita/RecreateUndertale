@@ -65,8 +65,8 @@ public:
 	HRESULT LoadAll();	// テクスチャ全読込
 	int Regist(const SInfo info);				// テクスチャ登録 (生成)
 	int Regist(std::string sFilePath);			// テクスチャ登録 (パス)
-	STexture GetInfo(const int nID);			// テクスチャ情報取得
-	LPDIRECT3DTEXTURE9 GetPtr(const int nID);	// テクスチャポインタ取得
+	STexture GetInfo(const int nIdx);			// テクスチャ情報取得
+	LPDIRECT3DTEXTURE9 GetPtr(const int nIdx);	// テクスチャポインタ取得
 
 	// 静的メンバ関数
 	static CTexture* Create();					// 生成

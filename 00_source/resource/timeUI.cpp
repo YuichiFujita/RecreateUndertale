@@ -559,10 +559,10 @@ void CTimeUI::SetAlignY(const EAlignY align)
 float CTimeUI::GetTimeWidth() const
 {
 	float fTimeWidth = 0.0f;				// タイム全体の横幅
-	int nEndNumID = timeUI::MAX_DIGIT - 1;	// 終端数字のインデックス
+	int nEndNumIdx = timeUI::MAX_DIGIT - 1;	// 終端数字のインデックス
 
 	// 全ての空白を加算 (最後の文字は含まない)
-	fTimeWidth += m_spaceValue.x * nEndNumID;
+	fTimeWidth += m_spaceValue.x * nEndNumIdx;
 	fTimeWidth += m_spacePart.x * timeUI::MAX_PART;
 
 	// 先頭数字の横幅を加算
@@ -570,8 +570,8 @@ float CTimeUI::GetTimeWidth() const
 	fTimeWidth += m_apValue[0]->GetVec3Size().x * 0.5f;
 
 	// 終端数字の横幅を加算
-	assert(m_apValue[nEndNumID] != nullptr);
-	fTimeWidth += m_apValue[nEndNumID]->GetVec3Size().x * 0.5f;
+	assert(m_apValue[nEndNumIdx] != nullptr);
+	fTimeWidth += m_apValue[nEndNumIdx]->GetVec3Size().x * 0.5f;
 
 	// タイム全体の横幅を返す
 	return fTimeWidth;
@@ -583,10 +583,10 @@ float CTimeUI::GetTimeWidth() const
 float CTimeUI::GetTimeHeight() const
 {
 	float fTimeHeight = 0.0f;				// タイム全体の縦幅
-	int nEndNumID = timeUI::MAX_DIGIT - 1;	// 終端数字のインデックス
+	int nEndNumIdx = timeUI::MAX_DIGIT - 1;	// 終端数字のインデックス
 
 	// 全ての空白を加算 (最後の文字は含まない)
-	fTimeHeight += m_spaceValue.y * nEndNumID;
+	fTimeHeight += m_spaceValue.y * nEndNumIdx;
 	fTimeHeight += m_spacePart.y * timeUI::MAX_PART;
 
 	// 先頭数字の縦幅を加算
@@ -594,8 +594,8 @@ float CTimeUI::GetTimeHeight() const
 	fTimeHeight += m_apValue[0]->GetVec3Size().y * 0.5f;
 
 	// 終端数字の縦幅を加算
-	assert(m_apValue[nEndNumID] != nullptr);
-	fTimeHeight += m_apValue[nEndNumID]->GetVec3Size().y * 0.5f;
+	assert(m_apValue[nEndNumIdx] != nullptr);
+	fTimeHeight += m_apValue[nEndNumIdx]->GetVec3Size().y * 0.5f;
 
 	// タイム全体の縦幅を返す
 	return fTimeHeight;
@@ -615,8 +615,8 @@ VECTOR3 CTimeUI::GetTimeSize() const
 //============================================================
 void CTimeUI::SetPositionRelative()
 {
-	int nValueID = 0;	// 数字の生成数
-	int nPartID = 0;	// 区切りの生成数
+	int nValueIdx = 0;	// 数字の生成数
+	int nPartIdx = 0;	// 区切りの生成数
 	VECTOR3 spaceValue = m_spaceValue * 0.5f;	// 数字の空白
 	VECTOR3 spacePart = m_spacePart * 0.5f;		// 区切りの空白
 	VECTOR3 sizeTime = GetTimeSize() * 0.5f;	// タイム全体の大きさ
@@ -637,40 +637,40 @@ void CTimeUI::SetPositionRelative()
 		if (nCntTimer == timeUI::MAX_MIN || nCntTimer == timeUI::MAX_MIN + timeUI::MAX_SEC + 1)
 		{ // 区切りタイミングの場合
 
-			assert(m_apPart[nValueID] != nullptr);
+			assert(m_apPart[nValueIdx] != nullptr);
 
 			// ポリゴン生成位置をずらす
 			posStart.x += sinf(rotStart.x) * spacePart.x + sinf(rotStart.y) * spacePart.y;
 			posStart.y += cosf(rotStart.x) * spacePart.x + cosf(rotStart.y) * spacePart.y;
 
 			// 区切りの位置を設定
-			m_apPart[nValueID]->SetVec3Position(posStart);
+			m_apPart[nValueIdx]->SetVec3Position(posStart);
 
 			// ポリゴン生成位置をずらす
 			posStart.x += sinf(rotStart.x) * spacePart.x + sinf(rotStart.y) * spacePart.y;
 			posStart.y += cosf(rotStart.x) * spacePart.x + cosf(rotStart.y) * spacePart.y;
 
 			// 区切りの生成数を加算
-			nValueID++;
+			nValueIdx++;
 		}
 		else
 		{ // 数字タイミングの場合
 
-			assert(m_apValue[nPartID] != nullptr);
+			assert(m_apValue[nPartIdx] != nullptr);
 
 			// ポリゴン生成位置をずらす
 			posStart.x += sinf(rotStart.x) * spaceValue.x + sinf(rotStart.y) * spaceValue.y;
 			posStart.y += cosf(rotStart.x) * spaceValue.x + cosf(rotStart.y) * spaceValue.y;
 
 			// 数字の位置を設定
-			m_apValue[nPartID]->SetVec3Position(posStart);
+			m_apValue[nPartIdx]->SetVec3Position(posStart);
 
 			// ポリゴン生成位置をずらす
 			posStart.x += sinf(rotStart.x) * spaceValue.x + sinf(rotStart.y) * spaceValue.y;
 			posStart.y += cosf(rotStart.x) * spaceValue.x + cosf(rotStart.y) * spaceValue.y;
 
 			// 数字の生成数を加算
-			nPartID++;
+			nPartIdx++;
 		}
 	}
 }

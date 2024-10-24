@@ -282,20 +282,20 @@ void CObjectMeshTube::SetRenderState(CRenderState renderState)
 //============================================================
 //	テクスチャ割当処理 (インデックス)
 //============================================================
-void CObjectMeshTube::BindTexture(const int nTextureID)
+void CObjectMeshTube::BindTexture(const int nTextureIdx)
 {
-	if (nTextureID >= NONE_IDX)
+	if (nTextureIdx >= NONE_IDX)
 	{ // テクスチャインデックスが使用可能な場合
 
 		for (int i = 0; i < COVER_MAX; i++)
 		{ // 蓋の総数分繰り返す
 
 			// テクスチャインデックスを割当
-			m_apCover[i]->BindTexture(nTextureID);
+			m_apCover[i]->BindTexture(nTextureIdx);
 		}
 
 		// テクスチャインデックスを割当
-		m_pCylinder->BindTexture(nTextureID);
+		m_pCylinder->BindTexture(nTextureIdx);
 	}
 	else { assert(false); }	// 範囲外
 }

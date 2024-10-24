@@ -140,7 +140,7 @@ public:
 	inline ELabel	GetLabel() const		{ return m_label; }		// ラベル取得
 	inline EDim		GetDimension() const	{ return m_dimension; }	// 次元取得
 	inline int		GetPriority() const		{ return m_nPriority; }	// 優先順位取得
-	inline DWORD	GetUniqueID() const		{ return m_dwID; }		// ユニークID取得
+	inline DWORD	GetUniqueIdx() const	{ return m_dwIdx; }		// ユニークインデックス取得
 	inline bool		IsUpdate() const		{ return m_bUpdate; }	// 更新状況取得
 	inline bool		IsDraw() const			{ return m_bDraw; }		// 描画状況取得
 	inline bool		IsDeath() const			{ return m_bDeath; }	// 死亡フラグ取得
@@ -155,14 +155,14 @@ private:
 	// 静的メンバ変数
 	static CObject*	m_apTop[DIM_MAX][object::MAX_PRIO];	// 先頭のオブジェクトへのポインタ
 	static CObject*	m_apCur[DIM_MAX][object::MAX_PRIO];	// 最後尾のオブジェクトへのポインタ
-	static DWORD	m_dwNextID;	// 次のユニークID
-	static int		m_nNumAll;	// オブジェクトの総数
+	static DWORD	m_dwNextIdx;	// 次のユニークインデックス
+	static int		m_nNumAll;		// オブジェクトの総数
 
 	// メンバ変数
 	ELabel	 m_label;		// 自身のオブジェクトラベル
 	EDim	 m_dimension;	// 自身の次元
 	int		 m_nPriority;	// 自身の優先順位
-	DWORD	 m_dwID;		// 自身のユニークID
+	DWORD	 m_dwIdx;		// 自身のユニークインデックス
 	bool	 m_bUpdate;		// 自身の更新状況
 	bool	 m_bDraw;		// 自身の描画状況
 	bool	 m_bDeath;		// 自身の死亡フラグ

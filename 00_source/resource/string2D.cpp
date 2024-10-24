@@ -484,9 +484,9 @@ float CString2D::GetStrWidth() const
 	if ((int)m_wsStr.size() <= 0) { assert(false); return 0.0f; }
 
 	float fStrWidth = 0.0f;	// 文字列の横幅
-	int nEndCharID = (int)m_wsStr.size() - 1;	// 終端文字のインデックス
+	int nEndCharIdx = (int)m_wsStr.size() - 1;	// 終端文字のインデックス
 
-	for (int i = 0; i < nEndCharID; i++)
+	for (int i = 0; i < nEndCharIdx; i++)
 	{ // 終端文字を抜いた文字数分繰り返す
 
 		// 次の文字までの距離を加算
@@ -501,10 +501,10 @@ float CString2D::GetStrWidth() const
 	fStrWidth -= fHeadWidth + m_ppChar[0]->GetOffsetBlackBoxLU().x;	// ブラックボックス開始より前の空間を減算
 
 	// 終端文字のサイズをブラックボックス右までの大きさに補正
-	assert(m_ppChar[nEndCharID] != nullptr);
-	float fTailWidth = m_ppChar[nEndCharID]->GetVec3Size().x * 0.5f;			// 終端文字の横幅
-	fStrWidth -= fTailWidth - m_ppChar[nEndCharID]->GetOffsetOrigin();			// 原点より前の空間を減算
-	fStrWidth += fTailWidth + m_ppChar[nEndCharID]->GetOffsetBlackBoxRD().x;	// ブラックボックス終了より前の空間を加算
+	assert(m_ppChar[nEndCharIdx] != nullptr);
+	float fTailWidth = m_ppChar[nEndCharIdx]->GetVec3Size().x * 0.5f;			// 終端文字の横幅
+	fStrWidth -= fTailWidth - m_ppChar[nEndCharIdx]->GetOffsetOrigin();			// 原点より前の空間を減算
+	fStrWidth += fTailWidth + m_ppChar[nEndCharIdx]->GetOffsetBlackBoxRD().x;	// ブラックボックス終了より前の空間を加算
 
 	// 文字列の横幅を返す
 	return fStrWidth;
@@ -513,17 +513,17 @@ float CString2D::GetStrWidth() const
 //============================================================
 //	文字の取得処理
 //============================================================
-CChar2D *CString2D::GetChar2D(const int nCharID) const
+CChar2D *CString2D::GetChar2D(const int nCharIdx) const
 {
 	// 文字列がない場合抜ける
 	int nStrLen = (int)m_wsStr.size();
 	if (nStrLen <= 0) { assert(false); return nullptr; }
 
 	// インデックスが範囲外の場合抜ける
-	if (nCharID <= NONE_IDX || nCharID >= nStrLen) { assert(false); return nullptr; }
+	if (nCharIdx <= NONE_IDX || nCharIdx >= nStrLen) { assert(false); return nullptr; }
 
 	// 引数インデックスの文字を返す
-	return m_ppChar[nCharID];
+	return m_ppChar[nCharIdx];
 }
 
 //============================================================

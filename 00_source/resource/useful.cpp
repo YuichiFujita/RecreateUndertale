@@ -86,19 +86,19 @@ void useful::ReplaceConsecChar
 
 )
 {
-	int nStartID = 0;	// 文字検出の開始インデックス
+	int nStartIdx = 0;	// 文字検出の開始インデックス
 	while (1)
 	{ // 区切り文字が見つかった場合
 
 		// 文字列内から引数の文字を検出
-		int nFindID = pDestStr->find(cRepChar, nStartID);	// 検出インデックス
+		int nFindIdx = pDestStr->find(cRepChar, nStartIdx);	// 検出インデックス
 
 		// 引数の文字が検出されなかった場合ループを抜ける
-		if ((size_t)nFindID == std::string::npos) { break; }
+		if ((size_t)nFindIdx == std::string::npos) { break; }
 
 		// 置き換えの先頭まで文字列を削除する
 		std::string sFindStr = *pDestStr;	// 置き換え文字列を代入
-		sFindStr.erase(0, nFindID);			// 検出インデックスまで文字列削除
+		sFindStr.erase(0, nFindIdx);			// 検出インデックスまで文字列削除
 
 		int nCntConsec = 0;	// 文字連続カウンター
 		for (char cChar : sFindStr)
@@ -108,10 +108,10 @@ void useful::ReplaceConsecChar
 			{ // 検出文字と別の文字になった場合
 
 				// 連続文字をすべて削除し、置き換え文字列を代入
-				pDestStr->replace(nFindID, nCntConsec, rRepStr);
+				pDestStr->replace(nFindIdx, nCntConsec, rRepStr);
 
 				// 文字検出の開始インデックスを設定
-				nStartID = nFindID + nRepStrLength;
+				nStartIdx = nFindIdx + nRepStrLength;
 
 				break;
 			}
@@ -383,10 +383,10 @@ void useful::RotToVec(const float fPhi, const float fTheta, VECTOR3* pVec)
 //============================================================
 //	縦幅からテクスチャのアスペクト比を考慮した横幅の取得処理
 //============================================================
-float useful::GetTexWidthFromAspect(const float fHeight, const int nTexID)
+float useful::GetTexWidthFromAspect(const float fHeight, const int nTexIdx)
 {
 	// テクスチャアスペクト比を取得
-	VECTOR2 aspect = GET_MANAGER->GetTexture()->GetInfo(nTexID).aspect;
+	VECTOR2 aspect = GET_MANAGER->GetTexture()->GetInfo(nTexIdx).aspect;
 
 	// アスペクト比から計算した横幅を返す
 	return fHeight * aspect.x;
@@ -395,10 +395,10 @@ float useful::GetTexWidthFromAspect(const float fHeight, const int nTexID)
 //============================================================
 //	横幅からテクスチャのアスペクト比を考慮した縦幅の取得処理
 //============================================================
-float useful::GetTexHeightFromAspect(const float fWidth, const int nTexID)
+float useful::GetTexHeightFromAspect(const float fWidth, const int nTexIdx)
 {
 	// テクスチャアスペクト比を取得
-	VECTOR2 aspect = GET_MANAGER->GetTexture()->GetInfo(nTexID).aspect;
+	VECTOR2 aspect = GET_MANAGER->GetTexture()->GetInfo(nTexIdx).aspect;
 
 	// アスペクト比から計算した縦幅を返す
 	return fWidth * aspect.y;

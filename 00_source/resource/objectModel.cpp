@@ -24,7 +24,7 @@ CObjectModel::CObjectModel(const CObject::ELabel label, const CObject::EDim dime
 	m_pos			(VEC3_ZERO),	// 位置
 	m_rot			(VEC3_ZERO),	// 向き
 	m_scale			(VEC3_ZERO),	// 拡大率
-	m_nModelID		(0)				// モデルインデックス
+	m_nModelIdx		(0)				// モデルインデックス
 {
 	// メンバ変数をクリア
 	memset(&m_modelData, 0, sizeof(m_modelData));	// モデル情報
@@ -52,7 +52,7 @@ HRESULT CObjectModel::Init()
 	m_pos			= VEC3_ZERO;	// 位置
 	m_rot			= VEC3_ZERO;	// 向き
 	m_scale			= VEC3_ONE;		// 拡大率
-	m_nModelID		= NONE_IDX;		// モデルインデックス
+	m_nModelIdx		= NONE_IDX;		// モデルインデックス
 
 	// レンダーステートの生成
 	m_pRenderState = CRenderState::Create();
@@ -215,13 +215,13 @@ CObjectModel* CObjectModel::Create(const VECTOR3& rPos, const VECTOR3& rRot, con
 //============================================================
 //	マテリアル設定処理
 //============================================================
-void CObjectModel::SetMaterial(const D3DXMATERIAL& rMat, const int nMatID)
+void CObjectModel::SetMaterial(const D3DXMATERIAL& rMat, const int nMatIdx)
 {
-	if (nMatID > NONE_IDX && nMatID < (int)m_modelData.dwNumMat)
+	if (nMatIdx > NONE_IDX && nMatIdx < (int)m_modelData.dwNumMat)
 	{ // 引数インデックスがマテリアルの最大数を超えていない場合
 
 		// 引数インデックスのマテリアルを設定
-		m_pMat[nMatID] = rMat;
+		m_pMat[nMatIdx] = rMat;
 	}
 	else { assert(false); }	// 範囲外
 }
@@ -229,13 +229,13 @@ void CObjectModel::SetMaterial(const D3DXMATERIAL& rMat, const int nMatID)
 //============================================================
 //	マテリアル取得処理
 //============================================================
-D3DXMATERIAL CObjectModel::GetMaterial(const int nMatID) const
+D3DXMATERIAL CObjectModel::GetMaterial(const int nMatIdx) const
 {
-	if (nMatID > NONE_IDX && nMatID < (int)m_modelData.dwNumMat)
+	if (nMatIdx > NONE_IDX && nMatIdx < (int)m_modelData.dwNumMat)
 	{ // 引数インデックスがマテリアルの最大数を超えていない場合
 
 		// 引数インデックスのマテリアルを返す
-		return m_pMat[nMatID];
+		return m_pMat[nMatIdx];
 	}
 	else
 	{ // 引数インデックスがマテリアルの最大数を超えている場合
@@ -329,18 +329,18 @@ CRenderState* CObjectModel::GetRenderState()
 //============================================================
 //	モデル割当処理 (インデックス)
 //============================================================
-void CObjectModel::BindModel(const int nModelID)
+void CObjectModel::BindModel(const int nModelIdx)
 {
-	if (nModelID > NONE_IDX)
+	if (nModelIdx > NONE_IDX)
 	{ // モデルインデックスが使用可能な場合
 
 		CModel* pModel = GET_MANAGER->GetModel();	// モデルへのポインタ
 
 		// モデルインデックスを代入
-		m_nModelID = nModelID;
+		m_nModelIdx = nModelIdx;
 
 		// モデルを割り当て
-		m_modelData = *pModel->GetInfo(nModelID);
+		m_modelData = *pModel->GetInfo(nModelIdx);
 
 		// 元マテリアルの設定
 		if (FAILED(SetOriginMaterial(m_modelData.pBuffMat, (int)m_modelData.dwNumMat)))
@@ -360,10 +360,10 @@ void CObjectModel::BindModel(const char* pModelPath)
 		CModel* pModel = GET_MANAGER->GetModel();	// モデルへのポインタ
 
 		// モデルインデックスを代入
-		m_nModelID = pModel->Regist(pModelPath);
+		m_nModelIdx = pModel->Regist(pModelPath);
 
 		// モデルを割り当て
-		m_modelData = *pModel->GetInfo(m_nModelID);
+		m_modelData = *pModel->GetInfo(m_nModelIdx);
 
 		// 元マテリアルの設定
 		if (FAILED(SetOriginMaterial(m_modelData.pBuffMat, (int)m_modelData.dwNumMat)))
@@ -431,13 +431,13 @@ void CObjectModel::SetMtxWorld(const MATRIX& rMtxWorld)
 //============================================================
 //	マテリアルポインタ取得処理
 //============================================================
-D3DXMATERIAL* CObjectModel::GetPtrMaterial(const int nID) const
+D3DXMATERIAL* CObjectModel::GetPtrMaterial(const int nIdx) const
 {
-	if (nID > NONE_IDX && nID < (int)m_modelData.dwNumMat)
+	if (nIdx > NONE_IDX && nIdx < (int)m_modelData.dwNumMat)
 	{ // 引数インデックスがマテリアルの最大数を超えていない場合
 
 		// 引数インデックスのマテリアルを返す
-		return &m_pMat[nID];
+		return &m_pMat[nIdx];
 	}
 	else
 	{ // 引数インデックスがマテリアルの最大数を超えている場合
@@ -505,7 +505,7 @@ void CObjectModel::DrawNormal()
 		pDevice->SetMaterial(&m_pMat[nCntMat].MatD3D);
 
 		// テクスチャの設定
-		pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_modelData.pTextureID[nCntMat]));
+		pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_modelData.pTextureIdx[nCntMat]));
 
 		if (m_scale != VEC3_ONE)
 		{ // 拡大率が変更されている場合
@@ -546,13 +546,13 @@ void CObjectModel::DrawShader(CShader* pShader)
 		pDevice->SetMaterial(&m_pMat[nCntMat].MatD3D);
 
 		// テクスチャの設定
-		pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_modelData.pTextureID[nCntMat]));
+		pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_modelData.pTextureIdx[nCntMat]));
 
 		// マテリアルを設定
 		pShader->SetMaterial(m_pMat[nCntMat].MatD3D);
 
 		// テクスチャを設定
-		pShader->SetTexture(m_modelData.pTextureID[nCntMat]);
+		pShader->SetTexture(m_modelData.pTextureIdx[nCntMat]);
 
 		// 状態変更の伝達
 		pShader->CommitChanges();

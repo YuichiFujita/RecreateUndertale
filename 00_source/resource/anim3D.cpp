@@ -392,19 +392,19 @@ void CAnim3D::ResetCurPtrn()
 //============================================================
 //	パターン変更時間の設定処理 (パターン指定)
 //============================================================
-void CAnim3D::SetNextTime(const int nPtrnID, const float fNextTime)
+void CAnim3D::SetNextTime(const int nPtrnIdx, const float fNextTime)
 {
 	// パターンインデックスが範囲外の場合抜ける
-	if (nPtrnID <= NONE_IDX || nPtrnID >= m_nMaxPtrn) { assert(false); return; }
+	if (nPtrnIdx <= NONE_IDX || nPtrnIdx >= m_nMaxPtrn) { assert(false); return; }
 
 	// 変更時間がプラスではない場合抜ける
 	if (fNextTime <= 0.0f) { assert(false); return; }
 
 	// 変更前のパターン変更時間を保存
-	float fOldNextTime = m_pNextTime[nPtrnID];
+	float fOldNextTime = m_pNextTime[nPtrnIdx];
 
 	// 引数のパターン変更時間を設定
-	m_pNextTime[nPtrnID] = fNextTime;
+	m_pNextTime[nPtrnIdx] = fNextTime;
 
 	// 総全体時間を変更
 	m_fMaxWholeTime -= fOldNextTime;

@@ -35,7 +35,7 @@ public:
 		SParts() :
 			pos			(VEC3_ZERO),	// 位置
 			rot			(VEC3_ZERO),	// 向き
-			nParentID	(NONE_IDX)		// 親インデックス
+			nParentIdx	(NONE_IDX)		// 親インデックス
 		{
 			strPath.clear();	// モデルパスをクリア
 		}
@@ -44,7 +44,7 @@ public:
 		std::string strPath;	// モデルパス
 		VECTOR3 pos;			// 位置
 		VECTOR3 rot;			// 向き
-		int nParentID;			// 親インデックス
+		int nParentIdx;			// 親インデックス
 	};
 
 	// パーツ情報構造体

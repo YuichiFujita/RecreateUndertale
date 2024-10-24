@@ -118,7 +118,7 @@ public:
 	);
 
 	CRenderState* GetRenderState();					// レンダーステート情報取得
-	void BindTexture(const int nTextureID);			// テクスチャ割当 (インデックス)
+	void BindTexture(const int nTextureIdx);			// テクスチャ割当 (インデックス)
 	void BindTexture(const char* pTexturePath);		// テクスチャ割当 (パス)
 	void DeleteMatrixParent();						// 親マトリックス削除
 	void SetMatrixParent(MATRIX* pMtxParent);		// 親マトリックス設定
@@ -132,7 +132,7 @@ public:
 	void SetAddWidth(const float fAddWidth);		// 横ずれの加算量設定
 	void SetAddHeight(const float fAddHeight);		// 縦ずれの加算量設定
 	void SetSubAlpha(const float fSubAlpha);		// 透明度の減算量設定
-	inline int GetTextureIndex() const		{ return m_nTextureID; }			// テクスチャインデックス取得
+	inline int GetTextureIndex() const		{ return m_nTextureIdx; }			// テクスチャインデックス取得
 	inline float GetAlpha() const			{ return m_tornado.col.a; }			// 透明度取得
 	inline COLOR GetColor() const			{ return m_tornado.col; }			// 色取得
 	inline VECTOR3 GetRotationGrow() const	{ return m_tornado.growRot; }		// 成長向き取得
@@ -163,7 +163,7 @@ private:
 	int m_nNumVtx;		// 必要頂点数
 	int m_nNumAround;	// 渦の周回数
 	int m_nPattern;		// 渦の分割数
-	int m_nTextureID;	// テクスチャインデックス
+	int m_nTextureIdx;	// テクスチャインデックス
 };
 
 #endif	// _OBJECT_TORNADO_H_

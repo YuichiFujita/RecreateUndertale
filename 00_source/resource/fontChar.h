@@ -41,7 +41,7 @@ public:
 		OUTLINETEXTMETRIC outline;	// フォントアウトラインの情報
 		TEXTMETRIC text;			// フォントテキストの情報
 		SRectangle offsetBlackBox;	// ブラックボックスの中心からのオフセット
-		int nTexID;					// テクスチャインデックス
+		int nTexIdx;					// テクスチャインデックス
 		bool bEmpty;				// テクスチャ透明フラグ
 	};
 

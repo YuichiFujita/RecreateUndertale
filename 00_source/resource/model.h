@@ -33,7 +33,7 @@ public:
 		VECTOR3 vtxMax;			// 最大の頂点座標
 		VECTOR3 size;			// 大きさ
 		float fRadius;			// 半径
-		int* pTextureID;		// テクスチャインデックス
+		int* pTextureIdx;		// テクスチャインデックス
 	};
 
 	// マップ情報構造体
@@ -48,7 +48,7 @@ public:
 	void Uninit();		// モデル終了
 	HRESULT LoadAll();	// モデル全読込
 	int Regist(std::string sFilePath);	// モデル登録
-	SModel* GetInfo(const int nID);		// モデル情報取得
+	SModel* GetInfo(const int nIdx);		// モデル情報取得
 
 	// 静的メンバ関数
 	static CModel* Create();				// 生成

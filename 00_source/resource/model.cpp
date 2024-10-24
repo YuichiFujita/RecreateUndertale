@@ -69,7 +69,7 @@ void CModel::Uninit()
 	{ // モデルの要素数分繰り返す
 
 		// テクスチャインデックスの破棄
-		SAFE_FREE(rMap.second.modelData.pTextureID);
+		SAFE_FREE(rMap.second.modelData.pTextureIdx);
 
 		// メッシュの破棄
 		SAFE_RELEASE(rMap.second.modelData.pMesh);
@@ -106,7 +106,7 @@ HRESULT CModel::LoadAll()
 int CModel::Regist(std::string sFilePath)
 {
 	SMapInfo tempMapInfo;	// マップ情報
-	int nID = m_nNumAll;	// モデル読込番号
+	int nIdx = m_nNumAll;	// モデル読込番号
 
 	// ファイルパスを標準化
 	useful::StandardizePathPart(&sFilePath);
@@ -164,19 +164,19 @@ int CModel::Regist(std::string sFilePath)
 	m_nNumAll++;
 
 	// 読み込んだモデルの配列番号を返す
-	return nID;
+	return nIdx;
 }
 
 //============================================================
 //	モデル情報取得処理
 //============================================================
-CModel::SModel* CModel::GetInfo(const int nID)
+CModel::SModel* CModel::GetInfo(const int nIdx)
 {
-	if (nID > NONE_IDX && nID < (int)m_mapModel.size())
+	if (nIdx > NONE_IDX && nIdx < (int)m_mapModel.size())
 	{ // モデルがある場合
 
 		// 引数のモデル情報を返す
-		return &m_mapModel.find(nID)->second.modelData;
+		return &m_mapModel.find(nIdx)->second.modelData;
 	}
 	else
 	{ // モデルがない場合
@@ -261,8 +261,8 @@ HRESULT CModel::LoadXFileModel(SMapInfo* pMapInfo, std::string sFilePath)
 	}
 
 	// マテリアル数分メモリ確保
-	pMapInfo->modelData.pTextureID = (int*)malloc(pMapInfo->modelData.dwNumMat * sizeof(int*));
-	if (pMapInfo->modelData.pTextureID == nullptr)
+	pMapInfo->modelData.pTextureIdx = (int*)malloc(pMapInfo->modelData.dwNumMat * sizeof(int*));
+	if (pMapInfo->modelData.pTextureIdx == nullptr)
 	{ // 動的確保に失敗した場合
 
 		// エラーメッセージボックス
@@ -297,13 +297,13 @@ HRESULT CModel::LoadTextureModel(SMapInfo* pMapInfo)
 		{ // テクスチャファイルが存在する場合
 
 			// テクスチャを登録
-			pMapInfo->modelData.pTextureID[nCntMat] = pTexture->Regist(pMat[nCntMat].pTextureFilename);
+			pMapInfo->modelData.pTextureIdx[nCntMat] = pTexture->Regist(pMat[nCntMat].pTextureFilename);
 		}
 		else
 		{ // テクスチャファイルが存在しない場合
 
 			// テクスチャを登録
-			pMapInfo->modelData.pTextureID[nCntMat] = NONE_IDX;	// テクスチャなし
+			pMapInfo->modelData.pTextureIdx[nCntMat] = NONE_IDX;	// テクスチャなし
 		}
 	}
 

@@ -31,14 +31,14 @@ public:
 	// 仮想関数
 	virtual HRESULT Init();	// 初期化
 	virtual void Uninit();	// 終了
-	virtual void SetLightDirect(MATRIX* pMtxWorld, const int nLightID);	// ライト方向ベクトル設定
-	virtual void SetTexture(const CTexture::STexture& rTexture);		// テクスチャ設定 (ポインタ)
-	virtual void SetTexture(const int nTextureID);						// テクスチャ設定 (インデックス)
-	virtual void SetMaterial(const D3DMATERIAL9& rMaterial);			// マテリアル設定
-	virtual void SetDiffuse(const COLOR& rDiffuse);						// 拡散光設定
-	virtual void SetAmbient(const COLOR& rAmbient);						// 環境光設定
-	virtual void SetEmissive(const COLOR& rEmissive);					// 放射光設定
-	virtual void SetOnlyDiffuse(const COLOR& rDiffuse);					// 拡散光のみ設定
+	virtual void SetLightDirect(MATRIX* pMtxWorld, const int nLightIdx);	// ライト方向ベクトル設定
+	virtual void SetTexture(const CTexture::STexture& rTexture);			// テクスチャ設定 (ポインタ)
+	virtual void SetTexture(const int nTextureIdx);							// テクスチャ設定 (インデックス)
+	virtual void SetMaterial(const D3DMATERIAL9& rMaterial);				// マテリアル設定
+	virtual void SetDiffuse(const COLOR& rDiffuse);							// 拡散光設定
+	virtual void SetAmbient(const COLOR& rAmbient);							// 環境光設定
+	virtual void SetEmissive(const COLOR& rEmissive);						// 放射光設定
+	virtual void SetOnlyDiffuse(const COLOR& rDiffuse);						// 拡散光のみ設定
 
 	// メンバ関数
 	void Begin();						// 開始

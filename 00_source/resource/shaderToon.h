@@ -40,14 +40,14 @@ public:
 	void Uninit() override;		// 終了
 
 	// メンバ関数
-	void SetLightDirect(MATRIX* pMtxWorld, const int nLightID);	// ライト方向ベクトル設定
-	void SetTexture(const CTexture::STexture& rTexture);		// テクスチャ設定 (ポインタ)
-	void SetTexture(const int nTextureID);						// テクスチャ設定 (インデックス)
-	void SetMaterial(const D3DMATERIAL9& rMaterial);			// マテリアル設定
-	void SetDiffuse(const COLOR& rDiffuse);						// 拡散光設定
-	void SetAmbient(const COLOR& rAmbient);						// 環境光設定
-	void SetEmissive(const COLOR& rEmissive);					// 放射光設定
-	void SetOnlyDiffuse(const COLOR& rDiffuse);					// 拡散光のみ設定
+	void SetLightDirect(MATRIX* pMtxWorld, const int nLightIdx);	// ライト方向ベクトル設定
+	void SetTexture(const CTexture::STexture& rTexture);			// テクスチャ設定 (ポインタ)
+	void SetTexture(const int nTextureIdx);							// テクスチャ設定 (インデックス)
+	void SetMaterial(const D3DMATERIAL9& rMaterial);				// マテリアル設定
+	void SetDiffuse(const COLOR& rDiffuse);							// 拡散光設定
+	void SetAmbient(const COLOR& rAmbient);							// 環境光設定
+	void SetEmissive(const COLOR& rEmissive);						// 放射光設定
+	void SetOnlyDiffuse(const COLOR& rDiffuse);						// 拡散光のみ設定
 
 	// 静的メンバ関数
 	static CToonShader* Create();		// 生成

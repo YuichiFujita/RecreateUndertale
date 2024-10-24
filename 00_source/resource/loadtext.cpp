@@ -111,10 +111,10 @@ std::vector<std::wstring> loadtext::LoadText(const char* pFilePath, const char* 
 //============================================================
 //	テキストの読込処理 (インデックス)
 //============================================================
-std::vector<std::wstring> loadtext::LoadText(const char* pFilePath, const int nTextID)
+std::vector<std::wstring> loadtext::LoadText(const char* pFilePath, const int nTextIdx)
 {
 	// テキストの読込
-	return LoadText(pFilePath, std::to_string(nTextID).c_str());
+	return LoadText(pFilePath, std::to_string(nTextIdx).c_str());
 }
 
 //============================================================

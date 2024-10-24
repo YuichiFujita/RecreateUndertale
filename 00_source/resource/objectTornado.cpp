@@ -32,7 +32,7 @@ CObjectTornado::CObjectTornado() : CObject(LABEL_NONE, DIM_3D, object::DEFAULT_P
 	m_nNumVtx		(0),		// 必要頂点数
 	m_nNumAround	(0),		// 渦の周回数
 	m_nPattern		(0),		// 渦の分割数
-	m_nTextureID	(0)			// テクスチャインデックス
+	m_nTextureIdx	(0)			// テクスチャインデックス
 {
 	// メンバ変数をクリア
 	memset(&m_tornado, 0, sizeof(m_tornado));	// 竜巻の情報
@@ -57,7 +57,7 @@ HRESULT CObjectTornado::Init()
 	m_nNumVtx		= 0;		// 必要頂点数
 	m_nNumAround	= 0;		// 渦の周回数
 	m_nPattern		= 0;		// 渦の分割数
-	m_nTextureID	= NONE_IDX;	// テクスチャインデックス
+	m_nTextureIdx	= NONE_IDX;	// テクスチャインデックス
 
 	// 竜巻の情報を初期化
 	m_tornado.pos			= VEC3_ZERO;		// 位置
@@ -411,13 +411,13 @@ CRenderState* CObjectTornado::GetRenderState()
 //============================================================
 //	テクスチャ割当処理 (インデックス)
 //============================================================
-void CObjectTornado::BindTexture(const int nTextureID)
+void CObjectTornado::BindTexture(const int nTextureIdx)
 {
-	if (nTextureID >= NONE_IDX)
+	if (nTextureIdx >= NONE_IDX)
 	{ // テクスチャインデックスが使用可能な場合
 
 		// テクスチャインデックスを代入
-		m_nTextureID = nTextureID;
+		m_nTextureIdx = nTextureIdx;
 	}
 	else { assert(false); }	// 範囲外
 }
@@ -432,13 +432,13 @@ void CObjectTornado::BindTexture(const char* pTexturePath)
 
 		// テクスチャインデックスを設定
 		CTexture* pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
-		m_nTextureID = pTexture->Regist(pTexturePath);
+		m_nTextureIdx = pTexture->Regist(pTexturePath);
 	}
 	else
 	{ // 割り当てるテクスチャパスがない場合
 
 		// テクスチャなしインデックスを設定
-		m_nTextureID = NONE_IDX;
+		m_nTextureIdx = NONE_IDX;
 	}
 }
 
@@ -662,7 +662,7 @@ void CObjectTornado::DrawNormal()
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// テクスチャの設定
-	pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_nTextureID));
+	pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_nTextureIdx));
 
 	// ポリゴンの描画
 	pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, m_nNumVtx - 2);
@@ -689,13 +689,13 @@ void CObjectTornado::DrawShader(CShader* pShader)
 	pShader->SetOnlyDiffuse(m_tornado.col);
 
 	// テクスチャを設定
-	pShader->SetTexture(m_nTextureID);
+	pShader->SetTexture(m_nTextureIdx);
 
 	// 状態変更の伝達
 	pShader->CommitChanges();
 
 	// テクスチャの設定
-	pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_nTextureID));
+	pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_nTextureIdx));
 
 	// ポリゴンの描画
 	pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, m_nNumVtx - 2);

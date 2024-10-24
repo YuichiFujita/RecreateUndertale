@@ -20,7 +20,7 @@
 //============================================================
 CScrollString2D::CScrollString2D() :
 	m_labelSE	(CSound::LABEL_NONE),	// 文字送り再生SEラベル
-	m_nNextID	(0),	// 次表示する文字インデックス
+	m_nNextIdx	(0),	// 次表示する文字インデックス
 	m_fNextTime	(0.0f),	// 次表示するまでの時間
 	m_fCurTime	(0.0f),	// 現在の待機時間
 	m_bScroll	(false)	// 文字送り状況
@@ -43,7 +43,7 @@ HRESULT CScrollString2D::Init()
 {
 	// メンバ変数を初期化
 	m_labelSE	= CSound::LABEL_NONE;	// 文字送り再生SEラベル
-	m_nNextID	= 0;		// 次表示する文字インデックス
+	m_nNextIdx	= 0;		// 次表示する文字インデックス
 	m_fNextTime	= 0.0f;		// 次表示するまでの時間
 	m_fCurTime	= 0.0f;		// 現在の待機時間
 	m_bScroll	= false;	// 文字送り状況
@@ -97,7 +97,7 @@ void CScrollString2D::Draw(CShader* pShader)
 void CScrollString2D::SetEnableDraw(const bool bDraw)
 {
 	// 次表示する文字インデックスを描画設定に応じて反映
-	m_nNextID = (bDraw) ? GetNumChar() - 1 : 0;	// ONなら最後尾、OFFなら先頭
+	m_nNextIdx = (bDraw) ? GetNumChar() - 1 : 0;	// ONなら最後尾、OFFなら先頭
 
 	// 現在の待機時間を初期化
 	m_fCurTime = 0.0f;
@@ -304,7 +304,7 @@ void CScrollString2D::UpdateScroll(const float fDeltaTime)
 	while (m_fCurTime >= m_fNextTime)
 	{ // 待機し終わった場合
 
-		CChar2D* pChar = GetChar2D(m_nNextID);	// 表示させる文字情報
+		CChar2D* pChar = GetChar2D(m_nNextIdx);	// 表示させる文字情報
 
 		// 文字の自動描画をONにする
 		assert(pChar != nullptr);
@@ -317,9 +317,9 @@ void CScrollString2D::UpdateScroll(const float fDeltaTime)
 		PlayScrollSE(pChar);
 
 		// 次の文字インデックスに移行
-		m_nNextID++;
+		m_nNextIdx++;
 
-		if (useful::LimitMaxNum(m_nNextID, GetNumChar() - 1))
+		if (useful::LimitMaxNum(m_nNextIdx, GetNumChar() - 1))
 		{ // 最後の文字に到達した場合
 
 			// 現在の待機時間を初期化

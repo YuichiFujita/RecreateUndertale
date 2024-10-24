@@ -65,7 +65,7 @@ void CIntroStateWait::Update(const float fDeltaTime)
 		// 待機時間を初期化
 		m_fCurTime = 0.0f;
 
-		if (m_pContext->GetStoryID() >= (int)CIntroManager::STORY_MAX - 1)
+		if (m_pContext->GetStoryIdx() >= (int)CIntroManager::STORY_MAX - 1)
 		{ // 最後の物語の場合
 
 			// 物語スクロール状態にする

@@ -37,7 +37,7 @@ CObject3D::CObject3D(const CObject::ELabel label, const CObject::EDim dimension,
 	m_size			(VEC3_ZERO),		// 大きさ
 	m_col			(color::White()),	// 色
 	m_origin		(ORIGIN_CENTER),	// 原点
-	m_nTextureID	(0)					// テクスチャインデックス
+	m_nTextureIdx	(0)					// テクスチャインデックス
 {
 
 }
@@ -67,7 +67,7 @@ HRESULT CObject3D::Init()
 	m_size			= VEC3_ZERO;		// 大きさ
 	m_col			= color::White();	// 色
 	m_origin		= ORIGIN_CENTER;	// 原点
-	m_nTextureID	= NONE_IDX;			// テクスチャインデックス
+	m_nTextureIdx	= NONE_IDX;			// テクスチャインデックス
 
 	// 頂点バッファの生成
 	if (FAILED(pDevice->CreateVertexBuffer
@@ -289,13 +289,13 @@ CRenderState* CObject3D::GetRenderState()
 //============================================================
 //	テクスチャ割当処理 (インデックス)
 //============================================================
-void CObject3D::BindTexture(const int nTextureID)
+void CObject3D::BindTexture(const int nTextureIdx)
 {
-	if (nTextureID >= NONE_IDX)
+	if (nTextureIdx >= NONE_IDX)
 	{ // テクスチャインデックスが使用可能な場合
 
 		// テクスチャインデックスを代入
-		m_nTextureID = nTextureID;
+		m_nTextureIdx = nTextureIdx;
 	}
 	else { assert(false); }	// 範囲外
 }
@@ -310,13 +310,13 @@ void CObject3D::BindTexture(const char* pTexturePath)
 
 		// テクスチャインデックスを設定
 		CTexture* pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
-		m_nTextureID = pTexture->Regist(pTexturePath);
+		m_nTextureIdx = pTexture->Regist(pTexturePath);
 	}
 	else
 	{ // 割り当てるテクスチャパスがない場合
 
 		// テクスチャなしインデックスを設定
-		m_nTextureID = NONE_IDX;
+		m_nTextureIdx = NONE_IDX;
 	}
 }
 
@@ -359,20 +359,20 @@ void CObject3D::SetOrigin(const EOrigin origin)
 //============================================================
 //	頂点位置の設定処理
 //============================================================
-void CObject3D::SetVertexPosition(const int nID, const VECTOR3& rPos)
+void CObject3D::SetVertexPosition(const int nIdx, const VECTOR3& rPos)
 {
 	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
 
-		if (nID < MAX_VERTEX)
+		if (nIdx < MAX_VERTEX)
 		{ // インデックスが使用可能な場合
 
 			// 頂点バッファをロックし、頂点情報へのポインタを取得
 			m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
 			// 頂点データのポインタを引数分進める
-			pVtx += nID;
+			pVtx += nIdx;
 
 			// 頂点座標の設定
 			pVtx[0].pos = rPos;
@@ -389,21 +389,21 @@ void CObject3D::SetVertexPosition(const int nID, const VECTOR3& rPos)
 //============================================================
 //	頂点位置取得処理
 //============================================================
-VECTOR3 CObject3D::GetVertexPosition(const int nID)
+VECTOR3 CObject3D::GetVertexPosition(const int nIdx)
 {
 	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 	VECTOR3 pos;		// 頂点座標の代入用
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
 
-		if (nID < MAX_VERTEX)
+		if (nIdx < MAX_VERTEX)
 		{ // インデックスが使用可能な場合
 
 			// 頂点バッファをロックし、頂点情報へのポインタを取得
 			m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
 			// 頂点データのポインタを引数分進める
-			pVtx += nID;
+			pVtx += nIdx;
 
 			// 頂点座標を代入
 			pos = pVtx[0].pos;
@@ -420,16 +420,16 @@ VECTOR3 CObject3D::GetVertexPosition(const int nID)
 //============================================================
 //	座標のずれの設定処理
 //============================================================
-void CObject3D::SetGapPosition(const int nID, const VECTOR3& rPos)
+void CObject3D::SetGapPosition(const int nIdx, const VECTOR3& rPos)
 {
 	if (m_pPosGapBuff != nullptr)
 	{ // 使用中の場合
 
-		if (nID < MAX_VERTEX)
+		if (nIdx < MAX_VERTEX)
 		{ // インデックスが使用可能な場合
 
 			// 頂点のずれを設定
-			m_pPosGapBuff[nID] = rPos;
+			m_pPosGapBuff[nIdx] = rPos;
 		}
 		else { assert(false); }	// 使用不可
 	}
@@ -438,17 +438,17 @@ void CObject3D::SetGapPosition(const int nID, const VECTOR3& rPos)
 //============================================================
 //	座標のずれ取得処理
 //============================================================
-VECTOR3 CObject3D::GetGapPosition(const int nID)
+VECTOR3 CObject3D::GetGapPosition(const int nIdx)
 {
 	VECTOR3 pos = VEC3_ZERO;	// 頂点のずれの代入用
 	if (m_pPosGapBuff != nullptr)
 	{ // 使用中の場合
 
-		if (nID < MAX_VERTEX)
+		if (nIdx < MAX_VERTEX)
 		{ // インデックスが使用可能な場合
 
 			// 頂点のずれを設定
-			pos = m_pPosGapBuff[nID];
+			pos = m_pPosGapBuff[nIdx];
 		}
 		else { assert(false); }	// 使用不可
 	}
@@ -672,7 +672,7 @@ void CObject3D::DrawNormal()
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// テクスチャの設定
-	pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_nTextureID));
+	pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_nTextureIdx));
 
 	// ポリゴンの描画
 	pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
@@ -699,13 +699,13 @@ void CObject3D::DrawShader(CShader* pShader)
 	pShader->SetOnlyDiffuse(m_col);
 
 	// テクスチャを設定
-	pShader->SetTexture(m_nTextureID);
+	pShader->SetTexture(m_nTextureIdx);
 
 	// 状態変更の伝達
 	pShader->CommitChanges();
 
 	// テクスチャの設定
-	pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_nTextureID));
+	pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_nTextureIdx));
 
 	// ポリゴンの描画
 	pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);

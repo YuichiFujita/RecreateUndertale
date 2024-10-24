@@ -35,7 +35,7 @@ CObject2D::CObject2D(const CObject::ELabel label, const CObject::EDim dimension,
 	m_col			(color::White()),	// 色
 	m_fAngle		(0.0f),				// 対角線の角度
 	m_fLength		(0.0f),				// 対角線の長さ
-	m_nTextureID	(0)					// テクスチャインデックス
+	m_nTextureIdx	(0)					// テクスチャインデックス
 {
 
 }
@@ -64,7 +64,7 @@ HRESULT CObject2D::Init()
 	m_col			= color::White();	// 色
 	m_fAngle		= 0.0f;			// 対角線の角度
 	m_fLength		= 0.0f;			// 対角線の長さ
-	m_nTextureID	= NONE_IDX;		// テクスチャインデックス
+	m_nTextureIdx	= NONE_IDX;		// テクスチャインデックス
 
 	// 頂点バッファの生成
 	if (FAILED(pDevice->CreateVertexBuffer
@@ -141,7 +141,7 @@ void CObject2D::Draw(CShader* /*pShader*/)
 	pDevice->SetFVF(object::FVF_VERTEX_2D);
 
 	// テクスチャの設定
-	pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_nTextureID));
+	pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_nTextureIdx));
 
 	// ポリゴンの描画
 	pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
@@ -257,13 +257,13 @@ CRenderState* CObject2D::GetRenderState()
 //============================================================
 //	テクスチャ割当処理 (インデックス)
 //============================================================
-void CObject2D::BindTexture(const int nTextureID)
+void CObject2D::BindTexture(const int nTextureIdx)
 {
-	if (nTextureID >= NONE_IDX)
+	if (nTextureIdx >= NONE_IDX)
 	{ // テクスチャインデックスが使用可能な場合
 
 		// テクスチャインデックスを代入
-		m_nTextureID = nTextureID;
+		m_nTextureIdx = nTextureIdx;
 	}
 	else { assert(false); }	// 範囲外
 }
@@ -278,13 +278,13 @@ void CObject2D::BindTexture(const char* pTexturePath)
 
 		// テクスチャインデックスを設定
 		CTexture* pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
-		m_nTextureID = pTexture->Regist(pTexturePath);
+		m_nTextureIdx = pTexture->Regist(pTexturePath);
 	}
 	else
 	{ // 割り当てるテクスチャパスがない場合
 
 		// テクスチャなしインデックスを設定
-		m_nTextureID = NONE_IDX;
+		m_nTextureIdx = NONE_IDX;
 	}
 }
 

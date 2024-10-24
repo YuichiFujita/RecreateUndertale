@@ -15,7 +15,7 @@
 //************************************************************
 namespace
 {
-	const int SLOW_CHAR_ID = 20;	// 速度低下を開始する文字インデックス
+	const int SLOW_CHAR_IDX = 20;	// 速度低下を開始する文字インデックス
 }
 
 //************************************************************
@@ -72,7 +72,7 @@ void CIntroStateTextSlow::Uninit()
 //============================================================
 void CIntroStateTextSlow::Update(const float fDeltaTime)
 {
-	if (m_pContext->GetNextCharID() == SLOW_CHAR_ID)
+	if (m_pContext->GetNextCharIdx() == SLOW_CHAR_IDX)
 	{ // …の表示タイミングになった場合
 
 		// 文字送りの速度を遅くする

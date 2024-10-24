@@ -39,7 +39,7 @@ namespace
 CRenderer::CRenderer() :
 	m_pD3D			(nullptr),	// Direct3Dオブジェクト
 	m_pD3DDevice	(nullptr),	// Direct3Dデバイス
-	m_nScreenTexID	(0),		// スクリーンテクスチャのインデックス
+	m_nScreenTexIdx	(0),		// スクリーンテクスチャのインデックス
 	m_pDrawScreen	(nullptr),	// スクリーン描画ポリゴン
 	m_pDefSurScreen	(nullptr),	// 元のスクリーン描画サーフェイス保存用
 	m_pSurScreen	(nullptr)	// スクリーン描画サーフェイスへのポインタ
@@ -66,7 +66,7 @@ HRESULT CRenderer::Init(HWND hWnd, BOOL bWindow)
 	// メンバ変数を初期化
 	m_pD3D			= nullptr;	// Direct3Dオブジェクト
 	m_pD3DDevice	= nullptr;	// Direct3Dデバイス
-	m_nScreenTexID	= NONE_IDX;	// スクリーンテクスチャのインデックス
+	m_nScreenTexIdx	= NONE_IDX;	// スクリーンテクスチャのインデックス
 	m_pDrawScreen	= nullptr;	// スクリーン描画ポリゴン
 	m_pDefSurScreen	= nullptr;	// 元のスクリーン描画サーフェイス保存用
 	m_pSurScreen	= nullptr;	// スクリーン描画サーフェイスへのポインタ
@@ -281,7 +281,7 @@ HRESULT CRenderer::CreateRenderTexture()
 	HRESULT hr;	// 異常終了の確認用
 
 	// 空のスクリーンテクスチャを生成
-	m_nScreenTexID = pTexture->Regist(CTexture::SInfo
+	m_nScreenTexIdx = pTexture->Regist(CTexture::SInfo
 	( // 引数
 		SCREEN_WIDTH,			// テクスチャ横幅
 		SCREEN_HEIGHT,			// テクスチャ縦幅
@@ -302,7 +302,7 @@ HRESULT CRenderer::CreateRenderTexture()
 	}
 
 	// スクリーン描画サーフェイスの取得
-	hr = pTexture->GetPtr(m_nScreenTexID)->GetSurfaceLevel
+	hr = pTexture->GetPtr(m_nScreenTexIdx)->GetSurfaceLevel
 	( // 引数
 		0,				// ミップマップレベル
 		&m_pSurScreen	// スクリーン描画サーフェイスへのポインタ
@@ -316,7 +316,7 @@ HRESULT CRenderer::CreateRenderTexture()
 	}
 
 	// スクリーン描画ポリゴンの生成
-	m_pDrawScreen = CScreen::Create(m_nScreenTexID);
+	m_pDrawScreen = CScreen::Create(m_nScreenTexIdx);
 	if (m_pDrawScreen == nullptr)
 	{ // 生成に失敗した場合
 

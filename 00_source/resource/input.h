@@ -187,33 +187,33 @@ public:
 	HRESULT Init();	// 初期化
 	void Uninit();	// 終了
 	void Update();	// 更新
-	void SetVibration(EType type, int nPadID = 0);	// バイブ設定
-	bool IsPress(EKey joyKey, int nPadID = 0);		// プレス取得	(ボタン)
-	bool IsTrigger(EKey joyKey, int nPadID = 0);	// トリガー取得	(ボタン)
-	bool IsRelease(EKey joyKey, int nPadID = 0);	// リリース取得	(ボタン)
+	void SetVibration(EType type, int nPadIdx = 0);	// バイブ設定
+	bool IsPress(EKey joyKey, int nPadIdx = 0);		// プレス取得	(ボタン)
+	bool IsTrigger(EKey joyKey, int nPadIdx = 0);	// トリガー取得	(ボタン)
+	bool IsRelease(EKey joyKey, int nPadIdx = 0);	// リリース取得	(ボタン)
 
 	bool IsPressAll(EKey joyKey);		// 全プレス取得		(ボタン)
 	bool IsTriggerAll(EKey joyKey);		// 全トリガー取得	(ボタン)
 	bool IsReleaseAll(EKey joyKey);		// 全リリース取得	(ボタン)
-	bool IsAnyPress(int nPadID = 0);	// 全プレス取得		(ボタン)
-	bool IsAnyTrigger(int nPadID = 0);	// 全トリガー取得	(ボタン)
-	bool IsAnyRelease(int nPadID = 0);	// 全リリース取得	(ボタン)
-	void InitPress(int nPadID = 0);		// プレス初期化		(ボタン)
-	void InitTrigger(int nPadID = 0);	// トリガー初期化	(ボタン)
-	void InitRelease(int nPadID = 0);	// リリース初期化	(ボタン)
+	bool IsAnyPress(int nPadIdx = 0);	// 全プレス取得		(ボタン)
+	bool IsAnyTrigger(int nPadIdx = 0);	// 全トリガー取得	(ボタン)
+	bool IsAnyRelease(int nPadIdx = 0);	// 全リリース取得	(ボタン)
+	void InitPress(int nPadIdx = 0);		// プレス初期化		(ボタン)
+	void InitTrigger(int nPadIdx = 0);	// トリガー初期化	(ボタン)
+	void InitRelease(int nPadIdx = 0);	// リリース初期化	(ボタン)
 
-	SHORT GetPressLStickX(int nPadID = 0);		// プレス取得 (LスティックX)
-	SHORT GetPressLStickY(int nPadID = 0);		// プレス取得 (LスティックY)
-	SHORT GetPressRStickX(int nPadID = 0);		// プレス取得 (RスティックX)
-	SHORT GetPressRStickY(int nPadID = 0);		// プレス取得 (RスティックY)
-	float GetPressLStickRot(int nPadID = 0);	// プレス取得 (Lスティック向き)
-	float GetPressRStickRot(int nPadID = 0);	// プレス取得 (Rスティック向き)
-	float GetPressLStickTilt(int nPadID = 0);	// プレス取得 (Lスティック傾き)
-	float GetPressRStickTilt(int nPadID = 0);	// プレス取得 (Rスティック傾き)
+	SHORT GetPressLStickX(int nPadIdx = 0);		// プレス取得 (LスティックX)
+	SHORT GetPressLStickY(int nPadIdx = 0);		// プレス取得 (LスティックY)
+	SHORT GetPressRStickX(int nPadIdx = 0);		// プレス取得 (RスティックX)
+	SHORT GetPressRStickY(int nPadIdx = 0);		// プレス取得 (RスティックY)
+	float GetPressLStickRot(int nPadIdx = 0);	// プレス取得 (Lスティック向き)
+	float GetPressRStickRot(int nPadIdx = 0);	// プレス取得 (Rスティック向き)
+	float GetPressLStickTilt(int nPadIdx = 0);	// プレス取得 (Lスティック傾き)
+	float GetPressRStickTilt(int nPadIdx = 0);	// プレス取得 (Rスティック傾き)
 
 private:
 	// メンバ関数
-	void UpdateVibration(SVibration* pVibration, int nPadID);	// バイブレーション更新
+	void UpdateVibration(SVibration* pVibration, int nPadIdx);	// バイブレーション更新
 
 	// メンバ変数
 	SVibration   m_aVibration[MAX_NUM];			// バイブ情報

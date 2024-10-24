@@ -46,7 +46,7 @@ CGauge2D::CGauge2D(const int nFrame) : CObject(LABEL_UI, DIM_2D, PRIORITY),
 	m_bDrawFrame		(false)				// 枠表示状況
 {
 	// メンバ変数をクリア
-	memset(&m_aTextureID[0], 0, sizeof(m_aTextureID));	// テクスチャインデックス
+	memset(&m_aTextureIdx[0], 0, sizeof(m_aTextureIdx));	// テクスチャインデックス
 }
 
 //============================================================
@@ -85,7 +85,7 @@ HRESULT CGauge2D::Init()
 	{ // 使用する四角形ポリゴン数分繰り返す
 
 		// テクスチャインデックスをクリア
-		m_aTextureID[nCntTexture] = NONE_IDX;
+		m_aTextureIdx[nCntTexture] = NONE_IDX;
 	}
 
 	// 頂点バッファの生成
@@ -180,7 +180,7 @@ void CGauge2D::Draw(CShader* /*pShader*/)
 			{ // 枠を表示する場合
 
 				// テクスチャの設定
-				pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_aTextureID[nCntGauge]));
+				pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_aTextureIdx[nCntGauge]));
 
 				// ポリゴンの描画
 				pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, nCntGauge * 4, 2);
@@ -190,7 +190,7 @@ void CGauge2D::Draw(CShader* /*pShader*/)
 		{ // 描画する四角形ポリゴンが枠以外の場合
 
 			// テクスチャの設定
-			pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_aTextureID[nCntGauge]));
+			pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_aTextureIdx[nCntGauge]));
 
 			// ポリゴンの描画
 			pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, nCntGauge * 4, 2);
@@ -277,16 +277,16 @@ CGauge2D* CGauge2D::Create
 //============================================================
 //	テクスチャ割当処理 (インデックス)
 //============================================================
-void CGauge2D::BindTexture(const int nPolygonID, const int nTextureID)
+void CGauge2D::BindTexture(const int nPolygonIdx, const int nTextureIdx)
 {
-	if (nPolygonID > NONE_IDX && nPolygonID < POLYGON_MAX)
+	if (nPolygonIdx > NONE_IDX && nPolygonIdx < POLYGON_MAX)
 	{ // 正規インデックスの場合
 
-		if (nTextureID >= NONE_IDX)
+		if (nTextureIdx >= NONE_IDX)
 		{ // テクスチャインデックスが使用可能な場合
 
 			// テクスチャインデックスを代入
-			m_aTextureID[nPolygonID] = nTextureID;
+			m_aTextureIdx[nPolygonIdx] = nTextureIdx;
 		}
 		else { assert(false); }	// 範囲外
 	}
@@ -295,23 +295,23 @@ void CGauge2D::BindTexture(const int nPolygonID, const int nTextureID)
 //============================================================
 //	テクスチャ割当処理 (パス)
 //============================================================
-void CGauge2D::BindTexture(const int nPolygonID, const char* pTexturePath)
+void CGauge2D::BindTexture(const int nPolygonIdx, const char* pTexturePath)
 {
 	CTexture* pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
-	if (nPolygonID > NONE_IDX && nPolygonID < POLYGON_MAX)
+	if (nPolygonIdx > NONE_IDX && nPolygonIdx < POLYGON_MAX)
 	{ // 正規インデックスの場合
 
 		if (pTexturePath != nullptr)
 		{ // 割り当てるテクスチャパスがある場合
 	
 			// テクスチャインデックスを設定
-			m_aTextureID[nPolygonID] = pTexture->Regist(pTexturePath);
+			m_aTextureIdx[nPolygonIdx] = pTexture->Regist(pTexturePath);
 		}
 		else
 		{ // 割り当てるテクスチャパスがない場合
 
 			// テクスチャなしインデックスを設定
-			m_aTextureID[nPolygonID] = NONE_IDX;
+			m_aTextureIdx[nPolygonIdx] = NONE_IDX;
 		}
 	}
 }
@@ -319,13 +319,13 @@ void CGauge2D::BindTexture(const int nPolygonID, const char* pTexturePath)
 //============================================================
 //	テクスチャインデックス取得処理
 //============================================================
-int CGauge2D::GetTextureIndex(const int nPolygonID) const
+int CGauge2D::GetTextureIndex(const int nPolygonIdx) const
 {
 	// 非正規なポリゴンのインデックスの場合抜ける
-	if (nPolygonID <= NONE_IDX || nPolygonID >= POLYGON_MAX) { assert(false); return NONE_IDX; }
+	if (nPolygonIdx <= NONE_IDX || nPolygonIdx >= POLYGON_MAX) { assert(false); return NONE_IDX; }
 
 	// テクスチャインデックスを返す
-	return m_aTextureID[nPolygonID];
+	return m_aTextureIdx[nPolygonIdx];
 }
 
 //============================================================

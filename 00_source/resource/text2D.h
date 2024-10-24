@@ -66,7 +66,7 @@ public:
 	virtual HRESULT PushFrontString(const std::wstring& rStr);	// 文字列の先頭追加 (ワイド文字列)
 	virtual HRESULT PushBackString(const std::string& rStr);	// 文字列の最後尾追加 (マルチバイト文字列)
 	virtual HRESULT PushBackString(const std::wstring& rStr);	// 文字列の最後尾追加 (ワイド文字列)
-	virtual void DeleteString(const int nStrID);	// 文字列削除
+	virtual void DeleteString(const int nStrIdx);	// 文字列削除
 	virtual void DeleteStringAll();					// 文字列全削除
 
 	// メンバ関数
@@ -75,21 +75,21 @@ public:
 		const std::string& rFilePath,	// フォントパス
 		const bool bItalic = false		// イタリック
 	);
-	void SetAlpha(const float fAlpha);				// 透明度設定
-	void SetColor(const COLOR& rCol);				// 色設定
-	void SetCharHeight(const float fHeight);		// 文字の縦幅設定
-	void SetLineHeight(const float fHeight);		// 行間の縦幅設定
-	void SetAlignX(const EAlignX align);			// 横配置設定
-	void SetAlignY(const EAlignY align);			// 縦配置設定
-	float GetTextHeight() const;					// テキストの縦幅取得
-	CString2D* GetString2D(const int nStrID) const;	// 文字列の取得
+	void SetAlpha(const float fAlpha);					// 透明度設定
+	void SetColor(const COLOR& rCol);					// 色設定
+	void SetCharHeight(const float fHeight);			// 文字の縦幅設定
+	void SetLineHeight(const float fHeight);			// 行間の縦幅設定
+	void SetAlignX(const EAlignX align);				// 横配置設定
+	void SetAlignY(const EAlignY align);				// 縦配置設定
+	float GetTextHeight() const;						// テキストの縦幅取得
+	CString2D* GetString2D(const int nStrIdx) const;	// 文字列の取得
 	inline float GetAlpha() const		{ return m_col.a; }			// 透明度取得
 	inline COLOR GetColor() const		{ return m_col; }			// 色取得
 	inline float GetCharHeight() const	{ return m_fCharHeight; }	// 文字の縦幅取得
 	inline float GetLineHeight() const	{ return m_fLineHeight; }	// 行間の縦幅取得
 	inline EAlignX GetAlignX() const	{ return m_alignX; }		// 横配置取得
 	inline EAlignY GetAlignY() const	{ return m_alignY; }		// 縦配置取得
-	inline int GetNumString() const	{ return (int)m_listString.size(); }	// 文字列数取得
+	inline int GetNumString() const		{ return (int)m_listString.size(); }	// 文字列数取得
 
 private:
 	// オーバーライド関数

@@ -31,7 +31,7 @@ public:
 	void Uninit();	// 終了
 	AIterator GetBegin();	// リスト先頭取得
 	AIterator GetEnd();		// リスト最後尾取得
-	AIterator GetIndex(const int nID);		// リストインデックス取得
+	AIterator GetIndex(const int nIdx);		// リストインデックス取得
 	AIterator AddList(T* pObject);			// リスト追加
 	void DelList(const AIterator iterator);	// リスト削除
 	int GetNumAll();			// リスト内の要素数取得
@@ -111,15 +111,15 @@ std::_List_iterator<std::_List_val<std::_List_simple_types<T*>>> CListManager<T>
 //	リストインデックス取得処理
 //============================================================
 template<class T>
-std::_List_iterator<std::_List_val<std::_List_simple_types<T*>>> CListManager<T>::GetIndex(const int nID)
+std::_List_iterator<std::_List_val<std::_List_simple_types<T*>>> CListManager<T>::GetIndex(const int nIdx)
 {
 	AIterator itr = m_list.begin();	// リスト先頭
 
 	// インデックスが範囲外の場合抜ける
-	if (nID <= NONE_IDX || nID >= (int)m_list.size()) { assert(false); return itr; }
+	if (nIdx <= NONE_IDX || nIdx >= (int)m_list.size()) { assert(false); return itr; }
 
 	// 引数のインデックス分進める
-	std::advance(itr, nID);
+	std::advance(itr, nIdx);
 
 	// 進めたイテレーターを返す
 	return itr;

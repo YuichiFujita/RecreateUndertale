@@ -184,14 +184,14 @@ HRESULT CItem::LoadAll()
 //============================================================
 //	アイテム情報の取得処理
 //============================================================
-const CItemData& CItem::GetInfo(const int nID)
+const CItemData& CItem::GetInfo(const int nIdx)
 {
 	int nArray = (int)m_vecItemData.size();	// 配列要素数
-	if (nID > NONE_IDX && nID < nArray)
+	if (nIdx > NONE_IDX && nIdx < nArray)
 	{ // アイテムがある場合
 
 		// 引数のアイテム情報を返す
-		return *m_vecItemData[nID];
+		return *m_vecItemData[nIdx];
 	}
 
 	// 空のアイテム情報を返す

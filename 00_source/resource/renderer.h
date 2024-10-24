@@ -50,7 +50,7 @@ private:
 	LPDIRECT3D9			m_pD3D;			// Direct3Dオブジェクト
 	LPDIRECT3DDEVICE9	m_pD3DDevice;	// Direct3Dデバイス
 
-	int m_nScreenTexID;		// スクリーンテクスチャのインデックス
+	int m_nScreenTexIdx;		// スクリーンテクスチャのインデックス
 	CScreen* m_pDrawScreen;	// スクリーン描画ポリゴン
 	LPDIRECT3DSURFACE9 m_pDefSurScreen;	// 元のスクリーン描画サーフェイス保存用
 	LPDIRECT3DSURFACE9 m_pSurScreen;	// スクリーン描画サーフェイスへのポインタ

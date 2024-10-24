@@ -248,16 +248,16 @@ void CObjectMeshSphere::SetRenderState(CRenderState renderState)
 //============================================================
 //	テクスチャ割当処理 (インデックス)
 //============================================================
-void CObjectMeshSphere::BindTexture(const int nTextureID)
+void CObjectMeshSphere::BindTexture(const int nTextureIdx)
 {
-	if (nTextureID >= NONE_IDX)
+	if (nTextureIdx >= NONE_IDX)
 	{ // テクスチャインデックスが使用可能な場合
 
 		for (int i = 0; i < DOME_MAX; i++)
 		{ // 半球の総数分繰り返す
 
 			// テクスチャインデックスを割当
-			m_apDome[i]->BindTexture(nTextureID);
+			m_apDome[i]->BindTexture(nTextureIdx);
 		}
 	}
 	else { assert(false); }	// 範囲外

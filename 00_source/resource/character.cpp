@@ -237,7 +237,7 @@ HRESULT CCharacter::LoadSetup(SCharaData* pInfoChara, const char* pCharaPath)
 	SPartsInfo* pInfoParts = &pInfoChara->infoParts;	// パーツ情報
 	VECTOR3 pos = VEC3_ZERO;	// 位置の代入用
 	VECTOR3 rot = VEC3_ZERO;	// 向きの代入用
-	int nID = 0;	// インデックスの代入用
+	int nIdx = 0;	// インデックスの代入用
 
 	// ファイルを開く
 	std::ifstream file(pCharaPath);	// ファイルストリーム
@@ -287,7 +287,7 @@ HRESULT CCharacter::LoadSetup(SCharaData* pInfoChara, const char* pCharaPath)
 						if (str == "INDEX")
 						{
 							file >> str;	// ＝を読込
-							file >> nID;	// モデルのインデックスを読込
+							file >> nIdx;	// モデルのインデックスを読込
 
 							// 空の要素を最後尾に追加
 							pInfoParts->vecParts.emplace_back();
@@ -295,29 +295,29 @@ HRESULT CCharacter::LoadSetup(SCharaData* pInfoChara, const char* pCharaPath)
 						else if (str == "PARENT")
 						{
 							file >> str;									// ＝を読込
-							file >> pInfoParts->vecParts[nID].nParentID;	// モデルの親インデックスを読込
+							file >> pInfoParts->vecParts[nIdx].nParentIdx;	// モデルの親インデックスを読込
 						}
 						else if (str == "POS")
 						{
 							file >> str;								// ＝を読込
-							file >> pInfoParts->vecParts[nID].pos.x;	// X位置オフセットを読込
-							file >> pInfoParts->vecParts[nID].pos.y;	// Y位置オフセットを読込
-							file >> pInfoParts->vecParts[nID].pos.z;	// Z位置オフセットを読込
+							file >> pInfoParts->vecParts[nIdx].pos.x;	// X位置オフセットを読込
+							file >> pInfoParts->vecParts[nIdx].pos.y;	// Y位置オフセットを読込
+							file >> pInfoParts->vecParts[nIdx].pos.z;	// Z位置オフセットを読込
 						}
 						else if (str == "ROT")
 						{
 							file >> str;								// ＝を読込
-							file >> pInfoParts->vecParts[nID].rot.x;	// X向きオフセットを読込
-							file >> pInfoParts->vecParts[nID].rot.y;	// Y向きオフセットを読込
-							file >> pInfoParts->vecParts[nID].rot.z;	// Z向きオフセットを読込
+							file >> pInfoParts->vecParts[nIdx].rot.x;	// X向きオフセットを読込
+							file >> pInfoParts->vecParts[nIdx].rot.y;	// Y向きオフセットを読込
+							file >> pInfoParts->vecParts[nIdx].rot.z;	// Z向きオフセットを読込
 						}
 						else if (str == "FILEPASS")
 						{
 							file >> str;								// ＝を読込
-							file >> pInfoParts->vecParts[nID].strPath;	// モデルパスを読込
+							file >> pInfoParts->vecParts[nIdx].strPath;	// モデルパスを読込
 
 							// モデルパスを標準化
-							useful::StandardizePathPart(&pInfoParts->vecParts[nID].strPath);
+							useful::StandardizePathPart(&pInfoParts->vecParts[nIdx].strPath);
 						}
 					} while (str != "END_PARTSSET");	// END_PARTSSETを読み込むまでループ
 				}

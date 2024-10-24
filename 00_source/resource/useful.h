@@ -849,19 +849,19 @@ namespace useful
 		float* pMaxPosY = nullptr	// 最大到達Y座標
 	);
 
-	float RandomRot();				// ランダム向き取得
-	void NormalizeRot(float& rRot);	// 向きの正規化
-	void NormalizeRot(VECTOR3& rRot);				// 三軸向きの正規化
+	float RandomRot();					// ランダム向き取得
+	void NormalizeRot(float& rRot);		// 向きの正規化
+	void NormalizeRot(VECTOR3& rRot);	// 三軸向きの正規化
 	void PathToBaseName(std::string* pPath);		// パスのベースネーム変換
 	void StandardizePathPart(std::string* pPath);	// パス区切りの標準化
 	std::string SandString(const std::string& rTop, const std::string& rMain, const std::string& rCur);		// 文字列の左右追加 (マルチバイト文字列)
 	std::wstring SandString(const std::wstring& rTop, const std::wstring& rMain, const std::wstring& rCur);	// 文字列の左右追加 (ワイド文字列)
 	std::wstring MultiByteToWide(const std::string& rSrcStr);	// マルチバイト文字列のワイド文字列変換
 	std::string WideToMultiByte(const std::wstring& rSrcStr);	// ワイド文字列のマルチバイト文字列変換
-	void VecToRot(const VECTOR3& rVec, float* pPhi, float* pTheta);		// ベクトルの向き変換
-	void RotToVec(const float fPhi, const float fTheta, VECTOR3* pVec);	// 向きのベクトル変換
-	float GetTexWidthFromAspect(const float fHeight, const int nTexID);	// 縦幅からアスペクト比を考慮した横幅取得
-	float GetTexHeightFromAspect(const float fWidth, const int nTexID);	// 横幅からアスペクト比を考慮した縦幅取得
+	void VecToRot(const VECTOR3& rVec, float* pPhi, float* pTheta);			// ベクトルの向き変換
+	void RotToVec(const float fPhi, const float fTheta, VECTOR3* pVec);		// 向きのベクトル変換
+	float GetTexWidthFromAspect(const float fHeight, const int nTexIdx);	// 縦幅からアスペクト比を考慮した横幅取得
+	float GetTexHeightFromAspect(const float fWidth, const int nTexIdx);	// 横幅からアスペクト比を考慮した縦幅取得
 
 	// テンプレート関数
 	template<class T> T* ZeroClear(T* pClear);	// ゼロクリア
@@ -1197,31 +1197,31 @@ template<class T> void useful::SortNum
 )
 {
 	T	keepNum;		// ソート用
-	int	nCurrentMaxID;	// 最大値のインデックス
+	int	nCurrentMaxIdx;	// 最大値のインデックス
 	for (int nCntKeep = 0; nCntKeep < (nMaxKeep - 1); nCntKeep++)
 	{ // 入れ替える値の総数 -1回分繰り返す
 
 		// 現在の繰り返し数を代入 (要素1とする)
-		nCurrentMaxID = nCntKeep;
+		nCurrentMaxIdx = nCntKeep;
 
 		for (int nCntSort = nCntKeep + 1; nCntSort < nMaxKeep; nCntSort++)
 		{ // 入れ替える値の総数 -nCntKeep分繰り返す
 
-			if (pSortNum[nCurrentMaxID] < pSortNum[nCntSort])
+			if (pSortNum[nCurrentMaxIdx] < pSortNum[nCntSort])
 			{ // 最大値に設定されている値より、現在の値のほうが大きい場合
 
 				// 現在の要素番号を最大値に設定
-				nCurrentMaxID = nCntSort;
+				nCurrentMaxIdx = nCntSort;
 			}
 		}
 
-		if (nCntKeep != nCurrentMaxID)
+		if (nCntKeep != nCurrentMaxIdx)
 		{ // 最大値の要素番号に変動があった場合
 
 			// 要素の入れ替え
 			keepNum					= pSortNum[nCntKeep];
-			pSortNum[nCntKeep]		= pSortNum[nCurrentMaxID];
-			pSortNum[nCurrentMaxID]	= keepNum;
+			pSortNum[nCntKeep]		= pSortNum[nCurrentMaxIdx];
+			pSortNum[nCurrentMaxIdx]	= keepNum;
 		}
 	}
 }

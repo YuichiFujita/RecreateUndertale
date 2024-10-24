@@ -114,13 +114,13 @@ void CLight::Update(const float fDeltaTime)
 //============================================================
 //	ライト取得処理
 //============================================================
-D3DLIGHT9 CLight::GetLight(const int nID)
+D3DLIGHT9 CLight::GetLight(const int nIdx)
 {
-	if (nID > NONE_IDX && nID < light::MAX_NUM)
+	if (nIdx > NONE_IDX && nIdx < light::MAX_NUM)
 	{ // 要素数の範囲内の場合
 
 		// ライトの情報を返す
-		return m_aLight[nID];
+		return m_aLight[nIdx];
 	}
 	else { assert(false); return m_aLight[0]; }	// 範囲外
 }

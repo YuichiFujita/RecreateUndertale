@@ -112,22 +112,22 @@ void CMotion::SetAllInfo(const SInfo& rInfo)
 //============================================================
 void CMotion::AddInfo(const SMotion& rMotion)
 {
-	int nSetMotionID = m_info.GetNumMotion();	// モーションを設定する配列番号
+	int nSetMotionIdx = m_info.GetNumMotion();	// モーションを設定する配列番号
 
 	// 空の要素を最後尾に追加
 	m_info.vecMotion.emplace_back();
 
 	// 引数のモーション情報を設定
-	m_info.vecMotion[nSetMotionID] = rMotion;
+	m_info.vecMotion[nSetMotionIdx] = rMotion;
 
 	// モーション全体フレーム数を設定
-	int nSubKey = (m_info.vecMotion[nSetMotionID].bLoop) ? 0 : 1;		// ループしない場合最後のキーは含まない
-	int nLoop = m_info.vecMotion[nSetMotionID].GetNumKey() - nSubKey;	// 繰り返し数を求める
+	int nSubKey = (m_info.vecMotion[nSetMotionIdx].bLoop) ? 0 : 1;		// ループしない場合最後のキーは含まない
+	int nLoop = m_info.vecMotion[nSetMotionIdx].GetNumKey() - nSubKey;	// 繰り返し数を求める
 	for (int nCntKey = 0; nCntKey < nLoop; nCntKey++)
 	{ // キーの総数分繰り返す
 
 		// キーのフレーム数を加算
-		m_info.vecMotion[nSetMotionID].nWholeFrame += m_info.vecMotion[nSetMotionID].vecKey[nCntKey].nFrame;
+		m_info.vecMotion[nSetMotionIdx].nWholeFrame += m_info.vecMotion[nSetMotionIdx].vecKey[nCntKey].nFrame;
 	}
 }
 

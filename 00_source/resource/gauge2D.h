@@ -69,9 +69,9 @@ public:
 	);
 
 	// メンバ関数
-	void BindTexture(const int nPolygonID, const int nTextureID);		// テクスチャ割当 (インデックス)
-	void BindTexture(const int nPolygonID, const char* pTexturePath);	// テクスチャ割当 (パス)
-	int GetTextureIndex(const int nPolygonID) const;					// テクスチャインデックス取得
+	void BindTexture(const int nPolygonIdx, const int nTextureIdx);		// テクスチャ割当 (インデックス)
+	void BindTexture(const int nPolygonIdx, const char* pTexturePath);	// テクスチャ割当 (パス)
+	int GetTextureIndex(const int nPolygonIdx) const;					// テクスチャインデックス取得
 
 	void AddNum(const int nAdd);					// ゲージ加算
 	void SetNum(const int nNum);					// ゲージ設定
@@ -118,7 +118,7 @@ private:
 	int		m_nCounterState;			// 状態管理カウンター
 	int		m_nNumGauge;				// 表示値
 	int		m_nMaxNumGauge;				// 表示値の最大値
-	int		m_aTextureID[POLYGON_MAX];	// テクスチャインデックス
+	int		m_aTextureIdx[POLYGON_MAX];	// テクスチャインデックス
 	const int m_nFrame;					// 表示値の変動フレーム定数
 };
 

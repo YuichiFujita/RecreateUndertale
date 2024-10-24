@@ -165,11 +165,11 @@ void CToonShader::Uninit()
 //============================================================
 //	ライト方向ベクトルの設定処理
 //============================================================
-void CToonShader::SetLightDirect(MATRIX* pMtxWorld, const int nLightID)
+void CToonShader::SetLightDirect(MATRIX* pMtxWorld, const int nLightIdx)
 {
 	if (!IsEffectOK()) { assert(false); return; }	// エフェクト未使用
 
-	VECTOR3		dirLight = GET_MANAGER->GetLight()->GetLight(nLightID).Direction;	// ライト方向計算用
+	VECTOR3		dirLight = GET_MANAGER->GetLight()->GetLight(nLightIdx).Direction;	// ライト方向計算用
 	D3DXVECTOR4	setLight = D3DXVECTOR4(dirLight.x, dirLight.y, dirLight.z, 0.0f);	// ライト方向設定用
 	MATRIX		mtxInvWorld;	// ワールドマトリックス逆行列
 
@@ -209,17 +209,17 @@ void CToonShader::SetTexture(const CTexture::STexture& rTexture)
 //============================================================
 //	テクスチャの設定処理 (インデックス)
 //============================================================
-void CToonShader::SetTexture(const int nTextureID)
+void CToonShader::SetTexture(const int nTextureIdx)
 {
 	if (!IsEffectOK()) { assert(false); return; }	// エフェクト未使用
 
 	// エフェクトにテクスチャの使用状況を設定
-	if (nTextureID == NONE_IDX)
+	if (nTextureIdx == NONE_IDX)
 	{ // テクスチャが使用されていない場合
 
 		GetEffect()->SetBool(m_pUseTexture, false);
 	}
-	else if (nTextureID > NONE_IDX)
+	else if (nTextureIdx > NONE_IDX)
 	{ // テクスチャが使用されている場合
 
 		GetEffect()->SetBool(m_pUseTexture, true);

@@ -39,7 +39,7 @@ public:
 	HRESULT PushFrontString(const std::wstring& rStr) override;	// 文字列の先頭追加 (ワイド文字列)
 	HRESULT PushBackString(const std::string& rStr) override;	// 文字列の最後尾追加 (マルチバイト文字列)
 	HRESULT PushBackString(const std::wstring& rStr) override;	// 文字列の最後尾追加 (ワイド文字列)
-	void DeleteString(const int nStrID) override;				// 文字列削除
+	void DeleteString(const int nStrIdx) override;				// 文字列削除
 	void DeleteStringAll() override;							// 文字列全削除
 
 	// 静的メンバ関数
@@ -64,8 +64,8 @@ public:
 	inline bool IsScroll() const							{ return m_bScroll; }				// 文字送り状況取得
 	inline void SetScrollSE(const CSound::ELabel labelSE)	{ m_labelSE = labelSE; }			// 文字送り時の効果音設定
 	inline CSound::ELabel GetScrollSE() const				{ return m_labelSE; }				// 文字送り時の効果音取得
-	inline int GetNextCharID()								{ return m_nNextID; }				// 次の表示文字インデックス取得
-	inline CChar2D* GetNextChar2D()							{ return m_vecChar[m_nNextID]; }	// 次の表示文字取得
+	inline int GetNextCharIdx()								{ return m_nNextIdx; }				// 次の表示文字インデックス取得
+	inline CChar2D* GetNextChar2D()							{ return m_vecChar[m_nNextIdx]; }	// 次の表示文字取得
 
 private:
 	// メンバ関数
@@ -75,7 +75,7 @@ private:
 	// メンバ変数
 	std::vector<CChar2D*> m_vecChar;	// 全文字情報
 	CSound::ELabel m_labelSE;			// 文字送り再生SEラベル
-	int m_nNextID;		// 次表示する文字インデックス
+	int m_nNextIdx;		// 次表示する文字インデックス
 	float m_fNextTime;	// 次表示までの待機時間
 	float m_fCurTime;	// 現在の待機時間
 	bool m_bScroll;		// 文字送り状況

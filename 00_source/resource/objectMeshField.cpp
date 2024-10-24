@@ -38,7 +38,7 @@ CObjectMeshField::CObjectMeshField(const CObject::ELabel label, const CObject::E
 	m_part			(GRID2_ZERO),	// 分割数
 	m_nNumVtx		(0),			// 必要頂点数
 	m_nNumIdx		(0),			// 必要インデックス数
-	m_nTextureID	(0)				// テクスチャインデックス
+	m_nTextureIdx	(0)				// テクスチャインデックス
 {
 	// メンバ変数をクリア
 	memset(&m_meshField, 0, sizeof(m_meshField));	// メッシュフィールドの情報
@@ -67,7 +67,7 @@ HRESULT CObjectMeshField::Init()
 	m_part			= GRID2_ZERO;	// 分割数
 	m_nNumVtx		= 0;			// 必要頂点数
 	m_nNumIdx		= 0;			// 必要インデックス数
-	m_nTextureID	= NONE_IDX;		// テクスチャインデックス
+	m_nTextureIdx	= NONE_IDX;		// テクスチャインデックス
 
 	m_meshField.pos		= VEC3_ZERO;		// 位置
 	m_meshField.rot		= VEC3_ZERO;		// 向き
@@ -287,13 +287,13 @@ CRenderState* CObjectMeshField::GetRenderState()
 //============================================================
 //	テクスチャ割当処理 (インデックス)
 //============================================================
-void CObjectMeshField::BindTexture(const int nTextureID)
+void CObjectMeshField::BindTexture(const int nTextureIdx)
 {
-	if (nTextureID >= NONE_IDX)
+	if (nTextureIdx >= NONE_IDX)
 	{ // テクスチャインデックスが使用可能な場合
 
 		// テクスチャインデックスを代入
-		m_nTextureID = nTextureID;
+		m_nTextureIdx = nTextureIdx;
 	}
 	else { assert(false); }	// 範囲外
 }
@@ -308,13 +308,13 @@ void CObjectMeshField::BindTexture(const char* pTexturePath)
 
 		// テクスチャインデックスを設定
 		CTexture* pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
-		m_nTextureID = pTexture->Regist(pTexturePath);
+		m_nTextureIdx = pTexture->Regist(pTexturePath);
 	}
 	else
 	{ // 割り当てるテクスチャパスがない場合
 
 		// テクスチャなしインデックスを設定
-		m_nTextureID = NONE_IDX;
+		m_nTextureIdx = NONE_IDX;
 	}
 }
 
@@ -494,16 +494,16 @@ HRESULT CObjectMeshField::SetPattern(const POSGRID2& rPart)
 //============================================================
 //	座標のずれの設定処理
 //============================================================
-void CObjectMeshField::SetGapPosition(const int nID, const VECTOR3& rPos)
+void CObjectMeshField::SetGapPosition(const int nIdx, const VECTOR3& rPos)
 {
 	if (m_pPosGapBuff != nullptr)
 	{ // 使用中の場合
 
-		if (nID < (m_part.x + 1) * (m_part.y + 1))
+		if (nIdx < (m_part.x + 1) * (m_part.y + 1))
 		{ // インデックスが使用可能な場合
 
 			// 頂点のずれを設定
-			m_pPosGapBuff[nID] = rPos;
+			m_pPosGapBuff[nIdx] = rPos;
 		}
 		else
 		{ // インデックスが使用不可な場合
@@ -517,17 +517,17 @@ void CObjectMeshField::SetGapPosition(const int nID, const VECTOR3& rPos)
 //============================================================
 //	座標のずれ取得処理
 //============================================================
-VECTOR3 CObjectMeshField::GetGapPosition(const int nID)
+VECTOR3 CObjectMeshField::GetGapPosition(const int nIdx)
 {
 	VECTOR3 pos = VEC3_ZERO;	// 頂点のずれの代入用
 	if (m_pPosGapBuff != nullptr)
 	{ // 使用中の場合
 
-		if (nID < (m_part.x + 1) * (m_part.y + 1))
+		if (nIdx < (m_part.x + 1) * (m_part.y + 1))
 		{ // インデックスが使用可能な場合
 
 			// 頂点のずれを設定
-			pos = m_pPosGapBuff[nID];
+			pos = m_pPosGapBuff[nIdx];
 		}
 		else
 		{ // インデックスが使用不可な場合
@@ -757,20 +757,20 @@ bool CObjectMeshField::LandPosition(VECTOR3& rPos, VECTOR3& rMove)
 //============================================================
 //	メッシュの頂点位置の設定処理
 //============================================================
-void CObjectMeshField::SetMeshVertexPosition(const int nID, const VECTOR3& rPos)
+void CObjectMeshField::SetMeshVertexPosition(const int nIdx, const VECTOR3& rPos)
 {
 	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
 
-		if (nID < (m_part.x + 1) * (m_part.y + 1))
+		if (nIdx < (m_part.x + 1) * (m_part.y + 1))
 		{ // インデックスが使用可能な場合
 
 			// 頂点バッファをロックし、頂点情報へのポインタを取得
 			m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
 			// 頂点データのポインタを引数分進める
-			pVtx += nID;
+			pVtx += nIdx;
 
 			// 頂点座標の設定
 			pVtx[0].pos = rPos;
@@ -813,21 +813,21 @@ void CObjectMeshField::SetTerrain(const POSGRID2& rPart, VECTOR3* pPosGap)
 //============================================================
 //	メッシュの頂点位置の設定処理
 //============================================================
-VECTOR3 CObjectMeshField::GetMeshVertexPosition(const int nID)
+VECTOR3 CObjectMeshField::GetMeshVertexPosition(const int nIdx)
 {
 	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 	VECTOR3 pos;		// 頂点座標の代入用
 	if (m_pVtxBuff != nullptr)
 	{ // 使用中の場合
 
-		if (nID < (m_part.x + 1) * (m_part.y + 1))
+		if (nIdx < (m_part.x + 1) * (m_part.y + 1))
 		{ // インデックスが使用可能な場合
 
 			// 頂点バッファをロックし、頂点情報へのポインタを取得
 			m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
 			// 頂点データのポインタを引数分進める
-			pVtx += nID;
+			pVtx += nIdx;
 
 			// 頂点座標を代入
 			pos = pVtx[0].pos;
@@ -1173,7 +1173,7 @@ void CObjectMeshField::DrawNormal()
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// テクスチャの設定
-	pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_nTextureID));
+	pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_nTextureIdx));
 
 	// ポリゴンの描画
 	pDevice->DrawIndexedPrimitive
@@ -1208,13 +1208,13 @@ void CObjectMeshField::DrawShader(CShader* pShader)
 	pShader->SetOnlyDiffuse(m_meshField.col);
 
 	// テクスチャを設定
-	pShader->SetTexture(m_nTextureID);
+	pShader->SetTexture(m_nTextureIdx);
 
 	// 状態変更の伝達
 	pShader->CommitChanges();
 
 	// テクスチャの設定
-	pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_nTextureID));
+	pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_nTextureIdx));
 
 	// ポリゴンの描画
 	pDevice->DrawIndexedPrimitive

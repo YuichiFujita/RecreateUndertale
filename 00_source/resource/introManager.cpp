@@ -81,7 +81,7 @@ CIntroManager::CIntroManager() :
 	m_pStory	(nullptr),	// ストーリー
 	m_pText		(nullptr),	// テキスト
 	m_pState	(nullptr),	// 状態
-	m_nStoryID	(0)			// 物語インデックス
+	m_nStoryIdx	(0)			// 物語インデックス
 {
 
 }
@@ -103,7 +103,7 @@ HRESULT CIntroManager::Init()
 	m_pStory	= nullptr;	// ストーリー
 	m_pText		= nullptr;	// テキスト
 	m_pState	= nullptr;	// 状態
-	m_nStoryID	= 0;		// 物語インデックス
+	m_nStoryIdx	= 0;		// 物語インデックス
 
 	//--------------------------------------------------------
 	//	ストーリーの生成・設定
@@ -258,12 +258,12 @@ HRESULT CIntroManager::ChangeState(CIntroState* pState)
 void CIntroManager::NextStory()
 {
 	// 物語を次に進める
-	m_nStoryID++;
+	m_nStoryIdx++;
 
 	// 表示物語を変更する
-	ChangeStory(m_nStoryID);
+	ChangeStory(m_nStoryIdx);
 
-	switch (m_nStoryID)
+	switch (m_nStoryIdx)
 	{ // 物語ごとの処理
 	case STORY_00:	// むかしむかし
 	case STORY_01:	// ところがあるとき
@@ -273,7 +273,7 @@ void CIntroManager::NextStory()
 	case STORY_06:	// でんせつの山
 
 		// 表示テキストを変更する
-		ChangeText(m_nStoryID);
+		ChangeText(m_nStoryIdx);
 
 		// 文字送り状態にする
 		ChangeState(new CIntroStateText);
@@ -283,7 +283,7 @@ void CIntroManager::NextStory()
 	case STORY_04:	// ながいときがながれ
 
 		// 表示テキストを変更する
-		ChangeText(m_nStoryID);
+		ChangeText(m_nStoryIdx);
 
 		// 文字送り速度低下状態にする
 		ChangeState(new CIntroStateTextSlow);
@@ -317,12 +317,12 @@ void CIntroManager::NextStory()
 //============================================================
 //	ストーリー変更処理
 //============================================================
-void CIntroManager::ChangeStory(const int nStoryID)
+void CIntroManager::ChangeStory(const int nStoryIdx)
 {
 	// 物語の画像を差し替え
-	m_pStory->BindTexture(story::TEXTURE[nStoryID]);
+	m_pStory->BindTexture(story::TEXTURE[nStoryIdx]);
 
-	if (nStoryID == STORY_MAX - 1)
+	if (nStoryIdx == STORY_MAX - 1)
 	{ // 最後の物語の場合
 
 		// テクスチャの開始地点にする
@@ -334,13 +334,13 @@ void CIntroManager::ChangeStory(const int nStoryID)
 //============================================================
 //	テキスト変更処理
 //============================================================
-void CIntroManager::ChangeText(const int nStoryID)
+void CIntroManager::ChangeText(const int nStoryIdx)
 {
 	// 文字列を全て削除
 	m_pText->DeleteStringAll();
 
 	// 次のテキストを割当
-	loadtext::BindText(m_pText, loadtext::LoadText(text::PASS, nStoryID));
+	loadtext::BindText(m_pText, loadtext::LoadText(text::PASS, nStoryIdx));
 
 	// 文字送りを開始する
 	m_pText->SetEnableScroll(true);

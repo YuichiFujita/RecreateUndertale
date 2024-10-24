@@ -235,7 +235,7 @@ void CMultiModel::DrawNormal()
 		pDevice->SetMaterial(&GetPtrMaterial(nCntMat)->MatD3D);
 
 		// テクスチャの設定
-		pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(modelData.pTextureID[nCntMat]));
+		pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(modelData.pTextureIdx[nCntMat]));
 
 		if (scale != VEC3_ONE)
 		{ // 拡大率が変更されている場合
@@ -279,13 +279,13 @@ void CMultiModel::DrawShader(CShader* pShader)
 		pDevice->SetMaterial(&GetPtrMaterial(nCntMat)->MatD3D);
 
 		// テクスチャの設定
-		pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(modelData.pTextureID[nCntMat]));
+		pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(modelData.pTextureIdx[nCntMat]));
 
 		// マテリアルを設定
 		pShader->SetMaterial(GetPtrMaterial(nCntMat)->MatD3D);
 
 		// テクスチャを設定
-		pShader->SetTexture(modelData.pTextureID[nCntMat]);
+		pShader->SetTexture(modelData.pTextureIdx[nCntMat]);
 
 		// 状態変更の伝達
 		pShader->CommitChanges();

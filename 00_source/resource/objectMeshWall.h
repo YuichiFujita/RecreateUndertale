@@ -65,12 +65,12 @@ public:
 
 	// メンバ関数
 	CRenderState* GetRenderState();				// レンダーステート情報取得
-	void BindTexture(const int nTextureID);		// テクスチャ割当 (インデックス)
+	void BindTexture(const int nTextureIdx);		// テクスチャ割当 (インデックス)
 	void BindTexture(const char* pTexturePath);	// テクスチャ割当 (パス)
 	void SetAlpha(const float fAlpha);			// 透明度設定
 	void SetColor(const COLOR& rCol);			// 色設定
 	HRESULT SetPattern(const POSGRID2& rPart);	// 分割数設定
-	inline int GetTextureIndex() const	{ return m_nTextureID; }		// テクスチャインデックス取得
+	inline int GetTextureIndex() const	{ return m_nTextureIdx; }		// テクスチャインデックス取得
 	inline float GetAlpha() const		{ return m_meshWall.col.a; }	// 透明度取得
 	inline COLOR GetColor() const		{ return m_meshWall.col; }		// 色取得
 	inline POSGRID2 GetPattern() const	{ return m_part; }				// 分割数取得
@@ -101,7 +101,7 @@ private:
 	POSGRID2 m_part;		// 分割数
 	int m_nNumVtx;			// 必要頂点数
 	int m_nNumIdx;			// 必要インデックス数
-	int m_nTextureID;		// テクスチャインデックス
+	int m_nTextureIdx;		// テクスチャインデックス
 };
 
 #endif	// _OBJECT_MESHWALL_H_

@@ -261,7 +261,7 @@ HRESULT CFontChar::CreateTexture(SChar* pChar, BYTE* pBitMap)
 
 	// 空のテクスチャを生成・テクスチャインデックスを保存
 	CTexture* pTexture = GET_MANAGER->GetTexture();	// テクスチャ情報
-	pChar->nTexID = pTexture->Regist(CTexture::SInfo
+	pChar->nTexIdx = pTexture->Regist(CTexture::SInfo
 	( // 引数
 		sizeTexture.x,		// テクスチャ横幅
 		sizeTexture.y,		// テクスチャ縦幅
@@ -286,7 +286,7 @@ HRESULT CFontChar::CreateTexture(SChar* pChar, BYTE* pBitMap)
 	pChar->bEmpty = false;
 
 	// 生成したテクスチャのポインタを取得
-	LPDIRECT3DTEXTURE9 pTexChar = pTexture->GetPtr(pChar->nTexID);
+	LPDIRECT3DTEXTURE9 pTexChar = pTexture->GetPtr(pChar->nTexIdx);
 
 	// テクスチャをロックし、ピクセル情報を取得
 	D3DLOCKED_RECT lockRect;
@@ -300,10 +300,10 @@ HRESULT CFontChar::CreateTexture(SChar* pChar, BYTE* pBitMap)
 		{ // フォント原点からブラックボックス横幅分繰り返す
 
 			// 現在のビットマップインデックスを計算
-			int nBitID = nCntWidth - offsetOrigin.x + sizeAlignBlackBox.x * (nCntHeight - offsetOrigin.y);
+			int nBitIdx = nCntWidth - offsetOrigin.x + sizeAlignBlackBox.x * (nCntHeight - offsetOrigin.y);
 
 			// ビットマップからα値を計算
-			DWORD dwAlpha = pBitMap[nBitID] * 255 / MAX_GRAD;
+			DWORD dwAlpha = pBitMap[nBitIdx] * 255 / MAX_GRAD;
 
 			// テクスチャの色を計算
 			DWORD dwColor = (dwAlpha << 24) | 0x00ffffff;

@@ -98,7 +98,7 @@ void CScreen::Draw(CShader* pShader)
 //============================================================
 //	生成処理
 //============================================================
-CScreen* CScreen::Create(const int nScreenTexID)
+CScreen* CScreen::Create(const int nScreenTexIdx)
 {
 	// スクリーンの生成
 	CScreen* pScreen = new CScreen;
@@ -120,7 +120,7 @@ CScreen* CScreen::Create(const int nScreenTexID)
 		}
 
 		// テクスチャを登録・割当
-		pScreen->BindTexture(nScreenTexID);
+		pScreen->BindTexture(nScreenTexIdx);
 
 		// 確保したアドレスを返す
 		return pScreen;

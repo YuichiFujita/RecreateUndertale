@@ -53,25 +53,25 @@ public:
 	);
 
 	// メンバ関数
-	void SetMaterial(const D3DXMATERIAL& rMat, const int nMatID);	// マテリアル設定
-	D3DXMATERIAL GetMaterial(const int nMatID) const;	// マテリアル取得
+	void SetMaterial(const D3DXMATERIAL& rMat, const int nMatIdx);	// マテリアル設定
+	D3DXMATERIAL GetMaterial(const int nMatIdx) const;	// マテリアル取得
 	void SetAlpha(const float fAlpha);	// 透明度設定
 	float GetAlpha() const;				// 透明度取得
 	float GetMaxAlpha() const;			// 最大透明度取得
 
 	CRenderState* GetRenderState();						// レンダーステート情報取得
-	void BindModel(const int nModelID);					// モデル割当 (インデックス)
+	void BindModel(const int nModelIdx);					// モデル割当 (インデックス)
 	void BindModel(const char* pModelPath);				// モデル割当 (パス)
 	void SetAllMaterial(const D3DXMATERIAL& rMat);		// マテリアル全設定
 	void ResetMaterial();								// マテリアル再設定
 	void SetModelData(const CModel::SModel& rModel);	// モデル情報設定
 	void SetMtxWorld(const MATRIX& rMtxWorld);			// マトリックス設定
-	inline int GetModelID() const				{ return m_nModelID; }	// モデルインデックス取得
+	inline int GetModelIdx() const				{ return m_nModelIdx; }	// モデルインデックス取得
 	inline CModel::SModel GetModelData() const	{ return m_modelData; }	// モデル情報取得
 
 protected:
 	// メンバ関数
-	D3DXMATERIAL* GetPtrMaterial(const int nID) const;	// マテリアルポインタ取得
+	D3DXMATERIAL* GetPtrMaterial(const int nIdx) const;	// マテリアルポインタ取得
 
 private:
 	// オーバーライド関数
@@ -90,7 +90,7 @@ private:
 	VECTOR3	m_pos;		// 位置
 	VECTOR3	m_rot;		// 向き
 	VECTOR3	m_scale;	// 拡大率
-	int		m_nModelID;	// モデルインデックス
+	int		m_nModelIdx;	// モデルインデックス
 };
 
 #endif	// _OBJECTMODEL_H_

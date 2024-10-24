@@ -111,7 +111,7 @@ public:
 		EBorder		bordState;				// 縁取り使用状態
 		float		fBordThick;				// 縁取り太さ
 		ETexState	texState;				// テクスチャ使用状態
-		SFaceTex	texID;					// テクスチャ種類
+		SFaceTex	texIdx;					// テクスチャ種類
 		VECTOR2		aTexPart[CUBEPART_MAX];	// テクスチャ分割数
 	};
 
@@ -140,7 +140,7 @@ public:
 		const EBorder	bordState	= BORDER_OFF,			// 縁取り状態
 		const float		fBordThick	= 0.0f,					// 縁取り太さ
 		const ETexState	texState	= TEXSTATE_ONE,			// テクスチャ状態
-		const SFaceTex&	rTexID		= SFaceTex(NONE_IDX),	// テクスチャ種類
+		const SFaceTex&	rTexIdx		= SFaceTex(NONE_IDX),	// テクスチャ種類
 		const EOrigin	origin		= ORIGIN_CENTER,		// 原点
 		const VECTOR2&	rTexPartX	= VEC2_ONE,				// テクスチャ分割数X
 		const VECTOR2&	rTexPartY	= VEC2_ONE,				// テクスチャ分割数Y
@@ -149,7 +149,7 @@ public:
 
 	// メンバ関数
 	CRenderState* GetRenderState();						// レンダーステート情報取得
-	void BindTexture(const SFaceTex textureID);			// テクスチャ割当
+	void BindTexture(const SFaceTex textureIdx);			// テクスチャ割当
 	void SetCubeAlpha(const float fAlpha);				// キューブ透明度設定
 	void SetCubeColor(const COLOR& rCol);				// キューブ色設定
 	void SetBorderAlpha(const float fAlpha);			// 縁取り透明度設定
@@ -161,7 +161,7 @@ public:
 	void SetTexturePatternY(const VECTOR2& rTexPart);	// テクスチャ分割数Y設定
 	void SetTexturePatternZ(const VECTOR2& rTexPart);	// テクスチャ分割数Z設定
 	void SetOrigin(const EOrigin origin);				// 原点設定
-	inline SFaceTex GetTextureIndex() const		{ return m_meshCube.texID; }					// テクスチャインデックス取得
+	inline SFaceTex GetTextureIndex() const		{ return m_meshCube.texIdx; }					// テクスチャインデックス取得
 	inline float GetCubeAlpha() const			{ return m_meshCube.aCol[CUBECOL_CUBE].a; }		// 透明度取得
 	inline COLOR GetCubeColor() const			{ return m_meshCube.aCol[CUBECOL_CUBE]; }		// キューブ色取得
 	inline float GetBorderAlpha() const			{ return m_meshCube.aCol[CUBECOL_BORDER].a; }	// 透明度取得

@@ -274,13 +274,13 @@ HRESULT CCharacter2D::LoadMotionSetup(AMotion* pInfoChara, const char* pMotionPa
 	}
 
 	// 最後尾にモーション情報を追加
-	int nCurMotionID = pInfoChara->GetNumMotion();	// 現在の最後尾インデックス
+	int nCurMotionIdx = pInfoChara->GetNumMotion();	// 現在の最後尾インデックス
 	pInfoChara->vecMotion.emplace_back();			// 空の要素を最後尾に追加
 
 	// 変数をポインタ化し簡略化
-	CObjectChara2D::SMotion* pMotion = &pInfoChara->vecMotion[nCurMotionID];			// モーション情報
-	CObjectChara2D::SChara* pChara = &pInfoChara->vecMotion[nCurMotionID].infoChara;	// キャラクター情報
-	CObjectChara2D::SColl* pColl = &pInfoChara->vecMotion[nCurMotionID].infoColl;		// 当たり判定情報
+	CObjectChara2D::SMotion* pMotion = &pInfoChara->vecMotion[nCurMotionIdx];			// モーション情報
+	CObjectChara2D::SChara* pChara = &pInfoChara->vecMotion[nCurMotionIdx].infoChara;	// キャラクター情報
+	CObjectChara2D::SColl* pColl = &pInfoChara->vecMotion[nCurMotionIdx].infoColl;		// 当たり判定情報
 
 	// ファイルを読込
 	std::string str;	// 読込文字列

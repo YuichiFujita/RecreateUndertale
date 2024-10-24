@@ -63,19 +63,19 @@ public:
 
 	// メンバ関数
 	CRenderState* GetRenderState();				// レンダーステート情報取得
-	void BindTexture(const int nTextureID);		// テクスチャ割当 (インデックス)
+	void BindTexture(const int nTextureIdx);		// テクスチャ割当 (インデックス)
 	void BindTexture(const char* pTexturePath);	// テクスチャ割当 (パス)
 	void SetAlpha(const float fAlpha);			// 透明度設定
 	void SetColor(const COLOR& rCol);			// 色設定
 	void SetOrigin(const EOrigin origin);		// 原点設定
-	inline int GetTextureIndex() const	{ return m_nTextureID; }	// テクスチャインデックス取得
+	inline int GetTextureIndex() const	{ return m_nTextureIdx; }	// テクスチャインデックス取得
 	inline float GetAlpha() const		{ return m_col.a; }			// 透明度取得
 	inline COLOR GetColor() const		{ return m_col; }			// 色取得
 	inline EOrigin GetOrigin() const	{ return m_origin; }		// 原点取得
-	void SetVertexPosition(const int nID, const VECTOR3& rPos);		// 頂点位置設定
-	VECTOR3 GetVertexPosition(const int nID);						// 頂点位置取得
-	void SetGapPosition(const int nID, const VECTOR3& rPos);		// 座標のずれ設定
-	VECTOR3 GetGapPosition(const int nID);							// 座標のずれ取得
+	void SetVertexPosition(const int nIdx, const VECTOR3& rPos);		// 頂点位置設定
+	VECTOR3 GetVertexPosition(const int nIdx);						// 頂点位置取得
+	void SetGapPosition(const int nIdx, const VECTOR3& rPos);		// 座標のずれ設定
+	VECTOR3 GetGapPosition(const int nIdx);							// 座標のずれ取得
 	float GetPositionHeight(const VECTOR3&rPos);					// ポリゴンの着地取得
 
 protected:
@@ -117,7 +117,7 @@ private:
 	VECTOR3	m_size;			// 大きさ
 	COLOR	m_col;			// 色
 	EOrigin	m_origin;		// 原点
-	int		m_nTextureID;	// テクスチャインデックス
+	int		m_nTextureIdx;	// テクスチャインデックス
 };
 
 #endif	// _OBJECT3D_H_

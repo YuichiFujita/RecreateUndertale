@@ -58,8 +58,8 @@ public:
 	// メンバ関数
 	void SetPartsInfo	// パーツ情報設定
 	( // 引数
-		const int nID,			// パーツインデックス
-		const int nParentID,	// 親インデックス
+		const int nIdx,			// パーツインデックス
+		const int nParentIdx,	// 親インデックス
 		const VECTOR3& rPos,	// 位置
 		const VECTOR3& rRot,	// 向き
 		const char* pFileName	// ファイル名
@@ -69,15 +69,15 @@ public:
 	void SetMtxWorld(const MATRIX& rMtxWorld);	// マトリックス設定
 	void SetNumParts(const int nNumParts);		// パーツ数設定
 	void SetPartsInfo(CCharacter::SPartsInfo& rInfo);						// パーツ情報設定
-	void SetPartsPosition(const int nPartsID, const VECTOR3& rPos);			// パーツ位置設定
-	void SetPartsRotation(const int nPartsID, const VECTOR3& rRot);			// パーツ向き設定
-	VECTOR3 GetPartsPosition(const int nPartsID) const;						// パーツ位置取得
-	VECTOR3 GetPartsRotation(const int nPartsID) const;						// パーツ向き取得
-	CMultiModel* GetParts(const int nPartsID) const;						// パーツ取得
+	void SetPartsPosition(const int nPartsIdx, const VECTOR3& rPos);			// パーツ位置設定
+	void SetPartsRotation(const int nPartsIdx, const VECTOR3& rRot);			// パーツ向き設定
+	VECTOR3 GetPartsPosition(const int nPartsIdx) const;						// パーツ位置取得
+	VECTOR3 GetPartsRotation(const int nPartsIdx) const;						// パーツ向き取得
+	CMultiModel* GetParts(const int nPartsIdx) const;						// パーツ取得
 	inline CMotion* GetMotion() const	{ return m_pMotion; }				// モーション取得
 	inline int GetNumParts() const		{ return (int)m_vecParts.size(); }	// パーツ数取得
 
-	void SetMaterial(const D3DXMATERIAL& rMat, const int nPartsID, const int nMatID);	// マテリアル設定
+	void SetMaterial(const D3DXMATERIAL& rMat, const int nPartsIdx, const int nMatIdx);	// マテリアル設定
 	void SetAllMaterial(const D3DXMATERIAL& rMat);	// マテリアル全設定
 	void ResetMaterial();				// マテリアル再設定
 	void SetAlpha(const float fAlpha);	// 透明度設定

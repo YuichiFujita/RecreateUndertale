@@ -20,7 +20,7 @@
 //============================================================
 CScrollText2D::CScrollText2D() :
 	m_labelSE	(CSound::LABEL_NONE),	// 文字送り再生SEラベル
-	m_nNextID	(0),	// 次表示する文字インデックス
+	m_nNextIdx	(0),	// 次表示する文字インデックス
 	m_fNextTime	(0.0f),	// 次表示するまでの時間
 	m_fCurTime	(0.0f),	// 現在の待機時間
 	m_bScroll	(false)	// 文字送り状況
@@ -44,7 +44,7 @@ HRESULT CScrollText2D::Init()
 {
 	// メンバ変数を初期化
 	m_labelSE	= CSound::LABEL_NONE;	// 文字送り再生SEラベル
-	m_nNextID	= 0;		// 次表示する文字インデックス
+	m_nNextIdx	= 0;		// 次表示する文字インデックス
 	m_fNextTime	= 0.0f;		// 次表示するまでの時間
 	m_fCurTime	= 0.0f;		// 現在の待機時間
 	m_bScroll	= false;	// 文字送り状況
@@ -104,7 +104,7 @@ void CScrollText2D::Draw(CShader* pShader)
 void CScrollText2D::SetEnableDraw(const bool bDraw)
 {
 	// 次表示する文字インデックスを描画設定に応じて反映
-	m_nNextID = (bDraw) ? (int)m_vecChar.size() - 1 : 0;	// ONなら最後尾、OFFなら先頭
+	m_nNextIdx = (bDraw) ? (int)m_vecChar.size() - 1 : 0;	// ONなら最後尾、OFFなら先頭
 
 	// 現在の待機時間を初期化
 	m_fCurTime = 0.0f;
@@ -206,8 +206,8 @@ HRESULT CScrollText2D::PushBackString(const std::wstring& rStr)
 		return E_FAIL;
 	}
 
-	int nTailStrID = GetNumString() - 1;			// 最後尾の文字列インデックス
-	CString2D* pTailStr = GetString2D(nTailStrID);	// 最後尾の文字列情報
+	int nTailStrIdx = GetNumString() - 1;			// 最後尾の文字列インデックス
+	CString2D* pTailStr = GetString2D(nTailStrIdx);	// 最後尾の文字列情報
 
 	// 最後尾文字列の自動描画をOFFにする
 	pTailStr->SetEnableDraw(false);
@@ -228,10 +228,10 @@ HRESULT CScrollText2D::PushBackString(const std::wstring& rStr)
 //============================================================
 //	文字列の削除処理
 //============================================================
-void CScrollText2D::DeleteString(const int nStrID)
+void CScrollText2D::DeleteString(const int nStrIdx)
 {
 	int nDelHead = 0;	// 削除する先頭文字インデックス
-	for (int i = 0; i < nStrID; i++)
+	for (int i = 0; i < nStrIdx; i++)
 	{ // 削除する文字列の手前まで繰り返す
 
 		// 削除する文字の先頭インデックスまで値を進める
@@ -244,16 +244,16 @@ void CScrollText2D::DeleteString(const int nStrID)
 
 	// 削除するイテレーターの最後尾を求める
 	auto itrDelTail = m_vecChar.begin();	// 削除する最後尾イテレーター
-	std::advance(itrDelTail, nDelHead + GetString2D(nStrID)->GetNumChar());	// 最後尾まで進める
+	std::advance(itrDelTail, nDelHead + GetString2D(nStrIdx)->GetNumChar());	// 最後尾まで進める
 
 	// 先頭から最後尾までのイテレーターを削除
 	m_vecChar.erase(itrDelHead, itrDelTail);
 
 	// 文字列の削除
-	CText2D::DeleteString(nStrID);
+	CText2D::DeleteString(nStrIdx);
 
 	// 文字インデックスを制限する
-	useful::LimitMaxNum(m_nNextID, (int)m_vecChar.size());
+	useful::LimitMaxNum(m_nNextIdx, (int)m_vecChar.size());
 }
 
 //============================================================
@@ -268,7 +268,7 @@ void CScrollText2D::DeleteStringAll()
 	m_vecChar.clear();
 
 	// 文字インデックスを初期化
-	m_nNextID = 0;
+	m_nNextIdx = 0;
 }
 
 //============================================================
@@ -356,19 +356,19 @@ void CScrollText2D::UpdateScroll(const float fDeltaTime)
 	{ // 待機し終わった場合
 
 		// 文字の自動描画をONにする
-		assert(m_vecChar[m_nNextID] != nullptr);
-		m_vecChar[m_nNextID]->SetEnableDraw(true);
+		assert(m_vecChar[m_nNextIdx] != nullptr);
+		m_vecChar[m_nNextIdx]->SetEnableDraw(true);
 
 		// 現在の待機時間から待機時間を減算
 		m_fCurTime -= m_fNextTime;
 
 		// 文字送り中の効果音を再生
-		PlayScrollSE(m_vecChar[m_nNextID]);
+		PlayScrollSE(m_vecChar[m_nNextIdx]);
 
 		// 次の文字インデックスに移行
-		m_nNextID++;
+		m_nNextIdx++;
 
-		if (useful::LimitMaxNum(m_nNextID, (int)m_vecChar.size() - 1))
+		if (useful::LimitMaxNum(m_nNextIdx, (int)m_vecChar.size() - 1))
 		{ // 最後の文字に到達した場合
 
 			// 現在の待機時間を初期化

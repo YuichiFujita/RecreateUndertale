@@ -16,7 +16,7 @@
 //************************************************************
 CObject* CObject::m_apTop[DIM_MAX][object::MAX_PRIO] = {};	// 先頭のオブジェクトへのポインタ
 CObject* CObject::m_apCur[DIM_MAX][object::MAX_PRIO] = {};	// 最後尾のオブジェクトへのポインタ
-DWORD CObject::m_dwNextID = 0;	// 次のユニークID
+DWORD CObject::m_dwNextIdx = 0;	// 次のユニークインデックス
 int CObject::m_nNumAll = 0;		// オブジェクトの総数
 
 //************************************************************
@@ -62,7 +62,7 @@ CObject::CObject(const ELabel label, const EDim dimension, const int nPriority)
 	m_label		= label;		// オブジェクトラベル
 	m_dimension	= dimension;	// 次元
 	m_nPriority	= nPriority;	// 優先順位
-	m_dwID		= m_dwNextID;	// ユニークID
+	m_dwIdx		= m_dwNextIdx;	// ユニークインデックス
 	m_bUpdate	= true;			// 更新状況
 	m_bDraw		= true;			// 描画状況
 	m_bDeath	= false;		// 死亡フラグ
@@ -72,8 +72,8 @@ CObject::CObject(const ELabel label, const EDim dimension, const int nPriority)
 	m_bDebugDisp = true;
 #endif	// _DEBUG
 
-	// 次のユニークIDを設定
-	m_dwNextID++;
+	// 次のユニークインデックスを設定
+	m_dwNextIdx++;
 
 	// オブジェクトの総数を加算
 	m_nNumAll++;

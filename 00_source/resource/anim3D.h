@@ -62,8 +62,8 @@ public:
 	void SetEnablePlayBack(const bool bPlayBack);	// 逆再生フラグ設定
 	void SetEnableLoop(const bool bLoop);			// ループフラグ設定
 	void ResetCurPtrn();							// 現在パターン初期化
-	void SetNextTime(const int nPtrnID, const float fNextTime);	// パターン変更時間設定 (パターン指定)
-	void SetNextTime(const float fNextTime);					// パターン変更時間設定 (全パターン)
+	void SetNextTime(const int nPtrnIdx, const float fNextTime);	// パターン変更時間設定 (パターン指定)
+	void SetNextTime(const float fNextTime);						// パターン変更時間設定 (全パターン)
 
 	inline int GetCurPtrn() const	{ return m_nCurPtrn; }	// 現在パターン取得
 	inline void ResetNumLoop()		{ m_nNumLoop = 0; }		// パターン繰り返し数初期化

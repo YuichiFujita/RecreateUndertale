@@ -338,18 +338,18 @@ HRESULT CText2D::PushBackString(const std::wstring& rStr)
 //============================================================
 //	文字列の削除処理
 //============================================================
-void CText2D::DeleteString(const int nStrID)
+void CText2D::DeleteString(const int nStrIdx)
 {
 	// 文字列がない場合抜ける
 	int nStrSize = (int)m_listString.size();
 	if (nStrSize <= 0) { assert(false); return; }
 
 	// インデックスが範囲外の場合抜ける
-	if (nStrID <= NONE_IDX || nStrID >= nStrSize) { assert(false); return; }
+	if (nStrIdx <= NONE_IDX || nStrIdx >= nStrSize) { assert(false); return; }
 
 	// イテレーターをインデックス分ずらす
 	auto itr = m_listString.begin();
-	std::advance(itr, nStrID);
+	std::advance(itr, nStrIdx);
 
 	// イテレーター内の文字列2Dを終了
 	SAFE_UNINIT(*itr);
@@ -496,18 +496,18 @@ void CText2D::SetAlignY(const EAlignY align)
 //============================================================
 //	文字列の取得処理
 //============================================================
-CString2D* CText2D::GetString2D(const int nStrID) const
+CString2D* CText2D::GetString2D(const int nStrIdx) const
 {
 	// 文字列がない場合抜ける
 	int nStrSize = (int)m_listString.size();
 	if (nStrSize <= 0) { assert(false); return nullptr; }
 
 	// インデックスが範囲外の場合抜ける
-	if (nStrID <= NONE_IDX || nStrID >= nStrSize) { assert(false); return nullptr; }
+	if (nStrIdx <= NONE_IDX || nStrIdx >= nStrSize) { assert(false); return nullptr; }
 
 	// 引数インデックスの文字列を返す
 	auto itr = m_listString.begin();	// 先頭イテレーター
-	std::advance(itr, nStrID);			// イテレーターを進める
+	std::advance(itr, nStrIdx);			// イテレーターを進める
 	return *itr;						// イテレーターの中身を返す
 }
 
@@ -520,8 +520,8 @@ float CText2D::GetTextHeight() const
 	if ((int)m_listString.size() <= 0) { assert(false); return 0.0f; }
 
 	float fTextHeight = 0.0f;	// テキストの縦幅
-	int nEndStrID = (int)m_listString.size() - 1;	// 終端文字列のインデックス
-	for (int i = 0; i < nEndStrID; i++)
+	int nEndStrIdx = (int)m_listString.size() - 1;	// 終端文字列のインデックス
+	for (int i = 0; i < nEndStrIdx; i++)
 	{ // 終端文字列を抜いた文字列数分繰り返す
 
 		// 次の文字列までの行間を加算

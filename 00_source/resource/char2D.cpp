@@ -268,7 +268,7 @@ void CChar2D::SetChar(const wchar_t wcChar)
 	m_bTexEmpty = infoChar.bEmpty;
 
 	// テクスチャを登録・割当
-	BindTexture(infoChar.nTexID);
+	BindTexture(infoChar.nTexIdx);
 
 	// 文字縦幅の再設定
 	SetCharHeight(m_fCharHeight);
@@ -279,9 +279,9 @@ void CChar2D::SetChar(const wchar_t wcChar)
 //============================================================
 void CChar2D::SetCharHeight(const float fHeight)
 {
-	int nTexID = GetTextureIndex();	// フォントのテクスチャインデックス
-	float fTexWidth = useful::GetTexWidthFromAspect(fHeight, nTexID);			// テクスチャ横幅
-	D3DXIMAGE_INFO status = GET_MANAGER->GetTexture()->GetInfo(nTexID).status;	// テクスチャステータス
+	int nTexIdx = GetTextureIndex();	// フォントのテクスチャインデックス
+	float fTexWidth = useful::GetTexWidthFromAspect(fHeight, nTexIdx);			// テクスチャ横幅
+	D3DXIMAGE_INFO status = GET_MANAGER->GetTexture()->GetInfo(nTexIdx).status;	// テクスチャステータス
 
 	// 文字の縦幅を保存
 	m_fCharHeight = fHeight;

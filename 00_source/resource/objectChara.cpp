@@ -230,8 +230,8 @@ void CObjectChara::SetMotion(const int nType, const int nBlendFrame)
 //============================================================
 void CObjectChara::SetPartsInfo
 (
-	const int nID,			// パーツインデックス
-	const int nParentID,	// 親インデックス
+	const int nIdx,			// パーツインデックス
+	const int nParentIdx,	// 親インデックス
 	const VECTOR3& rPos,	// 位置
 	const VECTOR3& rRot,	// 向き
 	const char* pFileName	// ファイル名
@@ -239,34 +239,34 @@ void CObjectChara::SetPartsInfo
 {
 	// インデックスが非正規の場合抜ける
 	int nNumParts = GetNumParts();	// パーツの総数
-	if (nID <= NONE_IDX || nID >= nNumParts) { assert(false); return; }
-	if (nParentID <= NONE_IDX - 1 || nParentID >= nNumParts) { assert(false); return; }
+	if (nIdx <= NONE_IDX || nIdx >= nNumParts) { assert(false); return; }
+	if (nParentIdx <= NONE_IDX - 1 || nParentIdx >= nNumParts) { assert(false); return; }
 
 	// ファイル指定がない場合抜ける
 	if (pFileName == nullptr) { assert(false); return; }
 
 	// モデルの原点位置・向きを設定
-	m_pMotion->SetOriginPosition(rPos, nID);
-	m_pMotion->SetOriginRotation(rRot, nID);
+	m_pMotion->SetOriginPosition(rPos, nIdx);
+	m_pMotion->SetOriginRotation(rRot, nIdx);
 
 	// モデルの生成
-	m_vecParts[nID] = CMultiModel::Create(rPos, rRot);
+	m_vecParts[nIdx] = CMultiModel::Create(rPos, rRot);
 
 	// モデルを割当
-	m_vecParts[nID]->BindModel(pFileName);
+	m_vecParts[nIdx]->BindModel(pFileName);
 
 	// 親モデルの設定
-	if (nParentID == NONE_IDX)
+	if (nParentIdx == NONE_IDX)
 	{ // 親がない場合
 
 		// nullptrを設定
-		m_vecParts[nID]->SetParentModel(nullptr);
+		m_vecParts[nIdx]->SetParentModel(nullptr);
 	}
 	else
 	{ // 親がいる場合
 
 		// 親のアドレスを設定
-		m_vecParts[nID]->SetParentModel(m_vecParts[nParentID]);
+		m_vecParts[nIdx]->SetParentModel(m_vecParts[nParentIdx]);
 	}
 }
 
@@ -346,7 +346,7 @@ void CObjectChara::SetPartsInfo(CCharacter::SPartsInfo& rInfo)
 		CObjectChara::SetPartsInfo
 		( // 引数
 			nCntParts,				// パーツインデックス
-			pParts->nParentID,		// 親インデックス
+			pParts->nParentIdx,		// 親インデックス
 			pParts->pos,			// 位置
 			pParts->rot,			// 向き
 			pParts->strPath.c_str()	// ファイル名
@@ -357,13 +357,13 @@ void CObjectChara::SetPartsInfo(CCharacter::SPartsInfo& rInfo)
 //============================================================
 //	パーツ位置の設定処理
 //============================================================
-void CObjectChara::SetPartsPosition(const int nPartsID, const VECTOR3& rPos)
+void CObjectChara::SetPartsPosition(const int nPartsIdx, const VECTOR3& rPos)
 {
-	if (nPartsID < GetNumParts())
+	if (nPartsIdx < GetNumParts())
 	{ // 使用可能なインデックスの場合
 
 		// 引数のインデックスの位置を設定
-		m_vecParts[nPartsID]->SetVec3Position(rPos);
+		m_vecParts[nPartsIdx]->SetVec3Position(rPos);
 	}
 	else { assert(false); }	// 使用不可
 }
@@ -371,13 +371,13 @@ void CObjectChara::SetPartsPosition(const int nPartsID, const VECTOR3& rPos)
 //============================================================
 //	パーツ向きの設定処理
 //============================================================
-void CObjectChara::SetPartsRotation(const int nPartsID, const VECTOR3& rRot)
+void CObjectChara::SetPartsRotation(const int nPartsIdx, const VECTOR3& rRot)
 {
-	if (nPartsID < GetNumParts())
+	if (nPartsIdx < GetNumParts())
 	{ // 使用可能なインデックスの場合
 
 		// 引数のインデックスの向きを設定
-		m_vecParts[nPartsID]->SetVec3Rotation(rRot);
+		m_vecParts[nPartsIdx]->SetVec3Rotation(rRot);
 	}
 	else { assert(false); }	// 使用不可
 }
@@ -385,13 +385,13 @@ void CObjectChara::SetPartsRotation(const int nPartsID, const VECTOR3& rRot)
 //============================================================
 //	パーツ位置取得処理
 //============================================================
-VECTOR3 CObjectChara::GetPartsPosition(const int nPartsID) const
+VECTOR3 CObjectChara::GetPartsPosition(const int nPartsIdx) const
 {
-	if (nPartsID < GetNumParts())
+	if (nPartsIdx < GetNumParts())
 	{ // 使用可能なインデックスの場合
 
 		// 引数インデックスのパーツの位置を返す
-		return m_vecParts[nPartsID]->GetVec3Position();
+		return m_vecParts[nPartsIdx]->GetVec3Position();
 	}
 
 	// インデックスエラー
@@ -402,13 +402,13 @@ VECTOR3 CObjectChara::GetPartsPosition(const int nPartsID) const
 //============================================================
 //	パーツ向き取得処理
 //============================================================
-VECTOR3 CObjectChara::GetPartsRotation(const int nPartsID) const
+VECTOR3 CObjectChara::GetPartsRotation(const int nPartsIdx) const
 {
-	if (nPartsID < GetNumParts())
+	if (nPartsIdx < GetNumParts())
 	{ // 使用可能なインデックスの場合
 
 		// 引数インデックスのパーツの向きを返す
-		return m_vecParts[nPartsID]->GetVec3Rotation();
+		return m_vecParts[nPartsIdx]->GetVec3Rotation();
 	}
 
 	// インデックスエラー
@@ -419,13 +419,13 @@ VECTOR3 CObjectChara::GetPartsRotation(const int nPartsID) const
 //============================================================
 //	パーツ取得処理
 //============================================================
-CMultiModel* CObjectChara::GetParts(const int nPartsID) const
+CMultiModel* CObjectChara::GetParts(const int nPartsIdx) const
 {
-	if (nPartsID < GetNumParts())
+	if (nPartsIdx < GetNumParts())
 	{ // 使用可能なインデックスの場合
 
 		// パーツの情報を返す
-		return m_vecParts[nPartsID];
+		return m_vecParts[nPartsIdx];
 	}
 	
 	// インデックスエラー
@@ -436,13 +436,13 @@ CMultiModel* CObjectChara::GetParts(const int nPartsID) const
 //============================================================
 //	マテリアルの設定処理
 //============================================================
-void CObjectChara::SetMaterial(const D3DXMATERIAL& rMat, const int nPartsID, const int nMatID)
+void CObjectChara::SetMaterial(const D3DXMATERIAL& rMat, const int nPartsIdx, const int nMatIdx)
 {
-	if (nPartsID < GetNumParts())
+	if (nPartsIdx < GetNumParts())
 	{ // 使用可能なインデックスの場合
 
 		// 引数のマテリアルを設定
-		m_vecParts[nPartsID]->SetMaterial(rMat, nMatID);
+		m_vecParts[nPartsIdx]->SetMaterial(rMat, nMatIdx);
 	}
 	else { assert(false); }	// 使用不可
 }

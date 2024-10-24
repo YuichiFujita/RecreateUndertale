@@ -41,7 +41,7 @@ CObjectMeshCylinder::CObjectMeshCylinder(const CObject::ELabel label, const CObj
 	m_texPart		(GRID2_ZERO),	// テクスチャ分割数
 	m_nNumVtx		(0),			// 必要頂点数
 	m_nNumIdx		(0),			// 必要インデックス数
-	m_nTextureID	(0)				// テクスチャインデックス
+	m_nTextureIdx	(0)				// テクスチャインデックス
 {
 	// メンバ変数をクリア
 	memset(&m_meshCylinder, 0, sizeof(m_meshCylinder));	// メッシュシリンダーの情報
@@ -68,7 +68,7 @@ HRESULT CObjectMeshCylinder::Init()
 	m_texPart		= GRID2_ONE;	// テクスチャ分割数
 	m_nNumVtx		= 0;			// 必要頂点数
 	m_nNumIdx		= 0;			// 必要インデックス数
-	m_nTextureID	= NONE_IDX;		// テクスチャインデックス
+	m_nTextureIdx	= NONE_IDX;		// テクスチャインデックス
 
 	m_meshCylinder.pos		= VEC3_ZERO;		// 位置
 	m_meshCylinder.rot		= VEC3_ZERO;		// 向き
@@ -277,13 +277,13 @@ CRenderState* CObjectMeshCylinder::GetRenderState()
 //============================================================
 //	テクスチャ割当処理 (インデックス)
 //============================================================
-void CObjectMeshCylinder::BindTexture(const int nTextureID)
+void CObjectMeshCylinder::BindTexture(const int nTextureIdx)
 {
-	if (nTextureID >= NONE_IDX)
+	if (nTextureIdx >= NONE_IDX)
 	{ // テクスチャインデックスが使用可能な場合
 
 		// テクスチャインデックスを代入
-		m_nTextureID = nTextureID;
+		m_nTextureIdx = nTextureIdx;
 	}
 	else { assert(false); }	// 範囲外
 }
@@ -298,13 +298,13 @@ void CObjectMeshCylinder::BindTexture(const char* pTexturePath)
 
 		// テクスチャインデックスを設定
 		CTexture* pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
-		m_nTextureID = pTexture->Regist(pTexturePath);
+		m_nTextureIdx = pTexture->Regist(pTexturePath);
 	}
 	else
 	{ // 割り当てるテクスチャパスがない場合
 
 		// テクスチャなしインデックスを設定
-		m_nTextureID = NONE_IDX;
+		m_nTextureIdx = NONE_IDX;
 	}
 }
 
@@ -602,7 +602,7 @@ void CObjectMeshCylinder::DrawNormal()
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// テクスチャの設定
-	pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_nTextureID));
+	pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_nTextureIdx));
 
 	// ポリゴンの描画
 	pDevice->DrawIndexedPrimitive
@@ -637,13 +637,13 @@ void CObjectMeshCylinder::DrawShader(CShader* pShader)
 	pShader->SetOnlyDiffuse(m_meshCylinder.col);
 
 	// テクスチャを設定
-	pShader->SetTexture(m_nTextureID);
+	pShader->SetTexture(m_nTextureIdx);
 
 	// 状態変更の伝達
 	pShader->CommitChanges();
 
 	// テクスチャの設定
-	pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_nTextureID));
+	pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_nTextureIdx));
 
 	// ポリゴンの描画
 	pDevice->DrawIndexedPrimitive

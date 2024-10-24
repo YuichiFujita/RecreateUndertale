@@ -62,7 +62,7 @@ public:
 	);
 	static CValueUI* Create	// 生成 (テクスチャインデックス指定)
 	( // 引数
-		const int nTextureID,		// タイトルテクスチャインデックス
+		const int nTextureIdx,		// タイトルテクスチャインデックス
 		const CValue::EType type,	// 数字種類
 		const int nDigit,			// 桁数
 		const VECTOR3& rPos,		// 位置
@@ -93,7 +93,7 @@ public:
 
 	// メンバ関数
 	void SetSpace(const VECTOR3& rSpace);				// 行間設定
-	void BindTextureTitle(const int nTextureID);		// タイトルテクスチャ割当 (インデックス)
+	void BindTextureTitle(const int nTextureIdx);		// タイトルテクスチャ割当 (インデックス)
 	void BindTextureTitle(const char* pTexturePath);	// タイトルテクスチャ割当 (パス)
 	void SetRotationTitle(const VECTOR3& rRot);			// タイトル向き設定
 	void SetSizeTitle(const VECTOR3& rSize);			// タイトル大きさ設定

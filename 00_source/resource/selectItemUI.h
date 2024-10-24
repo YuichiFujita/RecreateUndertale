@@ -74,7 +74,7 @@ private:
 	struct SItem
 	{
 		CString2D* m_pName;	// アイテム名情報
-		int nItemID;		// アイテムインデックス
+		int nItemIdx;		// アイテムインデックス
 	};
 
 	// メンバ関数
@@ -120,7 +120,7 @@ public:
 	inline HRESULT PushFrontString(const std::wstring& rStr)	{ return m_pTextBox->PushFrontString(rStr); }	// 文字列の先頭追加 (ワイド文字列)
 	inline HRESULT PushBackString(const std::string& rStr)		{ return m_pTextBox->PushBackString(rStr); }	// 文字列の最後尾追加 (マルチバイト文字列)
 	inline HRESULT PushBackString(const std::wstring& rStr)		{ return m_pTextBox->PushBackString(rStr); }	// 文字列の最後尾追加 (ワイド文字列)
-	inline void DeleteString(const int nStrID)			{ m_pTextBox->DeleteString(nStrID); }		// 文字列削除
+	inline void DeleteString(const int nStrIdx)			{ m_pTextBox->DeleteString(nStrIdx); }		// 文字列削除
 	inline void DeleteStringAll()						{ m_pTextBox->DeleteStringAll(); }			// 文字列全削除
 	inline void ChangeTextBox(const AText& rText)		{ m_pTextBox->ChangeText(rText); }			// テキスト変更
 	inline void SetTextBoxEnableDraw(const bool bDraw)	{ m_pTextBox->SetTextEnableDraw(bDraw); };	// 描画状況設定

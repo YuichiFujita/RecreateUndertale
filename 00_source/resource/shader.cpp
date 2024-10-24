@@ -65,7 +65,7 @@ void CShader::Uninit()
 //============================================================
 //	ライト方向ベクトルの設定処理
 //============================================================
-void CShader::SetLightDirect(MATRIX* /*pMtxWorld*/, const int /*nLightID*/)
+void CShader::SetLightDirect(MATRIX* /*pMtxWorld*/, const int /*nLightIdx*/)
 {
 
 }
@@ -81,7 +81,7 @@ void CShader::SetTexture(const CTexture::STexture& /*rTexture*/)
 //============================================================
 //	テクスチャの設定処理 (インデックス)
 //============================================================
-void CShader::SetTexture(const int /*nTextureID*/)
+void CShader::SetTexture(const int /*nTextureIdx*/)
 {
 
 }
