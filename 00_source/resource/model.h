@@ -48,7 +48,7 @@ public:
 	void Uninit();		// モデル終了
 	HRESULT LoadAll();	// モデル全読込
 	int Regist(std::string sFilePath);	// モデル登録
-	SModel* GetInfo(const int nIdx);		// モデル情報取得
+	SModel* GetInfo(const int nIdx);	// モデル情報取得
 
 	// 静的メンバ関数
 	static CModel* Create();				// 生成
