@@ -66,7 +66,7 @@ HRESULT CObjectBillboard::Init()
 	m_pos			= VEC3_ZERO;		// 位置
 	m_rot			= VEC3_ZERO;		// 向き
 	m_size			= VEC3_ZERO;		// 大きさ
-	m_col			= color::White();		// 色
+	m_col			= color::White();	// 色
 	m_origin		= ORIGIN_CENTER;	// 原点
 	m_rotate		= ROTATE_NORMAL;	// 回転
 	m_fAngle		= 0.0f;				// 対角線の角度

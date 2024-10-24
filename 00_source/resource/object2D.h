@@ -43,7 +43,7 @@ public:
 
 	// メンバ関数
 	CRenderState* GetRenderState();				// レンダーステート情報取得
-	void BindTexture(const int nTextureIdx);		// テクスチャ割当 (インデックス)
+	void BindTexture(const int nTextureIdx);	// テクスチャ割当 (インデックス)
 	void BindTexture(const char* pTexturePath);	// テクスチャ割当 (パス)
 	void SetAlpha(const float fAlpha);			// 透明度設定
 	void SetColor(const COLOR& rCol);			// 色設定

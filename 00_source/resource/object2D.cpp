@@ -56,15 +56,15 @@ HRESULT CObject2D::Init()
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// メンバ変数を初期化
-	m_pVtxBuff		= nullptr;		// 頂点バッファへのポインタ
-	m_pRenderState	= nullptr;		// レンダーステートの情報
-	m_pos			= VEC3_ZERO;	// 位置
-	m_rot			= VEC3_ZERO;	// 向き
-	m_size			= VEC3_ZERO;	// 大きさ
+	m_pVtxBuff		= nullptr;			// 頂点バッファへのポインタ
+	m_pRenderState	= nullptr;			// レンダーステートの情報
+	m_pos			= VEC3_ZERO;		// 位置
+	m_rot			= VEC3_ZERO;		// 向き
+	m_size			= VEC3_ZERO;		// 大きさ
 	m_col			= color::White();	// 色
-	m_fAngle		= 0.0f;			// 対角線の角度
-	m_fLength		= 0.0f;			// 対角線の長さ
-	m_nTextureIdx	= NONE_IDX;		// テクスチャインデックス
+	m_fAngle		= 0.0f;				// 対角線の角度
+	m_fLength		= 0.0f;				// 対角線の長さ
+	m_nTextureIdx	= NONE_IDX;			// テクスチャインデックス
 
 	// 頂点バッファの生成
 	if (FAILED(pDevice->CreateVertexBuffer

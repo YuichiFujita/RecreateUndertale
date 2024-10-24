@@ -118,7 +118,7 @@ public:
 	);
 
 	CRenderState* GetRenderState();					// レンダーステート情報取得
-	void BindTexture(const int nTextureIdx);			// テクスチャ割当 (インデックス)
+	void BindTexture(const int nTextureIdx);		// テクスチャ割当 (インデックス)
 	void BindTexture(const char* pTexturePath);		// テクスチャ割当 (パス)
 	void DeleteMatrixParent();						// 親マトリックス削除
 	void SetMatrixParent(MATRIX* pMtxParent);		// 親マトリックス設定

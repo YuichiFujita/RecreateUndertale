@@ -65,7 +65,7 @@ public:
 
 	// メンバ関数
 	CRenderState* GetRenderState();				// レンダーステート情報取得
-	void BindTexture(const int nTextureIdx);		// テクスチャ割当 (インデックス)
+	void BindTexture(const int nTextureIdx);	// テクスチャ割当 (インデックス)
 	void BindTexture(const char* pTexturePath);	// テクスチャ割当 (パス)
 	void SetAlpha(const float fAlpha);			// 透明度設定
 	void SetColor(const COLOR& rCol);			// 色設定
@@ -76,12 +76,12 @@ public:
 	inline POSGRID2 GetPattern() const	{ return m_part; }				// 分割数取得
 	inline int GetNumVertex() const		{ return m_nNumVtx; }			// 頂点数取得
 
-	void SetGapPosition(const int nIdx, const VECTOR3& rPos);		// 座標のずれ設定
-	VECTOR3 GetGapPosition(const int nIdx);							// 座標のずれ取得
-	void NormalizeNormal();											// 法線の正規化
-	bool LandPosition(VECTOR3& rPos, VECTOR3& rMove);				// メッシュ着地
+	void SetGapPosition(const int nIdx, const VECTOR3& rPos);			// 座標のずれ設定
+	VECTOR3 GetGapPosition(const int nIdx);								// 座標のずれ取得
+	void NormalizeNormal();												// 法線の正規化
+	bool LandPosition(VECTOR3& rPos, VECTOR3& rMove);					// メッシュ着地
 	void SetMeshVertexPosition(const int nIdx, const VECTOR3& rPos);	// メッシュの頂点位置設定
-	void SetTerrain(const POSGRID2& rPart, VECTOR3* pPosGap);		// 地形設定
+	void SetTerrain(const POSGRID2& rPart, VECTOR3* pPosGap);			// 地形設定
 	VECTOR3 GetMeshVertexPosition(const int nIdx);		// メッシュの頂点位置取得
 	bool IsPositionRange(const VECTOR3& rPos);			// メッシュの範囲内取得
 	float GetPositionHeight(const VECTOR3& rPos);		// メッシュの着地位置取得 (回転非考慮)

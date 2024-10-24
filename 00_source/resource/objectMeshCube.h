@@ -149,7 +149,7 @@ public:
 
 	// メンバ関数
 	CRenderState* GetRenderState();						// レンダーステート情報取得
-	void BindTexture(const SFaceTex textureIdx);			// テクスチャ割当
+	void BindTexture(const SFaceTex textureIdx);		// テクスチャ割当
 	void SetCubeAlpha(const float fAlpha);				// キューブ透明度設定
 	void SetCubeColor(const COLOR& rCol);				// キューブ色設定
 	void SetBorderAlpha(const float fAlpha);			// 縁取り透明度設定

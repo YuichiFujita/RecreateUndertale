@@ -60,7 +60,7 @@ public:
 	float GetMaxAlpha() const;			// 最大透明度取得
 
 	CRenderState* GetRenderState();						// レンダーステート情報取得
-	void BindModel(const int nModelIdx);					// モデル割当 (インデックス)
+	void BindModel(const int nModelIdx);				// モデル割当 (インデックス)
 	void BindModel(const char* pModelPath);				// モデル割当 (パス)
 	void SetAllMaterial(const D3DXMATERIAL& rMat);		// マテリアル全設定
 	void ResetMaterial();								// マテリアル再設定
@@ -86,10 +86,10 @@ private:
 	CRenderState*	m_pRenderState;	// レンダーステートの情報
 	D3DXMATERIAL*	m_pMat;			// マテリアルへのポインタ
 	CModel::SModel	m_modelData;	// モデル情報
-	MATRIX	m_mtxWorld;	// ワールドマトリックス
-	VECTOR3	m_pos;		// 位置
-	VECTOR3	m_rot;		// 向き
-	VECTOR3	m_scale;	// 拡大率
+	MATRIX	m_mtxWorld;		// ワールドマトリックス
+	VECTOR3	m_pos;			// 位置
+	VECTOR3	m_rot;			// 向き
+	VECTOR3	m_scale;		// 拡大率
 	int		m_nModelIdx;	// モデルインデックス
 };
 

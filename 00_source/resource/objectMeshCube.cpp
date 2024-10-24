@@ -260,7 +260,7 @@ CObjectMeshCube* CObjectMeshCube::Create
 	const EBorder bordState,	// 縁取り状態
 	const float fBordThick,		// 縁取り太さ
 	const ETexState texState,	// テクスチャ状態
-	const SFaceTex& rTexIdx,		// テクスチャ種類
+	const SFaceTex& rTexIdx,	// テクスチャ種類
 	const EOrigin origin,		// 原点
 	const VECTOR2& rTexPartX,	// テクスチャ分割数X
 	const VECTOR2& rTexPartY,	// テクスチャ分割数Y
@@ -703,11 +703,11 @@ void CObjectMeshCube::DrawNormal()
 	case TEXSTATE_SELECT:	// 全選択テクスチャ
 
 		// テクスチャの種類を設定
-		aTexType[0] = m_meshCube.texIdx.Top;		// 上のテクスチャ
+		aTexType[0] = m_meshCube.texIdx.Top;	// 上のテクスチャ
 		aTexType[1] = m_meshCube.texIdx.Right;	// 右のテクスチャ
 		aTexType[2] = m_meshCube.texIdx.Near;	// 前のテクスチャ
 		aTexType[3] = m_meshCube.texIdx.Left;	// 左のテクスチャ
-		aTexType[4] = m_meshCube.texIdx.Far;		// 後のテクスチャ
+		aTexType[4] = m_meshCube.texIdx.Far;	// 後のテクスチャ
 		aTexType[5] = m_meshCube.texIdx.Bottom;	// 下のテクスチャ
 
 		for (int nCntFace = 0; nCntFace < NUM_CUBE_FACE; nCntFace++)
@@ -826,11 +826,11 @@ void CObjectMeshCube::DrawShader(CShader* pShader)
 	case TEXSTATE_SELECT:	// 全選択テクスチャ
 
 		// テクスチャの種類を設定
-		aTexType[0] = m_meshCube.texIdx.Top;		// 上のテクスチャ
+		aTexType[0] = m_meshCube.texIdx.Top;	// 上のテクスチャ
 		aTexType[1] = m_meshCube.texIdx.Right;	// 右のテクスチャ
 		aTexType[2] = m_meshCube.texIdx.Near;	// 前のテクスチャ
 		aTexType[3] = m_meshCube.texIdx.Left;	// 左のテクスチャ
-		aTexType[4] = m_meshCube.texIdx.Far;		// 後のテクスチャ
+		aTexType[4] = m_meshCube.texIdx.Far;	// 後のテクスチャ
 		aTexType[5] = m_meshCube.texIdx.Bottom;	// 下のテクスチャ
 
 		for (int nCntFace = 0; nCntFace < NUM_CUBE_FACE; nCntFace++)

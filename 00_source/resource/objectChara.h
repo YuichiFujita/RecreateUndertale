@@ -69,10 +69,10 @@ public:
 	void SetMtxWorld(const MATRIX& rMtxWorld);	// マトリックス設定
 	void SetNumParts(const int nNumParts);		// パーツ数設定
 	void SetPartsInfo(CCharacter::SPartsInfo& rInfo);						// パーツ情報設定
-	void SetPartsPosition(const int nPartsIdx, const VECTOR3& rPos);			// パーツ位置設定
-	void SetPartsRotation(const int nPartsIdx, const VECTOR3& rRot);			// パーツ向き設定
-	VECTOR3 GetPartsPosition(const int nPartsIdx) const;						// パーツ位置取得
-	VECTOR3 GetPartsRotation(const int nPartsIdx) const;						// パーツ向き取得
+	void SetPartsPosition(const int nPartsIdx, const VECTOR3& rPos);		// パーツ位置設定
+	void SetPartsRotation(const int nPartsIdx, const VECTOR3& rRot);		// パーツ向き設定
+	VECTOR3 GetPartsPosition(const int nPartsIdx) const;					// パーツ位置取得
+	VECTOR3 GetPartsRotation(const int nPartsIdx) const;					// パーツ向き取得
 	CMultiModel* GetParts(const int nPartsIdx) const;						// パーツ取得
 	inline CMotion* GetMotion() const	{ return m_pMotion; }				// モーション取得
 	inline int GetNumParts() const		{ return (int)m_vecParts.size(); }	// パーツ数取得

@@ -63,7 +63,7 @@ public:
 
 	// メンバ関数
 	CRenderState* GetRenderState();				// レンダーステート情報取得
-	void BindTexture(const int nTextureIdx);		// テクスチャ割当 (インデックス)
+	void BindTexture(const int nTextureIdx);	// テクスチャ割当 (インデックス)
 	void BindTexture(const char* pTexturePath);	// テクスチャ割当 (パス)
 	void SetAlpha(const float fAlpha);			// 透明度設定
 	void SetColor(const COLOR& rCol);			// 色設定
@@ -72,7 +72,7 @@ public:
 	inline float GetAlpha() const		{ return m_col.a; }			// 透明度取得
 	inline COLOR GetColor() const		{ return m_col; }			// 色取得
 	inline EOrigin GetOrigin() const	{ return m_origin; }		// 原点取得
-	void SetVertexPosition(const int nIdx, const VECTOR3& rPos);		// 頂点位置設定
+	void SetVertexPosition(const int nIdx, const VECTOR3& rPos);	// 頂点位置設定
 	VECTOR3 GetVertexPosition(const int nIdx);						// 頂点位置取得
 	void SetGapPosition(const int nIdx, const VECTOR3& rPos);		// 座標のずれ設定
 	VECTOR3 GetGapPosition(const int nIdx);							// 座標のずれ取得
