@@ -1219,8 +1219,8 @@ template<class T> void useful::SortNum
 		{ // Å‘å’l‚Ì—v‘f”Ô†‚É•Ï“®‚ª‚ ‚Á‚½ê‡
 
 			// —v‘f‚Ì“ü‚ê‘Ö‚¦
-			keepNum					= pSortNum[nCntKeep];
-			pSortNum[nCntKeep]		= pSortNum[nCurrentMaxIdx];
+			keepNum						= pSortNum[nCntKeep];
+			pSortNum[nCntKeep]			= pSortNum[nCurrentMaxIdx];
 			pSortNum[nCurrentMaxIdx]	= keepNum;
 		}
 	}

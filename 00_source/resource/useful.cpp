@@ -98,7 +98,7 @@ void useful::ReplaceConsecChar
 
 		// 置き換えの先頭まで文字列を削除する
 		std::string sFindStr = *pDestStr;	// 置き換え文字列を代入
-		sFindStr.erase(0, nFindIdx);			// 検出インデックスまで文字列削除
+		sFindStr.erase(0, nFindIdx);		// 検出インデックスまで文字列削除
 
 		int nCntConsec = 0;	// 文字連続カウンター
 		for (char cChar : sFindStr)
