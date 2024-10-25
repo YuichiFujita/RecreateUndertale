@@ -19,6 +19,8 @@
 #include "objectMeshCube.h"
 #include "objectMeshCylinder.h"
 #include "objectMeshDome.h"
+#include "objectMeshRing.h"
+#include "objectMeshTube.h"
 
 //************************************************************
 //	定数宣言
@@ -84,6 +86,14 @@ HRESULT CTitleManager::Init()
 	// ドーム
 	CObjectMeshDome* pDome = CObjectMeshDome::Create(VECTOR3(450.0f, 50.0f, 0.0f), VEC3_ZERO, color::White(), POSGRID2(10), POSGRID2(10), 50.0f);
 	pDome->SetLabel(CObject::LABEL_DEBUG);
+
+	// リング
+	CObjectMeshRing* pRing = CObjectMeshRing::Create(VECTOR3(-450.0f, 50.0f, 0.0f), VEC3_ZERO, color::White(), POSGRID2(10), POSGRID2(10), 50.0f, 50.0f, 50.0f);
+	pRing->SetLabel(CObject::LABEL_DEBUG);
+
+	// チューブ
+	CObjectMeshTube* pTube = CObjectMeshTube::Create(VECTOR3(600.0f, 50.0f, 0.0f), VEC3_ZERO, color::White(), POSGRID2(10), POSGRID2(10),50.0f, 50.0f);
+	pTube->SetLabel(CObject::LABEL_DEBUG);
 
 	// 成功を返す
 	return S_OK;

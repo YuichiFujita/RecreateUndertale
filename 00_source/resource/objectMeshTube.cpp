@@ -452,16 +452,16 @@ void CObjectMeshTube::SetPositionRelative()
 	float fHeightCylinder = m_pCylinder->GetHeight();		// シリンダー縦幅
 
 	// 向きオフセットマトリックスを作成・掛け合わせる
-	D3DXMatrixRotationYawPitchRoll(&mtxOffset, 0.0f, D3DX_PI, 0.0f);
-	D3DXMatrixMultiply(&mtxBottom, &mtxOffset, &mtxCylinder);
+	mtxBottom.Rotation(0.0f, D3DX_PI, 0.0f);
+	mtxBottom.Multiply(mtxCylinder);
 
 	// 下蓋の位置・向きを設定
 	m_apCover[COVER_BOTTOM]->SetVec3Position(posCylinder);
 	m_apCover[COVER_BOTTOM]->SetVec3Rotation(mtxBottom.GetRotation());
 
 	// 位置オフセットマトリックスを作成・掛け合わせる
-	D3DXMatrixTranslation(&mtxOffset, 0.0f, fHeightCylinder, 0.0f);
-	D3DXMatrixMultiply(&mtxTop, &mtxOffset, &mtxCylinder);
+	mtxTop.Translation(0.0f, fHeightCylinder, 0.0f);
+	mtxTop.Multiply(mtxCylinder);
 
 	// 上蓋の位置・向きを設定
 	m_apCover[COVER_TOP]->SetVec3Position(mtxTop.GetPosition());
@@ -478,15 +478,15 @@ MATRIX CObjectMeshTube::CalcCylinderMtxWorld() const
 	VECTOR3 rotCylinder = m_pCylinder->GetVec3Rotation();	// シリンダー向き
 
 	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&mtxWorld);
+	mtxWorld.Identity();
 
 	// 向きを反映
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, rotCylinder.y, rotCylinder.x, rotCylinder.z);
-	D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxRot);
+	mtxRot.Rotation(rotCylinder);
+	mtxWorld.Multiply(mtxRot);
 
 	// 位置を反映
-	D3DXMatrixTranslation(&mtxTrans, posCylinder.x, posCylinder.y, posCylinder.z);
-	D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxTrans);
+	mtxTrans.Translation(posCylinder);
+	mtxWorld.Multiply(mtxTrans);
 
 	// ワールドマトリックスを返す
 	return mtxWorld;
