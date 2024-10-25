@@ -26,7 +26,7 @@ class CInputMouse;		// マウスクラス
 class CInputPad;		// パッドクラス
 class CSound;			// サウンドクラス
 class CCamera;			// カメラクラス
-class CLight;			// ライトクラス
+class CLightManager;	// ライトマネージャークラス
 class CTexture;			// テクスチャクラス
 class CModel;			// モデルクラス
 class CFont;			// フォントクラス
@@ -96,7 +96,7 @@ public:
 	CInputPad*		GetPad();			// パッド取得
 	CSound*			GetSound();			// サウンド取得
 	CCamera*		GetCamera();		// カメラ取得
-	CLight*			GetLight();			// ライト取得
+	CLightManager*	GetLight();			// ライトマネージャー取得
 	CTexture*		GetTexture();		// テクスチャ取得
 	CModel*			GetModel();			// モデル取得
 	CFont*			GetFont();			// フォント取得
@@ -124,7 +124,7 @@ private:
 	CInputPad*		m_pPad;			// パッドインスタンス
 	CSound*			m_pSound;		// サウンドインスタンス
 	CCamera*		m_pCamera;		// カメラインスタンス
-	CLight*			m_pLight;		// ライトインスタンス
+	CLightManager*	m_pLight;		// ライトマネージャーインスタンス
 	CTexture*		m_pTexture;		// テクスチャインスタンス
 	CModel*			m_pModel;		// モデルインスタンス
 	CFont*			m_pFont;		// フォントインスタンス

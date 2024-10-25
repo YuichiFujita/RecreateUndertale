@@ -10,7 +10,7 @@
 #include "scene.h"
 #include "manager.h"
 #include "renderer.h"
-#include "light.h"
+#include "lightManager.h"
 #include "camera.h"
 #include "sceneIntro.h"
 #include "sceneStart.h"
@@ -58,10 +58,10 @@ void CScene::Uninit()
 //============================================================
 void CScene::Update(const float fDeltaTime)
 {
-	CManager*	pManager	= GET_MANAGER;				// マネージャー
-	CLight*		pLight		= pManager->GetLight();		// ライト
-	CCamera*	pCamera		= pManager->GetCamera();	// カメラ
-	CRenderer*	pRenderer	= pManager->GetRenderer();	// レンダラー
+	CManager*		pManager	= GET_MANAGER;				// マネージャー
+	CLightManager*	pLight		= pManager->GetLight();		// ライト
+	CCamera*		pCamera		= pManager->GetCamera();	// カメラ
+	CRenderer*		pRenderer	= pManager->GetRenderer();	// レンダラー
 
 	// ライトの更新
 	assert(pLight != nullptr);

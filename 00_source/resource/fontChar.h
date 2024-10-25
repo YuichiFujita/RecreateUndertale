@@ -48,7 +48,7 @@ public:
 	// メンバ関数
 	HRESULT Init();	// フォント文字初期化
 	void Uninit();	// フォント文字終了
-	SChar Regist(const wchar_t wcChar);	// フォント文字登録
+	SChar Regist(const wchar_t wcChar);		// フォント文字登録
 	inline const HFONT GetFont()			{ return m_hFont; }		// フォントへのポインタ
 	inline const std::string GetFilePath()	{ return m_sFilePath; }	// フォントパス
 	inline const bool GetItalic()			{ return m_bItalic; }	// イタリック

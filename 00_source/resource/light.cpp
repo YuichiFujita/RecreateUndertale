@@ -16,28 +16,13 @@
 //************************************************************
 namespace
 {
-	const COLOR DIFFUSE[] =	// 設定用拡散光カラー
-	{
-		COLOR(1.0f, 1.0f, 1.0f, 1.0f),
-		COLOR(0.7f, 0.7f, 0.7f, 1.0f),
-		COLOR(0.6f, 0.6f, 0.6f, 1.0f),
-		COLOR(0.4f, 0.4f, 0.4f, 1.0f),
-	};
-
-	const VECTOR3 DIRECTION[] =	// 設定用方向ベクトル
-	{
-		VECTOR3( 0.22f, -0.97f,  0.54f),
-		VECTOR3(-0.38f,  0.78f, -0.54f),
-		VECTOR3( 0.89f, -0.21f,  0.44f),
-		VECTOR3(-0.96f,  0.15f, -0.44f),
-	};
+	const int PRIORITY = 7;	// 優先順位
 }
 
 //************************************************************
-//	スタティックアサート
+//	静的メンバ変数宣言
 //************************************************************
-static_assert(NUM_ARRAY(DIFFUSE)   == light::MAX_NUM, "ERROR : Light Count Mismatch");
-static_assert(NUM_ARRAY(DIRECTION) == light::MAX_NUM, "ERROR : Light Count Mismatch");
+int CLight::m_nNumLight = 0;	// ライトの総数
 
 //************************************************************
 //	親クラス [CLight] のメンバ関数
@@ -45,10 +30,14 @@ static_assert(NUM_ARRAY(DIRECTION) == light::MAX_NUM, "ERROR : Light Count Misma
 //============================================================
 //	コンストラクタ
 //============================================================
-CLight::CLight()
+CLight::CLight() : CObject(CObject::LABEL_NONE, CObject::DIM_3D, PRIORITY),
+	m_nLightIdx	(m_nNumLight)	// 自身のライトインデックス
 {
-	// メンバ変数をクリア
-	memset(&m_aLight[0], 0, sizeof(m_aLight));	// ライトの情報
+	// 構造体の要素をクリア
+	ZeroMemory(&m_light, sizeof(D3DLIGHT9));
+
+	// ライトの総数を加算
+	m_nNumLight++;
 }
 
 //============================================================
@@ -56,7 +45,8 @@ CLight::CLight()
 //============================================================
 CLight::~CLight()
 {
-
+	// ライトの総数を減算
+	m_nNumLight--;
 }
 
 //============================================================
@@ -64,32 +54,11 @@ CLight::~CLight()
 //============================================================
 HRESULT CLight::Init()
 {
-	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
-	for (int nCntLight = 0; nCntLight < light::MAX_NUM; nCntLight++)
-	{ // 使用するライト数分繰り返す
+	// 構造体の要素をクリア
+	ZeroMemory(&m_light, sizeof(D3DLIGHT9));
 
-		COLOR	diffuse		= DIFFUSE[nCntLight];	// 設定用拡散光カラー
-		VECTOR3	direction	= DIRECTION[nCntLight];	// 設定用方向ベクトル
-
-		// 構造体の要素をクリア
-		ZeroMemory(&m_aLight[nCntLight], sizeof(D3DLIGHT9));
-
-		// ライトの種類を設定
-		m_aLight[nCntLight].Type = D3DLIGHT_DIRECTIONAL;
-
-		// ライトの拡散光を設定
-		m_aLight[nCntLight].Diffuse = diffuse;
-
-		// ライトの方向を設定
-		D3DXVec3Normalize(&direction, &direction);	// ベクトルを正規化
-		m_aLight[nCntLight].Direction = direction;
-
-		// ライトを設定する
-		pDevice->SetLight(nCntLight, &m_aLight[nCntLight]);
-
-		// ライトを有効にする
-		pDevice->LightEnable(nCntLight, TRUE);
-	}
+	// ライトを有効にする
+	SetEnableLight(true);
 
 	// 成功を返す
 	return S_OK;
@@ -100,7 +69,8 @@ HRESULT CLight::Init()
 //============================================================
 void CLight::Uninit()
 {
-
+	// オブジェクトを破棄
+	Release();
 }
 
 //============================================================
@@ -112,57 +82,59 @@ void CLight::Update(const float fDeltaTime)
 }
 
 //============================================================
-//	ライト取得処理
+//	描画処理
 //============================================================
-D3DLIGHT9 CLight::GetLight(const int nIdx)
+void CLight::Draw(CShader* /*pShader*/)
 {
-	if (nIdx > NONE_IDX && nIdx < light::MAX_NUM)
-	{ // 要素数の範囲内の場合
 
-		// ライトの情報を返す
-		return m_aLight[nIdx];
-	}
-	else { assert(false); return m_aLight[0]; }	// 範囲外
 }
 
 //============================================================
-//	生成処理
+//	種類の設定処理
 //============================================================
-CLight* CLight::Create()
+void CLight::SetType(const D3DLIGHTTYPE type)
 {
-	// ライトの生成
-	CLight* pLight = new CLight;
-	if (pLight == nullptr)
-	{ // 生成に失敗した場合
+	// 種類の設定
+	m_light.Type = type;
 
-		return nullptr;
-	}
-	else
-	{ // 生成に成功した場合
-
-		// ライトの初期化
-		if (FAILED(pLight->Init()))
-		{ // 初期化に失敗した場合
-
-			// ライトの破棄
-			SAFE_DELETE(pLight);
-			return nullptr;
-		}
-
-		// 確保したアドレスを返す
-		return pLight;
-	}
+	// ライトに設定を反映
+	GET_DEVICE->SetLight(m_nLightIdx, &m_light);
 }
 
 //============================================================
-//	破棄処理
+//	拡散光の設定処理
 //============================================================
-void CLight::Release(CLight*& prLight)
+void CLight::SetDiffuse(const COLOR& rCol)
 {
-	// ライトの終了
-	assert(prLight != nullptr);
-	prLight->Uninit();
+	// 拡散光の設定
+	m_light.Diffuse = rCol;
 
-	// メモリ開放
-	SAFE_DELETE(prLight);
+	// ライトに設定を反映
+	GET_DEVICE->SetLight(m_nLightIdx, &m_light);
+}
+
+//============================================================
+//	方向の設定処理
+//============================================================
+void CLight::SetDirection(const VECTOR3& rDir)
+{
+	VECTOR3 dir = rDir;	// 方向
+
+	// 方向を正規化
+	dir.Normal();
+
+	// 方向の設定
+	m_light.Direction = dir;
+
+	// ライトに設定を反映
+	GET_DEVICE->SetLight(m_nLightIdx, &m_light);
+}
+
+//============================================================
+//	有効の設定処理
+//============================================================
+void CLight::SetEnableLight(const bool bLight)
+{
+	// ライトフラグを設定
+	GET_DEVICE->LightEnable(m_nLightIdx, bLight);
 }

@@ -192,6 +192,8 @@
     <ClCompile Include="resource\itemNone.cpp" />
     <ClCompile Include="resource\itemUseUI.cpp" />
     <ClCompile Include="resource\light.cpp" />
+    <ClCompile Include="resource\lightDir.cpp" />
+    <ClCompile Include="resource\lightManager.cpp" />
     <ClCompile Include="resource\listManager.cpp" />
     <ClCompile Include="resource\loading.cpp" />
     <ClCompile Include="resource\loadtext.cpp" />
@@ -316,6 +318,8 @@
     <ClInclude Include="resource\itemNone.h" />
     <ClInclude Include="resource\itemUseUI.h" />
     <ClInclude Include="resource\light.h" />
+    <ClInclude Include="resource\lightDir.h" />
+    <ClInclude Include="resource\lightManager.h" />
     <ClInclude Include="resource\listManager.h" />
     <ClInclude Include="resource\loading.h" />
     <ClInclude Include="resource\loadtext.h" />

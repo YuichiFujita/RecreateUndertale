@@ -13,7 +13,7 @@
 #include "renderer.h"
 #include "sound.h"
 #include "camera.h"
-#include "light.h"
+#include "lightManager.h"
 #include "loading.h"
 #include "texture.h"
 #include "model.h"
@@ -175,8 +175,8 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 		return E_FAIL;
 	}
 
-	// ライトの生成
-	m_pLight = CLight::Create();
+	// ライトマネージャーの生成
+	m_pLight = CLightManager::Create();
 	if (m_pLight == nullptr)
 	{ // 生成に失敗した場合
 
@@ -956,7 +956,7 @@ CCamera* CManager::GetCamera()
 //============================================================
 //	ライト取得処理
 //============================================================
-CLight* CManager::GetLight()
+CLightManager* CManager::GetLight()
 {
 	// インスタンス未使用
 	assert(m_pLight != nullptr);

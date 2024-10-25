@@ -10,7 +10,7 @@
 #include "shaderToon.h"
 #include "manager.h"
 #include "renderer.h"
-#include "light.h"
+#include "lightManager.h"
 #include "texture.h"
 
 //************************************************************
