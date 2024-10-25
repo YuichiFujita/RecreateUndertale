@@ -81,6 +81,7 @@ public:
 	{
 		LABEL_NONE = 0,		// なし
 		LABEL_UI,			// UI
+		LABEL_LIGHT,		// ライト
 		LABEL_TIMER,		// タイマー
 		LABEL_EFFECT,		// エフェクト
 		LABEL_PARTICLE,		// パーティクル

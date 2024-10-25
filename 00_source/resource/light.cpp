@@ -30,7 +30,7 @@ int CLight::m_nNumLight = 0;	// ライトの総数
 //============================================================
 //	コンストラクタ
 //============================================================
-CLight::CLight() : CObject(CObject::LABEL_NONE, CObject::DIM_3D, PRIORITY),
+CLight::CLight() : CObject(CObject::LABEL_LIGHT, CObject::DIM_3D, PRIORITY),
 	m_nLightIdx	(m_nNumLight)	// 自身のライトインデックス
 {
 	// 構造体の要素をクリア

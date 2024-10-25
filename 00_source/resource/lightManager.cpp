@@ -75,6 +75,9 @@ HRESULT CLightManager::Init()
 			return E_FAIL;
 		}
 
+		// ƒ‰ƒCƒg‚Ìƒ‰ƒxƒ‹‚ð•ÏX
+		m_apLight[i]->SetLabel(CObject::LABEL_NONE);	// Ž©“®”jŠü/Ž©“®XV‚ð’âŽ~
+
 		// ƒ‰ƒCƒg‚ÌŠgŽUŒõ‚ðÝ’è
 		m_apLight[i]->SetDiffuse(DIFFUSE[i]);
 
