@@ -21,12 +21,10 @@
 //============================================================
 CObjectChara::CObjectChara(const CObject::ELabel label, const CObject::EDim dimension, const int nPriority) : CObject(label, dimension, nPriority),
 	m_pMotion	(nullptr),		// モーションの情報
+	m_mtxWorld	(MTX_IDENT),	// ワールドマトリックス
 	m_pos		(VEC3_ZERO),	// 位置
 	m_rot		(VEC3_ZERO)		// 向き
 {
-	// メンバ変数をクリア
-	D3DXMatrixIdentity(&m_mtxWorld);	// ワールドマトリックス
-
 	// パーツ情報配列をクリア
 	m_vecParts.clear();
 }
@@ -45,8 +43,8 @@ CObjectChara::~CObjectChara()
 HRESULT CObjectChara::Init()
 {
 	// メンバ変数を初期化
-	D3DXMatrixIdentity(&m_mtxWorld);	// ワールドマトリックス
 	m_pMotion	= nullptr;		// モーションの情報
+	m_mtxWorld	= MTX_IDENT;	// ワールドマトリックス
 	m_pos		= VEC3_ZERO;	// 位置
 	m_rot		= VEC3_ZERO;	// 向き
 

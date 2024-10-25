@@ -34,17 +34,24 @@ static_assert(NUM_ARRAY(CALC_TEXDIR) == CObjectMeshRing::TEXDIR_MAX, "ERROR : Ar
 //	コンストラクタ
 //============================================================
 CObjectMeshRing::CObjectMeshRing(const CObject::ELabel label, const CObject::EDim dimension, const int nPriority) : CObject(label, dimension, nPriority),
-	m_pVtxBuff		(nullptr),		// 頂点バッファ
-	m_pIdxBuff		(nullptr),		// インデックスバッファ
-	m_pRenderState	(nullptr),		// レンダーステートの情報
-	m_part			(GRID2_ZERO),	// 分割数
-	m_texPart		(GRID2_ZERO),	// テクスチャ分割数
-	m_nNumVtx		(0),			// 必要頂点数
-	m_nNumIdx		(0),			// 必要インデックス数
-	m_nTextureIdx	(0)				// テクスチャインデックス
+	m_pVtxBuff		(nullptr),			// 頂点バッファ
+	m_pIdxBuff		(nullptr),			// インデックスバッファ
+	m_pRenderState	(nullptr),			// レンダーステートの情報
+	m_mtxWorld		(MTX_IDENT),		// ワールドマトリックス
+	m_pos			(VEC3_ZERO),		// 位置
+	m_rot			(VEC3_ZERO),		// 向き
+	m_col			(color::White()),	// 色
+	m_part			(GRID2_ZERO),		// 分割数
+	m_texPart		(GRID2_ZERO),		// テクスチャ分割数
+	m_texDir		(TEXDIR_OUTSIDE),	// テクスチャ方向
+	m_fHoleRadius	(0.0f),				// 穴の半径
+	m_fThickness	(0.0f),				// 太さ
+	m_fOuterPlusY	(0.0f),				// 外周のY座標加算量
+	m_nNumVtx		(0),				// 必要頂点数
+	m_nNumIdx		(0),				// 必要インデックス数
+	m_nTextureIdx	(0)					// テクスチャインデックス
 {
-	// メンバ変数をクリア
-	memset(&m_meshRing, 0, sizeof(m_meshRing));	// メッシュリングの情報
+
 }
 
 //============================================================
@@ -61,22 +68,22 @@ CObjectMeshRing::~CObjectMeshRing()
 HRESULT CObjectMeshRing::Init()
 {
 	// メンバ変数を初期化
-	m_pVtxBuff		= nullptr;		// 頂点バッファ
-	m_pIdxBuff		= nullptr;		// インデックスバッファ
-	m_pRenderState	= nullptr;		// レンダーステートの情報
-	m_part			= MIN_PART;		// 分割数
-	m_texPart		= GRID2_ONE;	// テクスチャ分割数
-	m_nNumVtx		= 0;			// 必要頂点数
-	m_nNumIdx		= 0;			// 必要インデックス数
-	m_nTextureIdx	= NONE_IDX;		// テクスチャインデックス
-
-	m_meshRing.pos			= VEC3_ZERO;		// 位置
-	m_meshRing.rot			= VEC3_ZERO;		// 向き
-	m_meshRing.col			= color::White();	// 色
-	m_meshRing.texDir		= TEXDIR_OUTSIDE;	// テクスチャ方向
-	m_meshRing.fHoleRadius	= 0.0f;				// 穴の半径
-	m_meshRing.fThickness	= 0.0f;				// 太さ
-	m_meshRing.fOuterPlusY	= 0.0f;				// 外周のY座標加算量
+	m_pVtxBuff		= nullptr;			// 頂点バッファ
+	m_pIdxBuff		= nullptr;			// インデックスバッファ
+	m_pRenderState	= nullptr;			// レンダーステートの情報
+	m_mtxWorld		= MTX_IDENT;		// ワールドマトリックス
+	m_pos			= VEC3_ZERO;		// 位置
+	m_rot			= VEC3_ZERO;		// 向き
+	m_col			= color::White();	// 色
+	m_part			= MIN_PART;			// 分割数
+	m_texPart		= GRID2_ONE;		// テクスチャ分割数
+	m_texDir		= TEXDIR_OUTSIDE;	// テクスチャ方向
+	m_fHoleRadius	= 0.0f;				// 穴の半径
+	m_fThickness	= 0.0f;				// 太さ
+	m_fOuterPlusY	= 0.0f;				// 外周のY座標加算量
+	m_nNumVtx		= 0;				// 必要頂点数
+	m_nNumIdx		= 0;				// 必要インデックス数
+	m_nTextureIdx	= NONE_IDX;			// テクスチャインデックス
 
 	// 分割数を設定
 	if (FAILED(SetPattern(MIN_PART)))
@@ -138,18 +145,18 @@ void CObjectMeshRing::Draw(CShader* pShader)
 	m_pRenderState->Set();
 
 	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&m_meshRing.mtxWorld);
+	D3DXMatrixIdentity(&m_mtxWorld);
 
 	// 向きを反映
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_meshRing.rot.y, m_meshRing.rot.x, m_meshRing.rot.z);
-	D3DXMatrixMultiply(&m_meshRing.mtxWorld, &m_meshRing.mtxWorld, &mtxRot);
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
+	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
 
 	// 位置を反映
-	D3DXMatrixTranslation(&mtxTrans, m_meshRing.pos.x, m_meshRing.pos.y, m_meshRing.pos.z);
-	D3DXMatrixMultiply(&m_meshRing.mtxWorld, &m_meshRing.mtxWorld, &mtxTrans);
+	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
+	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
 
 	// ワールドマトリックスの設定
-	pDevice->SetTransform(D3DTS_WORLD, &m_meshRing.mtxWorld);
+	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
 
 	// 頂点バッファをデータストリームに設定
 	pDevice->SetStreamSource(0, m_pVtxBuff, 0, sizeof(VERTEX_3D));
@@ -183,7 +190,7 @@ void CObjectMeshRing::Draw(CShader* pShader)
 void CObjectMeshRing::SetVec3Position(const VECTOR3& rPos)
 {
 	// 引数の位置を設定
-	m_meshRing.pos = rPos;
+	m_pos = rPos;
 }
 
 //============================================================
@@ -192,10 +199,10 @@ void CObjectMeshRing::SetVec3Position(const VECTOR3& rPos)
 void CObjectMeshRing::SetVec3Rotation(const VECTOR3& rRot)
 {
 	// 引数の向きを設定
-	m_meshRing.rot = rRot;
+	m_rot = rRot;
 
 	// 向きの正規化
-	useful::NormalizeRot(m_meshRing.rot);
+	useful::NormalizeRot(m_rot);
 }
 
 //============================================================
@@ -319,10 +326,10 @@ void CObjectMeshRing::BindTexture(const char* pTexturePath)
 void CObjectMeshRing::SetAlpha(const float fAlpha)
 {
 	// 引数の透明度を設定
-	m_meshRing.col.a = fAlpha;
+	m_col.a = fAlpha;
 
 	// 色の設定
-	SetColor(m_meshRing.col);
+	SetColor(m_col);
 }
 
 //============================================================
@@ -331,7 +338,7 @@ void CObjectMeshRing::SetAlpha(const float fAlpha)
 void CObjectMeshRing::SetColor(const COLOR& rCol)
 {
 	// 引数の色を設定
-	m_meshRing.col = rCol;
+	m_col = rCol;
 
 	// 頂点情報の設定
 	SetVtx();
@@ -343,7 +350,7 @@ void CObjectMeshRing::SetColor(const COLOR& rCol)
 void CObjectMeshRing::SetTexDir(const ETexDir texDir)
 {
 	// テクスチャ方向を設定
-	m_meshRing.texDir = texDir;
+	m_texDir = texDir;
 
 	// 頂点情報の設定
 	SetVtx();
@@ -355,7 +362,7 @@ void CObjectMeshRing::SetTexDir(const ETexDir texDir)
 void CObjectMeshRing::SetHoleRadius(const float fHoleRadius)
 {
 	// 引数の穴の半径を設定
-	m_meshRing.fHoleRadius = fHoleRadius;
+	m_fHoleRadius = fHoleRadius;
 
 	// 頂点情報の設定
 	SetVtx();
@@ -367,7 +374,7 @@ void CObjectMeshRing::SetHoleRadius(const float fHoleRadius)
 void CObjectMeshRing::SetThickness(const float fThickness)
 {
 	// 引数の太さを設定
-	m_meshRing.fThickness = fThickness;
+	m_fThickness = fThickness;
 
 	// 頂点情報の設定
 	SetVtx();
@@ -379,7 +386,7 @@ void CObjectMeshRing::SetThickness(const float fThickness)
 void CObjectMeshRing::SetOuterPlusY(const float fOuterPlusY)
 {
 	// 引数の外周のY座標加算量を設定
-	m_meshRing.fOuterPlusY = fOuterPlusY;
+	m_fOuterPlusY = fOuterPlusY;
 
 	// 頂点情報の設定
 	SetVtx();
@@ -496,9 +503,9 @@ void CObjectMeshRing::SetVtx()
 				// 頂点座標の方向を設定
 				vecPos = VECTOR3
 				( // 引数
-					sinf(D3DXToRadian(nCntWidth * (360 / (float)m_part.x))) * ((nCntHeight * (m_meshRing.fThickness / (float)m_part.y)) + m_meshRing.fHoleRadius),	// x
-					nCntHeight * (m_meshRing.fOuterPlusY / (float)m_part.y),																						// y
-					cosf(D3DXToRadian(nCntWidth * (360 / (float)m_part.x))) * ((nCntHeight * (m_meshRing.fThickness / (float)m_part.y)) + m_meshRing.fHoleRadius)	// z
+					sinf(D3DXToRadian(nCntWidth * (360 / (float)m_part.x))) * ((nCntHeight * (m_fThickness / (float)m_part.y)) + m_fHoleRadius),	// x
+					nCntHeight * (m_fOuterPlusY / (float)m_part.y),																					// y
+					cosf(D3DXToRadian(nCntWidth * (360 / (float)m_part.x))) * ((nCntHeight * (m_fThickness / (float)m_part.y)) + m_fHoleRadius)		// z
 				);
 
 				// 頂点座標の設定
@@ -508,13 +515,13 @@ void CObjectMeshRing::SetVtx()
 				pVtx[0].nor = VECTOR3(0.0f, 1.0f, 0.0f);
 
 				// 頂点カラーの設定
-				pVtx[0].col = m_meshRing.col;
+				pVtx[0].col = m_col;
 
 				// テクスチャ座標の設定
 				pVtx[0].tex = VECTOR2
 				( // 引数
-					fRateWidth  * (nCntWidth  - m_part.x) * CALC_TEXDIR[m_meshRing.texDir],	// u
-					fRateHeight * (nCntHeight - m_part.y) * -1.0f							// v
+					fRateWidth  * (nCntWidth  - m_part.x) * CALC_TEXDIR[m_texDir],	// u
+					fRateHeight * (nCntHeight - m_part.y) * -1.0f					// v
 				);
 
 				// 頂点データのポインタを 1つ分進める
@@ -591,8 +598,8 @@ void CObjectMeshRing::SetScrollTex(const float fTexU, const float fTexV)
 				// テクスチャ座標の設定
 				pVtx[0].tex = VECTOR2
 				( // 引数
-					fTexU + fRateWidth  * (nCntWidth  - m_part.x) * CALC_TEXDIR[m_meshRing.texDir],	// u
-					fTexV + fRateHeight * (nCntHeight - m_part.y) * -1.0f							// v
+					fTexU + fRateWidth  * (nCntWidth  - m_part.x) * CALC_TEXDIR[m_texDir],	// u
+					fTexV + fRateHeight * (nCntHeight - m_part.y) * -1.0f					// v
 				);
 
 				// 頂点データのポインタを 1つ分進める
@@ -639,13 +646,13 @@ void CObjectMeshRing::DrawShader(CShader* pShader)
 	pShader->BeginPass(0);
 
 	// マトリックス情報を設定
-	pShader->SetMatrix(&m_meshRing.mtxWorld);
+	pShader->SetMatrix(&m_mtxWorld);
 
 	// ライト方向を設定
-	pShader->SetLightDirect(&m_meshRing.mtxWorld, 0);
+	pShader->SetLightDirect(&m_mtxWorld, 0);
 
 	// 拡散光を設定
-	pShader->SetOnlyDiffuse(m_meshRing.col);
+	pShader->SetOnlyDiffuse(m_col);
 
 	// テクスチャを設定
 	pShader->SetTexture(m_nTextureIdx);

@@ -49,37 +49,15 @@ public:
 	// デストラクタ
 	~CObjectTornado() override;
 
-	// 竜巻構造体
-	struct STornado
-	{
-		VECTOR3 pos;		// 位置
-		VECTOR3 rot;		// 向き
-		VECTOR3 growRot;	// 成長向き
-		COLOR col;			// 色
-		MATRIX mtxWorld;	// ワールドマトリックス
-		MATRIX* pMtxParent;	// 親のマトリックス
-		float fMoveRot;		// 向きの変更量
-		float fThickness;	// ポリゴンの太さ
-		float fOuterPlusY;	// ポリゴン外周のY座標加算量
-		float fSetWidth;	// 生成時の横ずれ量
-		float fSetAlpha;	// 生成時の透明度
-		float fAddWidth;	// 横ずれの加算量
-		float fAddHeight;	// 縦ずれの加算量
-		float fSubAlpha;	// 透明度の減算量
-		float fGrowWidth;	// 横ずれの成長量
-		float fGrowHeight;	// 縦ずれの成長量
-		float fGrowAlpha;	// 透明度の成長量
-	};
-
 	// オーバーライド関数
 	HRESULT Init() override;	// 初期化
 	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;		// 更新
 	void Draw(CShader* pShader = nullptr) override;		// 描画
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
-	inline VECTOR3 GetVec3Position() const override	{ return m_tornado.pos; }		// 位置取得
-	inline MATRIX* GetPtrMtxWorld() override		{ return &m_tornado.mtxWorld; }	// マトリックスポインタ取得
-	inline MATRIX GetMtxWorld() const override		{ return m_tornado.mtxWorld; }	// マトリックス取得
+	inline VECTOR3 GetVec3Position() const override	{ return m_pos; }		// 位置取得
+	inline MATRIX* GetPtrMtxWorld() override		{ return &m_mtxWorld; }	// マトリックスポインタ取得
+	inline MATRIX GetMtxWorld() const override		{ return m_mtxWorld; }	// マトリックス取得
 
 	// 静的メンバ関数
 	static CObjectTornado* Create	// 生成
@@ -132,17 +110,17 @@ public:
 	void SetAddWidth(const float fAddWidth);		// 横ずれの加算量設定
 	void SetAddHeight(const float fAddHeight);		// 縦ずれの加算量設定
 	void SetSubAlpha(const float fSubAlpha);		// 透明度の減算量設定
-	inline int GetTextureIndex() const		{ return m_nTextureIdx; }			// テクスチャインデックス取得
-	inline float GetAlpha() const			{ return m_tornado.col.a; }			// 透明度取得
-	inline COLOR GetColor() const			{ return m_tornado.col; }			// 色取得
-	inline VECTOR3 GetRotationGrow() const	{ return m_tornado.growRot; }		// 成長向き取得
-	inline float GetThickness() const		{ return m_tornado.fThickness; }	// ポリゴンの太さ取得
-	inline float GetOuterPlusY() const		{ return m_tornado.fOuterPlusY; }	// ポリゴン外周のY座標加算量取得
-	inline float GetCreateWidth() const		{ return m_tornado.fSetWidth; }		// 生成時の横ずれ量取得
-	inline float GetCreateAlpha() const		{ return m_tornado.fSetAlpha; }		// 生成時の透明度取得
-	inline float GetAddWidth() const		{ return m_tornado.fAddWidth; }		// 横ずれの加算量取得
-	inline float GetAddHeight() const		{ return m_tornado.fAddHeight; }	// 縦ずれの加算量取得
-	inline float GetSubAlpha() const		{ return m_tornado.fSubAlpha; }		// 透明度の減算量取得
+	inline int GetTextureIndex() const		{ return m_nTextureIdx; }	// テクスチャインデックス取得
+	inline float GetAlpha() const			{ return m_col.a; }			// 透明度取得
+	inline COLOR GetColor() const			{ return m_col; }			// 色取得
+	inline VECTOR3 GetRotationGrow() const	{ return m_growRot; }		// 成長向き取得
+	inline float GetThickness() const		{ return m_fThickness; }	// ポリゴンの太さ取得
+	inline float GetOuterPlusY() const		{ return m_fOuterPlusY; }	// ポリゴン外周のY座標加算量取得
+	inline float GetCreateWidth() const		{ return m_fSetWidth; }		// 生成時の横ずれ量取得
+	inline float GetCreateAlpha() const		{ return m_fSetAlpha; }		// 生成時の透明度取得
+	inline float GetAddWidth() const		{ return m_fAddWidth; }		// 横ずれの加算量取得
+	inline float GetAddHeight() const		{ return m_fAddHeight; }	// 縦ずれの加算量取得
+	inline float GetSubAlpha() const		{ return m_fSubAlpha; }		// 透明度の減算量取得
 
 protected:
 	// メンバ関数
@@ -159,11 +137,27 @@ private:
 	// メンバ変数
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;	// 頂点バッファへのポインタ
 	CRenderState* m_pRenderState;		// レンダーステートの情報
-	STornado m_tornado;	// 竜巻の情報
-	int m_nNumVtx;		// 必要頂点数
-	int m_nNumAround;	// 渦の周回数
-	int m_nPattern;		// 渦の分割数
-	int m_nTextureIdx;	// テクスチャインデックス
+	MATRIX* m_pMtxParent;	// 親のマトリックス
+	MATRIX m_mtxWorld;		// ワールドマトリックス
+	VECTOR3 m_pos;			// 位置
+	VECTOR3 m_rot;			// 向き
+	VECTOR3 m_growRot;		// 成長向き
+	COLOR m_col;			// 色
+	float m_fMoveRot;		// 向きの変更量
+	float m_fThickness;		// ポリゴンの太さ
+	float m_fOuterPlusY;	// ポリゴン外周のY座標加算量
+	float m_fSetWidth;		// 生成時の横ずれ量
+	float m_fSetAlpha;		// 生成時の透明度
+	float m_fAddWidth;		// 横ずれの加算量
+	float m_fAddHeight;		// 縦ずれの加算量
+	float m_fSubAlpha;		// 透明度の減算量
+	float m_fGrowWidth;		// 横ずれの成長量
+	float m_fGrowHeight;	// 縦ずれの成長量
+	float m_fGrowAlpha;		// 透明度の成長量
+	int m_nNumVtx;			// 必要頂点数
+	int m_nNumAround;		// 渦の周回数
+	int m_nPattern;			// 渦の分割数
+	int m_nTextureIdx;		// テクスチャインデックス
 };
 
 #endif	// _OBJECT_TORNADO_H_

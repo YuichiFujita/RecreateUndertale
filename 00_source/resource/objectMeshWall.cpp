@@ -19,16 +19,20 @@
 //	コンストラクタ
 //============================================================
 CObjectMeshWall::CObjectMeshWall(const CObject::ELabel label, const CObject::EDim dimension, const int nPriority) : CObject(label, dimension, nPriority),
-	m_pVtxBuff		(nullptr),		// 頂点バッファ
-	m_pIdxBuff		(nullptr),		// インデックスバッファ
-	m_pRenderState	(nullptr),		// レンダーステートの情報
-	m_part			(GRID2_ZERO),	// 分割数
-	m_nNumVtx		(0),			// 必要頂点数
-	m_nNumIdx		(0),			// 必要インデックス数
-	m_nTextureIdx	(0)				// テクスチャインデックス
+	m_pVtxBuff		(nullptr),			// 頂点バッファ
+	m_pIdxBuff		(nullptr),			// インデックスバッファ
+	m_pRenderState	(nullptr),			// レンダーステートの情報
+	m_mtxWorld		(MTX_IDENT),		// ワールドマトリックス
+	m_pos			(VEC3_ZERO),		// 位置
+	m_rot			(VEC3_ZERO),		// 向き
+	m_size			(VEC2_ZERO),		// 大きさ
+	m_col			(color::White()),	// 色
+	m_part			(GRID2_ZERO),		// 分割数
+	m_nNumVtx		(0),				// 必要頂点数
+	m_nNumIdx		(0),				// 必要インデックス数
+	m_nTextureIdx	(0)					// テクスチャインデックス
 {
-	// メンバ変数をクリア
-	memset(&m_meshWall, 0, sizeof(m_meshWall));	// メッシュウォールの情報
+
 }
 
 //============================================================
@@ -45,18 +49,18 @@ CObjectMeshWall::~CObjectMeshWall()
 HRESULT CObjectMeshWall::Init()
 {
 	// メンバ変数を初期化
-	m_pVtxBuff		= nullptr;		// 頂点バッファ
-	m_pIdxBuff		= nullptr;		// インデックスバッファ
-	m_pRenderState	= nullptr;		// レンダーステートの情報
-	m_part			= GRID2_ZERO;	// 分割数
-	m_nNumVtx		= 0;			// 必要頂点数
-	m_nNumIdx		= 0;			// 必要インデックス数
-	m_nTextureIdx	= NONE_IDX;		// テクスチャインデックス
-
-	m_meshWall.pos	= VEC3_ZERO;		// 位置
-	m_meshWall.rot	= VEC3_ZERO;		// 向き
-	m_meshWall.size	= VEC2_ZERO;		// 大きさ
-	m_meshWall.col	= color::White();	// 色
+	m_pVtxBuff		= nullptr;			// 頂点バッファ
+	m_pIdxBuff		= nullptr;			// インデックスバッファ
+	m_pRenderState	= nullptr;			// レンダーステートの情報
+	m_mtxWorld		= MTX_IDENT;		// ワールドマトリックス
+	m_pos			= VEC3_ZERO;		// 位置
+	m_rot			= VEC3_ZERO;		// 向き
+	m_size			= VEC2_ZERO;		// 大きさ
+	m_col			= color::White();	// 色
+	m_part			= GRID2_ZERO;		// 分割数
+	m_nNumVtx		= 0;				// 必要頂点数
+	m_nNumIdx		= 0;				// 必要インデックス数
+	m_nTextureIdx	= NONE_IDX;			// テクスチャインデックス
 
 	// 分割数を設定
 	if (FAILED(SetPattern(GRID2_ONE)))
@@ -118,18 +122,18 @@ void CObjectMeshWall::Draw(CShader* pShader)
 	m_pRenderState->Set();
 
 	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&m_meshWall.mtxWorld);
+	D3DXMatrixIdentity(&m_mtxWorld);
 
 	// 向きを反映
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_meshWall.rot.y, m_meshWall.rot.x, m_meshWall.rot.z);
-	D3DXMatrixMultiply(&m_meshWall.mtxWorld, &m_meshWall.mtxWorld, &mtxRot);
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
+	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
 
 	// 位置を反映
-	D3DXMatrixTranslation(&mtxTrans, m_meshWall.pos.x, m_meshWall.pos.y, m_meshWall.pos.z);
-	D3DXMatrixMultiply(&m_meshWall.mtxWorld, &m_meshWall.mtxWorld, &mtxTrans);
+	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
+	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
 
 	// ワールドマトリックスの設定
-	pDevice->SetTransform(D3DTS_WORLD, &m_meshWall.mtxWorld);
+	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
 
 	// 頂点バッファをデータストリームに設定
 	pDevice->SetStreamSource(0, m_pVtxBuff, 0, sizeof(VERTEX_3D));
@@ -163,7 +167,7 @@ void CObjectMeshWall::Draw(CShader* pShader)
 void CObjectMeshWall::SetVec3Position(const VECTOR3& rPos)
 {
 	// 引数の位置を設定
-	m_meshWall.pos = rPos;
+	m_pos = rPos;
 }
 
 //============================================================
@@ -172,10 +176,10 @@ void CObjectMeshWall::SetVec3Position(const VECTOR3& rPos)
 void CObjectMeshWall::SetVec3Rotation(const VECTOR3& rRot)
 {
 	// 引数の向きを設定
-	m_meshWall.rot = rRot;
+	m_rot = rRot;
 
 	// 向きの正規化
-	useful::NormalizeRot(m_meshWall.rot);
+	useful::NormalizeRot(m_rot);
 }
 
 //============================================================
@@ -184,7 +188,7 @@ void CObjectMeshWall::SetVec3Rotation(const VECTOR3& rRot)
 void CObjectMeshWall::SetVec2Size(const VECTOR2& rSize)
 {
 	// 引数の大きさを設定
-	m_meshWall.size = rSize;
+	m_size = rSize;
 
 	// 頂点情報の設定
 	SetVtx();
@@ -299,10 +303,10 @@ void CObjectMeshWall::BindTexture(const char* pTexturePath)
 void CObjectMeshWall::SetAlpha(const float fAlpha)
 {
 	// 引数の透明度を設定
-	m_meshWall.col.a = fAlpha;
+	m_col.a = fAlpha;
 
 	// 色の設定
-	SetColor(m_meshWall.col);
+	SetColor(m_col);
 }
 
 //============================================================
@@ -311,7 +315,7 @@ void CObjectMeshWall::SetAlpha(const float fAlpha)
 void CObjectMeshWall::SetColor(const COLOR& rCol)
 {
 	// 引数の色を設定
-	m_meshWall.col = rCol;
+	m_col = rCol;
 
 	// 頂点情報の設定
 	SetVtx();
@@ -402,16 +406,16 @@ void CObjectMeshWall::SetVtx()
 				// 頂点座標の設定
 				pVtx[0].pos = VECTOR3
 				( // 引数
-					nCntWidth * (m_meshWall.size.x / (float)m_part.x) - (m_meshWall.size.x * 0.5f),	// x
-					-(nCntHeight * (m_meshWall.size.y / (float)m_part.y)) + m_meshWall.size.y,		// y
-					0.0f																			// z
+					nCntWidth * (m_size.x / (float)m_part.x) - (m_size.x * 0.5f),	// x
+					-(nCntHeight * (m_size.y / (float)m_part.y)) + m_size.y,		// y
+					0.0f															// z
 				);
 
 				// 法線ベクトルの設定
 				pVtx[0].nor = VECTOR3(0.0f, 0.0f, -1.0f);
 
 				// 頂点カラーの設定
-				pVtx[0].col = m_meshWall.col;
+				pVtx[0].col = m_col;
 
 				// テクスチャ座標の設定
 				pVtx[0].tex = VECTOR2(1.0f * nCntWidth, 1.0f * nCntHeight);
@@ -532,13 +536,13 @@ void CObjectMeshWall::DrawShader(CShader* pShader)
 	pShader->BeginPass(0);
 
 	// マトリックス情報を設定
-	pShader->SetMatrix(&m_meshWall.mtxWorld);
+	pShader->SetMatrix(&m_mtxWorld);
 
 	// ライト方向を設定
-	pShader->SetLightDirect(&m_meshWall.mtxWorld, 0);
+	pShader->SetLightDirect(&m_mtxWorld, 0);
 
 	// 拡散光を設定
-	pShader->SetOnlyDiffuse(m_meshWall.col);
+	pShader->SetOnlyDiffuse(m_col);
 
 	// テクスチャを設定
 	pShader->SetTexture(m_nTextureIdx);

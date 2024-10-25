@@ -34,17 +34,22 @@ static_assert(NUM_ARRAY(CALC_TEXDIR) == CObjectMeshDome::TEXDIR_MAX, "ERROR : Ar
 //	コンストラクタ
 //============================================================
 CObjectMeshDome::CObjectMeshDome(const CObject::ELabel label, const CObject::EDim dimension, const int nPriority) : CObject(label, dimension, nPriority),
-	m_pVtxBuff		(nullptr),		// 頂点バッファ
-	m_pIdxBuff		(nullptr),		// インデックスバッファ
-	m_pRenderState	(nullptr),		// レンダーステートの情報
-	m_part			(GRID2_ZERO),	// 分割数
-	m_texPart		(GRID2_ZERO),	// テクスチャ分割数
-	m_nNumVtx		(0),			// 必要頂点数
-	m_nNumIdx		(0),			// 必要インデックス数
-	m_nTextureIdx	(0)				// テクスチャインデックス
+	m_pVtxBuff		(nullptr),			// 頂点バッファ
+	m_pIdxBuff		(nullptr),			// インデックスバッファ
+	m_pRenderState	(nullptr),			// レンダーステートの情報
+	m_mtxWorld		(MTX_IDENT),		// ワールドマトリックス
+	m_pos			(VEC3_ZERO),		// 位置
+	m_rot			(VEC3_ZERO),		// 向き
+	m_col			(color::White()),	// 色
+	m_part			(GRID2_ZERO),		// 分割数
+	m_texPart		(GRID2_ZERO),		// テクスチャ分割数
+	m_texDir		(TEXDIR_OUTSIDE),	// テクスチャ方向
+	m_fRadius		(0.0f),				// 半径
+	m_nNumVtx		(0),				// 必要頂点数
+	m_nNumIdx		(0),				// 必要インデックス数
+	m_nTextureIdx	(0)					// テクスチャインデックス
 {
-	// メンバ変数をクリア
-	memset(&m_meshDome, 0, sizeof(m_meshDome));	// メッシュドームの情報
+
 }
 
 //============================================================
@@ -61,20 +66,20 @@ CObjectMeshDome::~CObjectMeshDome()
 HRESULT CObjectMeshDome::Init()
 {
 	// メンバ変数を初期化
-	m_pVtxBuff		= nullptr;		// 頂点バッファ
-	m_pIdxBuff		= nullptr;		// インデックスバッファ
-	m_pRenderState	= nullptr;		// レンダーステートの情報
-	m_part			= MIN_PART;		// 分割数
-	m_texPart		= GRID2_ONE;	// テクスチャ分割数
-	m_nNumVtx		= 0;			// 必要頂点数
-	m_nNumIdx		= 0;			// 必要インデックス数
-	m_nTextureIdx	= NONE_IDX;		// テクスチャインデックス
-
-	m_meshDome.pos		= VEC3_ZERO;		// 位置
-	m_meshDome.rot		= VEC3_ZERO;		// 向き
-	m_meshDome.col		= color::White();	// 色
-	m_meshDome.texDir	= TEXDIR_OUTSIDE;	// テクスチャ方向
-	m_meshDome.fRadius	= 0.0f;				// 半径
+	m_pVtxBuff		= nullptr;			// 頂点バッファ
+	m_pIdxBuff		= nullptr;			// インデックスバッファ
+	m_pRenderState	= nullptr;			// レンダーステートの情報
+	m_mtxWorld		= MTX_IDENT;		// ワールドマトリックス
+	m_pos			= VEC3_ZERO;		// 位置
+	m_rot			= VEC3_ZERO;		// 向き
+	m_col			= color::White();	// 色
+	m_part			= MIN_PART;			// 分割数
+	m_texPart		= GRID2_ONE;		// テクスチャ分割数
+	m_texDir		= TEXDIR_OUTSIDE;	// テクスチャ方向
+	m_fRadius		= 0.0f;				// 半径
+	m_nNumVtx		= 0;				// 必要頂点数
+	m_nNumIdx		= 0;				// 必要インデックス数
+	m_nTextureIdx	= NONE_IDX;			// テクスチャインデックス
 
 	// 分割数を設定
 	if (FAILED(SetPattern(MIN_PART)))
@@ -136,18 +141,18 @@ void CObjectMeshDome::Draw(CShader* pShader)
 	m_pRenderState->Set();
 
 	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&m_meshDome.mtxWorld);
+	D3DXMatrixIdentity(&m_mtxWorld);
 
 	// 向きを反映
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_meshDome.rot.y, m_meshDome.rot.x, m_meshDome.rot.z);
-	D3DXMatrixMultiply(&m_meshDome.mtxWorld, &m_meshDome.mtxWorld, &mtxRot);
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
+	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
 
 	// 位置を反映
-	D3DXMatrixTranslation(&mtxTrans, m_meshDome.pos.x, m_meshDome.pos.y, m_meshDome.pos.z);
-	D3DXMatrixMultiply(&m_meshDome.mtxWorld, &m_meshDome.mtxWorld, &mtxTrans);
+	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
+	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
 
 	// ワールドマトリックスの設定
-	pDevice->SetTransform(D3DTS_WORLD, &m_meshDome.mtxWorld);
+	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
 
 	// 頂点バッファをデータストリームに設定
 	pDevice->SetStreamSource(0, m_pVtxBuff, 0, sizeof(VERTEX_3D));
@@ -181,7 +186,7 @@ void CObjectMeshDome::Draw(CShader* pShader)
 void CObjectMeshDome::SetVec3Position(const VECTOR3& rPos)
 {
 	// 引数の位置を設定
-	m_meshDome.pos = rPos;
+	m_pos = rPos;
 }
 
 //============================================================
@@ -190,10 +195,10 @@ void CObjectMeshDome::SetVec3Position(const VECTOR3& rPos)
 void CObjectMeshDome::SetVec3Rotation(const VECTOR3& rRot)
 {
 	// 引数の向きを設定
-	m_meshDome.rot = rRot;
+	m_rot = rRot;
 
 	// 向きの正規化
-	useful::NormalizeRot(m_meshDome.rot);
+	useful::NormalizeRot(m_rot);
 }
 
 //============================================================
@@ -309,10 +314,10 @@ void CObjectMeshDome::BindTexture(const char* pTexturePath)
 void CObjectMeshDome::SetAlpha(const float fAlpha)
 {
 	// 引数の透明度を設定
-	m_meshDome.col.a = fAlpha;
+	m_col.a = fAlpha;
 
 	// 色の設定
-	SetColor(m_meshDome.col);
+	SetColor(m_col);
 }
 
 //============================================================
@@ -321,7 +326,7 @@ void CObjectMeshDome::SetAlpha(const float fAlpha)
 void CObjectMeshDome::SetColor(const COLOR& rCol)
 {
 	// 引数の色を設定
-	m_meshDome.col = rCol;
+	m_col = rCol;
 
 	// 頂点情報の設定
 	SetVtx();
@@ -333,7 +338,7 @@ void CObjectMeshDome::SetColor(const COLOR& rCol)
 void CObjectMeshDome::SetRadius(const float fRadius)
 {
 	// 引数の半径を設定
-	m_meshDome.fRadius = fRadius;
+	m_fRadius = fRadius;
 
 	// 頂点情報の設定
 	SetVtx();
@@ -345,7 +350,7 @@ void CObjectMeshDome::SetRadius(const float fRadius)
 void CObjectMeshDome::SetTexDir(const ETexDir texDir)
 {
 	// テクスチャ方向を設定
-	m_meshDome.texDir = texDir;
+	m_texDir = texDir;
 
 	// 頂点情報の設定
 	SetVtx();
@@ -470,9 +475,9 @@ void CObjectMeshDome::SetVtx()
 				// 頂点座標の方向を設定
 				vecPos = VECTOR3
 				( // 引数
-					m_meshDome.fRadius * sinf(fRotHeight) * sinf(fRotWidth),	// x
-					m_meshDome.fRadius * cosf(fRotHeight),						// y
-					m_meshDome.fRadius * sinf(fRotHeight) * cosf(fRotWidth)		// z
+					m_fRadius * sinf(fRotHeight) * sinf(fRotWidth),	// x
+					m_fRadius * cosf(fRotHeight),					// y
+					m_fRadius * sinf(fRotHeight) * cosf(fRotWidth)	// z
 				);
 
 				// 頂点座標の設定
@@ -488,13 +493,13 @@ void CObjectMeshDome::SetVtx()
 				pVtx[0].nor = vecNor;
 
 				// 頂点カラーの設定
-				pVtx[0].col = m_meshDome.col;
+				pVtx[0].col = m_col;
 
 				// テクスチャ座標の設定
 				pVtx[0].tex = VECTOR2
 				( // 引数
-					fRateWidth  * (nCntWidth  - m_part.x) * CALC_TEXDIR[m_meshDome.texDir],	// u
-					fRateHeight * (nCntHeight - m_part.y + 1) * -1.0f						// v
+					fRateWidth  * (nCntWidth  - m_part.x) * CALC_TEXDIR[m_texDir],	// u
+					fRateHeight * (nCntHeight - m_part.y + 1) * -1.0f				// v
 				);
 
 				// 頂点データのポインタを 1つ分進める
@@ -589,8 +594,8 @@ void CObjectMeshDome::SetScrollTex(const float fTexU, const float fTexV)
 				// テクスチャ座標の設定
 				pVtx[0].tex = VECTOR2
 				( // 引数
-					fTexU + fRateWidth  * (nCntWidth  - m_part.x) * CALC_TEXDIR[m_meshDome.texDir],	// u
-					fTexV + fRateHeight * (nCntHeight - m_part.y + 1) * -1.0f						// v
+					fTexU + fRateWidth  * (nCntWidth  - m_part.x) * CALC_TEXDIR[m_texDir],	// u
+					fTexV + fRateHeight * (nCntHeight - m_part.y + 1) * -1.0f				// v
 				);
 
 				// 頂点データのポインタを 1つ分進める
@@ -660,13 +665,13 @@ void CObjectMeshDome::DrawShader(CShader* pShader)
 	pShader->BeginPass(0);
 
 	// マトリックス情報を設定
-	pShader->SetMatrix(&m_meshDome.mtxWorld);
+	pShader->SetMatrix(&m_mtxWorld);
 
 	// ライト方向を設定
-	pShader->SetLightDirect(&m_meshDome.mtxWorld, 0);
+	pShader->SetLightDirect(&m_mtxWorld, 0);
 
 	// 拡散光を設定
-	pShader->SetOnlyDiffuse(m_meshDome.col);
+	pShader->SetOnlyDiffuse(m_col);
 
 	// テクスチャを設定
 	pShader->SetTexture(m_nTextureIdx);
@@ -700,13 +705,13 @@ void CObjectMeshDome::DrawShader(CShader* pShader)
 	pShader->BeginPass(0);
 
 	// マトリックス情報を設定
-	pShader->SetMatrix(&m_meshDome.mtxWorld);
+	pShader->SetMatrix(&m_mtxWorld);
 
 	// ライト方向を設定
-	pShader->SetLightDirect(&m_meshDome.mtxWorld, 0);
+	pShader->SetLightDirect(&m_mtxWorld, 0);
 
 	// 拡散光を設定
-	pShader->SetOnlyDiffuse(m_meshDome.col);
+	pShader->SetOnlyDiffuse(m_col);
 
 	// テクスチャを設定
 	pShader->SetTexture(NONE_IDX);

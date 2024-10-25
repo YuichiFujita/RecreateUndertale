@@ -37,17 +37,6 @@ public:
 	// デストラクタ
 	~CObjectMeshDome() override;
 
-	// メッシュドーム構造体
-	struct SMeshDome
-	{
-		VECTOR3	pos;		// 位置
-		VECTOR3	rot;		// 向き
-		COLOR	col;		// 色
-		MATRIX	mtxWorld;	// ワールドマトリックス
-		ETexDir	texDir;		// テクスチャ方向
-		float	fRadius;	// 半径
-	};
-
 	// オーバーライド関数
 	HRESULT Init() override;	// 初期化
 	void Uninit() override;		// 終了
@@ -55,10 +44,10 @@ public:
 	void Draw(CShader* pShader = nullptr) override;		// 描画
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
 	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
-	inline VECTOR3 GetVec3Position() const override	{ return m_meshDome.pos; }			// 位置取得
-	inline VECTOR3 GetVec3Rotation() const override	{ return m_meshDome.rot; }			// 向き取得
-	inline MATRIX* GetPtrMtxWorld() override		{ return &m_meshDome.mtxWorld; }	// マトリックスポインタ取得
-	inline MATRIX GetMtxWorld() const override		{ return m_meshDome.mtxWorld; }		// マトリックス取得
+	inline VECTOR3 GetVec3Position() const override	{ return m_pos; }		// 位置取得
+	inline VECTOR3 GetVec3Rotation() const override	{ return m_rot; }		// 向き取得
+	inline MATRIX* GetPtrMtxWorld() override		{ return &m_mtxWorld; }	// マトリックスポインタ取得
+	inline MATRIX GetMtxWorld() const override		{ return m_mtxWorld; }	// マトリックス取得
 
 	// 静的メンバ関数
 	static CObjectMeshDome* Create	// 生成
@@ -81,13 +70,13 @@ public:
 	void SetTexDir(const ETexDir texDir);			// テクスチャ方向設定
 	HRESULT SetPattern(const POSGRID2& rPart);		// 分割数設定
 	void SetTexPattern(const POSGRID2& rTexPart);	// テクスチャ分割数設定
-	inline int GetTextureIndex() const		{ return m_nTextureIdx; }		// テクスチャインデックス取得
-	inline float GetAlpha() const			{ return m_meshDome.col.a; }	// 透明度取得
-	inline COLOR GetColor() const			{ return m_meshDome.col; }		// 色取得
-	inline float GetRadius() const			{ return m_meshDome.fRadius; }	// 半径取得
-	inline ETexDir GetTexDir() const		{ return m_meshDome.texDir; }	// テクスチャ方向取得
-	inline POSGRID2 GetPattern() const		{ return m_part; }				// 分割数取得
-	inline POSGRID2 GetTexPattern() const	{ return m_texPart; }			// テクスチャ分割数取得
+	inline int GetTextureIndex() const		{ return m_nTextureIdx; }	// テクスチャインデックス取得
+	inline float GetAlpha() const			{ return m_col.a; }			// 透明度取得
+	inline COLOR GetColor() const			{ return m_col; }			// 色取得
+	inline float GetRadius() const			{ return m_fRadius; }		// 半径取得
+	inline ETexDir GetTexDir() const		{ return m_texDir; }		// テクスチャ方向取得
+	inline POSGRID2 GetPattern() const		{ return m_part; }			// 分割数取得
+	inline POSGRID2 GetTexPattern() const	{ return m_texPart; }		// テクスチャ分割数取得
 
 protected:
 	// メンバ関数
@@ -111,12 +100,17 @@ private:
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;	// 頂点バッファへのポインタ
 	LPDIRECT3DINDEXBUFFER9 m_pIdxBuff;	// インデックスバッファへのポインタ
 	CRenderState* m_pRenderState;		// レンダーステートの情報
-	SMeshDome m_meshDome;	// メッシュドームの情報
-	POSGRID2 m_part;		// 分割数
-	POSGRID2 m_texPart;		// テクスチャ分割数
-	int m_nNumVtx;			// 必要頂点数
-	int m_nNumIdx;			// 必要インデックス数
-	int m_nTextureIdx;		// テクスチャインデックス
+	MATRIX m_mtxWorld;	// ワールドマトリックス
+	VECTOR3 m_pos;		// 位置
+	VECTOR3 m_rot;		// 向き
+	COLOR m_col;		// 色
+	POSGRID2 m_part;	// 分割数
+	POSGRID2 m_texPart;	// テクスチャ分割数
+	ETexDir m_texDir;	// テクスチャ方向
+	float m_fRadius;	// 半径
+	int m_nNumVtx;		// 必要頂点数
+	int m_nNumIdx;		// 必要インデックス数
+	int m_nTextureIdx;	// テクスチャインデックス
 };
 
 #endif	// _OBJECT_MESHDOME_H_

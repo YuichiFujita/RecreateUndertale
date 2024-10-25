@@ -30,6 +30,7 @@ namespace
 CObjectBillboard::CObjectBillboard(const CObject::ELabel label, const CObject::EDim dimension, const int nPriority) : CObject(label, dimension, nPriority),
 	m_pVtxBuff		(nullptr),			// 頂点バッファへのポインタ
 	m_pRenderState	(nullptr),			// レンダーステートの情報
+	m_mtxWorld		(MTX_IDENT),		// ワールドマトリックス
 	m_pos			(VEC3_ZERO),		// 位置
 	m_rot			(VEC3_ZERO),		// 向き
 	m_size			(VEC3_ZERO),		// 大きさ
@@ -40,8 +41,7 @@ CObjectBillboard::CObjectBillboard(const CObject::ELabel label, const CObject::E
 	m_fLength		(0.0f),				// 対角線の長さ
 	m_nTextureIdx	(0)					// テクスチャインデックス
 {
-	// メンバ変数をクリア
-	D3DXMatrixIdentity(&m_mtxWorld);	// ワールドマトリックス
+
 }
 
 //============================================================
@@ -60,9 +60,9 @@ HRESULT CObjectBillboard::Init()
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// メンバ変数を初期化
-	D3DXMatrixIdentity(&m_mtxWorld);	// ワールドマトリックス
 	m_pVtxBuff		= nullptr;			// 頂点バッファへのポインタ
 	m_pRenderState	= nullptr;			// レンダーステートの情報
+	m_mtxWorld		= MTX_IDENT;		// ワールドマトリックス
 	m_pos			= VEC3_ZERO;		// 位置
 	m_rot			= VEC3_ZERO;		// 向き
 	m_size			= VEC3_ZERO;		// 大きさ

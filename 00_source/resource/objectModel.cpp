@@ -21,14 +21,14 @@
 CObjectModel::CObjectModel(const CObject::ELabel label, const CObject::EDim dimension, const int nPriority) : CObject(label, dimension, nPriority),
 	m_pRenderState	(nullptr),		// レンダーステートの情報
 	m_pMat			(nullptr),		// マテリアルへのポインタ
+	m_modelData		({}),			// モデル情報
+	m_mtxWorld		(MTX_IDENT),	// ワールドマトリックス
 	m_pos			(VEC3_ZERO),	// 位置
 	m_rot			(VEC3_ZERO),	// 向き
 	m_scale			(VEC3_ZERO),	// 拡大率
 	m_nModelIdx		(0)				// モデルインデックス
 {
-	// メンバ変数をクリア
-	memset(&m_modelData, 0, sizeof(m_modelData));	// モデル情報
-	D3DXMatrixIdentity(&m_mtxWorld);				// ワールドマトリックス
+
 }
 
 //============================================================
@@ -45,10 +45,10 @@ CObjectModel::~CObjectModel()
 HRESULT CObjectModel::Init()
 {
 	// メンバ変数を初期化
-	memset(&m_modelData, 0, sizeof(m_modelData));	// モデル情報
-	D3DXMatrixIdentity(&m_mtxWorld);				// ワールドマトリックス
 	m_pRenderState	= nullptr;		// レンダーステートの情報
 	m_pMat			= nullptr;		// マテリアルへのポインタ
+	m_modelData		= {};			// モデル情報
+	m_mtxWorld		= MTX_IDENT;	// ワールドマトリックス
 	m_pos			= VEC3_ZERO;	// 位置
 	m_rot			= VEC3_ZERO;	// 向き
 	m_scale			= VEC3_ONE;		// 拡大率

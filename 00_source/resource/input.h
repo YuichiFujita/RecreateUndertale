@@ -198,7 +198,7 @@ public:
 	bool IsAnyPress(int nPadIdx = 0);	// 全プレス取得		(ボタン)
 	bool IsAnyTrigger(int nPadIdx = 0);	// 全トリガー取得	(ボタン)
 	bool IsAnyRelease(int nPadIdx = 0);	// 全リリース取得	(ボタン)
-	void InitPress(int nPadIdx = 0);		// プレス初期化		(ボタン)
+	void InitPress(int nPadIdx = 0);	// プレス初期化		(ボタン)
 	void InitTrigger(int nPadIdx = 0);	// トリガー初期化	(ボタン)
 	void InitRelease(int nPadIdx = 0);	// リリース初期化	(ボタン)
 

@@ -29,19 +29,22 @@ namespace
 //	コンストラクタ
 //============================================================
 CObjectMeshField::CObjectMeshField(const CObject::ELabel label, const CObject::EDim dimension, const int nPriority) : CObject(label, dimension, nPriority),
-	m_pVtxBuff		(nullptr),		// 頂点バッファ
-	m_pIdxBuff		(nullptr),		// インデックスバッファ
-	m_pRenderState	(nullptr),		// レンダーステートの情報
-	m_pPosGapBuff	(nullptr),		// 座標のずれバッファ
-	m_pNorBuff		(nullptr),		// 法線バッファ
-	m_pNumNorBuff	(nullptr),		// 法線の使用数バッファ
-	m_part			(GRID2_ZERO),	// 分割数
-	m_nNumVtx		(0),			// 必要頂点数
-	m_nNumIdx		(0),			// 必要インデックス数
-	m_nTextureIdx	(0)				// テクスチャインデックス
+	m_pVtxBuff		(nullptr),			// 頂点バッファ
+	m_pIdxBuff		(nullptr),			// インデックスバッファ
+	m_pRenderState	(nullptr),			// レンダーステートの情報
+	m_pPosGapBuff	(nullptr),			// 座標のずれバッファ
+	m_pNorBuff		(nullptr),			// 法線バッファ
+	m_pNumNorBuff	(nullptr),			// 法線の使用数バッファ
+	m_mtxWorld		(MTX_IDENT),		// ワールドマトリックス
+	m_pos			(VEC3_ZERO),		// 位置
+	m_rot			(VEC3_ZERO),		// 向き
+	m_size			(VEC2_ZERO),		// 大きさ
+	m_col			(color::White()),	// 色
+	m_part			(GRID2_ZERO),		// 分割数
+	m_nNumVtx		(0),				// 必要頂点数
+	m_nNumIdx		(0),				// 必要インデックス数
+	m_nTextureIdx	(0)					// テクスチャインデックス
 {
-	// メンバ変数をクリア
-	memset(&m_meshField, 0, sizeof(m_meshField));	// メッシュフィールドの情報
 }
 
 //============================================================
@@ -58,21 +61,21 @@ CObjectMeshField::~CObjectMeshField()
 HRESULT CObjectMeshField::Init()
 {
 	// メンバ変数を初期化
-	m_pVtxBuff		= nullptr;		// 頂点バッファ
-	m_pIdxBuff		= nullptr;		// インデックスバッファ
-	m_pRenderState	= nullptr;		// レンダーステートの情報
-	m_pPosGapBuff	= nullptr;		// 座標のずれバッファ
-	m_pNorBuff		= nullptr;		// 法線バッファ
-	m_pNumNorBuff	= nullptr;		// 法線の使用数バッファ
-	m_part			= GRID2_ZERO;	// 分割数
-	m_nNumVtx		= 0;			// 必要頂点数
-	m_nNumIdx		= 0;			// 必要インデックス数
-	m_nTextureIdx	= NONE_IDX;		// テクスチャインデックス
-
-	m_meshField.pos		= VEC3_ZERO;		// 位置
-	m_meshField.rot		= VEC3_ZERO;		// 向き
-	m_meshField.size	= VEC2_ZERO;		// 大きさ
-	m_meshField.col		= color::White();	// 色
+	m_pVtxBuff		= nullptr;			// 頂点バッファ
+	m_pIdxBuff		= nullptr;			// インデックスバッファ
+	m_pRenderState	= nullptr;			// レンダーステートの情報
+	m_pPosGapBuff	= nullptr;			// 座標のずれバッファ
+	m_pNorBuff		= nullptr;			// 法線バッファ
+	m_pNumNorBuff	= nullptr;			// 法線の使用数バッファ
+	m_mtxWorld		= MTX_IDENT;		// ワールドマトリックス
+	m_pos			= VEC3_ZERO;		// 位置
+	m_rot			= VEC3_ZERO;		// 向き
+	m_size			= VEC2_ZERO;		// 大きさ
+	m_col			= color::White();	// 色
+	m_part			= GRID2_ZERO;		// 分割数
+	m_nNumVtx		= 0;				// 必要頂点数
+	m_nNumIdx		= 0;				// 必要インデックス数
+	m_nTextureIdx	= NONE_IDX;			// テクスチャインデックス
 
 	// 分割数を設定
 	if (FAILED(SetPattern(GRID2_ONE)))
@@ -143,18 +146,18 @@ void CObjectMeshField::Draw(CShader* pShader)
 	m_pRenderState->Set();
 
 	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&m_meshField.mtxWorld);
+	D3DXMatrixIdentity(&m_mtxWorld);
 
 	// 向きを反映
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_meshField.rot.y, m_meshField.rot.x, m_meshField.rot.z);
-	D3DXMatrixMultiply(&m_meshField.mtxWorld, &m_meshField.mtxWorld, &mtxRot);
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
+	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
 
 	// 位置を反映
-	D3DXMatrixTranslation(&mtxTrans, m_meshField.pos.x, m_meshField.pos.y, m_meshField.pos.z);
-	D3DXMatrixMultiply(&m_meshField.mtxWorld, &m_meshField.mtxWorld, &mtxTrans);
+	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
+	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
 
 	// ワールドマトリックスの設定
-	pDevice->SetTransform(D3DTS_WORLD, &m_meshField.mtxWorld);
+	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
 
 	// 頂点バッファをデータストリームに設定
 	pDevice->SetStreamSource(0, m_pVtxBuff, 0, sizeof(VERTEX_3D));
@@ -188,7 +191,7 @@ void CObjectMeshField::Draw(CShader* pShader)
 void CObjectMeshField::SetVec3Position(const VECTOR3& rPos)
 {
 	// 引数の位置を設定
-	m_meshField.pos = rPos;
+	m_pos = rPos;
 }
 
 //============================================================
@@ -197,10 +200,10 @@ void CObjectMeshField::SetVec3Position(const VECTOR3& rPos)
 void CObjectMeshField::SetVec3Rotation(const VECTOR3& rRot)
 {
 	// 引数の向きを設定
-	m_meshField.rot = rRot;
+	m_rot = rRot;
 
 	// 向きの正規化
-	useful::NormalizeRot(m_meshField.rot);
+	useful::NormalizeRot(m_rot);
 }
 
 //============================================================
@@ -209,7 +212,7 @@ void CObjectMeshField::SetVec3Rotation(const VECTOR3& rRot)
 void CObjectMeshField::SetVec2Size(const VECTOR2& rSize)
 {
 	// 引数の大きさを設定
-	m_meshField.size = rSize;
+	m_size = rSize;
 
 	// 頂点情報の設定
 	SetVtx(false);
@@ -324,10 +327,10 @@ void CObjectMeshField::BindTexture(const char* pTexturePath)
 void CObjectMeshField::SetAlpha(const float fAlpha)
 {
 	// 引数の透明度を設定
-	m_meshField.col.a = fAlpha;
+	m_col.a = fAlpha;
 
 	// 色の設定
-	SetColor(m_meshField.col);
+	SetColor(m_col);
 }
 
 //============================================================
@@ -336,7 +339,7 @@ void CObjectMeshField::SetAlpha(const float fAlpha)
 void CObjectMeshField::SetColor(const COLOR& rCol)
 {
 	// 引数の色を設定
-	m_meshField.col = rCol;
+	m_col = rCol;
 
 	// 頂点情報の設定
 	SetVtx(false);
@@ -850,10 +853,10 @@ bool CObjectMeshField::IsPositionRange(const VECTOR3&rPos)
 	VECTOR3 aVtxMtxPos[4];	// ポリゴンの位置・向き反映を行った頂点座標
 
 	// メッシュの頂点位置を設定
-	aVtxPos[0] = VECTOR3(m_meshField.pos.x - m_meshField.size.x * 0.5f, 0.0f, m_meshField.pos.z + m_meshField.size.y * 0.5f);	// 左上
-	aVtxPos[1] = VECTOR3(m_meshField.pos.x - m_meshField.size.x * 0.5f, 0.0f, m_meshField.pos.z - m_meshField.size.y * 0.5f);	// 左下
-	aVtxPos[2] = VECTOR3(m_meshField.pos.x + m_meshField.size.x * 0.5f, 0.0f, m_meshField.pos.z - m_meshField.size.y * 0.5f);	// 右下
-	aVtxPos[3] = VECTOR3(m_meshField.pos.x + m_meshField.size.x * 0.5f, 0.0f, m_meshField.pos.z + m_meshField.size.y * 0.5f);	// 右上
+	aVtxPos[0] = VECTOR3(m_pos.x - m_size.x * 0.5f, 0.0f, m_pos.z + m_size.y * 0.5f);	// 左上
+	aVtxPos[1] = VECTOR3(m_pos.x - m_size.x * 0.5f, 0.0f, m_pos.z - m_size.y * 0.5f);	// 左下
+	aVtxPos[2] = VECTOR3(m_pos.x + m_size.x * 0.5f, 0.0f, m_pos.z - m_size.y * 0.5f);	// 右下
+	aVtxPos[3] = VECTOR3(m_pos.x + m_size.x * 0.5f, 0.0f, m_pos.z + m_size.y * 0.5f);	// 右上
 
 	for (int nCntVtx = 0; nCntVtx < 4; nCntVtx++)
 	{ // 三角形ポリゴンの頂点数分繰り返す
@@ -868,11 +871,11 @@ bool CObjectMeshField::IsPositionRange(const VECTOR3&rPos)
 		D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxTrans);
 
 		// ポリゴン向きを反映
-		D3DXMatrixRotationYawPitchRoll(&mtxRot, m_meshField.rot.y, m_meshField.rot.x, m_meshField.rot.z);
+		D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
 		D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxRot);
 
 		// ポリゴン位置を反映
-		D3DXMatrixTranslation(&mtxTrans, m_meshField.pos.x, m_meshField.pos.y, m_meshField.pos.z);
+		D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
 		D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxTrans);
 
 		// 計算したマトリックスから座標を設定
@@ -888,8 +891,8 @@ bool CObjectMeshField::IsPositionRange(const VECTOR3&rPos)
 //============================================================
 float CObjectMeshField::GetPositionHeight(const VECTOR3& rPos)
 {
-	int nWidth  = (int)(( rPos.x + m_meshField.size.x * 0.5f) / (m_meshField.size.x / m_part.x));	// 横の分割位置
-	int nHeight = (int)((-rPos.z + m_meshField.size.y * 0.5f) / (m_meshField.size.y / m_part.y));	// 縦の分割位置
+	int nWidth  = (int)(( rPos.x + m_size.x * 0.5f) / (m_size.x / m_part.x));	// 横の分割位置
+	int nHeight = (int)((-rPos.z + m_size.y * 0.5f) / (m_size.y / m_part.y));	// 縦の分割位置
 	int nNumVtx = nWidth + (nHeight * (m_part.x + 1));	// 分割位置の左上頂点番号
 	VECTOR3 nor;		// 法線ベクトル
 	VECTOR3 aVtxPos[4];	// ポリゴンの頂点座標
@@ -913,10 +916,10 @@ float CObjectMeshField::GetPositionHeight(const VECTOR3& rPos)
 			{ // 頂点番号が範囲内の場合
 
 				// ポリゴンの頂点位置を取得
-				aVtxPos[0] = m_meshField.pos + GetMeshVertexPosition(aVtxNum[0]);
-				aVtxPos[1] = m_meshField.pos + GetMeshVertexPosition(aVtxNum[1]);
-				aVtxPos[2] = m_meshField.pos + GetMeshVertexPosition(aVtxNum[2]);
-				aVtxPos[3] = m_meshField.pos + GetMeshVertexPosition(aVtxNum[3]);
+				aVtxPos[0] = m_pos + GetMeshVertexPosition(aVtxNum[0]);
+				aVtxPos[1] = m_pos + GetMeshVertexPosition(aVtxNum[1]);
+				aVtxPos[2] = m_pos + GetMeshVertexPosition(aVtxNum[2]);
+				aVtxPos[3] = m_pos + GetMeshVertexPosition(aVtxNum[3]);
 
 				if (collision::TriangleOuterPillar(aVtxPos[0], aVtxPos[2], aVtxPos[1], rPos))
 				{ // ポリゴンの範囲内にいる場合
@@ -1006,11 +1009,11 @@ float CObjectMeshField::GetPositionRotateHeight(const VECTOR3& rPos)
 						D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxTrans);
 
 						// ポリゴン向きを反映
-						D3DXMatrixRotationYawPitchRoll(&mtxRot, m_meshField.rot.y, m_meshField.rot.x, m_meshField.rot.z);
+						D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
 						D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxRot);
 
 						// ポリゴン位置を反映
-						D3DXMatrixTranslation(&mtxTrans, m_meshField.pos.x, m_meshField.pos.y, m_meshField.pos.z);
+						D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
 						D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxTrans);
 
 						// 計算したマトリックスから座標を設定
@@ -1064,14 +1067,14 @@ void CObjectMeshField::SetVtx(bool bNor)
 				// 頂点座標の設定
 				pVtx[0].pos = VECTOR3
 				( // 引数
-					nCntWidth * (m_meshField.size.x / (float)m_part.x) - (m_meshField.size.x * 0.5f),		// x
-					0.0f,																					// y
-					-(nCntHeight * (m_meshField.size.y / (float)m_part.y) - (m_meshField.size.y * 0.5f))	// z
+					nCntWidth * (m_size.x / (float)m_part.x) - (m_size.x * 0.5f),		// x
+					0.0f,																// y
+					-(nCntHeight * (m_size.y / (float)m_part.y) - (m_size.y * 0.5f))	// z
 				);
 				pVtx[0].pos += m_pPosGapBuff[nNumVtx];	// 頂点からのずれ量を加算
 
 				// 頂点カラーの設定
-				pVtx[0].col = m_meshField.col;
+				pVtx[0].col = m_col;
 
 				// テクスチャ座標の設定
 				pVtx[0].tex = VECTOR2(1.0f * nCntWidth, 1.0f * nCntHeight);
@@ -1199,13 +1202,13 @@ void CObjectMeshField::DrawShader(CShader* pShader)
 	pShader->BeginPass(0);
 
 	// マトリックス情報を設定
-	pShader->SetMatrix(&m_meshField.mtxWorld);
+	pShader->SetMatrix(&m_mtxWorld);
 
 	// ライト方向を設定
-	pShader->SetLightDirect(&m_meshField.mtxWorld, 0);
+	pShader->SetLightDirect(&m_mtxWorld, 0);
 
 	// 拡散光を設定
-	pShader->SetOnlyDiffuse(m_meshField.col);
+	pShader->SetOnlyDiffuse(m_col);
 
 	// テクスチャを設定
 	pShader->SetTexture(m_nTextureIdx);

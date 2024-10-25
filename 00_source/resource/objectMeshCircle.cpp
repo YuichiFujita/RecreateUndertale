@@ -27,16 +27,19 @@ namespace
 //	コンストラクタ
 //============================================================
 CObjectMeshCircle::CObjectMeshCircle(const CObject::ELabel label, const CObject::EDim dimension, const int nPriority) : CObject(label, dimension, nPriority),
-	m_pVtxBuff		(nullptr),		// 頂点バッファ
-	m_pIdxBuff		(nullptr),		// インデックスバッファ
-	m_pRenderState	(nullptr),		// レンダーステートの情報
-	m_part			(GRID2_ZERO),	// 分割数
-	m_nNumVtx		(0),			// 必要頂点数
-	m_nNumIdx		(0),			// 必要インデックス数
-	m_nTextureIdx	(0)				// テクスチャインデックス
+	m_pVtxBuff		(nullptr),			// 頂点バッファ
+	m_pIdxBuff		(nullptr),			// インデックスバッファ
+	m_pRenderState	(nullptr),			// レンダーステートの情報
+	m_mtxWorld		(MTX_IDENT),		// ワールドマトリックス
+	m_pos			(VEC3_ZERO),		// 位置
+	m_rot			(VEC3_ZERO),		// 向き
+	m_col			(color::White()),	// 色
+	m_part			(GRID2_ZERO),		// 分割数
+	m_fRadius		(0.0f),				// 半径
+	m_nNumVtx		(0),				// 必要頂点数
+	m_nNumIdx		(0),				// 必要インデックス数
+	m_nTextureIdx	(0)					// テクスチャインデックス
 {
-	// メンバ変数をクリア
-	memset(&m_meshCircle, 0, sizeof(m_meshCircle));	// メッシュサークルの情報
 }
 
 //============================================================
@@ -53,18 +56,18 @@ CObjectMeshCircle::~CObjectMeshCircle()
 HRESULT CObjectMeshCircle::Init()
 {
 	// メンバ変数を初期化
-	m_pVtxBuff		= nullptr;	// 頂点バッファ
-	m_pIdxBuff		= nullptr;	// インデックスバッファ
-	m_pRenderState	= nullptr;	// レンダーステートの情報
-	m_part			= MIN_PART;	// 分割数
-	m_nNumVtx		= 0;		// 必要頂点数
-	m_nNumIdx		= 0;		// 必要インデックス数
-	m_nTextureIdx	= NONE_IDX;	// テクスチャインデックス
-
-	m_meshCircle.pos		= VEC3_ZERO;		// 位置
-	m_meshCircle.rot		= VEC3_ZERO;		// 向き
-	m_meshCircle.col		= color::White();	// 色
-	m_meshCircle.fRadius	= 0.0f;				// 半径
+	m_pVtxBuff		= nullptr;			// 頂点バッファ
+	m_pIdxBuff		= nullptr;			// インデックスバッファ
+	m_pRenderState	= nullptr;			// レンダーステートの情報
+	m_mtxWorld		= MTX_IDENT;		// ワールドマトリックス
+	m_pos			= VEC3_ZERO;		// 位置
+	m_rot			= VEC3_ZERO;		// 向き
+	m_col			= color::White();	// 色
+	m_part			= MIN_PART;			// 分割数
+	m_fRadius		= 0.0f;				// 半径
+	m_nNumVtx		= 0;				// 必要頂点数
+	m_nNumIdx		= 0;				// 必要インデックス数
+	m_nTextureIdx	= NONE_IDX;			// テクスチャインデックス
 
 	// 分割数を設定
 	if (FAILED(SetPattern(MIN_PART)))
@@ -126,18 +129,18 @@ void CObjectMeshCircle::Draw(CShader* pShader)
 	m_pRenderState->Set();
 
 	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&m_meshCircle.mtxWorld);
+	D3DXMatrixIdentity(&m_mtxWorld);
 
 	// 向きを反映
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_meshCircle.rot.y, m_meshCircle.rot.x, m_meshCircle.rot.z);
-	D3DXMatrixMultiply(&m_meshCircle.mtxWorld, &m_meshCircle.mtxWorld, &mtxRot);
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
+	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
 
 	// 位置を反映
-	D3DXMatrixTranslation(&mtxTrans, m_meshCircle.pos.x, m_meshCircle.pos.y, m_meshCircle.pos.z);
-	D3DXMatrixMultiply(&m_meshCircle.mtxWorld, &m_meshCircle.mtxWorld, &mtxTrans);
+	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
+	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
 
 	// ワールドマトリックスの設定
-	pDevice->SetTransform(D3DTS_WORLD, &m_meshCircle.mtxWorld);
+	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
 
 	// 頂点バッファをデータストリームに設定
 	pDevice->SetStreamSource(0, m_pVtxBuff, 0, sizeof(VERTEX_3D));
@@ -171,7 +174,7 @@ void CObjectMeshCircle::Draw(CShader* pShader)
 void CObjectMeshCircle::SetVec3Position(const VECTOR3& rPos)
 {
 	// 引数の位置を設定
-	m_meshCircle.pos = rPos;
+	m_pos = rPos;
 }
 
 //============================================================
@@ -180,10 +183,10 @@ void CObjectMeshCircle::SetVec3Position(const VECTOR3& rPos)
 void CObjectMeshCircle::SetVec3Rotation(const VECTOR3& rRot)
 {
 	// 引数の向きを設定
-	m_meshCircle.rot = rRot;
+	m_rot = rRot;
 
 	// 向きの正規化
-	useful::NormalizeRot(m_meshCircle.rot);
+	useful::NormalizeRot(m_rot);
 }
 
 //============================================================
@@ -295,10 +298,10 @@ void CObjectMeshCircle::BindTexture(const char* pTexturePath)
 void CObjectMeshCircle::SetAlpha(const float fAlpha)
 {
 	// 引数の透明度を設定
-	m_meshCircle.col.a = fAlpha;
+	m_col.a = fAlpha;
 
 	// 色の設定
-	SetColor(m_meshCircle.col);
+	SetColor(m_col);
 }
 
 //============================================================
@@ -307,7 +310,7 @@ void CObjectMeshCircle::SetAlpha(const float fAlpha)
 void CObjectMeshCircle::SetColor(const COLOR& rCol)
 {
 	// 引数の色を設定
-	m_meshCircle.col = rCol;
+	m_col = rCol;
 
 	// 頂点情報の設定
 	SetVtx();
@@ -319,7 +322,7 @@ void CObjectMeshCircle::SetColor(const COLOR& rCol)
 void CObjectMeshCircle::SetRadius(const float fRadius)
 {
 	// 引数の半径を設定
-	m_meshCircle.fRadius = fRadius;
+	m_fRadius = fRadius;
 
 	// 頂点情報の設定
 	SetVtx();
@@ -415,8 +418,8 @@ void CObjectMeshCircle::SetVtx()
 			{ // 横の分割数 +1回繰り返す (天辺の頂点時は繰り返しを 1回にする)
 
 				// 頂点座標の方向を設定
-				float fRotWidth  = D3DXToRadian(nCntWidth * (360 / (float)m_part.x));	// 頂点位置の設定方向
-				float fDisHeight = (((m_meshCircle.fRadius / (float)m_part.y) * -(nCntHeight - m_part.y)));	// 頂点位置の設定距離
+				float fRotWidth  = D3DXToRadian(nCntWidth * (360 / (float)m_part.x));				// 頂点位置の設定方向
+				float fDisHeight = (((m_fRadius / (float)m_part.y) * -(nCntHeight - m_part.y)));	// 頂点位置の設定距離
 				VECTOR3 vecPos = VECTOR3
 				( // 引数
 					sinf(fRotWidth) * fDisHeight,	// x
@@ -431,13 +434,13 @@ void CObjectMeshCircle::SetVtx()
 				pVtx[0].nor = VECTOR3(0.0f, 1.0f, 0.0f);
 
 				// 頂点カラーの設定
-				pVtx[0].col = m_meshCircle.col;
+				pVtx[0].col = m_col;
 
 				// テクスチャ座標の設定
 				pVtx[0].tex = VECTOR2
 				( // 引数
-					0.5f + sinf(fRotWidth) * (0.5f / m_meshCircle.fRadius) * fDisHeight,	// u
-					0.5f + cosf(fRotWidth) * (0.5f / m_meshCircle.fRadius) * fDisHeight		// v
+					0.5f + sinf(fRotWidth) * (0.5f / m_fRadius) * fDisHeight,	// u
+					0.5f + cosf(fRotWidth) * (0.5f / m_fRadius) * fDisHeight	// v
 				);
 
 				// 頂点データのポインタを 1つ分進める
@@ -551,13 +554,13 @@ void CObjectMeshCircle::DrawShader(CShader* pShader)
 	pShader->BeginPass(0);
 
 	// マトリックス情報を設定
-	pShader->SetMatrix(&m_meshCircle.mtxWorld);
+	pShader->SetMatrix(&m_mtxWorld);
 
 	// ライト方向を設定
-	pShader->SetLightDirect(&m_meshCircle.mtxWorld, 0);
+	pShader->SetLightDirect(&m_mtxWorld, 0);
 
 	// 拡散光を設定
-	pShader->SetOnlyDiffuse(m_meshCircle.col);
+	pShader->SetOnlyDiffuse(m_col);
 
 	// テクスチャを設定
 	pShader->SetTexture(m_nTextureIdx);

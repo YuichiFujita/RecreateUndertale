@@ -70,15 +70,24 @@ namespace
 //	コンストラクタ
 //============================================================
 CObjectMeshCube::CObjectMeshCube(const CObject::ELabel label, const CObject::EDim dimension, const int nPriority) : CObject(label, dimension, nPriority),
-	m_pVtxBuff		(nullptr),		// 頂点バッファ
-	m_pIdxBuff		(nullptr),		// インデックスバッファ
-	m_pRenderState	(nullptr),		// レンダーステートの情報
-	m_nNumVtx		(0),			// 必要頂点数
-	m_nNumIdx		(0),			// 必要インデックス数
-	m_origin		(ORIGIN_CENTER)	// 原点
+	m_pVtxBuff		(nullptr),			// 頂点バッファ
+	m_pIdxBuff		(nullptr),			// インデックスバッファ
+	m_pRenderState	(nullptr),			// レンダーステートの情報
+	m_mtxWorld		(MTX_IDENT),		// ワールドマトリックス
+	m_pos			(VEC3_ZERO),		// 位置
+	m_rot			(VEC3_ZERO),		// 向き
+	m_size			(VEC3_ZERO),		// 大きさ
+	m_bordState		(BORDER_OFF),		// 縁取り使用状態
+	m_fBordThick	(0.0f),				// 縁取り太さ
+	m_texState		(TEXSTATE_ONE),		// テクスチャ使用状態
+	m_texIdx		(SFaceTex(0)),		// テクスチャ種類
+	m_origin		(ORIGIN_CENTER),	// 原点
+	m_nNumVtx		(0),				// 必要頂点数
+	m_nNumIdx		(0)					// 必要インデックス数
 {
 	// メンバ変数をクリア
-	memset(&m_meshCube, 0, sizeof(m_meshCube));	// メッシュキューブの情報
+	memset(&m_aCol[0], 0, sizeof(m_aCol));			// 色
+	memset(&m_aTexPart[0], 0, sizeof(m_aTexPart));	// テクスチャ分割数
 }
 
 //============================================================
@@ -95,25 +104,31 @@ CObjectMeshCube::~CObjectMeshCube()
 HRESULT CObjectMeshCube::Init()
 {
 	// メンバ変数を初期化
-	m_pVtxBuff		= nullptr;	// 頂点バッファ
-	m_pIdxBuff		= nullptr;	// インデックスバッファ
-	m_pRenderState	= nullptr;	// レンダーステートの情報
-	m_nNumVtx		= 0;		// 必要頂点数
-	m_nNumIdx		= 0;		// 必要インデックス数
+	m_pVtxBuff		= nullptr;			// 頂点バッファ
+	m_pIdxBuff		= nullptr;			// インデックスバッファ
+	m_pRenderState	= nullptr;			// レンダーステートの情報
+	m_mtxWorld		= MTX_IDENT;		// ワールドマトリックス
+	m_pos			= VEC3_ZERO;		// 位置
+	m_rot			= VEC3_ZERO;		// 向き
+	m_size			= VEC3_ZERO;		// 大きさ
+	m_bordState		= BORDER_OFF;		// 縁取り使用状態
+	m_fBordThick	= 0.0f;				// 縁取り太さ
+	m_texState		= TEXSTATE_ONE;		// テクスチャの使用状態
 	m_origin		= ORIGIN_CENTER;	// 原点
+	m_nNumVtx		= 0;				// 必要頂点数
+	m_nNumIdx		= 0;				// 必要インデックス数
 
-	// 基本情報の初期化
-	m_meshCube.pos	= VEC3_ZERO;	// 位置
-	m_meshCube.rot	= VEC3_ZERO;	// 向き
-	m_meshCube.size	= VEC3_ZERO;	// 大きさ
-	m_meshCube.aCol[CUBECOL_CUBE]	= color::White();	// キューブ色
-	m_meshCube.aCol[CUBECOL_BORDER]	= color::Black();	// 縁取り色
-	m_meshCube.bordState	= BORDER_OFF;	// 縁取り使用状態
-	m_meshCube.fBordThick	= 0.0f;			// 縁取り太さ
-	m_meshCube.texState		= TEXSTATE_ONE;	// テクスチャの使用状態
+	// 色の初期化
+	m_aCol[CUBECOL_CUBE]	= color::White();	// キューブ色
+	m_aCol[CUBECOL_BORDER]	= color::Black();	// 縁取り色
+
+	// テクスチャ分割数の初期化
+	m_aTexPart[CUBEPART_X] = VEC2_ONE;	// 分割数X
+	m_aTexPart[CUBEPART_Y] = VEC2_ONE;	// 分割数Y
+	m_aTexPart[CUBEPART_Z] = VEC2_ONE;	// 分割数Z
 
 	// テクスチャインデックスの初期化
-	m_meshCube.texIdx = SFaceTex
+	m_texIdx = SFaceTex
 	( // 引数
 		NONE_IDX,	// 全面のテクスチャインデックス
 		NONE_IDX,	// 左のテクスチャインデックス
@@ -123,11 +138,6 @@ HRESULT CObjectMeshCube::Init()
 		NONE_IDX,	// 前のテクスチャインデックス
 		NONE_IDX	// 後のテクスチャインデックス
 	);
-
-	// テクスチャ分割数の初期化
-	m_meshCube.aTexPart[CUBEPART_X] = VEC2_ONE;	// 分割数X
-	m_meshCube.aTexPart[CUBEPART_Y] = VEC2_ONE;	// 分割数Y
-	m_meshCube.aTexPart[CUBEPART_Z] = VEC2_ONE;	// 分割数Z
 
 	// レンダーステートの生成
 	m_pRenderState = CRenderState::Create();
@@ -178,18 +188,18 @@ void CObjectMeshCube::Draw(CShader* pShader)
 	MATRIX mtxRot, mtxTrans;	// 計算用マトリックス
 
 	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&m_meshCube.mtxWorld);
+	D3DXMatrixIdentity(&m_mtxWorld);
 
 	// 向きを反映
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_meshCube.rot.y, m_meshCube.rot.x, m_meshCube.rot.z);
-	D3DXMatrixMultiply(&m_meshCube.mtxWorld, &m_meshCube.mtxWorld, &mtxRot);
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
+	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
 
 	// 位置を反映
-	D3DXMatrixTranslation(&mtxTrans, m_meshCube.pos.x, m_meshCube.pos.y, m_meshCube.pos.z);
-	D3DXMatrixMultiply(&m_meshCube.mtxWorld, &m_meshCube.mtxWorld, &mtxTrans);
+	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
+	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
 
 	// ワールドマトリックスの設定
-	pDevice->SetTransform(D3DTS_WORLD, &m_meshCube.mtxWorld);
+	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
 
 	// 頂点バッファをデータストリームに設定
 	pDevice->SetStreamSource(0, m_pVtxBuff, 0, sizeof(VERTEX_3D));
@@ -220,7 +230,7 @@ void CObjectMeshCube::Draw(CShader* pShader)
 void CObjectMeshCube::SetVec3Position(const VECTOR3& rPos)
 {
 	// 引数の位置を設定
-	m_meshCube.pos = rPos;
+	m_pos = rPos;
 }
 
 //============================================================
@@ -229,10 +239,10 @@ void CObjectMeshCube::SetVec3Position(const VECTOR3& rPos)
 void CObjectMeshCube::SetVec3Rotation(const VECTOR3& rRot)
 {
 	// 引数の向きを設定
-	m_meshCube.rot = rRot;
+	m_rot = rRot;
 
 	// 向きの正規化
-	useful::NormalizeRot(m_meshCube.rot);
+	useful::NormalizeRot(m_rot);
 }
 
 //============================================================
@@ -241,7 +251,7 @@ void CObjectMeshCube::SetVec3Rotation(const VECTOR3& rRot)
 void CObjectMeshCube::SetVec3Size(const VECTOR3& rSize)
 {
 	// 引数の大きさを設定
-	m_meshCube.size = rSize;
+	m_size = rSize;
 
 	// 頂点情報の設定
 	SetVtx();
@@ -354,7 +364,7 @@ CRenderState* CObjectMeshCube::GetRenderState()
 void CObjectMeshCube::BindTexture(const SFaceTex textureIdx)
 {
 	// テクスチャインデックスを代入
-	m_meshCube.texIdx = textureIdx;
+	m_texIdx = textureIdx;
 }
 
 //============================================================
@@ -363,10 +373,10 @@ void CObjectMeshCube::BindTexture(const SFaceTex textureIdx)
 void CObjectMeshCube::SetCubeAlpha(const float fAlpha)
 {
 	// 引数の透明度を設定
-	m_meshCube.aCol[CUBECOL_CUBE].a = fAlpha;
+	m_aCol[CUBECOL_CUBE].a = fAlpha;
 
 	// キューブ色の設定
-	SetCubeColor(m_meshCube.aCol[CUBECOL_CUBE]);
+	SetCubeColor(m_aCol[CUBECOL_CUBE]);
 }
 
 //============================================================
@@ -375,7 +385,7 @@ void CObjectMeshCube::SetCubeAlpha(const float fAlpha)
 void CObjectMeshCube::SetCubeColor(const COLOR& rCol)
 {
 	// 引数のキューブ色を設定
-	m_meshCube.aCol[CUBECOL_CUBE] = rCol;
+	m_aCol[CUBECOL_CUBE] = rCol;
 
 	// 頂点情報の設定
 	SetVtx();
@@ -387,10 +397,10 @@ void CObjectMeshCube::SetCubeColor(const COLOR& rCol)
 void CObjectMeshCube::SetBorderAlpha(const float fAlpha)
 {
 	// 引数の透明度を設定
-	m_meshCube.aCol[CUBECOL_BORDER].a = fAlpha;
+	m_aCol[CUBECOL_BORDER].a = fAlpha;
 
 	// 縁取り色の設定
-	SetBorderColor(m_meshCube.aCol[CUBECOL_BORDER]);
+	SetBorderColor(m_aCol[CUBECOL_BORDER]);
 }
 
 //============================================================
@@ -399,7 +409,7 @@ void CObjectMeshCube::SetBorderAlpha(const float fAlpha)
 void CObjectMeshCube::SetBorderColor(const COLOR& rCol)
 {
 	// 引数の縁取り色を設定
-	m_meshCube.aCol[CUBECOL_BORDER] = rCol;
+	m_aCol[CUBECOL_BORDER] = rCol;
 
 	// 頂点情報の設定
 	SetVtx();
@@ -413,7 +423,7 @@ HRESULT CObjectMeshCube::SetBorderState(const EBorder bordState)
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
 
 	// 引数の縁取りの状態を設定
-	m_meshCube.bordState = bordState;
+	m_bordState = bordState;
 
 	// 頂点バッファの破棄
 	SAFE_RELEASE(m_pVtxBuff);
@@ -471,7 +481,7 @@ HRESULT CObjectMeshCube::SetBorderState(const EBorder bordState)
 void CObjectMeshCube::SetBorderThick(const float fBordThick)
 {
 	// 引数の縁取りの太さを設定
-	m_meshCube.fBordThick = fBordThick;
+	m_fBordThick = fBordThick;
 
 	// 頂点情報の設定
 	SetVtx();
@@ -483,7 +493,7 @@ void CObjectMeshCube::SetBorderThick(const float fBordThick)
 void CObjectMeshCube::SetTextureState(const ETexState texState)
 {
 	// 引数のテクスチャの状態を設定
-	m_meshCube.texState = texState;
+	m_texState = texState;
 }
 
 //============================================================
@@ -492,7 +502,7 @@ void CObjectMeshCube::SetTextureState(const ETexState texState)
 void CObjectMeshCube::SetTexturePatternX(const VECTOR2& rTexPart)
 {
 	// 引数のテクスチャの分割数Xを設定
-	m_meshCube.aTexPart[CUBEPART_X] = rTexPart;
+	m_aTexPart[CUBEPART_X] = rTexPart;
 
 	// 頂点情報の設定
 	SetVtx();
@@ -504,7 +514,7 @@ void CObjectMeshCube::SetTexturePatternX(const VECTOR2& rTexPart)
 void CObjectMeshCube::SetTexturePatternY(const VECTOR2& rTexPart)
 {
 	// 引数のテクスチャの分割数Yを設定
-	m_meshCube.aTexPart[CUBEPART_Y] = rTexPart;
+	m_aTexPart[CUBEPART_Y] = rTexPart;
 
 	// 頂点情報の設定
 	SetVtx();
@@ -516,7 +526,7 @@ void CObjectMeshCube::SetTexturePatternY(const VECTOR2& rTexPart)
 void CObjectMeshCube::SetTexturePatternZ(const VECTOR2& rTexPart)
 {
 	// 引数のテクスチャの分割数Zを設定
-	m_meshCube.aTexPart[CUBEPART_Z] = rTexPart;
+	m_aTexPart[CUBEPART_Z] = rTexPart;
 
 	// 頂点情報の設定
 	SetVtx();
@@ -547,14 +557,14 @@ void CObjectMeshCube::SetVtx()
 		m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
 		// 縁取りの有無で描画数を変更
-		nLoop = (int)m_meshCube.bordState + 1;
+		nLoop = (int)m_bordState + 1;
 
 		for (int nCntBorder = 0; nCntBorder < nLoop; nCntBorder++)
 		{ // 縁取りがONの場合二回繰り返す
 
 			// 頂点座標の計算用の値を設定
-			fSetBord = (float)(nCntBorder - 1) * m_meshCube.fBordThick;
-			fUseBord = (float)m_meshCube.bordState;
+			fSetBord = (float)(nCntBorder - 1) * m_fBordThick;
+			fUseBord = (float)m_bordState;
 
 			for (int nCntSet = 0; nCntSet < NEED_VTX_CUBE; nCntSet++)
 			{ // 必要頂点・インデックス数分繰り返す
@@ -567,8 +577,8 @@ void CObjectMeshCube::SetVtx()
 					// テクスチャ分割数を変更
 					texPart = VECTOR2
 					( // 引数
-						m_meshCube.aTexPart[nBoxIdx].x,	// x
-						m_meshCube.aTexPart[nBoxIdx].y	// y
+						m_aTexPart[nBoxIdx].x,	// x
+						m_aTexPart[nBoxIdx].y	// y
 					);
 				}
 
@@ -577,27 +587,27 @@ void CObjectMeshCube::SetVtx()
 				case ORIGIN_CENTER:	// 中央
 
 					// 頂点座標の設定
-					pVtx[0].pos.x = (m_meshCube.size.x * SET_POS_DATA[nVtxIdx].x) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxIdx].x);
-					pVtx[0].pos.y = (m_meshCube.size.y * SET_POS_DATA[nVtxIdx].y) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxIdx].y);
-					pVtx[0].pos.z = (m_meshCube.size.z * SET_POS_DATA[nVtxIdx].z) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxIdx].z);
+					pVtx[0].pos.x = (m_size.x * SET_POS_DATA[nVtxIdx].x) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxIdx].x);
+					pVtx[0].pos.y = (m_size.y * SET_POS_DATA[nVtxIdx].y) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxIdx].y);
+					pVtx[0].pos.z = (m_size.z * SET_POS_DATA[nVtxIdx].z) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxIdx].z);
 
 					break;
 
 				case ORIGIN_DOWN:	// 下原点
 
 					// 頂点座標の設定
-					pVtx[0].pos.x = (m_meshCube.size.x * SET_POS_DATA[nVtxIdx].x) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxIdx].x);
-					pVtx[0].pos.y = (m_meshCube.size.y * SET_POS_DATA[nVtxIdx].y * 2.0f) * -((nVtxIdx % 2) - 1) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxIdx].y);
-					pVtx[0].pos.z = (m_meshCube.size.z * SET_POS_DATA[nVtxIdx].z) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxIdx].z);
+					pVtx[0].pos.x = (m_size.x * SET_POS_DATA[nVtxIdx].x) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxIdx].x);
+					pVtx[0].pos.y = (m_size.y * SET_POS_DATA[nVtxIdx].y * 2.0f) * -((nVtxIdx % 2) - 1) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxIdx].y);
+					pVtx[0].pos.z = (m_size.z * SET_POS_DATA[nVtxIdx].z) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxIdx].z);
 
 					break;
 
 				case ORIGIN_UP:		// 上原点
 
 					// 頂点座標の設定
-					pVtx[0].pos.x = (m_meshCube.size.x * SET_POS_DATA[nVtxIdx].x) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxIdx].x);
-					pVtx[0].pos.y = (m_meshCube.size.y * SET_POS_DATA[nVtxIdx].y * 2.0f) * (nVtxIdx % 2) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxIdx].y);
-					pVtx[0].pos.z = (m_meshCube.size.z * SET_POS_DATA[nVtxIdx].z) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxIdx].z);
+					pVtx[0].pos.x = (m_size.x * SET_POS_DATA[nVtxIdx].x) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxIdx].x);
+					pVtx[0].pos.y = (m_size.y * SET_POS_DATA[nVtxIdx].y * 2.0f) * (nVtxIdx % 2) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxIdx].y);
+					pVtx[0].pos.z = (m_size.z * SET_POS_DATA[nVtxIdx].z) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxIdx].z);
 
 					break;
 
@@ -610,7 +620,7 @@ void CObjectMeshCube::SetVtx()
 				pVtx[0].nor = SET_NOR_DATA[nCntSet];
 
 				// 頂点カラーの設定
-				pVtx[0].col = m_meshCube.aCol[nCntBorder];
+				pVtx[0].col = m_aCol[nCntBorder];
 
 				// テクスチャ座標の設定
 				pVtx[0].tex.x = texPart.x * SET_TEX_DATA[nCntSet].x;
@@ -641,7 +651,7 @@ void CObjectMeshCube::SetIdx()
 		m_pIdxBuff->Lock(0, 0, (void**)&pIdx, 0);
 
 		// 縁取りの有無で描画数を変更
-		nLoop = (int)m_meshCube.bordState + 1;
+		nLoop = (int)m_bordState + 1;
 
 		for (int nCntBorder = 0; nCntBorder < nLoop; nCntBorder++)
 		{ // 縁取りがONの場合二回繰り返す
@@ -679,12 +689,12 @@ void CObjectMeshCube::DrawNormal()
 	// レンダーステートを設定
 	m_pRenderState->Set();
 
-	switch (m_meshCube.texState)
+	switch (m_texState)
 	{ // テクスチャ使用状態ごとの処理
 	case TEXSTATE_ONE:		// 同一テクスチャ
 
 		// テクスチャの設定
-		pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_meshCube.texIdx.All));
+		pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_texIdx.All));
 
 		// ポリゴンの描画
 		pDevice->DrawIndexedPrimitive
@@ -703,12 +713,12 @@ void CObjectMeshCube::DrawNormal()
 	case TEXSTATE_SELECT:	// 全選択テクスチャ
 
 		// テクスチャの種類を設定
-		aTexType[0] = m_meshCube.texIdx.Top;	// 上のテクスチャ
-		aTexType[1] = m_meshCube.texIdx.Right;	// 右のテクスチャ
-		aTexType[2] = m_meshCube.texIdx.Near;	// 前のテクスチャ
-		aTexType[3] = m_meshCube.texIdx.Left;	// 左のテクスチャ
-		aTexType[4] = m_meshCube.texIdx.Far;	// 後のテクスチャ
-		aTexType[5] = m_meshCube.texIdx.Bottom;	// 下のテクスチャ
+		aTexType[0] = m_texIdx.Top;		// 上のテクスチャ
+		aTexType[1] = m_texIdx.Right;	// 右のテクスチャ
+		aTexType[2] = m_texIdx.Near;	// 前のテクスチャ
+		aTexType[3] = m_texIdx.Left;	// 左のテクスチャ
+		aTexType[4] = m_texIdx.Far;		// 後のテクスチャ
+		aTexType[5] = m_texIdx.Bottom;	// 下のテクスチャ
 
 		for (int nCntFace = 0; nCntFace < NUM_CUBE_FACE; nCntFace++)
 		{ // 面の総数分繰り返す
@@ -738,7 +748,7 @@ void CObjectMeshCube::DrawNormal()
 	//--------------------------------------------------------
 	//	縁取りの描画
 	//--------------------------------------------------------
-	if (m_meshCube.bordState == BORDER_ON)
+	if (m_bordState == BORDER_ON)
 	{ // 縁取りがONの場合
 
 		// ポリゴンの裏面のみを表示状態にする
@@ -782,10 +792,10 @@ void CObjectMeshCube::DrawShader(CShader* pShader)
 	pShader->BeginPass(0);
 
 	// マトリックス情報を設定
-	pShader->SetMatrix(&m_meshCube.mtxWorld);
+	pShader->SetMatrix(&m_mtxWorld);
 
 	// ライト方向を設定
-	pShader->SetLightDirect(&m_meshCube.mtxWorld, 0);
+	pShader->SetLightDirect(&m_mtxWorld, 0);
 
 	//--------------------------------------------------------
 	//	キューブの描画
@@ -794,17 +804,17 @@ void CObjectMeshCube::DrawShader(CShader* pShader)
 	m_pRenderState->Set();
 
 	// 拡散光を設定
-	pShader->SetOnlyDiffuse(m_meshCube.aCol[CUBECOL_CUBE]);
+	pShader->SetOnlyDiffuse(m_aCol[CUBECOL_CUBE]);
 
-	switch (m_meshCube.texState)
+	switch (m_texState)
 	{ // テクスチャ使用状態ごとの処理
 	case TEXSTATE_ONE:		// 同一テクスチャ
 
 		// テクスチャの設定
-		pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_meshCube.texIdx.All));
+		pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_texIdx.All));
 
 		// テクスチャを設定
-		pShader->SetTexture(m_meshCube.texIdx.All);
+		pShader->SetTexture(m_texIdx.All);
 
 		// 状態変更の伝達
 		pShader->CommitChanges();
@@ -826,12 +836,12 @@ void CObjectMeshCube::DrawShader(CShader* pShader)
 	case TEXSTATE_SELECT:	// 全選択テクスチャ
 
 		// テクスチャの種類を設定
-		aTexType[0] = m_meshCube.texIdx.Top;	// 上のテクスチャ
-		aTexType[1] = m_meshCube.texIdx.Right;	// 右のテクスチャ
-		aTexType[2] = m_meshCube.texIdx.Near;	// 前のテクスチャ
-		aTexType[3] = m_meshCube.texIdx.Left;	// 左のテクスチャ
-		aTexType[4] = m_meshCube.texIdx.Far;	// 後のテクスチャ
-		aTexType[5] = m_meshCube.texIdx.Bottom;	// 下のテクスチャ
+		aTexType[0] = m_texIdx.Top;		// 上のテクスチャ
+		aTexType[1] = m_texIdx.Right;	// 右のテクスチャ
+		aTexType[2] = m_texIdx.Near;	// 前のテクスチャ
+		aTexType[3] = m_texIdx.Left;	// 左のテクスチャ
+		aTexType[4] = m_texIdx.Far;		// 後のテクスチャ
+		aTexType[5] = m_texIdx.Bottom;	// 下のテクスチャ
 
 		for (int nCntFace = 0; nCntFace < NUM_CUBE_FACE; nCntFace++)
 		{ // 面の総数分繰り返す
@@ -867,7 +877,7 @@ void CObjectMeshCube::DrawShader(CShader* pShader)
 	//--------------------------------------------------------
 	//	縁取りの描画
 	//--------------------------------------------------------
-	if (m_meshCube.bordState == BORDER_ON)
+	if (m_bordState == BORDER_ON)
 	{ // 縁取りがONの場合
 
 		// ポリゴンの裏面のみを表示状態にする
@@ -880,7 +890,7 @@ void CObjectMeshCube::DrawShader(CShader* pShader)
 		pDevice->SetTexture(0, nullptr);
 
 		// 拡散光を設定
-		pShader->SetOnlyDiffuse(m_meshCube.aCol[CUBECOL_BORDER]);
+		pShader->SetOnlyDiffuse(m_aCol[CUBECOL_BORDER]);
 
 		// テクスチャを設定
 		pShader->SetTexture(NONE_IDX);

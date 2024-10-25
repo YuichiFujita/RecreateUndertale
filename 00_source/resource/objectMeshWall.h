@@ -29,16 +29,6 @@ public:
 	// デストラクタ
 	~CObjectMeshWall() override;
 
-	// メッシュウォール構造体
-	struct SMeshWall
-	{
-		VECTOR3	pos;		// 位置
-		VECTOR3	rot;		// 向き
-		VECTOR2	size;		// 大きさ
-		COLOR	col;		// 色
-		MATRIX	mtxWorld;	// ワールドマトリックス
-	};
-
 	// オーバーライド関数
 	HRESULT Init() override;	// 初期化
 	void Uninit() override;		// 終了
@@ -47,11 +37,11 @@ public:
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
 	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
 	void SetVec2Size(const VECTOR2& rSize) override;	// 大きさ設定
-	inline VECTOR3 GetVec3Position() const override	{ return m_meshWall.pos; }			// 位置取得
-	inline VECTOR3 GetVec3Rotation() const override	{ return m_meshWall.rot; }			// 向き取得
-	inline VECTOR2 GetVec2Size() const override		{ return m_meshWall.size; }			// 大きさ取得
-	inline MATRIX* GetPtrMtxWorld() override		{ return &m_meshWall.mtxWorld; }	// マトリックスポインタ取得
-	inline MATRIX GetMtxWorld() const override		{ return m_meshWall.mtxWorld; }		// マトリックス取得
+	inline VECTOR3 GetVec3Position() const override	{ return m_pos; }		// 位置取得
+	inline VECTOR3 GetVec3Rotation() const override	{ return m_rot; }		// 向き取得
+	inline VECTOR2 GetVec2Size() const override		{ return m_size; }		// 大きさ取得
+	inline MATRIX* GetPtrMtxWorld() override		{ return &m_mtxWorld; }	// マトリックスポインタ取得
+	inline MATRIX GetMtxWorld() const override		{ return m_mtxWorld; }	// マトリックス取得
 
 	// 静的メンバ関数
 	static CObjectMeshWall* Create	// 生成
@@ -70,10 +60,10 @@ public:
 	void SetAlpha(const float fAlpha);			// 透明度設定
 	void SetColor(const COLOR& rCol);			// 色設定
 	HRESULT SetPattern(const POSGRID2& rPart);	// 分割数設定
-	inline int GetTextureIndex() const	{ return m_nTextureIdx; }		// テクスチャインデックス取得
-	inline float GetAlpha() const		{ return m_meshWall.col.a; }	// 透明度取得
-	inline COLOR GetColor() const		{ return m_meshWall.col; }		// 色取得
-	inline POSGRID2 GetPattern() const	{ return m_part; }				// 分割数取得
+	inline int GetTextureIndex() const	{ return m_nTextureIdx; }	// テクスチャインデックス取得
+	inline float GetAlpha() const		{ return m_col.a; }			// 透明度取得
+	inline COLOR GetColor() const		{ return m_col; }			// 色取得
+	inline POSGRID2 GetPattern() const	{ return m_part; }			// 分割数取得
 
 protected:
 	// メンバ関数
@@ -97,11 +87,15 @@ private:
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;	// 頂点バッファへのポインタ
 	LPDIRECT3DINDEXBUFFER9 m_pIdxBuff;	// インデックスバッファへのポインタ
 	CRenderState* m_pRenderState;		// レンダーステートの情報
-	SMeshWall m_meshWall;	// メッシュウォールの情報
-	POSGRID2 m_part;		// 分割数
-	int m_nNumVtx;			// 必要頂点数
-	int m_nNumIdx;			// 必要インデックス数
-	int m_nTextureIdx;		// テクスチャインデックス
+	MATRIX m_mtxWorld;	// ワールドマトリックス
+	VECTOR3 m_pos;		// 位置
+	VECTOR3 m_rot;		// 向き
+	VECTOR2 m_size;		// 大きさ
+	COLOR m_col;		// 色
+	POSGRID2 m_part;	// 分割数
+	int m_nNumVtx;		// 必要頂点数
+	int m_nNumIdx;		// 必要インデックス数
+	int m_nTextureIdx;	// テクスチャインデックス
 };
 
 #endif	// _OBJECT_MESHWALL_H_

@@ -63,7 +63,7 @@ public:
 	void StartScrollStory();					// ストーリースクロール開始
 	bool NormalizeScrollStory();				// ストーリースクロール正規化
 	void SetEnableSlowText(const bool bSlow);	// 文字送りの速度設定
-	inline int GetStoryIdx()		{ return m_nStoryIdx; }					// 物語インデックス取得
+	inline int GetStoryIdx()	{ return m_nStoryIdx; }					// 物語インデックス取得
 	inline int GetNextCharIdx()	{ return m_pText->GetNextCharIdx(); }	// 次の表示文字インデックス取得
 	inline bool IsTextScroll()	{ return m_pText->IsScroll(); }			// テキスト文字送り状況取得
 
@@ -81,7 +81,7 @@ private:
 	CScroll2D* m_pStory;	// ストーリー
 	CScrollText2D* m_pText;	// テキスト
 	CIntroState* m_pState;	// 状態
-	int m_nStoryIdx;			// 物語インデックス
+	int m_nStoryIdx;		// 物語インデックス
 };
 
 #endif	// _INTROMANAGER_H_

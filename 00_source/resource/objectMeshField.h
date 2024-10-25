@@ -29,16 +29,6 @@ public:
 	// デストラクタ
 	~CObjectMeshField() override;
 
-	// メッシュフィールド構造体
-	struct SMeshField
-	{
-		VECTOR3	pos;		// 位置
-		VECTOR3	rot;		// 向き
-		VECTOR2	size;		// 大きさ
-		COLOR	col;		// 色
-		MATRIX	mtxWorld;	// ワールドマトリックス
-	};
-
 	// オーバーライド関数
 	HRESULT Init() override;	// 初期化
 	void Uninit() override;		// 終了
@@ -47,11 +37,11 @@ public:
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
 	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
 	void SetVec2Size(const VECTOR2& rSize) override;	// 大きさ設定
-	inline VECTOR3 GetVec3Position() const override	{ return m_meshField.pos; }			// 位置取得
-	inline VECTOR3 GetVec3Rotation() const override	{ return m_meshField.rot; }			// 向き取得
-	inline VECTOR2 GetVec2Size() const override		{ return m_meshField.size; }		// 大きさ取得
-	inline MATRIX* GetPtrMtxWorld() override		{ return &m_meshField.mtxWorld; }	// マトリックスポインタ取得
-	inline MATRIX GetMtxWorld() const override		{ return m_meshField.mtxWorld; }	// マトリックス取得
+	inline VECTOR3 GetVec3Position() const override	{ return m_pos; }		// 位置取得
+	inline VECTOR3 GetVec3Rotation() const override	{ return m_rot; }		// 向き取得
+	inline VECTOR2 GetVec2Size() const override		{ return m_size; }		// 大きさ取得
+	inline MATRIX* GetPtrMtxWorld() override		{ return &m_mtxWorld; }	// マトリックスポインタ取得
+	inline MATRIX GetMtxWorld() const override		{ return m_mtxWorld; }	// マトリックス取得
 
 	// 静的メンバ関数
 	static CObjectMeshField* Create	// 生成
@@ -70,11 +60,11 @@ public:
 	void SetAlpha(const float fAlpha);			// 透明度設定
 	void SetColor(const COLOR& rCol);			// 色設定
 	HRESULT SetPattern(const POSGRID2& rPart);	// 分割数設定
-	inline int GetTextureIndex() const	{ return m_nTextureIdx; }		// テクスチャインデックス取得
-	inline float GetAlpha() const		{ return m_meshField.col.a; }	// 透明度取得
-	inline COLOR GetColor() const		{ return m_meshField.col; }		// 色取得
-	inline POSGRID2 GetPattern() const	{ return m_part; }				// 分割数取得
-	inline int GetNumVertex() const		{ return m_nNumVtx; }			// 頂点数取得
+	inline int GetTextureIndex() const	{ return m_nTextureIdx; }	// テクスチャインデックス取得
+	inline float GetAlpha() const		{ return m_col.a; }			// 透明度取得
+	inline COLOR GetColor() const		{ return m_col; }			// 色取得
+	inline POSGRID2 GetPattern() const	{ return m_part; }			// 分割数取得
+	inline int GetNumVertex() const		{ return m_nNumVtx; }		// 頂点数取得
 
 	void SetGapPosition(const int nIdx, const VECTOR3& rPos);			// 座標のずれ設定
 	VECTOR3 GetGapPosition(const int nIdx);								// 座標のずれ取得
@@ -118,7 +108,11 @@ private:
 	VECTOR3* m_pPosGapBuff;	// 座標のずれバッファへのポインタ
 	VECTOR3* m_pNorBuff;	// 法線バッファへのポインタ
 	int* m_pNumNorBuff;		// 法線の使用数バッファへのポインタ
-	SMeshField m_meshField;	// メッシュフィールドの情報
+	MATRIX m_mtxWorld;		// ワールドマトリックス
+	VECTOR3 m_pos;			// 位置
+	VECTOR3 m_rot;			// 向き
+	VECTOR2 m_size;			// 大きさ
+	COLOR m_col;			// 色
 	POSGRID2 m_part;		// 分割数
 	int m_nNumVtx;			// 必要頂点数
 	int m_nNumIdx;			// 必要インデックス数

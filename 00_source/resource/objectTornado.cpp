@@ -27,15 +27,31 @@ namespace
 //	コンストラクタ
 //============================================================
 CObjectTornado::CObjectTornado() : CObject(LABEL_NONE, DIM_3D, object::DEFAULT_PRIO),
-	m_pVtxBuff		(nullptr),	// 頂点バッファ
-	m_pRenderState	(nullptr),	// レンダーステートの情報
-	m_nNumVtx		(0),		// 必要頂点数
-	m_nNumAround	(0),		// 渦の周回数
-	m_nPattern		(0),		// 渦の分割数
-	m_nTextureIdx	(0)			// テクスチャインデックス
+	m_pVtxBuff		(nullptr),			// 頂点バッファ
+	m_pRenderState	(nullptr),			// レンダーステートの情報
+	m_pMtxParent	(nullptr),			// 親のマトリックス
+	m_mtxWorld		(MTX_IDENT),		// ワールドマトリックス
+	m_pos			(VEC3_ZERO),		// 位置
+	m_rot			(VEC3_ZERO),		// 向き
+	m_growRot		(VEC3_ZERO),		// 成長向き
+	m_col			(color::White()),	// 色
+	m_fMoveRot		(0.0f),				// 向きの変更量
+	m_fThickness	(0.0f),				// ポリゴンの太さ
+	m_fOuterPlusY	(0.0f),				// ポリゴン外周のY座標加算量
+	m_fSetWidth		(0.0f),				// 生成時の横ずれ量
+	m_fSetAlpha		(0.0f),				// 生成時の透明度
+	m_fAddWidth		(0.0f),				// 横ずれの加算量
+	m_fAddHeight	(0.0f),				// 縦ずれの加算量
+	m_fSubAlpha		(0.0f),				// 透明度の減算量
+	m_fGrowWidth	(0.0f),				// 横ずれの成長量
+	m_fGrowHeight	(0.0f),				// 縦ずれの成長量
+	m_fGrowAlpha	(0.0f),				// 透明度の成長量
+	m_nNumVtx		(0),				// 必要頂点数
+	m_nNumAround	(0),				// 渦の周回数
+	m_nPattern		(0),				// 渦の分割数
+	m_nTextureIdx	(0)					// テクスチャインデックス
 {
-	// メンバ変数をクリア
-	memset(&m_tornado, 0, sizeof(m_tornado));	// 竜巻の情報
+
 }
 
 //============================================================
@@ -52,30 +68,32 @@ CObjectTornado::~CObjectTornado()
 HRESULT CObjectTornado::Init()
 {
 	// メンバ変数を初期化
-	m_pVtxBuff		= nullptr;	// 頂点バッファ
-	m_pRenderState	= nullptr;	// レンダーステートの情報
-	m_nNumVtx		= 0;		// 必要頂点数
-	m_nNumAround	= 0;		// 渦の周回数
-	m_nPattern		= 0;		// 渦の分割数
-	m_nTextureIdx	= NONE_IDX;	// テクスチャインデックス
+	m_pVtxBuff		= nullptr;			// 頂点バッファ
+	m_pRenderState	= nullptr;			// レンダーステートの情報
+	m_pMtxParent	= nullptr;			// 親のマトリックス
+	m_mtxWorld		= MTX_IDENT;		// ワールドマトリックス
+	m_pos			= VEC3_ZERO;		// 位置
+	m_rot			= VEC3_ZERO;		// 向き
+	m_growRot		= VEC3_ZERO;		// 成長向き
+	m_col			= color::White();	// 色
+	m_fMoveRot		= 0.0f;				// 向きの変更量
+	m_fThickness	= 0.0f;				// ポリゴンの太さ
+	m_fOuterPlusY	= 0.0f;				// ポリゴン外周のY座標加算量
+	m_fSetWidth		= 0.0f;				// 生成時の横ずれ量
+	m_fSetAlpha		= 0.0f;				// 生成時の透明度
+	m_fAddWidth		= 0.0f;				// 横ずれの加算量
+	m_fAddHeight	= 0.0f;				// 縦ずれの加算量
+	m_fSubAlpha		= 0.0f;				// 透明度の減算量
+	m_fGrowWidth	= 0.0f;				// 横ずれの成長量
+	m_fGrowHeight	= 0.0f;				// 縦ずれの成長量
+	m_fGrowAlpha	= 0.0f;				// 透明度の成長量
+	m_nNumVtx		= 0;				// 必要頂点数
+	m_nNumAround	= 0;				// 渦の周回数
+	m_nPattern		= 0;				// 渦の分割数
+	m_nTextureIdx	= NONE_IDX;			// テクスチャインデックス
 
 	// 竜巻の情報を初期化
-	m_tornado.pos			= VEC3_ZERO;		// 位置
-	m_tornado.rot			= VEC3_ZERO;		// 向き
-	m_tornado.growRot		= VEC3_ZERO;		// 成長向き
-	m_tornado.col			= color::White();	// 色
-	m_tornado.pMtxParent	= nullptr;			// 親のマトリックス
-	m_tornado.fMoveRot		= 0.0f;				// 向きの変更量
-	m_tornado.fThickness	= 0.0f;				// ポリゴンの太さ
-	m_tornado.fOuterPlusY	= 0.0f;				// ポリゴン外周のY座標加算量
-	m_tornado.fSetWidth		= 0.0f;				// 生成時の横ずれ量
-	m_tornado.fSetAlpha		= 0.0f;				// 生成時の透明度
-	m_tornado.fAddWidth		= 0.0f;				// 横ずれの加算量
-	m_tornado.fAddHeight	= 0.0f;				// 縦ずれの加算量
-	m_tornado.fSubAlpha		= 0.0f;				// 透明度の減算量
-	m_tornado.fGrowWidth	= 0.0f;				// 横ずれの成長量
-	m_tornado.fGrowHeight	= 0.0f;				// 縦ずれの成長量
-	m_tornado.fGrowAlpha	= 0.0f;				// 透明度の成長量
+
 
 	// 渦を設定
 	if (FAILED(SetVortex(1, 1)))
@@ -133,21 +151,21 @@ void CObjectTornado::Uninit()
 void CObjectTornado::Update(const float fDeltaTime)
 {
 	// 竜巻の向きを変更
-	m_tornado.rot.y -= m_tornado.fMoveRot;
+	m_rot.y -= m_fMoveRot;
 
 	// 向きを正規化
-	useful::NormalizeRot(m_tornado.rot.y);
+	useful::NormalizeRot(m_rot.y);
 
 	// 竜巻を成長させる
-	m_tornado.fSetWidth  += m_tornado.fGrowWidth * m_nNumVtx;	// 原点からの横ずれ量を加算
-	m_tornado.fAddWidth  += m_tornado.fGrowWidth;	// 竜巻の横の広がりを加算
-	m_tornado.fAddHeight += m_tornado.fGrowHeight;	// 竜巻の縦の広がりを加算
-	m_tornado.fSetAlpha  -= m_tornado.fGrowAlpha;	// 竜巻の透明度を減算 (透明にしていく)
+	m_fSetWidth  += m_fGrowWidth * m_nNumVtx;	// 原点からの横ずれ量を加算
+	m_fAddWidth  += m_fGrowWidth;	// 竜巻の横の広がりを加算
+	m_fAddHeight += m_fGrowHeight;	// 竜巻の縦の広がりを加算
+	m_fSetAlpha  -= m_fGrowAlpha;	// 竜巻の透明度を減算 (透明にしていく)
 
 	// 頂点情報の設定
 	SetVtx();
 
-	if (m_tornado.fSetAlpha <= 0.0f)
+	if (m_fSetAlpha <= 0.0f)
 	{ // 竜巻が透明になった場合
 
 		// 竜巻オブジェクトの終了
@@ -177,41 +195,41 @@ void CObjectTornado::Draw(CShader* pShader)
 	D3DXMatrixIdentity(&mtxOrigin);
 
 	// 向きを反映
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_tornado.growRot.y, m_tornado.growRot.x, m_tornado.growRot.z);
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_growRot.y, m_growRot.x, m_growRot.z);
 	D3DXMatrixMultiply(&mtxOrigin, &mtxOrigin, &mtxRot);	// 成長向き
 
 	// 位置を反映
-	D3DXMatrixTranslation(&mtxTrans, m_tornado.pos.x, m_tornado.pos.y, m_tornado.pos.z);
+	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
 	D3DXMatrixMultiply(&mtxOrigin, &mtxOrigin, &mtxTrans);	// 発生位置
 
 	//--------------------------------------------------------
 	//	ワールドマトリックスを求める
 	//--------------------------------------------------------
 	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&m_tornado.mtxWorld);
+	D3DXMatrixIdentity(&m_mtxWorld);
 
 	// 向きを反映
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_tornado.rot.y, m_tornado.rot.x, m_tornado.rot.z);
-	D3DXMatrixMultiply(&m_tornado.mtxWorld, &m_tornado.mtxWorld, &mtxRot);	// 回転量
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
+	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);	// 回転量
 
 	//--------------------------------------------------------
 	//	マトリックスを掛け合わせる
 	//--------------------------------------------------------
-	if (m_tornado.pMtxParent != nullptr)
+	if (m_pMtxParent != nullptr)
 	{ // 親のマトリックスが存在する場合
 
 		// 親のマトリックスと掛け合わせる
-		D3DXMatrixMultiply(&mtxOrigin, &mtxOrigin, m_tornado.pMtxParent);
+		D3DXMatrixMultiply(&mtxOrigin, &mtxOrigin, m_pMtxParent);
 	}
 
 	// 発生源のマトリックスと掛け合わせる
-	D3DXMatrixMultiply(&m_tornado.mtxWorld, &m_tornado.mtxWorld, &mtxOrigin);
+	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxOrigin);
 
 	//--------------------------------------------------------
 	//	竜巻を描画
 	//--------------------------------------------------------
 	// ワールドマトリックスの設定
-	pDevice->SetTransform(D3DTS_WORLD, &m_tornado.mtxWorld);
+	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
 
 	// 頂点バッファをデータストリームに設定
 	pDevice->SetStreamSource(0, m_pVtxBuff, 0, sizeof(VERTEX_3D));
@@ -242,7 +260,7 @@ void CObjectTornado::Draw(CShader* pShader)
 void CObjectTornado::SetVec3Position(const VECTOR3& rPos)
 {
 	// 引数の位置を設定
-	m_tornado.pos = rPos;
+	m_pos = rPos;
 }
 
 //============================================================
@@ -253,7 +271,7 @@ CObjectTornado* CObjectTornado::Create
 	const VECTOR3& rPos,		// 位置
 	const VECTOR3& rGrowRot,	// 成長向き
 	const COLOR& rCol,			// 色
-	MATRIX* pMtxParent,			// 親のマトリックス
+	MATRIX*		pMtxParent,		// 親のマトリックス
 	const int	nNumAround,		// 渦の周回数
 	const int	nPattern,		// 渦の分割数
 	const float	fMoveRot,		// 向きの変更量
@@ -350,10 +368,10 @@ void CObjectTornado::SetGrow
 )
 {
 	// 引数の情報を設定
-	m_tornado.fMoveRot		= fMoveRot;		// 向きの変更量
-	m_tornado.fGrowWidth	= fGrowWidth;	// 横ずれの成長量
-	m_tornado.fGrowHeight	= fGrowHeight;	// 縦ずれの成長量
-	m_tornado.fGrowAlpha	= fGrowAlpha;	// 透明度の成長量
+	m_fMoveRot		= fMoveRot;		// 向きの変更量
+	m_fGrowWidth	= fGrowWidth;	// 横ずれの成長量
+	m_fGrowHeight	= fGrowHeight;	// 縦ずれの成長量
+	m_fGrowAlpha	= fGrowAlpha;	// 透明度の成長量
 }
 
 //============================================================
@@ -448,7 +466,7 @@ void CObjectTornado::BindTexture(const char* pTexturePath)
 void CObjectTornado::DeleteMatrixParent()
 {
 	// 親マトリックスをnullptrにする
-	m_tornado.pMtxParent = nullptr;
+	m_pMtxParent = nullptr;
 }
 
 //============================================================
@@ -457,7 +475,7 @@ void CObjectTornado::DeleteMatrixParent()
 void CObjectTornado::SetMatrixParent(MATRIX* pMtxParent)
 {
 	// 引数の親マトリックスを設定
-	m_tornado.pMtxParent = pMtxParent;
+	m_pMtxParent = pMtxParent;
 }
 
 //============================================================
@@ -466,10 +484,10 @@ void CObjectTornado::SetMatrixParent(MATRIX* pMtxParent)
 void CObjectTornado::SetAlpha(const float fAlpha)
 {
 	// 引数の透明度を設定
-	m_tornado.col.a = fAlpha;
+	m_col.a = fAlpha;
 
 	// 色の設定
-	SetColor(m_tornado.col);
+	SetColor(m_col);
 }
 
 //============================================================
@@ -478,7 +496,7 @@ void CObjectTornado::SetAlpha(const float fAlpha)
 void CObjectTornado::SetColor(const COLOR& rCol)
 {
 	// 引数の色を設定
-	m_tornado.col = rCol;
+	m_col = rCol;
 
 	// 頂点情報の設定
 	SetVtx();
@@ -490,10 +508,10 @@ void CObjectTornado::SetColor(const COLOR& rCol)
 void CObjectTornado::SetRotationGrow(const VECTOR3& rRot)
 {
 	// 引数の成長向きを設定
-	m_tornado.growRot = rRot;
+	m_growRot = rRot;
 
 	// 成長向きの正規化
-	useful::NormalizeRot(m_tornado.growRot);
+	useful::NormalizeRot(m_growRot);
 }
 
 //============================================================
@@ -502,7 +520,7 @@ void CObjectTornado::SetRotationGrow(const VECTOR3& rRot)
 void CObjectTornado::SetThickness(const float fThickness)
 {
 	// 引数のポリゴンの太さを設定
-	m_tornado.fThickness = fThickness;
+	m_fThickness = fThickness;
 
 	// 頂点情報の設定
 	SetVtx();
@@ -514,7 +532,7 @@ void CObjectTornado::SetThickness(const float fThickness)
 void CObjectTornado::SetOuterPlusY(const float fOuterPlusY)
 {
 	// 引数のポリゴン外周のY座標加算量を設定
-	m_tornado.fOuterPlusY = fOuterPlusY;
+	m_fOuterPlusY = fOuterPlusY;
 
 	// 頂点情報の設定
 	SetVtx();
@@ -526,7 +544,7 @@ void CObjectTornado::SetOuterPlusY(const float fOuterPlusY)
 void CObjectTornado::SetCreateWidth(const float fSetWidth)
 {
 	// 引数の生成時の横ずれ量を設定
-	m_tornado.fSetWidth = fSetWidth;
+	m_fSetWidth = fSetWidth;
 
 	// 頂点情報の設定
 	SetVtx();
@@ -538,7 +556,7 @@ void CObjectTornado::SetCreateWidth(const float fSetWidth)
 void CObjectTornado::SetCreateAlpha(const float fSetAlpha)
 {
 	// 引数の生成時の透明度を設定
-	m_tornado.fSetAlpha = fSetAlpha;
+	m_fSetAlpha = fSetAlpha;
 
 	// 頂点情報の設定
 	SetVtx();
@@ -550,7 +568,7 @@ void CObjectTornado::SetCreateAlpha(const float fSetAlpha)
 void CObjectTornado::SetAddWidth(const float fAddWidth)
 {
 	// 引数の横ずれの加算量を設定
-	m_tornado.fAddWidth = fAddWidth;
+	m_fAddWidth = fAddWidth;
 
 	// 頂点情報の設定
 	SetVtx();
@@ -562,7 +580,7 @@ void CObjectTornado::SetAddWidth(const float fAddWidth)
 void CObjectTornado::SetAddHeight(const float fAddHeight)
 {
 	// 引数の縦ずれの加算量を設定
-	m_tornado.fAddHeight = fAddHeight;
+	m_fAddHeight = fAddHeight;
 
 	// 頂点情報の設定
 	SetVtx();
@@ -574,7 +592,7 @@ void CObjectTornado::SetAddHeight(const float fAddHeight)
 void CObjectTornado::SetSubAlpha(const float fSubAlpha)
 {
 	// 引数の透明度の減算量を設定
-	m_tornado.fSubAlpha = fSubAlpha;
+	m_fSubAlpha = fSubAlpha;
 
 	// 頂点情報の設定
 	SetVtx();
@@ -587,9 +605,9 @@ void CObjectTornado::SetVtx()
 {
 	VERTEX_3D* pVtx;	// 頂点情報へのポインタ
 	VECTOR3 vecPos;		// 竜巻の頂点方向ベクトル
-	float fWidth  = m_tornado.fSetWidth;	// 頂点方向の横ずれ量
-	float fHeight = 0.0f;					// 頂点方向の縦ずれ量
-	float fAlpha  = m_tornado.fSetAlpha;	// 頂点カラーの透明度
+	float fWidth  = m_fSetWidth;	// 頂点方向の横ずれ量
+	float fHeight = 0.0f;			// 頂点方向の縦ずれ量
+	float fAlpha  = m_fSetAlpha;	// 頂点カラーの透明度
 	if (m_pVtxBuff != nullptr)
 	{ // 竜巻の頂点バッファが使用中の場合
 
@@ -611,9 +629,9 @@ void CObjectTornado::SetVtx()
 				{ // オフセットの総数分繰り返す
 
 					// 頂点座標の設定
-					pVtx[0].pos.x = 0.0f + vecPos.x * (fWidth + (nCntSet * m_tornado.fThickness));		// x
-					pVtx[0].pos.y = 0.0f + vecPos.y * (fHeight + (nCntSet * m_tornado.fOuterPlusY));	// y
-					pVtx[0].pos.z = 0.0f + vecPos.z * (fWidth + (nCntSet * m_tornado.fThickness));		// z
+					pVtx[0].pos.x = 0.0f + vecPos.x * (fWidth + (nCntSet * m_fThickness));		// x
+					pVtx[0].pos.y = 0.0f + vecPos.y * (fHeight + (nCntSet * m_fOuterPlusY));	// y
+					pVtx[0].pos.z = 0.0f + vecPos.z * (fWidth + (nCntSet * m_fThickness));		// z
 
 					// 法線ベクトルの設定
 					pVtx[0].nor = VEC3_ZERO;
@@ -626,7 +644,7 @@ void CObjectTornado::SetVtx()
 					}
 
 					// 頂点カラーの設定
-					pVtx[0].col = COLOR(m_tornado.col.r, m_tornado.col.g, m_tornado.col.b, fAlpha);
+					pVtx[0].col = COLOR(m_col.r, m_col.g, m_col.b, fAlpha);
 
 					// テクスチャ座標の設定
 					pVtx[0].tex = VECTOR2
@@ -640,11 +658,11 @@ void CObjectTornado::SetVtx()
 				}
 
 				// 縦横を広げる
-				fWidth  += m_tornado.fAddWidth;
-				fHeight += m_tornado.fAddHeight;
+				fWidth  += m_fAddWidth;
+				fHeight += m_fAddHeight;
 
 				// α値を減算
-				fAlpha -= m_tornado.fSubAlpha;
+				fAlpha -= m_fSubAlpha;
 			}
 		}
 
@@ -680,13 +698,13 @@ void CObjectTornado::DrawShader(CShader* pShader)
 	pShader->BeginPass(0);
 
 	// マトリックス情報を設定
-	pShader->SetMatrix(&m_tornado.mtxWorld);
+	pShader->SetMatrix(&m_mtxWorld);
 
 	// ライト方向を設定
-	pShader->SetLightDirect(&m_tornado.mtxWorld, 0);
+	pShader->SetLightDirect(&m_mtxWorld, 0);
 
 	// 拡散光を設定
-	pShader->SetOnlyDiffuse(m_tornado.col);
+	pShader->SetOnlyDiffuse(m_col);
 
 	// テクスチャを設定
 	pShader->SetTexture(m_nTextureIdx);
