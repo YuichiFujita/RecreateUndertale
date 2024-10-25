@@ -140,50 +140,12 @@ void CObjectBillboard::Update(const float fDeltaTime)
 void CObjectBillboard::Draw(CShader* pShader)
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
-	MATRIX mtxTrans;	// 計算用マトリックス
-	MATRIX mtxView;		// ビューマトリックス
 
 	// レンダーステートを設定
 	m_pRenderState->Set();
 
-	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&m_mtxWorld);
-
-	// ビューマトリックスを取得
-	pDevice->GetTransform(D3DTS_VIEW, &mtxView);
-
-	// ポリゴンをカメラに対して正面に向ける
-	D3DXMatrixInverse(&m_mtxWorld, nullptr, &mtxView);	// 逆行列を求める
-
-	// マトリックスのワールド座標を原点にする
-	m_mtxWorld._41 = 0.0f;
-	m_mtxWorld._42 = 0.0f;
-	m_mtxWorld._43 = 0.0f;
-
-	switch (m_rotate)
-	{ // 回転ごとの処理
-	case ROTATE_NORMAL:		// 通常回転
-
-		// 無し
-
-		break;
-
-	case ROTATE_LATERAL:	// 横回転
-
-		m_mtxWorld._21 = 0.0f;
-		m_mtxWorld._23 = 0.0f;
-		m_mtxWorld._24 = 0.0f;
-
-		break;
-
-	default:	// 例外処理
-		assert(false);
-		break;
-	}
-
-	// 位置を反映
-	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
+	// 描画マトリックスの計算
+	CalcDrawMatrix();
 
 	// ワールドマトリックスの設定
 	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
@@ -448,6 +410,42 @@ void CObjectBillboard::SetRotate(const ERotate rotate)
 {
 	// 引数の回転を設定
 	m_rotate = rotate;
+}
+
+//============================================================
+//	描画マトリックスの計算処理
+//============================================================
+void CObjectBillboard::CalcDrawMatrix()
+{
+	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
+	MATRIX mtxTrans;	// 計算用マトリックス
+
+	// ビューマトリックスを取得
+	pDevice->GetTransform(D3DTS_VIEW, &m_mtxWorld);
+
+	// ビューマトリックスを逆行列に変換
+	m_mtxWorld.Inverse();	// ポリゴンをカメラに対して正面に向ける
+
+	// マトリックスのワールド座標を原点にする
+	m_mtxWorld._41 = m_mtxWorld._42 = m_mtxWorld._43 = 0.0f;
+
+	switch (m_rotate)
+	{ // 回転ごとの処理
+	case ROTATE_NORMAL:		// 通常回転
+		break;
+
+	case ROTATE_LATERAL:	// 横回転
+		m_mtxWorld._21 = m_mtxWorld._23 = m_mtxWorld._24 = 0.0f;
+		break;
+
+	default:	// 例外処理
+		assert(false);
+		break;
+	}
+
+	// 位置を反映
+	mtxTrans.Translation(m_pos);
+	m_mtxWorld.Multiply(mtxTrans);
 }
 
 //============================================================

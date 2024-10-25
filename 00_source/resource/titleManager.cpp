@@ -10,6 +10,12 @@
 #include "titleManager.h"
 #include "manager.h"
 
+// TODO：デバッグ
+#include "objectMeshField.h"
+#include "objectMeshWall.h"
+#include "object3D.h"
+#include "objectBillboard.h"
+
 //************************************************************
 //	定数宣言
 //************************************************************
@@ -42,6 +48,23 @@ CTitleManager::~CTitleManager()
 //============================================================
 HRESULT CTitleManager::Init()
 {
+	// 地面
+	CObjectMeshField* pField = CObjectMeshField::Create(VEC3_ZERO, VEC3_ZERO, VECTOR2(5000.0f, 500.0f), color::Yellow(), POSGRID2(10, 10));
+	pField->SetLabel(CObject::LABEL_DEBUG);
+
+	// 壁
+	CObjectMeshWall* pWall = CObjectMeshWall::Create(VECTOR3(0.0f, 0.0f, 250.0f), VEC3_ZERO, VECTOR2(5000.0f, 500.0f), color::Cyan(), POSGRID2(10, 10));
+	pWall->SetLabel(CObject::LABEL_DEBUG);
+
+	// 3D
+	CObject3D* p3D = CObject3D::Create(VECTOR3(0.0f, 50.0f, 0.0f), VECTOR3(50.0f, 50.0f, 0.0f));
+	p3D->SetLabel(CObject::LABEL_DEBUG);
+
+	// ビルボード
+	CObjectBillboard* pBill = CObjectBillboard::Create(VECTOR3(150.0f, 50.0f, 0.0f), VECTOR3(50.0f, 50.0f, 0.0f));
+	pBill->SetLabel(CObject::LABEL_DEBUG);
+	pBill->SetRotate(CObjectBillboard::ROTATE_LATERAL);
+
 	// 成功を返す
 	return S_OK;
 }

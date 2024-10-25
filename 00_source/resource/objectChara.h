@@ -103,6 +103,10 @@ public:
 	inline bool IsLeftWeaponCollision()			{ return m_pMotion->IsLeftWeaponCollision(); }				// 左の攻撃判定フラグ取得
 	inline bool IsRightWeaponCollision()		{ return m_pMotion->IsRightWeaponCollision(); }				// 右の攻撃判定フラグ取得
 
+protected:
+	// 仮想関数
+	virtual void CalcDrawMatrix();	// 描画マトリックス計算
+
 private:
 	// オーバーライド関数
 	inline void Release() override { CObject::Release(); }	// 破棄

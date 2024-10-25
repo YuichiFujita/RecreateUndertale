@@ -85,6 +85,9 @@ public:
 	inline ERotate GetRotate() const	{ return m_rotate; }		// 回転取得
 
 protected:
+	// 仮想関数
+	virtual void CalcDrawMatrix();	// 描画マトリックス計算
+
 	// メンバ関数
 	void SetVtx();	// 頂点情報の設定
 

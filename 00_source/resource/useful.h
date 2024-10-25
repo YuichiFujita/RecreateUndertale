@@ -612,6 +612,9 @@ struct MATRIX : public D3DXMATRIX
 	/* @brief 単位マトリックス化 */
 	inline void Identity() { D3DXMatrixIdentity(this); }
 
+	/* @brief 逆マトリックス化 */
+	inline void Inverse() { D3DXMatrixInverse(this, nullptr, this); }
+
 	/*
 		@brief	マトリックスを掛け合わせる
 		@param	const MATRIX& [in] 掛け合わせるマトリックス
