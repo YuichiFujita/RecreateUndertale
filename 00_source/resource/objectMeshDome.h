@@ -79,6 +79,9 @@ public:
 	inline POSGRID2 GetTexPattern() const	{ return m_texPart; }		// テクスチャ分割数取得
 
 protected:
+	// 仮想関数
+	virtual void CalcDrawMatrix();	// 描画マトリックス計算
+
 	// メンバ関数
 	void SetVtx();		// 頂点情報の設定
 	void SetIdx();		// インデックス情報の設定

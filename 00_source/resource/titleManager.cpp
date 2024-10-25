@@ -15,6 +15,10 @@
 #include "objectMeshWall.h"
 #include "object3D.h"
 #include "objectBillboard.h"
+#include "objectMeshCircle.h"
+#include "objectMeshCube.h"
+#include "objectMeshCylinder.h"
+#include "objectMeshDome.h"
 
 //************************************************************
 //	定数宣言
@@ -63,7 +67,23 @@ HRESULT CTitleManager::Init()
 	// ビルボード
 	CObjectBillboard* pBill = CObjectBillboard::Create(VECTOR3(150.0f, 50.0f, 0.0f), VECTOR3(50.0f, 50.0f, 0.0f));
 	pBill->SetLabel(CObject::LABEL_DEBUG);
-	pBill->SetRotate(CObjectBillboard::ROTATE_LATERAL);
+	//pBill->SetRotate(CObjectBillboard::ROTATE_LATERAL);
+
+	// サークル
+	CObjectMeshCircle* pCircle = CObjectMeshCircle::Create(VECTOR3(-150.0f, 50.0f, 0.0f), VEC3_ZERO, color::White(), POSGRID2(10, 10), 50.0f);
+	pCircle->SetLabel(CObject::LABEL_DEBUG);
+
+	// キューブ
+	CObjectMeshCube* pCube = CObjectMeshCube::Create(VECTOR3(300.0f, 50.0f, 0.0f), VEC3_ZERO, VECTOR3(50.0f), color::White());
+	pCube->SetLabel(CObject::LABEL_DEBUG);
+
+	// シリンダー
+	CObjectMeshCylinder* pCylinder = CObjectMeshCylinder::Create(VECTOR3(-300.0f, 50.0f, 0.0f), VEC3_ZERO, color::White(), POSGRID2(10), POSGRID2(10), 50.0f, 50.0f);
+	pCylinder->SetLabel(CObject::LABEL_DEBUG);
+
+	// ドーム
+	CObjectMeshDome* pDome = CObjectMeshDome::Create(VECTOR3(450.0f, 50.0f, 0.0f), VEC3_ZERO, color::White(), POSGRID2(10), POSGRID2(10), 50.0f);
+	pDome->SetLabel(CObject::LABEL_DEBUG);
 
 	// 成功を返す
 	return S_OK;

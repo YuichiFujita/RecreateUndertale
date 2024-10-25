@@ -140,16 +140,8 @@ void CObjectMeshDome::Draw(CShader* pShader)
 	// レンダーステートを設定
 	m_pRenderState->Set();
 
-	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&m_mtxWorld);
-
-	// 向きを反映
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
-
-	// 位置を反映
-	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
+	// 描画マトリックスの計算
+	CalcDrawMatrix();
 
 	// ワールドマトリックスの設定
 	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
@@ -440,6 +432,25 @@ void CObjectMeshDome::SetTexPattern(const POSGRID2& rTexPart)
 		SetVtx();
 	}
 	else { assert(false); }	// 最低値未満
+}
+
+//============================================================
+//	描画マトリックスの計算処理
+//============================================================
+void CObjectMeshDome::CalcDrawMatrix()
+{
+	MATRIX mtxRot, mtxTrans;	// 計算用マトリックス
+
+	// ワールドマトリックスの初期化
+	m_mtxWorld.Identity();
+
+	// 向きを反映
+	mtxRot.Rotation(m_rot);
+	m_mtxWorld.Multiply(mtxRot);
+
+	// 位置を反映
+	mtxTrans.Translation(m_pos);
+	m_mtxWorld.Multiply(mtxTrans);
 }
 
 //============================================================
