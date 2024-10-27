@@ -856,19 +856,19 @@ bool CObjectMeshField::IsPositionRange(const VECTOR3&rPos)
 		MATRIX mtxWorld, mtxRot, mtxTrans;	// 計算用マトリックス
 
 		// ワールドマトリックスの初期化
-		D3DXMatrixIdentity(&mtxWorld);
+		mtxWorld.Identity();
 
 		// 頂点位置を反映
-		D3DXMatrixTranslation(&mtxTrans, aVtxPos[nCntVtx].x, aVtxPos[nCntVtx].y, aVtxPos[nCntVtx].z);
-		D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxTrans);
+		mtxTrans.Translation(aVtxPos[nCntVtx]);
+		mtxWorld.Multiply(mtxWorld, mtxTrans);
 
 		// ポリゴン向きを反映
-		D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
-		D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxRot);
+		mtxRot.Rotation(m_rot);
+		mtxWorld.Multiply(mtxWorld, mtxRot);
 
 		// ポリゴン位置を反映
-		D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
-		D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxTrans);
+		mtxTrans.Translation(m_pos);
+		mtxWorld.Multiply(mtxWorld, mtxTrans);
 
 		// 計算したマトリックスから座標を設定
 		aVtxMtxPos[nCntVtx] = mtxWorld.GetPosition();
@@ -994,19 +994,19 @@ float CObjectMeshField::GetPositionRotateHeight(const VECTOR3& rPos)
 						MATRIX mtxWorld, mtxRot, mtxTrans;	// 計算用マトリックス
 
 						// ワールドマトリックスの初期化
-						D3DXMatrixIdentity(&mtxWorld);
+						mtxWorld.Identity();
 
 						// 頂点位置を反映
-						D3DXMatrixTranslation(&mtxTrans, aVtxPos[nCntTriangle].x, aVtxPos[nCntTriangle].y, aVtxPos[nCntTriangle].z);
-						D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxTrans);
+						mtxTrans.Translation(aVtxPos[nCntTriangle]);
+						mtxWorld.Multiply(mtxWorld, mtxTrans);
 
 						// ポリゴン向きを反映
-						D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
-						D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxRot);
+						mtxRot.Rotation(m_rot);
+						mtxWorld.Multiply(mtxWorld, mtxRot);
 
 						// ポリゴン位置を反映
-						D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
-						D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxTrans);
+						mtxTrans.Translation(m_pos);
+						mtxWorld.Multiply(mtxWorld, mtxTrans);
 
 						// 計算したマトリックスから座標を設定
 						aVtxMtxPos[nCntTriangle] = mtxWorld.GetPosition();

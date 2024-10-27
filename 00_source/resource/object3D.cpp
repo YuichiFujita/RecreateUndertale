@@ -471,19 +471,19 @@ float CObject3D::GetPositionHeight(const VECTOR3& rPos)
 		VECTOR3 pos = GetVertexPosition(nCnt);	// 頂点座標
 		
 		// ワールドマトリックスの初期化
-		D3DXMatrixIdentity(&mtxWorld);
+		mtxWorld.Identity();
 
 		// 頂点位置を反映
-		D3DXMatrixTranslation(&mtxTrans, pos.x, pos.y, pos.z);
-		D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxTrans);
+		mtxTrans.Translation(pos);
+		mtxWorld.Multiply(mtxWorld, mtxTrans);
 
 		// ポリゴン向きを反映
-		D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
-		D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxRot);
+		mtxRot.Rotation(m_rot);
+		mtxWorld.Multiply(mtxWorld, mtxRot);
 
 		// ポリゴン位置を反映
-		D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
-		D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxTrans);
+		mtxTrans.Translation(m_pos);
+		mtxWorld.Multiply(mtxWorld, mtxTrans);
 
 		// 計算したマトリックスから座標を設定
 		aVtxPos[nCnt] = mtxWorld.GetPosition();

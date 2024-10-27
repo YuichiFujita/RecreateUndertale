@@ -186,7 +186,7 @@ void CCamera::SetCamera()
 	pDevice->SetViewport(&m_camera.viewport);
 
 	// プロジェクションマトリックスの初期化
-	D3DXMatrixIdentity(&m_camera.mtxProj);
+	m_camera.mtxProj.Identity();
 
 	if (m_state == STATE_CONTROL)
 	{ // 操作カメラの場合
@@ -219,7 +219,7 @@ void CCamera::SetCamera()
 	pDevice->SetTransform(D3DTS_PROJECTION, &m_camera.mtxProj);
 
 	// ビューマトリックスの初期化
-	D3DXMatrixIdentity(&m_camera.mtxView);
+	m_camera.mtxView.Identity();
 
 	// ビューマトリックスの作成
 	D3DXMatrixLookAtLH
