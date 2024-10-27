@@ -123,6 +123,9 @@ public:
 	inline float GetSubAlpha() const		{ return m_fSubAlpha; }		// 透明度の減算量取得
 
 protected:
+	// 仮想関数
+	virtual void CalcDrawMatrix();	// 描画マトリックス計算
+
 	// メンバ関数
 	void SetVtx();	// 頂点情報の設定
 

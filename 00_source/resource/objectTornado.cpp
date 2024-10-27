@@ -182,52 +182,13 @@ void CObjectTornado::Update(const float fDeltaTime)
 void CObjectTornado::Draw(CShader* pShader)
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
-	MATRIX mtxRot, mtxTrans;	// 計算用マトリックス
-	MATRIX mtxOrigin;			// 発生源のマトリックス
 
 	// レンダーステートを設定
 	m_pRenderState->Set();
 
-	//--------------------------------------------------------
-	//	発生源のマトリックスを求める
-	//--------------------------------------------------------
-	// 発生源のマトリックスの初期化
-	D3DXMatrixIdentity(&mtxOrigin);
+	// 描画マトリックスの計算
+	CalcDrawMatrix();
 
-	// 向きを反映
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_growRot.y, m_growRot.x, m_growRot.z);
-	D3DXMatrixMultiply(&mtxOrigin, &mtxOrigin, &mtxRot);	// 成長向き
-
-	// 位置を反映
-	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
-	D3DXMatrixMultiply(&mtxOrigin, &mtxOrigin, &mtxTrans);	// 発生位置
-
-	//--------------------------------------------------------
-	//	ワールドマトリックスを求める
-	//--------------------------------------------------------
-	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&m_mtxWorld);
-
-	// 向きを反映
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);	// 回転量
-
-	//--------------------------------------------------------
-	//	マトリックスを掛け合わせる
-	//--------------------------------------------------------
-	if (m_pMtxParent != nullptr)
-	{ // 親のマトリックスが存在する場合
-
-		// 親のマトリックスと掛け合わせる
-		D3DXMatrixMultiply(&mtxOrigin, &mtxOrigin, m_pMtxParent);
-	}
-
-	// 発生源のマトリックスと掛け合わせる
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxOrigin);
-
-	//--------------------------------------------------------
-	//	竜巻を描画
-	//--------------------------------------------------------
 	// ワールドマトリックスの設定
 	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
 
@@ -596,6 +557,52 @@ void CObjectTornado::SetSubAlpha(const float fSubAlpha)
 
 	// 頂点情報の設定
 	SetVtx();
+}
+
+//============================================================
+//	描画マトリックスの計算処理
+//============================================================
+void CObjectTornado::CalcDrawMatrix()
+{
+	MATRIX mtxRot, mtxTrans;	// 計算用マトリックス
+	MATRIX mtxOrigin;			// 発生源のマトリックス
+
+	//--------------------------------------------------------
+	//	発生源のマトリックスを求める
+	//--------------------------------------------------------
+	// 発生源のマトリックスの初期化
+	mtxOrigin.Identity();
+
+	// 向きを反映
+	mtxRot.Rotation(m_growRot);
+	mtxOrigin.Multiply(mtxRot);	// 成長向き
+
+	// 位置を反映
+	mtxTrans.Translation(m_pos);
+	mtxOrigin.Multiply(mtxTrans);	// 発生位置
+
+	//--------------------------------------------------------
+	//	ワールドマトリックスを求める
+	//--------------------------------------------------------
+	// ワールドマトリックスの初期化
+	m_mtxWorld.Identity();
+
+	// 向きを反映
+	mtxRot.Rotation(m_rot);
+	m_mtxWorld.Multiply(mtxRot);	// 回転量
+
+	//--------------------------------------------------------
+	//	マトリックスを掛け合わせる
+	//--------------------------------------------------------
+	if (m_pMtxParent != nullptr)
+	{ // 親のマトリックスが存在する場合
+
+		// 親のマトリックスと掛け合わせる
+		mtxOrigin.Multiply(*m_pMtxParent);
+	}
+
+	// 発生源のマトリックスと掛け合わせる
+	m_mtxWorld.Multiply(mtxOrigin);
 }
 
 //============================================================

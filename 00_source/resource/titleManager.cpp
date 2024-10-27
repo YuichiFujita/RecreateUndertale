@@ -21,6 +21,8 @@
 #include "objectMeshDome.h"
 #include "objectMeshRing.h"
 #include "objectMeshTube.h"
+#include "objectModel.h"
+#include "objectTornado.h"
 
 //************************************************************
 //	定数宣言
@@ -94,6 +96,15 @@ HRESULT CTitleManager::Init()
 	// チューブ
 	CObjectMeshTube* pTube = CObjectMeshTube::Create(VECTOR3(600.0f, 50.0f, 0.0f), VEC3_ZERO, color::White(), POSGRID2(10), POSGRID2(10),50.0f, 50.0f);
 	pTube->SetLabel(CObject::LABEL_DEBUG);
+
+	// モデル
+	CObjectModel* pModel = CObjectModel::Create(VECTOR3(-600.0f, 50.0f, 0.0f), VEC3_ZERO);
+	pModel->SetLabel(CObject::LABEL_DEBUG);
+	pModel->BindModel("data\\MODEL\\02_head.x");
+
+	// トルネード
+	CObjectTornado* pTornado = CObjectTornado::Create(VECTOR3(750.0f, 50.0f, 0.0f), VEC3_ZERO, color::White());
+	pTornado->SetLabel(CObject::LABEL_DEBUG);
 
 	// 成功を返す
 	return S_OK;

@@ -70,6 +70,9 @@ public:
 	inline CModel::SModel GetModelData() const	{ return m_modelData; }	// モデル情報取得
 
 protected:
+	// 仮想関数
+	virtual void CalcDrawMatrix();	// 描画マトリックス計算
+
 	// メンバ関数
 	D3DXMATERIAL* GetPtrMaterial(const int nIdx) const;	// マテリアルポインタ取得
 

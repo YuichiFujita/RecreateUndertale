@@ -97,26 +97,13 @@ void CObjectModel::Update(const float fDeltaTime)
 void CObjectModel::Draw(CShader* pShader)
 {
 	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
-	MATRIX mtxScale, mtxRot, mtxTrans;		// 計算用マトリックス
 	D3DMATERIAL9 matDef;	// 現在のマテリアル保存用
 
 	// レンダーステートを設定
 	m_pRenderState->Set();
 
-	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&m_mtxWorld);
-
-	// 拡大率を反映
-	D3DXMatrixScaling(&mtxScale, m_scale.x, m_scale.y, m_scale.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxScale);
-
-	// 向きを反映
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, m_rot.y, m_rot.x, m_rot.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxRot);
-
-	// 位置を反映
-	D3DXMatrixTranslation(&mtxTrans, m_pos.x, m_pos.y, m_pos.z);
-	D3DXMatrixMultiply(&m_mtxWorld, &m_mtxWorld, &mtxTrans);
+	// 描画マトリックスの計算
+	CalcDrawMatrix();
 
 	// ワールドマトリックスの設定
 	pDevice->SetTransform(D3DTS_WORLD, &m_mtxWorld);
@@ -429,6 +416,29 @@ void CObjectModel::SetMtxWorld(const MATRIX& rMtxWorld)
 }
 
 //============================================================
+//	描画マトリックスの計算処理
+//============================================================
+void CObjectModel::CalcDrawMatrix()
+{
+	MATRIX mtxScale, mtxRot, mtxTrans;	// 計算用マトリックス
+
+	// ワールドマトリックスの初期化
+	m_mtxWorld.Identity();
+
+	// 拡大率を反映
+	mtxScale.Scaling(m_scale);
+	m_mtxWorld.Multiply(mtxScale);
+
+	// 向きを反映
+	mtxRot.Rotation(m_rot);
+	m_mtxWorld.Multiply(mtxRot);
+
+	// 位置を反映
+	mtxTrans.Translation(m_pos);
+	m_mtxWorld.Multiply(mtxTrans);
+}
+
+//============================================================
 //	マテリアルポインタ取得処理
 //============================================================
 D3DXMATERIAL* CObjectModel::GetPtrMaterial(const int nIdx) const
@@ -497,7 +507,16 @@ HRESULT CObjectModel::SetOriginMaterial(const LPD3DXBUFFER pBuffMat, const int n
 //============================================================
 void CObjectModel::DrawNormal()
 {
-	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
+	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;			// デバイスのポインタ
+	CTexture* pTexture = GET_MANAGER->GetTexture();	// テクスチャ情報
+
+	if (m_scale != VEC3_ONE)
+	{ // 拡大率が変更されている場合
+
+		// 頂点法線の自動正規化を有効にする
+		pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, true);
+	}
+
 	for (int nCntMat = 0; nCntMat < (int)m_modelData.dwNumMat; nCntMat++)
 	{ // マテリアルの数分繰り返す
 
@@ -505,21 +524,14 @@ void CObjectModel::DrawNormal()
 		pDevice->SetMaterial(&m_pMat[nCntMat].MatD3D);
 
 		// テクスチャの設定
-		pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_modelData.pTextureIdx[nCntMat]));
-
-		if (m_scale != VEC3_ONE)
-		{ // 拡大率が変更されている場合
-
-			// 頂点法線の自動正規化を有効にする
-			pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, TRUE);
-		}
+		pDevice->SetTexture(0, pTexture->GetPtr(m_modelData.pTextureIdx[nCntMat]));
 
 		// モデルの描画
 		m_modelData.pMesh->DrawSubset(nCntMat);
-
-		// 頂点法線の自動正規化を無効にする
-		pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, FALSE);
 	}
+
+	// 頂点法線の自動正規化を無効にする
+	pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, false);
 }
 
 //============================================================
@@ -527,7 +539,8 @@ void CObjectModel::DrawNormal()
 //============================================================
 void CObjectModel::DrawShader(CShader* pShader)
 {
-	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
+	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;			// デバイスのポインタ
+	CTexture* pTexture = GET_MANAGER->GetTexture();	// テクスチャ情報
 
 	// 描画開始
 	pShader->Begin();
@@ -539,6 +552,13 @@ void CObjectModel::DrawShader(CShader* pShader)
 	// ライト方向を設定
 	pShader->SetLightDirect(&m_mtxWorld, 0);
 
+	if (m_scale != VEC3_ONE)
+	{ // 拡大率が変更されている場合
+
+		// 頂点法線の自動正規化を有効にする
+		pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, true);
+	}
+
 	for (int nCntMat = 0; nCntMat < (int)m_modelData.dwNumMat; nCntMat++)
 	{ // マテリアルの数分繰り返す
 
@@ -546,7 +566,7 @@ void CObjectModel::DrawShader(CShader* pShader)
 		pDevice->SetMaterial(&m_pMat[nCntMat].MatD3D);
 
 		// テクスチャの設定
-		pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_modelData.pTextureIdx[nCntMat]));
+		pDevice->SetTexture(0, pTexture->GetPtr(m_modelData.pTextureIdx[nCntMat]));
 
 		// マテリアルを設定
 		pShader->SetMaterial(m_pMat[nCntMat].MatD3D);
@@ -557,19 +577,12 @@ void CObjectModel::DrawShader(CShader* pShader)
 		// 状態変更の伝達
 		pShader->CommitChanges();
 
-		if (m_scale != VEC3_ONE)
-		{ // 拡大率が変更されている場合
-
-			// 頂点法線の自動正規化を有効にする
-			pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, TRUE);
-		}
-
 		// モデルの描画
 		m_modelData.pMesh->DrawSubset(nCntMat);
-
-		// 頂点法線の自動正規化を無効にする
-		pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, FALSE);
 	}
+
+	// 頂点法線の自動正規化を無効にする
+	pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, false);
 
 	// 描画終了
 	pShader->EndPass();

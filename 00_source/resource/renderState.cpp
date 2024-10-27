@@ -203,7 +203,7 @@ void CRenderState::InitRenderState()
 	m_save.cull = D3DCULL_CCW;
 
 	// ライティング状況を初期化
-	m_save.bLight = false;
+	m_save.bLight = true;		// TODO：後でfalseに変更
 
 	// レンダーステートの初期化
 	SetRenderState(m_save);
