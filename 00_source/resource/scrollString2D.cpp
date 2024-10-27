@@ -52,12 +52,10 @@ HRESULT CScrollString2D::Init()
 	if (FAILED(CString2D::Init()))
 	{ // ‰Šú‰»‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 
@@ -118,12 +116,10 @@ HRESULT CScrollString2D::SetString(const std::string& rStr)
 	if (FAILED(SetString(wsStr)))
 	{ // İ’è‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 
@@ -136,7 +132,6 @@ HRESULT CScrollString2D::SetString(const std::wstring& rStr)
 	if (FAILED(CString2D::SetString(rStr)))
 	{ // ’Ç‰Á‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -144,7 +139,6 @@ HRESULT CScrollString2D::SetString(const std::wstring& rStr)
 	// İ’è‚µ‚½•¶š—ñ‚Ì©“®•`‰æ‚ğOFF‚É‚·‚é
 	SetEnableDraw(false);
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

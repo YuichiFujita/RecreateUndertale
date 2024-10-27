@@ -60,7 +60,6 @@ HRESULT CLight::Init()
 	// ƒ‰ƒCƒg‚ğ—LŒø‚É‚·‚é
 	SetEnableLight(true);
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

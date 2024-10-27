@@ -163,7 +163,6 @@ HRESULT CStartStateTutorial::Init()
 	if (m_pCont == nullptr)
 	{ // 生成に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -241,7 +240,6 @@ HRESULT CStartStateTutorial::Init()
 	// イントロノイズを停止
 	GET_MANAGER->GetSound()->Stop(CSound::LABEL_SE_INTRONOISE);
 
-	// 成功を返す
 	return S_OK;
 }
 

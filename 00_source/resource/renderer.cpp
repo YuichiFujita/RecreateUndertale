@@ -76,7 +76,6 @@ HRESULT CRenderer::Init(HWND hWnd, BOOL bWindow)
 	if (m_pD3D == nullptr)
 	{ // オブジェクトの生成に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -85,7 +84,6 @@ HRESULT CRenderer::Init(HWND hWnd, BOOL bWindow)
 	if (FAILED(m_pD3D->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &d3ddm)))
 	{ // ディスプレイモードの取得に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -109,7 +107,6 @@ HRESULT CRenderer::Init(HWND hWnd, BOOL bWindow)
 	if (FAILED(CreateDevice(hWnd, d3dpp)))
 	{ // デバイスの生成に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -140,7 +137,6 @@ HRESULT CRenderer::Init(HWND hWnd, BOOL bWindow)
 	m_pD3DDevice->SetTextureStageState(1, D3DTSS_ALPHAARG1,	D3DTA_TEXTURE);
 	m_pD3DDevice->SetTextureStageState(1, D3DTSS_ALPHAARG2,	D3DTA_CURRENT);
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -296,7 +292,6 @@ HRESULT CRenderer::CreateRenderTexture()
 	if (FAILED(hr))
 	{ // サーフェイス取得に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -310,7 +305,6 @@ HRESULT CRenderer::CreateRenderTexture()
 	if (FAILED(hr))
 	{ // サーフェイス取得に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -320,12 +314,10 @@ HRESULT CRenderer::CreateRenderTexture()
 	if (m_pDrawScreen == nullptr)
 	{ // 生成に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
 
-	// 成功を返す
 	return S_OK;
 }
 

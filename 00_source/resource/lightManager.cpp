@@ -70,7 +70,6 @@ HRESULT CLightManager::Init()
 		if (m_apLight[i] == nullptr)
 		{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-			// ¸”s‚ğ•Ô‚·
 			assert(false);
 			return E_FAIL;
 		}
@@ -85,7 +84,6 @@ HRESULT CLightManager::Init()
 		m_apLight[i]->SetDirection(DIRECTION[i]);
 	}
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

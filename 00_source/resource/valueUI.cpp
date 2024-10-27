@@ -61,7 +61,6 @@ HRESULT CValueUI::Init()
 	if (m_pTitle == nullptr)
 	{ // 非使用中の場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -82,7 +81,6 @@ HRESULT CValueUI::Init()
 	if (m_pValue == nullptr)
 	{ // 非使用中の場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -90,7 +88,6 @@ HRESULT CValueUI::Init()
 	// 優先順位を設定
 	m_pValue->SetPriority(PRIORITY);
 
-	// 成功を返す
 	return S_OK;
 }
 

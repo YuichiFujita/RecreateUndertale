@@ -76,13 +76,11 @@ HRESULT CInput::Init(HINSTANCE hInstance, HWND /*hWnd*/)
 		if (FAILED(DirectInput8Create(hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&m_pInput, nullptr)))
 		{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-			// ¸”s‚ğ•Ô‚·
 			assert(false);
 			return E_FAIL;
 		}
 	}
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 
@@ -147,7 +145,6 @@ HRESULT CInputKeyboard::Init(HINSTANCE hInstance, HWND hWnd)
 	if (FAILED(CInput::Init(hInstance, hWnd)))
 	{ // ‰Šú‰»‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -156,7 +153,6 @@ HRESULT CInputKeyboard::Init(HINSTANCE hInstance, HWND hWnd)
 	if (FAILED(m_pInput->CreateDevice(GUID_SysKeyboard, &m_pDevice, nullptr)))
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -165,7 +161,6 @@ HRESULT CInputKeyboard::Init(HINSTANCE hInstance, HWND hWnd)
 	if (FAILED(m_pDevice->SetDataFormat(&c_dfDIKeyboard)))
 	{ // İ’è‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -174,7 +169,6 @@ HRESULT CInputKeyboard::Init(HINSTANCE hInstance, HWND hWnd)
 	if (FAILED(m_pDevice->SetCooperativeLevel(hWnd, (DISCL_FOREGROUND | DISCL_NONEXCLUSIVE))))
 	{ // İ’è‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -182,7 +176,6 @@ HRESULT CInputKeyboard::Init(HINSTANCE hInstance, HWND hWnd)
 	// ƒL[ƒ{[ƒh‚Ö‚ÌƒAƒNƒZƒXŒ ‚ğŠl“¾
 	m_pDevice->Acquire();
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 
@@ -415,7 +408,6 @@ HRESULT CInputMouse::Init(HINSTANCE hInstance, HWND hWnd)
 	if (FAILED(CInput::Init(hInstance, hWnd)))
 	{ // ‰Šú‰»‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -424,7 +416,6 @@ HRESULT CInputMouse::Init(HINSTANCE hInstance, HWND hWnd)
 	if (FAILED(m_pInput->CreateDevice(GUID_SysMouse, &m_pDevice, nullptr)))
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -433,7 +424,6 @@ HRESULT CInputMouse::Init(HINSTANCE hInstance, HWND hWnd)
 	if (FAILED(m_pDevice->SetDataFormat(&c_dfDIMouse)))
 	{ // İ’è‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -442,7 +432,6 @@ HRESULT CInputMouse::Init(HINSTANCE hInstance, HWND hWnd)
 	if (FAILED(m_pDevice->SetCooperativeLevel(hWnd, (DISCL_NONEXCLUSIVE | DISCL_FOREGROUND))))
 	{ // İ’è‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -457,7 +446,6 @@ HRESULT CInputMouse::Init(HINSTANCE hInstance, HWND hWnd)
 	if (FAILED(m_pDevice->SetProperty(DIPROP_AXISMODE, &diprop.diph)))
 	{ // ƒfƒoƒCƒX‚Ìİ’è‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -465,7 +453,6 @@ HRESULT CInputMouse::Init(HINSTANCE hInstance, HWND hWnd)
 	// ƒ}ƒEƒX‚Ö‚ÌƒAƒNƒZƒXŒ ‚ğŠl“¾
 	m_pDevice->Acquire();
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 
@@ -683,7 +670,6 @@ HRESULT CInputPad::Init()
 	// XInput‚ÌƒXƒe[ƒg‚ğ—LŒø‰»
 	XInputEnable(true);
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

@@ -79,7 +79,6 @@ HRESULT CAnim3D::Init()
 	if (FAILED(CObject3D::Init()))
 	{ // 初期化に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -87,7 +86,6 @@ HRESULT CAnim3D::Init()
 	// アニメーションのテクスチャ座標の設定
 	CObject3D::SetAnimTex(m_nCurPtrn, m_ptrn.x, m_ptrn.y);
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -446,7 +444,6 @@ HRESULT CAnim3D::SetMaxPtrn(const int nMaxPtrn)
 	if (m_pNextTime == nullptr)
 	{ // 生成に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -457,7 +454,6 @@ HRESULT CAnim3D::SetMaxPtrn(const int nMaxPtrn)
 	// アニメーションのテクスチャ座標の設定
 	CObject3D::SetAnimTex(m_nCurPtrn, m_ptrn.x, m_ptrn.y);
 
-	// 成功を返す
 	return S_OK;
 }
 

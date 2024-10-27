@@ -47,7 +47,6 @@ HRESULT CCharacter2D::Init()
 	// キャラクター連想配列を初期化
 	m_mapCharacter.clear();
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -76,12 +75,10 @@ HRESULT CCharacter2D::LoadAll()
 	if (FAILED(SearchFolderAll(LOAD_FOLDER)))
 	{ // 読込に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -172,7 +169,6 @@ HRESULT CCharacter2D::SearchFolderAll(std::string sFolderPath)
 	if (INVALID_HANDLE_VALUE == hFile)
 	{ // ハンドルが無効の場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -207,7 +203,6 @@ HRESULT CCharacter2D::SearchFolderAll(std::string sFolderPath)
 	// 検索ハンドルを閉じる
 	FindClose(hFile);
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -223,8 +218,6 @@ HRESULT CCharacter2D::LoadSetup(AMotion* pInfoChara, const char* pCharaPath)
 
 		// エラーメッセージボックス
 		MessageBox(nullptr, "キャラクターセットアップの読み込みに失敗！", "警告！", MB_ICONWARNING);
-
-		// 失敗を返す
 		return E_FAIL;
 	}
 
@@ -252,7 +245,6 @@ HRESULT CCharacter2D::LoadSetup(AMotion* pInfoChara, const char* pCharaPath)
 	// ファイルを閉じる
 	file.close();
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -268,8 +260,6 @@ HRESULT CCharacter2D::LoadMotionSetup(AMotion* pInfoChara, const char* pMotionPa
 
 		// エラーメッセージボックス
 		MessageBox(nullptr, "モーションセットアップの読み込みに失敗！", "警告！", MB_ICONWARNING);
-
-		// 失敗を返す
 		return E_FAIL;
 	}
 
@@ -309,7 +299,6 @@ HRESULT CCharacter2D::LoadMotionSetup(AMotion* pInfoChara, const char* pMotionPa
 			if (FAILED(pChara->SetTexPtrn(ptrnTexture)))
 			{ // 設定に失敗した場合
 
-				// 失敗を返す
 				assert(false);
 				return E_FAIL;
 			}
@@ -338,7 +327,6 @@ HRESULT CCharacter2D::LoadMotionSetup(AMotion* pInfoChara, const char* pMotionPa
 			if (FAILED(pChara->SetNextTime(fNextTime)))
 			{ // 設定に失敗した場合
 
-				// 失敗を返す
 				assert(false);
 				return E_FAIL;
 			}
@@ -381,6 +369,5 @@ HRESULT CCharacter2D::LoadMotionSetup(AMotion* pInfoChara, const char* pMotionPa
 	// ファイルを閉じる
 	file.close();
 
-	// 成功を返す
 	return S_OK;
 }

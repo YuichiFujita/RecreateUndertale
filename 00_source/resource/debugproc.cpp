@@ -74,7 +74,6 @@ HRESULT CDebugProc::Init()
 
 #endif
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

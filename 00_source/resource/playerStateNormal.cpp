@@ -51,7 +51,6 @@ HRESULT CPlayerStateNormal::Init()
 	// ƒƒ“ƒo•Ï”‚ğ‰Šú‰»
 	m_move = VEC3_ZERO;	// ˆÚ“®—Ê
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

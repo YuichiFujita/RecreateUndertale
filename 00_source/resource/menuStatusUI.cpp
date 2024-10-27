@@ -114,7 +114,6 @@ HRESULT CMenuStatusUI::Init()
 	if (m_pFrame == nullptr)
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -137,7 +136,6 @@ HRESULT CMenuStatusUI::Init()
 	if (m_pName == nullptr)
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -161,7 +159,6 @@ HRESULT CMenuStatusUI::Init()
 	if (m_pStatus == nullptr)
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -188,7 +185,6 @@ HRESULT CMenuStatusUI::Init()
 	if (m_pValue == nullptr)
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -203,7 +199,6 @@ HRESULT CMenuStatusUI::Init()
 	// —Dæ‡ˆÊ‚ğİ’è
 	m_pValue->SetPriority(PRIORITY);
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

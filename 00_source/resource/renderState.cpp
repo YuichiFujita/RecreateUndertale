@@ -63,7 +63,6 @@ HRESULT CRenderState::Init()
 	// メンバ変数を初期化
 	m_info = m_save;	// レンダーステート情報
 
-	// 成功を返す
 	return S_OK;
 }
 

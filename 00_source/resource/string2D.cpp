@@ -60,7 +60,6 @@ HRESULT CString2D::Init()
 	m_alignX		= XALIGN_CENTER;	// ‰¡”z’u
 	m_fCharHeight	= 0.0f;				// •¶š‚Ìc•
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 
@@ -322,12 +321,10 @@ HRESULT CString2D::SetString(const std::string& rStr)
 	if (FAILED(SetString(wsStr)))
 	{ // İ’è‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 
@@ -378,7 +375,6 @@ HRESULT CString2D::SetString(const std::wstring& rStr)
 		if (m_ppChar[i] == nullptr)
 		{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-			// ¸”s‚ğ•Ô‚·
 			assert(false);
 			return E_FAIL;
 		}
@@ -393,7 +389,6 @@ HRESULT CString2D::SetString(const std::wstring& rStr)
 	// ‘Š‘ÎˆÊ’u‚Ìİ’è
 	SetPositionRelative();
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

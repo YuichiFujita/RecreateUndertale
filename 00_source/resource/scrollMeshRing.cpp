@@ -47,7 +47,6 @@ HRESULT CScrollMeshRing::Init()
 	if (FAILED(CObjectMeshRing::Init()))
 	{ // 初期化に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -55,7 +54,6 @@ HRESULT CScrollMeshRing::Init()
 	// スクロールのテクスチャ座標の設定
 	CObjectMeshRing::SetScrollTex(m_fTexU, m_fTexV);
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -289,7 +287,6 @@ HRESULT CScrollMeshRing::SetPattern(const POSGRID2& rPart)
 	if (FAILED(CObjectMeshRing::SetPattern(rPart)))
 	{ // 失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -297,7 +294,6 @@ HRESULT CScrollMeshRing::SetPattern(const POSGRID2& rPart)
 	// スクロールのテクスチャ座標の設定
 	CObjectMeshRing::SetScrollTex(m_fTexU, m_fTexV);
 
-	// 成功を返す
 	return S_OK;
 }
 

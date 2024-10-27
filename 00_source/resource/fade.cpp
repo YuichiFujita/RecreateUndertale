@@ -75,7 +75,6 @@ HRESULT CFade::Init()
 	if (FAILED(CObject2D::Init()))
 	{ // ‰Šú‰»‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -99,12 +98,10 @@ HRESULT CFade::Init()
 	if (FAILED(GET_MANAGER->InitScene(m_modeNext)))
 	{ // ‰Šú‰»‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

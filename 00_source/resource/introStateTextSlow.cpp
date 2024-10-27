@@ -46,12 +46,10 @@ HRESULT CIntroStateTextSlow::Init()
 	if (FAILED(CIntroStateText::Init()))
 	{ // ‰Šú‰»‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

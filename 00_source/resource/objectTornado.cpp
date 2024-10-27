@@ -92,14 +92,11 @@ HRESULT CObjectTornado::Init()
 	m_nPattern		= 0;				// 渦の分割数
 	m_nTextureIdx	= NONE_IDX;			// テクスチャインデックス
 
-	// 竜巻の情報を初期化
-
-
 	// 渦を設定
 	if (FAILED(SetVortex(1, 1)))
 	{ // 渦の設定に失敗した場合
 
-		// 失敗を返す
+		assert(false);
 		return E_FAIL;
 	}
 
@@ -108,7 +105,6 @@ HRESULT CObjectTornado::Init()
 	if (m_pRenderState == nullptr)
 	{ // 生成に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -126,7 +122,6 @@ HRESULT CObjectTornado::Init()
 	// ライティングをOFFにする
 	pRenderState->SetLighting(false);
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -363,7 +358,6 @@ HRESULT CObjectTornado::SetVortex(const int nNumAround, const int nPattern)
 	)))
 	{ // 頂点バッファの生成に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -371,7 +365,6 @@ HRESULT CObjectTornado::SetVortex(const int nNumAround, const int nPattern)
 	// 頂点情報の設定
 	SetVtx();
 
-	// 成功を返す
 	return S_OK;
 }
 

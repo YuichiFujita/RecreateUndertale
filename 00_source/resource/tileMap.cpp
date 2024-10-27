@@ -61,7 +61,6 @@ HRESULT CTileMap::Init()
 	if (FAILED(CObject3D::Init()))
 	{ // ‰Šú‰»‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -69,7 +68,6 @@ HRESULT CTileMap::Init()
 	// ‘å‚«‚³‚ğİ’è
 	SetVec3Size(VECTOR3(SIZE_TILE, SIZE_TILE, 0.0f));
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

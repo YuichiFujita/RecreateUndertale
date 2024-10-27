@@ -100,7 +100,6 @@ HRESULT CSelectItemUI::Init()
 	if (FAILED(CSelectUI::Init()))
 	{ // ‰Šú‰»‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -138,7 +137,6 @@ HRESULT CSelectItemUI::Init()
 		if (m_apSelect[i] == nullptr)
 		{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-			// ¸”s‚ğ•Ô‚·
 			assert(false);
 			return E_FAIL;
 		}
@@ -184,7 +182,6 @@ HRESULT CSelectItemUI::Init()
 		if (m_vecItemName[i].m_pName == nullptr)
 		{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-			// ¸”s‚ğ•Ô‚·
 			assert(false);
 			return E_FAIL;
 		}
@@ -196,7 +193,6 @@ HRESULT CSelectItemUI::Init()
 		m_vecItemName[i].m_pName->SetString(pItem->GetInfo(m_vecItemName[i].nItemIdx).GetName());
 	}
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 
@@ -432,12 +428,10 @@ HRESULT CItemUI::Init()
 	if (m_pTextBox == nullptr)
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

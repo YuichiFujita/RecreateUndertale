@@ -51,7 +51,6 @@ HRESULT CItemInfoUI::Init()
 	if (FAILED(CItemUI::Init()))
 	{ // ‰Šú‰»‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -66,7 +65,6 @@ HRESULT CItemInfoUI::Init()
 	std::string str = rItemData.Detail();
 	PushFrontString(useful::MultiByteToWide(str));
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

@@ -62,7 +62,6 @@ HRESULT CFrame2D::Init()
 		if (m_apFrame[i] == nullptr)
 		{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-			// ¸”s‚ğ•Ô‚·
 			assert(false);
 			return E_FAIL;
 		}
@@ -75,7 +74,6 @@ HRESULT CFrame2D::Init()
 		m_apFrame[i]->SetEnableDraw(false);
 	}
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

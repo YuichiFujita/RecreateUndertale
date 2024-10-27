@@ -85,7 +85,6 @@ HRESULT CLoading::Init()
 	if (m_pLoad == nullptr)
 	{ // 生成に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -105,7 +104,6 @@ HRESULT CLoading::Init()
 	// ロードのアニメーションを停止
 	m_pLoad->SetEnableStop(true);
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -310,7 +308,6 @@ HRESULT CLoading::Set(std::function<HRESULT(bool*)> func)
 		// ロードの表示開始状態にする
 		m_state = LOAD_FADEOUT;
 
-		// 成功を返す
 		return S_OK;
 	}
 	else { assert(false); return E_FAIL; }	// ローディングできない場合エラー

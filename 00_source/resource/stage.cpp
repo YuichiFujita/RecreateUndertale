@@ -61,7 +61,6 @@ HRESULT CStage::Init()
 	if (FAILED(BindStage(INIT_PASS)))
 	{ // 読込に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -69,7 +68,6 @@ HRESULT CStage::Init()
 	// 割り当てたステージを保存
 	m_sNextRoomPath = INIT_PASS;
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -175,8 +173,6 @@ HRESULT CStage::BindStage(const char* pStagePath)
 
 		// エラーメッセージボックス
 		MessageBox(nullptr, "ステージセットアップの読み込みに失敗！", "警告！", MB_ICONWARNING);
-
-		// 失敗を返す
 		return E_FAIL;
 	}
 
@@ -196,7 +192,6 @@ HRESULT CStage::BindStage(const char* pStagePath)
 		else if (FAILED(LoadLimit(&file, str)))
 		{ // 読込に失敗した場合
 
-			// 失敗を返す
 			assert(false);
 			return E_FAIL;
 		}
@@ -205,7 +200,6 @@ HRESULT CStage::BindStage(const char* pStagePath)
 		else if (FAILED(LoadMap(&file, str)))
 		{ // 読込に失敗した場合
 
-			// 失敗を返す
 			assert(false);
 			return E_FAIL;
 		}
@@ -214,7 +208,6 @@ HRESULT CStage::BindStage(const char* pStagePath)
 		else if (FAILED(LoadSpawn(&file, str)))
 		{ // 読込に失敗した場合
 
-			// 失敗を返す
 			assert(false);
 			return E_FAIL;
 		}
@@ -223,7 +216,6 @@ HRESULT CStage::BindStage(const char* pStagePath)
 		else if (FAILED(LoadTrans(&file, str)))
 		{ // 読込に失敗した場合
 
-			// 失敗を返す
 			assert(false);
 			return E_FAIL;
 		}
@@ -232,7 +224,6 @@ HRESULT CStage::BindStage(const char* pStagePath)
 	// ファイルを閉じる
 	file.close();
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -286,7 +277,6 @@ HRESULT CStage::LoadLimit(std::ifstream* pFile, std::string& rString)
 	// ステージ範囲の設定
 	SetLimit(limit);
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -341,14 +331,12 @@ HRESULT CStage::LoadMap(std::ifstream* pFile, std::string& rString)
 			if (CTileMap::Create((CTileMap::EType)nType, pos) == nullptr)
 			{ // 生成に失敗した場合
 
-				// 失敗を返す
 				assert(false);
 				return E_FAIL;
 			}
 		}
 	} while (str != "END_MAPSET");	// END_MAPSETを読み込むまでループ
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -418,7 +406,6 @@ HRESULT CStage::LoadSpawn(std::ifstream* pFile, std::string& rString)
 			if (CTileSpawn::Create(pathPrev.c_str(), pos) == nullptr)
 			{ // 生成に失敗した場合
 
-				// 失敗を返す
 				assert(false);
 				return E_FAIL;
 			}
@@ -433,7 +420,6 @@ HRESULT CStage::LoadSpawn(std::ifstream* pFile, std::string& rString)
 		}
 	} while (str != "END_SPAWNSET");	// END_SPAWNSETを読み込むまでループ
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -491,13 +477,11 @@ HRESULT CStage::LoadTrans(std::ifstream* pFile, std::string& rString)
 			if (CTileTrans::Create(pathNext.c_str(), pos) == nullptr)
 			{ // 生成に失敗した場合
 
-				// 失敗を返す
 				assert(false);
 				return E_FAIL;
 			}
 		}
 	} while (str != "END_TRANSSET");	// END_TRANSSETを読み込むまでループ
 
-	// 成功を返す
 	return S_OK;
 }

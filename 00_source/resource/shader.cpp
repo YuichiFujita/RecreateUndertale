@@ -49,7 +49,6 @@ HRESULT CShader::Init()
 	m_pMtxView			= nullptr;	// ビューマトリックス
 	m_pMtxProjection	= nullptr;	// プロジェクションマトリックス
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -230,7 +229,6 @@ HRESULT CShader::Create()
 	if (pToonShader == nullptr)
 	{ // 生成に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -240,12 +238,10 @@ HRESULT CShader::Create()
 	if (pMonoShader == nullptr)
 	{ // 生成に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
 
-	// 成功を返す
 	return S_OK;
 }
 

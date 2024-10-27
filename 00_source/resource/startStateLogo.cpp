@@ -80,7 +80,6 @@ HRESULT CStartStateLogo::Init()
 	if (m_pLogo == nullptr)
 	{ // 生成に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -94,7 +93,6 @@ HRESULT CStartStateLogo::Init()
 	// イントロノイズを再生
 	PLAY_SOUND(CSound::LABEL_SE_INTRONOISE);
 
-	// 成功を返す
 	return S_OK;
 }
 

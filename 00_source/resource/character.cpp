@@ -48,7 +48,6 @@ HRESULT CCharacter::Init()
 	// キャラクター連想配列を初期化
 	m_mapCharacter.clear();
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -94,12 +93,10 @@ HRESULT CCharacter::LoadAll()
 	if (FAILED(SearchFolderAll(LOAD_FOLDER)))
 	{ // 読込に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -190,7 +187,6 @@ HRESULT CCharacter::SearchFolderAll(std::string sFolderPath)
 	if (INVALID_HANDLE_VALUE == hFile)
 	{ // ハンドルが無効の場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -225,7 +221,6 @@ HRESULT CCharacter::SearchFolderAll(std::string sFolderPath)
 	// 検索ハンドルを閉じる
 	FindClose(hFile);
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -246,8 +241,6 @@ HRESULT CCharacter::LoadSetup(SCharaData* pInfoChara, const char* pCharaPath)
 
 		// エラーメッセージボックス
 		MessageBox(nullptr, "キャラクターセットアップの読み込みに失敗！", "警告！", MB_ICONWARNING);
-
-		// 失敗を返す
 		return E_FAIL;
 	}
 
@@ -336,7 +329,6 @@ HRESULT CCharacter::LoadSetup(SCharaData* pInfoChara, const char* pCharaPath)
 	// ファイルを閉じる
 	file.close();
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -358,8 +350,6 @@ HRESULT CCharacter::LoadMotionSetup(CMotion::SInfo* pInfoMotion, const SPartsInf
 
 		// エラーメッセージボックス
 		MessageBox(nullptr, "モーションセットアップの読み込みに失敗！", "警告！", MB_ICONWARNING);
-
-		// 失敗を返す
 		return E_FAIL;
 	}
 
@@ -520,6 +510,5 @@ HRESULT CCharacter::LoadMotionSetup(CMotion::SInfo* pInfoMotion, const SPartsInf
 	// ファイルを閉じる
 	file.close();
 
-	// 成功を返す
 	return S_OK;
 }

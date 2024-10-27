@@ -63,7 +63,6 @@ HRESULT CValue::Init()
 	if (FAILED(CAnim2D::Init()))
 	{ // 初期化に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -77,7 +76,6 @@ HRESULT CValue::Init()
 	// アニメーションを停止
 	SetEnableStop(true);
 
-	// 成功を返す
 	return S_OK;
 }
 

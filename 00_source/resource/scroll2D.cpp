@@ -55,7 +55,6 @@ HRESULT CScroll2D::Init()
 	if (FAILED(CObject2D::Init()))
 	{ // 初期化に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -63,7 +62,6 @@ HRESULT CScroll2D::Init()
 	// スクロールのテクスチャ座標の設定
 	CObject2D::SetScrollTex(m_fTexU, m_fTexV, m_fOffsetU, m_fOffsetV);
 
-	// 成功を返す
 	return S_OK;
 }
 

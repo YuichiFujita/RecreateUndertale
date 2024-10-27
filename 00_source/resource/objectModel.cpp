@@ -59,12 +59,10 @@ HRESULT CObjectModel::Init()
 	if (m_pRenderState == nullptr)
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 
@@ -489,7 +487,6 @@ HRESULT CObjectModel::SetOriginMaterial(const LPD3DXBUFFER pBuffMat, const int n
 		m_pMat[nCntMat] = pOriginMat[nCntMat];
 	}
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

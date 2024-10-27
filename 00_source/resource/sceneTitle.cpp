@@ -47,7 +47,6 @@ HRESULT CSceneTitle::Init()
 	if (FAILED(CScene::Init()))
 	{ // ‰Šú‰»‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -57,7 +56,6 @@ HRESULT CSceneTitle::Init()
 	if (m_pTitleManager == nullptr)
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -69,7 +67,6 @@ HRESULT CSceneTitle::Init()
 	// BGM‚ÌÄ¶
 	PLAY_SOUND(CSound::LABEL_BGM_GENERAL);
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

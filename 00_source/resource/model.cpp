@@ -56,7 +56,6 @@ HRESULT CModel::Init()
 	// モデル連想配列を初期化
 	m_mapModel.clear();
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -91,12 +90,10 @@ HRESULT CModel::LoadAll()
 	if (FAILED(SearchFolderAll(LOAD_FOLDER)))
 	{ // 読込に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -129,30 +126,27 @@ int CModel::Regist(std::string sFilePath)
 
 	// xファイルの読込
 	if (FAILED(LoadXFileModel(&tempMapInfo, sFilePath)))
-		{ // xファイルの読込に失敗した場合
+	{ // xファイルの読込に失敗した場合
 
-			// 失敗を返す
-			assert(false);
-			return NONE_IDX;
-		}
+		assert(false);
+		return NONE_IDX;
+	}
 
 	// テクスチャの読込
 	if (FAILED(LoadTextureModel(&tempMapInfo)))
-		{ // テクスチャの読込に失敗した場合
+	{ // テクスチャの読込に失敗した場合
 
-			// 失敗を返す
-			assert(false);
-			return NONE_IDX;
-		}
+		assert(false);
+		return NONE_IDX;
+	}
 
 	// 当たり判定の作成
 	if (FAILED(SetCollisionModel(&tempMapInfo)))
-		{ // 当たり判定の作成に失敗した場合
+	{ // 当たり判定の作成に失敗した場合
 
-			// 失敗を返す
-			assert(false);
-			return NONE_IDX;
-		}
+		assert(false);
+		return NONE_IDX;
+	}
 
 	// ファイルパス名を保存
 	tempMapInfo.sFilePathName = sFilePath;
@@ -255,8 +249,6 @@ HRESULT CModel::LoadXFileModel(SMapInfo* pMapInfo, std::string sFilePath)
 
 		// エラーメッセージボックス
 		MessageBox(nullptr, "xファイルの読込に失敗！", "警告！", MB_ICONWARNING);
-
-		// 失敗を返す
 		return E_FAIL;
 	}
 
@@ -267,12 +259,9 @@ HRESULT CModel::LoadXFileModel(SMapInfo* pMapInfo, std::string sFilePath)
 
 		// エラーメッセージボックス
 		MessageBox(nullptr, "メモリの確保に失敗！", "警告！", MB_ICONWARNING);
-
-		// 失敗を返す
 		return E_FAIL;
 	}
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -307,7 +296,6 @@ HRESULT CModel::LoadTextureModel(SMapInfo* pMapInfo)
 		}
 	}
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -394,7 +382,6 @@ HRESULT CModel::SetCollisionModel(SMapInfo* pMapInfo)
 	// モデルの円の当たり判定を作成
 	pMapInfo->modelData.fRadius = ((pMapInfo->modelData.size.x * 0.5f) + (pMapInfo->modelData.size.z * 0.5f)) * 0.5f;
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -412,7 +399,6 @@ HRESULT CModel::SearchFolderAll(std::string sFolderPath)
 	if (INVALID_HANDLE_VALUE == hFile)
 	{ // ハンドルが無効の場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -447,6 +433,5 @@ HRESULT CModel::SearchFolderAll(std::string sFolderPath)
 	// 検索ハンドルを閉じる
 	FindClose(hFile);
 
-	// 成功を返す
 	return S_OK;
 }

@@ -65,7 +65,6 @@ HRESULT CPlayer::Init()
 	if (FAILED(CObjectChara2D::Init()))
 	{ // 初期化に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -81,7 +80,6 @@ HRESULT CPlayer::Init()
 		if (m_pList == nullptr)
 		{ // 生成に失敗した場合
 
-			// 失敗を返す
 			assert(false);
 			return E_FAIL;
 		}
@@ -90,7 +88,6 @@ HRESULT CPlayer::Init()
 	// リストに自身のオブジェクトを追加・イテレーターを取得
 	m_iterator = m_pList->AddList(this);
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -166,12 +163,10 @@ HRESULT CPlayer::ChangeState(CPlayerState* pState)
 	if (FAILED(m_pState->Init()))
 	{ // 初期化に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
 
-	// 成功を返す
 	return S_OK;
 }
 

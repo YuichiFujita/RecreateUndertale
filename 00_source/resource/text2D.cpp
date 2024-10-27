@@ -65,7 +65,6 @@ HRESULT CText2D::Init()
 	// •¶š—ñƒŠƒXƒg‚ğ‰Šú‰»
 	m_listString.clear();
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 
@@ -255,12 +254,10 @@ HRESULT CText2D::PushFrontString(const std::string& rStr)
 	if (FAILED(PushFrontString(wsStr)))
 	{ // ’Ç‰Á‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 
@@ -274,7 +271,6 @@ HRESULT CText2D::PushFrontString(const std::wstring& rStr)
 	if (pStr == nullptr)
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -285,7 +281,6 @@ HRESULT CText2D::PushFrontString(const std::wstring& rStr)
 	// ‘Š‘ÎˆÊ’u‚Ìİ’è
 	SetPositionRelative();
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 
@@ -301,12 +296,10 @@ HRESULT CText2D::PushBackString(const std::string& rStr)
 	if (FAILED(PushBackString(wsStr)))
 	{ // ’Ç‰Á‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 
@@ -320,7 +313,6 @@ HRESULT CText2D::PushBackString(const std::wstring& rStr)
 	if (pStr == nullptr)
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -331,7 +323,6 @@ HRESULT CText2D::PushBackString(const std::wstring& rStr)
 	// ‘Š‘ÎˆÊ’u‚Ìİ’è
 	SetPositionRelative();
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

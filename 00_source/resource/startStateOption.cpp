@@ -127,7 +127,6 @@ HRESULT CStartStateOption::Init()
 		loadtext::BindString(m_apSelect[i], loadtext::LoadText(PASS, CStartManager::TEXT_OPTION_CLOSE + i));
 	}
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

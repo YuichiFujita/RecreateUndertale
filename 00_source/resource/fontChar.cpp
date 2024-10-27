@@ -61,7 +61,6 @@ HRESULT CFontChar::Init()
 	// フォント文字連想配列を初期化
 	m_mapChar.clear();
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -191,7 +190,6 @@ BYTE* CFontChar::CreateBitMap(SChar* pChar, HDC hDC, const wchar_t wcChar)
 	if (dwGlyphSize == GDI_ERROR)
 	{ // 取得に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return nullptr;
 	}
@@ -201,7 +199,6 @@ BYTE* CFontChar::CreateBitMap(SChar* pChar, HDC hDC, const wchar_t wcChar)
 	if (pBitMap == nullptr)
 	{ // 生成に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return nullptr;
 	}
@@ -211,7 +208,6 @@ BYTE* CFontChar::CreateBitMap(SChar* pChar, HDC hDC, const wchar_t wcChar)
 	if (dwGlyphSize == GDI_ERROR)
 	{ // 取得に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return nullptr;
 	}
@@ -221,7 +217,6 @@ BYTE* CFontChar::CreateBitMap(SChar* pChar, HDC hDC, const wchar_t wcChar)
 	if (dwOutLineSize == GDI_ERROR)
 	{ // 取得に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return nullptr;
 	}
@@ -230,7 +225,6 @@ BYTE* CFontChar::CreateBitMap(SChar* pChar, HDC hDC, const wchar_t wcChar)
 	if (!GetTextMetrics(hDC, &pChar->text))
 	{ // 取得に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return nullptr;
 	}
@@ -316,6 +310,5 @@ HRESULT CFontChar::CreateTexture(SChar* pChar, BYTE* pBitMap)
 	// テクスチャをアンロックする
 	pTexChar->UnlockRect(0);
 
-	// 成功を返す
 	return S_OK;
 }

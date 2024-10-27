@@ -101,7 +101,6 @@ HRESULT CParticle2D::Init()
 	m_type	= TYPE_NONE;		// í—Ş
 	m_nLife	= 0;				// õ–½
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

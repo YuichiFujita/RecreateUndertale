@@ -132,7 +132,6 @@ HRESULT CStartStateCreateName::Init()
 	if (m_pTitle == nullptr)
 	{ // 生成に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -158,7 +157,6 @@ HRESULT CStartStateCreateName::Init()
 	if (m_pName == nullptr)
 	{ // 生成に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -193,7 +191,6 @@ HRESULT CStartStateCreateName::Init()
 			if (pSelect == nullptr)
 			{ // 生成に失敗した場合
 
-				// 失敗を返す
 				assert(false);
 				return E_FAIL;
 			}
@@ -214,12 +211,10 @@ HRESULT CStartStateCreateName::Init()
 	if (FAILED(ChangeChar(select::INIT_TYPE)))
 	{ // 読込に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -474,7 +469,6 @@ HRESULT CStartStateCreateName::ChangeChar(const ETypeChar typeChar)
 	if (FAILED(LoadArray(typeChar)))
 	{ // 読込に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -482,7 +476,6 @@ HRESULT CStartStateCreateName::ChangeChar(const ETypeChar typeChar)
 	// 設定した文字種類を保存
 	m_typeChar = typeChar;
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -503,8 +496,6 @@ HRESULT CStartStateCreateName::LoadArray(const ETypeChar typeChar)
 
 		// エラーメッセージボックス
 		MessageBox(nullptr, "文字セットアップの読み込みに失敗！", "警告！", MB_ICONWARNING);
-
-		// 失敗を返す
 		return E_FAIL;
 	}
 
@@ -609,6 +600,5 @@ HRESULT CStartStateCreateName::LoadArray(const ETypeChar typeChar)
 	// ファイルを閉じる
 	file.close();
 
-	// 成功を返す
 	return S_OK;
 }

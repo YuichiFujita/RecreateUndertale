@@ -46,7 +46,6 @@ HRESULT CDeltaTime::Init()
 	m_fDeltaRate	= 0.0f;				// Œo‰ßŠÔ‚ÌŠ„‡
 	m_fSlowRate		= 1.0f;				// ‘¬“x’á‰º‚ÌŠ„‡
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

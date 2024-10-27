@@ -66,7 +66,6 @@ HRESULT CTileColl::Init()
 	if (FAILED(CObject3D::Init()))
 	{ // 初期化に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -82,7 +81,6 @@ HRESULT CTileColl::Init()
 		if (m_pList == nullptr)
 		{ // 生成に失敗した場合
 
-			// 失敗を返す
 			assert(false);
 			return E_FAIL;
 		}
@@ -91,7 +89,6 @@ HRESULT CTileColl::Init()
 	// リストに自身のオブジェクトを追加・イテレーターを取得
 	m_iterator = m_pList->AddList(this);
 
-	// 成功を返す
 	return S_OK;
 }
 

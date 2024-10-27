@@ -45,12 +45,10 @@ HRESULT CItemNone::Init()
 	if (FAILED(CItemData::Init()))
 	{ // 初期化に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
 
-	// 成功を返す
 	return S_OK;
 }
 

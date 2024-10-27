@@ -77,6 +77,7 @@ HRESULT CSound::Init(HWND hWnd)
 		// COMライブラリの終了処理
 		CoUninitialize();
 
+		assert(false);
 		return E_FAIL;
 	}
 
@@ -89,6 +90,7 @@ HRESULT CSound::Init(HWND hWnd)
 		// COMライブラリの終了処理
 		CoUninitialize();
 
+		assert(false);
 		return E_FAIL;
 	}
 	
@@ -108,6 +110,7 @@ HRESULT CSound::Init(HWND hWnd)
 		// COMライブラリの終了処理
 		CoUninitialize();
 
+		assert(false);
 		return E_FAIL;
 	}
 
@@ -250,7 +253,6 @@ HRESULT CSound::LoadAll(HWND hWnd)
 		CloseHandle(hFile);
 	}
 
-	// 成功を返す
 	return S_OK;
 }
 

@@ -95,7 +95,6 @@ HRESULT CPause::Init()
 	if (m_pBG == nullptr)
 	{ // 非使用中の場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -117,7 +116,6 @@ HRESULT CPause::Init()
 		if (m_apSelect[nCntPause] == nullptr)
 		{ // 非使用中の場合
 
-			// 失敗を返す
 			assert(false);
 			return E_FAIL;
 		}
@@ -132,7 +130,6 @@ HRESULT CPause::Init()
 	// 描画状況の設定
 	SetEnableDraw(m_bPause);
 
-	// 成功を返す
 	return S_OK;
 }
 

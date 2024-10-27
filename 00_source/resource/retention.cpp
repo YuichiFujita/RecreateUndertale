@@ -33,7 +33,6 @@ CRetention::~CRetention()
 //============================================================
 HRESULT CRetention::Init()
 {
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

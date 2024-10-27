@@ -39,7 +39,6 @@ HRESULT CIntroStateWait::Init()
 	// ƒƒ“ƒo•Ï”‚ğ‰Šú‰»
 	m_fCurTime = 0.0f;	// Œ»İ‚Ì‘Ò‹@ŠÔ
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

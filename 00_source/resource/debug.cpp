@@ -104,7 +104,6 @@ HRESULT CDebug::Init()
 	// オブジェクトの表示状況を設定
 	CObject::SetEnableDebugDispAll(m_bDisp2D, m_bDisp3D);
 
-	// 成功を返す
 	return S_OK;
 }
 

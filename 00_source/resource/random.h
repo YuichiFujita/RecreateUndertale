@@ -78,7 +78,6 @@ template<class T> HRESULT CRandom<T>::Init()
 	// オブジェクト配列の全要素を削除
 	m_vector.clear();
 
-	// 成功を返す
 	return S_OK;
 }
 

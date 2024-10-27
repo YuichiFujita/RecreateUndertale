@@ -126,7 +126,6 @@ HRESULT CCamera::Init()
 	// 固定カメラにする
 	SetState(CCamera::STATE_NONE);
 
-	// 成功を返す
 	return S_OK;
 }
 

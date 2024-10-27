@@ -39,7 +39,6 @@ HRESULT CScreen::Init()
 	if (FAILED(CObject2D::Init()))
 	{ // ‰Šú‰»‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -54,7 +53,6 @@ HRESULT CScreen::Init()
 	SetEnableUpdate(false);
 	SetEnableDraw(false);
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

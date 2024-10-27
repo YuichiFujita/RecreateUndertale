@@ -113,7 +113,6 @@ HRESULT CIntroManager::Init()
 	if (m_pStory == nullptr)
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -142,7 +141,6 @@ HRESULT CIntroManager::Init()
 	if (m_pText == nullptr)
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -175,7 +173,6 @@ HRESULT CIntroManager::Init()
 		ChangeState(new CIntroStateLogo);
 	}
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 
@@ -243,12 +240,10 @@ HRESULT CIntroManager::ChangeState(CIntroState* pState)
 	if (FAILED(m_pState->Init()))
 	{ // ‰Šú‰»‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

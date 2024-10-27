@@ -52,7 +52,6 @@ HRESULT CTexture::Init()
 	// テクスチャ連想配列を初期化
 	m_mapTexture.clear();
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -81,12 +80,10 @@ HRESULT CTexture::LoadAll()
 	if (FAILED(SearchFolderAll(LOAD_FOLDER)))
 	{ // 読込に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -117,7 +114,6 @@ int CTexture::Regist(const SInfo info)
 	if (FAILED(hr))
 	{ // テクスチャの生成に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return NONE_IDX;
 	}
@@ -185,7 +181,6 @@ int CTexture::Regist(std::string sFilePath)
 	if (FAILED(D3DXGetImageInfoFromFile(sFilePath.c_str(), &size)))
 	{ // 画像情報の取得に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return NONE_IDX;
 	}
@@ -211,7 +206,6 @@ int CTexture::Regist(std::string sFilePath)
 	if (FAILED(hr))
 	{ // テクスチャの読込に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return NONE_IDX;
 	}
@@ -360,7 +354,6 @@ HRESULT CTexture::SearchFolderAll(std::string sFolderPath)
 	if (INVALID_HANDLE_VALUE == hFile)
 	{ // ハンドルが無効の場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -395,6 +388,5 @@ HRESULT CTexture::SearchFolderAll(std::string sFolderPath)
 	// 検索ハンドルを閉じる
 	FindClose(hFile);
 
-	// 成功を返す
 	return S_OK;
 }

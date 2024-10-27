@@ -51,7 +51,6 @@ HRESULT CItemDropUI::Init()
 	if (FAILED(CItemUI::Init()))
 	{ // 初期化に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -59,7 +58,6 @@ HRESULT CItemDropUI::Init()
 	// テキスト内容の進行
 	NextText();
 
-	// 成功を返す
 	return S_OK;
 }
 

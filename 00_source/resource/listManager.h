@@ -74,7 +74,6 @@ template<class T> HRESULT CListManager<T>::Init()
 	// オブジェクトリストの全要素を削除
 	m_list.clear();
 
-	// 成功を返す
 	return S_OK;
 }
 

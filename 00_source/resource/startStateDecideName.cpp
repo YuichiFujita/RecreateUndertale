@@ -135,7 +135,6 @@ HRESULT CStartStateDecideName::Init()
 	if (m_pTitle == nullptr)
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -163,7 +162,6 @@ HRESULT CStartStateDecideName::Init()
 	if (m_pName == nullptr)
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -204,7 +202,6 @@ HRESULT CStartStateDecideName::Init()
 		loadtext::BindString(m_apSelect[i], loadtext::LoadText(PASS, CStartManager::TEXT_DESIDE_NO + i));
 	}
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

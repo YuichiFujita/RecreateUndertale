@@ -47,7 +47,6 @@ HRESULT CScrollMeshField::Init()
 	if (FAILED(CObjectMeshField::Init()))
 	{ // 初期化に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -55,7 +54,6 @@ HRESULT CScrollMeshField::Init()
 	// スクロールのテクスチャ座標の設定
 	CObjectMeshField::SetScrollTex(m_fTexU, m_fTexV);
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -253,14 +251,13 @@ HRESULT CScrollMeshField::SetPattern(const POSGRID2& rPart)
 	if (FAILED(CObjectMeshField::SetPattern(rPart)))
 	{ // 分割数の設定に失敗した場合
 
-		// 失敗を返す
+		assert(false);
 		return E_FAIL;
 	}
 
 	// スクロールのテクスチャ座標の設定
 	CObjectMeshField::SetScrollTex(m_fTexU, m_fTexV);
 
-	// 成功を返す
 	return S_OK;
 }
 

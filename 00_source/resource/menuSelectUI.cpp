@@ -100,7 +100,6 @@ HRESULT CMenuSelectUI::Init()
 	if (m_pFrame == nullptr)
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -129,7 +128,6 @@ HRESULT CMenuSelectUI::Init()
 		if (m_apSelect[i] == nullptr)
 		{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-			// ¸”s‚ğ•Ô‚·
 			assert(false);
 			return E_FAIL;
 		}
@@ -150,7 +148,6 @@ HRESULT CMenuSelectUI::Init()
 	if (m_pSoul == nullptr)
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -164,7 +161,6 @@ HRESULT CMenuSelectUI::Init()
 	// —Dæ‡ˆÊ‚ğİ’è
 	m_pSoul->SetPriority(SOUL_PRIO);
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 
@@ -311,12 +307,10 @@ HRESULT CMenuSelectUI::ChangeSelectMenu(const CMenuSelectUI::ESelect select)
 	if (m_pSelectMenu == nullptr)
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 
@@ -360,7 +354,6 @@ HRESULT CSelectUI::Init()
 	if (m_pFrame == nullptr)
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -368,7 +361,6 @@ HRESULT CSelectUI::Init()
 	// —Dæ‡ˆÊ‚ğİ’è
 	m_pFrame->SetPriority(MENU_PRIO);
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

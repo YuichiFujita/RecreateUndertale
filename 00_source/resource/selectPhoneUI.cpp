@@ -52,7 +52,6 @@ HRESULT CSelectPhoneUI::Init()
 	if (FAILED(CSelectUI::Init()))
 	{ // ‰Šú‰»‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -66,7 +65,6 @@ HRESULT CSelectPhoneUI::Init()
 	// ƒtƒŒ[ƒ€‚Ì‘å‚«‚³‚ğİ’è
 	SetFrameSize(frame::SIZE);
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

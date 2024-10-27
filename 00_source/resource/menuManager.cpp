@@ -38,7 +38,6 @@ HRESULT CMenuManager::Init()
 	// メンバ変数を初期化
 	m_pMenu = nullptr;	// フィールドメニュー情報
 
-	// 成功を返す
 	return S_OK;
 }
 

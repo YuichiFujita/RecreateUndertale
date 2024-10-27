@@ -56,7 +56,6 @@ HRESULT CIntroStateLogo::Init()
 	if (m_pLogo == nullptr)
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -67,7 +66,6 @@ HRESULT CIntroStateLogo::Init()
 	// —Dæ‡ˆÊ‚ğİ’è
 	m_pLogo->SetPriority(PRIORITY);
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

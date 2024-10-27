@@ -47,7 +47,6 @@ HRESULT CSceneStart::Init()
 	if (FAILED(CScene::Init()))
 	{ // ‰Šú‰»‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -57,7 +56,6 @@ HRESULT CSceneStart::Init()
 	if (m_pStartManager == nullptr)
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -66,7 +64,6 @@ HRESULT CSceneStart::Init()
 	CCamera* pCamera = GET_MANAGER->GetCamera();	// ƒJƒƒ‰î•ñ
 	pCamera->SetState(CCamera::STATE_NONE);			// ŒÅ’èó‘Ô‚ğİ’è
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

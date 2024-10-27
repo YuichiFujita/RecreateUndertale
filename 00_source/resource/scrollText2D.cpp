@@ -56,12 +56,10 @@ HRESULT CScrollText2D::Init()
 	if (FAILED(CText2D::Init()))
 	{ // ‰Šú‰»‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 
@@ -125,12 +123,10 @@ HRESULT CScrollText2D::PushFrontString(const std::string& rStr)
 	if (FAILED(PushFrontString(wsStr)))
 	{ // ’Ç‰Á‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 
@@ -143,7 +139,6 @@ HRESULT CScrollText2D::PushFrontString(const std::wstring& rStr)
 	if (FAILED(CText2D::PushFrontString(rStr)))
 	{ // ’Ç‰Á‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -167,7 +162,6 @@ HRESULT CScrollText2D::PushFrontString(const std::wstring& rStr)
 	m_vecChar.reserve((int)m_vecChar.size() + nNumChar);				// —e—Ê‚ğ‚ ‚ç‚©‚¶‚ßŠm•Û
 	m_vecChar.insert(m_vecChar.begin(), vecAdd.begin(), vecAdd.end());	// æ“ª‚É‚Ü‚Æ‚ß‚Ä‘}“ü
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 
@@ -183,12 +177,10 @@ HRESULT CScrollText2D::PushBackString(const std::string& rStr)
 	if (FAILED(PushBackString(wsStr)))
 	{ // ’Ç‰Á‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 
@@ -201,7 +193,6 @@ HRESULT CScrollText2D::PushBackString(const std::wstring& rStr)
 	if (FAILED(CText2D::PushBackString(rStr)))
 	{ // ’Ç‰Á‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -221,7 +212,6 @@ HRESULT CScrollText2D::PushBackString(const std::wstring& rStr)
 		m_vecChar.push_back(pTailStr->GetChar2D(nCntChar));
 	}
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

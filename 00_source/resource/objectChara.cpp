@@ -56,12 +56,10 @@ HRESULT CObjectChara::Init()
 	if (m_pMotion == nullptr)
 	{ // ”ñg—p’†‚Ìê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

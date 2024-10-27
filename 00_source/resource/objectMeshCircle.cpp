@@ -73,7 +73,7 @@ HRESULT CObjectMeshCircle::Init()
 	if (FAILED(SetPattern(MIN_PART)))
 	{ // 分割数の設定に失敗した場合
 
-		// 失敗を返す
+		assert(false);
 		return E_FAIL;
 	}
 
@@ -82,12 +82,10 @@ HRESULT CObjectMeshCircle::Init()
 	if (m_pRenderState == nullptr)
 	{ // 生成に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -354,7 +352,6 @@ HRESULT CObjectMeshCircle::SetPattern(const POSGRID2& rPart)
 	)))
 	{ // 頂点バッファの生成に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -375,7 +372,6 @@ HRESULT CObjectMeshCircle::SetPattern(const POSGRID2& rPart)
 	)))
 	{ // インデックスバッファの生成に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -384,7 +380,6 @@ HRESULT CObjectMeshCircle::SetPattern(const POSGRID2& rPart)
 	SetVtx();
 	SetIdx();
 
-	// 成功を返す
 	return S_OK;
 }
 

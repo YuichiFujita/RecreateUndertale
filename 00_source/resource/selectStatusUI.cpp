@@ -211,7 +211,6 @@ HRESULT CSelectStatusUI::Init()
 	if (FAILED(CSelectUI::Init()))
 	{ // ‰Šú‰»‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -269,7 +268,6 @@ HRESULT CSelectStatusUI::Init()
 	if (m_pLvHpTitle == nullptr)
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -299,7 +297,6 @@ HRESULT CSelectStatusUI::Init()
 	if (m_pLvHpValue == nullptr)
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -332,7 +329,6 @@ HRESULT CSelectStatusUI::Init()
 	if (m_pAtkDefTitle == nullptr)
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -362,7 +358,6 @@ HRESULT CSelectStatusUI::Init()
 	if (m_pAtkDefValue == nullptr)
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -402,7 +397,6 @@ HRESULT CSelectStatusUI::Init()
 	if (m_pExpNextTitle == nullptr)
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -432,7 +426,6 @@ HRESULT CSelectStatusUI::Init()
 	if (m_pExpNextValue == nullptr)
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -465,7 +458,6 @@ HRESULT CSelectStatusUI::Init()
 	if (m_pWpnAmrTitle == nullptr)
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -495,7 +487,6 @@ HRESULT CSelectStatusUI::Init()
 	if (m_pWpnAmrName == nullptr)
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -608,7 +599,6 @@ HRESULT CSelectStatusUI::Init()
 		m_pKillsValue->SetString(std::to_string(nNumKill));
 	}
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

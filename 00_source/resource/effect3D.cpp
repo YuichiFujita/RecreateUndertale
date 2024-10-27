@@ -80,7 +80,6 @@ HRESULT CEffect3D::Init()
 	if (FAILED(CObjectBillboard::Init()))
 	{ // 初期化に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -94,7 +93,6 @@ HRESULT CEffect3D::Init()
 	// Zバッファの使用状況の設定
 	pRenderState->SetZUpdate(false);
 
-	// 成功を返す
 	return S_OK;
 }
 

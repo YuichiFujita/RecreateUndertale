@@ -81,7 +81,6 @@ HRESULT CObject3D::Init()
 	)))
 	{ // ’¸“_ƒoƒbƒtƒ@‚Ì¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -91,7 +90,6 @@ HRESULT CObject3D::Init()
 	if (m_pRenderState == nullptr)
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -107,7 +105,6 @@ HRESULT CObject3D::Init()
 	else
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -115,7 +112,6 @@ HRESULT CObject3D::Init()
 	// ’¸“_î•ñ‚Ìİ’è
 	SetVtx();
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

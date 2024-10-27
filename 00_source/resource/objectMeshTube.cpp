@@ -96,11 +96,10 @@ HRESULT CObjectMeshTube::Init()
 	if (FAILED(SetPattern(MIN_PART)))
 	{ // •ªŠ„”‚Ìİ’è‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
+		assert(false);
 		return E_FAIL;
 	}
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 
@@ -403,9 +402,8 @@ HRESULT CObjectMeshTube::SetPattern(const POSGRID2& rPart)
 	if (FAILED(m_pCylinder->SetPattern(rPart)))
 	{ // İ’è‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
-		return S_OK;
+		return E_FAIL;
 	}
 
 	for (int i = 0; i < COVER_MAX; i++)
@@ -415,13 +413,11 @@ HRESULT CObjectMeshTube::SetPattern(const POSGRID2& rPart)
 		if (FAILED(m_apCover[i]->SetPattern(rPart)))
 		{ // İ’è‚É¸”s‚µ‚½ê‡
 
-			// ¸”s‚ğ•Ô‚·
 			assert(false);
-			return S_OK;
+			return E_FAIL;
 		}
 	}
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

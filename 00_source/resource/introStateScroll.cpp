@@ -37,7 +37,6 @@ HRESULT CIntroStateScroll::Init()
 	// 物語のスクロールを開始する
 	m_pContext->StartScrollStory();
 
-	// 成功を返す
 	return S_OK;
 }
 

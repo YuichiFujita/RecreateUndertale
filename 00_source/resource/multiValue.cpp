@@ -72,7 +72,6 @@ HRESULT CMultiValue::Init()
 	// —Dæ‡ˆÊ‚ğİ’è
 	SetPriority(PRIORITY);
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 
@@ -372,7 +371,6 @@ HRESULT CMultiValue::SetDigit(const int nDigit)
 		if (pValue == nullptr)
 		{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-			// ¸”s‚ğ•Ô‚·
 			assert(false);
 			return E_FAIL;
 		}
@@ -414,7 +412,6 @@ HRESULT CMultiValue::SetDigit(const int nDigit)
 	// Å‘å’l‚Ìİ’è
 	SetMax(nLimit - 1);
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

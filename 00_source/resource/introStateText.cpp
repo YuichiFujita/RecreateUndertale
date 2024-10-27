@@ -42,7 +42,6 @@ CIntroStateText::~CIntroStateText()
 //============================================================
 HRESULT CIntroStateText::Init()
 {
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

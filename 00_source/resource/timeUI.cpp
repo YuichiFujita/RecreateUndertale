@@ -93,7 +93,6 @@ HRESULT CTimeUI::Init()
 		if (m_apValue[nCntValue] == nullptr)
 		{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-			// ¸”s‚ğ•Ô‚·
 			assert(false);
 			return E_FAIL;
 		}
@@ -107,7 +106,6 @@ HRESULT CTimeUI::Init()
 		if (m_apPart[nCntPart] == nullptr)
 		{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-			// ¸”s‚ğ•Ô‚·
 			assert(false);
 			return E_FAIL;
 		}
@@ -124,7 +122,6 @@ HRESULT CTimeUI::Init()
 	SetEnableDraw(false);
 	CObject::SetEnableDraw(true);	// ©g‚ÍON‚É‚·‚é
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

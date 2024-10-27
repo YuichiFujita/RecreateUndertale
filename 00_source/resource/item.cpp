@@ -44,7 +44,6 @@ CItemData::~CItemData()
 //============================================================
 HRESULT CItemData::Init()
 {
-	// 成功を返す
 	return S_OK;
 }
 
@@ -143,7 +142,6 @@ HRESULT CItem::Init()
 	// アイテム動的配列を初期化
 	m_vecItemData.clear();
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -172,12 +170,10 @@ HRESULT CItem::LoadAll()
 	if (FAILED(LoadSetup()))
 	{ // セットアップに失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -256,8 +252,6 @@ HRESULT CItem::LoadSetup()
 
 		// エラーメッセージボックス
 		MessageBox(nullptr, "アイテムセットアップの読み込みに失敗！", "警告！", MB_ICONWARNING);
-
-		// 失敗を返す
 		return E_FAIL;
 	}
 
@@ -288,7 +282,6 @@ HRESULT CItem::LoadSetup()
 					if (m_vecItemData[nIdx] == nullptr)
 					{ // 生成に失敗した場合
 
-						// 失敗を返す
 						assert(false);
 						return E_FAIL;
 					}
@@ -321,7 +314,6 @@ HRESULT CItem::LoadSetup()
 	// ファイルを閉じる
 	file.close();
 
-	// 成功を返す
 	return S_OK;
 }
 

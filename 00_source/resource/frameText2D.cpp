@@ -63,7 +63,6 @@ HRESULT CFrameText2D::Init()
 	if (FAILED(CFrame2D::Init()))
 	{ // ‰Šú‰»‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -83,7 +82,6 @@ HRESULT CFrameText2D::Init()
 	if (m_pText == nullptr)
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -94,7 +92,6 @@ HRESULT CFrameText2D::Init()
 	// •¶š‘—‚è‚ÌÄ¶SE‚ğİ’è
 	m_pText->SetScrollSE(CSound::LABEL_SE_TEXT01);
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

@@ -72,7 +72,6 @@ HRESULT CFont::Init()
 	// 読込済みファイルパスを初期化
 	m_vecFilePath.clear();
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -122,12 +121,10 @@ HRESULT CFont::LoadAll()
 	if (FAILED(SearchFolderAll(LOAD_FOLDER)))
 	{ // 読込に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -141,7 +138,6 @@ HRESULT CFont::Load(const std::string& rFilePath)
 	if (itr != m_vecFilePath.end())
 	{ // 読込済みの場合
 
-		// 成功を返す
 		return S_OK;
 	}
 
@@ -155,7 +151,6 @@ HRESULT CFont::Load(const std::string& rFilePath)
 	if (nError == 0)
 	{ // 読込に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -170,7 +165,6 @@ HRESULT CFont::Load(const std::string& rFilePath)
 
 #endif	// NDEBUG
 
-	// 成功を返す
 	return S_OK;
 }
 
@@ -333,7 +327,6 @@ HRESULT CFont::SearchFolderAll(const std::string& rFolderPath)
 	if (INVALID_HANDLE_VALUE == hFile)
 	{ // ハンドルが無効の場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -363,7 +356,6 @@ HRESULT CFont::SearchFolderAll(const std::string& rFolderPath)
 			if (FAILED(Load(sFullPath.c_str())))
 			{ // 登録に失敗した場合
 
-				// 失敗を返す
 				assert(false);
 				return E_FAIL;
 			}
@@ -374,6 +366,5 @@ HRESULT CFont::SearchFolderAll(const std::string& rFolderPath)
 	// 検索ハンドルを閉じる
 	FindClose(hFile);
 
-	// 成功を返す
 	return S_OK;
 }

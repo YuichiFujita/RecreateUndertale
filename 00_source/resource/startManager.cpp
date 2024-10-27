@@ -41,7 +41,6 @@ HRESULT CStartManager::Init()
 	// ƒƒS•\¦ó‘Ô‚É‚·‚é
 	ChangeState(new CStartStateLogo);
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 
@@ -86,12 +85,10 @@ HRESULT CStartManager::ChangeState(CStartState* pState)
 	if (FAILED(m_pState->Init()))
 	{ // ‰Šú‰»‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

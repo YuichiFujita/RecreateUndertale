@@ -106,7 +106,6 @@ HRESULT CTitleManager::Init()
 	CObjectTornado* pTornado = CObjectTornado::Create(VECTOR3(750.0f, 50.0f, 0.0f), VEC3_ZERO, color::White());
 	pTornado->SetLabel(CObject::LABEL_DEBUG);
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

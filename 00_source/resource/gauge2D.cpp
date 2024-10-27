@@ -100,7 +100,6 @@ HRESULT CGauge2D::Init()
 	)))
 	{ // 頂点バッファの生成に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -108,7 +107,6 @@ HRESULT CGauge2D::Init()
 	// 頂点情報の設定
 	SetVtx();
 
-	// 成功を返す
 	return S_OK;
 }
 

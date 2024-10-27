@@ -81,7 +81,7 @@ HRESULT CObjectMeshField::Init()
 	if (FAILED(SetPattern(GRID2_ONE)))
 	{ // •ªŠ„”‚Ìİ’è‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
+		assert(false);
 		return E_FAIL;
 	}
 
@@ -90,12 +90,10 @@ HRESULT CObjectMeshField::Init()
 	if (m_pRenderState == nullptr)
 	{ // ¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 
@@ -377,7 +375,6 @@ HRESULT CObjectMeshField::SetPattern(const POSGRID2& rPart)
 	)))
 	{ // ’¸“_ƒoƒbƒtƒ@‚Ì¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -401,7 +398,6 @@ HRESULT CObjectMeshField::SetPattern(const POSGRID2& rPart)
 	)))
 	{ // ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚Ì¶¬‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -424,7 +420,6 @@ HRESULT CObjectMeshField::SetPattern(const POSGRID2& rPart)
 	else
 	{ // Šm•Û‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -447,7 +442,6 @@ HRESULT CObjectMeshField::SetPattern(const POSGRID2& rPart)
 	else
 	{ // Šm•Û‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -470,7 +464,6 @@ HRESULT CObjectMeshField::SetPattern(const POSGRID2& rPart)
 	else
 	{ // Šm•Û‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -482,7 +475,6 @@ HRESULT CObjectMeshField::SetPattern(const POSGRID2& rPart)
 	SetVtx(true);
 	SetIdx();
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

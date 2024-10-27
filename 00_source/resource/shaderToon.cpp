@@ -84,7 +84,6 @@ HRESULT CToonShader::Init()
 	if (FAILED(CShader::Init()))
 	{ // ‰Šú‰»‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -136,7 +135,7 @@ HRESULT CToonShader::Init()
 		else
 		{ // “Ç‚É¸”s‚µ‚½ê‡
 
-			// “Ç‚İ‚İ¸”s‚ğ•Ô‚·
+			// “Ç¸”s‚ğ•Ô‚·
 			assert(false);
 			return E_FAIL;
 		}
@@ -149,7 +148,6 @@ HRESULT CToonShader::Init()
 		return E_FAIL;
 	}
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

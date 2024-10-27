@@ -39,7 +39,6 @@ HRESULT CHitStop::Init()
 	m_bStop = false;	// ’â~ó‹µ
 	m_nCounter = 0;		// ’â~ŠÔ
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

@@ -47,7 +47,6 @@ HRESULT CMotion::Init()
 	// ƒ‚[ƒVƒ‡ƒ“‚ğI—¹ó‘Ô‚É‚·‚é
 	m_info.bFinish = true;
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

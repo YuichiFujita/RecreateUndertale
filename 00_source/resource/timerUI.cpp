@@ -41,7 +41,6 @@ HRESULT CTimerUI::Init()
 	if (FAILED(CTimeUI::Init()))
 	{ // 初期化に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -51,7 +50,6 @@ HRESULT CTimerUI::Init()
 	if (m_pTimer == nullptr)
 	{ // 生成に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -59,7 +57,6 @@ HRESULT CTimerUI::Init()
 	// タイマーの自動更新・自動終了をOFFにする
 	m_pTimer->SetLabel(LABEL_NONE);
 
-	// 成功を返す
 	return S_OK;
 }
 

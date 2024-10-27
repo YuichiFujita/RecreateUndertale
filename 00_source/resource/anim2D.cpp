@@ -57,7 +57,6 @@ HRESULT CAnim2D::Init()
 	if (FAILED(CObject2D::Init()))
 	{ // 初期化に失敗した場合
 
-		// 失敗を返す
 		assert(false);
 		return E_FAIL;
 	}
@@ -65,7 +64,6 @@ HRESULT CAnim2D::Init()
 	// アニメーションのテクスチャ座標の設定
 	CObject2D::SetAnimTex(m_nPattern, m_nWidthPtrn, m_nHeightPtrn);
 
-	// 成功を返す
 	return S_OK;
 }
 

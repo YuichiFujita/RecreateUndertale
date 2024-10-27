@@ -44,7 +44,6 @@ HRESULT CMultiModel::Init()
 	if (FAILED(CObjectModel::Init()))
 	{ // ‰Šú‰»‚É¸”s‚µ‚½ê‡
 
-		// ¸”s‚ğ•Ô‚·
 		assert(false);
 		return E_FAIL;
 	}
@@ -52,7 +51,6 @@ HRESULT CMultiModel::Init()
 	// ©“®•`‰æ‚ğOFF‚É‚·‚é
 	SetEnableDraw(false);
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 

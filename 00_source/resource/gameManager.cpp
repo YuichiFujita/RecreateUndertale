@@ -37,7 +37,6 @@ HRESULT CGameManager::Init()
 	// ƒƒ“ƒo•Ï”‚ğ‰Šú‰»
 	m_state = STATE_NORMAL;	// ó‘Ô
 
-	// ¬Œ÷‚ğ•Ô‚·
 	return S_OK;
 }
 
