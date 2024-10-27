@@ -79,79 +79,8 @@ void CMultiModel::Update(const float fDeltaTime)
 //============================================================
 void CMultiModel::Draw(CShader* pShader)
 {
-	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;			// デバイスのポインタ
-	CRenderState* pRenderState = GetRenderState();	// レンダーステートの情報
-	CModel::SModel modelData = GetModelData();		// モデルの情報
-	VECTOR3 pos = GetVec3Position();	// モデルの位置
-	VECTOR3 rot = GetVec3Rotation();	// モデルの向き
-	VECTOR3 scale = GetVec3Scale();		// モデルの拡大率
-	MATRIX mtxScale, mtxRot, mtxTrans;	// 計算用マトリックス
-	MATRIX mtxWorld;		// ワールドマトリックス
-	MATRIX mtxParent;		// 親のマトリックス
-	D3DMATERIAL9 matDef;	// 現在のマテリアル保存用
-
-	// レンダーステートを設定
-	pRenderState->Set();
-
-	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&mtxWorld);
-
-	// 拡大率を反映
-	D3DXMatrixScaling(&mtxScale, scale.x, scale.y, scale.z);
-	D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxScale);
-
-	// 向きを反映
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, rot.y, rot.x, rot.z);
-	D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxRot);
-
-	// 位置を反映
-	D3DXMatrixTranslation(&mtxTrans, pos.x, pos.y, pos.z);
-	D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxTrans);
-
-	// 親マトリックスを設定
-	if (m_pParent == nullptr)
-	{ // 親が存在しない場合
-
-		// 現在のマトリックスを取得
-		pDevice->GetTransform(D3DTS_WORLD, &mtxParent);	// 設定された最新のマトリックス (実体のマトリックス)
-	}
-	else
-	{ // 親が存在する場合
-
-		// 親のマトリックスを設定
-		mtxParent = *m_pParent->GetPtrMtxWorld();
-	}
-
-	// ワールドマトリックスと親マトリックスを掛け合わせる
-	D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxParent);
-
-	// ワールドマトリックスの反映
-	SetMtxWorld(mtxWorld);
-
-	// ワールドマトリックスの設定
-	pDevice->SetTransform(D3DTS_WORLD, &mtxWorld);
-
-	// 現在のマテリアルを取得
-	pDevice->GetMaterial(&matDef);
-
-	if (pShader == nullptr)
-	{ // シェーダーが使用されていない場合
-
-		// 通常描画
-		DrawNormal();
-	}
-	else
-	{ // シェーダーが使用されている場合
-
-		// シェーダー描画
-		DrawShader(pShader);
-	}
-
-	// 保存していたマテリアルを戻す
-	pDevice->SetMaterial(&matDef);
-
-	// レンダーステートを再設定
-	pRenderState->Reset();
+	// オブジェクトモデルの描画
+	CObjectModel::Draw(pShader);
 }
 
 //============================================================
@@ -220,91 +149,47 @@ void CMultiModel::DeleteParentObject()
 }
 
 //============================================================
-//	通常描画処理
+//	描画マトリックスの計算処理
 //============================================================
-void CMultiModel::DrawNormal()
+void CMultiModel::CalcDrawMatrix()
 {
-	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;		// デバイスのポインタ
-	CModel::SModel modelData = GetModelData();	// モデルの情報
-	VECTOR3 scale = GetVec3Scale();				// モデルの拡大率
-	MATRIX mtxWorld = GetMtxWorld();			// ワールドマトリックス
-	for (int nCntMat = 0; nCntMat < (int)modelData.dwNumMat; nCntMat++)
-	{ // マテリアルの数分繰り返す
+	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
+	MATRIX* pMtxWorld = GetPtrMtxWorld();	// ワールドマトリックス
+	MATRIX mtxScale, mtxRot, mtxTrans;		// 計算用マトリックス
+	MATRIX mtxParent;						// 親のマトリックス
+	VECTOR3 pos = GetVec3Position();		// モデルの位置
+	VECTOR3 rot = GetVec3Rotation();		// モデルの向き
+	VECTOR3 scale = GetVec3Scale();			// モデルの拡大率
 
-		// マテリアルの設定
-		pDevice->SetMaterial(&GetPtrMaterial(nCntMat)->MatD3D);
+	// ワールドマトリックスの初期化
+	pMtxWorld->Identity();
 
-		// テクスチャの設定
-		pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(modelData.pTextureIdx[nCntMat]));
+	// 拡大率を反映
+	mtxScale.Scaling(scale);
+	pMtxWorld->Multiply(mtxScale);
 
-		if (scale != VEC3_ONE)
-		{ // 拡大率が変更されている場合
+	// 向きを反映
+	mtxRot.Rotation(rot);
+	pMtxWorld->Multiply(mtxRot);
 
-			// 頂点法線の自動正規化を有効にする
-			pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, TRUE);
-		}
+	// 位置を反映
+	mtxTrans.Translation(pos);
+	pMtxWorld->Multiply(mtxTrans);
 
-		// モデルの描画
-		modelData.pMesh->DrawSubset(nCntMat);
+	// 親マトリックスを設定
+	if (m_pParent == nullptr)
+	{ // 親が存在しない場合
 
-		// 頂点法線の自動正規化を無効にする
-		pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, FALSE);
+		// 現在のマトリックスを取得
+		pDevice->GetTransform(D3DTS_WORLD, &mtxParent);	// 設定された最新のマトリックス (実体のマトリックス)
 	}
-}
+	else
+	{ // 親が存在する場合
 
-//============================================================
-//	シェーダー描画処理
-//============================================================
-void CMultiModel::DrawShader(CShader* pShader)
-{
-	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;		// デバイスのポインタ
-	CModel::SModel modelData = GetModelData();	// モデルの情報
-	VECTOR3 scale = GetVec3Scale();				// モデルの拡大率
-	MATRIX mtxWorld = GetMtxWorld();			// ワールドマトリックス
-
-	// 描画開始
-	pShader->Begin();
-	pShader->BeginPass(0);
-
-	// マトリックス情報を設定
-	pShader->SetMatrix(&mtxWorld);
-
-	// ライト方向を設定
-	pShader->SetLightDirect(&mtxWorld, 0);
-
-	for (int nCntMat = 0; nCntMat < (int)modelData.dwNumMat; nCntMat++)
-	{ // マテリアルの数分繰り返す
-
-		// マテリアルの設定
-		pDevice->SetMaterial(&GetPtrMaterial(nCntMat)->MatD3D);
-
-		// テクスチャの設定
-		pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(modelData.pTextureIdx[nCntMat]));
-
-		// マテリアルを設定
-		pShader->SetMaterial(GetPtrMaterial(nCntMat)->MatD3D);
-
-		// テクスチャを設定
-		pShader->SetTexture(modelData.pTextureIdx[nCntMat]);
-
-		// 状態変更の伝達
-		pShader->CommitChanges();
-
-		if (scale != VEC3_ONE)
-		{ // 拡大率が変更されている場合
-
-			// 頂点法線の自動正規化を有効にする
-			pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, TRUE);
-		}
-
-		// モデルの描画
-		modelData.pMesh->DrawSubset(nCntMat);
-
-		// 頂点法線の自動正規化を無効にする
-		pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, FALSE);
+		// 親のマトリックスを設定
+		mtxParent = *m_pParent->GetPtrMtxWorld();
 	}
 
-	// 描画終了
-	pShader->EndPass();
-	pShader->End();
+	// ワールドマトリックスと親マトリックスを掛け合わせる
+	pMtxWorld->Multiply(mtxParent);
 }

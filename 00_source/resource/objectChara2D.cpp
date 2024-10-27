@@ -278,19 +278,19 @@ void CObjectChara2D::CalcDrawMatrix()
 	VECTOR3 rot = GetVec3Rotation();		// 向き
 
 	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(pMtxWorld);
+	pMtxWorld->Identity();
 
 	// オフセットを反映
-	D3DXMatrixTranslation(&mtxOffset, offset.x, offset.y, offset.z);
-	D3DXMatrixMultiply(pMtxWorld, pMtxWorld, &mtxOffset);
+	mtxOffset.Translation(offset);
+	pMtxWorld->Multiply(mtxOffset);
 
 	// 向きを反映
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, rot.y, rot.x, rot.z);
-	D3DXMatrixMultiply(pMtxWorld, pMtxWorld, &mtxRot);
+	mtxRot.Rotation(rot);
+	pMtxWorld->Multiply(mtxRot);
 
 	// 位置を反映
-	D3DXMatrixTranslation(&mtxTrans, pos.x, pos.y, pos.z);
-	D3DXMatrixMultiply(pMtxWorld, pMtxWorld, &mtxTrans);
+	mtxTrans.Translation(pos);
+	pMtxWorld->Multiply(mtxTrans);
 }
 
 //============================================================
@@ -306,19 +306,19 @@ VECTOR3 CObjectChara2D::CalcOffsetPosition
 	MATRIX mtxWorld, mtxRot, mtxTrans, mtxOffset;	// 計算用マトリックス
 
 	// ワールドマトリックスの初期化
-	D3DXMatrixIdentity(&mtxWorld);
+	mtxWorld.Identity();
 
 	// オフセットを反映
-	D3DXMatrixTranslation(&mtxOffset, rOffset.x, rOffset.y, rOffset.z);
-	D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxOffset);
+	mtxOffset.Translation(rOffset);
+	mtxWorld.Multiply(mtxOffset);
 
 	// 向きを反映
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, rRot.y, rRot.x, rRot.z);
-	D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxRot);
+	mtxRot.Rotation(rRot);
+	mtxWorld.Multiply(mtxRot);
 
 	// 位置を反映
-	D3DXMatrixTranslation(&mtxTrans, rPos.x, rPos.y, rPos.z);
-	D3DXMatrixMultiply(&mtxWorld, &mtxWorld, &mtxTrans);
+	mtxTrans.Translation(rPos);
+	mtxWorld.Multiply(mtxTrans);
 
 	// 算出したマトリックスの位置を返す
 	return mtxWorld.GetPosition();

@@ -65,7 +65,6 @@ public:
 	void SetAllMaterial(const D3DXMATERIAL& rMat);		// マテリアル全設定
 	void ResetMaterial();								// マテリアル再設定
 	void SetModelData(const CModel::SModel& rModel);	// モデル情報設定
-	void SetMtxWorld(const MATRIX& rMtxWorld);			// マトリックス設定
 	inline int GetModelIdx() const				{ return m_nModelIdx; }	// モデルインデックス取得
 	inline CModel::SModel GetModelData() const	{ return m_modelData; }	// モデル情報取得
 

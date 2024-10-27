@@ -407,15 +407,6 @@ void CObjectModel::SetModelData(const CModel::SModel& rModel)
 }
 
 //============================================================
-//	マトリックスの設定処理
-//============================================================
-void CObjectModel::SetMtxWorld(const MATRIX& rMtxWorld)
-{
-	// 引数のマトリックスを設定
-	m_mtxWorld = rMtxWorld;
-}
-
-//============================================================
 //	描画マトリックスの計算処理
 //============================================================
 void CObjectModel::CalcDrawMatrix()

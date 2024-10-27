@@ -451,11 +451,11 @@ void CMotion::UpdateMove()
 
 		// 移動量をマトリックスに反映
 		MATRIX mtxMove;	// マトリックス計算用
-		D3DXMatrixTranslation(&mtxMove, moveRate.x, moveRate.y, moveRate.z);
-		D3DXMatrixMultiply(&mtxChara, &mtxMove, &mtxChara);
+		mtxMove.Translation(moveRate);
+		mtxMove.Multiply(mtxChara);
 
 		// 移動量を与えたマトリックスのワールド座標を求める
-		posCurChara = mtxChara.GetPosition();
+		posCurChara = mtxMove.GetPosition();
 
 		// 過去と現在の位置から移動量を求め、位置に与える
 		posSetChara += posOldChara - posCurChara;
