@@ -262,9 +262,7 @@ CTexture::STexture CTexture::GetInfo(const int nIdx)
 		{ // テクスチャが一つもない場合
 
 			// 空のテクスチャ情報を返す
-			STexture tempTexture;
-			memset(&tempTexture, 0, sizeof(tempTexture));
-			return tempTexture;
+			return {};
 		}
 	}
 }

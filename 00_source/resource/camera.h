@@ -122,7 +122,7 @@ private:
 	void UpdateSwing();		// カメラ揺れ更新
 
 	// メンバ変数
-	SCamera	m_camera;	// カメラの情報
+	SCamera	m_camera;	// カメラ情報
 	EState	m_state;	// 状態
 	bool	m_bUpdate;	// 更新状況
 };
