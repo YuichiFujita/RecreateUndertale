@@ -575,11 +575,11 @@ void CObjectTornado::CalcDrawMatrix()
 
 	// 向きを反映
 	mtxRot.Rotation(m_growRot);
-	mtxOrigin.Multiply(mtxRot);	// 成長向き
+	mtxOrigin.Multiply(mtxOrigin, mtxRot);	// 成長向き
 
 	// 位置を反映
 	mtxTrans.Translation(m_pos);
-	mtxOrigin.Multiply(mtxTrans);	// 発生位置
+	mtxOrigin.Multiply(mtxOrigin, mtxTrans);	// 発生位置
 
 	//--------------------------------------------------------
 	//	ワールドマトリックスを求める
@@ -589,7 +589,7 @@ void CObjectTornado::CalcDrawMatrix()
 
 	// 向きを反映
 	mtxRot.Rotation(m_rot);
-	m_mtxWorld.Multiply(mtxRot);	// 回転量
+	m_mtxWorld.Multiply(m_mtxWorld, mtxRot);	// 回転量
 
 	//--------------------------------------------------------
 	//	マトリックスを掛け合わせる
@@ -598,11 +598,11 @@ void CObjectTornado::CalcDrawMatrix()
 	{ // 親のマトリックスが存在する場合
 
 		// 親のマトリックスと掛け合わせる
-		mtxOrigin.Multiply(*m_pMtxParent);
+		mtxOrigin.Multiply(mtxOrigin, *m_pMtxParent);
 	}
 
 	// 発生源のマトリックスと掛け合わせる
-	m_mtxWorld.Multiply(mtxOrigin);
+	m_mtxWorld.Multiply(m_mtxWorld, mtxOrigin);
 }
 
 //============================================================

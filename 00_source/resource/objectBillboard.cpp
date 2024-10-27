@@ -445,7 +445,7 @@ void CObjectBillboard::CalcDrawMatrix()
 
 	// ˆÊ’u‚ð”½‰f
 	mtxTrans.Translation(m_pos);
-	m_mtxWorld.Multiply(mtxTrans);
+	m_mtxWorld.Multiply(m_mtxWorld, mtxTrans);
 }
 
 //============================================================

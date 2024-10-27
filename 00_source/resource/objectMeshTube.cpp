@@ -453,7 +453,7 @@ void CObjectMeshTube::SetPositionRelative()
 
 	// 向きオフセットマトリックスを作成・掛け合わせる
 	mtxBottom.Rotation(0.0f, D3DX_PI, 0.0f);
-	mtxBottom.Multiply(mtxCylinder);
+	mtxBottom.Multiply(mtxBottom, mtxCylinder);
 
 	// 下蓋の位置・向きを設定
 	m_apCover[COVER_BOTTOM]->SetVec3Position(posCylinder);
@@ -461,7 +461,7 @@ void CObjectMeshTube::SetPositionRelative()
 
 	// 位置オフセットマトリックスを作成・掛け合わせる
 	mtxTop.Translation(0.0f, fHeightCylinder, 0.0f);
-	mtxTop.Multiply(mtxCylinder);
+	mtxTop.Multiply(mtxTop, mtxCylinder);
 
 	// 上蓋の位置・向きを設定
 	m_apCover[COVER_TOP]->SetVec3Position(mtxTop.GetPosition());
@@ -482,11 +482,11 @@ MATRIX CObjectMeshTube::CalcCylinderMtxWorld() const
 
 	// 向きを反映
 	mtxRot.Rotation(rotCylinder);
-	mtxWorld.Multiply(mtxRot);
+	mtxWorld.Multiply(mtxWorld, mtxRot);
 
 	// 位置を反映
 	mtxTrans.Translation(posCylinder);
-	mtxWorld.Multiply(mtxTrans);
+	mtxWorld.Multiply(mtxWorld, mtxTrans);
 
 	// ワールドマトリックスを返す
 	return mtxWorld;

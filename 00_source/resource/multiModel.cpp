@@ -166,15 +166,15 @@ void CMultiModel::CalcDrawMatrix()
 
 	// 拡大率を反映
 	mtxScale.Scaling(scale);
-	pMtxWorld->Multiply(mtxScale);
+	pMtxWorld->Multiply(*pMtxWorld, mtxScale);
 
 	// 向きを反映
 	mtxRot.Rotation(rot);
-	pMtxWorld->Multiply(mtxRot);
+	pMtxWorld->Multiply(*pMtxWorld, mtxRot);
 
 	// 位置を反映
 	mtxTrans.Translation(pos);
-	pMtxWorld->Multiply(mtxTrans);
+	pMtxWorld->Multiply(*pMtxWorld, mtxTrans);
 
 	// 親マトリックスを設定
 	if (m_pParent == nullptr)
@@ -191,5 +191,5 @@ void CMultiModel::CalcDrawMatrix()
 	}
 
 	// ワールドマトリックスと親マトリックスを掛け合わせる
-	pMtxWorld->Multiply(mtxParent);
+	pMtxWorld->Multiply(*pMtxWorld, mtxParent);
 }

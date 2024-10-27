@@ -1046,11 +1046,11 @@ void CObjectMeshField::CalcDrawMatrix()
 
 	// Œü‚«‚ð”½‰f
 	mtxRot.Rotation(m_rot);
-	m_mtxWorld.Multiply(mtxRot);
+	m_mtxWorld.Multiply(m_mtxWorld, mtxRot);
 
 	// ˆÊ’u‚ð”½‰f
 	mtxTrans.Translation(m_pos);
-	m_mtxWorld.Multiply(mtxTrans);
+	m_mtxWorld.Multiply(m_mtxWorld, mtxTrans);
 }
 
 //============================================================

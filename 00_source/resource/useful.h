@@ -618,8 +618,9 @@ struct MATRIX : public D3DXMATRIX
 	/*
 		@brief	マトリックスを掛け合わせる
 		@param	const MATRIX& [in] 掛け合わせるマトリックス
+		@param	const MATRIX& [in] 掛け合わせるマトリックス
 	*/
-	inline void Multiply(const MATRIX& rMtx) { D3DXMatrixMultiply(this, this, &rMtx); }
+	inline void Multiply(const MATRIX& rMtx0, const MATRIX& rMtx1) { D3DXMatrixMultiply(this, &rMtx0, &rMtx1); }
 
 	/*
 		@brief	位置マトリックスの計算

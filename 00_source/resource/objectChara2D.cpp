@@ -282,15 +282,15 @@ void CObjectChara2D::CalcDrawMatrix()
 
 	// オフセットを反映
 	mtxOffset.Translation(offset);
-	pMtxWorld->Multiply(mtxOffset);
+	pMtxWorld->Multiply(*pMtxWorld, mtxOffset);
 
 	// 向きを反映
 	mtxRot.Rotation(rot);
-	pMtxWorld->Multiply(mtxRot);
+	pMtxWorld->Multiply(*pMtxWorld, mtxRot);
 
 	// 位置を反映
 	mtxTrans.Translation(pos);
-	pMtxWorld->Multiply(mtxTrans);
+	pMtxWorld->Multiply(*pMtxWorld, mtxTrans);
 }
 
 //============================================================
@@ -310,15 +310,15 @@ VECTOR3 CObjectChara2D::CalcOffsetPosition
 
 	// オフセットを反映
 	mtxOffset.Translation(rOffset);
-	mtxWorld.Multiply(mtxOffset);
+	mtxWorld.Multiply(mtxWorld, mtxOffset);
 
 	// 向きを反映
 	mtxRot.Rotation(rRot);
-	mtxWorld.Multiply(mtxRot);
+	mtxWorld.Multiply(mtxWorld, mtxRot);
 
 	// 位置を反映
 	mtxTrans.Translation(rPos);
-	mtxWorld.Multiply(mtxTrans);
+	mtxWorld.Multiply(mtxWorld, mtxTrans);
 
 	// 算出したマトリックスの位置を返す
 	return mtxWorld.GetPosition();
