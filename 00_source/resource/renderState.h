@@ -36,10 +36,21 @@ public:
 	struct SBlendAlpha
 	{
 	public:
-		// コンストラクタ
-		SBlendAlpha() {}
-		SBlendAlpha(const D3DBLENDOP Op, const D3DBLEND Scr, const D3DBLEND Dest)
-		{ op = Op; scr = Scr; dest = Dest; bBlend = true; }
+		// デフォルトコンストラクタ
+		SBlendAlpha() :
+			op		(D3DBLENDOP_ADD),	// αブレンド情報
+			scr		(D3DBLEND_ZERO),	// SCRブレンド
+			dest	(D3DBLEND_ZERO),	// DESTブレンド
+			bBlend	(true)				// αブレンド状況
+		{}
+
+		// 引数付きコンストラクタ
+		SBlendAlpha(const D3DBLENDOP Op, const D3DBLEND Scr, const D3DBLEND Dest) :
+			op		(Op),	// αブレンド情報
+			scr		(Scr),	// SCRブレンド
+			dest	(Dest),	// DESTブレンド
+			bBlend	(true)	// αブレンド状況
+		{}
 
 		// デストラクタ
 		~SBlendAlpha() {}

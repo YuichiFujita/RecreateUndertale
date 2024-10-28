@@ -307,10 +307,10 @@ HRESULT CCharacter::LoadSetup(SCharaData* pInfoChara, const char* pCharaPath)
 						else if (str == "FILEPASS")
 						{
 							file >> str;								// ＝を読込
-							file >> pInfoParts->vecParts[nIdx].strPath;	// モデルパスを読込
+							file >> pInfoParts->vecParts[nIdx].sPath;	// モデルパスを読込
 
 							// モデルパスを標準化
-							useful::StandardizePathPart(&pInfoParts->vecParts[nIdx].strPath);
+							useful::StandardizePathPart(&pInfoParts->vecParts[nIdx].sPath);
 						}
 					} while (str != "END_PARTSSET");	// END_PARTSSETを読み込むまでループ
 				}

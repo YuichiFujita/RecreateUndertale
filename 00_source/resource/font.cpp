@@ -16,13 +16,12 @@
 //************************************************************
 namespace
 {
-	// 登録情報
+	// 登録情報構造体
 	struct SRegistInfo
 	{
 		const wchar_t wcChar;	// 読み込む先頭文字
 		const int nIncr;		// 読み込む連続数
 	};
-
 	const SRegistInfo INIT_REGIST_CHAR[] =	// 初期に登録するフォント文字
 	{
 		{ L'\0', 1 },	// 終端文字

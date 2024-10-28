@@ -14,7 +14,13 @@
 //************************************************************
 namespace
 {
-	const CSound::SSoundInfo SOUND_FILE[] =	// サウンドファイル
+	// サウンド情報構造体
+	struct SSoundInfo
+	{
+		const char* pFilePath;	// ファイルパス
+		int nCntLoop;			// ループカウント
+	};
+	const SSoundInfo SOUND_FILE[] =	// サウンドファイル
 	{
 		{ "data\\BGM\\bgm_general.wav", -1 },			// BGM
 		{ "data\\SE\\INTRO\\mus_intronoise.wav", 0 },	// イントロノイズ
@@ -170,7 +176,7 @@ HRESULT CSound::LoadAll(HWND hWnd)
 		memset(&buffer, 0, sizeof(XAUDIO2_BUFFER));
 
 		// サウンドデータファイルの生成
-		hFile = CreateFile(SOUND_FILE[nCntSound].pFilename, GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, 0, nullptr);
+		hFile = CreateFile(SOUND_FILE[nCntSound].pFilePath, GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, 0, nullptr);
 		if (hFile == INVALID_HANDLE_VALUE)
 		{
 			MessageBox(hWnd, "サウンドデータファイルの生成に失敗！(1)", "警告！", MB_ICONWARNING);

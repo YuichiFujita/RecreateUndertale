@@ -31,7 +31,13 @@ public:
 	// キー構造体
 	struct SKey
 	{
-		// コンストラクタ
+		// デフォルトコンストラクタ
+		SKey() :
+			sFilePath	(""),	// フォントファイルパス
+			bItalic		(false)	// イタリック
+		{}
+
+		// 引数付きコンストラクタ
 		SKey(std::string FontName, bool Italic) :
 			sFilePath	(FontName),	// フォントファイルパス
 			bItalic		(Italic)	// イタリック
@@ -52,13 +58,12 @@ public:
 	// フォント構造体
 	struct SFont
 	{
-		// コンストラクタ
+		// デフォルトコンストラクタ
 		SFont() :
+			sFontName	(""),		// フォント名をクリア
 			pFontChar	(nullptr),	// フォント文字インスタンス
 			pFont		(nullptr)	// フォントへのポインタ
-		{
-			sFontName.clear();	// フォント名をクリア
-		}
+		{}
 
 		// メンバ変数
 		std::string sFontName;	// フォント名

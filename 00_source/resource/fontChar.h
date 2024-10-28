@@ -23,7 +23,7 @@ public:
 	// デストラクタ
 	~CFontChar();
 
-	// 矩形の座標情報
+	// 矩形の座標情報構造体
 	struct SRectangle
 	{
 		POSGRID2 lu;	// 左上座標
@@ -33,8 +33,18 @@ public:
 	// フォント文字構造体
 	struct SChar
 	{
-		// コンストラクタ
-		SChar() { memset(this, 0, sizeof(*this)); }
+		// デフォルトコンストラクタ
+		SChar() :
+			glyph			({}),	// フォントグリフの情報
+			outline			({}),	// フォントアウトラインの情報
+			text			({}),	// フォントテキストの情報
+			offsetBlackBox	({}),	// ブラックボックスの中心からのオフセット
+			nTexIdx			(0),	// テクスチャインデックス
+			bEmpty			(false)	// テクスチャ透明フラグ
+		{}
+
+		// デストラクタ
+		~SChar() {}
 
 		// メンバ変数
 		GLYPHMETRICS glyph;			// フォントグリフの情報

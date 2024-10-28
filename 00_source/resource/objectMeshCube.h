@@ -75,17 +75,45 @@ public:
 	struct SFaceTex
 	{
 	public:
-		// コンストラクタ
-		SFaceTex() {}
+		// デフォルトコンストラクタ
+		SFaceTex() :
+			All		(0),	// 全面のテクスチャインデックス
+			Left	(0),	// 左のテクスチャインデックス
+			Right	(0),	// 右のテクスチャインデックス
+			Bottom	(0),	// 下のテクスチャインデックス
+			Top		(0),	// 上のテクスチャインデックス
+			Near	(0),	// 前のテクスチャインデックス
+			Far		(0)		// 後のテクスチャインデックス
+		{}
 
-		SFaceTex(const int nAll)
-		{ All = nAll; Left = 0; Right = 0; Bottom = 0; Top = 0; Near = 0; Far = 0; }
-
-		SFaceTex(const int nLeft, const int nRight, const int nBottom, const int nTop, const int nNear, const int nFar)
-		{ All = 0; Left = nLeft; Right = nRight; Bottom = nBottom; Top = nTop; Near = nNear; Far = nFar; }
-
-		SFaceTex(const int nAll, const int nLeft, const int nRight, const int nBottom, const int nTop, const int nNear, const int nFar)
-		{ All = nAll; Left = nLeft; Right = nRight; Bottom = nBottom; Top = nTop; Near = nNear; Far = nFar; }
+		// 引数付きコンストラクタ
+		SFaceTex(const int nAll) :
+			All		(nAll),	// 全面のテクスチャインデックス
+			Left	(0),	// 左のテクスチャインデックス
+			Right	(0),	// 右のテクスチャインデックス
+			Bottom	(0),	// 下のテクスチャインデックス
+			Top		(0),	// 上のテクスチャインデックス
+			Near	(0),	// 前のテクスチャインデックス
+			Far		(0)		// 後のテクスチャインデックス
+		{}
+		SFaceTex(const int nLeft, const int nRight, const int nBottom, const int nTop, const int nNear, const int nFar) :
+			All		(0),		// 全面のテクスチャインデックス
+			Left	(nLeft),	// 左のテクスチャインデックス
+			Right	(nRight),	// 右のテクスチャインデックス
+			Bottom	(nBottom),	// 下のテクスチャインデックス
+			Top		(nTop),		// 上のテクスチャインデックス
+			Near	(nNear),	// 前のテクスチャインデックス
+			Far		(nFar)		// 後のテクスチャインデックス
+		{}
+		SFaceTex(const int nAll, const int nLeft, const int nRight, const int nBottom, const int nTop, const int nNear, const int nFar) :
+			All		(nAll),		// 全面のテクスチャインデックス
+			Left	(nLeft),	// 左のテクスチャインデックス
+			Right	(nRight),	// 右のテクスチャインデックス
+			Bottom	(nBottom),	// 下のテクスチャインデックス
+			Top		(nTop),		// 上のテクスチャインデックス
+			Near	(nNear),	// 前のテクスチャインデックス
+			Far		(nFar)		// 後のテクスチャインデックス
+		{}
 
 		// デストラクタ
 		~SFaceTex() {}

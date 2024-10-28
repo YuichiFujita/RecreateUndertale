@@ -27,10 +27,25 @@ public:
 	struct SInfo
 	{
 	public:
-		// コンストラクタ
-		SInfo() {}
-		SInfo(const UINT nWidth, const UINT nHeight, const UINT nMip, const DWORD dwUsage, const D3DFORMAT format, const D3DPOOL pool)
-			: Width(nWidth), Height(nHeight), MipLevels(nMip), Usage(dwUsage), Format(format), Pool(pool) {}
+		// デフォルトコンストラクタ
+		SInfo() :
+			Width		(0),	// テクスチャ横幅
+			Height		(0),	// テクスチャ縦幅
+			MipLevels	(0),	// ミップマップレベル
+			Usage		(0),	// 性質・確保オプション
+			Format		(D3DFMT_UNKNOWN),	// ピクセルフォーマット
+			Pool		(D3DPOOL_DEFAULT)	// 格納メモリ
+		{}
+
+		// 引数付きコンストラクタ
+		SInfo(const UINT nWidth, const UINT nHeight, const UINT nMip, const DWORD dwUsage, const D3DFORMAT format, const D3DPOOL pool) :
+			Width		(nWidth),	// テクスチャ横幅
+			Height		(nHeight),	// テクスチャ縦幅
+			MipLevels	(nMip),		// ミップマップレベル
+			Usage		(dwUsage),	// 性質・確保オプション
+			Format		(format),	// ピクセルフォーマット
+			Pool		(pool)		// 格納メモリ
+		{}
 
 		// デストラクタ
 		~SInfo() {}

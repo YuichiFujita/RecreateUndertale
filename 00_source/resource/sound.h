@@ -36,13 +36,6 @@ public:
 		LABEL_MAX				// この列挙型の総数
 	};
 
-	// サウンド情報構造体
-	struct SSoundInfo
-	{
-		const char* pFilename;	// ファイル名
-		int nCntLoop;			// ループカウント
-	};
-
 	// メンバ関数
 	HRESULT Init(HWND hWnd);	// 初期化
 	void Uninit();				// 終了

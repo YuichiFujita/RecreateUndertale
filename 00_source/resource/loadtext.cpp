@@ -25,29 +25,29 @@ void loadtext::LoadVector(std::ifstream* pFile, std::vector<std::wstring>* pVecS
 	// 開けてないファイルの場合抜ける
 	if (!pFile->is_open())	{ assert(false); return; }
 
-	std::string sStr;	// 読込文字列
+	std::string str;	// 読込文字列
 	do { // END_TEXTを読み込むまでループ
 
 		// 文字列を読み込む
-		*pFile >> sStr;
+		*pFile >> str;
 
-		if (sStr.front() == '#')
+		if (str.front() == '#')
 		{ // コメントアウトされている場合
 
 			// 一行全て読み込む
-			std::getline(*pFile, sStr);
+			std::getline(*pFile, str);
 		}
-		else if (sStr == "STR")
+		else if (str == "STR")
 		{
-			*pFile >> sStr;					// ＝を読込
+			*pFile >> str;					// ＝を読込
 			pFile->seekg(1, std::ios::cur);	// 読込位置を空白分ずらす
-			std::getline(*pFile, sStr);		// 一行全て読み込む
+			std::getline(*pFile, str);		// 一行全て読み込む
 
 			// 文字列を最後尾に追加
-			pVecStr->push_back(useful::MultiByteToWide(sStr));	// ワイド文字列に変換
+			pVecStr->push_back(useful::MultiByteToWide(str));	// ワイド文字列に変換
 		}
 
-	} while (sStr != "END_TEXT");	// END_TEXTを読み込むまでループ
+	} while (str != "END_TEXT");	// END_TEXTを読み込むまでループ
 }
 
 //============================================================
@@ -75,23 +75,23 @@ std::vector<std::wstring> loadtext::LoadText(const char* pFilePath, const char* 
 	}
 
 	// ファイルを読込
-	std::string sStr;	// 読込文字列
-	while (file >> sStr)
+	std::string str;	// 読込文字列
+	while (file >> str)
 	{ // ファイルの終端ではない場合ループ
 
-		if (sStr.front() == '#')
+		if (str.front() == '#')
 		{ // コメントアウトされている場合
 
 			// 一行全て読み込む
-			std::getline(file, sStr);
+			std::getline(file, str);
 		}
-		else if (sStr == "TEXT_ELSE")
+		else if (str == "TEXT_ELSE")
 		{ // 汎用的な読込開始の文字列と一致した場合
 
 			// 文字列の動的配列を読込
 			LoadVector(&file, &vecStr);
 		}
-		else if (sStr == sLoadStart)
+		else if (str == sLoadStart)
 		{ // 読込開始の文字列と一致した場合
 
 			// 文字列の動的配列を読込

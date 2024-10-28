@@ -32,11 +32,14 @@ public:
 	// 判定カウント管理構造体
 	struct SCollTime
 	{
-		// コンストラクタ
+		// デフォルトコンストラクタ
 		SCollTime() :
 			nMin(NONE_IDX),	// 攻撃判定の開始カウント
 			nMax(NONE_IDX)	// 攻撃判定の終了カウント
 		{}
+
+		// デストラクタ
+		~SCollTime() {}
 
 		// メンバ変数
 		int nMin;	// 攻撃判定の開始カウント
@@ -46,11 +49,14 @@ public:
 	// パーツ管理構造体
 	struct SParts
 	{
-		// コンストラクタ
+		// デフォルトコンストラクタ
 		SParts() :
 			pos(VEC3_ZERO),	// モデル位置
 			rot(VEC3_ZERO)	// モデル向き
 		{}
+
+		// デストラクタ
+		~SParts() {}
 
 		// メンバ変数
 		VECTOR3 pos;	// モデル位置
@@ -60,13 +66,16 @@ public:
 	// キー管理構造体
 	struct SKey
 	{
-		// コンストラクタ
+		// デフォルトコンストラクタ
 		SKey() :
 			move	(VEC3_ZERO),	// キー移動量
 			nFrame	(0)				// キー再生フレーム数
 		{
 			vecParts.clear();	// パーツ情報をクリア
 		}
+
+		// デストラクタ
+		~SKey() {}
 
 		// メンバ変数
 		std::vector<SParts> vecParts;	// パーツ情報
@@ -77,7 +86,7 @@ public:
 	// モーション管理構造体
 	struct SMotion
 	{
-		// コンストラクタ
+		// デフォルトコンストラクタ
 		SMotion() :
 			nWholeFrame		(0),		// モーション全体フレーム数
 			nCancelFrame	(NONE_IDX),	// キャンセル可能フレーム
@@ -88,24 +97,27 @@ public:
 			vecKey.clear();	// キー情報をクリア
 		}
 
+		// デストラクタ
+		~SMotion() {}
+
 		// メンバ関数
 		inline int GetNumKey() { return (int)vecKey.size(); }	// キー情報の総数取得
 
 		// メンバ変数
 		std::vector<SKey> vecKey;	// キー情報
-		SCollTime collLeft;		// 左攻撃判定のカウント
-		SCollTime collRight;	// 右攻撃判定のカウント
-		int  nWholeFrame;		// モーション全体フレーム数
-		int  nCancelFrame;		// キャンセル可能フレーム
-		int  nComboFrame;		// コンボ可能フレーム
-		bool bLoop;				// ループON/OFF
-		bool bWeaponDisp;		// 武器表示ON/OFF
+		SCollTime collLeft;			// 左攻撃判定のカウント
+		SCollTime collRight;		// 右攻撃判定のカウント
+		int  nWholeFrame;			// モーション全体フレーム数
+		int  nCancelFrame;			// キャンセル可能フレーム
+		int  nComboFrame;			// コンボ可能フレーム
+		bool bLoop;					// ループON/OFF
+		bool bWeaponDisp;			// 武器表示ON/OFF
 	};
 
 	// モーション情報構造体
 	struct SInfo
 	{
-		// コンストラクタ
+		// デフォルトコンストラクタ
 		SInfo() :
 			nType			(0),	// モーション種類
 			nKey			(0),	// モーションキー番号
@@ -116,6 +128,9 @@ public:
 			vecMotion.clear();		// モーション情報をクリア
 			vecOriginParts.clear();	// パーツ原点情報をクリア
 		}
+
+		// デストラクタ
+		~SInfo() {}
 
 		// メンバ関数
 		inline int GetNumMotion() { return (int)vecMotion.size(); }	// モーション情報の総数取得
@@ -133,13 +148,16 @@ public:
 	// ブレンド情報構造体
 	struct SBlend
 	{
-		// コンストラクタ
+		// デフォルトコンストラクタ
 		SBlend() :
 			nFrame			(0),	// ブレンド再生フレーム数
 			nWholeCounter	(0)		// ブレンド全体カウンター
 		{
 			vecParts.clear();	// ブレンド開始パーツ情報をクリア
 		}
+
+		// デストラクタ
+		~SBlend() {}
 
 		// メンバ変数
 		std::vector<SParts> vecParts;	// ブレンド開始パーツ情報
@@ -195,9 +213,9 @@ private:
 	const std::function<int()> m_funcGetNumParts;	// パーツ数取得関数ポインタ
 	CMultiModel** m_ppModel;	// モデル情報
 	CObjectChara* m_pChara;		// オブジェクトキャラクター情報
-	SInfo  m_info;	// モーション情報
-	SBlend m_blend;	// ブレンド情報
-	bool m_bUpdate;	// 更新状況
+	SInfo	m_info;		// モーション情報
+	SBlend	m_blend;	// ブレンド情報
+	bool	m_bUpdate;	// 更新状況
 };
 
 #endif	// _MOTION_H_

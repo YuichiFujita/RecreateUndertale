@@ -336,7 +336,7 @@ void CObjectChara::SetPartsInfo(CCharacter::SPartsInfo& rInfo)
 			pParts->nParentIdx,		// 親インデックス
 			pParts->pos,			// 位置
 			pParts->rot,			// 向き
-			pParts->strPath.c_str()	// ファイル名
+			pParts->sPath.c_str()	// ファイル名
 		);
 	}
 }

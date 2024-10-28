@@ -62,8 +62,8 @@ HRESULT CItemInfoUI::Init()
 	// アイテム詳細を先頭に追加
 	CItem* pItem = GET_MANAGER->GetItem();								// アイテム情報
 	const CItemData& rItemData = pItem->GetInfo(GetChoiceItemIdx());	// アイテム内部データ
-	std::string str = rItemData.Detail();
-	PushFrontString(useful::MultiByteToWide(str));
+	std::string sDetail = rItemData.Detail();
+	PushFrontString(useful::MultiByteToWide(sDetail));
 
 	return S_OK;
 }

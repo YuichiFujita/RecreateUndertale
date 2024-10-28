@@ -31,30 +31,35 @@ public:
 	// パーツ構造体
 	struct SParts
 	{
-		// コンストラクタ
+		// デフォルトコンストラクタ
 		SParts() :
+			sPath		(""),			// モデルパスをクリア
 			pos			(VEC3_ZERO),	// 位置
 			rot			(VEC3_ZERO),	// 向き
 			nParentIdx	(NONE_IDX)		// 親インデックス
-		{
-			strPath.clear();	// モデルパスをクリア
-		}
+		{}
+
+		// デストラクタ
+		~SParts() {}
 
 		// メンバ変数
-		std::string strPath;	// モデルパス
-		VECTOR3 pos;			// 位置
-		VECTOR3 rot;			// 向き
-		int nParentIdx;			// 親インデックス
+		std::string sPath;	// モデルパス
+		VECTOR3 pos;		// 位置
+		VECTOR3 rot;		// 向き
+		int nParentIdx;		// 親インデックス
 	};
 
 	// パーツ情報構造体
 	struct SPartsInfo
 	{
-		// コンストラクタ
+		// デフォルトコンストラクタ
 		SPartsInfo()
 		{
 			vecParts.clear();	// パーツ情報をクリア
 		}
+
+		// デストラクタ
+		~SPartsInfo() {}
 
 		// メンバ関数
 		inline int GetNumParts() { return vecParts.size(); }	// パーツ情報の総数取得
@@ -66,8 +71,11 @@ public:
 	// キャラクター情報構造体
 	struct SCharaData
 	{
-		// コンストラクタ
+		// デフォルトコンストラクタ
 		SCharaData() {}
+
+		// デストラクタ
+		~SCharaData() {}
 
 		// メンバ変数
 		CMotion::SInfo infoMotion;	// モーション情報

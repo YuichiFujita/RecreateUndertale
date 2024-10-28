@@ -42,7 +42,15 @@ public:
 	{
 	public:
 		// コンストラクタ
-		SSwing() {}
+		SSwing() :
+			shiftPos	 (VEC3_ZERO),	// 位置ずれ量
+			fShiftAngle	 (0.0f),		// 位置をずらす角度
+			fShiftLength (0.0f),		// 位置をずらす距離
+			fSubAngle	 (0.0f),		// ずらす角度の減算量
+			fSubLength	 (0.0f)			// ずらす距離の減算量
+		{}
+
+		// 引数付きコンストラクタ
 		SSwing(const float ShiftLength, const float SubAngle, const float SubLength) :
 			shiftPos	 (VEC3_ZERO),	// 位置ずれ量
 			fShiftAngle	 (0.0f),		// 位置をずらす角度

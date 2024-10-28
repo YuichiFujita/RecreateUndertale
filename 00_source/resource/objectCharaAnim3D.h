@@ -31,11 +31,14 @@ public:
 	// 当たり判定管理構造体
 	struct SColl
 	{
-		// コンストラクタ
+		// デフォルトコンストラクタ
 		SColl() :
 			offset	(VEC3_ZERO),	// 判定原点オフセット
 			size	(VEC3_ZERO)		// 判定大きさ
 		{}
+
+		// デストラクタ
+		~SColl() {}
 
 		// メンバ変数
 		VECTOR3 offset;	// 判定原点オフセット
@@ -45,17 +48,20 @@ public:
 	// キャラクター管理構造体
 	struct SChara
 	{
-		// コンストラクタ
+		// デフォルトコンストラクタ
 		SChara() :
-			ptrnTexture	(GRID2_ZERO),	// テクスチャ分割数
-			nMaxPtrn	(0),			// 最大パターン数
-			offset		(VEC3_ZERO),	// 原点オフセット
-			size		(VEC3_ZERO),	// キャラクター大きさ
-			bLoop		(false)			// ループON/OFF
+			sPathTexture (""),			// テクスチャパスをクリア
+			ptrnTexture	 (GRID2_ZERO),	// テクスチャ分割数
+			nMaxPtrn	 (0),			// 最大パターン数
+			offset		 (VEC3_ZERO),	// 原点オフセット
+			size		 (VEC3_ZERO),	// キャラクター大きさ
+			bLoop		 (false)		// ループON/OFF
 		{
 			vecNextTime.clear();	// パターン変更時間配列をクリア
-			sPathTexture.clear();	// テクスチャパスをクリア
 		}
+
+		// デストラクタ
+		~SChara() {}
 
 		// テクスチャ分割数・パターン総数の設定
 		inline HRESULT SetTexPtrn(const POSGRID2& rPtrn)
@@ -104,11 +110,14 @@ public:
 	// モーション管理構造体
 	struct SMotion
 	{
-		// コンストラクタ
+		// デフォルトコンストラクタ
 		SMotion() :
 			fCancelTime	(-1.0f),	// キャンセル可能時間
 			fComboTime	(-1.0f)		// コンボ可能時間
 		{}
+
+		// デストラクタ
+		~SMotion() {}
 
 		// メンバ変数
 		SChara infoChara;	// キャラクター情報
@@ -120,12 +129,15 @@ public:
 	// モーション情報構造体
 	struct SInfo
 	{
-		// コンストラクタ
+		// デフォルトコンストラクタ
 		SInfo() :
 			nType	(0)	// モーション種類
 		{
 			vecMotion.clear();	// モーション情報をクリア
 		}
+
+		// デストラクタ
+		~SInfo() {}
 
 		// メンバ関数
 		inline int GetNumMotion() { return (int)vecMotion.size(); }	// モーション情報の総数取得
