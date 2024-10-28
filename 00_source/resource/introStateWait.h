@@ -23,7 +23,7 @@ class CIntroStateWait : public CIntroState
 {
 public:
 	// コンストラクタ
-	CIntroStateWait(const float fEndTime);
+	explicit CIntroStateWait(const float fEndTime);
 
 	// デストラクタ
 	~CIntroStateWait() override;

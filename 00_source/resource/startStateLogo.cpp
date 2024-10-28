@@ -30,7 +30,7 @@ namespace
 	namespace str
 	{
 		const char*	FONT	= "data\\FONT\\Crypt of Tomorrow.ttf";	// フォントパス
-		const char*	PASS	= "data\\TEXT\\start.txt";				// テキストパス
+		const char*	PATH	= "data\\TEXT\\start.txt";				// テキストパス
 		const bool	ITALIC	= false;	// イタリック
 		const float	HEIGHT	= 22.5f;	// 文字縦幅
 
@@ -163,7 +163,7 @@ void CStartStateLogo::UpdateDispTrans(const float fDeltaTime)
 			m_pCont->SetPriority(PRIORITY);
 
 			// 文字列を割当
-			loadtext::BindString(m_pCont, loadtext::LoadText(str::PASS, CStartManager::TEXT_PRESS_Z));
+			loadtext::BindString(m_pCont, loadtext::LoadText(str::PATH, CStartManager::TEXT_PRESS_Z));
 		}
 	}
 	else

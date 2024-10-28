@@ -50,7 +50,7 @@ namespace
 	namespace text
 	{
 		const char* FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
-		const char* PASS = "data\\TEXT\\intro.txt";	// テキストパス
+		const char* PATH = "data\\TEXT\\intro.txt";	// テキストパス
 
 		const int	PRIORITY	= 6;		// テキストの優先順位
 		const bool	ITALIC		= false;	// イタリック
@@ -335,7 +335,7 @@ void CIntroManager::ChangeText(const int nStoryIdx)
 	m_pText->DeleteStringAll();
 
 	// 次のテキストを割当
-	loadtext::BindText(m_pText, loadtext::LoadText(text::PASS, nStoryIdx));
+	loadtext::BindText(m_pText, loadtext::LoadText(text::PATH, nStoryIdx));
 
 	// 文字送りを開始する
 	m_pText->SetEnableScroll(true);

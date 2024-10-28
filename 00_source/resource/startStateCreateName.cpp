@@ -19,14 +19,14 @@
 //************************************************************
 namespace
 {
-	const char* PASS_CHAR[] =	// 文字配置情報の相対パス
+	const char* PATH_CHAR[] =	// 文字配置情報の相対パス
 	{
 		"data\\CSV\\char_hiragana.csv",	// ひらがな配置情報
 		"data\\CSV\\char_katakana.csv",	// カタカナ配置情報
 		"data\\CSV\\char_alphabet.csv",	// アルファベット配置情報
 	};
 
-	const char* PASS		= "data\\TEXT\\start.txt";	// テキストパス
+	const char* PATH		= "data\\TEXT\\start.txt";	// テキストパス
 	const int PRIORITY		= 6;	// 優先順位
 	const int MAX_STR_NAME	= 6;	// 名前の最大文字数
 
@@ -140,7 +140,7 @@ HRESULT CStartStateCreateName::Init()
 	m_pTitle->SetPriority(PRIORITY);
 
 	// 文字列を割当
-	loadtext::BindString(m_pTitle, loadtext::LoadText(PASS, CStartManager::TEXT_NAMING));
+	loadtext::BindString(m_pTitle, loadtext::LoadText(PATH, CStartManager::TEXT_NAMING));
 
 	// 名前の生成
 	m_pName = CString2D::Create
@@ -200,7 +200,7 @@ HRESULT CStartStateCreateName::Init()
 
 			// 文字列を割当
 			int nTextIdx = CStartManager::TEXT_HIRAGANA + j + (i * XSELECT_MAX);	// テキストインデックス
-			loadtext::BindString(pSelect, loadtext::LoadText(PASS, nTextIdx));
+			loadtext::BindString(pSelect, loadtext::LoadText(PATH, nTextIdx));
 
 			// 現在の行列の最後尾に生成した文字を追加
 			m_vecSelect.back().push_back(pSelect);
@@ -490,7 +490,7 @@ HRESULT CStartStateCreateName::LoadArray(const ETypeChar typeChar)
 	float fSpaceOffset	= 0.0f;			// 空白のオフセット
 
 	// ファイルを開く
-	std::ifstream file(PASS_CHAR[typeChar]);	// ファイルストリーム
+	std::ifstream file(PATH_CHAR[typeChar]);	// ファイルストリーム
 	if (file.fail())
 	{ // ファイルが開けなかった場合
 

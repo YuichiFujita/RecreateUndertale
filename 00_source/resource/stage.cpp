@@ -26,7 +26,7 @@
 //************************************************************
 namespace
 {
-	const char* INIT_PASS = "data\\ROOM\\room004.txt";	// セットアップテキスト相対パス	// TODO：この定数を外部読み込みできるようにしないと
+	const char* INIT_PATH = "data\\ROOM\\room004.txt";	// セットアップテキスト相対パス	// TODO：この定数を外部読み込みできるようにしないと
 }
 
 //************************************************************
@@ -58,7 +58,7 @@ HRESULT CStage::Init()
 	m_limit = {};	// ステージ範囲
 
 	// ステージの割当
-	if (FAILED(BindStage(INIT_PASS)))
+	if (FAILED(BindStage(INIT_PATH)))
 	{ // 読込に失敗した場合
 
 		assert(false);
@@ -66,7 +66,7 @@ HRESULT CStage::Init()
 	}
 
 	// 割り当てたステージを保存
-	m_sNextRoomPath = INIT_PASS;
+	m_sNextRoomPath = INIT_PATH;
 
 	return S_OK;
 }

@@ -18,7 +18,7 @@
 namespace
 {
 	const char*	FONT	 = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
-	const char*	PASS	 = "data\\TEXT\\selectStatus.txt";				// テキストパス
+	const char*	PATH	 = "data\\TEXT\\selectStatus.txt";				// テキストパス
 	const bool	ITALIC	 = false;	// イタリック
 	const float	HEIGHT	 = 42.0f;	// 文字縦幅
 	const int	PRIORITY = 6;		// フルステータスメニューの優先順位
@@ -276,7 +276,7 @@ HRESULT CSelectStatusUI::Init()
 	m_pLvHpTitle->SetPriority(PRIORITY);
 
 	// テキストを割当
-	loadtext::BindText(m_pLvHpTitle, loadtext::LoadText(PASS, TEXT_LV_HP));
+	loadtext::BindText(m_pLvHpTitle, loadtext::LoadText(PATH, TEXT_LV_HP));
 
 	//--------------------------------------------------------
 	//	LV / HP数値の初期化 / 設定
@@ -337,7 +337,7 @@ HRESULT CSelectStatusUI::Init()
 	m_pAtkDefTitle->SetPriority(PRIORITY);
 
 	// テキストを割当
-	loadtext::BindText(m_pAtkDefTitle, loadtext::LoadText(PASS, TEXT_ATK_DEF));
+	loadtext::BindText(m_pAtkDefTitle, loadtext::LoadText(PATH, TEXT_ATK_DEF));
 
 	//--------------------------------------------------------
 	//	ATK / DEF数値の初期化 / 設定
@@ -405,7 +405,7 @@ HRESULT CSelectStatusUI::Init()
 	m_pExpNextTitle->SetPriority(PRIORITY);
 
 	// テキストを割当
-	loadtext::BindText(m_pExpNextTitle, loadtext::LoadText(PASS, TEXT_EXP_NEXT));
+	loadtext::BindText(m_pExpNextTitle, loadtext::LoadText(PATH, TEXT_EXP_NEXT));
 
 	//--------------------------------------------------------
 	//	EXP / NEXT数値の初期化 / 設定
@@ -466,7 +466,7 @@ HRESULT CSelectStatusUI::Init()
 	m_pWpnAmrTitle->SetPriority(PRIORITY);
 
 	// テキストを割当
-	loadtext::BindText(m_pWpnAmrTitle, loadtext::LoadText(PASS, TEXT_WPN_AMR));
+	loadtext::BindText(m_pWpnAmrTitle, loadtext::LoadText(PATH, TEXT_WPN_AMR));
 
 	//--------------------------------------------------------
 	//	WPN / AMR名称の初期化 / 設定
@@ -520,7 +520,7 @@ HRESULT CSelectStatusUI::Init()
 	m_pGoldTitle->SetPriority(PRIORITY);
 
 	// 文字列を割当
-	loadtext::BindString(m_pGoldTitle, loadtext::LoadText(PASS, TEXT_GOLD));
+	loadtext::BindString(m_pGoldTitle, loadtext::LoadText(PATH, TEXT_GOLD));
 
 	//--------------------------------------------------------
 	//	GOLD数値の初期化 / 設定
@@ -574,7 +574,7 @@ HRESULT CSelectStatusUI::Init()
 		m_pKillsTitle->SetPriority(PRIORITY);
 
 		// 文字列を割当
-		loadtext::BindString(m_pKillsTitle, loadtext::LoadText(PASS, TEXT_KILLS));
+		loadtext::BindString(m_pKillsTitle, loadtext::LoadText(PATH, TEXT_KILLS));
 
 		//----------------------------------------------------
 		//	KILLS数値の初期化 / 設定

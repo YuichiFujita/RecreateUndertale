@@ -21,7 +21,7 @@
 //************************************************************
 namespace
 {
-	const char*	PASS		= "data\\TEXT\\start.txt";	// テキストパス
+	const char*	PATH		= "data\\TEXT\\start.txt";	// テキストパス
 	const int	PRIORITY	= 6;	// 優先順位
 	const float	MOVE_TIME	= 4.0f;	// 移動時間
 	const float FADE_ADDOUT	= 0.2f;	// アウトのα値増加量
@@ -30,7 +30,7 @@ namespace
 	namespace title
 	{	
 		const char*	FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
-		const char*	PASS = "data\\TEXT\\naming.txt";	// テキストパス
+		const char*	PATH = "data\\TEXT\\naming.txt";	// テキストパス
 		const bool	ITALIC		= false;	// イタリック
 		const float	CHAR_HEIGHT	= 42.0f;	// 文字縦幅
 		const float	LINE_HEIGHT	= 54.0f;	// 行間縦幅
@@ -143,7 +143,7 @@ HRESULT CStartStateDecideName::Init()
 	m_pTitle->SetPriority(PRIORITY);
 
 	// テキストを割当
-	loadtext::BindText(m_pTitle, loadtext::LoadText(title::PASS, m_pContext->GetName().c_str()));
+	loadtext::BindText(m_pTitle, loadtext::LoadText(title::PATH, m_pContext->GetName().c_str()));
 
 	// 名前の生成
 	m_pName = CShakeString2D::Create
@@ -199,7 +199,7 @@ HRESULT CStartStateDecideName::Init()
 		m_apSelect[i]->SetPriority(PRIORITY);
 
 		// 文字列を割当
-		loadtext::BindString(m_apSelect[i], loadtext::LoadText(PASS, CStartManager::TEXT_DESIDE_NO + i));
+		loadtext::BindString(m_apSelect[i], loadtext::LoadText(PATH, CStartManager::TEXT_DESIDE_NO + i));
 	}
 
 	return S_OK;

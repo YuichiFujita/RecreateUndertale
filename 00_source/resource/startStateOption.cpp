@@ -18,7 +18,7 @@
 //************************************************************
 namespace
 {
-	const char* PASS = "data\\TEXT\\start.txt";	// テキストパス
+	const char* PATH = "data\\TEXT\\start.txt";	// テキストパス
 	const int PRIORITY = 6;	// 優先順位
 
 	namespace title
@@ -99,7 +99,7 @@ HRESULT CStartStateOption::Init()
 	m_pTitle->SetPriority(PRIORITY);
 
 	// 文字列を割当
-	loadtext::BindString(m_pTitle, loadtext::LoadText(PASS, CStartManager::TEXT_OPTION_TITLE));
+	loadtext::BindString(m_pTitle, loadtext::LoadText(PATH, CStartManager::TEXT_OPTION_TITLE));
 
 	for (int i = 0; i < SELECT_MAX; i++)
 	{ // 選択肢の総数分繰り返す
@@ -124,7 +124,7 @@ HRESULT CStartStateOption::Init()
 		m_apSelect[i]->SetPriority(PRIORITY);
 
 		// 文字列を割当
-		loadtext::BindString(m_apSelect[i], loadtext::LoadText(PASS, CStartManager::TEXT_OPTION_CLOSE + i));
+		loadtext::BindString(m_apSelect[i], loadtext::LoadText(PATH, CStartManager::TEXT_OPTION_CLOSE + i));
 	}
 
 	return S_OK;

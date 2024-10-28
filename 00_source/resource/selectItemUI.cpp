@@ -23,7 +23,7 @@
 namespace
 {
 	const char	*FONT	 = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
-	const char	*PASS	 = "data\\TEXT\\selectItem.txt";				// テキストパス
+	const char	*PATH	 = "data\\TEXT\\selectItem.txt";				// テキストパス
 	const bool	ITALIC	 = false;	// イタリック
 	const float	HEIGHT	 = 42.0f;	// 文字縦幅
 	const int	PRIORITY = 6;		// アイテムメニューの優先順位
@@ -145,7 +145,7 @@ HRESULT CSelectItemUI::Init()
 		m_apSelect[i]->SetPriority(PRIORITY);
 
 		// 文字列を割当
-		loadtext::BindString(m_apSelect[i], loadtext::LoadText(PASS, TEXT_USE + i));
+		loadtext::BindString(m_apSelect[i], loadtext::LoadText(PATH, TEXT_USE + i));
 	}
 
 	//--------------------------------------------------------

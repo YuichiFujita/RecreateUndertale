@@ -34,7 +34,7 @@ namespace
 	namespace select
 	{
 		const char*	FONT		= "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
-		const char*	PASS		= "data\\TEXT\\menu.txt";	// テキストパス
+		const char*	PATH		= "data\\TEXT\\menu.txt";	// テキストパス
 		const bool	ITALIC		= false;	// イタリック
 		const float	CHAR_HEIGHT	= 43.0f;	// 文字縦幅
 		const float	LINE_HEIGHT	= 53.0f;	// 行間縦幅
@@ -48,7 +48,7 @@ namespace
 
 	namespace soul
 	{
-		const char* PASS	= "data\\TEXTURE\\spr_heartsmall.png";	// ソウルカーソルテクスチャパス
+		const char* PATH	= "data\\TEXTURE\\spr_heartsmall.png";	// ソウルカーソルテクスチャパス
 		const VECTOR3 POS	= VECTOR3(97.5f, 308.5f, 0.0f);		// ソウルカーソル位置
 		const VECTOR3 SIZE	= VECTOR3(26.5f, 26.5f, 0.0f);		// ソウルカーソル大きさ
 	}
@@ -136,7 +136,7 @@ HRESULT CMenuSelectUI::Init()
 		m_apSelect[i]->SetPriority(MENU_PRIO);
 
 		// 文字列を割当
-		loadtext::BindString(m_apSelect[i], loadtext::LoadText(select::PASS, CMenuUI::TEXT_ITEM + i));
+		loadtext::BindString(m_apSelect[i], loadtext::LoadText(select::PATH, CMenuUI::TEXT_ITEM + i));
 	}
 
 	// ソウルカーソルの生成
@@ -153,7 +153,7 @@ HRESULT CMenuSelectUI::Init()
 	}
 
 	// ソウルテクスチャを割当
-	m_pSoul->BindTexture(soul::PASS);
+	m_pSoul->BindTexture(soul::PATH);
 
 	// ラベルを設定
 	m_pSoul->SetLabel(CObject::LABEL_UI);

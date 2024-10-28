@@ -23,7 +23,7 @@ class CTileSpawn : public CObject3D
 {
 public:
 	// コンストラクタ
-	CTileSpawn(const char* pPrevPath);
+	explicit CTileSpawn(const char* pPrevPath);
 
 	// デストラクタ
 	~CTileSpawn();

@@ -20,7 +20,7 @@
 //************************************************************
 namespace
 {
-	const char* PASS = "data\\TEXT\\start.txt";	// テキストパス
+	const char* PATH = "data\\TEXT\\start.txt";	// テキストパス
 	const int PRIORITY = 6;	// 優先順位
 
 	namespace title
@@ -145,7 +145,7 @@ HRESULT CStartStateTutorial::Init()
 	m_pTitle->SetPriority(PRIORITY);
 
 	// 文字列を割当
-	loadtext::BindString(m_pTitle, loadtext::LoadText(PASS, CStartManager::TEXT_BUTTON_TITLE));
+	loadtext::BindString(m_pTitle, loadtext::LoadText(PATH, CStartManager::TEXT_BUTTON_TITLE));
 
 	// 操作説明の生成
 	m_pCont = CText2D::Create
@@ -171,7 +171,7 @@ HRESULT CStartStateTutorial::Init()
 	m_pCont->SetPriority(PRIORITY);
 
 	// テキストを割当
-	loadtext::BindText(m_pCont, loadtext::LoadText(PASS, CStartManager::TEXT_BUTTON_KINDS));
+	loadtext::BindText(m_pCont, loadtext::LoadText(PATH, CStartManager::TEXT_BUTTON_KINDS));
 
 	// ゲーム概要の生成
 	m_pRule = CString2D::Create
@@ -190,7 +190,7 @@ HRESULT CStartStateTutorial::Init()
 	m_pRule->SetPriority(PRIORITY);
 
 	// 文字列を割当
-	loadtext::BindString(m_pRule, loadtext::LoadText(PASS, CStartManager::TEXT_RULE));
+	loadtext::BindString(m_pRule, loadtext::LoadText(PATH, CStartManager::TEXT_RULE));
 
 	for (int i = 0; i < SELECT_MAX; i++)
 	{ // 選択肢の総数分繰り返す
@@ -215,7 +215,7 @@ HRESULT CStartStateTutorial::Init()
 		m_apSelect[i]->SetPriority(PRIORITY);
 
 		// 文字列を割当
-		loadtext::BindString(m_apSelect[i], loadtext::LoadText(PASS, CStartManager::TEXT_START + i));
+		loadtext::BindString(m_apSelect[i], loadtext::LoadText(PATH, CStartManager::TEXT_START + i));
 	}
 
 	// バージョン表記の生成
@@ -235,7 +235,7 @@ HRESULT CStartStateTutorial::Init()
 	m_pVersion->SetPriority(PRIORITY);
 
 	// 文字列を割当
-	loadtext::BindString(m_pVersion, loadtext::LoadText(PASS, CStartManager::TEXT_VIRSION));
+	loadtext::BindString(m_pVersion, loadtext::LoadText(PATH, CStartManager::TEXT_VIRSION));
 
 	// イントロノイズを停止
 	GET_MANAGER->GetSound()->Stop(CSound::LABEL_SE_INTRONOISE);

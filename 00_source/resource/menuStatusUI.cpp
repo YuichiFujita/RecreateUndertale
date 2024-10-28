@@ -43,7 +43,7 @@ namespace
 	namespace status
 	{
 		const char*	FONT = "data\\FONT\\Crypt of Tomorrow.ttf";	// フォントパス7
-		const char*	PASS = "data\\TEXT\\menu.txt";	// テキストパス
+		const char*	PATH = "data\\TEXT\\menu.txt";	// テキストパス
 		const bool	ITALIC		= false;	// イタリック
 		const float	CHAR_HEIGHT	= 22.0f;	// 文字縦幅
 		const float	LINE_HEIGHT	= 26.0f;	// 行間縦幅
@@ -167,7 +167,7 @@ HRESULT CMenuStatusUI::Init()
 	m_pStatus->SetPriority(PRIORITY);
 
 	// 文字列を割当
-	loadtext::BindText(m_pStatus, loadtext::LoadText(status::PASS, CMenuUI::TEXT_MINI_STATUS));
+	loadtext::BindText(m_pStatus, loadtext::LoadText(status::PATH, CMenuUI::TEXT_MINI_STATUS));
 
 	// ステータス数値の生成
 	m_pValue = CText2D::Create
