@@ -18,9 +18,6 @@
 namespace
 {
 	const char* LOAD_FOLDER = "data\\MODEL";	// モデルフォルダ相対パス
-
-	const VECTOR3 INIT_VTXMIN = VECTOR3( 9999.0f,  9999.0f,  9999.0f);	// モデルの最小の頂点座標の初期値
-	const VECTOR3 INIT_VTXMAX = VECTOR3(-9999.0f, -9999.0f, -9999.0f);	// モデルの最大の頂点座標の初期値
 }
 
 //************************************************************

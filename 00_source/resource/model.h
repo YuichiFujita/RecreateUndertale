@@ -26,6 +26,21 @@ public:
 	// モデル構造体
 	struct SModel
 	{
+		// デフォルトコンストラクタ
+		SModel() :
+			pMesh		(nullptr),				// メッシュ (頂点情報) へのポインタ
+			pBuffMat	(nullptr),				// マテリアルへのポインタ
+			dwNumMat	(0),					// マテリアルの数
+			vtxMin		(VECTOR3( 9999.0f)),	// 最小の頂点座標
+			vtxMax		(VECTOR3(-9999.0f)),	// 最大の頂点座標
+			size		(VEC3_ZERO),			// 大きさ
+			fRadius		(0.0f),					// 半径
+			pTextureIdx	(nullptr)				// テクスチャインデックス
+		{}
+
+		// デストラクタ
+		~SModel() {}
+
 		LPD3DXMESH pMesh;		// メッシュ (頂点情報) へのポインタ
 		LPD3DXBUFFER pBuffMat;	// マテリアルへのポインタ
 		DWORD dwNumMat;			// マテリアルの数
