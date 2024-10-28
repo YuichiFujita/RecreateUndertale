@@ -11,7 +11,7 @@
 #include "collision.h"
 #include "sceneGame.h"
 #include "stage.h"
-#include "objectChara2D.h"
+#include "objectCharaAnim3D.h"
 
 //************************************************************
 //	定数宣言
@@ -168,16 +168,16 @@ CListManager<CTileTrans>* CTileTrans::GetList()
 //============================================================
 void CTileTrans::CollisionTile
 (
-	const VECTOR3& rPos,			// 位置
-	const VECTOR3& rRot,			// 向き
-	const CObjectChara2D* pChara2D	// キャラクター2D情報
+	const VECTOR3& rPos,				// 位置
+	const VECTOR3& rRot,				// 向き
+	const CObjectCharaAnim3D* pChara	// キャラクターアニメーション3D情報
 )
 {
-	// キャラクター2Dが存在しない場合抜ける
-	if (pChara2D == nullptr) { assert(false); return; }
+	// キャラクターアニメーション3Dが存在しない場合抜ける
+	if (pChara == nullptr) { assert(false); return; }
 
-	VECTOR3 posOffset = pChara2D->CalcCollOffsetPosition(rPos, rRot);	// 判定原点位置
-	VECTOR3 sizeColl = pChara2D->GetCollSize() * 0.5f;					// 判定大きさ
+	VECTOR3 posOffset = pChara->CalcCollOffsetPosition(rPos, rRot);	// 判定原点位置
+	VECTOR3 sizeColl = pChara->GetCollSize() * 0.5f;				// 判定大きさ
 
 	// 遷移タイルとの当たり判定
 	CollisionTile(posOffset, sizeColl, sizeColl);

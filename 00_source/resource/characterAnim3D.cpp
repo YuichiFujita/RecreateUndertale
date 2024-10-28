@@ -1,13 +1,13 @@
 ﻿//============================================================
 //
-//	キャラクター2D処理 [character2D.cpp]
+//	キャラクターアニメーション3D処理 [characterAnim3D.cpp]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	インクルードファイル
 //************************************************************
-#include "character2D.h"
+#include "characterAnim3D.h"
 #include "manager.h"
 #include "renderer.h"
 
@@ -20,12 +20,12 @@ namespace
 }
 
 //************************************************************
-//	親クラス [CCharacter2D] のメンバ関数
+//	親クラス [CCharacterAnim3D] のメンバ関数
 //************************************************************
 //============================================================
 //	コンストラクタ
 //============================================================
-CCharacter2D::CCharacter2D()
+CCharacterAnim3D::CCharacterAnim3D()
 {
 	// キャラクター連想配列をクリア
 	m_mapCharacter.clear();
@@ -34,7 +34,7 @@ CCharacter2D::CCharacter2D()
 //============================================================
 //	デストラクタ
 //============================================================
-CCharacter2D::~CCharacter2D()
+CCharacterAnim3D::~CCharacterAnim3D()
 {
 
 }
@@ -42,7 +42,7 @@ CCharacter2D::~CCharacter2D()
 //============================================================
 //	キャラクター初期化処理
 //============================================================
-HRESULT CCharacter2D::Init()
+HRESULT CCharacterAnim3D::Init()
 {
 	// キャラクター連想配列を初期化
 	m_mapCharacter.clear();
@@ -53,7 +53,7 @@ HRESULT CCharacter2D::Init()
 //============================================================
 //	キャラクター終了処理
 //============================================================
-void CCharacter2D::Uninit()
+void CCharacterAnim3D::Uninit()
 {
 	for (auto& rMap : m_mapCharacter)
 	{ // キャラクター数分繰り返す
@@ -69,7 +69,7 @@ void CCharacter2D::Uninit()
 //============================================================
 //	キャラクター全読込処理
 //============================================================
-HRESULT CCharacter2D::LoadAll()
+HRESULT CCharacterAnim3D::LoadAll()
 {
 	// キャラクターの全読込
 	if (FAILED(SearchFolderAll(LOAD_FOLDER)))
@@ -85,7 +85,7 @@ HRESULT CCharacter2D::LoadAll()
 //============================================================
 //	キャラクター登録
 //============================================================
-CCharacter2D::AMotion CCharacter2D::Regist(const char* pCharaPath)
+CCharacterAnim3D::AMotion CCharacterAnim3D::Regist(const char* pCharaPath)
 {
 	// 既に生成済みかを検索
 	auto itr = m_mapCharacter.find(pCharaPath);	// 引数のキャラクター情報を検索
@@ -116,10 +116,10 @@ CCharacter2D::AMotion CCharacter2D::Regist(const char* pCharaPath)
 //============================================================
 //	生成処理
 //============================================================
-CCharacter2D* CCharacter2D::Create()
+CCharacterAnim3D* CCharacterAnim3D::Create()
 {
-	// キャラクター2Dの生成
-	CCharacter2D* pCharacter = new CCharacter2D;
+	// キャラクターアニメーション3Dの生成
+	CCharacterAnim3D* pCharacter = new CCharacterAnim3D;
 	if (pCharacter == nullptr)
 	{ // 生成に失敗した場合
 
@@ -128,11 +128,11 @@ CCharacter2D* CCharacter2D::Create()
 	else
 	{ // 生成に成功した場合
 
-		// キャラクター2Dの初期化
+		// キャラクターアニメーション3Dの初期化
 		if (FAILED(pCharacter->Init()))
-		{ // キャラクター2D初期化に失敗した場合
+		{ // 初期化に失敗した場合
 
-			// キャラクター2Dの破棄
+			// キャラクターアニメーション3Dの破棄
 			SAFE_DELETE(pCharacter);
 			return nullptr;
 		}
@@ -145,9 +145,9 @@ CCharacter2D* CCharacter2D::Create()
 //============================================================
 //	破棄処理
 //============================================================
-void CCharacter2D::Release(CCharacter2D*& prCharacter)
+void CCharacterAnim3D::Release(CCharacterAnim3D*& prCharacter)
 {
-	// キャラクター2Dの終了
+	// キャラクターアニメーション3Dの終了
 	assert(prCharacter != nullptr);
 	prCharacter->Uninit();
 
@@ -158,7 +158,7 @@ void CCharacter2D::Release(CCharacter2D*& prCharacter)
 //============================================================
 //	フォルダ全検索処理
 //============================================================
-HRESULT CCharacter2D::SearchFolderAll(std::string sFolderPath)
+HRESULT CCharacterAnim3D::SearchFolderAll(std::string sFolderPath)
 {
 	HANDLE hFile;	// 検索ハンドル
 	WIN32_FIND_DATA findFileData;	// ファイル情報
@@ -209,7 +209,7 @@ HRESULT CCharacter2D::SearchFolderAll(std::string sFolderPath)
 //============================================================
 //	キャラクター情報セットアップ処理
 //============================================================
-HRESULT CCharacter2D::LoadSetup(AMotion* pInfoChara, const char* pCharaPath)
+HRESULT CCharacterAnim3D::LoadSetup(AMotion* pInfoChara, const char* pCharaPath)
 {
 	// ファイルを開く
 	std::ifstream file(pCharaPath);	// ファイルストリーム
@@ -251,7 +251,7 @@ HRESULT CCharacter2D::LoadSetup(AMotion* pInfoChara, const char* pCharaPath)
 //============================================================
 //	モーション情報セットアップ処理
 //============================================================
-HRESULT CCharacter2D::LoadMotionSetup(AMotion* pInfoChara, const char* pMotionPath)
+HRESULT CCharacterAnim3D::LoadMotionSetup(AMotion* pInfoChara, const char* pMotionPath)
 {
 	// ファイルを開く
 	std::ifstream file(pMotionPath);	// ファイルストリーム
@@ -268,9 +268,9 @@ HRESULT CCharacter2D::LoadMotionSetup(AMotion* pInfoChara, const char* pMotionPa
 	pInfoChara->vecMotion.emplace_back();			// 空の要素を最後尾に追加
 
 	// 変数をポインタ化し簡略化
-	CObjectChara2D::SMotion* pMotion = &pInfoChara->vecMotion[nCurMotionIdx];			// モーション情報
-	CObjectChara2D::SChara* pChara = &pInfoChara->vecMotion[nCurMotionIdx].infoChara;	// キャラクター情報
-	CObjectChara2D::SColl* pColl = &pInfoChara->vecMotion[nCurMotionIdx].infoColl;		// 当たり判定情報
+	CObjectCharaAnim3D::SMotion* pMotion = &pInfoChara->vecMotion[nCurMotionIdx];			// モーション情報
+	CObjectCharaAnim3D::SChara* pChara = &pInfoChara->vecMotion[nCurMotionIdx].infoChara;	// キャラクター情報
+	CObjectCharaAnim3D::SColl* pColl = &pInfoChara->vecMotion[nCurMotionIdx].infoColl;		// 当たり判定情報
 
 	// ファイルを読込
 	std::string str;	// 読込文字列

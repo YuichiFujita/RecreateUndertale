@@ -357,12 +357,6 @@
     <ClCompile Include="resource\anim3D.cpp">
       <Filter>3D</Filter>
     </ClCompile>
-    <ClCompile Include="resource\objectChara2D.cpp">
-      <Filter>object</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\character2D.cpp">
-      <Filter>flyweight</Filter>
-    </ClCompile>
     <ClCompile Include="resource\playerState.cpp">
       <Filter>state\state_player</Filter>
     </ClCompile>
@@ -443,6 +437,12 @@
     </ClCompile>
     <ClCompile Include="resource\lightManager.cpp">
       <Filter>system</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\characterAnim3D.cpp">
+      <Filter>flyweight</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\objectCharaAnim3D.cpp">
+      <Filter>object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -725,12 +725,6 @@
     <ClInclude Include="resource\anim3D.h">
       <Filter>3D</Filter>
     </ClInclude>
-    <ClInclude Include="resource\objectChara2D.h">
-      <Filter>object</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\character2D.h">
-      <Filter>flyweight</Filter>
-    </ClInclude>
     <ClInclude Include="resource\playerState.h">
       <Filter>state\state_player</Filter>
     </ClInclude>
@@ -811,6 +805,12 @@
     </ClInclude>
     <ClInclude Include="resource\lightManager.h">
       <Filter>system</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\characterAnim3D.h">
+      <Filter>flyweight</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\objectCharaAnim3D.h">
+      <Filter>object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

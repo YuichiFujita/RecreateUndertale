@@ -1,14 +1,14 @@
 //============================================================
 //
-//	オブジェクトキャラクター2Dヘッダー [objectChara2D.h]
+//	オブジェクトキャラクターアニメーション3Dヘッダー [objectCharaAnim3D.h]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	二重インクルード防止
 //************************************************************
-#ifndef _OBJECTCHARA2D_H_
-#define _OBJECTCHARA2D_H_
+#ifndef _OBJECTCHARA_ANIM3D_H_
+#define _OBJECTCHARA_ANIM3D_H_
 
 //************************************************************
 //	インクルードファイル
@@ -18,15 +18,15 @@
 //************************************************************
 //	クラス定義
 //************************************************************
-// オブジェクトキャラクター2Dクラス
-class CObjectChara2D : public CAnim3D
+// オブジェクトキャラクターアニメーション3Dクラス
+class CObjectCharaAnim3D : public CAnim3D
 {
 public:
 	// コンストラクタ
-	explicit CObjectChara2D(const CObject::ELabel label = LABEL_NONE, const CObject::EDim dimension = DIM_3D, const int nPriority = object::DEFAULT_PRIO);
+	explicit CObjectCharaAnim3D(const CObject::ELabel label = LABEL_NONE, const CObject::EDim dimension = DIM_3D, const int nPriority = object::DEFAULT_PRIO);
 
 	// デストラクタ
-	~CObjectChara2D() override;
+	~CObjectCharaAnim3D() override;
 
 	// 当たり判定管理構造体
 	struct SColl
@@ -142,7 +142,7 @@ public:
 	void Draw(CShader* pShader = nullptr) override;	// 描画
 
 	// 静的メンバ関数
-	static CObjectChara2D* Create(const VECTOR3& rPos, const VECTOR3& rRot = VEC3_ZERO);	// 生成
+	static CObjectCharaAnim3D* Create(const VECTOR3& rPos, const VECTOR3& rRot = VEC3_ZERO);	// 生成
 
 	// メンバ関数
 	void BindCharaData(const char* pCharaPath);	// キャラクター情報割当
@@ -179,4 +179,4 @@ private:
 	SInfo m_info;	// モーション情報
 };
 
-#endif	// _OBJECTCHARA2D_H_
+#endif	// _OBJECTCHARA_ANIM3D_H_

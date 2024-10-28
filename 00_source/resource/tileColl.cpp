@@ -9,7 +9,7 @@
 //************************************************************
 #include "tileColl.h"
 #include "collision.h"
-#include "objectChara2D.h"
+#include "objectCharaAnim3D.h"
 
 //************************************************************
 //	定数宣言
@@ -178,18 +178,18 @@ CListManager<CTileColl>* CTileColl::GetList()
 //============================================================
 void CTileColl::CollisionTile
 (
-	VECTOR3& rPosCur,				// 現在位置
-	const VECTOR3& rPosOld,			// 過去位置
-	const VECTOR3& rRot,			// 向き
-	const CObjectChara2D* pChara2D	// キャラクター2D情報
+	VECTOR3& rPosCur,					// 現在位置
+	const VECTOR3& rPosOld,				// 過去位置
+	const VECTOR3& rRot,				// 向き
+	const CObjectCharaAnim3D* pChara	// キャラクターアニメーション3D情報
 )
 {
-	// キャラクター2Dが存在しない場合抜ける
-	if (pChara2D == nullptr) { assert(false); return; }
+	// キャラクターアニメーション3Dが存在しない場合抜ける
+	if (pChara == nullptr) { assert(false); return; }
 
-	VECTOR3 posCur = pChara2D->CalcCollOffsetPosition(rPosCur, rRot);	// 判定原点の現在位置
-	VECTOR3 posOld = pChara2D->CalcCollOffsetPosition(rPosOld, rRot);	// 判定原点の過去位置
-	VECTOR3 sizeColl = pChara2D->GetCollSize() * 0.5f;					// 判定大きさ
+	VECTOR3 posCur = pChara->CalcCollOffsetPosition(rPosCur, rRot);	// 判定原点の現在位置
+	VECTOR3 posOld = pChara->CalcCollOffsetPosition(rPosOld, rRot);	// 判定原点の過去位置
+	VECTOR3 sizeColl = pChara->GetCollSize() * 0.5f;				// 判定大きさ
 
 	// 判定原点の現在位置を保存
 	VECTOR3 posSave = posCur;

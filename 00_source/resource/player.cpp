@@ -32,7 +32,7 @@ CListManager<CPlayer>* CPlayer::m_pList = nullptr;	// オブジェクトリスト
 //============================================================
 //	コンストラクタ
 //============================================================
-CPlayer::CPlayer() : CObjectChara2D(CObject::LABEL_PLAYER, CObject::DIM_3D, PRIORITY),
+CPlayer::CPlayer() : CObjectCharaAnim3D(CObject::LABEL_PLAYER, CObject::DIM_3D, PRIORITY),
 	m_pState	(nullptr),		// 状態
 	m_oldPos	(VEC3_ZERO),	// 過去位置
 	m_angle		((EAngle)0)		// 向き
@@ -61,8 +61,8 @@ HRESULT CPlayer::Init()
 	// 通常状態にする
 	ChangeState(new CPlayerStateNormal);
 
-	// オブジェクトキャラクター2Dの初期化
-	if (FAILED(CObjectChara2D::Init()))
+	// オブジェクトキャラクターアニメーション3Dの初期化
+	if (FAILED(CObjectCharaAnim3D::Init()))
 	{ // 初期化に失敗した場合
 
 		assert(false);
@@ -109,8 +109,8 @@ void CPlayer::Uninit()
 		m_pList->Release(m_pList);
 	}
 
-	// オブジェクトキャラクター2Dの終了
-	CObjectChara2D::Uninit();
+	// オブジェクトキャラクターアニメーション3Dの終了
+	CObjectCharaAnim3D::Uninit();
 }
 
 //============================================================
@@ -137,8 +137,8 @@ void CPlayer::Update(const float fDeltaTime)
 //============================================================
 void CPlayer::Draw(CShader* pShader)
 {
-	// オブジェクトキャラクター2Dの描画
-	CObjectChara2D::Draw(pShader);
+	// オブジェクトキャラクターアニメーション3Dの描画
+	CObjectCharaAnim3D::Draw(pShader);
 }
 
 //============================================================
@@ -260,8 +260,8 @@ void CPlayer::UpdateMotion(int nCurMotion, const float fDeltaTime)
 		}
 	}
 
-	// オブジェクトキャラクター2Dの更新
-	CObjectChara2D::Update(fDeltaTime);
+	// オブジェクトキャラクターアニメーション3Dの更新
+	CObjectCharaAnim3D::Update(fDeltaTime);
 
 	switch (GetMotion())
 	{ // モーションの種類ごとの処理

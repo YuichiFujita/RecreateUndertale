@@ -19,7 +19,7 @@
 #include "model.h"
 #include "font.h"
 #include "character.h"
-#include "character2D.h"
+#include "characterAnim3D.h"
 #include "item.h"
 #include "shader.h"
 #include "retention.h"
@@ -37,28 +37,28 @@ CManager* CManager::m_pManager = nullptr;	// マネージャーオブジェクト
 //	コンストラクタ
 //============================================================
 CManager::CManager() :
-	m_hInstance		(nullptr),	// インスタンスハンドル
-	m_hWnd			(nullptr),	// ウインドウハンドル
-	m_pDeltaTime	(nullptr),	// デルタタイムインスタンス
-	m_pRenderer		(nullptr),	// レンダラーインスタンス
-	m_pKeyboard		(nullptr),	// キーボードインスタンス
-	m_pMouse		(nullptr),	// マウスインスタンス
-	m_pPad			(nullptr),	// パッドインスタンス
-	m_pSound		(nullptr),	// サウンドインスタンス
-	m_pCamera		(nullptr),	// カメラインスタンス
-	m_pLight		(nullptr),	// ライトインスタンス
-	m_pTexture		(nullptr),	// テクスチャインスタンス
-	m_pModel		(nullptr),	// モデルインスタンス
-	m_pFont			(nullptr),	// フォントインスタンス
-	m_pCharacter	(nullptr),	// キャラクターインスタンス
-	m_pCharacter2D	(nullptr),	// キャラクター2Dインスタンス
-	m_pItem			(nullptr),	// アイテムインスタンス
-	m_pFade			(nullptr),	// フェードインスタンス
-	m_pLoading		(nullptr),	// ローディングインスタンス
-	m_pScene		(nullptr),	// シーンインスタンス
-	m_pRetention	(nullptr),	// データ保存マネージャー
-	m_pDebugProc	(nullptr),	// デバッグ表示
-	m_pDebug		(nullptr)	// デバッグ
+	m_hInstance			(nullptr),	// インスタンスハンドル
+	m_hWnd				(nullptr),	// ウインドウハンドル
+	m_pDeltaTime		(nullptr),	// デルタタイムインスタンス
+	m_pRenderer			(nullptr),	// レンダラーインスタンス
+	m_pKeyboard			(nullptr),	// キーボードインスタンス
+	m_pMouse			(nullptr),	// マウスインスタンス
+	m_pPad				(nullptr),	// パッドインスタンス
+	m_pSound			(nullptr),	// サウンドインスタンス
+	m_pCamera			(nullptr),	// カメラインスタンス
+	m_pLight			(nullptr),	// ライトインスタンス
+	m_pTexture			(nullptr),	// テクスチャインスタンス
+	m_pModel			(nullptr),	// モデルインスタンス
+	m_pFont				(nullptr),	// フォントインスタンス
+	m_pCharacter		(nullptr),	// キャラクターインスタンス
+	m_pCharacterAnim3D	(nullptr),	// キャラクターアニメーション3Dインスタンス
+	m_pItem				(nullptr),	// アイテムインスタンス
+	m_pFade				(nullptr),	// フェードインスタンス
+	m_pLoading			(nullptr),	// ローディングインスタンス
+	m_pScene			(nullptr),	// シーンインスタンス
+	m_pRetention		(nullptr),	// データ保存マネージャー
+	m_pDebugProc		(nullptr),	// デバッグ表示
+	m_pDebug			(nullptr)	// デバッグ
 {
 
 }
@@ -79,28 +79,28 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	//--------------------------------------------------------
 	//	メンバ変数を初期化
 	//--------------------------------------------------------
-	m_hInstance		= hInstance;	// インスタンスハンドル
-	m_hWnd			= hWnd;			// ウインドウハンドル
-	m_pDeltaTime	= nullptr;		// デルタタイムインスタンス
-	m_pRenderer		= nullptr;		// レンダラーインスタンス
-	m_pKeyboard		= nullptr;		// キーボードインスタンス
-	m_pMouse		= nullptr;		// マウスインスタンス
-	m_pPad			= nullptr;		// パッドインスタンス
-	m_pSound		= nullptr;		// サウンドインスタンス
-	m_pCamera		= nullptr;		// カメラインスタンス
-	m_pLight		= nullptr;		// ライトインスタンス
-	m_pTexture		= nullptr;		// テクスチャインスタンス
-	m_pModel		= nullptr;		// モデルインスタンス
-	m_pFont			= nullptr;		// フォントインスタンス
-	m_pCharacter	= nullptr;		// キャラクターインスタンス
-	m_pCharacter2D	= nullptr;		// キャラクター2Dインスタンス
-	m_pItem			= nullptr;		// アイテムインスタンス
-	m_pFade			= nullptr;		// フェードインスタンス
-	m_pLoading		= nullptr;		// ローディングインスタンス
-	m_pScene		= nullptr;		// シーンインスタンス
-	m_pRetention	= nullptr;		// データ保存マネージャー
-	m_pDebugProc	= nullptr;		// デバッグ表示
-	m_pDebug		= nullptr;		// デバッグ
+	m_hInstance			= hInstance;	// インスタンスハンドル
+	m_hWnd				= hWnd;			// ウインドウハンドル
+	m_pDeltaTime		= nullptr;		// デルタタイムインスタンス
+	m_pRenderer			= nullptr;		// レンダラーインスタンス
+	m_pKeyboard			= nullptr;		// キーボードインスタンス
+	m_pMouse			= nullptr;		// マウスインスタンス
+	m_pPad				= nullptr;		// パッドインスタンス
+	m_pSound			= nullptr;		// サウンドインスタンス
+	m_pCamera			= nullptr;		// カメラインスタンス
+	m_pLight			= nullptr;		// ライトインスタンス
+	m_pTexture			= nullptr;		// テクスチャインスタンス
+	m_pModel			= nullptr;		// モデルインスタンス
+	m_pFont				= nullptr;		// フォントインスタンス
+	m_pCharacter		= nullptr;		// キャラクターインスタンス
+	m_pCharacterAnim3D	= nullptr;		// キャラクターアニメーション3Dインスタンス
+	m_pItem				= nullptr;		// アイテムインスタンス
+	m_pFade				= nullptr;		// フェードインスタンス
+	m_pLoading			= nullptr;		// ローディングインスタンス
+	m_pScene			= nullptr;		// シーンインスタンス
+	m_pRetention		= nullptr;		// データ保存マネージャー
+	m_pDebugProc		= nullptr;		// デバッグ表示
+	m_pDebug			= nullptr;		// デバッグ
 
 	//--------------------------------------------------------
 	//	システムの生成
@@ -225,9 +225,9 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 		return E_FAIL;
 	}
 
-	// キャラクター2Dの生成
-	m_pCharacter2D = CCharacter2D::Create();
-	if (m_pCharacter2D == nullptr)
+	// キャラクターアニメーション3Dの生成
+	m_pCharacterAnim3D = CCharacterAnim3D::Create();
+	if (m_pCharacterAnim3D == nullptr)
 	{ // 生成に失敗した場合
 
 		assert(false);
@@ -450,8 +450,8 @@ void CManager::Uninit()
 	// キャラクターの破棄
 	SAFE_REF_RELEASE(m_pCharacter);
 
-	// キャラクター2Dの破棄
-	SAFE_REF_RELEASE(m_pCharacter2D);
+	// キャラクターアニメーション3Dの破棄
+	SAFE_REF_RELEASE(m_pCharacterAnim3D);
 
 	// アイテムの破棄
 	SAFE_REF_RELEASE(m_pItem);
@@ -972,15 +972,15 @@ CCharacter* CManager::GetCharacter()
 }
 
 //============================================================
-//	キャラクター2D取得処理
+//	キャラクターアニメーション3D取得処理
 //============================================================
-CCharacter2D* CManager::GetCharacter2D()
+CCharacterAnim3D* CManager::GetCharacterAnim3D()
 {
 	// インスタンス未使用
-	assert(m_pCharacter2D != nullptr);
+	assert(m_pCharacterAnim3D != nullptr);
 
-	// キャラクター2Dを返す
-	return m_pCharacter2D;
+	// キャラクターアニメーション3Dを返す
+	return m_pCharacterAnim3D;
 }
 
 //============================================================

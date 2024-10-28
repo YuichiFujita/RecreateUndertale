@@ -1,35 +1,35 @@
 //============================================================
 //
-//	キャラクター2Dヘッダー [character2D.h]
+//	キャラクターアニメーション3Dヘッダー [characterAnim3D.h]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	二重インクルード防止
 //************************************************************
-#ifndef _CHARACTER2D_H_
-#define _CHARACTER2D_H_
+#ifndef _CHARACTER_ANIM3D_H_
+#define _CHARACTER_ANIM3D_H_
 
 //************************************************************
 //	インクルードファイル
 //************************************************************
-#include "objectChara2D.h"
+#include "objectCharaAnim3D.h"
 
 //************************************************************
 //	クラス定義
 //************************************************************
-// キャラクター2Dクラス
-class CCharacter2D
+// キャラクターアニメーション3Dクラス
+class CCharacterAnim3D
 {
 public:
 	// コンストラクタ
-	CCharacter2D();
+	CCharacterAnim3D();
 
 	// デストラクタ
-	~CCharacter2D();
+	~CCharacterAnim3D();
 
 	// モーション情報型エイリアス定義
-	using AMotion = CObjectChara2D::SInfo;
+	using AMotion = CObjectCharaAnim3D::SInfo;
 
 	// メンバ関数
 	HRESULT Init();		// キャラクター初期化
@@ -38,8 +38,8 @@ public:
 	AMotion Regist(const char* pCharaPath);	// キャラクター登録
 
 	// 静的メンバ関数
-	static CCharacter2D* Create();	// 生成
-	static void Release(CCharacter2D*& prCharacter2D);	// 破棄
+	static CCharacterAnim3D* Create();	// 生成
+	static void Release(CCharacterAnim3D*& prCharacterAnim3D);	// 破棄
 
 private:
 	// メンバ関数
@@ -50,7 +50,7 @@ private:
 	HRESULT LoadMotionSetup(AMotion* pInfoChara, const char* pMotionPath);	// モーション情報セットアップ
 
 	// メンバ変数
-	std::map<std::string, AMotion> m_mapCharacter;	// キャラクター2D連想配列
+	std::map<std::string, AMotion> m_mapCharacter;	// キャラクターアニメーション3D連想配列
 };
 
-#endif	// _CHARACTER2D_H_
+#endif	// _CHARACTER_ANIM3D_H_

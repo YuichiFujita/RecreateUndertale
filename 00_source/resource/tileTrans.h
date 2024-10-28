@@ -18,7 +18,7 @@
 //************************************************************
 //	前方宣言
 //************************************************************
-class CObjectChara2D;	// オブジェクトキャラクター2Dクラス
+class CObjectCharaAnim3D;	// オブジェクトキャラクターアニメーション3Dクラス
 
 //************************************************************
 //	クラス定義
@@ -45,9 +45,9 @@ public:
 
 	static void CollisionTile	// 遷移タイルとの当たり判定
 	( // 引数
-		const VECTOR3& rPos,			// 位置
-		const VECTOR3& rRot,			// 向き
-		const CObjectChara2D* pChara2D	// キャラクター2D情報
+		const VECTOR3& rPos,				// 位置
+		const VECTOR3& rRot,				// 向き
+		const CObjectCharaAnim3D* pChara	// キャラクターアニメーション3D情報
 	);
 	static void CollisionTile	// 遷移タイルとの当たり判定
 	( // 引数

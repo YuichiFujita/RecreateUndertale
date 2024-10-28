@@ -160,7 +160,7 @@
     <ClCompile Include="resource\camera.cpp" />
     <ClCompile Include="resource\char2D.cpp" />
     <ClCompile Include="resource\character.cpp" />
-    <ClCompile Include="resource\character2D.cpp" />
+    <ClCompile Include="resource\characterAnim3D.cpp" />
     <ClCompile Include="resource\collision.cpp" />
     <ClCompile Include="resource\debug.cpp" />
     <ClCompile Include="resource\debugproc.cpp" />
@@ -212,7 +212,7 @@
     <ClCompile Include="resource\object3D.cpp" />
     <ClCompile Include="resource\objectBillboard.cpp" />
     <ClCompile Include="resource\objectChara.cpp" />
-    <ClCompile Include="resource\objectChara2D.cpp" />
+    <ClCompile Include="resource\objectCharaAnim3D.cpp" />
     <ClCompile Include="resource\objectMeshCircle.cpp" />
     <ClCompile Include="resource\objectMeshCube.cpp" />
     <ClCompile Include="resource\objectMeshCylinder.cpp" />
@@ -286,7 +286,7 @@
     <ClInclude Include="resource\camera.h" />
     <ClInclude Include="resource\char2D.h" />
     <ClInclude Include="resource\character.h" />
-    <ClInclude Include="resource\character2D.h" />
+    <ClInclude Include="resource\characterAnim3D.h" />
     <ClInclude Include="resource\collision.h" />
     <ClInclude Include="resource\debug.h" />
     <ClInclude Include="resource\debugproc.h" />
@@ -338,7 +338,7 @@
     <ClInclude Include="resource\object3D.h" />
     <ClInclude Include="resource\objectBillboard.h" />
     <ClInclude Include="resource\objectChara.h" />
-    <ClInclude Include="resource\objectChara2D.h" />
+    <ClInclude Include="resource\objectCharaAnim3D.h" />
     <ClInclude Include="resource\objectMeshCircle.h" />
     <ClInclude Include="resource\objectMeshCube.h" />
     <ClInclude Include="resource\objectMeshCylinder.h" />

@@ -1,24 +1,24 @@
 //============================================================
 //
-//	オブジェクトキャラクター2D処理 [objectChara2D.cpp]
+//	オブジェクトキャラクターアニメーション3D処理 [objectCharaAnim3D.cpp]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	インクルードファイル
 //************************************************************
-#include "objectChara2D.h"
+#include "objectCharaAnim3D.h"
 #include "manager.h"
 #include "renderer.h"
-#include "character2D.h"
+#include "characterAnim3D.h"
 
 //************************************************************
-//	子クラス [CObjectChara2D] のメンバ関数
+//	子クラス [CObjectCharaAnim3D] のメンバ関数
 //************************************************************
 //============================================================
 //	コンストラクタ
 //============================================================
-CObjectChara2D::CObjectChara2D(const CObject::ELabel label, const CObject::EDim dimension, const int nPriority) : CAnim3D(label, dimension, nPriority)
+CObjectCharaAnim3D::CObjectCharaAnim3D(const CObject::ELabel label, const CObject::EDim dimension, const int nPriority) : CAnim3D(label, dimension, nPriority)
 {
 
 }
@@ -26,7 +26,7 @@ CObjectChara2D::CObjectChara2D(const CObject::ELabel label, const CObject::EDim 
 //============================================================
 //	デストラクタ
 //============================================================
-CObjectChara2D::~CObjectChara2D()
+CObjectCharaAnim3D::~CObjectCharaAnim3D()
 {
 
 }
@@ -34,7 +34,7 @@ CObjectChara2D::~CObjectChara2D()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CObjectChara2D::Init()
+HRESULT CObjectCharaAnim3D::Init()
 {
 	// アニメーション3Dの初期化
 	if (FAILED(CAnim3D::Init()))
@@ -50,7 +50,7 @@ HRESULT CObjectChara2D::Init()
 //============================================================
 //	終了処理
 //============================================================
-void CObjectChara2D::Uninit()
+void CObjectCharaAnim3D::Uninit()
 {
 	// アニメーション3Dの終了
 	CAnim3D::Uninit();
@@ -59,7 +59,7 @@ void CObjectChara2D::Uninit()
 //============================================================
 //	更新処理
 //============================================================
-void CObjectChara2D::Update(const float fDeltaTime)
+void CObjectCharaAnim3D::Update(const float fDeltaTime)
 {
 	// モーションがない場合抜ける
 	if (m_info.vecMotion.empty()) { assert(false); return; }
@@ -71,7 +71,7 @@ void CObjectChara2D::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CObjectChara2D::Draw(CShader* pShader)
+void CObjectCharaAnim3D::Draw(CShader* pShader)
 {
 	// アニメーション3Dの描画
 	CAnim3D::Draw(pShader);
@@ -80,11 +80,11 @@ void CObjectChara2D::Draw(CShader* pShader)
 //============================================================
 //	生成処理
 //============================================================
-CObjectChara2D* CObjectChara2D::Create(const VECTOR3& rPos, const VECTOR3& rRot)
+CObjectCharaAnim3D* CObjectCharaAnim3D::Create(const VECTOR3& rPos, const VECTOR3& rRot)
 {
-	// オブジェクトキャラクター2Dの生成
-	CObjectChara2D* pObjectChara2D = new CObjectChara2D;
-	if (pObjectChara2D == nullptr)
+	// オブジェクトキャラクターアニメーション3Dの生成
+	CObjectCharaAnim3D* pObjectCharaAnim3D = new CObjectCharaAnim3D;
+	if (pObjectCharaAnim3D == nullptr)
 	{ // 生成に失敗した場合
 
 		return nullptr;
@@ -92,42 +92,42 @@ CObjectChara2D* CObjectChara2D::Create(const VECTOR3& rPos, const VECTOR3& rRot)
 	else
 	{ // 生成に成功した場合
 
-		// オブジェクトキャラクター2Dの初期化
-		if (FAILED(pObjectChara2D->Init()))
+		// オブジェクトキャラクターアニメーション3Dの初期化
+		if (FAILED(pObjectCharaAnim3D->Init()))
 		{ // 初期化に失敗した場合
 
-			// オブジェクトキャラクター2Dの破棄
-			SAFE_DELETE(pObjectChara2D);
+			// オブジェクトキャラクターアニメーション3Dの破棄
+			SAFE_DELETE(pObjectCharaAnim3D);
 			return nullptr;
 		}
 
 		// 位置を設定
-		pObjectChara2D->SetVec3Position(rPos);
+		pObjectCharaAnim3D->SetVec3Position(rPos);
 
 		// 向きを設定
-		pObjectChara2D->SetVec3Rotation(rRot);
+		pObjectCharaAnim3D->SetVec3Rotation(rRot);
 
 		// 確保したアドレスを返す
-		return pObjectChara2D;
+		return pObjectCharaAnim3D;
 	}
 }
 
 //============================================================
 //	キャラクター情報割当
 //============================================================
-void CObjectChara2D::BindCharaData(const char* pCharaPath)
+void CObjectCharaAnim3D::BindCharaData(const char* pCharaPath)
 {
 	// 割り当てるモーションパスが存在しない場合抜ける
 	if (pCharaPath == nullptr) { assert(false); return; }
 
 	// モーション情報の全設定
-	SetAllInfo(GET_MANAGER->GetCharacter2D()->Regist(pCharaPath));
+	SetAllInfo(GET_MANAGER->GetCharacterAnim3D()->Regist(pCharaPath));
 }
 
 //============================================================
 //	モーションの設定処理
 //============================================================
-void CObjectChara2D::SetMotion(const int nType)
+void CObjectCharaAnim3D::SetMotion(const int nType)
 {
 	// 指定されたモーションが存在しない場合抜ける
 	if (nType <= NONE_IDX || nType >= m_info.GetNumMotion()) { assert(false); return; }
@@ -161,7 +161,7 @@ void CObjectChara2D::SetMotion(const int nType)
 //============================================================
 //	モーション情報の追加処理
 //============================================================
-void CObjectChara2D::AddInfo(const SMotion& rMotion)
+void CObjectCharaAnim3D::AddInfo(const SMotion& rMotion)
 {
 	int nSetMotionIdx = m_info.GetNumMotion();	// モーションを設定する配列番号
 
@@ -175,7 +175,7 @@ void CObjectChara2D::AddInfo(const SMotion& rMotion)
 //============================================================
 //	モーション情報全設定処理
 //============================================================
-void CObjectChara2D::SetAllInfo(const SInfo& rInfo)
+void CObjectCharaAnim3D::SetAllInfo(const SInfo& rInfo)
 {
 	// モーション情報をクリア
 	m_info.vecMotion.clear();
@@ -191,7 +191,7 @@ void CObjectChara2D::SetAllInfo(const SInfo& rInfo)
 //============================================================
 //	キャンセル取得処理
 //============================================================
-bool CObjectChara2D::IsCancel() const
+bool CObjectCharaAnim3D::IsCancel() const
 {
 	float fCancelTime = m_info.vecMotion[m_info.nType].fCancelTime;	// キャンセル可能時間
 	if (fCancelTime >= 0.0f)
@@ -208,7 +208,7 @@ bool CObjectChara2D::IsCancel() const
 //============================================================
 //	コンボ取得処理
 //============================================================
-bool CObjectChara2D::IsCombo() const
+bool CObjectCharaAnim3D::IsCombo() const
 {
 	float fComboTime = m_info.vecMotion[m_info.nType].fComboTime;	// コンボ可能時間
 	if (fComboTime >= 0.0f)
@@ -225,7 +225,7 @@ bool CObjectChara2D::IsCombo() const
 //============================================================
 //	原点オフセット反映位置の計算処理
 //============================================================
-VECTOR3 CObjectChara2D::CalcOriginOffsetPosition(const VECTOR3& rPos, const VECTOR3& rRot) const
+VECTOR3 CObjectCharaAnim3D::CalcOriginOffsetPosition(const VECTOR3& rPos, const VECTOR3& rRot) const
 {
 	// オフセット反映位置の計算結果を返す
 	const VECTOR3& rOffset = m_info.vecMotion[m_info.nType].infoChara.offset;	// オフセット
@@ -235,7 +235,7 @@ VECTOR3 CObjectChara2D::CalcOriginOffsetPosition(const VECTOR3& rPos, const VECT
 //============================================================
 //	判定原点オフセット反映位置の計算処理
 //============================================================
-VECTOR3 CObjectChara2D::CalcCollOffsetPosition(const VECTOR3& rPos, const VECTOR3& rRot) const
+VECTOR3 CObjectCharaAnim3D::CalcCollOffsetPosition(const VECTOR3& rPos, const VECTOR3& rRot) const
 {
 	// オフセット反映位置の計算結果を返す
 	const VECTOR3& rOffset = m_info.vecMotion[m_info.nType].infoColl.offset;	// オフセット
@@ -245,7 +245,7 @@ VECTOR3 CObjectChara2D::CalcCollOffsetPosition(const VECTOR3& rPos, const VECTOR
 //============================================================
 //	原点オフセット反映位置の取得処理
 //============================================================
-VECTOR3 CObjectChara2D::GetOriginOffsetPosition() const
+VECTOR3 CObjectCharaAnim3D::GetOriginOffsetPosition() const
 {
 	// 原点オフセット反映位置の計算結果を返す
 	const VECTOR3& rPos = GetVec3Position();	// 位置
@@ -256,7 +256,7 @@ VECTOR3 CObjectChara2D::GetOriginOffsetPosition() const
 //============================================================
 //	判定原点オフセット反映位置の取得処理
 //============================================================
-VECTOR3 CObjectChara2D::GetCollOffsetPosition() const
+VECTOR3 CObjectCharaAnim3D::GetCollOffsetPosition() const
 {
 	// 判定原点オフセット反映位置の計算結果を返す
 	const VECTOR3& rPos = GetVec3Position();	// 位置
@@ -267,7 +267,7 @@ VECTOR3 CObjectChara2D::GetCollOffsetPosition() const
 //============================================================
 //	描画マトリックスの計算処理
 //============================================================
-void CObjectChara2D::CalcDrawMatrix()
+void CObjectCharaAnim3D::CalcDrawMatrix()
 {
 	VECTOR3 offset = m_info.vecMotion[m_info.nType].infoChara.offset;	// オフセット
 	MATRIX* pMtxWorld = GetPtrMtxWorld();	// ワールドマトリックス
@@ -294,7 +294,7 @@ void CObjectChara2D::CalcDrawMatrix()
 //============================================================
 //	オフセット反映位置の計算処理
 //============================================================
-VECTOR3 CObjectChara2D::CalcOffsetPosition
+VECTOR3 CObjectCharaAnim3D::CalcOffsetPosition
 (
 	const VECTOR3& rPos,	// 位置
 	const VECTOR3& rRot,	// 向き
