@@ -14,6 +14,7 @@
 //	インクルードファイル
 //************************************************************
 #include "motion.h"
+#include "extension.h"
 
 //************************************************************
 //	クラス定義
@@ -102,6 +103,7 @@ private:
 
 	// メンバ変数
 	std::map<std::string, SCharaData> m_mapCharacter;	// キャラクター連想配列
+	extension::ALoad m_load;	// 読み込み可能拡張子
 };
 
 #endif	// _CHARACTER_H_
