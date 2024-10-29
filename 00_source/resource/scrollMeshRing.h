@@ -24,7 +24,7 @@ class CScrollMeshRing : public CObjectMeshRing
 {
 public:
 	// コンストラクタ
-	explicit CScrollMeshRing(const CObject::ELabel label = LABEL_NONE, const EDim dimension = DIM_3D, const int nPriority = object::DEFAULT_PRIO);
+	explicit CScrollMeshRing(const CObject::ELabel label = LABEL_NONE, const EDim dimension = DIM_3D, const int nPriority = DEFAULT_PRIO);
 
 	// デストラクタ
 	~CScrollMeshRing() override;

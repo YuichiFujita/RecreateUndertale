@@ -262,7 +262,7 @@ void CTimer::AddTime(const float fTime)
 	m_fTime += fTime;
 
 	// éûä‘Çï‚ê≥
-	useful::LimitNum(m_fTime, timer::TIME_MIN, timer::TIME_MAX);
+	useful::LimitNum(m_fTime, CTimer::TIME_MIN, CTimer::TIME_MAX);
 }
 
 //============================================================
@@ -274,7 +274,7 @@ void CTimer::SetTime(const float fTime)
 	m_fTime = fTime;
 
 	// éûä‘Çï‚ê≥
-	useful::LimitNum(m_fTime, timer::TIME_MIN, timer::TIME_MAX);
+	useful::LimitNum(m_fTime, CTimer::TIME_MIN, CTimer::TIME_MAX);
 }
 
 //============================================================
@@ -286,7 +286,7 @@ void CTimer::SetLimit(const float fLimit)
 	m_fLimit = fLimit;
 
 	// êßå¿éûä‘Çï‚ê≥
-	useful::LimitNum(m_fLimit, timer::TIME_MIN, timer::TIME_MAX);
+	useful::LimitNum(m_fLimit, CTimer::TIME_MIN, CTimer::TIME_MAX);
 
 	if (m_fLimit <= 0.0f)
 	{ // êßå¿éûä‘Ç™Ç»Ç¢èÍçá

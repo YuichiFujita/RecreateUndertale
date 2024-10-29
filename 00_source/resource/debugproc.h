@@ -8,19 +8,14 @@
 #define _DEBUGPROC_H_
 
 //**********************************************************
-//	定数宣言
-//**********************************************************
-namespace debugproc
-{
-	const int MAX_DEBUGSTRING = 2048;	// デバッグ表示の最大文字数
-}
-
-//**********************************************************
 //クラスの定義
 //**********************************************************
 class CDebugProc
 {
 public:
+	// 定数
+	static constexpr int MAX_STR = 2048;	// デバッグ表示の最大文字数
+
 	// デバッグ位置列挙
 	enum EPoint
 	{
@@ -53,7 +48,7 @@ public:
 private:
 	static LPD3DXFONT m_pFont;	// フォントへのポインタ
 	bool m_bDisp;				// デバッグ表示のON/OFF
-	char m_aStr[POINT_MAX][debugproc::MAX_DEBUGSTRING];	// デバッグ表示用の文字列
+	char m_aStr[POINT_MAX][MAX_STR];	// デバッグ表示用の文字列
 };
 
 #endif	// _DEBUGPROC_H_

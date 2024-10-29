@@ -32,7 +32,7 @@ public:
 	};
 
 	// コンストラクタ
-	explicit CObjectMeshRing(const CObject::ELabel label = LABEL_NONE, const CObject::EDim dimension = DIM_3D, const int nPriority = object::DEFAULT_PRIO);
+	explicit CObjectMeshRing(const CObject::ELabel label = LABEL_NONE, const CObject::EDim dimension = DIM_3D, const int nPriority = DEFAULT_PRIO);
 
 	// デストラクタ
 	~CObjectMeshRing() override;

@@ -85,7 +85,7 @@ HRESULT CTimeUI::Init()
 	m_alignY		= YALIGN_CENTER;	// 縦配置
 	m_fTime			= 0.0f;				// 表示時間
 
-	for (int nCntValue = 0; nCntValue < timeUI::MAX_DIGIT; nCntValue++)
+	for (int nCntValue = 0; nCntValue < CTimeUI::MAX_DIGIT; nCntValue++)
 	{ // 数字の数分繰り返す
 
 		// 数字の生成
@@ -98,7 +98,7 @@ HRESULT CTimeUI::Init()
 		}
 	}
 
-	for (int nCntPart = 0; nCntPart < timeUI::MAX_PART; nCntPart++)
+	for (int nCntPart = 0; nCntPart < CTimeUI::MAX_PART; nCntPart++)
 	{ // 区切りの数分繰り返す
 
 		// 区切りの生成
@@ -130,14 +130,14 @@ HRESULT CTimeUI::Init()
 //============================================================
 void CTimeUI::Uninit()
 {
-	for (int nCntValue = 0; nCntValue < timeUI::MAX_DIGIT; nCntValue++)
+	for (int nCntValue = 0; nCntValue < CTimeUI::MAX_DIGIT; nCntValue++)
 	{ // 数字の数分繰り返す
 
 		// 数字の終了
 		SAFE_UNINIT(m_apValue[nCntValue]);
 	}
 
-	for (int nCntPart = 0; nCntPart < timeUI::MAX_PART; nCntPart++)
+	for (int nCntPart = 0; nCntPart < CTimeUI::MAX_PART; nCntPart++)
 	{ // 区切りの数分繰り返す
 
 		// 区切りの終了
@@ -159,7 +159,7 @@ void CTimeUI::Update(const float fDeltaTime)
 	// 数字のテクスチャ座標の設定
 	SetTexNum();
 
-	for (int nCntValue = 0; nCntValue < timeUI::MAX_DIGIT; nCntValue++)
+	for (int nCntValue = 0; nCntValue < CTimeUI::MAX_DIGIT; nCntValue++)
 	{ // 数字の数分繰り返す
 
 		// 数字の更新
@@ -167,7 +167,7 @@ void CTimeUI::Update(const float fDeltaTime)
 		m_apValue[nCntValue]->Update(fDeltaTime);
 	}
 
-	for (int nCntPart = 0; nCntPart < timeUI::MAX_PART; nCntPart++)
+	for (int nCntPart = 0; nCntPart < CTimeUI::MAX_PART; nCntPart++)
 	{ // 区切りの数分繰り返す
 
 		// 区切りの更新
@@ -181,7 +181,7 @@ void CTimeUI::Update(const float fDeltaTime)
 //============================================================
 void CTimeUI::Draw(CShader* pShader)
 {
-	for (int nCntValue = 0; nCntValue < timeUI::MAX_DIGIT; nCntValue++)
+	for (int nCntValue = 0; nCntValue < CTimeUI::MAX_DIGIT; nCntValue++)
 	{ // 数字の数分繰り返す
 
 		// 数字の更新
@@ -189,7 +189,7 @@ void CTimeUI::Draw(CShader* pShader)
 		m_apValue[nCntValue]->Draw(pShader);
 	}
 
-	for (int nCntPart = 0; nCntPart < timeUI::MAX_PART; nCntPart++)
+	for (int nCntPart = 0; nCntPart < CTimeUI::MAX_PART; nCntPart++)
 	{ // 区切りの数分繰り返す
 
 		// 区切りの更新
@@ -206,7 +206,7 @@ void CTimeUI::SetPriority(const int nPriority)
 	// 自身の優先順位を設定
 	CObject::SetPriority(nPriority);
 
-	for (int nCntValue = 0; nCntValue < timeUI::MAX_DIGIT; nCntValue++)
+	for (int nCntValue = 0; nCntValue < CTimeUI::MAX_DIGIT; nCntValue++)
 	{ // 数字の数分繰り返す
 
 		// 数字の優先順位を設定
@@ -214,7 +214,7 @@ void CTimeUI::SetPriority(const int nPriority)
 		m_apValue[nCntValue]->SetPriority(nPriority);
 	}
 
-	for (int nCntPart = 0; nCntPart < timeUI::MAX_PART; nCntPart++)
+	for (int nCntPart = 0; nCntPart < CTimeUI::MAX_PART; nCntPart++)
 	{ // 区切りの数分繰り返す
 
 		// 区切りの優先順位を設定
@@ -231,7 +231,7 @@ void CTimeUI::SetEnableUpdate(const bool bUpdate)
 	// 自身の更新状況を設定
 	CObject::SetEnableUpdate(bUpdate);
 
-	for (int nCntValue = 0; nCntValue < timeUI::MAX_DIGIT; nCntValue++)
+	for (int nCntValue = 0; nCntValue < CTimeUI::MAX_DIGIT; nCntValue++)
 	{ // 数字の数分繰り返す
 
 		// 数字の更新状況を設定
@@ -239,7 +239,7 @@ void CTimeUI::SetEnableUpdate(const bool bUpdate)
 		m_apValue[nCntValue]->SetEnableUpdate(bUpdate);
 	}
 
-	for (int nCntPart = 0; nCntPart < timeUI::MAX_PART; nCntPart++)
+	for (int nCntPart = 0; nCntPart < CTimeUI::MAX_PART; nCntPart++)
 	{ // 区切りの数分繰り返す
 
 		// 区切りの更新状況を設定
@@ -256,7 +256,7 @@ void CTimeUI::SetEnableDraw(const bool bDraw)
 	// 自身の描画状況を設定
 	CObject::SetEnableDraw(bDraw);
 
-	for (int nCntValue = 0; nCntValue < timeUI::MAX_DIGIT; nCntValue++)
+	for (int nCntValue = 0; nCntValue < CTimeUI::MAX_DIGIT; nCntValue++)
 	{ // 数字の数分繰り返す
 
 		// 数字の描画状況を設定
@@ -264,7 +264,7 @@ void CTimeUI::SetEnableDraw(const bool bDraw)
 		m_apValue[nCntValue]->SetEnableDraw(bDraw);
 	}
 
-	for (int nCntPart = 0; nCntPart < timeUI::MAX_PART; nCntPart++)
+	for (int nCntPart = 0; nCntPart < CTimeUI::MAX_PART; nCntPart++)
 	{ // 区切りの数分繰り返す
 
 		// 区切りの描画状況を設定
@@ -293,7 +293,7 @@ void CTimeUI::SetVec3Rotation(const VECTOR3& rRot)
 	// 引数の向きを設定
 	m_rot = rRot;
 
-	for (int nCntValue = 0; nCntValue < timeUI::MAX_DIGIT; nCntValue++)
+	for (int nCntValue = 0; nCntValue < CTimeUI::MAX_DIGIT; nCntValue++)
 	{ // 数字の数分繰り返す
 
 		// 数字の向きを設定
@@ -301,7 +301,7 @@ void CTimeUI::SetVec3Rotation(const VECTOR3& rRot)
 		m_apValue[nCntValue]->SetVec3Rotation(rRot);
 	}
 
-	for (int nCntPart = 0; nCntPart < timeUI::MAX_PART; nCntPart++)
+	for (int nCntPart = 0; nCntPart < CTimeUI::MAX_PART; nCntPart++)
 	{ // 区切りの数分繰り返す
 
 		// 区切りの向きを設定
@@ -397,7 +397,7 @@ void CTimeUI::SetTime(const float fTime)
 	m_fTime = fTime;
 
 	// 表示時間の補正
-	useful::LimitNum(m_fTime, timer::TIME_MIN, timer::TIME_MAX);
+	useful::LimitNum(m_fTime, CTimer::TIME_MIN, CTimer::TIME_MAX);
 }
 
 //============================================================
@@ -408,7 +408,7 @@ void CTimeUI::SetValueType(const CValue::EType type)
 	// 設定された数字の種類を保存
 	m_type = type;
 
-	for (int nCntValue = 0; nCntValue < timeUI::MAX_DIGIT; nCntValue++)
+	for (int nCntValue = 0; nCntValue < CTimeUI::MAX_DIGIT; nCntValue++)
 	{ // 数字の数分繰り返す
 
 		// 数字の種類を設定
@@ -416,7 +416,7 @@ void CTimeUI::SetValueType(const CValue::EType type)
 		m_apValue[nCntValue]->SetType(type);
 	}
 
-	for (int nCntPart = 0; nCntPart < timeUI::MAX_PART; nCntPart++)
+	for (int nCntPart = 0; nCntPart < CTimeUI::MAX_PART; nCntPart++)
 	{ // 区切りの数分繰り返す
 
 		// テクスチャを割当
@@ -433,7 +433,7 @@ void CTimeUI::SetSizeValue(const VECTOR3& rSize)
 	// 設定された数字の大きさを保存
 	m_sizeValue = rSize;
 
-	for (int nCntValue = 0; nCntValue < timeUI::MAX_DIGIT; nCntValue++)
+	for (int nCntValue = 0; nCntValue < CTimeUI::MAX_DIGIT; nCntValue++)
 	{ // 数字の数分繰り返す
 
 		// 数字の大きさを設定
@@ -453,7 +453,7 @@ void CTimeUI::SetSizePart(const VECTOR3& rSize)
 	// 設定された区切りの大きさを保存
 	m_sizePart = rSize;
 
-	for (int nCntPart = 0; nCntPart < timeUI::MAX_PART; nCntPart++)
+	for (int nCntPart = 0; nCntPart < CTimeUI::MAX_PART; nCntPart++)
 	{ // 区切りの数分繰り返す
 
 		// 区切りの大きさを設定
@@ -509,7 +509,7 @@ void CTimeUI::SetColor(const COLOR& rCol)
 	// 設定された色を保存
 	m_col = rCol;
 
-	for (int nCntValue = 0; nCntValue < timeUI::MAX_DIGIT; nCntValue++)
+	for (int nCntValue = 0; nCntValue < CTimeUI::MAX_DIGIT; nCntValue++)
 	{ // 数字の数分繰り返す
 
 		// 数字の色を設定
@@ -517,7 +517,7 @@ void CTimeUI::SetColor(const COLOR& rCol)
 		m_apValue[nCntValue]->SetColor(rCol);
 	}
 
-	for (int nCntPart = 0; nCntPart < timeUI::MAX_PART; nCntPart++)
+	for (int nCntPart = 0; nCntPart < CTimeUI::MAX_PART; nCntPart++)
 	{ // 区切りの数分繰り返す
 
 		// 区切りの色を設定
@@ -555,12 +555,12 @@ void CTimeUI::SetAlignY(const EAlignY align)
 //============================================================
 float CTimeUI::GetTimeWidth() const
 {
-	float fTimeWidth = 0.0f;				// タイム全体の横幅
-	int nEndNumIdx = timeUI::MAX_DIGIT - 1;	// 終端数字のインデックス
+	float fTimeWidth = 0.0f;					// タイム全体の横幅
+	int nEndNumIdx = CTimeUI::MAX_DIGIT - 1;	// 終端数字のインデックス
 
 	// 全ての空白を加算 (最後の文字は含まない)
 	fTimeWidth += m_spaceValue.x * nEndNumIdx;
-	fTimeWidth += m_spacePart.x * timeUI::MAX_PART;
+	fTimeWidth += m_spacePart.x * CTimeUI::MAX_PART;
 
 	// 先頭数字の横幅を加算
 	assert(m_apValue[0] != nullptr);
@@ -579,12 +579,12 @@ float CTimeUI::GetTimeWidth() const
 //============================================================
 float CTimeUI::GetTimeHeight() const
 {
-	float fTimeHeight = 0.0f;				// タイム全体の縦幅
-	int nEndNumIdx = timeUI::MAX_DIGIT - 1;	// 終端数字のインデックス
+	float fTimeHeight = 0.0f;					// タイム全体の縦幅
+	int nEndNumIdx = CTimeUI::MAX_DIGIT - 1;	// 終端数字のインデックス
 
 	// 全ての空白を加算 (最後の文字は含まない)
 	fTimeHeight += m_spaceValue.y * nEndNumIdx;
-	fTimeHeight += m_spacePart.y * timeUI::MAX_PART;
+	fTimeHeight += m_spacePart.y * CTimeUI::MAX_PART;
 
 	// 先頭数字の縦幅を加算
 	assert(m_apValue[0] != nullptr);
@@ -628,10 +628,10 @@ void CTimeUI::SetPositionRelative()
 	posStart.x = m_pos.x + sinf(rotStart.x) * posOffset.x + sinf(rotStart.y) * posOffset.y;	// 開始位置X
 	posStart.y = m_pos.y + cosf(rotStart.x) * posOffset.x + cosf(rotStart.y) * posOffset.y;	// 開始位置Y
 
-	for (int nCntTimer = 0; nCntTimer < timeUI::MAX_DIGIT + timeUI::MAX_PART; nCntTimer++)
+	for (int nCntTimer = 0; nCntTimer < CTimeUI::MAX_DIGIT + CTimeUI::MAX_PART; nCntTimer++)
 	{ // 数字の数 + 区切りの数分繰り返す
 
-		if (nCntTimer == timeUI::MAX_MIN || nCntTimer == timeUI::MAX_MIN + timeUI::MAX_SEC + 1)
+		if (nCntTimer == CTimeUI::MAX_MIN || nCntTimer == CTimeUI::MAX_MIN + CTimeUI::MAX_SEC + 1)
 		{ // 区切りタイミングの場合
 
 			assert(m_apPart[nValueIdx] != nullptr);
@@ -677,18 +677,18 @@ void CTimeUI::SetPositionRelative()
 //============================================================
 void CTimeUI::SetTexNum()
 {
-	int aNumDivide[timeUI::MAX_DIGIT];	// 数値分解用
+	int aNumDivide[CTimeUI::MAX_DIGIT];	// 数値分解用
 
 	// 分を桁数ごとに分解
-	useful::DivideDigitNum(&aNumDivide[0], GetMin(), timeUI::MAX_MIN);
+	useful::DivideDigitNum(&aNumDivide[0], GetMin(), CTimeUI::MAX_MIN);
 
 	// 秒を桁数ごとに分解
-	useful::DivideDigitNum(&aNumDivide[timeUI::MAX_MIN], GetSec(), timeUI::MAX_SEC);
+	useful::DivideDigitNum(&aNumDivide[CTimeUI::MAX_MIN], GetSec(), CTimeUI::MAX_SEC);
 
 	// ミリ秒を桁数ごとに分解
-	useful::DivideDigitNum(&aNumDivide[timeUI::MAX_MIN + timeUI::MAX_SEC], GetMSec(), timeUI::MAX_MSEC);
+	useful::DivideDigitNum(&aNumDivide[CTimeUI::MAX_MIN + CTimeUI::MAX_SEC], GetMSec(), CTimeUI::MAX_MSEC);
 
-	for (int nCntValue = 0; nCntValue < timeUI::MAX_DIGIT; nCntValue++)
+	for (int nCntValue = 0; nCntValue < CTimeUI::MAX_DIGIT; nCntValue++)
 	{ // 数字の数分繰り返す
 
 		// 数字の設定

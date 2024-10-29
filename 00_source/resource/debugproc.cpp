@@ -120,8 +120,8 @@ void CDebugProc::Draw()
 void CDebugProc::Print(const EPoint point, const char* fmt, ...)
 {
 	va_list args;
-	char aString[debugproc::MAX_DEBUGSTRING];		// w’è•¶šŠi”[—p
-	char aSaveString[debugproc::MAX_DEBUGSTRING];	// ‰Â•Ïˆø”’†gŠi”[—p
+	char aString[MAX_STR];		// w’è•¶šŠi”[—p
+	char aSaveString[MAX_STR];	// ‰Â•Ïˆø”’†gŠi”[—p
 	int nLength = 0;	// ‰Â•Ïˆø”“à‚Ì•¶š‚Ì’·‚³
 	int nStopLength;	// ‰Â•Ïˆø”‘}“üêŠ‚æ‚è
 

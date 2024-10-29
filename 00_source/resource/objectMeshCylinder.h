@@ -32,7 +32,7 @@ public:
 	};
 
 	// コンストラクタ
-	explicit CObjectMeshCylinder(const CObject::ELabel label = LABEL_NONE, const CObject::EDim dimension = DIM_3D, const int nPriority = object::DEFAULT_PRIO);
+	explicit CObjectMeshCylinder(const CObject::ELabel label = LABEL_NONE, const CObject::EDim dimension = DIM_3D, const int nPriority = DEFAULT_PRIO);
 
 	// デストラクタ
 	~CObjectMeshCylinder() override;

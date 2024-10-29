@@ -24,7 +24,7 @@ class CObjectMeshField : public CObject
 {
 public:
 	// コンストラクタ
-	explicit CObjectMeshField(const CObject::ELabel label = LABEL_NONE, const CObject::EDim dimension = DIM_3D, const int nPriority = object::DEFAULT_PRIO);
+	explicit CObjectMeshField(const CObject::ELabel label = LABEL_NONE, const CObject::EDim dimension = DIM_3D, const int nPriority = DEFAULT_PRIO);
 
 	// デストラクタ
 	~CObjectMeshField() override;

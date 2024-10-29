@@ -23,7 +23,7 @@ class CAnim2D : public CObject2D
 {
 public:
 	// コンストラクタ
-	explicit CAnim2D(const CObject::ELabel label = LABEL_NONE, const EDim dimension = DIM_2D, const int nPriority = object::DEFAULT_PRIO);
+	explicit CAnim2D(const CObject::ELabel label = LABEL_NONE, const EDim dimension = DIM_2D, const int nPriority = DEFAULT_PRIO);
 
 	// デストラクタ
 	~CAnim2D() override;

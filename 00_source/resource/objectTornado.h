@@ -17,26 +17,6 @@
 #include "renderState.h"
 
 //************************************************************
-//	定数宣言
-//************************************************************
-namespace tornado
-{
-	const int	NUM_AROUND	= 3;		// 渦の周回数
-	const int	NUM_PTRN	= 16;		// 渦の分割数
-	const float	MOVE_ROT	= 0.3f;		// 向きの変更量
-	const float	THICKNESS	= 25.0f;	// ポリゴンの太さ
-	const float	OUTER_PLUSY	= 35.0f;	// ポリゴン外周のY座標加算量
-	const float	SET_WIDTH	= 80.0f;	// 生成時の横ずれ量
-	const float	SET_ALPHA	= 0.85f;	// 生成時の透明度
-	const float	ADD_WIDTH	= 7.0f;		// 横ずれの加算量
-	const float	ADD_HEIGHT	= 7.0f;		// 縦ずれの加算量
-	const float	SUB_ALPHA	= 0.015f;	// 透明度の減算量
-	const float	GROW_WIDTH	= 0.0f;		// 横ずれの成長量
-	const float	GROW_HEIGHT	= 0.0f;		// 縦ずれの成長量
-	const float	GROW_ALPHA	= 0.0f;		// 透明度の成長量
-}
-
-//************************************************************
 //	クラス定義
 //************************************************************
 // オブジェクト竜巻クラス
@@ -65,20 +45,20 @@ public:
 		const VECTOR3& rPos,		// 位置
 		const VECTOR3& rGrowRot,	// 成長向き
 		const COLOR& rCol,			// 色
-		MATRIX* pMtxParent		= nullptr,				// 親のマトリックス
-		const int	nNumAround	= tornado::NUM_AROUND,	// 渦の周回数
-		const int	nPattern	= tornado::NUM_PTRN,	// 渦の分割数
-		const float	fMoveRot	= tornado::MOVE_ROT,	// 向きの変更量
-		const float	fThickness	= tornado::THICKNESS,	// ポリゴンの太さ
-		const float	fOuterPlusY	= tornado::OUTER_PLUSY,	// ポリゴン外周のY座標加算量
-		const float	fSetWidth	= tornado::SET_WIDTH,	// 生成時の横ずれ量
-		const float	fSetAlpha	= tornado::SET_ALPHA,	// 生成時の透明度
-		const float	fAddWidth	= tornado::ADD_WIDTH,	// 横ずれの加算量
-		const float	fAddHeight	= tornado::ADD_HEIGHT,	// 縦ずれの加算量
-		const float	fSubAlpha	= tornado::SUB_ALPHA,	// 透明度の減算量
-		const float	fGrowWidth	= tornado::GROW_WIDTH,	// 横ずれの成長量
-		const float	fGrowHeight	= tornado::GROW_HEIGHT,	// 縦ずれの成長量
-		const float	fGrowAlpha	= tornado::GROW_ALPHA	// 透明度の成長量
+		MATRIX* pMtxParent		= nullptr,	// 親のマトリックス
+		const int	nNumAround	= 3,		// 渦の周回数
+		const int	nPattern	= 16,		// 渦の分割数
+		const float	fMoveRot	= 0.3f,		// 向きの変更量
+		const float	fThickness	= 25.0f,	// ポリゴンの太さ
+		const float	fOuterPlusY	= 35.0f,	// ポリゴン外周のY座標加算量
+		const float	fSetWidth	= 80.0f,	// 生成時の横ずれ量
+		const float	fSetAlpha	= 0.85f,	// 生成時の透明度
+		const float	fAddWidth	= 7.0f,		// 横ずれの加算量
+		const float	fAddHeight	= 7.0f,		// 縦ずれの加算量
+		const float	fSubAlpha	= 0.015f,	// 透明度の減算量
+		const float	fGrowWidth	= 0.0f,		// 横ずれの成長量
+		const float	fGrowHeight	= 0.0f,		// 縦ずれの成長量
+		const float	fGrowAlpha	= 0.0f		// 透明度の成長量
 	);
 
 	// メンバ関数

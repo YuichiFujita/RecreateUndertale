@@ -155,7 +155,7 @@ void CObjectMeshRing::Draw(CShader* pShader)
 	pDevice->SetIndices(m_pIdxBuff);
 
 	// 頂点フォーマットの設定
-	pDevice->SetFVF(object::FVF_VERTEX_3D);
+	pDevice->SetFVF(CObject::FVF_VERTEX_3D);
 
 	if (pShader == nullptr)
 	{ // シェーダーが使用されていない場合
@@ -408,10 +408,10 @@ HRESULT CObjectMeshRing::SetPattern(const POSGRID2& rPart)
 	if (FAILED(pDevice->CreateVertexBuffer
 	( // 引数
 		sizeof(VERTEX_3D) * m_nNumVtx,	// 必要頂点数
-		D3DUSAGE_WRITEONLY,		// 使用方法
-		object::FVF_VERTEX_3D,	// 頂点フォーマット
-		D3DPOOL_MANAGED,		// メモリの指定
-		&m_pVtxBuff,			// 頂点バッファへのポインタ
+		D3DUSAGE_WRITEONLY,				// 使用方法
+		CObject::FVF_VERTEX_3D,			// 頂点フォーマット
+		D3DPOOL_MANAGED,				// メモリの指定
+		&m_pVtxBuff,					// 頂点バッファへのポインタ
 		nullptr
 	)))
 	{ // 頂点バッファの生成に失敗した場合

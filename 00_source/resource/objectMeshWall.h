@@ -24,7 +24,7 @@ class CObjectMeshWall : public CObject
 {
 public:
 	// コンストラクタ
-	explicit CObjectMeshWall(const CObject::ELabel label = LABEL_NONE, const CObject::EDim dimension = DIM_3D, const int nPriority = object::DEFAULT_PRIO);
+	explicit CObjectMeshWall(const CObject::ELabel label = LABEL_NONE, const CObject::EDim dimension = DIM_3D, const int nPriority = DEFAULT_PRIO);
 
 	// デストラクタ
 	~CObjectMeshWall() override;

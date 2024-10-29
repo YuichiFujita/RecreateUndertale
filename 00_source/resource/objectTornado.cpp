@@ -26,7 +26,7 @@ namespace
 //============================================================
 //	コンストラクタ
 //============================================================
-CObjectTornado::CObjectTornado() : CObject(LABEL_NONE, DIM_3D, object::DEFAULT_PRIO),
+CObjectTornado::CObjectTornado() : CObject(CObject::LABEL_NONE, CObject::DIM_3D, CObject::DEFAULT_PRIO),
 	m_pVtxBuff		(nullptr),			// 頂点バッファ
 	m_pRenderState	(nullptr),			// レンダーステートの情報
 	m_pMtxParent	(nullptr),			// 親のマトリックス
@@ -191,7 +191,7 @@ void CObjectTornado::Draw(CShader* pShader)
 	pDevice->SetStreamSource(0, m_pVtxBuff, 0, sizeof(VERTEX_3D));
 
 	// 頂点フォーマットの設定
-	pDevice->SetFVF(object::FVF_VERTEX_3D);
+	pDevice->SetFVF(CObject::FVF_VERTEX_3D);
 
 	if (pShader == nullptr)
 	{ // シェーダーが使用されていない場合
@@ -350,10 +350,10 @@ HRESULT CObjectTornado::SetVortex(const int nNumAround, const int nPattern)
 	if (FAILED(GET_DEVICE->CreateVertexBuffer
 	( // 引数
 		sizeof(VERTEX_3D) * m_nNumVtx,	// 必要頂点数
-		D3DUSAGE_WRITEONLY,		// 使用方法
-		object::FVF_VERTEX_3D,	// 頂点フォーマット
-		D3DPOOL_MANAGED,		// メモリの指定
-		&m_pVtxBuff,			// 頂点バッファへのポインタ
+		D3DUSAGE_WRITEONLY,				// 使用方法
+		CObject::FVF_VERTEX_3D,			// 頂点フォーマット
+		D3DPOOL_MANAGED,				// メモリの指定
+		&m_pVtxBuff,					// 頂点バッファへのポインタ
 		nullptr
 	)))
 	{ // 頂点バッファの生成に失敗した場合

@@ -24,7 +24,7 @@ class CObject2D : public CObject
 {
 public:
 	// コンストラクタ
-	explicit CObject2D(const CObject::ELabel label = LABEL_NONE, const CObject::EDim dimension = DIM_2D, const int nPriority = object::DEFAULT_PRIO);
+	explicit CObject2D(const CObject::ELabel label = LABEL_NONE, const CObject::EDim dimension = DIM_2D, const int nPriority = DEFAULT_PRIO);
 
 	// デストラクタ
 	~CObject2D() override;

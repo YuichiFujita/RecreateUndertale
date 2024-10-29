@@ -71,7 +71,7 @@ HRESULT CObject2D::Init()
 	( // 引数
 		sizeof(VERTEX_2D) * MAX_VERTEX,	// 必要頂点数
 		D3DUSAGE_WRITEONLY,				// 使用方法
-		object::FVF_VERTEX_2D,			// 頂点フォーマット
+		CObject::FVF_VERTEX_2D,			// 頂点フォーマット
 		D3DPOOL_MANAGED,				// メモリの指定
 		&m_pVtxBuff,					// 頂点バッファへのポインタ
 		nullptr
@@ -135,7 +135,7 @@ void CObject2D::Draw(CShader* /*pShader*/)
 	pDevice->SetStreamSource(0, m_pVtxBuff, 0, sizeof(VERTEX_2D));
 
 	// 頂点フォーマットの設定
-	pDevice->SetFVF(object::FVF_VERTEX_2D);
+	pDevice->SetFVF(CObject::FVF_VERTEX_2D);
 
 	// テクスチャの設定
 	pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_nTextureIdx));

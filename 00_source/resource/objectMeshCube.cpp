@@ -198,7 +198,7 @@ void CObjectMeshCube::Draw(CShader* pShader)
 	pDevice->SetIndices(m_pIdxBuff);
 
 	// 頂点フォーマットの設定
-	pDevice->SetFVF(object::FVF_VERTEX_3D);
+	pDevice->SetFVF(CObject::FVF_VERTEX_3D);
 
 	if (pShader == nullptr)
 	{ // シェーダーが使用されていない場合
@@ -424,7 +424,7 @@ HRESULT CObjectMeshCube::SetBorderState(const EBorder bordState)
 	( // 引数
 		sizeof(VERTEX_3D) * (NEED_VTX_CUBE + ((int)bordState * NEED_VTX_CUBE)),	// 必要頂点数
 		D3DUSAGE_WRITEONLY	,	// 使用方法
-		object::FVF_VERTEX_3D,	// 頂点フォーマット
+		CObject::FVF_VERTEX_3D,	// 頂点フォーマット
 		D3DPOOL_MANAGED,		// メモリの指定
 		&m_pVtxBuff,			// 頂点バッファへのポインタ
 		nullptr

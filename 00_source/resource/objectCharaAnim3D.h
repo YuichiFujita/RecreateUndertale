@@ -23,7 +23,7 @@ class CObjectCharaAnim3D : public CAnim3D
 {
 public:
 	// コンストラクタ
-	explicit CObjectCharaAnim3D(const CObject::ELabel label = LABEL_NONE, const CObject::EDim dimension = DIM_3D, const int nPriority = object::DEFAULT_PRIO);
+	explicit CObjectCharaAnim3D(const CObject::ELabel label = LABEL_NONE, const CObject::EDim dimension = DIM_3D, const int nPriority = DEFAULT_PRIO);
 
 	// デストラクタ
 	~CObjectCharaAnim3D() override;

@@ -26,7 +26,7 @@ public:
 	static constexpr float DEF_NEXT = 1.0f;	// パターン変更時間 (デフォルト)
 
 	// コンストラクタ
-	explicit CAnim3D(const CObject::ELabel label = LABEL_NONE, const EDim dimension = DIM_3D, const int nPriority = object::DEFAULT_PRIO);
+	explicit CAnim3D(const CObject::ELabel label = LABEL_NONE, const EDim dimension = DIM_3D, const int nPriority = DEFAULT_PRIO);
 
 	// デストラクタ
 	~CAnim3D() override;

@@ -18,19 +18,6 @@
 #include "shaderMono.h"
 
 //************************************************************
-//	定数宣言
-//************************************************************
-namespace object
-{
-	const DWORD FVF_VERTEX_2D		= (D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1);				// 頂点フォーマット [2D]
-	const DWORD FVF_VERTEX_3D		= (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1);	// 頂点フォーマット [3D]
-	const DWORD FVF_VERTEX_MULTEX3D	= (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX2);	// 頂点フォーマット [MULTEX3D]
-
-	const int MAX_PRIO		= 8;	// 優先順位の総数
-	const int DEFAULT_PRIO	= 3;	// デフォルトの優先順位
-}
-
-//************************************************************
 //	構造体定義
 //************************************************************
 // 頂点情報 [2D]
@@ -68,6 +55,14 @@ struct VERTEX_MULTEX3D
 class CObject
 {
 public:
+	// 定数
+	static constexpr DWORD FVF_VERTEX_2D		= (D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1);				// 頂点フォーマット [2D]
+	static constexpr DWORD FVF_VERTEX_3D		= (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1);	// 頂点フォーマット [3D]
+	static constexpr DWORD FVF_VERTEX_MULTEX3D	= (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX2);	// 頂点フォーマット [MULTEX3D]
+
+	static constexpr int MAX_PRIO		= 8;	// 優先順位の総数
+	static constexpr int DEFAULT_PRIO	= 3;	// デフォルトの優先順位
+
 	// 次元列挙
 	enum EDim
 	{
@@ -94,7 +89,7 @@ public:
 	};
 
 	// コンストラクタ
-	explicit CObject(const ELabel label = LABEL_NONE, const EDim dimension = DIM_3D, const int nPriority = object::DEFAULT_PRIO);
+	explicit CObject(const ELabel label = LABEL_NONE, const EDim dimension = DIM_3D, const int nPriority = DEFAULT_PRIO);
 
 	// デストラクタ
 	virtual ~CObject();
@@ -154,8 +149,8 @@ private:
 	static void DeathAll();	// 全死亡
 
 	// 静的メンバ変数
-	static CObject*	m_apTop[DIM_MAX][object::MAX_PRIO];	// 先頭のオブジェクトへのポインタ
-	static CObject*	m_apCur[DIM_MAX][object::MAX_PRIO];	// 最後尾のオブジェクトへのポインタ
+	static CObject*	m_apTop[DIM_MAX][MAX_PRIO];	// 先頭のオブジェクトへのポインタ
+	static CObject*	m_apCur[DIM_MAX][MAX_PRIO];	// 最後尾のオブジェクトへのポインタ
 	static DWORD	m_dwNextIdx;	// 次のユニークインデックス
 	static int		m_nNumAll;		// オブジェクトの総数
 

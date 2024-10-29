@@ -17,19 +17,6 @@
 #include "value.h"
 
 //************************************************************
-//	定数宣言
-//************************************************************
-namespace timeUI
-{
-	const int MAX_MIN	= 2;	// タイマーの分の桁数
-	const int MAX_SEC	= 2;	// タイマーの秒の桁数
-	const int MAX_MSEC	= 3;	// タイマーのミリ秒の桁数
-	const int MAX_PART	= 2;	// 区切りの最大数
-
-	const int MAX_DIGIT = (MAX_MIN + MAX_SEC + MAX_MSEC);	// タイマーの桁数 (分・秒・ミリ秒)
-}
-
-//************************************************************
 //	前方宣言
 //************************************************************
 class CObject2D;	// オブジェクト2Dクラス
@@ -41,6 +28,13 @@ class CObject2D;	// オブジェクト2Dクラス
 class CTimeUI : public CObject
 {
 public:
+	// 定数
+	static constexpr int MAX_MIN	= 2;	// タイマーの分の桁数
+	static constexpr int MAX_SEC	= 2;	// タイマーの秒の桁数
+	static constexpr int MAX_MSEC	= 3;	// タイマーのミリ秒の桁数
+	static constexpr int MAX_PART	= 2;	// 区切りの最大数
+	static constexpr int MAX_DIGIT	= (MAX_MIN + MAX_SEC + MAX_MSEC);	// タイマーの桁数 (分・秒・ミリ秒)
+
 	// コンストラクタ
 	CTimeUI();
 
@@ -115,8 +109,8 @@ private:
 	void SetTexNum();			// 数字のテクスチャ座標設定
 
 	// メンバ変数
-	CValue* m_apValue[timeUI::MAX_DIGIT];	// 数値の情報
-	CObject2D* m_apPart[timeUI::MAX_PART];	// 区切りの情報
+	CValue* m_apValue[MAX_DIGIT];	// 数値の情報
+	CObject2D* m_apPart[MAX_PART];	// 区切りの情報
 	CValue::EType m_type;	// 数字種類
 	VECTOR3 m_pos;			// 原点位置
 	VECTOR3 m_rot;			// 原点向き
