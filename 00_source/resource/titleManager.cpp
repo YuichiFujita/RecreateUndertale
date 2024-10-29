@@ -56,6 +56,7 @@ CTitleManager::~CTitleManager()
 //============================================================
 HRESULT CTitleManager::Init()
 {
+#if 0
 	// 地面
 	CObjectMeshField* pField = CObjectMeshField::Create(VEC3_ZERO, VEC3_ZERO, VECTOR2(5000.0f, 500.0f), color::Yellow(), POSGRID2(10, 10));
 	pField->SetLabel(CObject::LABEL_DEBUG);
@@ -105,6 +106,7 @@ HRESULT CTitleManager::Init()
 	// トルネード
 	CObjectTornado* pTornado = CObjectTornado::Create(VECTOR3(750.0f, 50.0f, 0.0f), VEC3_ZERO, color::White());
 	pTornado->SetLabel(CObject::LABEL_DEBUG);
+#endif
 
 	return S_OK;
 }

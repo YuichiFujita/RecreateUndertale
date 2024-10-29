@@ -335,9 +335,9 @@ HRESULT CManager::Load()
 		return E_FAIL;
 	}
 
-	// キャラクター2Dの全読込
-	assert(m_pCharacter2D != nullptr);
-	if (FAILED(m_pCharacter2D->LoadAll()))
+	// キャラクターアニメーション3Dの全読込
+	assert(m_pCharacterAnim3D != nullptr);
+	if (FAILED(m_pCharacterAnim3D->LoadAll()))
 	{ // 全読込に失敗した場合
 
 		assert(false);
