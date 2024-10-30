@@ -1095,8 +1095,6 @@ template<class T> bool useful::LimitNum
 
 		// ”ÍˆÍ“à‚É•â³
 		rNum = min;
-
-		// ^‚ğ•Ô‚·
 		return true;
 	}
 	else if (rNum > max)
@@ -1104,12 +1102,9 @@ template<class T> bool useful::LimitNum
 
 		// ”ÍˆÍ“à‚É•â³
 		rNum = max;
-
-		// ^‚ğ•Ô‚·
 		return true;
 	}
 
-	// ‹U‚ğ•Ô‚·
 	return false;
 }
 
@@ -1127,12 +1122,9 @@ template<class T> bool useful::LimitMinNum
 
 		// ”ÍˆÍ“à‚É•â³
 		rNum = min;
-
-		// ^‚ğ•Ô‚·
 		return true;
 	}
 
-	// ‹U‚ğ•Ô‚·
 	return false;
 }
 
@@ -1150,12 +1142,9 @@ template<class T> bool useful::LimitMaxNum
 
 		// ”ÍˆÍ“à‚É•â³
 		rNum = max;
-
-		// ^‚ğ•Ô‚·
 		return true;
 	}
 
-	// ‹U‚ğ•Ô‚·
 	return false;
 }
 

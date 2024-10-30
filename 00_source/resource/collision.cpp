@@ -80,11 +80,9 @@ bool collision::Box3D
 	&&  centerPos.z - centerSizeDown.z < targetPos.z + targetSizeUp.z)
 	{ // ”»’è“à‚Ìê‡
 
-		// ^‚ð•Ô‚·
 		return true;
 	}
 
-	// ‹U‚ð•Ô‚·
 	return false;
 }
 
@@ -114,11 +112,9 @@ bool collision::Circle2D
 	if (fLength < ((fCenterRadius + fTargetRadius) * (fCenterRadius + fTargetRadius)))
 	{ // ”»’è“à‚Ìê‡
 
-		// ^‚ð•Ô‚·
 		return true;
 	}
 
-	// ‹U‚ð•Ô‚·
 	return false;
 }
 
@@ -141,11 +137,9 @@ bool collision::Circle3D
 	if (fLength < ((fCenterRadius + fTargetRadius) * (fCenterRadius + fTargetRadius)))
 	{ // ”»’è“à‚Ìê‡
 
-		// ^‚ð•Ô‚·
 		return true;
 	}
 
-	// ‹U‚ð•Ô‚·
 	return false;
 }
 
@@ -398,11 +392,9 @@ bool collision::CirclePillar
 		rCenterPos.x = targetPos.x + sinf(fCenterRot) * (fCenterRadius + fTargetRadius);
 		rCenterPos.z = targetPos.z + cosf(fCenterRot) * (fCenterRadius + fTargetRadius);
 
-		// ^‚ð•Ô‚·
 		return true;
 	}
 
-	// ‹U‚ð•Ô‚·
 	return false;
 }
 
@@ -630,11 +622,9 @@ bool collision::ResponseCircle3D
 		// ˆÊ’u‚ð•â³
 		rCenterPos = targetPos + sphere * (fCenterRadius + fTargetRadius);
 
-		// ^‚ð•Ô‚·
 		return true;
 	}
 
-	// ‹U‚ð•Ô‚·
 	return false;
 }
 
@@ -1027,11 +1017,9 @@ bool collision::InCirclePillar
 		rCenterPos.x = originPos.x + sinf(fCenterRot) * (fOriginRadius - fCenterRadius);
 		rCenterPos.z = originPos.z + cosf(fCenterRot) * (fOriginRadius - fCenterRadius);
 
-		// ^‚ð•Ô‚·
 		return true;
 	}
 
-	// ‹U‚ð•Ô‚·
 	return false;
 }
 
@@ -1095,11 +1083,9 @@ bool collision::TriangleOuterPillar
 	&&  collision::LineOuterProduct(pos2, pos0, pos) <= 0.0f)
 	{ // ”»’è“à‚Ìê‡
 
-		// ^‚ð•Ô‚·
 		return true;
 	}
 
-	// ‹U‚ð•Ô‚·
 	return false;
 }
 
@@ -1121,10 +1107,8 @@ bool collision::BoxOuterPillar
 	&&  collision::LineOuterProduct(pos3, pos0, pos) <= 0.0f)
 	{ // ”»’è“à‚Ìê‡
 
-		// ^‚ð•Ô‚·
 		return true;
 	}
 
-	// ‹U‚ð•Ô‚·
 	return false;
 }
