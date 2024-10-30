@@ -249,8 +249,12 @@ HRESULT CModel::LoadXFileModel(SMapInfo* pMapInfo, std::string sFilePath)
 	if (FAILED(hr))
 	{ // xファイルの読込に失敗した場合
 
+		// エラーメッセージの作成
+		std::string sError = "xファイルの読込に失敗！\nパス：";
+		sError.append(sFilePath.c_str());
+
 		// エラーメッセージボックス
-		MessageBox(nullptr, "xファイルの読込に失敗！", "警告！", MB_ICONWARNING);
+		MessageBox(nullptr, sError.c_str(), "警告！", MB_ICONWARNING);
 		return E_FAIL;
 	}
 
@@ -259,8 +263,12 @@ HRESULT CModel::LoadXFileModel(SMapInfo* pMapInfo, std::string sFilePath)
 	if (pMapInfo->modelData.pTextureIdx == nullptr)
 	{ // 動的確保に失敗した場合
 
+		// エラーメッセージの作成
+		std::string sError = "マテリアルのメモリ確保に失敗！\nパス：";
+		sError.append(sFilePath.c_str());
+
 		// エラーメッセージボックス
-		MessageBox(nullptr, "メモリの確保に失敗！", "警告！", MB_ICONWARNING);
+		MessageBox(nullptr, sError.c_str(), "警告！", MB_ICONWARNING);
 		return E_FAIL;
 	}
 

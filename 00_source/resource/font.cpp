@@ -109,8 +109,17 @@ void CFont::Uninit()
 			nullptr
 		);
 
-		// 破棄失敗
-		if (nError == 0) { assert(false); }
+		if (nError == 0)
+		{ // 破棄に失敗した場合
+
+			// エラーメッセージの作成
+			std::string sError = "フォントの破棄に失敗！\nパス：";
+			sError.append(rVec.c_str());
+
+			// エラーメッセージボックス
+			MessageBox(nullptr, sError.c_str(), "警告！", MB_ICONWARNING);
+			assert(false);
+		}
 	}
 
 	// フォント連想配列をクリア
@@ -162,7 +171,12 @@ HRESULT CFont::Load(const std::string& rFilePath)
 	if (nError == 0)
 	{ // 読込に失敗した場合
 
-		assert(false);
+		// エラーメッセージの作成
+		std::string sError = "フォントの読込に失敗！\nパス：";
+		sError.append(rFilePath.c_str());
+
+		// エラーメッセージボックス
+		MessageBox(nullptr, sError.c_str(), "警告！", MB_ICONWARNING);
 		return E_FAIL;
 	}
 

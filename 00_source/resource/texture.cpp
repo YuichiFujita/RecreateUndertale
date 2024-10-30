@@ -186,7 +186,12 @@ int CTexture::Regist(std::string sFilePath)
 	if (FAILED(D3DXGetImageInfoFromFile(sFilePath.c_str(), &size)))
 	{ // 画像情報の取得に失敗した場合
 
-		assert(false);
+		// エラーメッセージの作成
+		std::string sError = "画像情報の取得に失敗！\nパス：";
+		sError.append(sFilePath.c_str());
+
+		// エラーメッセージボックス
+		MessageBox(nullptr, sError.c_str(), "警告！", MB_ICONWARNING);
 		return NONE_IDX;
 	}
 
@@ -211,7 +216,12 @@ int CTexture::Regist(std::string sFilePath)
 	if (FAILED(hr))
 	{ // テクスチャの読込に失敗した場合
 
-		assert(false);
+		// エラーメッセージの作成
+		std::string sError = "テクスチャの読込に失敗！\nパス：";
+		sError.append(sFilePath.c_str());
+
+		// エラーメッセージボックス
+		MessageBox(nullptr, sError.c_str(), "警告！", MB_ICONWARNING);
 		return NONE_IDX;
 	}
 
