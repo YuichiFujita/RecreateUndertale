@@ -99,9 +99,6 @@ private:
 	// メンバ変数
 	std::map<int, SMapInfo> m_mapTexture;	// テクスチャ連想配列
 	extension::ALoad m_load;				// 読み込み可能拡張子
-
-	// 静的メンバ変数
-	static int m_nNumAll;	// テクスチャの総数
 };
 
 #endif	// _TEXTURE_H_

@@ -22,11 +22,6 @@ namespace
 }
 
 //************************************************************
-//	静的メンバ変数宣言
-//************************************************************
-int CModel::m_nNumAll = 0;	// モデルの総数
-
-//************************************************************
 //	親クラス [CModel] のメンバ関数
 //************************************************************
 //============================================================
@@ -112,8 +107,8 @@ HRESULT CModel::LoadAll()
 //============================================================
 int CModel::Regist(std::string sFilePath)
 {
+	int nIdx = (int)m_mapModel.size();	// モデル読込番号
 	SMapInfo tempMapInfo;	// マップ情報
-	int nIdx = m_nNumAll;	// モデル読込番号
 
 	// ファイルパスを標準化
 	useful::StandardizePathPart(&sFilePath);
@@ -162,10 +157,7 @@ int CModel::Regist(std::string sFilePath)
 	tempMapInfo.sFilePathName = sFilePath;
 
 	// モデル情報を生成
-	m_mapModel.insert(std::make_pair(m_nNumAll, tempMapInfo));
-
-	// モデルの総数を加算
-	m_nNumAll++;
+	m_mapModel.insert(std::make_pair(nIdx, tempMapInfo));
 
 	// 読み込んだモデルの配列番号を返す
 	return nIdx;

@@ -21,11 +21,6 @@ namespace
 }
 
 //************************************************************
-//	静的メンバ変数宣言
-//************************************************************
-int CTexture::m_nNumAll = 0;	// テクスチャの総数
-
-//************************************************************
 //	親クラス [CTexture] のメンバ関数
 //************************************************************
 //============================================================
@@ -105,9 +100,9 @@ HRESULT CTexture::LoadAll()
 //============================================================
 int CTexture::Regist(const SInfo info)
 {
-	HRESULT  hr;			// 異常終了の確認用
+	int nIdx = (int)m_mapTexture.size();	// テクスチャ読込番号
+	HRESULT hr;				// 異常終了の確認用
 	SMapInfo tempMapInfo;	// マップ情報
-	int nIdx = m_nNumAll;	// テクスチャ読込番号
 
 	// マップ情報のポインタを初期化
 	tempMapInfo.textureData.pTexture = nullptr;	// テクスチャへのポインタ
@@ -149,10 +144,7 @@ int CTexture::Regist(const SInfo info)
 	tempMapInfo.textureData.aspect.y = (float)info.Height / (float)info.Width;
 
 	// テクスチャ情報を保存
-	m_mapTexture.insert(std::make_pair(m_nNumAll, tempMapInfo));
-
-	// テクスチャの総数を加算
-	m_nNumAll++;
+	m_mapTexture.insert(std::make_pair(nIdx, tempMapInfo));
 
 	// 読み込んだテクスチャの配列番号を返す
 	return nIdx;
@@ -163,9 +155,9 @@ int CTexture::Regist(const SInfo info)
 //============================================================
 int CTexture::Regist(std::string sFilePath)
 {
-	HRESULT  hr;			// 異常終了の確認用
+	int nIdx = (int)m_mapTexture.size();	// テクスチャ読込番号
+	HRESULT hr;				// 異常終了の確認用
 	SMapInfo tempMapInfo;	// マップ情報
-	int nIdx = m_nNumAll;	// テクスチャ読込番号
 
 	// マップ情報のポインタを初期化
 	tempMapInfo.textureData.pTexture = nullptr;	// テクスチャへのポインタ
@@ -232,10 +224,7 @@ int CTexture::Regist(std::string sFilePath)
 	tempMapInfo.textureData.aspect.y = (float)status.Height / (float)status.Width;
 
 	// テクスチャ情報を保存
-	m_mapTexture.insert(std::make_pair(m_nNumAll, tempMapInfo));
-
-	// テクスチャの総数を加算
-	m_nNumAll++;
+	m_mapTexture.insert(std::make_pair(nIdx, tempMapInfo));
 
 	// 読み込んだテクスチャの配列番号を返す
 	return nIdx;
@@ -279,22 +268,11 @@ CTexture::STexture CTexture::GetInfo(const int nIdx)
 //============================================================
 LPDIRECT3DTEXTURE9 CTexture::GetPtr(const int nIdx)
 {
-	if (nIdx >= 0 && nIdx < m_nNumAll)
+	if (nIdx >= 0 && nIdx < (int)m_mapTexture.size())
 	{ // 引数のインデックスが範囲内の場合
 
-		if (nIdx > NONE_IDX && nIdx < (int)m_mapTexture.size())
-		{ // テクスチャがある場合
-
-			// 引数のテクスチャポインタを返す
-			return m_mapTexture.find(nIdx)->second.textureData.pTexture;
-		}
-		else
-		{ // テクスチャがない場合
-
-			// nullptrを返す
-			assert(false);
-			return nullptr;
-		}
+		// 引数のテクスチャポインタを返す
+		return m_mapTexture.find(nIdx)->second.textureData.pTexture;
 	}
 	else if (nIdx == NONE_IDX)
 	{ // 引数のインデックスが -1の場合

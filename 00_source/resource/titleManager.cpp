@@ -56,7 +56,7 @@ CTitleManager::~CTitleManager()
 //============================================================
 HRESULT CTitleManager::Init()
 {
-#if 0
+#if 1
 	// ’n–Ê
 	CObjectMeshField* pField = CObjectMeshField::Create(VEC3_ZERO, VEC3_ZERO, VECTOR2(5000.0f, 500.0f), color::Yellow(), POSGRID2(10, 10));
 	pField->SetLabel(CObject::LABEL_DEBUG);
