@@ -32,9 +32,9 @@ namespace
 		{ L'ア', 90 },  // ア～ン (ヺ)
 	};
 
+	const char*	LOAD_EXTENSION = "data\\TXT\\EXTENSION\\font.txt";	// フォント読込拡張子相対パス
 	const char*	LOAD_FOLDER = "data\\FONT";	// フォントフォルダ相対パス
 	const int	FONT_HEIGHT = 240;			// フォント縦幅
-	const CFont::SFont ZERO_FONT;			// フォント初期値
 }
 
 //************************************************************
@@ -50,6 +50,9 @@ CFont::CFont()
 
 	// 読込済みファイルパスをクリア
 	m_vecFilePath.clear();
+
+	// 読み込み可能拡張子をクリア
+	m_load.clear();
 }
 
 //============================================================
@@ -70,6 +73,12 @@ HRESULT CFont::Init()
 
 	// 読込済みファイルパスを初期化
 	m_vecFilePath.clear();
+
+	// 読み込み可能拡張子を初期化
+	m_load.clear();
+
+	// 読み込み可能拡張子の読込
+	m_load = extension::LoadExtension(LOAD_EXTENSION);
 
 	return S_OK;
 }
@@ -109,6 +118,9 @@ void CFont::Uninit()
 
 	// 読込済みファイルパスをクリア
 	m_vecFilePath.clear();
+
+	// 読み込み可能拡張子をクリア
+	m_load.clear();
 }
 
 //============================================================
@@ -212,7 +224,7 @@ CFont::SFont CFont::Regist(const std::string& rFilePath, const bool bItalic)
 
 		// 初期値を返す
 		assert(false);
-		return ZERO_FONT;
+		return {};
 	}
 
 	// フォント文字の生成
@@ -222,7 +234,7 @@ CFont::SFont CFont::Regist(const std::string& rFilePath, const bool bItalic)
 
 		// 初期値を返す
 		assert(false);
-		return ZERO_FONT;
+		return {};
 	}
 
 	// フォント情報を保存
@@ -351,12 +363,16 @@ HRESULT CFont::SearchFolderAll(const std::string& rFolderPath)
 		else
 		{ // ファイルだった場合
 
-			// フォントを読込
-			if (FAILED(Load(sFullPath.c_str())))
-			{ // 登録に失敗した場合
+			if (extension::IsLoadOK(m_load, sFullPath.c_str()))
+			{ // 読込可能な拡張子だった場合
 
-				assert(false);
-				return E_FAIL;
+				// フォントを読込
+				if (FAILED(Load(sFullPath.c_str())))
+				{ // 登録に失敗した場合
+
+					assert(false);
+					return E_FAIL;
+				}
 			}
 		}
 

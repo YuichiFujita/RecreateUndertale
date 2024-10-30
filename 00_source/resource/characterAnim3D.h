@@ -14,6 +14,7 @@
 //	インクルードファイル
 //************************************************************
 #include "objectCharaAnim3D.h"
+#include "extension.h"
 
 //************************************************************
 //	クラス定義
@@ -51,6 +52,7 @@ private:
 
 	// メンバ変数
 	std::map<std::string, AMotion> m_mapCharacter;	// キャラクターアニメーション3D連想配列
+	extension::ALoad m_load;	// 読み込み可能拡張子
 };
 
 #endif	// _CHARACTER_ANIM3D_H_

@@ -16,9 +16,8 @@
 //************************************************************
 namespace
 {
-	const char* LOAD_EXTENSION = "data\\TXT\\EXTENSION\\character.txt";	// キャラクターフォルダ相対パス
+	const char* LOAD_EXTENSION = "data\\TXT\\EXTENSION\\character.txt";	// キャラクター読込拡張子相対パス
 	const char* LOAD_FOLDER = "data\\CHARACTER";	// キャラクターフォルダ相対パス
-	const CCharacter::SCharaData ZERO_CHARADATA;	// キャラクター情報初期値
 }
 
 //************************************************************
@@ -134,7 +133,7 @@ CCharacter::SCharaData CCharacter::Regist(const char* pCharaPath)
 
 		// 初期値を返す
 		assert(false);
-		return ZERO_CHARADATA;
+		return {};
 	}
 
 	// キャラクター情報を保存

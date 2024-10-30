@@ -14,6 +14,7 @@
 //	インクルードファイル
 //************************************************************
 #include "fontChar.h"
+#include "extension.h"
 
 //************************************************************
 //	クラス定義
@@ -96,6 +97,7 @@ private:
 	// メンバ変数
 	std::map<SKey, SFont> m_mapFont;		// フォント連想配列
 	std::vector<std::string> m_vecFilePath;	// 読込済みファイルパス
+	extension::ALoad m_load;				// 読み込み可能拡張子
 };
 
 #endif	// _FONT_H_

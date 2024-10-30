@@ -17,6 +17,7 @@
 //************************************************************
 namespace
 {
+	const char* LOAD_EXTENSION = "data\\TXT\\EXTENSION\\model.txt";	// モデル読込拡張子相対パス
 	const char* LOAD_FOLDER = "data\\MODEL";	// モデルフォルダ相対パス
 }
 
@@ -35,6 +36,9 @@ CModel::CModel()
 {
 	// モデル連想配列をクリア
 	m_mapModel.clear();
+
+	// 読み込み可能拡張子をクリア
+	m_load.clear();
 }
 
 //============================================================
@@ -52,6 +56,12 @@ HRESULT CModel::Init()
 {
 	// モデル連想配列を初期化
 	m_mapModel.clear();
+
+	// 読み込み可能拡張子を初期化
+	m_load.clear();
+
+	// 読み込み可能拡張子の読込
+	m_load = extension::LoadExtension(LOAD_EXTENSION);
 
 	return S_OK;
 }
@@ -76,6 +86,9 @@ void CModel::Uninit()
 
 	// モデル連想配列をクリア
 	m_mapModel.clear();
+
+	// 読み込み可能拡張子をクリア
+	m_load.clear();
 }
 
 //============================================================
@@ -421,8 +434,12 @@ HRESULT CModel::SearchFolderAll(std::string sFolderPath)
 		else
 		{ // ファイルだった場合
 
-			// モデルを登録
-			Regist(sFullPath.c_str());
+			if (extension::IsLoadOK(m_load, sFullPath.c_str()))
+			{ // 読込可能な拡張子だった場合
+
+				// モデルを登録
+				Regist(sFullPath.c_str());
+			}
 		}
 
 	} while (FindNextFile(hFile, &findFileData));	// 次のファイルを検索
