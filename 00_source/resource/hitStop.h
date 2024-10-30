@@ -28,8 +28,9 @@ public:
 	void Uninit();	// I—¹
 	void Update(const float fDeltaTime);	// XV
 	void Draw();							// •`‰æ
-	void SetStop(const int nCounter);		// ’â~ó‹µİ’è
-	inline bool IsStop() const { return m_bStop; }	// ’â~ó‹µæ“¾
+
+	void SetStop(const float fCurTime, std::function<void()> funcEnd = nullptr);	// ’â~ó‹µİ’è
+	bool IsStop() const	{ return m_bStop; }	// ’â~ó‹µæ“¾
 
 	// Ã“Iƒƒ“ƒoŠÖ”
 	static CHitStop* Create();					// ¶¬
@@ -37,8 +38,9 @@ public:
 
 private:
 	// ƒƒ“ƒo•Ï”
-	bool m_bStop;	// ’â~ó‹µ
-	int m_nCounter;	// ’â~ŠÔ
+	std::function<void()> m_funcEndStop;	// ’â~I—¹ŠÖ”ƒ|ƒCƒ“ƒ^
+	bool m_bStop;		// ’â~ó‹µ
+	float m_fCurTime;	// ’â~ŠÔ
 };
 
 #endif	// _HITSTOP_H_
