@@ -59,7 +59,7 @@ HRESULT CMultiValue::Init()
 	m_rot		= VEC3_ZERO;		// 原点向き
 	m_size		= VEC3_ZERO;		// 大きさ
 	m_space		= VEC3_ZERO;		// 空白
-	m_col		= color::White();		// 色
+	m_col		= color::White();	// 色
 	m_alignX	= XALIGN_CENTER;	// 横配置
 	m_alignY	= YALIGN_CENTER;	// 縦配置
 	m_nNum		= 0;				// 数字

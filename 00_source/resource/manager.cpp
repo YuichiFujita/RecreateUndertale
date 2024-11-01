@@ -391,6 +391,12 @@ void CManager::Uninit()
 	SAFE_REF_RELEASE(m_pDebug);
 
 	//--------------------------------------------------------
+	//	スレッドの破棄
+	//--------------------------------------------------------
+	// ローディングの破棄
+	SAFE_REF_RELEASE(m_pLoading);
+
+	//--------------------------------------------------------
 	//	システムの破棄
 	//--------------------------------------------------------
 	// データ保存の破棄
@@ -427,15 +433,6 @@ void CManager::Uninit()
 	SAFE_REF_RELEASE(m_pDeltaTime);
 
 	//--------------------------------------------------------
-	//	スレッドの破棄
-	//--------------------------------------------------------
-	// ローディングの破棄
-	SAFE_REF_RELEASE(m_pLoading);
-
-	// オブジェクトの全破棄
-	CObject::ReleaseAll();
-
-	//--------------------------------------------------------
 	//	情報の破棄
 	//--------------------------------------------------------
 	// テクスチャの破棄
@@ -458,6 +455,9 @@ void CManager::Uninit()
 
 	// シェーダーの破棄
 	CShader::Release();
+
+	// オブジェクトの全破棄
+	CObject::ReleaseAll();
 
 	// 例外処理
 	assert(CObject::GetNumAll() == 0);	// 破棄の失敗
@@ -651,6 +651,9 @@ HRESULT CManager::InitScene(const CScene::EMode mode)
 //============================================================
 HRESULT CManager::SetScene(const CScene::EMode mode)
 {
+	// カメラ更新をオンにする
+	m_pCamera->SetEnableUpdate(true);
+
 	// サウンドを停止
 	assert(m_pSound != nullptr);
 	m_pSound->Stop();
@@ -728,6 +731,9 @@ void CManager::SetLoadScene
 //============================================================
 HRESULT CManager::SetMode()
 {
+	// カメラ更新をオンにする
+	m_pCamera->SetEnableUpdate(true);
+
 	// サウンドの停止
 	assert(m_pSound != nullptr);
 	m_pSound->Stop();
@@ -764,6 +770,9 @@ HRESULT CManager::SetMode()
 //============================================================
 HRESULT CManager::SetLoadMode()
 {
+	// カメラ更新をオンにする
+	m_pCamera->SetEnableUpdate(true);
+
 	// サウンドの停止
 	assert(m_pSound != nullptr);
 	m_pSound->Stop();

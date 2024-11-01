@@ -44,6 +44,7 @@ public:
 	void SetEnableDraw(const bool bDraw) override;		// 描画状況設定
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
 	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
+	void SetVec3Scale(const VECTOR3& rScale) override;	// 拡大率設定
 	inline VECTOR3 GetVec3Position() const override	{ return m_pos; }		// 位置取得
 	inline VECTOR3 GetVec3Rotation() const override	{ return m_rot; }		// 向き取得
 	inline MATRIX* GetPtrMtxWorld() override		{ return &m_mtxWorld; }	// マトリックスポインタ取得
@@ -58,7 +59,7 @@ public:
 	// メンバ関数
 	void SetPartsInfo	// パーツ情報設定
 	( // 引数
-		const int nIdx,			// パーツインデックス
+		const int nPartsIdx,	// パーツインデックス
 		const int nParentIdx,	// 親インデックス
 		const VECTOR3& rPos,	// 位置
 		const VECTOR3& rRot,	// 向き
@@ -66,9 +67,8 @@ public:
 	);
 
 	void BindCharaData(const char* pCharaPath);	// キャラクター情報割当
-	void SetMtxWorld(const MATRIX& rMtxWorld);	// マトリックス設定
 	void SetNumParts(const int nNumParts);		// パーツ数設定
-	void SetPartsInfo(CCharacter::SPartsInfo& rInfo);						// パーツ情報設定
+	void SetPartsInfoAll(CCharacter::SPartsInfo& rInfo);					// パーツ情報全設定
 	void SetPartsPosition(const int nPartsIdx, const VECTOR3& rPos);		// パーツ位置設定
 	void SetPartsRotation(const int nPartsIdx, const VECTOR3& rRot);		// パーツ向き設定
 	VECTOR3 GetPartsPosition(const int nPartsIdx) const;					// パーツ位置取得

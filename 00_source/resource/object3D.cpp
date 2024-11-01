@@ -426,6 +426,9 @@ void CObject3D::SetGapPosition(const int nIdx, const VECTOR3& rPos)
 
 			// 頂点のずれを設定
 			m_pPosGapBuff[nIdx] = rPos;
+
+			// 頂点情報の設定
+			SetVtx();
 		}
 		else { assert(false); }	// 使用不可
 	}

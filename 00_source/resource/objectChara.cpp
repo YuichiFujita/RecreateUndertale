@@ -169,6 +169,23 @@ void CObjectChara::SetVec3Rotation(const VECTOR3& rRot)
 }
 
 //============================================================
+//	拡大率の設定処理
+//============================================================
+void CObjectChara::SetVec3Scale(const VECTOR3& rScale)
+{
+	for (auto& rVec : m_vecParts)
+	{ // パーツ数分繰り返す
+
+		if (rVec->GetParentObject() == nullptr)
+		{ // 親がいない場合
+
+			// パーツの拡大率を設定
+			rVec->SetVec3Scale(rScale);
+		}
+	}
+}
+
+//============================================================
 //	生成処理
 //============================================================
 CObjectChara* CObjectChara::Create(const VECTOR3& rPos, const VECTOR3& rRot)
@@ -217,7 +234,7 @@ void CObjectChara::SetMotion(const int nType, const int nBlendFrame)
 //============================================================
 void CObjectChara::SetPartsInfo
 (
-	const int nIdx,			// パーツインデックス
+	const int nPartsIdx,	// パーツインデックス
 	const int nParentIdx,	// 親インデックス
 	const VECTOR3& rPos,	// 位置
 	const VECTOR3& rRot,	// 向き
@@ -226,34 +243,34 @@ void CObjectChara::SetPartsInfo
 {
 	// インデックスが非正規の場合抜ける
 	int nNumParts = GetNumParts();	// パーツの総数
-	if (nIdx <= NONE_IDX || nIdx >= nNumParts) { assert(false); return; }
+	if (nPartsIdx  <= NONE_IDX     || nPartsIdx  >= nNumParts) { assert(false); return; }
 	if (nParentIdx <= NONE_IDX - 1 || nParentIdx >= nNumParts) { assert(false); return; }
 
 	// ファイル指定がない場合抜ける
 	if (pFileName == nullptr) { assert(false); return; }
 
 	// モデルの原点位置・向きを設定
-	m_pMotion->SetOriginPosition(rPos, nIdx);
-	m_pMotion->SetOriginRotation(rRot, nIdx);
+	m_pMotion->SetOriginPosition(rPos, nPartsIdx);
+	m_pMotion->SetOriginRotation(rRot, nPartsIdx);
 
 	// モデルの生成
-	m_vecParts[nIdx] = CMultiModel::Create(rPos, rRot);
+	m_vecParts[nPartsIdx] = CMultiModel::Create(rPos, rRot);
 
 	// モデルを割当
-	m_vecParts[nIdx]->BindModel(pFileName);
+	m_vecParts[nPartsIdx]->BindModel(pFileName);
 
 	// 親モデルの設定
 	if (nParentIdx == NONE_IDX)
 	{ // 親がない場合
 
 		// nullptrを設定
-		m_vecParts[nIdx]->SetParentModel(nullptr);
+		m_vecParts[nPartsIdx]->SetParentObject(nullptr);
 	}
 	else
 	{ // 親がいる場合
 
 		// 親のアドレスを設定
-		m_vecParts[nIdx]->SetParentModel(m_vecParts[nParentIdx]);
+		m_vecParts[nPartsIdx]->SetParentObject(m_vecParts[nParentIdx]);
 	}
 }
 
@@ -273,23 +290,14 @@ void CObjectChara::BindCharaData(const char* pCharaPath)
 	// 自身とモーションのパーツ数を設定
 	SetNumParts(data.infoParts.GetNumParts());
 
-	// 自身のパーツ情報を設定
-	SetPartsInfo(data.infoParts);
+	// 自身のパーツ情報を全設定
+	SetPartsInfoAll(data.infoParts);
 
 	// モーションにパーツ情報を割当
 	m_pMotion->BindPartsData(&m_vecParts[0]);
 
 	// モーションにモーション情報の全設定
 	m_pMotion->SetAllInfo(data.infoMotion);
-}
-
-//============================================================
-//	マトリックスの設定処理
-//============================================================
-void CObjectChara::SetMtxWorld(const MATRIX& rMtxWorld)
-{
-	// 引数のマトリックスを設定
-	m_mtxWorld = rMtxWorld;
 }
 
 //============================================================
@@ -321,16 +329,16 @@ void CObjectChara::SetNumParts(const int nNumParts)
 }
 
 //============================================================
-//	パーツ情報の設定処理
+//	パーツ情報の全設定処理
 //============================================================
-void CObjectChara::SetPartsInfo(CCharacter::SPartsInfo& rInfo)
+void CObjectChara::SetPartsInfoAll(CCharacter::SPartsInfo& rInfo)
 {
 	for (int nCntParts = 0; nCntParts < rInfo.GetNumParts(); nCntParts++)
 	{ // パーツ数分繰り返す
 
 		// パーツ情報の設定
 		CCharacter::SParts* pParts = &rInfo.vecParts[nCntParts];	// パーツ情報
-		CObjectChara::SetPartsInfo
+		SetPartsInfo
 		( // 引数
 			nCntParts,				// パーツインデックス
 			pParts->nParentIdx,		// 親インデックス

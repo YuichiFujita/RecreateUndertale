@@ -47,8 +47,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE /*hInstancePrev*/, LPSTR /*lpC
 	// 終了時にメモリリークを出力
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-	WNDCLASSEX wcex =
-	{ // 初期値
+	WNDCLASSEX wcex =	// ウィンドウプロパティ
+	{
 		sizeof(WNDCLASSEX),									// WNDCLASSEXのメモリサイズ
 		CS_CLASSDC,											// ウインドウのスタイル
 		WindowProc,											// ウインドウプロシージャ
@@ -63,15 +63,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE /*hInstancePrev*/, LPSTR /*lpC
 		LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON1))		// ファイルのアイコン
 	};
 	RECT rect =	// 画面サイズ
-	{ // 初期値
-		0,				// ウインドウの左上 X座標
-		0,				// ウインドウの左上 Y座標
+	{
+		0,				// ウインドウの左上X座標
+		0,				// ウインドウの左上Y座標
 		SCREEN_WIDTH,	// ウインドウの幅
 		SCREEN_HEIGHT	// ウインドウの高さ
 	};
-
-	HWND  hWnd;	// ウインドウハンドル (識別子)
-	MSG   msg;	// メッセージを格納する変数
+	HWND  hWnd = {};	// ウインドウハンドル (識別子)
+	MSG   msg  = {};	// メッセージを格納する変数
 	DWORD dwCurrentTime  = 0;				// 現在時刻
 	DWORD dwExecLastTime = timeGetTime();	// 最後に処理した時刻
 	CManager* pManager   = nullptr;			// マネージャー情報
@@ -112,7 +111,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE /*hInstancePrev*/, LPSTR /*lpC
 	// マネージャーの生成
 	pManager = CManager::Create(hInstance, hWnd, FULLSCREEN);
 	if (pManager == nullptr)
-	{ // 非使用中の場合
+	{ // 生成に失敗した場合
 
 		// 例外を返す
 		assert(false);
@@ -121,15 +120,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE /*hInstancePrev*/, LPSTR /*lpC
 
 	// メッセージループ
 	while (1)
-	{ // 無限ループ
-
+	{
 		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE) != 0)
 		{ // Windowsの処理
 
 			if (msg.message == WM_QUIT)
 			{ // WM_QUITメッセージを受け取った場合
 
-				// メッセージループを抜ける
 				break;
 			}
 			else

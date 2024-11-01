@@ -43,9 +43,9 @@ public:
 	);
 
 	// メンバ関数
-	void SetParentObject(CObject* pObject);		// 親オブジェクト設定
-	void SetParentModel(CMultiModel* pModel);	// 親オブジェクト設定
-	void DeleteParentObject();					// 親オブジェクト削除
+	inline CObject* GetParentObject() const { return m_pParent; }	// 親オブジェクト取得
+	void SetParentObject(CObject* pObject);	// 親オブジェクト設定
+	void DeleteParentObject();				// 親オブジェクト削除
 
 private:
 	// オーバーライド関数
