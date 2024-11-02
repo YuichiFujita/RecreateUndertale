@@ -46,36 +46,38 @@ public:
 	// 静的メンバ関数
 	static CObjectMeshField* Create	// 生成
 	( // 引数
-		const VECTOR3& rPos,	// 位置
-		const VECTOR3& rRot,	// 向き
-		const VECTOR2& rSize,	// 大きさ
-		const COLOR& rCol,		// 色
-		const POSGRID2& rPart	// 分割数
+		const VECTOR3& rPos,		// 位置
+		const VECTOR3& rRot,		// 向き
+		const VECTOR2& rSize,		// 大きさ
+		const COLOR& rCol,			// 色
+		const POSGRID2& rPart,		// 分割数
+		const POSGRID2& rTexPart	// テクスチャ分割数
 	);
 
 	// メンバ関数
-	CRenderState* GetRenderState();				// レンダーステート情報取得
-	void BindTexture(const int nTextureIdx);	// テクスチャ割当 (インデックス)
-	void BindTexture(const char* pTexturePath);	// テクスチャ割当 (パス)
-	void SetAlpha(const float fAlpha);			// 透明度設定
-	void SetColor(const COLOR& rCol);			// 色設定
-	HRESULT SetPattern(const POSGRID2& rPart);	// 分割数設定
-	inline int GetTextureIndex() const	{ return m_nTextureIdx; }	// テクスチャインデックス取得
-	inline float GetAlpha() const		{ return m_col.a; }			// 透明度取得
-	inline COLOR GetColor() const		{ return m_col; }			// 色取得
-	inline POSGRID2 GetPattern() const	{ return m_part; }			// 分割数取得
-	inline int GetNumVertex() const		{ return m_nNumVtx; }		// 頂点数取得
+	CRenderState* GetRenderState();					// レンダーステート情報取得
+	void BindTexture(const int nTextureIdx);		// テクスチャ割当 (インデックス)
+	void BindTexture(const char* pTexturePath);		// テクスチャ割当 (パス)
+	void SetAlpha(const float fAlpha);				// 透明度設定
+	void SetColor(const COLOR& rCol);				// 色設定
+	HRESULT SetPattern(const POSGRID2& rPart);		// 分割数設定
+	void SetTexPattern(const POSGRID2& rTexPart);	// テクスチャ分割数設定
+	inline int GetTextureIndex() const		{ return m_nTextureIdx; }	// テクスチャインデックス取得
+	inline float GetAlpha() const			{ return m_col.a; }			// 透明度取得
+	inline COLOR GetColor() const			{ return m_col; }			// 色取得
+	inline POSGRID2 GetPattern() const		{ return m_part; }			// 分割数取得
+	inline POSGRID2 GetTexPattern() const	{ return m_texPart; }		// テクスチャ分割数取得
+	inline int GetNumVertex() const			{ return m_nNumVtx; }		// 頂点数取得
 
 	void SetGapPosition(const int nIdx, const VECTOR3& rPos);			// 座標のずれ設定
 	VECTOR3 GetGapPosition(const int nIdx);								// 座標のずれ取得
-	void NormalizeNormal();												// 法線の正規化
-	bool LandPosition(VECTOR3& rPos, VECTOR3& rMove);					// メッシュ着地
 	void SetMeshVertexPosition(const int nIdx, const VECTOR3& rPos);	// メッシュの頂点位置設定
+	VECTOR3 GetMeshVertexPosition(const int nIdx);						// メッシュの頂点位置取得
+	bool LandPosition(VECTOR3& rPos, VECTOR3& rMove);					// メッシュ着地
 	void SetTerrain(const POSGRID2& rPart, VECTOR3* pPosGap);			// 地形設定
-	VECTOR3 GetMeshVertexPosition(const int nIdx);		// メッシュの頂点位置取得
-	bool IsPositionRange(const VECTOR3& rPos);			// メッシュの範囲内取得
-	float GetPositionHeight(const VECTOR3& rPos);		// メッシュの着地位置取得 (回転非考慮)
-	float GetPositionRotateHeight(const VECTOR3& rPos);	// メッシュの着地位置取得 (回転考慮)
+	bool IsPositionRange(const VECTOR3& rPos);		// メッシュの範囲内取得
+	float GetPositionHeight(const VECTOR3& rPos);	// メッシュの着地位置取得
+	void NormalizeNormal();							// 法線の正規化
 
 protected:
 	// 仮想関数
@@ -117,6 +119,7 @@ private:
 	VECTOR2 m_size;			// 大きさ
 	COLOR m_col;			// 色
 	POSGRID2 m_part;		// 分割数
+	POSGRID2 m_texPart;		// テクスチャ分割数
 	int m_nNumVtx;			// 必要頂点数
 	int m_nNumIdx;			// 必要インデックス数
 	int m_nTextureIdx;		// テクスチャインデックス

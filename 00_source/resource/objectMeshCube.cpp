@@ -590,7 +590,7 @@ void CObjectMeshCube::SetVtx()
 
 				switch (m_origin)
 				{ // 原点ごとの処理
-				case ORIGIN_CENTER:	// 中央
+				case ORIGIN_CENTER:	// 中央原点
 
 					// 頂点座標の設定
 					pVtx[0].pos.x = (m_size.x * SET_POS_DATA[nVtxIdx].x) - (fSetBord * fUseBord * -SET_POS_DATA[nVtxIdx].x);
