@@ -60,10 +60,12 @@ HRESULT CTitleManager::Init()
 	// ’n–Ê
 	CObjectMeshField* pField = CObjectMeshField::Create(VEC3_ZERO, VEC3_ZERO, VECTOR2(5000.0f, 500.0f), color::Yellow(), POSGRID2(10, 10), POSGRID2(10, 10));
 	pField->SetLabel(CObject::LABEL_DEBUG);
+	pField->BindTexture("data\\TEXTURE\\logo000.png");
 
 	// •Ç
-	CObjectMeshWall* pWall = CObjectMeshWall::Create(VECTOR3(0.0f, 0.0f, 250.0f), VEC3_ZERO, VECTOR2(5000.0f, 500.0f), color::Cyan(), POSGRID2(10, 10));
+	CObjectMeshWall* pWall = CObjectMeshWall::Create(VECTOR3(0.0f, 0.0f, 250.0f), VEC3_ZERO, VECTOR2(5000.0f, 500.0f), color::Cyan(), POSGRID2(10, 10), POSGRID2(10, 10));
 	pWall->SetLabel(CObject::LABEL_DEBUG);
+	pWall->BindTexture("data\\TEXTURE\\logo000.png");
 
 	// 3D
 	CObject3D* p3D = CObject3D::Create(VECTOR3(0.0f, 50.0f, 0.0f), VECTOR3(50.0f, 50.0f, 0.0f));
