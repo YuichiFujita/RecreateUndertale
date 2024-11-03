@@ -11,11 +11,6 @@
 #define _USEFUL_H_
 
 //************************************************************
-//	インクルードファイル
-//************************************************************
-#include "renderState.h"
-
-//************************************************************
 //	マクロ定義
 //************************************************************
 // 便利マクロ
@@ -27,7 +22,6 @@
 
 #define HALF_PI	(D3DX_PI * 0.5f)	// 二分の一の円周率 (π/２)
 #define QRTR_PI	(D3DX_PI * 0.25f)	// 四分の一の円周率 (π/４)
-
 #define NUM_ARRAY(a)	(sizeof((a)) / sizeof((a)[0]))	// 配列の要素数計算
 
 // メモリ開放マクロ
@@ -69,11 +63,6 @@
 
 // MATRIX関係
 #define MTX_IDENT	(MATRIX())	// 単位マトリックスクリア
-
-// RenderState関係
-#define RS_BL_NOR	(CRenderState::SBlendAlpha(D3DBLENDOP_ADD,			D3DBLEND_SRCALPHA,	D3DBLEND_INVSRCALPHA))	// 通常αブレンド
-#define RS_BL_ADD	(CRenderState::SBlendAlpha(D3DBLENDOP_ADD,			D3DBLEND_SRCALPHA,	D3DBLEND_ONE))			// 加算αブレンド
-#define RS_BL_SUB	(CRenderState::SBlendAlpha(D3DBLENDOP_REVSUBTRACT,	D3DBLEND_SRCALPHA,	D3DBLEND_ONE))			// 減算αブレンド
 
 //************************************************************
 //	列挙型定義

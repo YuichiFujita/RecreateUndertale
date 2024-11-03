@@ -12,6 +12,13 @@
 #include "renderer.h"
 
 //************************************************************
+//	マクロ定義
+//************************************************************
+#define RS_BL_NOR	(CRenderState::SBlendAlpha(D3DBLENDOP_ADD,			D3DBLEND_SRCALPHA,	D3DBLEND_INVSRCALPHA))	// 通常αブレンド
+#define RS_BL_ADD	(CRenderState::SBlendAlpha(D3DBLENDOP_ADD,			D3DBLEND_SRCALPHA,	D3DBLEND_ONE))			// 加算αブレンド
+#define RS_BL_SUB	(CRenderState::SBlendAlpha(D3DBLENDOP_REVSUBTRACT,	D3DBLEND_SRCALPHA,	D3DBLEND_ONE))			// 減算αブレンド
+
+//************************************************************
 //	定数宣言
 //************************************************************
 namespace
@@ -222,27 +229,29 @@ CRenderState::SInfo CRenderState::GetSaveRenderState()
 //============================================================
 void CRenderState::SetRenderState(const SInfo& rInfo)
 {
+	LPDIRECT3DDEVICE9 pDevice = *m_ppDevice;	// デバイス情報
+
 	// デバイス未設定
-	assert(*m_ppDevice != nullptr);
+	assert(pDevice != nullptr);
 
 	// αブレンディングを設定
-	(*m_ppDevice)->SetRenderState(D3DRS_ALPHABLENDENABLE, rInfo.blendAlpha.bBlend);
-	(*m_ppDevice)->SetRenderState(D3DRS_BLENDOP, rInfo.blendAlpha.op);
-	(*m_ppDevice)->SetRenderState(D3DRS_SRCBLEND, rInfo.blendAlpha.scr);
-	(*m_ppDevice)->SetRenderState(D3DRS_DESTBLEND, rInfo.blendAlpha.dest);
+	pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, rInfo.blendAlpha.bBlend);
+	pDevice->SetRenderState(D3DRS_BLENDOP, rInfo.blendAlpha.op);
+	pDevice->SetRenderState(D3DRS_SRCBLEND, rInfo.blendAlpha.scr);
+	pDevice->SetRenderState(D3DRS_DESTBLEND, rInfo.blendAlpha.dest);
 
 	// αテストを設定
-	(*m_ppDevice)->SetRenderState(D3DRS_ALPHAFUNC, rInfo.testAlpha.func);			// αテストの設定
-	(*m_ppDevice)->SetRenderState(D3DRS_ALPHAREF, rInfo.testAlpha.nRef);			// αテストの参照値設定
-	(*m_ppDevice)->SetRenderState(D3DRS_ALPHATESTENABLE, rInfo.testAlpha.bTest);	// αテストの有効 / 無効の設定
+	pDevice->SetRenderState(D3DRS_ALPHAFUNC, rInfo.testAlpha.func);			// αテストの設定
+	pDevice->SetRenderState(D3DRS_ALPHAREF, rInfo.testAlpha.nRef);			// αテストの参照値設定
+	pDevice->SetRenderState(D3DRS_ALPHATESTENABLE, rInfo.testAlpha.bTest);	// αテストの有効 / 無効の設定
 
 	// Zテストを設定
-	(*m_ppDevice)->SetRenderState(D3DRS_ZFUNC, rInfo.testZ.func);			// Zテストの設定
-	(*m_ppDevice)->SetRenderState(D3DRS_ZWRITEENABLE, rInfo.testZ.bUpdate);	// Zバッファ更新の有効 / 無効の設定
+	pDevice->SetRenderState(D3DRS_ZFUNC, rInfo.testZ.func);				// Zテストの設定
+	pDevice->SetRenderState(D3DRS_ZWRITEENABLE, rInfo.testZ.bUpdate);	// Zバッファ更新の有効 / 無効の設定
 
 	// ポリゴンの表示状態を設定
-	(*m_ppDevice)->SetRenderState(D3DRS_CULLMODE, rInfo.cull);
+	pDevice->SetRenderState(D3DRS_CULLMODE, rInfo.cull);
 
 	// ライティングを設定
-	(*m_ppDevice)->SetRenderState(D3DRS_LIGHTING, rInfo.bLight);
+	pDevice->SetRenderState(D3DRS_LIGHTING, rInfo.bLight);
 }
