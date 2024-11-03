@@ -314,59 +314,58 @@ bool CPause::IsDebugDisp() const
 //============================================================
 void CPause::Select()
 {
+	// フェード中の場合抜ける
+	if (GET_MANAGER->GetFade()->IsFade()) { return; }
+
 	CInputKeyboard*	pKeyboard	= GET_INPUTKEY;	// キーボード
 	CInputPad*		pPad		= GET_INPUTPAD;	// パッド
-	if (!GET_MANAGER->GetFade()->IsFade())
-	{ // フェードしていない場合
+	if (pKeyboard->IsTrigger(DIK_W)
+	||  pKeyboard->IsTrigger(DIK_UP)
+	||  pPad->IsTrigger(CInputPad::KEY_UP))
+	{ // 上移動の操作が行われた場合
 
-		if (pKeyboard->IsTrigger(DIK_W)
-		||  pKeyboard->IsTrigger(DIK_UP)
-		||  pPad->IsTrigger(CInputPad::KEY_UP))
-		{ // 上移動の操作が行われた場合
+		// 上に選択をずらす
+		m_nSelect = (m_nSelect + (SELECT_MAX - 1)) % SELECT_MAX;
+	}
+	if (pKeyboard->IsTrigger(DIK_S)
+	||  pKeyboard->IsTrigger(DIK_DOWN)
+	||  pPad->IsTrigger(CInputPad::KEY_DOWN))
+	{ // 下移動の操作が行われた場合
 
-			// 上に選択をずらす
-			m_nSelect = (m_nSelect + (SELECT_MAX - 1)) % SELECT_MAX;
-		}
-		if (pKeyboard->IsTrigger(DIK_S)
-		||  pKeyboard->IsTrigger(DIK_DOWN)
-		||  pPad->IsTrigger(CInputPad::KEY_DOWN))
-		{ // 下移動の操作が行われた場合
+		// 下に選択をずらす
+		m_nSelect = (m_nSelect + 1) % SELECT_MAX;
+	}
 
-			// 下に選択をずらす
-			m_nSelect = (m_nSelect + 1) % SELECT_MAX;
-		}
+	if (pKeyboard->IsTrigger(DIK_RETURN)  || pKeyboard->IsTrigger(DIK_SPACE)
+	||  pPad->IsTrigger(CInputPad::KEY_A) || pPad->IsTrigger(CInputPad::KEY_B)
+	||  pPad->IsTrigger(CInputPad::KEY_X) || pPad->IsTrigger(CInputPad::KEY_Y))
+	{ // 決定の操作が行われた場合
 
-		if (pKeyboard->IsTrigger(DIK_RETURN)  || pKeyboard->IsTrigger(DIK_SPACE)
-		||  pPad->IsTrigger(CInputPad::KEY_A) || pPad->IsTrigger(CInputPad::KEY_B)
-		||  pPad->IsTrigger(CInputPad::KEY_X) || pPad->IsTrigger(CInputPad::KEY_Y))
-		{ // 決定の操作が行われた場合
+		switch (m_nSelect)
+		{ // 選択ごとの処理
+		case SELECT_RESUME:	// 再開
 
-			switch (m_nSelect)
-			{ // 選択ごとの処理
-			case SELECT_RESUME:	// 再開
+			// ポーズを終了する
+			m_bPause = false;
 
-				// ポーズを終了する
-				m_bPause = false;
+			// 全タイマーの計測状況の設定
+			CTimer::EnableStopAll(m_bPause);
 
-				// 全タイマーの計測状況の設定
-				CTimer::EnableStopAll(m_bPause);
+			// 描画状況の設定
+			SetEnableDraw(m_bPause);
+			break;
 
-				// 描画状況の設定
-				SetEnableDraw(m_bPause);
-				break;
+		case SELECT_RETRY:	// リトライ
 
-			case SELECT_RETRY:	// リトライ
+			// ゲーム画面に遷移
+			GET_MANAGER->SetFadeScene(CScene::MODE_GAME);
+			break;
 
-				// ゲーム画面に遷移
-				GET_MANAGER->SetFadeScene(CScene::MODE_GAME);
-				break;
+		case SELECT_EXIT:	// 終了
 
-			case SELECT_EXIT:	// 終了
-
-				// タイトル画面に遷移
-				GET_MANAGER->SetFadeScene(CScene::MODE_TITLE);
-				break;
-			}
+			// タイトル画面に遷移
+			GET_MANAGER->SetFadeScene(CScene::MODE_TITLE);
+			break;
 		}
 	}
 }

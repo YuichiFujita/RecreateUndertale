@@ -11,31 +11,33 @@
 #define _PRECOMPILE_H_
 
 //************************************************************
+//	警告メッセージ無効化
+//************************************************************
+#pragma warning(disable : 26812)	// enumclass警告の削除
+
+//************************************************************
+//	マクロ定義
+//************************************************************
+#define _CRT_SECURE_NO_WARNINGS	// ビルド時の警告対処用マクロ
+#define _CRTDBG_MAP_ALLOC		// メモリリーク出力用マクロ
+#define  DIRECTINPUT_VERSION	(0x0800)	// ビルド時の警告対処用マクロ
+
+//************************************************************
 //	インクルードファイル
 //************************************************************
-// ビルド時の警告対処用マクロ
-#define _CRT_SECURE_NO_WARNINGS
-
 #include <windows.h>
 #include <stdio.h>
 #include <time.h>
 #include <assert.h>
 #include <d3dx9.h>
-
-// ビルド時の警告対処用マクロ
-#define  DIRECTINPUT_VERSION	(0x0800)
-#include <dinput.h>		// 入力処理
-
+#include <dinput.h>		// 入力
 #include <Xinput.h>		// パッド
 #include <xaudio2.h>	// サウンド
-
-// メモリリーク出力用マクロ
-#define _CRTDBG_MAP_ALLOC
 #include <crtdbg.h>		// メモリリーク検出に必要
-
 #include <iostream>		// 入出力ストリーム
 #include <fstream>		// ファイル入出力ストリーム
 #include <sstream>		// 文字列入出力ストリーム
+#include <iomanip>		// 小数点出力
 #include <filesystem>	// ファイル操作
 #include <functional>	// 関数ポインタ
 #include <string>		// 文字列
