@@ -447,6 +447,9 @@
     <ClCompile Include="resource\extension.cpp">
       <Filter>utility</Filter>
     </ClCompile>
+    <ClCompile Include="resource\renderTexture.cpp">
+      <Filter>system</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h">
@@ -817,6 +820,9 @@
     </ClInclude>
     <ClInclude Include="resource\extension.h">
       <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\renderTexture.h">
+      <Filter>system</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
