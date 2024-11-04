@@ -167,6 +167,9 @@ struct VECTOR2 : public D3DXVECTOR2
 	/* @brief ベクトルの反転 */
 	inline void Invert() { *this = VECTOR2(-x, -y); }
 
+	/* @brief ベクトルの絶対値 */
+	inline void Absolute() { *this = VECTOR2(fabsf(x), fabsf(y)); }
+
 	/*
 		@brief	許容される誤差の範囲内にあるか
 		@param	const float [in] 許容範囲
@@ -271,6 +274,9 @@ struct VECTOR3 : public D3DXVECTOR3
 
 	/* @brief ベクトルの反転 */
 	inline void Invert() { *this = VECTOR3(-x, -y, -z); }
+
+	/* @brief ベクトルの絶対値 */
+	inline void Absolute() { *this = VECTOR3(fabsf(x), fabsf(y), fabsf(z)); }
 
 	/*
 		@brief	許容される誤差の範囲内にあるか
@@ -414,6 +420,9 @@ struct POSGRID2
 	/* @brief 方眼座標の反転 */
 	inline void Invert() { *this = POSGRID2(-x, -y); }
 
+	/* @brief 方眼座標の絶対値 */
+	inline void Absolute() { *this = POSGRID2(std::abs(x), std::abs(y)); }
+
 	/*
 		@brief	要素がすべてゼロか
 		@return	判定結果
@@ -553,6 +562,9 @@ struct POSGRID3
 	//********************************************************
 	/* @brief 方眼座標の反転 */
 	inline void Invert() { *this = POSGRID3(-x, -y, -z); }
+
+	/* @brief 方眼座標の絶対値 */
+	inline void Absolute() { *this = POSGRID3(std::abs(x), std::abs(y), std::abs(z)); }
 
 	/*
 		@brief	要素がすべてゼロか
