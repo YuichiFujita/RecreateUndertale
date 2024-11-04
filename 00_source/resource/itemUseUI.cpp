@@ -123,6 +123,6 @@ void CItemUseUI::NextText()
 	if (nTextIdx + 1 >= nNumText)
 	{ // 最終テキストの場合
 
-		PushBackString(L" ＊ そこそこ回復したで");
+		PushBackString(" ＊ そこそこ回復したで");
 	}
 }

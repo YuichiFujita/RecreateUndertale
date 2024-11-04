@@ -182,7 +182,7 @@ void CFrameText2D::ChangeText(const AText& rText)
 	{ // •¶Žš—ñ‚Ì”•ªŒJ‚è•Ô‚·
 
 		// •¶Žš—ñ‚ðÅŒã”ö‚É’Ç‰Á
-		m_pText->PushBackString(useful::MultiByteToWide(rText[i]));
+		m_pText->PushBackString(rText[i]);
 	}
 
 	// •¶Žš—ñ‚ð‘S‚Ä”ñ•\Ž¦‚É‚·‚é

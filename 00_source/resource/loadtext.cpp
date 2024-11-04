@@ -118,7 +118,20 @@ std::vector<std::wstring> loadtext::LoadText(const char* pFilePath, const int nT
 }
 
 //============================================================
-//	テキストの割当処理
+//	テキストの割当処理 (マルチバイト文字列)
+//============================================================
+void loadtext::BindText(CText2D* pText2D, const std::vector<std::string>& rVecStr)
+{
+	for (int i = 0; i < (int)rVecStr.size(); i++)
+	{ // 文字列数分繰り返す
+
+		// 文字列を最後尾に追加
+		pText2D->PushBackString(rVecStr[i]);
+	}
+}
+
+//============================================================
+//	テキストの割当処理 (ワイド文字列)
 //============================================================
 void loadtext::BindText(CText2D* pText2D, const std::vector<std::wstring>& rVecStr)
 {
@@ -131,7 +144,19 @@ void loadtext::BindText(CText2D* pText2D, const std::vector<std::wstring>& rVecS
 }
 
 //============================================================
-//	文字列の割当処理
+//	文字列の割当処理 (マルチバイト文字列)
+//============================================================
+void loadtext::BindString(CString2D* pString2D, const std::vector<std::string>& rVecStr)
+{
+	// 文字列が一つではない場合エラー
+	assert((int)rVecStr.size() == 1);
+
+	// 文字列を設定
+	pString2D->SetString(rVecStr[0]);
+}
+
+//============================================================
+//	文字列の割当処理 (ワイド文字列)
 //============================================================
 void loadtext::BindString(CString2D* pString2D, const std::vector<std::wstring>& rVecStr)
 {

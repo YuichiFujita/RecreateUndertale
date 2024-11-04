@@ -191,9 +191,9 @@ HRESULT CMenuStatusUI::Init()
 
 	// TODO：ステータスの取得
 #if 1
-	m_pValue->PushBackString(L"1");
-	m_pValue->PushBackString(useful::SandString(L"20", L"/", L"20"));
-	m_pValue->PushBackString(L"0");
+	m_pValue->PushBackString("1");
+	m_pValue->PushBackString(useful::SandString("20", "/", "20"));
+	m_pValue->PushBackString("0");
 #endif
 
 	// 優先順位を設定
