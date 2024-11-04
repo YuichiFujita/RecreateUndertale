@@ -86,7 +86,8 @@ public:
 private:
 	// メンバ関数
 	HRESULT LoadSetup();	// セットアップ
-	ATextBox LoadText(std::ifstream& rFile, const char* pEndStr);	// テキストセットアップ
+	ATextBox LoadText(std::ifstream& rFile, const char* pEndStr, const CItemData& rItem);	// テキストセットアップ
+	void ReplaceCommand(std::string* pStr, const CItemData& rItem);	// 文字列内のコマンドの置換
 
 	// メンバ変数
 	std::vector<CItemData*> m_vecItemData;	// アイテム動的配列

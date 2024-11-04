@@ -11,16 +11,16 @@ ITEMSET
 	
 	USE
 		TEXT
-			STR =  ＊ モンスターあめを　たべた。
+			STR =  ＊ /nameを　たべた。
 		END_TEXT
 		TEXT
-			STR =  ＊ モンスターあめを　たべたよ。
+			STR =  ＊ /nameを　たべたよ。
 		END_TEXT
 		TEXT
-			STR =  ＊ モンスターあめを　たべたって。
+			STR =  ＊ /nameを　たべたって。
 		END_TEXT
 		TEXT
-			STR =  ＊ モンスターあめを　たべたっつてるだろ！！！
+			STR =  ＊ /nameを　たべたっつてるだろ！！！
 		END_TEXT
 	END_USE
 	

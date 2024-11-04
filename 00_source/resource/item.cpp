@@ -18,6 +18,7 @@
 namespace
 {
 	const char* LOAD_TXT = "data\\TXT\\item.txt";	// アイテムテキスト相対パス
+	const std::string CMD_NAME = "/name";	// 文字列を名前に置き換えるコマンド
 }
 
 //************************************************************
@@ -297,12 +298,12 @@ HRESULT CItem::LoadSetup()
 				else if (str == "USE")
 				{
 					// 使用テキスト情報のセットアップ
-					m_vecItemData[nIdx]->SetUse(LoadText(file, "END_USE"));
+					m_vecItemData[nIdx]->SetUse(LoadText(file, "END_USE", *m_vecItemData[nIdx]));
 				}
 				else if (str == "INFO")
 				{
 					// 情報テキスト情報のセットアップ
-					m_vecItemData[nIdx]->SetInfo(LoadText(file, "END_INFO"));
+					m_vecItemData[nIdx]->SetInfo(LoadText(file, "END_INFO" , *m_vecItemData[nIdx]));
 				}
 			} while (str != "END_ITEMSET");	// END_ITEMSETを読み込むまでループ
 
@@ -320,7 +321,7 @@ HRESULT CItem::LoadSetup()
 //============================================================
 //	テキスト情報のセットアップ処理
 //============================================================
-ATextBox CItem::LoadText(std::ifstream& rFile, const char* pEndStr)
+ATextBox CItem::LoadText(std::ifstream& rFile, const char* pEndStr, const CItemData& rItem)
 {
 	ATextBox text = {};	// 読込テキスト情報
 	int nBoxIdx = 0;	// テキストボックスインデックス
@@ -350,6 +351,9 @@ ATextBox CItem::LoadText(std::ifstream& rFile, const char* pEndStr)
 					rFile.seekg(1, std::ios::cur);	// 読込位置を空白分ずらす
 					std::getline(rFile, str);		// 一行全て読み込む
 
+					// 文字列内のコマンドを置換
+					ReplaceCommand(&str, rItem);
+
 					// 文字列を最後尾に追加
 					text[nBoxIdx].push_back(str);
 				}
@@ -362,4 +366,19 @@ ATextBox CItem::LoadText(std::ifstream& rFile, const char* pEndStr)
 
 	// 読み込んだテキストを返す
 	return text;
+}
+
+//============================================================
+//	文字列内のコマンドの置換処理
+//============================================================
+void CItem::ReplaceCommand(std::string* pStr, const CItemData& rItem)
+{
+	// 名前変換コマンドの検索
+	size_t idxName = pStr->find(CMD_NAME);
+	if (idxName != std::string::npos)
+	{ // コマンドが存在した場合
+
+		// アイテム名に変換する
+		pStr->replace(idxName, CMD_NAME.length(), rItem.GetName());
+	}
 }
