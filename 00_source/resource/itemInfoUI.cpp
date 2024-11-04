@@ -47,6 +47,9 @@ CItemInfoUI::~CItemInfoUI()
 //============================================================
 HRESULT CItemInfoUI::Init()
 {
+	CItem* pItem = GET_MANAGER->GetItem();								// アイテム情報
+	const CItemData& rItemData = pItem->GetInfo(GetChoiceItemIdx());	// アイテム内部データ
+
 	// アイテムUIの初期化
 	if (FAILED(CItemUI::Init()))
 	{ // 初期化に失敗した場合
@@ -58,12 +61,8 @@ HRESULT CItemInfoUI::Init()
 	// テキスト内容の進行
 	NextText();
 
-	// TODO：きったね
 	// アイテム詳細を先頭に追加
-	CItem* pItem = GET_MANAGER->GetItem();								// アイテム情報
-	const CItemData& rItemData = pItem->GetInfo(GetChoiceItemIdx());	// アイテム内部データ
-	std::string sDetail = rItemData.Detail();
-	PushFrontString(useful::MultiByteToWide(sDetail));
+	PushFrontString(rItemData.Detail());
 
 	return S_OK;
 }

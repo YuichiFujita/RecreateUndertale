@@ -39,7 +39,7 @@ public:
 	// 仮想関数
 	virtual HRESULT Init();	// 初期化
 	virtual void Uninit();	// 終了
-	virtual std::string Detail() const;	// 使用時の詳細文字列
+	virtual std::string Detail() const;	// アイテム詳細取得
 
 	// 静的メンバ関数
 	static CItemData* Create(const EType type);	// 生成
