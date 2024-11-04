@@ -26,6 +26,18 @@ public:
 	// ステージ範囲構造体
 	struct SLimit
 	{
+		// デフォルトコンストラクタ
+		SLimit() :
+			fUp		(0.0f),	// 制限位置 (上)
+			fDown	(0.0f),	// 制限位置 (下)
+			fLeft	(0.0f),	// 制限位置 (左)
+			fRight	(0.0f)	// 制限位置 (右)
+		{}
+
+		// デストラクタ
+		~SLimit() {}
+
+		// メンバ変数
 		float fUp;		// 制限位置 (上)
 		float fDown;	// 制限位置 (下)
 		float fLeft;	// 制限位置 (左)

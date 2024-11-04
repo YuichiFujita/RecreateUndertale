@@ -19,17 +19,33 @@ namespace
 	// 登録情報構造体
 	struct SRegistInfo
 	{
+		// デフォルトコンストラクタ
+		SRegistInfo() :
+			wcChar	(L'\0'),	// 読み込む先頭文字
+			nIncr	(0)			// 読み込む連続数
+		{}
+
+		// 引数付きコンストラクタ
+		SRegistInfo(const wchar_t in_wcChar, const int in_nIncr) :
+			wcChar	(in_wcChar),	// 読み込む先頭文字
+			nIncr	(in_nIncr)		// 読み込む連続数
+		{}
+
+		// デストラクタ
+		~SRegistInfo() {}
+
+		// メンバ変数
 		const wchar_t wcChar;	// 読み込む先頭文字
 		const int nIncr;		// 読み込む連続数
 	};
 	const SRegistInfo INIT_REGIST_CHAR[] =	// 初期に登録するフォント文字
 	{
-		{ L'\0', 1 },	// 終端文字
-		{ L'0', 10 },	// 0～9
-		{ L'A', 26 },	// A～Z
-		{ L'a', 26 },	// a～z
-		{ L'あ', 85 },  // あ～ん (ゖ)
-		{ L'ア', 90 },  // ア～ン (ヺ)
+		SRegistInfo(L'\0', 1),	// 終端文字
+		SRegistInfo(L'0', 10),	// 0～9
+		SRegistInfo(L'A', 26),	// A～Z
+		SRegistInfo(L'a', 26),	// a～z
+		SRegistInfo(L'あ', 85),	// あ～ん (ゖ)
+		SRegistInfo(L'ア', 90),	// ア～ン (ヺ)
 	};
 
 	const char*	LOAD_EXTENSION = "data\\TXT\\EXTENSION\\font.txt";	// フォント読込拡張子相対パス

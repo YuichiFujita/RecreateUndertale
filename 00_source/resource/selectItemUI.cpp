@@ -168,7 +168,7 @@ HRESULT CSelectItemUI::Init()
 		VECTOR3 offset = item::SPACE * (float)i;
 
 		// アイテム名の生成
-		m_vecItemName[i].m_pName = CString2D::Create
+		m_vecItemName[i].pName = CString2D::Create
 		( // 引数
 			FONT,				// フォントパス
 			ITALIC,				// イタリック
@@ -179,7 +179,7 @@ HRESULT CSelectItemUI::Init()
 			item::ROT,			// 原点向き
 			item::COL			// 色
 		);
-		if (m_vecItemName[i].m_pName == nullptr)
+		if (m_vecItemName[i].pName == nullptr)
 		{ // 生成に失敗した場合
 
 			assert(false);
@@ -187,10 +187,10 @@ HRESULT CSelectItemUI::Init()
 		}
 
 		// 優先順位を設定
-		m_vecItemName[i].m_pName->SetPriority(PRIORITY);
+		m_vecItemName[i].pName->SetPriority(PRIORITY);
 
 		// アイテム名設定
-		m_vecItemName[i].m_pName->SetString(pItem->GetInfo(m_vecItemName[i].nItemIdx).GetName());
+		m_vecItemName[i].pName->SetString(pItem->GetInfo(m_vecItemName[i].nItemIdx).GetName());
 	}
 
 	return S_OK;
@@ -212,7 +212,7 @@ void CSelectItemUI::Uninit()
 	{ // 要素数分繰り返す
 
 		// アイテム名の終了
-		SAFE_UNINIT(rVec.m_pName);
+		SAFE_UNINIT(rVec.pName);
 	}
 
 	// アイテム情報のクリア
@@ -294,7 +294,7 @@ void CSelectItemUI::SetEnableDraw(const bool bDraw)
 	{ // 要素数分繰り返す
 
 		// アイテム名の描画状況の設定
-		rVec.m_pName->SetEnableDraw(bDraw);
+		rVec.pName->SetEnableDraw(bDraw);
 	}
 }
 
@@ -318,7 +318,7 @@ void CSelectItemUI::UpdateSelectItem()
 	}
 
 	// ソウルカーソルの位置を移動
-	SetSoulPosition(m_vecItemName[m_nCurSelectItem].m_pName->GetVec3Position() - CURSOR_OFFSET);
+	SetSoulPosition(m_vecItemName[m_nCurSelectItem].pName->GetVec3Position() - CURSOR_OFFSET);
 }
 
 //============================================================

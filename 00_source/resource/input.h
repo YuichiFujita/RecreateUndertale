@@ -174,6 +174,17 @@ public:
 	// 振動構造体
 	struct SVibration
 	{
+		// デフォルトコンストラクタ
+		SVibration() :
+			vibration	({}),			// バイブ情報
+			type		(TYPE_NONE),	// バイブ種類
+			nTime		(0)				// バイブ時間
+		{}
+
+		// デストラクタ
+		~SVibration() {}
+
+		// メンバ変数
 		_XINPUT_VIBRATION vibration;	// バイブ情報
 		EType type;	// バイブ種類
 		int nTime;	// バイブ時間

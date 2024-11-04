@@ -73,7 +73,17 @@ private:
 	// アイテム構造体
 	struct SItem
 	{
-		CString2D* m_pName;	// アイテム名情報
+		// デフォルトコンストラクタ
+		SItem() :
+			pName	 (nullptr),	// アイテム名情報
+			nItemIdx (0)		// アイテムインデックス
+		{}
+
+		// デストラクタ
+		~SItem() {}
+
+		// メンバ変数
+		CString2D* pName;	// アイテム名情報
 		int nItemIdx;		// アイテムインデックス
 	};
 

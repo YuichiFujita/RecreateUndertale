@@ -26,6 +26,16 @@ public:
 	// 矩形の座標情報構造体
 	struct SRectangle
 	{
+		// デフォルトコンストラクタ
+		SRectangle() :
+			lu	(GRID2_ZERO),	// 左上座標
+			rd	(GRID2_ZERO)	// 右下座標
+		{}
+
+		// デストラクタ
+		~SRectangle() {}
+
+		// メンバ変数
 		POSGRID2 lu;	// 左上座標
 		POSGRID2 rd;	// 右下座標
 	};

@@ -39,9 +39,9 @@ public:
 		{}
 
 		// 引数付きコンストラクタ
-		SKey(std::string FontName, bool Italic) :
-			sFilePath	(FontName),	// フォントファイルパス
-			bItalic		(Italic)	// イタリック
+		SKey(std::string in_sFontName, bool in_bItalic) :
+			sFilePath	(in_sFontName),	// フォントファイルパス
+			bItalic		(in_bItalic)	// イタリック
 		{}
 
 		// 比較演算子オーバーロード

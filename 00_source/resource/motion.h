@@ -34,8 +34,8 @@ public:
 	{
 		// デフォルトコンストラクタ
 		SCollTime() :
-			nMin(NONE_IDX),	// 攻撃判定の開始カウント
-			nMax(NONE_IDX)	// 攻撃判定の終了カウント
+			nMin (NONE_IDX),	// 攻撃判定の開始カウント
+			nMax (NONE_IDX)		// 攻撃判定の終了カウント
 		{}
 
 		// デストラクタ
@@ -51,8 +51,8 @@ public:
 	{
 		// デフォルトコンストラクタ
 		SParts() :
-			pos(VEC3_ZERO),	// モデル位置
-			rot(VEC3_ZERO)	// モデル向き
+			pos	(VEC3_ZERO),	// モデル位置
+			rot	(VEC3_ZERO)		// モデル向き
 		{}
 
 		// デストラクタ
@@ -68,11 +68,10 @@ public:
 	{
 		// デフォルトコンストラクタ
 		SKey() :
-			move	(VEC3_ZERO),	// キー移動量
-			nFrame	(0)				// キー再生フレーム数
-		{
-			vecParts.clear();	// パーツ情報をクリア
-		}
+			vecParts ({}),			// パーツ情報
+			move	 (VEC3_ZERO),	// キー移動量
+			nFrame	 (0)			// キー再生フレーム数
+		{}
 
 		// デストラクタ
 		~SKey() {}
@@ -88,14 +87,15 @@ public:
 	{
 		// デフォルトコンストラクタ
 		SMotion() :
-			nWholeFrame		(0),		// モーション全体フレーム数
-			nCancelFrame	(NONE_IDX),	// キャンセル可能フレーム
-			nComboFrame		(NONE_IDX),	// コンボ可能フレーム
-			bLoop			(false),	// ループON/OFF
-			bWeaponDisp		(false)		// 武器表示ON/OFF
-		{
-			vecKey.clear();	// キー情報をクリア
-		}
+			vecKey		 ({}),			// キー情報
+			collLeft	 ({}),			// 左攻撃判定のカウント
+			collRight	 ({}),			// 右攻撃判定のカウント
+			nWholeFrame	 (0),			// モーション全体フレーム数
+			nCancelFrame (NONE_IDX),	// キャンセル可能フレーム
+			nComboFrame	 (NONE_IDX),	// コンボ可能フレーム
+			bLoop		 (false),		// ループON/OFF
+			bWeaponDisp	 (false)		// 武器表示ON/OFF
+		{}
 
 		// デストラクタ
 		~SMotion() {}
@@ -119,15 +119,14 @@ public:
 	{
 		// デフォルトコンストラクタ
 		SInfo() :
+			vecMotion		({}),	// モーション情報
+			vecOriginParts	({}),	// パーツ原点情報
 			nType			(0),	// モーション種類
 			nKey			(0),	// モーションキー番号
 			nKeyCounter		(0),	// モーションキーカウンター
 			nWholeCounter	(0),	// モーション全体カウンター
 			bFinish			(false)	// モーション終了状況
-		{
-			vecMotion.clear();		// モーション情報をクリア
-			vecOriginParts.clear();	// パーツ原点情報をクリア
-		}
+		{}
 
 		// デストラクタ
 		~SInfo() {}
@@ -150,11 +149,10 @@ public:
 	{
 		// デフォルトコンストラクタ
 		SBlend() :
+			vecParts		({}),	// ブレンド開始パーツ情報
 			nFrame			(0),	// ブレンド再生フレーム数
 			nWholeCounter	(0)		// ブレンド全体カウンター
-		{
-			vecParts.clear();	// ブレンド開始パーツ情報をクリア
-		}
+		{}
 
 		// デストラクタ
 		~SBlend() {}

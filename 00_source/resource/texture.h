@@ -43,13 +43,13 @@ public:
 		{}
 
 		// 引数付きコンストラクタ
-		SInfo(const UINT nWidth, const UINT nHeight, const UINT nMip, const DWORD dwUsage, const D3DFORMAT format, const D3DPOOL pool) :
-			Width		(nWidth),	// テクスチャ横幅
-			Height		(nHeight),	// テクスチャ縦幅
-			MipLevels	(nMip),		// ミップマップレベル
-			Usage		(dwUsage),	// 性質・確保オプション
-			Format		(format),	// ピクセルフォーマット
-			Pool		(pool)		// 格納メモリ
+		SInfo(const UINT in_nWidth, const UINT in_nHeight, const UINT in_nMip, const DWORD in_dwUsage, const D3DFORMAT in_format, const D3DPOOL in_pool) :
+			Width		(in_nWidth),	// テクスチャ横幅
+			Height		(in_nHeight),	// テクスチャ縦幅
+			MipLevels	(in_nMip),		// ミップマップレベル
+			Usage		(in_dwUsage),	// 性質・確保オプション
+			Format		(in_format),	// ピクセルフォーマット
+			Pool		(in_pool)		// 格納メモリ
 		{}
 
 		// デストラクタ
@@ -67,6 +67,17 @@ public:
 	// テクスチャ構造体
 	struct STexture
 	{
+		// デフォルトコンストラクタ
+		STexture() :
+			pTexture (nullptr),		// テクスチャへのポインタ
+			status	 ({}),			// テクスチャステータスへのポインタ
+			aspect	 (VEC2_ZERO)	// アスペクト比
+		{}
+
+		// デストラクタ
+		~STexture() {}
+
+		// メンバ変数
 		LPDIRECT3DTEXTURE9 pTexture;	// テクスチャへのポインタ
 		D3DXIMAGE_INFO status;			// テクスチャステータスへのポインタ
 		VECTOR2 aspect;					// アスペクト比
@@ -75,6 +86,16 @@ public:
 	// マップ情報構造体
 	struct SMapInfo
 	{
+		// デフォルトコンストラクタ
+		SMapInfo() :
+			textureData		({}),	// テクスチャ情報
+			sFilePathName	("")	// ファイルパス名
+		{}
+
+		// デストラクタ
+		~SMapInfo() {}
+
+		// メンバ変数
 		STexture textureData;		// テクスチャ情報
 		std::string sFilePathName;	// ファイルパス名
 	};

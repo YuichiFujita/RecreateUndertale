@@ -51,12 +51,12 @@ public:
 		{}
 
 		// 引数付きコンストラクタ
-		SSwing(const float ShiftLength, const float SubAngle, const float SubLength) :
-			shiftPos	 (VEC3_ZERO),	// 位置ずれ量
-			fShiftAngle	 (0.0f),		// 位置をずらす角度
-			fShiftLength (ShiftLength),	// 位置をずらす距離
-			fSubAngle	 (SubAngle),	// ずらす角度の減算量
-			fSubLength	 (SubLength)	// ずらす距離の減算量
+		SSwing(const float in_fShiftLength, const float in_fSubAngle, const float in_fSubLength) :
+			shiftPos	 (VEC3_ZERO),		// 位置ずれ量
+			fShiftAngle	 (0.0f),			// 位置をずらす角度
+			fShiftLength (in_fShiftLength),	// 位置をずらす距離
+			fSubAngle	 (in_fSubAngle),	// ずらす角度の減算量
+			fSubLength	 (in_fSubLength)	// ずらす距離の減算量
 		{}
 
 		// デストラクタ
@@ -73,6 +73,27 @@ public:
 	// カメラ構造体
 	struct SCamera
 	{
+		// デフォルトコンストラクタ
+		SCamera() :
+			posV		(VEC3_ZERO),	// 現在の視点
+			posR		(VEC3_ZERO),	// 現在の注視点
+			destPosV	(VEC3_ZERO),	// 目標の視点
+			destPosR	(VEC3_ZERO),	// 目標の注視点
+			vecU		(VEC3_ZERO),	// 上方向ベクトル
+			rot			(VEC3_ZERO),	// 現在の向き
+			destRot		(VEC3_ZERO),	// 目標の向き
+			fDis		(0.0f),			// 現在の視点と注視点の距離
+			fDestDis	(0.0f),			// 目標の視点と注視点の距離
+			swing		({}),			// カメラ揺れ情報
+			viewport	({}),			// ビューポート情報
+			mtxProj		(MTX_IDENT),	// プロジェクションマトリックス
+			mtxView		(MTX_IDENT)		// ビューマトリックス
+		{}
+
+		// デストラクタ
+		~SCamera() {}
+
+		// メンバ変数
 		VECTOR3 posV;			// 現在の視点
 		VECTOR3 posR;			// 現在の注視点
 		VECTOR3 destPosV;		// 目標の視点

@@ -46,6 +46,7 @@ public:
 		// デストラクタ
 		~SModel() {}
 
+		// メンバ変数
 		LPD3DXMESH pMesh;		// メッシュ (頂点情報) へのポインタ
 		LPD3DXBUFFER pBuffMat;	// マテリアルへのポインタ
 		DWORD dwNumMat;			// マテリアルの数
@@ -59,6 +60,16 @@ public:
 	// マップ情報構造体
 	struct SMapInfo
 	{
+		// デフォルトコンストラクタ
+		SMapInfo() :
+			modelData		({}),	// モデル情報
+			sFilePathName	("")	// ファイルパス名
+		{}
+
+		// デストラクタ
+		~SMapInfo() {}
+
+		// メンバ変数
 		SModel modelData;			// モデル情報
 		std::string sFilePathName;	// ファイルパス名
 	};

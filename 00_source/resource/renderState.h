@@ -41,15 +41,15 @@ public:
 			op		(D3DBLENDOP_ADD),	// αブレンド情報
 			scr		(D3DBLEND_ZERO),	// SCRブレンド
 			dest	(D3DBLEND_ZERO),	// DESTブレンド
-			bBlend	(true)				// αブレンド状況
+			bBlend	(false)				// αブレンド状況
 		{}
 
 		// 引数付きコンストラクタ
-		SBlendAlpha(const D3DBLENDOP Op, const D3DBLEND Scr, const D3DBLEND Dest) :
-			op		(Op),	// αブレンド情報
-			scr		(Scr),	// SCRブレンド
-			dest	(Dest),	// DESTブレンド
-			bBlend	(true)	// αブレンド状況
+		SBlendAlpha(const D3DBLENDOP in_op, const D3DBLEND in_scr, const D3DBLEND in_dest) :
+			op		(in_op),	// αブレンド情報
+			scr		(in_scr),	// SCRブレンド
+			dest	(in_dest),	// DESTブレンド
+			bBlend	(true)		// αブレンド状況
 		{}
 
 		// デストラクタ
@@ -65,6 +65,17 @@ public:
 	// αテスト情報
 	struct STestAlpha
 	{
+		// デフォルトコンストラクタ
+		STestAlpha() :
+			func	(D3DCMP_NEVER),	// αテスト情報
+			nRef	(0),			// αテスト参照値
+			bTest	(false)			// αテスト状況
+		{}
+
+		// デストラクタ
+		~STestAlpha() {}
+
+		// メンバ変数
 		D3DCMPFUNC	func;	// αテスト情報
 		int			nRef;	// αテスト参照値
 		bool		bTest;	// αテスト状況
@@ -73,6 +84,16 @@ public:
 	// Zテスト情報
 	struct STestZ
 	{
+		// デフォルトコンストラクタ
+		STestZ() :
+			func	(D3DCMP_NEVER),	// Zテスト情報
+			bUpdate	(false)			// Zバッファ更新状況
+		{}
+
+		// デストラクタ
+		~STestZ() {}
+
+		// メンバ変数
 		D3DCMPFUNC	func;		// Zテスト情報
 		bool		bUpdate;	// Zバッファ更新状況
 	};
@@ -80,6 +101,19 @@ public:
 	// レンダーステート情報
 	struct SInfo
 	{
+		// デフォルトコンストラクタ
+		SInfo() :
+			blendAlpha	({}),			// αブレンド情報
+			testAlpha	({}),			// αテスト情報
+			testZ		({}),			// Zテスト情報
+			cull		(D3DCULL_NONE),	// カリング情報
+			bLight		(false)			// ライティング状況
+		{}
+
+		// デストラクタ
+		~SInfo() {}
+
+		// メンバ変数
 		SBlendAlpha	blendAlpha;	// αブレンド情報
 		STestAlpha	testAlpha;	// αテスト情報
 		STestZ		testZ;		// Zテスト情報

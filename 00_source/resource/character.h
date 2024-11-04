@@ -54,10 +54,9 @@ public:
 	struct SPartsInfo
 	{
 		// デフォルトコンストラクタ
-		SPartsInfo()
-		{
-			vecParts.clear();	// パーツ情報をクリア
-		}
+		SPartsInfo() :
+			vecParts ({})	// パーツ情報
+		{}
 
 		// デストラクタ
 		~SPartsInfo() {}
@@ -73,7 +72,10 @@ public:
 	struct SCharaData
 	{
 		// デフォルトコンストラクタ
-		SCharaData() {}
+		SCharaData() :
+			infoMotion	({}),	// モーション情報
+			infoParts	({})	// パーツ情報
+		{}
 
 		// デストラクタ
 		~SCharaData() {}

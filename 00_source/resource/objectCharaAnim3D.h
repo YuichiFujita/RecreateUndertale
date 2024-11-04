@@ -50,15 +50,14 @@ public:
 	{
 		// デフォルトコンストラクタ
 		SChara() :
+			vecNextTime	 ({}),			// パターン変更時間配列
 			sPathTexture (""),			// テクスチャパスをクリア
 			ptrnTexture	 (GRID2_ZERO),	// テクスチャ分割数
 			nMaxPtrn	 (0),			// 最大パターン数
 			offset		 (VEC3_ZERO),	// 原点オフセット
 			size		 (VEC3_ZERO),	// キャラクター大きさ
 			bLoop		 (false)		// ループON/OFF
-		{
-			vecNextTime.clear();	// パターン変更時間配列をクリア
-		}
+		{}
 
 		// デストラクタ
 		~SChara() {}
@@ -112,6 +111,8 @@ public:
 	{
 		// デフォルトコンストラクタ
 		SMotion() :
+			infoChara	({}),		// キャラクター情報
+			infoColl	({}),		// 当たり判定情報
 			fCancelTime	(-1.0f),	// キャンセル可能時間
 			fComboTime	(-1.0f)		// コンボ可能時間
 		{}
@@ -131,10 +132,9 @@ public:
 	{
 		// デフォルトコンストラクタ
 		SInfo() :
-			nType	(0)	// モーション種類
-		{
-			vecMotion.clear();	// モーション情報をクリア
-		}
+			vecMotion	({}),	// モーション情報
+			nType		(0)		// モーション種類
+		{}
 
 		// デストラクタ
 		~SInfo() {}
