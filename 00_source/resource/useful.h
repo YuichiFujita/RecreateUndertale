@@ -14,7 +14,12 @@
 //	マクロ定義
 //************************************************************
 // 便利マクロ
+#ifdef UNDERTALE
 #define SCREEN_WIDTH	(960)	// ウインドウの横幅
+#else
+#define SCREEN_WIDTH	(1280)	// ウインドウの横幅
+#endif
+
 #define SCREEN_HEIGHT	(720)	// ウインドウの縦幅
 #define NONE_IDX		(-1)	// インデックス非使用
 #define NONE_STRING		("\0")	// 文字列非使用
