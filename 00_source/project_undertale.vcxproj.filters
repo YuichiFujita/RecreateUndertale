@@ -450,6 +450,9 @@
     <ClCompile Include="resource\renderTexture.cpp">
       <Filter>system</Filter>
     </ClCompile>
+    <ClCompile Include="resource\itemHeal.cpp">
+      <Filter>ingame\item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h">
@@ -823,6 +826,9 @@
     </ClInclude>
     <ClInclude Include="resource\renderTexture.h">
       <Filter>system</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\itemHeal.h">
+      <Filter>ingame\item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

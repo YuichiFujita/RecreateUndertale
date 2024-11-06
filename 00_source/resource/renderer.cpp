@@ -185,7 +185,7 @@ void CRenderer::Draw()
 	m_pRenderScene->Draw();
 
 	// 塗りつぶしモードを設定
-	GET_DEVICE->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);	// ポリゴンを塗りつぶす
+	m_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);	// ポリゴンを塗りつぶす
 
 	// スクリーン描画サーフェイスを元に戻す
 	hr = m_pD3DDevice->SetRenderTarget(0, m_pDefSurScreen);
@@ -271,8 +271,8 @@ HRESULT CRenderer::CreateRenderTexture()
 //============================================================
 void CRenderer::DrawRenderTexture(LPDIRECT3DSURFACE9* pSurface)
 {
-	CManager *pManager = GET_MANAGER;			// マネージャー
-	CCamera  *pCamera  = pManager->GetCamera();	// カメラ
+	CManager* pManager = GET_MANAGER;			// マネージャー
+	CCamera*  pCamera  = pManager->GetCamera();	// カメラ
 
 	D3DVIEWPORT9 viewportDef;	// カメラのビューポート保存用
 	HRESULT hr;	// 異常終了の確認用

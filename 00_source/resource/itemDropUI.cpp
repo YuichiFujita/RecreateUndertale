@@ -99,7 +99,7 @@ void CItemDropUI::NextText()
 	const CItemData& rItemData = pItem->GetInfo(nItemIdx);	// アイテム内部データ
 
 	// アイテム破棄時のテキスト情報を取得
-	ATextBox textData = rItemData.GetInfo();	// TODO：Dropに変更
+	ATextBox textData = rItemData.GetDrop();
 
 	int nNumText = (int)textData.size();	// テキスト総数
 	if (nTextIdx >= nNumText)

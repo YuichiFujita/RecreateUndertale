@@ -6,8 +6,9 @@
 #==============================================================================
 
 ITEMSET
-	TYPE = 0
+	TYPE = 1
 	NAME = モンスターあめ
+	HEAL = 10
 	
 	USE
 		TEXT
@@ -30,11 +31,18 @@ ITEMSET
 			STR =  　 どくとくな　ふうみ。
 		END_TEXT
 	END_INFO
+	
+	DROP
+		TEXT
+			STR =  ＊ /nameをすてた。
+		END_TEXT
+	END_DROP
 END_ITEMSET
 
 ITEMSET
-	TYPE = 0
+	TYPE = 1
 	NAME = じゃがいも
+	HEAL = 99
 	
 	USE
 		TEXT
@@ -60,4 +68,10 @@ ITEMSET
 			STR =  ＊ てか共食いで草
 		END_TEXT
 	END_INFO
+	
+	DROP
+		TEXT
+			STR =  ＊ /nameをすてた。
+		END_TEXT
+	END_DROP
 END_ITEMSET

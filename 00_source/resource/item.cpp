@@ -9,6 +9,7 @@
 //************************************************************
 #include "item.h"
 #include "itemNone.h"
+#include "itemHeal.h"
 #include "manager.h"
 #include "renderer.h"
 
@@ -27,7 +28,11 @@ namespace
 //============================================================
 //	コンストラクタ
 //============================================================
-CItemData::CItemData()
+CItemData::CItemData() :
+	m_sName		(""),	// アイテム名
+	m_vecUse	({}),	// 使用テキスト
+	m_vecInfo	({}),	// 情報テキスト
+	m_vecDrop	({})	// 破棄テキスト
 {
 
 }
@@ -85,7 +90,7 @@ CItemData* CItemData::Create(const EType type)
 		break;
 
 	case TYPE_HEAL:
-		//pItemData = new ;
+		pItemData = new CItemHeal;
 		break;
 
 	default:	// 例外処理
@@ -273,6 +278,15 @@ HRESULT CItem::LoadSetup()
 				file >> str;
 
 				if (str.front() == '#') { std::getline(file, str); }	// コメントアウト
+
+				// 種類ごとの情報読込
+				else if (FAILED(m_vecItemData[nIdx]->LoadSetup(&file, str)))
+				{ // 読込に失敗した場合
+
+					assert(false);
+					return E_FAIL;
+				}
+
 				else if (str == "TYPE")
 				{
 					file >> str;	// ＝を読込
@@ -303,7 +317,12 @@ HRESULT CItem::LoadSetup()
 				else if (str == "INFO")
 				{
 					// 情報テキスト情報のセットアップ
-					m_vecItemData[nIdx]->SetInfo(LoadText(file, "END_INFO" , *m_vecItemData[nIdx]));
+					m_vecItemData[nIdx]->SetInfo(LoadText(file, "END_INFO", *m_vecItemData[nIdx]));
+				}
+				else if (str == "DROP")
+				{
+					// 破棄テキスト情報のセットアップ
+					m_vecItemData[nIdx]->SetDrop(LoadText(file, "END_DROP", *m_vecItemData[nIdx]));
 				}
 			} while (str != "END_ITEMSET");	// END_ITEMSETを読み込むまでループ
 

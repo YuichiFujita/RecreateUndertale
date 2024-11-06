@@ -35,6 +35,7 @@ public:
 	virtual void Use() const	= 0;	// アイテム使用
 	virtual void Info() const	= 0;	// アイテム情報
 	virtual void Drop() const	= 0;	// アイテム破棄
+	virtual HRESULT LoadSetup(std::ifstream* pFile, std::string& rString) = 0;	// 種類ごとのセットアップ
 
 	// 仮想関数
 	virtual HRESULT Init();	// 初期化
@@ -51,16 +52,15 @@ public:
 	inline const ATextBox& GetUse() const			{ return m_vecUse; }		// 使用テキスト取得
 	inline void SetInfo(const ATextBox& rVecInfo)	{ m_vecInfo = rVecInfo; }	// 情報テキスト設定
 	inline const ATextBox& GetInfo() const			{ return m_vecInfo; }		// 情報テキスト取得
-
-	// TODO：DropText取得の作成
-	// TODO：UnityみたいにGetComponentで各子クラスにできるようにしよう。
-	//		 typeid使えば本当に型が変換後かの確認もできるし、ダメな時は関数呼ばなければいいしね
+	inline void SetDrop(const ATextBox& rVecDrop)	{ m_vecDrop = rVecDrop; }	// 破棄テキスト設定
+	inline const ATextBox& GetDrop() const			{ return m_vecDrop; }		// 破棄テキスト取得
 
 private:
 	// メンバ変数
 	std::string m_sName;	// アイテム名
 	ATextBox m_vecUse;		// 使用テキスト
 	ATextBox m_vecInfo;		// 情報テキスト
+	ATextBox m_vecDrop;		// 破棄テキスト
 };
 
 // アイテムクラス
