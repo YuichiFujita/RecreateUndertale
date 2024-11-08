@@ -63,7 +63,7 @@ void CItemData::Uninit()
 }
 
 //============================================================
-//	アイテム詳細の取得処理
+//	アイテム詳細の文字列取得処理
 //============================================================
 std::string CItemData::Detail() const
 {
@@ -74,6 +74,15 @@ std::string CItemData::Detail() const
 
 	// アイテム詳細を返す
 	return sDetail;
+}
+
+//============================================================
+//	アイテム使用後の文字列取得処理
+//============================================================
+std::string CItemData::UseEnd() const
+{
+	// 空の文字列を返す
+	return "";
 }
 
 //============================================================
@@ -118,6 +127,29 @@ CItemData* CItemData::Create(const EType type)
 		// 確保したアドレスを返す
 		return pItemData;
 	}
+}
+
+//============================================================
+//	テキストの初期化処理
+//============================================================
+void CItemData::InitText()
+{
+	// 使用テキストの初期化
+	m_vecUse.clear();
+	m_vecUse.emplace_back();
+	m_vecUse[0].push_back(" ＊ エラーメッセージ");
+
+	// 情報テキストの初期化
+	m_vecInfo.clear();
+	m_vecInfo.emplace_back();
+	m_vecInfo[0].push_back(" ＊ エラーメッセージ");
+
+	// 破棄テキストの初期化
+	m_vecDrop.clear();
+	m_vecDrop.emplace_back();
+	m_vecDrop[0].push_back(" ＊ ");
+	m_vecDrop[0][0].append(m_sName);
+	m_vecDrop[0][0].append("を　すてた");
 }
 
 //************************************************************
@@ -278,15 +310,6 @@ HRESULT CItem::LoadSetup()
 				file >> str;
 
 				if (str.front() == '#') { std::getline(file, str); }	// コメントアウト
-
-				// 種類ごとの情報読込
-				else if (FAILED(m_vecItemData[nIdx]->LoadSetup(&file, str)))
-				{ // 読込に失敗した場合
-
-					assert(false);
-					return E_FAIL;
-				}
-
 				else if (str == "TYPE")
 				{
 					file >> str;	// ＝を読込
@@ -308,6 +331,9 @@ HRESULT CItem::LoadSetup()
 
 					// アイテム名を保存
 					m_vecItemData[nIdx]->SetName(str.c_str());
+
+					// テキストの初期化
+					m_vecItemData[nIdx]->InitText();
 				}
 				else if (str == "USE")
 				{
@@ -323,6 +349,16 @@ HRESULT CItem::LoadSetup()
 				{
 					// 破棄テキスト情報のセットアップ
 					m_vecItemData[nIdx]->SetDrop(LoadText(file, "END_DROP", *m_vecItemData[nIdx]));
+				}
+				else if (m_vecItemData[nIdx] != nullptr)
+				{
+					// 種類ごとの情報読込
+					if (FAILED(m_vecItemData[nIdx]->LoadSetup(&file, str)))
+					{ // 読込に失敗した場合
+
+						assert(false);
+						return E_FAIL;
+					}
 				}
 			} while (str != "END_ITEMSET");	// END_ITEMSETを読み込むまでループ
 

@@ -40,12 +40,14 @@ public:
 	// 仮想関数
 	virtual HRESULT Init();	// 初期化
 	virtual void Uninit();	// 終了
-	virtual std::string Detail() const;	// アイテム詳細取得
+	virtual std::string Detail() const;	// アイテム詳細の文字列取得
+	virtual std::string UseEnd() const;	// アイテム使用後の文字列取得
 
 	// 静的メンバ関数
 	static CItemData* Create(const EType type);	// 生成
 
 	// メンバ関数
+	void InitText();	// テキスト初期化
 	inline void SetName(const char* pName)			{ m_sName = pName; }		// アイテム名設定
 	inline const char* GetName() const				{ return m_sName.c_str(); }	// アイテム名取得
 	inline void SetUse(const ATextBox& rVecUse)		{ m_vecUse = rVecUse; }		// 使用テキスト設定

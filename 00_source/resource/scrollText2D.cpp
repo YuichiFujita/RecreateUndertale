@@ -123,7 +123,6 @@ HRESULT CScrollText2D::PushFrontString(const std::string& rStr)
 	if (FAILED(PushFrontString(wsStr)))
 	{ // ’Ç‰Á‚É¸”s‚µ‚½ê‡
 
-		assert(false);
 		return E_FAIL;
 	}
 
@@ -135,11 +134,10 @@ HRESULT CScrollText2D::PushFrontString(const std::string& rStr)
 //============================================================
 HRESULT CScrollText2D::PushFrontString(const std::wstring& rStr)
 {
-	// •¶š—ñ‚Ìæ“ª’Ç‰Á
+	// •¶š—ñ‚ğæ“ª‚É’Ç‰Á
 	if (FAILED(CText2D::PushFrontString(rStr)))
 	{ // ’Ç‰Á‚É¸”s‚µ‚½ê‡
 
-		assert(false);
 		return E_FAIL;
 	}
 
@@ -177,7 +175,6 @@ HRESULT CScrollText2D::PushBackString(const std::string& rStr)
 	if (FAILED(PushBackString(wsStr)))
 	{ // ’Ç‰Á‚É¸”s‚µ‚½ê‡
 
-		assert(false);
 		return E_FAIL;
 	}
 
@@ -189,11 +186,10 @@ HRESULT CScrollText2D::PushBackString(const std::string& rStr)
 //============================================================
 HRESULT CScrollText2D::PushBackString(const std::wstring& rStr)
 {
-	// •¶š—ñ‚ÌÅŒã”ö’Ç‰Á
+	// •¶š—ñ‚ğÅŒã”ö‚É’Ç‰Á
 	if (FAILED(CText2D::PushBackString(rStr)))
 	{ // ’Ç‰Á‚É¸”s‚µ‚½ê‡
 
-		assert(false);
 		return E_FAIL;
 	}
 

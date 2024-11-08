@@ -254,7 +254,6 @@ HRESULT CText2D::PushFrontString(const std::string& rStr)
 	if (FAILED(PushFrontString(wsStr)))
 	{ // ’Ç‰Á‚É¸”s‚µ‚½ê‡
 
-		assert(false);
 		return E_FAIL;
 	}
 
@@ -266,6 +265,9 @@ HRESULT CText2D::PushFrontString(const std::string& rStr)
 //============================================================
 HRESULT CText2D::PushFrontString(const std::wstring& rStr)
 {
+	// ‹ó‚Ì•¶š—ñ‚Ìê‡”²‚¯‚é
+	if (rStr.empty()) { return E_FAIL; }
+
 	// •¶š—ñ‚Ì¶¬
 	CString2D* pStr = CreateString2D(rStr);
 	if (pStr == nullptr)
@@ -296,7 +298,6 @@ HRESULT CText2D::PushBackString(const std::string& rStr)
 	if (FAILED(PushBackString(wsStr)))
 	{ // ’Ç‰Á‚É¸”s‚µ‚½ê‡
 
-		assert(false);
 		return E_FAIL;
 	}
 
@@ -308,6 +309,9 @@ HRESULT CText2D::PushBackString(const std::string& rStr)
 //============================================================
 HRESULT CText2D::PushBackString(const std::wstring& rStr)
 {
+	// ‹ó‚Ì•¶š—ñ‚Ìê‡”²‚¯‚é
+	if (rStr.empty()) { return E_FAIL; }
+
 	// •¶š—ñ‚Ì¶¬
 	CString2D* pStr = CreateString2D(rStr);
 	if (pStr == nullptr)

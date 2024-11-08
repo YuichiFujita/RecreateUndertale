@@ -119,10 +119,10 @@ void CItemUseUI::NextText()
 	// テキスト進行度を進める
 	CItemUI::NextText();
 
-	// TODO：回復量の記述はどうしようかな～
 	if (nTextIdx + 1 >= nNumText)
 	{ // 最終テキストの場合
 
-		PushBackString(" ＊ そこそこ回復したで");
+		// アイテム使用後の文字列を最後尾に追加
+		PushBackString(rItemData.UseEnd());
 	}
 }

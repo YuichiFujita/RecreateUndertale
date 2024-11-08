@@ -31,16 +31,10 @@ ITEMSET
 			STR =  　 どくとくな　ふうみ。
 		END_TEXT
 	END_INFO
-	
-	DROP
-		TEXT
-			STR =  ＊ /nameをすてた。
-		END_TEXT
-	END_DROP
 END_ITEMSET
 
 ITEMSET
-	TYPE = 1
+	TYPE = 0
 	NAME = じゃがいも
 	HEAL = 99
 	
@@ -68,10 +62,4 @@ ITEMSET
 			STR =  ＊ てか共食いで草
 		END_TEXT
 	END_INFO
-	
-	DROP
-		TEXT
-			STR =  ＊ /nameをすてた。
-		END_TEXT
-	END_DROP
 END_ITEMSET
