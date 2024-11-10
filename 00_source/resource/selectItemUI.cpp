@@ -161,7 +161,7 @@ HRESULT CSelectItemUI::Init()
 		// TODO：ここでアイテムデータのインデックスを保存する
 #if 1
 		// アイテムインデックスを保存
-		m_vecItemName[i].nItemIdx = rand() % 2;
+		m_vecItemName[i].nItemIdx = rand() % 4;
 #endif
 
 		// 文字位置オフセットを計算

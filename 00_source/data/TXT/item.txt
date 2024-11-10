@@ -34,7 +34,7 @@ ITEMSET
 END_ITEMSET
 
 ITEMSET
-	TYPE = 0
+	TYPE = 1
 	NAME = Ç∂Ç·Ç™Ç¢Ç‡
 	HEAL = 99
 	
@@ -62,4 +62,17 @@ ITEMSET
 			STR =  Åñ ÇƒÇ©ã§êHÇ¢Ç≈ëê
 		END_TEXT
 	END_INFO
+END_ITEMSET
+
+ITEMSET
+	TYPE = 1
+	NAME = Ç¢Ç‚Ç»Ç®Ç‡Ç¢Ç≈
+	HEAL = -99
+END_ITEMSET
+
+ITEMSET
+	TYPE = 1
+	NAME = Ç‰Ç´ÇæÇÈÇ‹ÇÃÇ©ÇØÇÁ
+	HEAL = 45
+	USE_END = FALSE
 END_ITEMSET

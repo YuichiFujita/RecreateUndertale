@@ -38,7 +38,7 @@ public:
 
 private:
 	// オーバーライド関数
-	HRESULT LoadSetup(std::ifstream* pFile, std::string& rString);	// 種類ごとのセットアップ
+	HRESULT LoadSetup(std::ifstream* pFile, std::string& rString) override;	// 種類ごとのセットアップ
 
 	// メンバ変数
 

@@ -24,7 +24,8 @@ namespace
 //	コンストラクタ
 //============================================================
 CItemHeal::CItemHeal() :
-	m_nHeal	(0)	// 回復量
+	m_nHeal		(0),	// 回復量
+	m_bUseEnd	(false)	// 使用後の文字表示フラグ
 {
 
 }
@@ -43,7 +44,8 @@ CItemHeal::~CItemHeal()
 HRESULT CItemHeal::Init()
 {
 	// メンバ変数を初期化
-	m_nHeal = 0;	// 回復量
+	m_nHeal = 0;		// 回復量
+	m_bUseEnd = true;	// 使用後の文字表示フラグ
 
 	// アイテム情報の初期化
 	if (FAILED(CItemData::Init()))
@@ -97,9 +99,27 @@ std::string CItemHeal::Detail() const
 	// アイテム詳細の取得
 	std::string sDetail = CItemData::Detail();
 
-	// TODO
-	sDetail.append(std::to_string(m_nHeal));
-	sDetail.append("HPかいふく");
+	if (m_nHeal >= 99)	// TODO：最大体力定数に置換
+	{ // HP上限以上の場合
+
+		// 全回復を表示
+		sDetail.append("HPぜんかいふく");
+	}
+	else if (m_nHeal < 0)
+	{ // マイナスの場合
+
+		// マイナス回復を表示
+		sDetail.append("HP");
+		sDetail.append(std::to_string(-m_nHeal));
+		sDetail.append("マイナス");
+	}
+	else
+	{ // 上記以外の場合
+
+		// 回復数値を表示
+		sDetail.append(std::to_string(m_nHeal));
+		sDetail.append("HPかいふく");
+	}
 
 	// アイテム詳細を返す
 	return sDetail;
@@ -110,8 +130,33 @@ std::string CItemHeal::Detail() const
 //============================================================
 std::string CItemHeal::UseEnd() const
 {
-	// TODO を返す
-	return " ＊ そこそこ回復したで";
+	if (!m_bUseEnd)
+	{ // 表示しない場合
+
+		return "";
+	}
+	if (m_nHeal >= 99)	// TODO：最大体力定数に置換
+	{ // HP上限以上の場合
+
+		return " ＊ HPが　まんタンになった。";
+	}
+
+	// TODO：プレイヤーHPの確認
+#if 0
+	else if ()
+	{ // HPが満タンの場合
+
+		return " ＊ HPが　まんたんに　なった。";
+	}
+#endif
+
+	else if (m_nHeal < 0)
+	{ // マイナスの場合
+
+		return " ＊ HPが　" + std::to_string(-m_nHeal) + "へった。";
+	}
+
+	return " ＊ HPが　" + std::to_string(m_nHeal) + "かいふくした！";
 }
 
 //============================================================
@@ -127,6 +172,16 @@ HRESULT CItemHeal::LoadSetup(std::ifstream* pFile, std::string& rString)
 	{
 		*pFile >> str;		// ＝を読込
 		*pFile >> m_nHeal;	// 回復量を読込
+	}
+	else if (rString == "USE_END")
+	{
+		*pFile >> str;	// ＝を読込
+		*pFile >> str;	// 使用後の文字表示フラグを読込
+
+		// 使用後の文字表示フラグに変換
+		if		(str == "FALSE") { m_bUseEnd = false; }	// false
+		else if	(str == "TRUE")	 { m_bUseEnd = true; }	// true
+		else					 { return E_FAIL; }		// エラー
 	}
 
 	return S_OK;

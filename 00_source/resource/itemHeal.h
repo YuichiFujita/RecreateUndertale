@@ -39,10 +39,11 @@ public:
 
 private:
 	// オーバーライド関数
-	HRESULT LoadSetup(std::ifstream* pFile, std::string& rString);	// 種類ごとのセットアップ
+	HRESULT LoadSetup(std::ifstream* pFile, std::string& rString) override;	// 種類ごとのセットアップ
 
 	// メンバ変数
 	int m_nHeal;	// 回復量
+	bool m_bUseEnd;	// 使用後の文字表示フラグ
 };
 
 #endif	// _ITEM_HEAL_H_
