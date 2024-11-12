@@ -30,6 +30,8 @@ namespace
 //============================================================
 CItemData::CItemData() :
 	m_sName		(""),	// アイテム名
+	m_nAddAtk	(0),	// 攻撃力上昇量
+	m_nAddDef	(0),	// 防御力上昇量
 	m_vecUse	({}),	// 使用テキスト
 	m_vecInfo	({}),	// 情報テキスト
 	m_vecDrop	({})	// 破棄テキスト
@@ -50,6 +52,14 @@ CItemData::~CItemData()
 //============================================================
 HRESULT CItemData::Init()
 {
+	// メンバ変数を初期化
+	m_sName		= "";	// アイテム名
+	m_nAddAtk	= 0;	// 攻撃力上昇量
+	m_nAddDef	= 0;	// 防御力上昇量
+	m_vecUse	= {};	// 使用テキスト
+	m_vecInfo	= {};	// 情報テキスト
+	m_vecDrop	= {};	// 破棄テキスト
+
 	return S_OK;
 }
 
@@ -281,6 +291,8 @@ void CItem::Release(CItem*& prItem)
 HRESULT CItem::LoadSetup()
 {
 	int nIdx = 0;			// アイテムインデックス
+	int nAddAtk = 0;		// 攻撃力上昇量
+	int nAddDef = 0;		// 防御力上昇量
 	int nType = NONE_IDX;	// アイテム種類
 
 	// ファイルを開く
@@ -334,6 +346,22 @@ HRESULT CItem::LoadSetup()
 
 					// テキストの初期化
 					m_vecItemData[nIdx]->InitText();
+				}
+				else if (str == "ADD_ATK")
+				{
+					file >> str;		// ＝を読込
+					file >> nAddAtk;	// 攻撃力上昇量を読込
+
+					// 攻撃力上昇量を保存
+					m_vecItemData[nIdx]->SetAddAtk(nAddAtk);
+				}
+				else if (str == "ADD_DEF")
+				{
+					file >> str;		// ＝を読込
+					file >> nAddDef;	// 防御力上昇量を読込
+
+					// 防御力上昇量を保存
+					m_vecItemData[nIdx]->SetAddDef(nAddDef);
 				}
 				else if (str == "USE")
 				{
@@ -405,6 +433,9 @@ ATextBox CItem::LoadText(std::ifstream& rFile, const char* pEndStr, const CItemD
 					rFile >> str;					// ＝を読込
 					rFile.seekg(1, std::ios::cur);	// 読込位置を空白分ずらす
 					std::getline(rFile, str);		// 一行全て読み込む
+
+					// 文字列の先頭に空白を追加
+					str.insert(0, " ");
 
 					// 文字列内のコマンドを置換
 					ReplaceCommand(&str, rItem);

@@ -13,6 +13,9 @@
 #include "string2D.h"
 #include "text2D.h"
 #include "loadtext.h"
+#include "sceneGame.h"
+#include "player.h"
+#include "playerStatus.h"
 
 //************************************************************
 //	定数宣言
@@ -98,6 +101,8 @@ CMenuStatusUI::~CMenuStatusUI()
 //============================================================
 HRESULT CMenuStatusUI::Init()
 {
+	SPlayerStatus status = CSceneGame::GetPlayer()->GetStatus();	// ステータス情報
+
 	// メンバ変数を初期化
 	m_pFrame	= nullptr;	// フレーム情報
 	m_pName		= nullptr;	// 名前情報
@@ -126,7 +131,7 @@ HRESULT CMenuStatusUI::Init()
 	( // 引数
 		name::FONT,		// フォントパス
 		name::ITALIC,	// イタリック
-		L"おぷおぷ",	// 指定文字列	// TODO：名前の保存システムを作成
+		status.sName,	// 指定文字列
 		name::POS,		// 原点位置
 		name::HEIGHT,	// 文字縦幅
 		name::ALIGN_X,	// 横配置
@@ -189,12 +194,14 @@ HRESULT CMenuStatusUI::Init()
 		return E_FAIL;
 	}
 
-	// TODO：ステータスの取得
-#if 1
-	m_pValue->PushBackString("1");
-	m_pValue->PushBackString(useful::SandString("20", "/", "20"));
-	m_pValue->PushBackString("0");
-#endif
+	// 体力情報の取得
+	const std::string& rHP = std::to_string(status.nHP);		// 現在の体力文字列
+	const std::string& rMaxHP = std::to_string(status.nMaxHP);	// 最大の体力文字列
+
+	// ステータス情報の追加
+	m_pValue->PushBackString(std::to_string(status.nLove));
+	m_pValue->PushBackString(useful::SandString(rHP, "/", rMaxHP));
+	m_pValue->PushBackString(std::to_string(status.nGold));
 
 	// 優先順位を設定
 	m_pValue->SetPriority(PRIORITY);

@@ -50,6 +50,10 @@ public:
 	void InitText();	// テキスト初期化
 	inline void SetName(const char* pName)			{ m_sName = pName; }		// アイテム名設定
 	inline const char* GetName() const				{ return m_sName.c_str(); }	// アイテム名取得
+	inline void SetAddAtk(const int nAddAtk)		{ m_nAddAtk = nAddAtk; }	// 攻撃力上昇量設定
+	inline int GetAddAtk() const					{ return m_nAddAtk; }		// 攻撃力上昇量取得
+	inline void SetAddDef(const int nAddDef)		{ m_nAddDef = nAddDef; }	// 防御力上昇量設定
+	inline int GetAddDef() const					{ return m_nAddDef; }		// 防御力上昇量取得
 	inline void SetUse(const ATextBox& rVecUse)		{ m_vecUse = rVecUse; }		// 使用テキスト設定
 	inline const ATextBox& GetUse() const			{ return m_vecUse; }		// 使用テキスト取得
 	inline void SetInfo(const ATextBox& rVecInfo)	{ m_vecInfo = rVecInfo; }	// 情報テキスト設定
@@ -60,6 +64,8 @@ public:
 private:
 	// メンバ変数
 	std::string m_sName;	// アイテム名
+	int m_nAddAtk;			// 攻撃力上昇量
+	int m_nAddDef;			// 防御力上昇量
 	ATextBox m_vecUse;		// 使用テキスト
 	ATextBox m_vecInfo;		// 情報テキスト
 	ATextBox m_vecDrop;		// 破棄テキスト

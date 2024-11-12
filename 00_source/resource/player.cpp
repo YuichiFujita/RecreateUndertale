@@ -33,6 +33,8 @@ CListManager<CPlayer>* CPlayer::m_pList = nullptr;	// オブジェクトリスト
 //	コンストラクタ
 //============================================================
 CPlayer::CPlayer() : CObjectCharaAnim3D(CObject::LABEL_PLAYER, CObject::DIM_3D, PRIORITY),
+	m_status	({}),			// ステータス情報
+	m_item		({}),			// アイテム情報
 	m_pState	(nullptr),		// 状態
 	m_oldPos	(VEC3_ZERO),	// 過去位置
 	m_angle		((EAngle)0)		// 向き
@@ -54,6 +56,8 @@ CPlayer::~CPlayer()
 HRESULT CPlayer::Init()
 {
 	// メンバ変数を初期化
+	m_status = {};			// ステータス情報
+	m_item	 = {};			// アイテム情報
 	m_pState = nullptr;		// 状態
 	m_oldPos = VEC3_ZERO;	// 過去位置
 	m_angle  = ANGLE_DOWN;	// 向き

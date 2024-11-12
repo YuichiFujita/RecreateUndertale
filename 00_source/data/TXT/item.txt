@@ -12,23 +12,23 @@ ITEMSET
 	
 	USE
 		TEXT
-			STR =  ＊ /nameを　たべた。
+			STR = ＊ /nameを　たべた。
 		END_TEXT
 		TEXT
-			STR =  ＊ /nameを　たべたよ。
+			STR = ＊ /nameを　たべたよ。
 		END_TEXT
 		TEXT
-			STR =  ＊ /nameを　たべたって。
+			STR = ＊ /nameを　たべたって。
 		END_TEXT
 		TEXT
-			STR =  ＊ /nameを　たべたっつてるだろ！！！
+			STR = ＊ /nameを　たべたっつてるだろ！！！
 		END_TEXT
 	END_USE
 	
 	INFO
 		TEXT
-			STR =  ＊ ハッカとは　またちがった
-			STR =  　 どくとくな　ふうみ。
+			STR = ＊ ハッカとは　またちがった
+			STR = 　 どくとくな　ふうみ。
 		END_TEXT
 	END_INFO
 END_ITEMSET
@@ -40,26 +40,26 @@ ITEMSET
 	
 	USE
 		TEXT
-			STR =  ＊ え、生食するの？
+			STR = ＊ え、生食するの？
 		END_TEXT
 		TEXT
-			STR =  ＊ いや...おなか壊すよ？
+			STR = ＊ いや...おなか壊すよ？
 		END_TEXT
 		TEXT
-			STR =  ＊ ま、まぁ...止めないけど。
+			STR = ＊ ま、まぁ...止めないけど。
 		END_TEXT
 		TEXT
-			STR =  ＊ あ～あ。
+			STR = ＊ あ～あ。
 		END_TEXT
 	END_USE
 	
 	INFO
 		TEXT
-			STR =  ＊ まず間違いなく
-			STR =  　 火を通した方がいい。
+			STR = ＊ まず間違いなく
+			STR = 　 火を通した方がいい。
 		END_TEXT
 		TEXT
-			STR =  ＊ てか共食いで草
+			STR = ＊ てか共食いで草
 		END_TEXT
 	END_INFO
 END_ITEMSET
@@ -75,4 +75,16 @@ ITEMSET
 	NAME = ゆきだるまのかけら
 	HEAL = 45
 	USE_END = FALSE
+END_ITEMSET
+
+ITEMSET
+	TYPE = 1
+	NAME = ほんもののナイフ
+	ADD_ATK = 99
+END_ITEMSET
+
+ITEMSET
+	TYPE = 1
+	NAME = ロケット
+	ADD_DEF = 99
 END_ITEMSET

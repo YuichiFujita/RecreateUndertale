@@ -8,6 +8,9 @@
 //	インクルードファイル
 //************************************************************
 #include "itemHeal.h"
+#include "sceneGame.h"
+#include "player.h"
+#include "playerStatus.h"
 
 //************************************************************
 //	定数宣言
@@ -96,10 +99,12 @@ void CItemHeal::Drop() const
 //============================================================
 std::string CItemHeal::Detail() const
 {
+	SPlayerStatus status = CSceneGame::GetPlayer()->GetStatus();	// ステータス情報
+
 	// アイテム詳細の取得
 	std::string sDetail = CItemData::Detail();
 
-	if (m_nHeal >= 99)	// TODO：最大体力定数に置換
+	if (m_nHeal >= status.GetMaxHP())
 	{ // HP上限以上の場合
 
 		// 全回復を表示
@@ -130,26 +135,22 @@ std::string CItemHeal::Detail() const
 //============================================================
 std::string CItemHeal::UseEnd() const
 {
+	SPlayerStatus status = CSceneGame::GetPlayer()->GetStatus();	// ステータス情報
 	if (!m_bUseEnd)
 	{ // 表示しない場合
 
 		return "";
 	}
-	if (m_nHeal >= 99)	// TODO：最大体力定数に置換
+	if (m_nHeal >= status.GetMaxHP())
 	{ // HP上限以上の場合
 
 		return " ＊ HPが　まんタンになった。";
 	}
-
-	// TODO：プレイヤーHPの確認
-#if 0
-	else if ()
+	else if (status.nHP >= status.GetCurMaxHP())
 	{ // HPが満タンの場合
 
 		return " ＊ HPが　まんたんに　なった。";
 	}
-#endif
-
 	else if (m_nHeal < 0)
 	{ // マイナスの場合
 

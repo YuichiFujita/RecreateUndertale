@@ -8,9 +8,14 @@
 //	インクルードファイル
 //************************************************************
 #include "selectStatusUI.h"
+#include "manager.h"
 #include "loadtext.h"
 #include "string2D.h"
 #include "text2D.h"
+#include "sceneGame.h"
+#include "player.h"
+#include "playerStatus.h"
+#include "item.h"
 
 //************************************************************
 //	定数宣言
@@ -189,6 +194,8 @@ CSelectStatusUI::~CSelectStatusUI()
 //============================================================
 HRESULT CSelectStatusUI::Init()
 {
+	SPlayerStatus status = CSceneGame::GetPlayer()->GetStatus();	// ステータス情報
+
 	// メンバ変数を初期化
 	m_pName			= nullptr;	// 名前情報
 	m_pLvHpTitle	= nullptr;	// LV/HPタイトル情報
@@ -231,7 +238,7 @@ HRESULT CSelectStatusUI::Init()
 	//	名前の初期化 / 設定
 	//--------------------------------------------------------
 	// 表示する名前文字列を作成
-	std::string sName = useful::SandString("\"", "おぷおぷ", "\"");	// TODO：名前の外部読込
+	std::string sName = useful::SandString("\"", status.sName, "\"");
 
 	// 名前の生成
 	m_pName = CString2D::Create
@@ -281,6 +288,9 @@ HRESULT CSelectStatusUI::Init()
 	//--------------------------------------------------------
 	//	LV / HP数値の初期化 / 設定
 	//--------------------------------------------------------
+	const std::string& rHP = std::to_string(status.nHP);		// 現在の体力文字列
+	const std::string& rMaxHP = std::to_string(status.nMaxHP);	// 最大の体力文字列
+
 	// LV/HP数値の生成
 	m_pLvHpValue = CText2D::Create
 	( // 引数
@@ -304,11 +314,9 @@ HRESULT CSelectStatusUI::Init()
 	// 優先順位を設定
 	m_pLvHpValue->SetPriority(PRIORITY);
 
-	// TODO：ステータス情報読込
-#if 1
-	m_pLvHpValue->PushBackString("1");
-	m_pLvHpValue->PushBackString(useful::SandString("20", "/", "20"));
-#endif
+	// LV/HP情報の追加
+	m_pLvHpValue->PushBackString(std::to_string(status.nLove));
+	m_pLvHpValue->PushBackString(useful::SandString(rHP, "/", rMaxHP));
 
 	//--------------------------------------------------------
 	//	ATK / DEFタイトルの初期化 / 設定
@@ -342,6 +350,11 @@ HRESULT CSelectStatusUI::Init()
 	//--------------------------------------------------------
 	//	ATK / DEF数値の初期化 / 設定
 	//--------------------------------------------------------
+	const CItemData& rItemWpn = GET_MANAGER->GetItem()->GetInfo(status.nWpnItemIdx);			// 武器アイテム情報
+	const CItemData& rItemAmr = GET_MANAGER->GetItem()->GetInfo(status.nAmrItemIdx);			// 防具アイテム情報
+	const std::string& rAddAtk = std::to_string(rItemWpn.GetAddAtk() + rItemAmr.GetAddAtk());	// 攻撃力上昇量文字列
+	const std::string& rAddDef = std::to_string(rItemWpn.GetAddDef() + rItemAmr.GetAddDef());	// 防御力上昇量文字列
+
 	// ATK/DEF数値の生成
 	m_pAtkDefValue = CText2D::Create
 	( // 引数
@@ -365,18 +378,15 @@ HRESULT CSelectStatusUI::Init()
 	// 優先順位を設定
 	m_pAtkDefValue->SetPriority(PRIORITY);
 
-	// TODO：ステータス情報 / 装備情報の読込
-#if 1
-	// 攻撃力のステータス文字列を追加
-	std::string sAtk = std::to_string(0);							// 自前のステータスを文字列に追加
-	sAtk.append(useful::SandString(" (", std::to_string(3), ")"));	// 装備のプラスステータスを文字列に追加
-	m_pAtkDefValue->PushBackString(sAtk);							// 作成した文字列を割当
+	// 攻撃力情報の追加
+	std::string sAtk = std::to_string(status.GetCurAtk());	// 自前のステータスを文字列に追加
+	sAtk.append(useful::SandString(" (", rAddAtk, ")"));	// 装備のプラスステータスを文字列に追加
+	m_pAtkDefValue->PushBackString(sAtk);					// 作成した文字列を割当
 
-	// 防御力のステータス文字列を追加
-	std::string sDef = std::to_string(0);							// 自前のステータスを文字列に追加
-	sDef.append(useful::SandString(" (", std::to_string(3), ")"));	// 装備のプラスステータスを文字列に追加
-	m_pAtkDefValue->PushBackString(sDef);							// 作成した文字列を割当
-#endif
+	// 防御力情報の追加
+	std::string sDef = std::to_string(status.GetCurDef());	// 自前のステータスを文字列に追加
+	sDef.append(useful::SandString(" (", rAddDef, ")"));	// 装備のプラスステータスを文字列に追加
+	m_pAtkDefValue->PushBackString(sDef);					// 作成した文字列を割当
 
 	//--------------------------------------------------------
 	//	EXP / NEXTタイトルの初期化 / 設定
@@ -433,11 +443,9 @@ HRESULT CSelectStatusUI::Init()
 	// 優先順位を設定
 	m_pExpNextValue->SetPriority(PRIORITY);
 
-	// TODO：ステータス情報読込
-#if 1
-	m_pExpNextValue->PushBackString("0");
-	m_pExpNextValue->PushBackString("10");
-#endif
+	// 現在経験値/次経験値の追加
+	m_pExpNextValue->PushBackString(std::to_string(status.nCurExp));
+	m_pExpNextValue->PushBackString(std::to_string(status.GetCurNext() - status.nCurExp));
 
 	//--------------------------------------------------------
 	//	WPN / AMRタイトルの初期化 / 設定
@@ -494,11 +502,9 @@ HRESULT CSelectStatusUI::Init()
 	// 優先順位を設定
 	m_pWpnAmrName->SetPriority(PRIORITY);
 
-	// TODO：装備情報から名称取得
-#if 1
-	m_pWpnAmrName->PushBackString("ぼうきれ");
-	m_pWpnAmrName->PushBackString("ほうたい");
-#endif
+	// 武器/防具名の追加
+	m_pWpnAmrName->PushBackString(rItemWpn.GetName());
+	m_pWpnAmrName->PushBackString(rItemAmr.GetName());
 
 	//--------------------------------------------------------
 	//	GOLDタイトルの初期化 / 設定
@@ -541,17 +547,14 @@ HRESULT CSelectStatusUI::Init()
 	// 優先順位を設定
 	m_pGoldValue->SetPriority(PRIORITY);
 
-	// TODO：所持金取得
-#if 1
-	m_pGoldValue->SetString("0");
-#endif
+	// 所持金の追加
+	m_pGoldValue->SetString(std::to_string(status.nGold));
 
-	// TODO：キル数取得
-#if 1
-	int nNumKill = 0;	// キル数
-#endif
-
-	if (nNumKill > 0)
+	//--------------------------------------------------------
+	//	KILLS情報の生成
+	//--------------------------------------------------------
+	int nNumKill = status.nKills;	// キル数
+	if (nNumKill > 0)	// TODO：1Killだけじゃ表示されなかったわ
 	{ // 一体でも殺したことがある場合
 
 		//----------------------------------------------------
@@ -595,7 +598,7 @@ HRESULT CSelectStatusUI::Init()
 		// 優先順位を設定
 		m_pKillsValue->SetPriority(PRIORITY);
 
-		// 表示文字列を指定
+		// キル数の追加
 		m_pKillsValue->SetString(std::to_string(nNumKill));
 	}
 

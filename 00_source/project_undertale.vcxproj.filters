@@ -79,6 +79,9 @@
     <Filter Include="ingame\menu\select\item">
       <UniqueIdentifier>{397a94b9-9b8b-42fd-a480-0b86e0ce3327}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ingame\userdata">
+      <UniqueIdentifier>{7eba8d20-d6dc-4a6d-aee7-94a90a241cb8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="resource\camera.cpp">
@@ -452,6 +455,12 @@
     </ClCompile>
     <ClCompile Include="resource\itemHeal.cpp">
       <Filter>ingame\item</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\playerStatus.cpp">
+      <Filter>ingame\userdata</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\playerItem.cpp">
+      <Filter>ingame\userdata</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -829,6 +838,12 @@
     </ClInclude>
     <ClInclude Include="resource\itemHeal.h">
       <Filter>ingame\item</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\playerStatus.h">
+      <Filter>ingame\userdata</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\playerItem.h">
+      <Filter>ingame\userdata</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
