@@ -16,6 +16,9 @@
 #include "itemUseUI.h"
 #include "itemInfoUI.h"
 #include "itemDropUI.h"
+#include "sceneGame.h"
+#include "player.h"
+#include "playerItem.h"
 
 //************************************************************
 //	定数宣言
@@ -151,18 +154,16 @@ HRESULT CSelectItemUI::Init()
 	//--------------------------------------------------------
 	//	アイテムの初期化 / 設定
 	//--------------------------------------------------------
+	SPlayerItem itemArray = CSceneGame::GetPlayer()->GetItem();	// プレイヤー所持アイテム情報
 	CItem* pItem = GET_MANAGER->GetItem();	// アイテム情報
-	for (int i = 0; i < 8; i++)	// TODO：アイテム数に応じた回数指定
-	{ // 所持アイテム数分繰り返す
+	for (int i = 0; i < SPlayerItem::MAX_ITEM; i++)
+	{ // アイテム数分繰り返す
 
 		// 空の要素を最後尾に追加
 		m_vecItemName.emplace_back();
 
-		// TODO：ここでアイテムデータのインデックスを保存する
-#if 1
 		// アイテムインデックスを保存
-		m_vecItemName[i].nItemIdx = rand() % 4;
-#endif
+		m_vecItemName[i].nItemIdx = itemArray.aItemIdx[i];
 
 		// 文字位置オフセットを計算
 		VECTOR3 offset = item::SPACE * (float)i;
@@ -370,8 +371,11 @@ void CSelectItemUI::UpdateDecideAct()
 			m_vecItemName[m_nCurSelectItem].nItemIdx	// 選択中アイテムインデックス
 		);
 
-		// アイテムメニューの自動描画をOFFにする
+		// アイテムメニューの描画をOFFにする
 		SetEnableDraw(false);
+
+		// ソウルカーソルの描画をOFFにする
+		SetSoulCursorDraw(false);
 
 		// テキスト表示状態にする
 		m_state = STATE_TEXT;

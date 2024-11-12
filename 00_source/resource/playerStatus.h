@@ -49,7 +49,7 @@ public:
 	// メンバ変数
 	std::string sName;	// プレイヤー名
 	int nLove;			// レベル
-	int nHP;			// 体力
+	int nHP;			// 体力		// TODO：戦闘時のHPバーの実装はこの値をポインタで持って扱おう
 	int nMaxHP;			// 最大体力
 	int nCurExp;		// 現在経験値
 	int nWpnItemIdx;	// 武器アイテムインデックス

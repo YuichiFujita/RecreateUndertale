@@ -21,13 +21,13 @@ public:
 	static constexpr int MAX_ITEM = 8;	// 最大アイテム数
 
 	// デフォルトコンストラクタ
-	SPlayerItem() { memset(nItemIdx, 0, sizeof(nItemIdx)); }
+	SPlayerItem() { memset(&aItemIdx[0], 0, sizeof(aItemIdx)); }
 
 	// デストラクタ
 	~SPlayerItem() {}
 
 	// メンバ変数
-	int nItemIdx[MAX_ITEM];	// アイテムインデックス
+	int aItemIdx[MAX_ITEM];	// アイテムインデックス
 };
 
 #endif	// _PLAYER_ITEM_H_
