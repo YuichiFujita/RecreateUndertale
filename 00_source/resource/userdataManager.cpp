@@ -1,28 +1,27 @@
 //============================================================
 //
-//	フィールドメニューマネージャー処理 [menuManager.cpp]
+//	ユーザーデータマネージャー処理 [userdataManager.cpp]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	インクルードファイル
 //************************************************************
-#include "menuManager.h"
-#include "menuUI.h"
+#include "userdataManager.h"
 
 //************************************************************
 //	静的メンバ変数宣言
 //************************************************************
-CMenuManager* CMenuManager::m_pInstance = nullptr;	// 自身のインスタンス
+CUserDataManager* CUserDataManager::m_pInstance = nullptr;	// 自身のインスタンス
 
 //************************************************************
-//	親クラス [CMenuManager] のメンバ関数
+//	親クラス [CUserDataManager] のメンバ関数
 //************************************************************
 //============================================================
 //	コンストラクタ
 //============================================================
-CMenuManager::CMenuManager() :
-	m_pMenu	(nullptr)	// フィールドメニュー情報
+CUserDataManager::CUserDataManager() :
+	m_fPlayTime	(0.0f)	// プレイ総時間
 {
 
 }
@@ -30,7 +29,7 @@ CMenuManager::CMenuManager() :
 //============================================================
 //	デストラクタ
 //============================================================
-CMenuManager::~CMenuManager()
+CUserDataManager::~CUserDataManager()
 {
 
 }
@@ -38,10 +37,10 @@ CMenuManager::~CMenuManager()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CMenuManager::Init()
+HRESULT CUserDataManager::Init()
 {
 	// メンバ変数を初期化
-	m_pMenu = nullptr;	// フィールドメニュー情報
+	m_fPlayTime = 0.0f;	// プレイ総時間
 
 	return S_OK;
 }
@@ -49,7 +48,7 @@ HRESULT CMenuManager::Init()
 //============================================================
 //	終了処理
 //============================================================
-void CMenuManager::Uninit()
+void CUserDataManager::Uninit()
 {
 
 }
@@ -57,68 +56,22 @@ void CMenuManager::Uninit()
 //============================================================
 //	更新処理
 //============================================================
-void CMenuManager::Update(const float fDeltaTime)
+void CUserDataManager::Update(const float fDeltaTime)
 {
-	// 選択中の場合抜ける
-	if (IsChoiceSelect()) { return; }
-
-	if (input::FieldMenu())
-	{
-		// フィールドメニューの表示を切り替え
-		SetEnableDrawMenu(!IsDrawMenu());
-	}
-
-	if (input::Cancel())
-	{
-		// フィールドメニューの終了
-		SetEnableDrawMenu(false);
-	}
-}
-
-//============================================================
-//	フィールドメニューの描画設定処理
-//============================================================
-void CMenuManager::SetEnableDrawMenu(const bool bDraw)
-{
-	if (bDraw)
-	{ // 描画を開始する場合
-
-		// 生成済みの場合抜ける
-		if (m_pMenu != nullptr) { return; }
-
-		// フィールドメニューの生成
-		m_pMenu = CMenuUI::Create();
-	}
-	else
-	{ // 描画を終了する場合
-
-		// フィールドメニューの終了
-		SAFE_UNINIT(m_pMenu);
-	}
-}
-
-//============================================================
-//	選択中状況の取得処理
-//============================================================
-bool CMenuManager::IsChoiceSelect() const
-{
-	// メニューが閉じている場合抜ける
-	if (m_pMenu == nullptr) { return false; }
-
-	// 選択中状況を返す
-	return m_pMenu->IsChoiceSelect();
+	// プレイ総時間を加算
+	m_fPlayTime += fDeltaTime;
 }
 
 //============================================================
 //	インスタンス生成処理
 //============================================================
-CMenuManager* CMenuManager::Create()
+CUserDataManager* CUserDataManager::Create()
 {
 	// インスタンス生成済み
 	assert(m_pInstance == nullptr);
 
-	// フィールドメニューマネージャーの生成
-	m_pInstance = new CMenuManager;
+	// ユーザーデータマネージャーの生成
+	m_pInstance = new CUserDataManager;
 	if (m_pInstance == nullptr)
 	{ // 生成に失敗した場合
 
@@ -127,11 +80,11 @@ CMenuManager* CMenuManager::Create()
 	else
 	{ // 生成に成功した場合
 
-		// フィールドメニューマネージャーの初期化
+		// ユーザーデータマネージャーの初期化
 		if (FAILED(m_pInstance->Init()))
 		{ // 初期化に失敗した場合
 
-			// フィールドメニューマネージャーの破棄
+			// ユーザーデータマネージャーの破棄
 			SAFE_DELETE(m_pInstance);
 			return nullptr;
 		}
@@ -144,7 +97,7 @@ CMenuManager* CMenuManager::Create()
 //============================================================
 //	インスタンス取得処理
 //============================================================
-CMenuManager* CMenuManager::GetInstance()
+CUserDataManager* CUserDataManager::GetInstance()
 {
 	// インスタンス未生成
 	assert(m_pInstance != nullptr);
@@ -156,9 +109,9 @@ CMenuManager* CMenuManager::GetInstance()
 //============================================================
 //	インスタンス破棄処理
 //============================================================
-void CMenuManager::Release()
+void CUserDataManager::Release()
 {
-	// フィールドメニューマネージャーの終了
+	// ユーザーデータマネージャーの終了
 	assert(m_pInstance != nullptr);
 	m_pInstance->Uninit();
 

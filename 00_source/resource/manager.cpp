@@ -23,6 +23,7 @@
 #include "item.h"
 #include "shader.h"
 #include "retention.h"
+#include "userdataManager.h"
 #include "debug.h"
 
 //************************************************************
@@ -180,6 +181,14 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	// データ保存の生成
 	m_pRetention = CRetention::Create();
 	if (m_pRetention == nullptr)
+	{ // 生成に失敗した場合
+
+		assert(false);
+		return E_FAIL;
+	}
+
+	// ユーザーデータの生成
+	if (CUserDataManager::Create() == nullptr)
 	{ // 生成に失敗した場合
 
 		assert(false);
@@ -373,6 +382,8 @@ HRESULT CManager::Load()
 		return E_FAIL;
 	}
 
+	// TODO：ここにユーザーデータの読み込み
+
 	return S_OK;
 }
 
@@ -399,6 +410,9 @@ void CManager::Uninit()
 	//--------------------------------------------------------
 	//	システムの破棄
 	//--------------------------------------------------------
+	// ユーザーデータの破棄
+	CUserDataManager::GetInstance()->Release();
+
 	// データ保存の破棄
 	SAFE_REF_RELEASE(m_pRetention);
 
@@ -481,6 +495,9 @@ void CManager::Update()
 	const float fDeltaTime = m_pDeltaTime->GetDeltaTime();	// 経過時間
 	const float fDeltaRate = m_pDeltaTime->GetDeltaRate();	// 経過時間の割合
 	const float fSlowRate = m_pDeltaTime->GetSlowRate();	// 速度低下の割合
+
+	// ユーザーデータの更新
+	CUserDataManager::GetInstance()->Update(fDeltaTime);
 
 	// パッドの更新
 	assert(m_pPad != nullptr);

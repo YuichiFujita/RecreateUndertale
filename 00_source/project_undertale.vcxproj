@@ -284,6 +284,7 @@
     <ClCompile Include="resource\timeUI.cpp" />
     <ClCompile Include="resource\titleManager.cpp" />
     <ClCompile Include="resource\useful.cpp" />
+    <ClCompile Include="resource\userdataManager.cpp" />
     <ClCompile Include="resource\value.cpp" />
     <ClCompile Include="resource\valueUI.cpp" />
   </ItemGroup>
@@ -415,6 +416,7 @@
     <ClInclude Include="resource\timeUI.h" />
     <ClInclude Include="resource\titleManager.h" />
     <ClInclude Include="resource\useful.h" />
+    <ClInclude Include="resource\userdataManager.h" />
     <ClInclude Include="resource\value.h" />
     <ClInclude Include="resource\valueUI.h" />
   </ItemGroup>

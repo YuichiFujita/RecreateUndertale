@@ -468,6 +468,9 @@
     <ClCompile Include="resource\itemArmor.cpp">
       <Filter>ingame\item</Filter>
     </ClCompile>
+    <ClCompile Include="resource\userdataManager.cpp">
+      <Filter>ingame\userdata</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h">
@@ -856,6 +859,9 @@
     </ClInclude>
     <ClInclude Include="resource\itemArmor.h">
       <Filter>ingame\item</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\userdataManager.h">
+      <Filter>ingame\userdata</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
