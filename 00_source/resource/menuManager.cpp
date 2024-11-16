@@ -11,6 +11,11 @@
 #include "menuUI.h"
 
 //************************************************************
+//	静的メンバ変数宣言
+//************************************************************
+CMenuManager* CMenuManager::m_pInstance = nullptr;	// 自身のインスタンス
+
+//************************************************************
 //	親クラス [CMenuManager] のメンバ関数
 //************************************************************
 //============================================================
@@ -109,9 +114,12 @@ bool CMenuManager::IsChoiceSelect() const
 //============================================================
 CMenuManager* CMenuManager::Create()
 {
+	// インスタンス生成済み
+	assert(m_pInstance == nullptr);
+
 	// フィールドメニューマネージャーの生成
-	CMenuManager* pMenuManager = new CMenuManager;
-	if (pMenuManager == nullptr)
+	m_pInstance = new CMenuManager;
+	if (m_pInstance == nullptr)
 	{ // 生成に失敗した場合
 
 		return nullptr;
@@ -120,28 +128,40 @@ CMenuManager* CMenuManager::Create()
 	{ // 生成に成功した場合
 
 		// フィールドメニューマネージャーの初期化
-		if (FAILED(pMenuManager->Init()))
+		if (FAILED(m_pInstance->Init()))
 		{ // 初期化に失敗した場合
 
 			// フィールドメニューマネージャーの破棄
-			SAFE_DELETE(pMenuManager);
+			SAFE_DELETE(m_pInstance);
 			return nullptr;
 		}
 
 		// 確保したアドレスを返す
-		return pMenuManager;
+		return m_pInstance;
 	}
+}
+
+//============================================================
+//	インスタンス取得処理
+//============================================================
+CMenuManager* CMenuManager::GetInstance()
+{
+	// インスタンス未生成
+	assert(m_pInstance != nullptr);
+
+	// 自身のインスタンスを返す
+	return m_pInstance;
 }
 
 //============================================================
 //	破棄処理
 //============================================================
-void CMenuManager::Release(CMenuManager*& prMenuManager)
+void CMenuManager::Release()
 {
 	// フィールドメニューマネージャーの終了
-	assert(prMenuManager != nullptr);
-	prMenuManager->Uninit();
+	assert(m_pInstance != nullptr);
+	m_pInstance->Uninit();
 
 	// メモリ開放
-	SAFE_DELETE(prMenuManager);
+	SAFE_DELETE(m_pInstance);
 }

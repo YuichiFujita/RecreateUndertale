@@ -37,10 +37,14 @@ public:
 	inline bool IsDrawMenu() const { return (m_pMenu != nullptr); }	// フィールドメニュー描画状況取得
 
 	// 静的メンバ関数
-	static CMenuManager* Create();	// 生成
-	static void Release(CMenuManager*& prMenuManager);	// 破棄
+	static CMenuManager* Create();		// 生成
+	static CMenuManager* GetInstance();	// 取得
+	static void Release();				// 破棄
 
 private:
+	// 静的メンバ変数
+	static CMenuManager* m_pInstance;	// 自身のインスタンス
+
 	// メンバ変数
 	CMenuUI* m_pMenu;	// フィールドメニュー情報
 };

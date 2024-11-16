@@ -19,7 +19,6 @@
 //	前方宣言
 //************************************************************
 class CGameManager;	// ゲームマネージャークラス
-class CMenuManager;	// メニューマネージャークラス
 class CPause;		// ポーズクラス
 class CStage;		// ステージクラス
 class CPlayer;		// プレイヤークラス
@@ -44,7 +43,6 @@ public:
 
 	// 静的メンバ関数
 	static CGameManager* GetGameManager();	// ゲームマネージャー取得
-	static CMenuManager* GetMenuManager();	// メニューマネージャー取得
 	static CPause* GetPause();		// ポーズ取得
 	static CStage* GetStage();		// ステージ取得
 	static CPlayer* GetPlayer();	// プレイヤー取得
@@ -52,7 +50,6 @@ public:
 private:
 	// 静的メンバ変数
 	static CGameManager* m_pGameManager;	// ゲームマネージャー
-	static CMenuManager* m_pMenuManager;	// メニューマネージャー
 	static CPause* m_pPause;	// ポーズ情報
 	static CStage* m_pStage;	// ステージ情報
 };

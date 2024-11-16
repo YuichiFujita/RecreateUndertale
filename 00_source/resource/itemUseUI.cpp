@@ -10,9 +10,6 @@
 #include "itemUseUI.h"
 #include "manager.h"
 #include "item.h"
-
-// TODO
-#include "sceneGame.h"
 #include "menuManager.h"
 
 //************************************************************
@@ -110,7 +107,7 @@ void CItemUseUI::NextText()
 		pItem->GetInfo(nItemIdx).Use(nBagIdx);
 
 		// フィールドメニューの終了
-		CSceneGame::GetMenuManager()->SetEnableDrawMenu(false);
+		CMenuManager::GetInstance()->SetEnableDrawMenu(false);
 		return;
 	}
 

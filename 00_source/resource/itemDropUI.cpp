@@ -10,9 +10,6 @@
 #include "itemDropUI.h"
 #include "manager.h"
 #include "item.h"
-
-// TODO
-#include "sceneGame.h"
 #include "menuManager.h"
 
 //************************************************************
@@ -110,7 +107,7 @@ void CItemDropUI::NextText()
 		pItem->GetInfo(nItemIdx).Drop(nBagIdx);
 
 		// フィールドメニューの終了
-		CSceneGame::GetMenuManager()->SetEnableDrawMenu(false);
+		CMenuManager::GetInstance()->SetEnableDrawMenu(false);
 		return;
 	}
 
