@@ -24,6 +24,7 @@ public:
 	~CPlayerStatus();
 
 	// メンバ関数
+	void ChangeHP(const int nChange);		// 体力増減
 	void SwapWeaponIdx(const int nBagIdx);	// 武器アイテムインデックス入替
 	void SwapArmorIdx(const int nBagIdx);	// 防具アイテムインデックス入替
 	int GetBaseMaxHP() const;				// レベル基準の最大HP取得 (最大レベル)
@@ -48,6 +49,10 @@ public:
 	inline float GetInvTime() const		{ return m_fInvTime; }		// 無敵時間取得
 
 private:
+	// メンバ関数
+	void AddHP(const int nAdd);	// 体力加算
+	void SubHP(const int nSub);	// 体力減算
+
 	// メンバ変数
 	std::string m_sName;	// プレイヤー名
 	int m_nLove;			// レベル

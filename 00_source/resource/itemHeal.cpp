@@ -76,7 +76,9 @@ void CItemHeal::Uninit()
 //============================================================
 void CItemHeal::Use(const int nBagIdx) const
 {
-	// TODO：ここでHP回復
+	// 体力の回復
+	CPlayerStatus* pStatus = CSceneGame::GetPlayer()->GetStatus();	// プレイヤーステータス情報
+	pStatus->ChangeHP(m_nHeal);
 
 	// 使用したアイテムの削除
 	CPlayerItem* pItem = CSceneGame::GetPlayer()->GetItem();	// プレイヤー所持アイテム情報

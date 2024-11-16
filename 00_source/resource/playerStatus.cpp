@@ -86,6 +86,25 @@ CPlayerStatus::~CPlayerStatus()
 }
 
 //============================================================
+//	体力の増減処理
+//============================================================
+void CPlayerStatus::ChangeHP(const int nChange)
+{
+	if (nChange > 0)
+	{ // 体力を増加させる場合
+
+		// 体力の加算
+		AddHP(nChange);
+	}
+	else if (nChange < 0)
+	{ // 体力を減少させる場合
+
+		// 体力の減算
+		SubHP(-nChange);
+	}
+}
+
+//============================================================
 //	武器アイテムインデックスの入替処理
 //============================================================
 void CPlayerStatus::SwapWeaponIdx(const int nBagIdx)
@@ -215,4 +234,52 @@ int CPlayerStatus::GetCurNext() const
 {
 	// 現在のEXPを返す
 	return GetNext(m_nLove);
+}
+
+//============================================================
+//	体力の加算処理
+//============================================================
+void CPlayerStatus::AddHP(const int nAdd)
+{
+	// 体力を回復させる
+	m_nHP += nAdd;
+
+	// 体力の値を補正
+	useful::LimitNum(m_nHP, 0, GetCurBaseMaxHP());
+}
+
+//============================================================
+//	体力の減算処理
+//============================================================
+void CPlayerStatus::SubHP(const int nSub)
+{
+	int nDamage = nSub;					// ダメージ量
+	int nBaseMaxHP = GetCurBaseMaxHP();	// レベル基準の最大HP
+	if (m_nMaxHP > nBaseMaxHP)
+	{ // 現在の最大HPがレベル基準の最大HPより多い場合
+
+		int nDiffHP = m_nMaxHP - nBaseMaxHP;	// 最大HPの差分
+		if (nDamage > nDiffHP)
+		{ // ダメージ量が最大HPの差分より多い場合
+
+			// 最大体力をレベル基準に修正
+			m_nMaxHP = nBaseMaxHP;
+
+			// 与えるダメージ量を軽減
+			nDamage -= nDiffHP;
+		}
+		else
+		{ // ダメージ量が最大HPの差分より少ない場合
+
+			// 最大体力にダメージを与える
+			m_nMaxHP -= nDamage;
+			return;
+		}
+	}
+
+	// 体力にダメージを与える
+	m_nHP -= nDamage;
+
+	// 体力の値を補正
+	useful::LimitNum(m_nHP, 0, nBaseMaxHP);
 }
