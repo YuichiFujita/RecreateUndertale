@@ -75,8 +75,8 @@ public:
 	inline void SetAngle(const EAngle angle)	{ m_angle = angle; }	// 向き設定
 	inline EAngle GetAngle() const				{ return m_angle; }		// 向き取得
 	inline VECTOR3 GetOldPosition() const		{ return m_oldPos; }	// 過去位置取得
-	inline SPlayerStatus GetStatus() const		{ return m_status; }	// ステータス情報取得
-	inline SPlayerItem GetItem() const			{ return m_item; }		// アイテム情報取得
+	inline SPlayerStatus* GetStatus()			{ return &m_status; }	// ステータス情報取得
+	inline SPlayerItem* GetItem()				{ return &m_item; }		// アイテム情報取得
 
 private:
 	// メンバ関数

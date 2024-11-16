@@ -1,16 +1,17 @@
 ﻿//============================================================
 //
-//	特殊効果なしアイテム処理 [itemNone.cpp]
+//	防具アイテム処理 [itemArmor.cpp]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	インクルードファイル
 //************************************************************
-#include "itemNone.h"
+#include "itemArmor.h"
 #include "sceneGame.h"
 #include "player.h"
 #include "playerItem.h"
+#include "playerStatus.h"
 
 //************************************************************
 //	定数宣言
@@ -21,12 +22,12 @@ namespace
 }
 
 //************************************************************
-//	子クラス [CItemNone] のメンバ関数
+//	子クラス [CItemArmor] のメンバ関数
 //************************************************************
 //============================================================
 //	コンストラクタ
 //============================================================
-CItemNone::CItemNone()
+CItemArmor::CItemArmor()
 {
 
 }
@@ -34,7 +35,7 @@ CItemNone::CItemNone()
 //============================================================
 //	デストラクタ
 //============================================================
-CItemNone::~CItemNone()
+CItemArmor::~CItemArmor()
 {
 
 }
@@ -42,7 +43,7 @@ CItemNone::~CItemNone()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CItemNone::Init()
+HRESULT CItemArmor::Init()
 {
 	// アイテム情報の初期化
 	if (FAILED(CItemData::Init()))
@@ -58,7 +59,7 @@ HRESULT CItemNone::Init()
 //============================================================
 //	終了処理
 //============================================================
-void CItemNone::Uninit()
+void CItemArmor::Uninit()
 {
 	// アイテム情報の終了
 	CItemData::Uninit();
@@ -67,20 +68,26 @@ void CItemNone::Uninit()
 //============================================================
 //	アイテム使用処理
 //============================================================
-void CItemNone::Use(const int nBagIdx) const
+void CItemArmor::Use(const int nBagIdx) const
 {
-	// 使用したアイテムの削除
-	SPlayerItem* pItem = CSceneGame::GetPlayer()->GetItem();	// プレイヤー所持アイテム情報
-	pItem->DeleteItem(nBagIdx);
+	SPlayerStatus* pStatus = CSceneGame::GetPlayer()->GetStatus();	// プレイヤーステータス情報
+	SPlayerItem* pItem = CSceneGame::GetPlayer()->GetItem();		// プレイヤー所持アイテム情報
+
+	// 使用したアイテムの装備入れ替え
+	pItem->SwapItemIdx(&pStatus->nAmrItemIdx, nBagIdx);
 }
 
 //============================================================
 //	アイテム詳細の文字列取得処理
 //============================================================
-std::string CItemNone::Detail() const
+std::string CItemArmor::Detail() const
 {
 	// アイテム詳細の取得
 	std::string sDetail = CItemData::Detail();
+
+	// 防御力上昇量を表示
+	sDetail.append("アーマーDF");
+	sDetail.append(std::to_string(GetAddDef()));
 
 	// アイテム詳細を返す
 	return sDetail;
@@ -89,7 +96,7 @@ std::string CItemNone::Detail() const
 //============================================================
 //	種類ごとのセットアップ処理
 //============================================================
-HRESULT CItemNone::LoadSetup(std::ifstream* pFile, std::string& /*rString*/)
+HRESULT CItemArmor::LoadSetup(std::ifstream* pFile, std::string& /*rString*/)
 {
 	// ファイルストリームが未設定の場合抜ける
 	if (pFile == nullptr) { assert(false); return E_FAIL; }

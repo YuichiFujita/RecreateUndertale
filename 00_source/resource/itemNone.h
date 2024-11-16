@@ -31,10 +31,8 @@ public:
 	// オーバーライド関数
 	HRESULT Init() override;	// 初期化
 	void Uninit() override;		// 終了
-	void Use() const override;	// アイテム使用
-	void Info() const override;	// アイテム情報
-	void Drop() const override;	// アイテム破棄
-	std::string Detail() const override;	// アイテム詳細の文字列取得
+	void Use(const int nBagIdx) const override;	// アイテム使用
+	std::string Detail() const override;		// アイテム詳細の文字列取得
 
 private:
 	// オーバーライド関数

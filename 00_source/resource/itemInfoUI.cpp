@@ -29,7 +29,7 @@ namespace
 //============================================================
 //	コンストラクタ
 //============================================================
-CItemInfoUI::CItemInfoUI(const int nChoiceItemIdx) : CItemUI(nChoiceItemIdx)
+CItemInfoUI::CItemInfoUI(const int nChoiceItemIdx, const int nChoiceBagIdx) : CItemUI(nChoiceItemIdx, nChoiceBagIdx)
 {
 
 }
@@ -112,7 +112,8 @@ void CItemInfoUI::NextText()
 	{ // テキストが終了した場合
 
 		// 選択アイテムの情報を確認済みにする
-		pItem->GetInfo(nItemIdx).Info();
+		int nBagIdx = GetChoiceBagIdx();	// 選択バッグインデックス
+		pItem->GetInfo(nItemIdx).Info(nBagIdx);
 
 		// フィールドメニューの終了
 		CSceneGame::GetMenuManager()->SetEnableDrawMenu(false);

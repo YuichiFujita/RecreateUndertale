@@ -20,6 +20,11 @@
 #include "player.h"
 #include "playerItem.h"
 
+// TODO：デバッグ
+#if 0
+#define RAND_ITEM
+#endif
+
 //************************************************************
 //	定数宣言
 //************************************************************
@@ -154,16 +159,27 @@ HRESULT CSelectItemUI::Init()
 	//--------------------------------------------------------
 	//	アイテムの初期化 / 設定
 	//--------------------------------------------------------
-	SPlayerItem itemArray = CSceneGame::GetPlayer()->GetItem();	// プレイヤー所持アイテム情報
+	SPlayerItem itemArray = *CSceneGame::GetPlayer()->GetItem();	// プレイヤー所持アイテム情報
 	CItem* pItem = GET_MANAGER->GetItem();	// アイテム情報
+#ifdef RAND_ITEM
 	for (int i = 0; i < SPlayerItem::MAX_ITEM; i++)
 	{ // アイテム数分繰り返す
+#else
+	int nNumItem = itemArray.GetNumItem();	// 所持アイテム数
+	for (int i = 0; i < nNumItem; i++)
+	{ // 所持アイテム数分繰り返す
+#endif
 
 		// 空の要素を最後尾に追加
 		m_vecItemName.emplace_back();
 
+#ifdef RAND_ITEM
 		// アイテムインデックスを保存
-		m_vecItemName[i].nItemIdx = itemArray.aItemIdx[i];
+		m_vecItemName[i].nItemIdx = rand() % 6;
+#else
+		// アイテムインデックスを保存
+		m_vecItemName[i].nItemIdx = itemArray.GetItemIdx(i);
+#endif
 
 		// 文字位置オフセットを計算
 		VECTOR3 offset = item::SPACE * (float)i;
@@ -368,7 +384,8 @@ void CSelectItemUI::UpdateDecideAct()
 		m_pItemMenu = CItemUI::Create
 		( // 引数
 			(ESelect)m_nCurSelectAct,					// 選択中行動
-			m_vecItemName[m_nCurSelectItem].nItemIdx	// 選択中アイテムインデックス
+			m_vecItemName[m_nCurSelectItem].nItemIdx,	// 選択中アイテムインデックス
+			m_nCurSelectItem							// 選択中バッグインデックス
 		);
 
 		// アイテムメニューの描画をOFFにする
@@ -397,8 +414,9 @@ void CSelectItemUI::UpdateDecideAct()
 //============================================================
 //	コンストラクタ
 //============================================================
-CItemUI::CItemUI(const int nChoiceItemIdx) : CObject(CObject::LABEL_NONE, CObject::DIM_3D, PRIORITY),
+CItemUI::CItemUI(const int nChoiceItemIdx, const int nChoiceBagIdx) : CObject(CObject::LABEL_NONE, CObject::DIM_3D, PRIORITY),
 	m_nChoiceItemIdx	(nChoiceItemIdx),	// 選択中アイテムインデックス
+	m_nChoiceBagIdx		(nChoiceBagIdx),	// 選択中バッグインデックス
 	m_pTextBox			(nullptr),			// テキストボックス情報
 	m_nCurTextIdx		(0)					// 現在のテキストインデックス
 {
@@ -485,7 +503,8 @@ void CItemUI::Draw(CShader* /*pShader*/)
 CItemUI* CItemUI::Create
 (
 	const CSelectItemUI::ESelect choiceAct,	// 選択中行動
-	const int nChoiceItemIdx				// 選択中アイテムインデックス
+	const int nChoiceItemIdx,				// 選択中アイテムインデックス
+	const int nChoiceBagIdx					// 選択中バッグインデックス
 )
 {
 	// アイテムUIの生成
@@ -493,15 +512,15 @@ CItemUI* CItemUI::Create
 	switch (choiceAct)
 	{ // 選択肢ごとの処理
 	case CSelectItemUI::SELECT_USE:
-		pItemUI = new CItemUseUI(nChoiceItemIdx);
+		pItemUI = new CItemUseUI(nChoiceItemIdx, nChoiceBagIdx);
 		break;
 
 	case CSelectItemUI::SELECT_INFO:
-		pItemUI = new CItemInfoUI(nChoiceItemIdx);
+		pItemUI = new CItemInfoUI(nChoiceItemIdx, nChoiceBagIdx);
 		break;
 
 	case CSelectItemUI::SELECT_DROP:
-		pItemUI = new CItemDropUI(nChoiceItemIdx);
+		pItemUI = new CItemDropUI(nChoiceItemIdx, nChoiceBagIdx);
 		break;
 
 	default:	// 例外処理

@@ -10,8 +10,13 @@
 #include "item.h"
 #include "itemNone.h"
 #include "itemHeal.h"
+#include "itemWeapon.h"
+#include "itemArmor.h"
 #include "manager.h"
 #include "renderer.h"
+#include "sceneGame.h"
+#include "player.h"
+#include "playerItem.h"
 
 //************************************************************
 //	定数宣言
@@ -73,6 +78,24 @@ void CItemData::Uninit()
 }
 
 //============================================================
+//	アイテム情報処理
+//============================================================
+void CItemData::Info(const int /*nBagIdx*/) const
+{
+
+}
+
+//============================================================
+//	アイテム破棄処理
+//============================================================
+void CItemData::Drop(const int nBagIdx) const
+{
+	// 破棄したアイテムの削除
+	SPlayerItem* pItemArray = CSceneGame::GetPlayer()->GetItem();	// プレイヤー所持アイテム情報
+	pItemArray->DeleteItem(nBagIdx);
+}
+
+//============================================================
 //	アイテム詳細の文字列取得処理
 //============================================================
 std::string CItemData::Detail() const
@@ -96,6 +119,47 @@ std::string CItemData::UseEnd() const
 }
 
 //============================================================
+//	使用テキストの初期化処理
+//============================================================
+void CItemData::InitUseText()
+{
+	// 使用テキストの初期化
+	m_vecUse.clear();			// テキストのクリア
+	m_vecUse.emplace_back();	// 空の要素を最後尾に追加
+
+	// 使用テキストの作成
+	m_vecUse[0].push_back(" ＊ エラーメッセージ");
+}
+
+//============================================================
+//	情報テキストの初期化処理
+//============================================================
+void CItemData::InitInfoText()
+{
+	// 情報テキストの初期化
+	m_vecInfo.clear();			// テキストのクリア
+	m_vecInfo.emplace_back();	// 空の要素を最後尾に追加
+
+	// 情報テキストの作成
+	m_vecInfo[0].push_back(" ＊ エラーメッセージ");
+}
+
+//============================================================
+//	破棄テキストの初期化処理
+//============================================================
+void CItemData::InitDropText()
+{
+	// 破棄テキストの初期化
+	m_vecDrop.clear();			// テキストのクリア
+	m_vecDrop.emplace_back();	// 空の要素を最後尾に追加
+
+	// 破棄テキストの作成
+	m_vecDrop[0].push_back(" ＊ ");
+	m_vecDrop[0][0].append(m_sName);
+	m_vecDrop[0][0].append("を　すてた");
+}
+
+//============================================================
 //	生成処理
 //============================================================
 CItemData* CItemData::Create(const EType type)
@@ -110,6 +174,14 @@ CItemData* CItemData::Create(const EType type)
 
 	case TYPE_HEAL:
 		pItemData = new CItemHeal;
+		break;
+
+	case TYPE_WEAPON:
+		pItemData = new CItemWeapon;
+		break;
+
+	case TYPE_ARMOR:
+		pItemData = new CItemArmor;
 		break;
 
 	default:	// 例外処理
@@ -137,29 +209,6 @@ CItemData* CItemData::Create(const EType type)
 		// 確保したアドレスを返す
 		return pItemData;
 	}
-}
-
-//============================================================
-//	テキストの初期化処理
-//============================================================
-void CItemData::InitText()
-{
-	// 使用テキストの初期化
-	m_vecUse.clear();
-	m_vecUse.emplace_back();
-	m_vecUse[0].push_back(" ＊ エラーメッセージ");
-
-	// 情報テキストの初期化
-	m_vecInfo.clear();
-	m_vecInfo.emplace_back();
-	m_vecInfo[0].push_back(" ＊ エラーメッセージ");
-
-	// 破棄テキストの初期化
-	m_vecDrop.clear();
-	m_vecDrop.emplace_back();
-	m_vecDrop[0].push_back(" ＊ ");
-	m_vecDrop[0][0].append(m_sName);
-	m_vecDrop[0][0].append("を　すてた");
 }
 
 //************************************************************
@@ -345,7 +394,9 @@ HRESULT CItem::LoadSetup()
 					m_vecItemData[nIdx]->SetName(str.c_str());
 
 					// テキストの初期化
-					m_vecItemData[nIdx]->InitText();
+					m_vecItemData[nIdx]->InitUseText();		// 使用テキスト
+					m_vecItemData[nIdx]->InitInfoText();	// 情報テキスト
+					m_vecItemData[nIdx]->InitDropText();	// 破棄テキスト
 				}
 				else if (str == "ADD_ATK")
 				{

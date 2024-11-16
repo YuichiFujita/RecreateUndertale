@@ -107,7 +107,7 @@ class CItemUI : public CObject
 {
 public:
 	// コンストラクタ
-	explicit CItemUI(const int nChoiceItemIdx);
+	explicit CItemUI(const int nChoiceItemIdx, const int nChoiceBagIdx);
 
 	// デストラクタ
 	~CItemUI() override;
@@ -122,7 +122,8 @@ public:
 	static CItemUI* Create	// 生成
 	( // 引数
 		const CSelectItemUI::ESelect choiceAct,	// 選択中行動
-		const int nChoiceItemIdx				// 選択中アイテムインデックス
+		const int nChoiceItemIdx,				// 選択中アイテムインデックス
+		const int nChoiceBagIdx					// 選択中バッグインデックス
 	);
 
 	// メンバ関数
@@ -136,6 +137,7 @@ public:
 	inline void SetTextBoxEnableDraw(const bool bDraw)	{ m_pTextBox->SetTextEnableDraw(bDraw); };	// 描画状況設定
 	inline bool IsTextBoxScroll() const	{ return m_pTextBox->IsTextScroll(); }	// 文字送り状況取得
 	inline int GetChoiceItemIdx() const	{ return m_nChoiceItemIdx; }			// 選択中アイテムインデックス取得
+	inline int GetChoiceBagIdx() const	{ return m_nChoiceBagIdx; }				// 選択中バッグインデックス取得
 	inline int GetCurTextIdx() const	{ return m_nCurTextIdx; }				// 現在のテキストインデックス取得
 
 protected:
@@ -148,6 +150,7 @@ private:
 
 	// メンバ変数
 	const int m_nChoiceItemIdx;	// 選択中アイテムインデックス
+	const int m_nChoiceBagIdx;	// 選択中バッグインデックス
 	CFrameText2D* m_pTextBox;	// テキストボックス情報
 	int m_nCurTextIdx;			// 現在のテキストインデックス
 };

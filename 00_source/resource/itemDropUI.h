@@ -23,7 +23,7 @@ class CItemDropUI : public CItemUI
 {
 public:
 	// コンストラクタ
-	explicit CItemDropUI(const int nChoiceItemIdx);
+	explicit CItemDropUI(const int nChoiceItemIdx, const int nChoiceBagIdx);
 
 	// デストラクタ
 	~CItemDropUI() override;

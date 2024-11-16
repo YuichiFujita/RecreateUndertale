@@ -1,42 +1,42 @@
 //============================================================
 //
-//	使用メニューヘッダー [itemUseUI.h]
+//	武器アイテムヘッダー [itemWeapon.h]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	二重インクルード防止
 //************************************************************
-#ifndef _ITEM_USE_UI_H_
-#define _ITEM_USE_UI_H_
+#ifndef _ITEM_WEAPON_H_
+#define _ITEM_WEAPON_H_
 
 //************************************************************
 //	インクルードファイル
 //************************************************************
-#include "selectItemUI.h"
+#include "item.h"
 
 //************************************************************
 //	クラス定義
 //************************************************************
-// 使用メニュークラス
-class CItemUseUI : public CItemUI
+// 武器アイテム情報クラス
+class CItemWeapon : public CItemData
 {
 public:
 	// コンストラクタ
-	explicit CItemUseUI(const int nChoiceItemIdx, const int nChoiceBagIdx);
+	CItemWeapon();
 
 	// デストラクタ
-	~CItemUseUI() override;
+	~CItemWeapon() override;
 
 	// オーバーライド関数
 	HRESULT Init() override;	// 初期化
 	void Uninit() override;		// 終了
-	void Update(const float fDeltaTime) override;	// 更新
-	void Draw(CShader* pShader = nullptr) override;	// 描画
+	void Use(const int nBagIdx) const override;	// アイテム使用
+	std::string Detail() const override;		// アイテム詳細の文字列取得
 
 private:
 	// オーバーライド関数
-	void NextText() override;	// テキストボックス進行
+	HRESULT LoadSetup(std::ifstream* pFile, std::string& rString) override;	// 種類ごとのセットアップ
 };
 
-#endif	// _ITEM_USE_UI_H_
+#endif	// _ITEM_WEAPON_H_

@@ -101,7 +101,7 @@ CMenuStatusUI::~CMenuStatusUI()
 //============================================================
 HRESULT CMenuStatusUI::Init()
 {
-	SPlayerStatus status = CSceneGame::GetPlayer()->GetStatus();	// ステータス情報
+	SPlayerStatus status = *CSceneGame::GetPlayer()->GetStatus();	// ステータス情報
 
 	// メンバ変数を初期化
 	m_pFrame	= nullptr;	// フレーム情報

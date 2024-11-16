@@ -10,6 +10,7 @@
 #include "itemHeal.h"
 #include "sceneGame.h"
 #include "player.h"
+#include "playerItem.h"
 #include "playerStatus.h"
 
 //************************************************************
@@ -73,25 +74,13 @@ void CItemHeal::Uninit()
 //============================================================
 //	アイテム使用処理
 //============================================================
-void CItemHeal::Use() const
+void CItemHeal::Use(const int nBagIdx) const
 {
+	// TODO：ここでHP回復
 
-}
-
-//============================================================
-//	アイテム情報処理
-//============================================================
-void CItemHeal::Info() const
-{
-
-}
-
-//============================================================
-//	アイテム破棄処理
-//============================================================
-void CItemHeal::Drop() const
-{
-
+	// 使用したアイテムの削除
+	SPlayerItem* pItem = CSceneGame::GetPlayer()->GetItem();	// プレイヤー所持アイテム情報
+	pItem->DeleteItem(nBagIdx);
 }
 
 //============================================================
@@ -99,7 +88,7 @@ void CItemHeal::Drop() const
 //============================================================
 std::string CItemHeal::Detail() const
 {
-	SPlayerStatus status = CSceneGame::GetPlayer()->GetStatus();	// ステータス情報
+	SPlayerStatus status = *CSceneGame::GetPlayer()->GetStatus();	// ステータス情報
 
 	// アイテム詳細の取得
 	std::string sDetail = CItemData::Detail();
@@ -135,7 +124,7 @@ std::string CItemHeal::Detail() const
 //============================================================
 std::string CItemHeal::UseEnd() const
 {
-	SPlayerStatus status = CSceneGame::GetPlayer()->GetStatus();	// ステータス情報
+	SPlayerStatus status = *CSceneGame::GetPlayer()->GetStatus();	// ステータス情報
 	if (!m_bUseEnd)
 	{ // 表示しない場合
 
@@ -146,7 +135,7 @@ std::string CItemHeal::UseEnd() const
 
 		return " ＊ HPが　まんタンになった。";
 	}
-	else if (status.nHP >= status.GetCurMaxHP())
+	else if (status.nHP + m_nHeal >= status.GetCurMaxHP())
 	{ // HPが満タンの場合
 
 		return " ＊ HPが　まんたんに　なった。";

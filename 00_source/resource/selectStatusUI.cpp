@@ -194,7 +194,7 @@ CSelectStatusUI::~CSelectStatusUI()
 //============================================================
 HRESULT CSelectStatusUI::Init()
 {
-	SPlayerStatus status = CSceneGame::GetPlayer()->GetStatus();	// ステータス情報
+	SPlayerStatus status = *CSceneGame::GetPlayer()->GetStatus();	// ステータス情報
 
 	// メンバ変数を初期化
 	m_pName			= nullptr;	// 名前情報
