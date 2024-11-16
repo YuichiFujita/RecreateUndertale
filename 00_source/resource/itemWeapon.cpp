@@ -10,7 +10,6 @@
 #include "itemWeapon.h"
 #include "sceneGame.h"
 #include "player.h"
-#include "playerItem.h"
 #include "playerStatus.h"
 
 //************************************************************
@@ -70,11 +69,10 @@ void CItemWeapon::Uninit()
 //============================================================
 void CItemWeapon::Use(const int nBagIdx) const
 {
-	SPlayerStatus* pStatus = CSceneGame::GetPlayer()->GetStatus();	// プレイヤーステータス情報
-	SPlayerItem* pItem = CSceneGame::GetPlayer()->GetItem();		// プレイヤー所持アイテム情報
+	CPlayerStatus* pStatus = CSceneGame::GetPlayer()->GetStatus();	// プレイヤーステータス情報
 
-	// 使用したアイテムの装備入れ替え
-	pItem->SwapItemIdx(&pStatus->nWpnItemIdx, nBagIdx);
+	// 使用した装備に入れ替え
+	pStatus->SwapWeaponIdx(nBagIdx);
 }
 
 //============================================================

@@ -159,7 +159,7 @@ HRESULT CSelectItemUI::Init()
 	//--------------------------------------------------------
 	//	アイテムの初期化 / 設定
 	//--------------------------------------------------------
-	SPlayerItem itemArray = *CSceneGame::GetPlayer()->GetItem();	// プレイヤー所持アイテム情報
+	CPlayerItem itemArray = *CSceneGame::GetPlayer()->GetItem();	// プレイヤー所持アイテム情報
 	CItem* pItem = GET_MANAGER->GetItem();	// アイテム情報
 #ifdef RAND_ITEM
 	for (int i = 0; i < SPlayerItem::MAX_ITEM; i++)

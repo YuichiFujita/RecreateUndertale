@@ -101,7 +101,7 @@ CMenuStatusUI::~CMenuStatusUI()
 //============================================================
 HRESULT CMenuStatusUI::Init()
 {
-	SPlayerStatus status = *CSceneGame::GetPlayer()->GetStatus();	// ステータス情報
+	CPlayerStatus status = *CSceneGame::GetPlayer()->GetStatus();	// ステータス情報
 
 	// メンバ変数を初期化
 	m_pFrame	= nullptr;	// フレーム情報
@@ -129,14 +129,14 @@ HRESULT CMenuStatusUI::Init()
 	// 名前の生成
 	m_pName = CString2D::Create
 	( // 引数
-		name::FONT,		// フォントパス
-		name::ITALIC,	// イタリック
-		status.sName,	// 指定文字列
-		name::POS,		// 原点位置
-		name::HEIGHT,	// 文字縦幅
-		name::ALIGN_X,	// 横配置
-		name::ROT,		// 原点向き
-		name::COL		// 色
+		name::FONT,			// フォントパス
+		name::ITALIC,		// イタリック
+		status.GetName(),	// 指定文字列
+		name::POS,			// 原点位置
+		name::HEIGHT,		// 文字縦幅
+		name::ALIGN_X,		// 横配置
+		name::ROT,			// 原点向き
+		name::COL			// 色
 	);
 	if (m_pName == nullptr)
 	{ // 生成に失敗した場合
@@ -195,13 +195,13 @@ HRESULT CMenuStatusUI::Init()
 	}
 
 	// 体力情報の取得
-	const std::string& rHP = std::to_string(status.nHP);		// 現在の体力文字列
-	const std::string& rMaxHP = std::to_string(status.nMaxHP);	// 最大の体力文字列
+	const std::string& rHP = std::to_string(status.GetHP());		// 現在の体力文字列
+	const std::string& rMaxHP = std::to_string(status.GetMaxHP());	// 最大の体力文字列
 
 	// ステータス情報の追加
-	m_pValue->PushBackString(std::to_string(status.nLove));
+	m_pValue->PushBackString(std::to_string(status.GetLove()));
 	m_pValue->PushBackString(useful::SandString(rHP, "/", rMaxHP));
-	m_pValue->PushBackString(std::to_string(status.nGold));
+	m_pValue->PushBackString(std::to_string(status.GetNumGold()));
 
 	// 優先順位を設定
 	m_pValue->SetPriority(PRIORITY);

@@ -8,6 +8,9 @@
 //	インクルードファイル
 //************************************************************
 #include "playerStatus.h"
+#include "playerItem.h"
+#include "sceneGame.h"
+#include "player.h"
 
 //************************************************************
 //	定数宣言
@@ -53,21 +56,80 @@ namespace
 }
 
 //************************************************************
-//	構造体 [SPlayerStatus] のメンバ関数
+//	親クラス [CPlayerStatus] のメンバ関数
 //************************************************************
 //============================================================
-//	最大HPの取得処理 (最大レベル)
+//	コンストラクタ
 //============================================================
-int SPlayerStatus::GetMaxHP() const
+CPlayerStatus::CPlayerStatus() :
+	m_sName			(""),	// プレイヤー名
+	m_nLove			(1),	// レベル	// TODO：外部ファイルからの読み込み作ったら0に戻す
+	m_nHP			(0),	// 体力
+	m_nMaxHP		(0),	// 最大体力
+	m_nExp			(0),	// 経験値
+	m_nWpnItemIdx	(0),	// 武器アイテムインデックス
+	m_nAmrItemIdx	(0),	// 防具アイテムインデックス
+	m_nNumGold		(0),	// 所持金
+	m_nNumKill		(0),	// 殺害数
+	m_fSpeed		(0.0f),	// 移動速度
+	m_fInvTime		(0.0f)	// 無敵時間
+{
+
+}
+
+//============================================================
+//	デストラクタ
+//============================================================
+CPlayerStatus::~CPlayerStatus()
+{
+
+}
+
+//============================================================
+//	武器アイテムインデックスの入替処理
+//============================================================
+void CPlayerStatus::SwapWeaponIdx(const int nBagIdx)
+{
+	CPlayerItem* pItem = CSceneGame::GetPlayer()->GetItem();	// プレイヤー所持アイテム情報
+
+	// 所持アイテム数の範囲外インデックスなら抜ける
+	if (nBagIdx > pItem->GetNumItem()) { return; }
+
+	// アイテムインデックスの入れ替え
+	int nTempWpn = m_nWpnItemIdx;				// 現在の武器インデックスを保存
+	m_nWpnItemIdx = pItem->GetItemIdx(nBagIdx);	// バッグ内の武器インデックスに変更
+	pItem->SetItemIdx(nBagIdx, nTempWpn);		// バック内に元の武器インデックスを入替
+}
+
+//============================================================
+//	防具アイテムインデックスの入替処理
+//============================================================
+void CPlayerStatus::SwapArmorIdx(const int nBagIdx)
+{
+	CPlayerItem* pItem = CSceneGame::GetPlayer()->GetItem();	// プレイヤー所持アイテム情報
+
+	// 所持アイテム数の範囲外インデックスなら抜ける
+	if (nBagIdx > pItem->GetNumItem()) { return; }
+
+	// アイテムインデックスの入れ替え
+	int nTempAmr = m_nAmrItemIdx;				// 現在の防具インデックスを保存
+	m_nAmrItemIdx = pItem->GetItemIdx(nBagIdx);	// バッグ内の防具インデックスに変更
+	pItem->SetItemIdx(nBagIdx, nTempAmr);		// バック内に元の防具インデックスを入替
+}
+
+//============================================================
+//	レベル基準の最大HP取得処理 (最大レベル)
+//============================================================
+int CPlayerStatus::GetBaseMaxHP() const
 {
 	// 最大レベル時のHPを返す
 	return hp::MAX_MAX_LOVE;
 }
 
 //============================================================
-//	最大HPの取得処理 (レベル指定)
+//	レベル基準の最大HP取得処理 (レベル指定)
 //============================================================
-int SPlayerStatus::GetMaxHP(const int nLv) const
+int CPlayerStatus::GetBaseMaxHP(const int nLv) const
 {
 	// レベルが範囲外の場合抜ける
 	if (nLv <= 0 || nLv > love::MAX) { assert(false); return 0; }
@@ -84,18 +146,18 @@ int SPlayerStatus::GetMaxHP(const int nLv) const
 }
 
 //============================================================
-//	現在の最大HPの取得処理
+//	レベル基準の最大HP取得処理 (現在レベル)
 //============================================================
-int SPlayerStatus::GetCurMaxHP() const
+int CPlayerStatus::GetCurBaseMaxHP() const
 {
 	// 現在の最大HPを返す
-	return GetMaxHP(nLove);
+	return GetBaseMaxHP(m_nLove);
 }
 
 //============================================================
-//	攻撃力の取得処理
+//	攻撃力の取得処理 (レベル指定)
 //============================================================
-int SPlayerStatus::GetAtk(const int nLv) const
+int CPlayerStatus::GetAtk(const int nLv) const
 {
 	// レベルが範囲外の場合抜ける
 	if (nLv <= 0 || nLv > love::MAX) { assert(false); return 0; }
@@ -105,18 +167,18 @@ int SPlayerStatus::GetAtk(const int nLv) const
 }
 
 //============================================================
-//	現在の攻撃力の取得処理
+//	攻撃力の取得処理 (現在レベル)
 //============================================================
-int SPlayerStatus::GetCurAtk() const
+int CPlayerStatus::GetCurAtk() const
 {
 	// 現在の攻撃力を返す
-	return GetAtk(nLove);
+	return GetAtk(m_nLove);
 }
 
 //============================================================
-//	防御力の取得処理
+//	防御力の取得処理 (レベル指定)
 //============================================================
-int SPlayerStatus::GetDef(const int nLv) const
+int CPlayerStatus::GetDef(const int nLv) const
 {
 	// レベルが範囲外の場合抜ける
 	if (nLv <= 0 || nLv > love::MAX) { assert(false); return 0; }
@@ -126,18 +188,18 @@ int SPlayerStatus::GetDef(const int nLv) const
 }
 
 //============================================================
-//	現在の防御力の取得処理
+//	防御力の取得処理 (現在レベル)
 //============================================================
-int SPlayerStatus::GetCurDef() const
+int CPlayerStatus::GetCurDef() const
 {
 	// 現在の防御力を返す
-	return GetDef(nLove);
+	return GetDef(m_nLove);
 }
 
 //============================================================
-//	次レベルまでのEXP取得処理
+//	次レベルまでのEXP取得処理 (レベル指定)
 //============================================================
-int SPlayerStatus::GetNext(const int nLv) const
+int CPlayerStatus::GetNext(const int nLv) const
 {
 	// レベルが範囲外の場合抜ける
 	if (nLv <= 0 || nLv > love::MAX) { assert(false); return 0; }
@@ -147,10 +209,10 @@ int SPlayerStatus::GetNext(const int nLv) const
 }
 
 //============================================================
-//	現在の次レベルまでのEXP取得処理
+//	次レベルまでのEXP取得処理 (現在レベル)
 //============================================================
-int SPlayerStatus::GetCurNext() const
+int CPlayerStatus::GetCurNext() const
 {
 	// 現在のEXPを返す
-	return GetNext(nLove);
+	return GetNext(m_nLove);
 }

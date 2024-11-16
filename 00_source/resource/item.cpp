@@ -91,7 +91,7 @@ void CItemData::Info(const int /*nBagIdx*/) const
 void CItemData::Drop(const int nBagIdx) const
 {
 	// 破棄したアイテムの削除
-	SPlayerItem* pItemArray = CSceneGame::GetPlayer()->GetItem();	// プレイヤー所持アイテム情報
+	CPlayerItem* pItemArray = CSceneGame::GetPlayer()->GetItem();	// プレイヤー所持アイテム情報
 	pItemArray->DeleteItem(nBagIdx);
 }
 

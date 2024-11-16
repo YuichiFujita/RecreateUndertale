@@ -70,7 +70,7 @@ void CItemNone::Uninit()
 void CItemNone::Use(const int nBagIdx) const
 {
 	// 使用したアイテムの削除
-	SPlayerItem* pItem = CSceneGame::GetPlayer()->GetItem();	// プレイヤー所持アイテム情報
+	CPlayerItem* pItem = CSceneGame::GetPlayer()->GetItem();	// プレイヤー所持アイテム情報
 	pItem->DeleteItem(nBagIdx);
 }
 

@@ -75,8 +75,8 @@ public:
 	inline void SetAngle(const EAngle angle)	{ m_angle = angle; }	// 向き設定
 	inline EAngle GetAngle() const				{ return m_angle; }		// 向き取得
 	inline VECTOR3 GetOldPosition() const		{ return m_oldPos; }	// 過去位置取得
-	inline SPlayerStatus* GetStatus()			{ return &m_status; }	// ステータス情報取得
-	inline SPlayerItem* GetItem()				{ return &m_item; }		// アイテム情報取得
+	inline CPlayerStatus* GetStatus()			{ return &m_status; }	// ステータス情報取得
+	inline CPlayerItem* GetItem()				{ return &m_item; }		// 所持アイテム情報取得
 
 private:
 	// メンバ関数
@@ -88,8 +88,8 @@ private:
 
 	// メンバ変数
 	CListManager<CPlayer>::AIterator m_iterator;	// イテレーター
-	SPlayerStatus m_status;	// ステータス情報
-	SPlayerItem m_item;		// アイテム情報
+	CPlayerStatus m_status;	// ステータス情報
+	CPlayerItem m_item;		// 所持アイテム情報
 	CPlayerState* m_pState;	// 状態
 	VECTOR3 m_oldPos;		// 過去位置
 	EAngle m_angle;			// 向き

@@ -1,6 +1,6 @@
 //============================================================
 //
-//	プレイヤーアイテム処理 [playerItem.cpp]
+//	プレイヤー所持アイテム処理 [playerItem.cpp]
 //	Author：藤田勇一
 //
 //============================================================
@@ -18,38 +18,59 @@ namespace
 }
 
 //************************************************************
-//	構造体 [SPlayerItem] のメンバ関数
+//	親クラス [CPlayerStatus] のメンバ関数
 //************************************************************
+//============================================================
+//	コンストラクタ
+//============================================================
+CPlayerItem::CPlayerItem() :
+	m_vecItemIdx({})	// アイテムインデックス
+{
+	// TODO：いつかは外部ファイル読み込みに
+	m_vecItemIdx.push_back(0);
+	m_vecItemIdx.push_back(1);
+	m_vecItemIdx.push_back(2);
+	m_vecItemIdx.push_back(3);
+	m_vecItemIdx.push_back(4);
+	m_vecItemIdx.push_back(5);
+}
+
+//============================================================
+//	デストラクタ
+//============================================================
+CPlayerItem::~CPlayerItem()
+{
+
+}
+ 
 //============================================================
 //	アイテムの追加処理
 //============================================================
-bool SPlayerItem::PushBackItem(const int nItemIdx)
+void CPlayerItem::PushBackItem(const int nItemIdx)
 {
 	// アイテムがこれ以上持てない場合抜ける
-	if (SPlayerItem::MAX_ITEM >= GetNumItem()) { return false; }
+	if (CPlayerItem::MAX_ITEM >= GetNumItem()) { return; }
 
 	// 最後尾に引数のアイテムインデックスを追加
 	m_vecItemIdx.push_back(nItemIdx);
-	return true;
 }
 
 //============================================================
 //	アイテムの削除処理
 //============================================================
-bool SPlayerItem::DeleteItem(const int nBagIdx)
+void CPlayerItem::DeleteItem(const int nBagIdx)
 {
 	// 所持アイテム数の範囲外インデックスなら抜ける
-	if (nBagIdx > GetNumItem()) { return false; }
+	if (nBagIdx > GetNumItem()) { return; }
 
 	// 引数バッグインデックスのアイテムを削除
 	m_vecItemIdx.erase(m_vecItemIdx.begin() + nBagIdx);
-	return true;
 }
 
 //============================================================
-//	アイテムのインデックス取得処理
+//	アイテムインデックスの取得処理
 //============================================================
-int SPlayerItem::GetItemIdx(const int nBagIdx)
+int CPlayerItem::GetItemIdx(const int nBagIdx)
 {
 	// 所持アイテム数の範囲外インデックスなら抜ける
 	if (nBagIdx > GetNumItem()) { return NONE_IDX; }
@@ -59,17 +80,13 @@ int SPlayerItem::GetItemIdx(const int nBagIdx)
 }
 
 //============================================================
-//	アイテムのインデックス入替処理
+//	アイテムインデックスの設定処理
 //============================================================
-bool SPlayerItem::SwapItemIdx(int* pItemIdx, const int nBagIdx)
+void CPlayerItem::SetItemIdx(const int nBagIdx, const int nItemIdx)
 {
 	// 所持アイテム数の範囲外インデックスなら抜ける
-	if (nBagIdx > GetNumItem()) { return false; }
+	if (nBagIdx > GetNumItem()) { return; }
 
-	// アイテムインデックスの入れ替え
-	int nTemp = *pItemIdx;
-	*pItemIdx = m_vecItemIdx[nBagIdx];
-	m_vecItemIdx[nBagIdx] = nTemp;
-
-	return true;
+	// 引数バッグインデックスのアイテムを変更
+	m_vecItemIdx[nBagIdx] = nItemIdx;
 }

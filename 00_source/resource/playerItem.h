@@ -1,6 +1,6 @@
 //============================================================
 //
-//	プレイヤーアイテムヘッダー [playerItem.h]
+//	プレイヤー所持アイテムヘッダー [playerItem.h]
 //	Author：藤田勇一
 //
 //============================================================
@@ -11,39 +11,26 @@
 #define _PLAYER_ITEM_H_
 
 //************************************************************
-//	構造体定義
+//	クラス定義
 //************************************************************
-// プレイヤーアイテム構造体
-struct SPlayerItem
+// プレイヤー所持アイテムクラス
+struct CPlayerItem
 {
 public:
 	// 定数
 	static constexpr int MAX_ITEM = 8;	// 最大アイテム数
 
-	// デフォルトコンストラクタ
-	SPlayerItem() :
-		m_vecItemIdx({})	// アイテムインデックス
-#if 1	// TODO
-	{
-		m_vecItemIdx.push_back(0);
-		m_vecItemIdx.push_back(1);
-		m_vecItemIdx.push_back(2);
-		m_vecItemIdx.push_back(3);
-		m_vecItemIdx.push_back(4);
-		m_vecItemIdx.push_back(5);
-	}
-#else
-	{}
-#endif
+	// コンストラクタ
+	CPlayerItem();
 
 	// デストラクタ
-	~SPlayerItem() {}
+	~CPlayerItem();
 
 	// メンバ関数
-	bool PushBackItem(const int nItemIdx);	// アイテム追加
-	bool DeleteItem(const int nBagIdx);		// アイテム削除
+	void PushBackItem(const int nItemIdx);	// アイテム追加
+	void DeleteItem(const int nBagIdx);		// アイテム削除
 	int GetItemIdx(const int nBagIdx);		// アイテムインデックス取得
-	bool SwapItemIdx(int* pItemIdx, const int nBagIdx);					// アイテムインデックス入替
+	void SetItemIdx(const int nBagIdx, const int nItemIdx);				// アイテムインデックス設定
 	inline int GetNumItem() const { return (int)m_vecItemIdx.size(); }	// アイテム数取得
 
 private:

@@ -194,7 +194,7 @@ CSelectStatusUI::~CSelectStatusUI()
 //============================================================
 HRESULT CSelectStatusUI::Init()
 {
-	SPlayerStatus status = *CSceneGame::GetPlayer()->GetStatus();	// ステータス情報
+	CPlayerStatus status = *CSceneGame::GetPlayer()->GetStatus();	// ステータス情報
 
 	// メンバ変数を初期化
 	m_pName			= nullptr;	// 名前情報
@@ -238,7 +238,7 @@ HRESULT CSelectStatusUI::Init()
 	//	名前の初期化 / 設定
 	//--------------------------------------------------------
 	// 表示する名前文字列を作成
-	std::string sName = useful::SandString("\"", status.sName, "\"");
+	std::string sName = useful::SandString("\"", status.GetName(), "\"");
 
 	// 名前の生成
 	m_pName = CString2D::Create
@@ -288,8 +288,8 @@ HRESULT CSelectStatusUI::Init()
 	//--------------------------------------------------------
 	//	LV / HP数値の初期化 / 設定
 	//--------------------------------------------------------
-	const std::string& rHP = std::to_string(status.nHP);		// 現在の体力文字列
-	const std::string& rMaxHP = std::to_string(status.nMaxHP);	// 最大の体力文字列
+	const std::string& rHP = std::to_string(status.GetHP());		// 現在の体力文字列
+	const std::string& rMaxHP = std::to_string(status.GetMaxHP());	// 最大の体力文字列
 
 	// LV/HP数値の生成
 	m_pLvHpValue = CText2D::Create
@@ -315,7 +315,7 @@ HRESULT CSelectStatusUI::Init()
 	m_pLvHpValue->SetPriority(PRIORITY);
 
 	// LV/HP情報の追加
-	m_pLvHpValue->PushBackString(std::to_string(status.nLove));
+	m_pLvHpValue->PushBackString(std::to_string(status.GetLove()));
 	m_pLvHpValue->PushBackString(useful::SandString(rHP, "/", rMaxHP));
 
 	//--------------------------------------------------------
@@ -350,8 +350,8 @@ HRESULT CSelectStatusUI::Init()
 	//--------------------------------------------------------
 	//	ATK / DEF数値の初期化 / 設定
 	//--------------------------------------------------------
-	const CItemData& rItemWpn = GET_MANAGER->GetItem()->GetInfo(status.nWpnItemIdx);			// 武器アイテム情報
-	const CItemData& rItemAmr = GET_MANAGER->GetItem()->GetInfo(status.nAmrItemIdx);			// 防具アイテム情報
+	const CItemData& rItemWpn = GET_MANAGER->GetItem()->GetInfo(status.GetWpnItemIdx());		// 武器アイテム情報
+	const CItemData& rItemAmr = GET_MANAGER->GetItem()->GetInfo(status.GetAmrItemIdx());		// 防具アイテム情報
 	const std::string& rAddAtk = std::to_string(rItemWpn.GetAddAtk() + rItemAmr.GetAddAtk());	// 攻撃力上昇量文字列
 	const std::string& rAddDef = std::to_string(rItemWpn.GetAddDef() + rItemAmr.GetAddDef());	// 防御力上昇量文字列
 
@@ -444,8 +444,9 @@ HRESULT CSelectStatusUI::Init()
 	m_pExpNextValue->SetPriority(PRIORITY);
 
 	// 現在経験値/次経験値の追加
-	m_pExpNextValue->PushBackString(std::to_string(status.nCurExp));
-	m_pExpNextValue->PushBackString(std::to_string(status.GetCurNext() - status.nCurExp));
+	const int nCurExp = status.GetExp();	// 現在の経験値
+	m_pExpNextValue->PushBackString(std::to_string(nCurExp));
+	m_pExpNextValue->PushBackString(std::to_string(status.GetCurNext() - nCurExp));
 
 	//--------------------------------------------------------
 	//	WPN / AMRタイトルの初期化 / 設定
@@ -548,12 +549,12 @@ HRESULT CSelectStatusUI::Init()
 	m_pGoldValue->SetPriority(PRIORITY);
 
 	// 所持金の追加
-	m_pGoldValue->SetString(std::to_string(status.nGold));
+	m_pGoldValue->SetString(std::to_string(status.GetNumGold()));
 
 	//--------------------------------------------------------
 	//	KILLS情報の生成
 	//--------------------------------------------------------
-	int nNumKill = status.nKills;	// キル数
+	int nNumKill = status.GetNumKill();	// キル数
 	if (nNumKill > 0)	// TODO：1Killだけじゃ表示されなかったわ
 	{ // 一体でも殺したことがある場合
 
