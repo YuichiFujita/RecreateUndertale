@@ -67,9 +67,6 @@
     <Filter Include="ingame\item">
       <UniqueIdentifier>{6a3b0bd7-b98d-4e61-a194-0c682628b001}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ingame\status">
-      <UniqueIdentifier>{65a66121-07e1-4063-be15-7dfa516d2192}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ingame\frame">
       <UniqueIdentifier>{1a9a45ab-739d-48c5-a222-ba9c5e3f9fc5}</UniqueIdentifier>
     </Filter>
