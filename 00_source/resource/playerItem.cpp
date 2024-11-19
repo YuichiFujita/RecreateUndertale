@@ -26,13 +26,7 @@ namespace
 CPlayerItem::CPlayerItem() :
 	m_vecItemIdx({})	// アイテムインデックス
 {
-	// TODO：いつかは外部ファイル読み込みに
-	m_vecItemIdx.push_back(0);
-	m_vecItemIdx.push_back(1);
-	m_vecItemIdx.push_back(2);
-	m_vecItemIdx.push_back(3);
-	m_vecItemIdx.push_back(4);
-	m_vecItemIdx.push_back(5);
+
 }
 
 //============================================================
@@ -48,8 +42,8 @@ CPlayerItem::~CPlayerItem()
 //============================================================
 void CPlayerItem::PushBackItem(const int nItemIdx)
 {
-	// アイテムがこれ以上持てない場合抜ける
-	if (CPlayerItem::MAX_ITEM >= GetNumItem()) { return; }
+	// アイテム枠が空いていない場合抜ける
+	if (GetNumItem() >= CPlayerItem::MAX_ITEM) { return; }
 
 	// 最後尾に引数のアイテムインデックスを追加
 	m_vecItemIdx.push_back(nItemIdx);
@@ -61,7 +55,7 @@ void CPlayerItem::PushBackItem(const int nItemIdx)
 void CPlayerItem::DeleteItem(const int nBagIdx)
 {
 	// 所持アイテム数の範囲外インデックスなら抜ける
-	if (nBagIdx > GetNumItem()) { return; }
+	if (GetNumItem() <= nBagIdx) { return; }
 
 	// 引数バッグインデックスのアイテムを削除
 	m_vecItemIdx.erase(m_vecItemIdx.begin() + nBagIdx);
@@ -73,7 +67,7 @@ void CPlayerItem::DeleteItem(const int nBagIdx)
 int CPlayerItem::GetItemIdx(const int nBagIdx)
 {
 	// 所持アイテム数の範囲外インデックスなら抜ける
-	if (nBagIdx > GetNumItem()) { return NONE_IDX; }
+	if (GetNumItem() <= nBagIdx) { return NONE_IDX; }
 
 	// 引数バッグインデックスのアイテムを返す
 	return m_vecItemIdx[nBagIdx];
@@ -85,7 +79,7 @@ int CPlayerItem::GetItemIdx(const int nBagIdx)
 void CPlayerItem::SetItemIdx(const int nBagIdx, const int nItemIdx)
 {
 	// 所持アイテム数の範囲外インデックスなら抜ける
-	if (nBagIdx > GetNumItem()) { return; }
+	if (GetNumItem() <= nBagIdx) { return; }
 
 	// 引数バッグインデックスのアイテムを変更
 	m_vecItemIdx[nBagIdx] = nItemIdx;

@@ -382,7 +382,13 @@ HRESULT CManager::Load()
 		return E_FAIL;
 	}
 
-	// TODO：ここにユーザーデータの読み込み
+	// ユーザーデータの読込
+	if (FAILED(CUserDataManager::GetInstance()->LoadUserData()))
+	{ // 読込に失敗した場合
+
+		assert(false);
+		return E_FAIL;
+	}
 
 	return S_OK;
 }

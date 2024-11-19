@@ -63,7 +63,7 @@ namespace
 //============================================================
 CPlayerStatus::CPlayerStatus() :
 	m_sName			(""),	// プレイヤー名
-	m_nLove			(1),	// レベル	// TODO：外部ファイルからの読み込み作ったら0に戻す
+	m_nLove			(0),	// レベル
 	m_nHP			(0),	// 体力
 	m_nMaxHP		(0),	// 最大体力
 	m_nExp			(0),	// 経験値
@@ -112,7 +112,7 @@ void CPlayerStatus::SwapWeaponIdx(const int nBagIdx)
 	CPlayerItem* pItem = CSceneGame::GetPlayer()->GetItem();	// プレイヤー所持アイテム情報
 
 	// 所持アイテム数の範囲外インデックスなら抜ける
-	if (nBagIdx > pItem->GetNumItem()) { return; }
+	if (pItem->GetNumItem() <= nBagIdx) { return; }
 
 	// アイテムインデックスの入れ替え
 	int nTempWpn = m_nWpnItemIdx;				// 現在の武器インデックスを保存
@@ -128,7 +128,7 @@ void CPlayerStatus::SwapArmorIdx(const int nBagIdx)
 	CPlayerItem* pItem = CSceneGame::GetPlayer()->GetItem();	// プレイヤー所持アイテム情報
 
 	// 所持アイテム数の範囲外インデックスなら抜ける
-	if (nBagIdx > pItem->GetNumItem()) { return; }
+	if (pItem->GetNumItem() <= nBagIdx) { return; }
 
 	// アイテムインデックスの入れ替え
 	int nTempAmr = m_nAmrItemIdx;				// 現在の防具インデックスを保存

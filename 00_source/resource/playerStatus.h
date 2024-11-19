@@ -36,6 +36,17 @@ public:
 	int GetCurDef() const;					// 防御力取得 (現在レベル)
 	int GetNext(const int nLv) const;		// 次レベルまでのEXP取得 (レベル指定)
 	int GetCurNext() const;					// 次レベルまでのEXP取得 (現在レベル)
+	inline void SetName(const std::string& rName)	{ m_sName = rName; }			// プレイヤー名取得
+	inline void SetLove(const int nLove)			{ m_nLove = nLove; }			// レベル取得
+	inline void SetHP(const int nHP)				{ m_nHP = nHP; }				// 体力取得
+	inline void SetMaxHP(const int nMaxHP)			{ m_nMaxHP = nMaxHP; }			// 最大体力取得
+	inline void SetExp(const int nExp)				{ m_nExp = nExp; }				// 経験値取得
+	inline void SetWpnItemIdx(const int nItemIdx)	{ m_nWpnItemIdx = nItemIdx; }	// 武器アイテムインデックス取得
+	inline void SetAmrItemIdx(const int nItemIdx)	{ m_nAmrItemIdx = nItemIdx; }	// 防具アイテムインデックス取得
+	inline void SetNumGold(const int nNumGold)		{ m_nNumGold = nNumGold; }		// 所持金取得
+	inline void SetNumKill(const int nNumKill)		{ m_nNumKill = nNumKill; }		// 殺害数取得
+	inline void SetSpeed(const float fSpeed)		{ m_fSpeed = fSpeed; }			// 移動速度取得
+	inline void SetInvTime(const float fInvTime)	{ m_fInvTime = fInvTime; }		// 無敵時間取得
 	inline std::string GetName() const	{ return m_sName; }			// プレイヤー名取得
 	inline int GetLove() const			{ return m_nLove; }			// レベル取得
 	inline int GetHP() const			{ return m_nHP; }			// 体力取得

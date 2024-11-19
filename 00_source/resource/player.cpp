@@ -11,6 +11,7 @@
 #include "manager.h"
 #include "camera.h"
 #include "playerState.h"
+#include "userdataManager.h"
 
 //************************************************************
 //	定数宣言
@@ -55,6 +56,8 @@ CPlayer::~CPlayer()
 //============================================================
 HRESULT CPlayer::Init()
 {
+	CUserDataManager* pUserData = CUserDataManager::GetInstance();	// ユーザーデータ情報
+
 	// メンバ変数を初期化
 	m_status = {};			// ステータス情報
 	m_item	 = {};			// アイテム情報
@@ -75,6 +78,22 @@ HRESULT CPlayer::Init()
 
 	// キャラクター情報の割当
 	BindCharaData(SETUP_TXT);
+
+	// ステータスの読込
+	if (FAILED(pUserData->LoadPlayerStatus(&m_status)))
+	{ // 読込に失敗した場合
+
+		assert(false);
+		return E_FAIL;
+	}
+
+	// 所持アイテムの読込
+	if (FAILED(pUserData->LoadPlayerItem(&m_item)))
+	{ // 読込に失敗した場合
+
+		assert(false);
+		return E_FAIL;
+	}
 
 	if (m_pList == nullptr)
 	{ // リストマネージャーが存在しない場合
