@@ -16,9 +16,10 @@
 //************************************************************
 namespace
 {
-	const char* FILE0_TXT		= "data\\TXT\\file0.txt";		// 内部データテキスト相対パス
-	const char* INIT_STATUS_TXT	= "data\\TXT\\init_status.txt";	// 初期ステータステキスト相対パス
-	const char* INIT_ITEM_TXT	= "data\\TXT\\init_item.txt";	// 初期所持アイテムテキスト相対パス
+	const char* FILE0_TXT		= "data\\TXT\\file0.txt";			// 内部データテキスト相対パス
+	const char* INIT_STATUS_TXT	= "data\\TXT\\init_status.txt";		// ステータス初期化テキスト相対パス
+	const char* INIT_ITEM_TXT	= "data\\TXT\\init_item.txt";		// 所持アイテム初期化テキスト相対パス
+	const char* INIT_USER_TXT	= "data\\TXT\\init_userdata.txt";	// ユーザーデータ初期化テキスト相対パス
 }
 
 //************************************************************
@@ -143,55 +144,69 @@ HRESULT CUserDataManager::LoadPlayerItem(CPlayerItem* pItem)
 }
 
 //============================================================
+//	ユーザーデータの初期化処理
+//============================================================
+HRESULT CUserDataManager::InitUserData()
+{
+	// ユーザーデータの読込
+	if (FAILED(LoadUserData(INIT_USER_TXT)))
+	{ // 読込に失敗した場合
+
+		assert(false);
+		return E_FAIL;
+	}
+
+	return S_OK;
+}
+
+//============================================================
 //	ユーザーデータの読込処理
 //============================================================
 HRESULT CUserDataManager::LoadUserData()
 {
-	// ファイルを開く
-	std::ifstream file(FILE0_TXT);	// ファイルストリーム
-	if (file.fail())
-	{ // ファイルが開けなかった場合
+	// ユーザーデータの読込
+	if (FAILED(LoadUserData(FILE0_TXT)))
+	{ // 読込に失敗した場合
 
-		// エラーメッセージボックス
-		MessageBox(nullptr, "ユーザーデータの読み込みに失敗！", "警告！", MB_ICONWARNING);
+		assert(false);
 		return E_FAIL;
 	}
 
-	// ファイルを読込
-	std::string str;	// 読込文字列
-	while (file >> str)
-	{ // ファイルの終端ではない場合ループ
+	return S_OK;
+}
 
-		if (str.front() == '#') { std::getline(file, str); }	// コメントアウト
-		else if (str == "USERSET")
-		{
-			do { // END_USERSETを読み込むまでループ
+//============================================================
+//	内部データの初期化処理
+//============================================================
+HRESULT CUserDataManager::InitAllData
+(
+	CPlayerStatus* pStatus,	// プレイヤーステータス情報
+	CPlayerItem* pItem		// プレイヤー所持アイテム情報
+)
+{
+	// ステータスの初期化
+	if (FAILED(InitPlayerStatus(pStatus)))
+	{ // 初期化に失敗した場合
 
-				// 文字列を読み込む
-				file >> str;
-
-				if (str.front() == '#') { std::getline(file, str); }	// コメントアウト
-				else if (str == "ROOM")
-				{
-					file >> str;		// ＝を読込
-					file >> m_nRoom;	// 部屋番号を読込
-				}
-				else if (str == "FUN")
-				{
-					file >> str;	// ＝を読込
-					file >> m_nFun;	// FUN値を読込
-				}
-				else if (str == "PLAYTIME")
-				{
-					file >> str;			// ＝を読込
-					file >> m_fPlayTime;	// 総プレイ時間を読込
-				}
-			} while (str != "END_USERSET");	// END_USERSETを読み込むまでループ
-		}
+		assert(false);
+		return E_FAIL;
 	}
 
-	// ファイルを閉じる
-	file.close();
+	// 所持アイテムの初期化
+	if (FAILED(InitPlayerItem(pItem)))
+	{ // 初期化に失敗した場合
+
+		assert(false);
+		return E_FAIL;
+	}
+
+	// ユーザーデータの初期化
+	if (FAILED(InitUserData()))
+	{ // 初期化に失敗した場合
+
+		assert(false);
+		return E_FAIL;
+	}
 
 	return S_OK;
 }
@@ -400,4 +415,152 @@ HRESULT CUserDataManager::LoadPlayerItem(CPlayerItem* pItem, const char* pFilePa
 	file.close();
 
 	return S_OK;
+}
+
+//============================================================
+//	ユーザーデータの読込処理
+//============================================================
+HRESULT CUserDataManager::LoadUserData(const char* pFilePath)
+{
+	// ファイルを開く
+	std::ifstream file(pFilePath);	// ファイルストリーム
+	if (file.fail())
+	{ // ファイルが開けなかった場合
+
+		// エラーメッセージボックス
+		MessageBox(nullptr, "ユーザーデータの読み込みに失敗！", "警告！", MB_ICONWARNING);
+		return E_FAIL;
+	}
+
+	// ファイルを読込
+	std::string str;	// 読込文字列
+	while (file >> str)
+	{ // ファイルの終端ではない場合ループ
+
+		if (str.front() == '#') { std::getline(file, str); }	// コメントアウト
+		else if (str == "USERSET")
+		{
+			do { // END_USERSETを読み込むまでループ
+
+				// 文字列を読み込む
+				file >> str;
+
+				if (str.front() == '#') { std::getline(file, str); }	// コメントアウト
+				else if (str == "ROOM")
+				{
+					file >> str;		// ＝を読込
+					file >> m_nRoom;	// 部屋番号を読込
+				}
+				else if (str == "FUN")
+				{
+					file >> str;	// ＝を読込
+					file >> m_nFun;	// FUN値を読込
+				}
+				else if (str == "PLAYTIME")
+				{
+					file >> str;			// ＝を読込
+					file >> m_fPlayTime;	// 総プレイ時間を読込
+				}
+			} while (str != "END_USERSET");	// END_USERSETを読み込むまでループ
+		}
+	}
+
+	// ファイルを閉じる
+	file.close();
+
+	return S_OK;
+}
+
+//============================================================
+//	内部データの保存処理
+//============================================================
+HRESULT CUserDataManager::SaveAllData
+(
+	CPlayerStatus* pStatus,	// プレイヤーステータス情報
+	CPlayerItem* pItem		// プレイヤー所持アイテム情報
+)
+{
+	// ファイルを開く
+	std::ofstream file(FILE0_TXT);	// ファイルストリーム
+	if (file.fail())
+	{ // ファイルが開けなかった場合
+
+		// エラーメッセージボックス
+		MessageBox(nullptr, "内部データの書き出しに失敗！", "警告！", MB_ICONWARNING);
+		return E_FAIL;
+	}
+
+	// 小数点の書き出し桁数を指定
+	file << std::fixed << std::setprecision(4);
+
+	// 見出しの書き出し
+	file << "#==============================================================================" << std::endl;
+	file << "#" << std::endl;
+	file << "#	内部データテキスト [file0.txt]" << std::endl;
+	file << "#	Author : 藤田 勇一" << std::endl;
+	file << "#" << std::endl;
+	file << "#==============================================================================" << std::endl;
+
+	// ステータスの書き出し
+	file << "#------------------------------------------------------------------------------" << std::endl;
+	file << "#	ステータス情報" << std::endl;
+	file << "#------------------------------------------------------------------------------" << std::endl;
+	file << "STATUSSET" << std::endl;
+	file << "	NAME 		= " << pStatus->GetName()		<< std::endl;
+	file << "	LOVE 		= " << pStatus->GetLove()		<< std::endl;
+	file << "	HP 			= " << pStatus->GetHP()			<< std::endl;
+	file << "	MAX_HP 		= " << pStatus->GetMaxHP()		<< std::endl;
+	file << "	EXP			= " << pStatus->GetExp()		<< std::endl;
+	file << "	WPN_ITEMIDX	= " << pStatus->GetWpnItemIdx()	<< std::endl;
+	file << "	AMR_ITEMIDX	= " << pStatus->GetAmrItemIdx()	<< std::endl;
+	file << "	NUM_GOLD	= " << pStatus->GetNumGold()	<< std::endl;
+	file << "	NUM_KILL	= " << pStatus->GetNumKill()	<< std::endl;
+	file << "END_STATUSSET" << std::endl;
+	file << std::endl;
+
+	// 所持アイテムの書き出し
+	file << "#------------------------------------------------------------------------------" << std::endl;
+	file << "#	所持アイテム情報" << std::endl;
+	file << "#------------------------------------------------------------------------------" << std::endl;
+	file << "ITEMSET" << std::endl;
+	for (int i = 0; i < pItem->GetNumItem(); i++)
+	{ // 所持アイテム数分繰り返す
+
+		file << "	ITEMIDX = " << pItem->GetItemIdx(i) << std::endl;
+	}
+	file << "END_ITEMSET" << std::endl;
+	file << std::endl;
+
+	// アイテムボックスの書き出し
+	file << "#------------------------------------------------------------------------------" << std::endl;
+	file << "#	アイテムボックス情報" << std::endl;
+	file << "#------------------------------------------------------------------------------" << std::endl;
+	file << "ITEMBOXSET" << std::endl;
+	// TODO：ここにアイテムボックス内インデックスの書き出し
+	file << "END_ITEMBOXSET" << std::endl;
+	file << std::endl;
+
+	// ここにユーザーデータの書き出し
+	file << "#------------------------------------------------------------------------------" << std::endl;
+	file << "#	ユーザーデータ情報" << std::endl;
+	file << "#------------------------------------------------------------------------------" << std::endl;
+	file << "USERSET" << std::endl;
+	file << "	ROOM	 = " << m_nRoom		<< std::endl;
+	file << "	FUN		 = " << m_nFun		<< std::endl;
+	file << "	PLAYTIME = " << m_fPlayTime	<< std::endl;
+	file << "END_USERSET" << std::endl;
+
+	// ファイルを閉じる
+	file.close();
+
+	return S_OK;
+}
+
+//============================================================
+//	内部データ保存ファイルがあるかの確認処理
+//============================================================
+bool CUserDataManager::IsCheckSaveData()
+{
+	// 指定したパスがあるかを返す
+	return std::filesystem::exists(FILE0_TXT);
 }

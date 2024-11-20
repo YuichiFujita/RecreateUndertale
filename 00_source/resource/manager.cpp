@@ -26,6 +26,10 @@
 #include "userdataManager.h"
 #include "debug.h"
 
+// TODO：内部データの書き出し用　絶対に消そう
+#include "sceneGame.h"
+#include "player.h"
+
 //************************************************************
 //	静的メンバ変数宣言
 //************************************************************
@@ -382,12 +386,28 @@ HRESULT CManager::Load()
 		return E_FAIL;
 	}
 
-	// ユーザーデータの読込
-	if (FAILED(CUserDataManager::GetInstance()->LoadUserData()))
-	{ // 読込に失敗した場合
+	CUserDataManager* pUserData = CUserDataManager::GetInstance();	// ユーザーデータ
+	if (pUserData->IsCheckSaveData())
+	{ // 内部データの保存ファイルがある場合
 
-		assert(false);
-		return E_FAIL;
+		// ユーザーデータの読込
+		if (FAILED(pUserData->LoadUserData()))
+		{ // 読込に失敗した場合
+
+			assert(false);
+			return E_FAIL;
+		}
+	}
+	else
+	{ // 内部データの保存ファイルがない場合
+
+		// ユーザーデータの初期化
+		if (FAILED(pUserData->InitUserData()))
+		{ // 読込に失敗した場合
+
+			assert(false);
+			return E_FAIL;
+		}
 	}
 
 	return S_OK;
@@ -416,6 +436,19 @@ void CManager::Uninit()
 	//--------------------------------------------------------
 	//	システムの破棄
 	//--------------------------------------------------------
+	// TODO：内部データの書き出し　本来はセーブ時以外あんましない
+#if 1
+	CUserDataManager* pUserData = CUserDataManager::GetInstance();	// ユーザーデータ
+	CPlayer* pPlayer = CSceneGame::GetPlayer();	// プレイヤー情報
+
+	// ユーザーデータの書出
+	if (FAILED(pUserData->SaveAllData(pPlayer->GetStatus(), pPlayer->GetItem())))
+	{ // 書出に失敗した場合
+
+		assert(false);
+	}
+#endif
+
 	// ユーザーデータの破棄
 	CUserDataManager::GetInstance()->Release();
 

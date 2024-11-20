@@ -15,6 +15,9 @@
 #include "string2D.h"
 #include "text2D.h"
 #include "loadtext.h"
+#include "userdataManager.h"
+#include "playerStatus.h"
+#include "playerItem.h"
 
 //************************************************************
 //	定数宣言
@@ -312,6 +315,16 @@ void CStartStateDecideName::UpdateDecide()
 //============================================================
 void CStartStateDecideName::TransGame()
 {
+	CUserDataManager* pUserData = CUserDataManager::GetInstance();	// ユーザーデータマネージャー
+	CPlayerStatus status;	// ステータス情報
+	CPlayerItem item;		// 所持アイテム情報
+
+	// ユーザーデータがない場合エラー
+	assert(pUserData != nullptr);
+
+	// 内部データ保存ファイルが既に生成済みの場合エラー
+	assert(!pUserData->IsCheckSaveData());
+
 	// タイトルの終了
 	SAFE_UNINIT(m_pTitle);
 
@@ -321,6 +334,15 @@ void CStartStateDecideName::TransGame()
 		// 選択肢の終了
 		SAFE_UNINIT(m_apSelect[i]);
 	}
+
+	// 内部データの初期化
+	pUserData->InitAllData(&status, &item);
+
+	// 作成した名前の設定
+	status.SetName(m_pName->GetStr());
+
+	// 内部データの書き出し
+	pUserData->SaveAllData(&status, &item);
 
 	// 逆シンバルを再生
 	PLAY_SOUND(CSound::LABEL_SE_CYMBAL);

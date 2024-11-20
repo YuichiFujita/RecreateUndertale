@@ -37,7 +37,19 @@ public:
 	HRESULT LoadPlayerStatus(CPlayerStatus* pStatus);	// プレイヤーステータス読込
 	HRESULT InitPlayerItem(CPlayerItem* pItem);			// プレイヤー所持アイテム初期化
 	HRESULT LoadPlayerItem(CPlayerItem* pItem);			// プレイヤー所持アイテム読込
-	HRESULT LoadUserData();								// ユーザーデータ読込
+	HRESULT InitUserData();	// ユーザーデータ初期化
+	HRESULT LoadUserData();	// ユーザーデータ読込
+	HRESULT InitAllData		// 内部データ初期化
+	( // 引数
+		CPlayerStatus* pStatus,	// プレイヤーステータス情報
+		CPlayerItem* pItem		// プレイヤー所持アイテム情報
+	);
+	HRESULT SaveAllData		// 内部データ保存
+	( // 引数
+		CPlayerStatus* pStatus,	// プレイヤーステータス情報
+		CPlayerItem* pItem		// プレイヤー所持アイテム情報
+	);
+	bool IsCheckSaveData();	// 内部データ保存ファイルがあるかの確認
 
 	// 静的メンバ関数
 	static CUserDataManager* Create();		// 生成
@@ -48,6 +60,7 @@ private:
 	// メンバ関数
 	HRESULT LoadPlayerStatus(CPlayerStatus* pStatus, const char* pFilePath);	// プレイヤーステータス読込 (パス指定)
 	HRESULT LoadPlayerItem(CPlayerItem* pItem, const char* pFilePath);			// プレイヤー所持アイテム読込 (パス指定)
+	HRESULT LoadUserData(const char* pFilePath);								// ユーザーデータ読込 (パス指定)
 
 	// 静的メンバ変数
 	static CUserDataManager* m_pInstance;	// 自身のインスタンス
