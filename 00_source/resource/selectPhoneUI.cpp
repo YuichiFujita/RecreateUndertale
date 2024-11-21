@@ -94,3 +94,12 @@ void CSelectPhoneUI::Draw(CShader* pShader)
 	// セレクトUIの描画
 	CSelectUI::Draw(pShader);
 }
+
+//============================================================
+//	メニュー生成可能フラグの取得処理
+//============================================================
+bool CSelectPhoneUI::IsCreateOK()
+{
+	// TODO：電話機能の作成をしてからフラグ管理
+	return false;
+}

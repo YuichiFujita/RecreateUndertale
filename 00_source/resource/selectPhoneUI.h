@@ -38,6 +38,7 @@ public:
 	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
 	void Draw(CShader* pShader = nullptr) override;	// 描画
+	bool IsCreateOK() override;	// メニュー生成可能フラグ取得
 
 private:
 	// メンバ変数

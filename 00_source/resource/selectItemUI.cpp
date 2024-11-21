@@ -316,6 +316,17 @@ void CSelectItemUI::SetEnableDraw(const bool bDraw)
 }
 
 //============================================================
+//	メニュー生成可能フラグの取得処理
+//============================================================
+bool CSelectItemUI::IsCreateOK()
+{
+	CPlayerItem itemArray = *CSceneGame::GetPlayer()->GetItem();	// プレイヤー所持アイテム情報
+
+	// アイテムを持っているなら生成可能
+	return (itemArray.GetNumItem() > 0);
+}
+
+//============================================================
 //	アイテム選択の更新処理
 //============================================================
 void CSelectItemUI::UpdateSelectItem()

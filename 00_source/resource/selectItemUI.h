@@ -50,6 +50,7 @@ public:
 	void Update(const float fDeltaTime) override;	// 更新
 	void Draw(CShader* pShader = nullptr) override;	// 描画
 	void SetEnableDraw(const bool bDraw) override;	// 描画状況設定
+	bool IsCreateOK() override;	// メニュー生成可能フラグ取得
 
 private:
 	// 状態列挙

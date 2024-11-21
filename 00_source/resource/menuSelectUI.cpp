@@ -39,18 +39,26 @@ namespace
 		const float	CHAR_HEIGHT	= 43.0f;	// 文字縦幅
 		const float	LINE_HEIGHT	= 53.0f;	// 行間縦幅
 
-		const VECTOR3	POS	= VECTOR3(125.0f, 308.5f, 0.0f);	// 位置
-		const VECTOR3	ROT	= VEC3_ZERO;				// 向き
-		const COLOR		COL_DEFAULT	= color::White();	// 通常色
-		const COLOR		COL_CHOICE	= color::Yellow();	// 選択色
-		const EAlignX	ALIGN_X = XALIGN_LEFT;			// 横配置
+		const VECTOR3 POS = VECTOR3(125.0f, 308.5f, 0.0f);	// 位置
+		const VECTOR3 ROT = VEC3_ZERO;			// 向き
+		const EAlignX ALIGN_X = XALIGN_LEFT;	// 横配置
+
+		const COLOR COL_UNCREATE = COLOR(0.5f, 0.5f, 0.5f, 1.0f);	// 生成不可色
+		const COLOR COL_DEFAULT = color::White();	// 通常色
+		const COLOR COL_CHOICE = color::Yellow();	// 選択色
+
+		const COLOR COL[] =	// 選択肢色
+		{
+			COL_UNCREATE,	// 生成不可色
+			COL_DEFAULT,	// 通常色
+		};
 	}
 
 	namespace soul
 	{
 		const char* PATH	= "data\\TEXTURE\\spr_heartsmall.png";	// ソウルカーソルテクスチャパス
-		const VECTOR3 POS	= VECTOR3(97.5f, 308.5f, 0.0f);		// ソウルカーソル位置
-		const VECTOR3 SIZE	= VECTOR3(26.5f, 26.5f, 0.0f);		// ソウルカーソル大きさ
+		const VECTOR3 POS	= VECTOR3(97.5f, 308.5f, 0.0f);			// ソウルカーソル位置
+		const VECTOR3 SIZE	= VECTOR3(26.5f, 26.5f, 0.0f);			// ソウルカーソル大きさ
 	}
 }
 
@@ -107,38 +115,6 @@ HRESULT CMenuSelectUI::Init()
 	// 優先順位を設定
 	m_pFrame->SetPriority(MENU_PRIO);
 
-	for (int i = 0; i < SELECT_MAX; i++)
-	{ // 選択肢の項目数分繰り返す
-
-		// 文字位置オフセット
-		VECTOR3 offset = VECTOR3(0.0f, select::LINE_HEIGHT * i, 0.0f);
-
-		// 選択肢の生成
-		m_apSelect[i] = CString2D::Create
-		( // 引数
-			select::FONT,			// フォントパス
-			select::ITALIC,			// イタリック
-			L"",					// 指定文字列
-			select::POS + offset,	// 原点位置
-			select::CHAR_HEIGHT,	// 文字縦幅
-			select::ALIGN_X,		// 横配置
-			select::ROT,			// 原点向き
-			select::COL_DEFAULT		// 色
-		);
-		if (m_apSelect[i] == nullptr)
-		{ // 生成に失敗した場合
-
-			assert(false);
-			return E_FAIL;
-		}
-
-		// 優先順位を設定
-		m_apSelect[i]->SetPriority(MENU_PRIO);
-
-		// 文字列を割当
-		loadtext::BindString(m_apSelect[i], loadtext::LoadText(select::PATH, CMenuUI::TEXT_ITEM + i));
-	}
-
 	// ソウルカーソルの生成
 	m_pSoul = CObject2D::Create
 	( // 引数
@@ -160,6 +136,38 @@ HRESULT CMenuSelectUI::Init()
 
 	// 優先順位を設定
 	m_pSoul->SetPriority(SOUL_PRIO);
+
+	for (int i = 0; i < SELECT_MAX; i++)
+	{ // 選択肢の項目数分繰り返す
+
+		// 文字位置オフセット
+		VECTOR3 offset = VECTOR3(0.0f, select::LINE_HEIGHT * i, 0.0f);
+
+		// 選択肢の生成
+		m_apSelect[i] = CString2D::Create
+		( // 引数
+			select::FONT,			// フォントパス
+			select::ITALIC,			// イタリック
+			L"",					// 指定文字列
+			select::POS + offset,	// 原点位置
+			select::CHAR_HEIGHT,	// 文字縦幅
+			select::ALIGN_X,		// 横配置
+			select::ROT,			// 原点向き
+			select::COL[(int)IsCreateOK((ESelect)i)]	// 色
+		);
+		if (m_apSelect[i] == nullptr)
+		{ // 生成に失敗した場合
+
+			assert(false);
+			return E_FAIL;
+		}
+
+		// 優先順位を設定
+		m_apSelect[i]->SetPriority(MENU_PRIO);
+
+		// 文字列を割当
+		loadtext::BindString(m_apSelect[i], loadtext::LoadText(select::PATH, CMenuUI::TEXT_ITEM + i));
+	}
 
 	return S_OK;
 }
@@ -274,6 +282,9 @@ void CMenuSelectUI::UpdateDecide()
 {
 	if (input::Decide())
 	{
+		// メニューが生成できない場合抜ける
+		if (!IsCreateOK((ESelect)m_nCurSelect)) { return; }
+
 		// 現在選択中のメニューに変更
 		ChangeSelectMenu((ESelect)m_nCurSelect);
 	}
@@ -286,6 +297,24 @@ void CMenuSelectUI::UninitSelectMenu()
 {
 	// 選択メニューの終了
 	SAFE_UNINIT(m_pSelectMenu);
+}
+
+//============================================================
+//	メニュー生成可能フラグの取得処理
+//============================================================
+bool CMenuSelectUI::IsCreateOK(const CMenuSelectUI::ESelect select)
+{
+	// 選択肢に応じてメニューを生成
+	CSelectUI* pTempSelectMenu = CSelectUI::Create(nullptr, m_pSoul, select);
+
+	// 生成可能かを取得
+	bool bCreateOK = pTempSelectMenu->IsCreateOK();
+
+	// 選択メニューの終了
+	SAFE_UNINIT(pTempSelectMenu);
+
+	// 生成可能かを返す
+	return bCreateOK;
 }
 
 //============================================================

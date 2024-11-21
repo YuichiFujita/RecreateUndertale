@@ -65,6 +65,7 @@ private:
 	void UpdateSelect();		// 選択更新
 	void UpdateDecide();		// 決定更新
 	void UninitSelectMenu();	// 選択メニュー終了
+	bool IsCreateOK(const CMenuSelectUI::ESelect select);			// メニュー生成可能フラグ取得
 	HRESULT ChangeSelectMenu(const CMenuSelectUI::ESelect select);	// 選択メニュー変更
 
 	// メンバ変数
@@ -87,6 +88,9 @@ public:
 
 	// デストラクタ
 	~CSelectUI() override;
+
+	// 純粋仮想関数
+	virtual bool IsCreateOK() = 0;	// メニュー生成可能フラグ取得
 
 	// オーバーライド関数
 	HRESULT Init() override;	// 初期化

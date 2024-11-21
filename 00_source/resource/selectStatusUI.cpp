@@ -674,3 +674,12 @@ void CSelectStatusUI::Draw(CShader* pShader)
 	// セレクトUIの描画
 	CSelectUI::Draw(pShader);
 }
+
+//============================================================
+//	メニュー生成可能フラグの取得処理
+//============================================================
+bool CSelectStatusUI::IsCreateOK()
+{
+	// いつでも生成可能
+	return true;
+}
