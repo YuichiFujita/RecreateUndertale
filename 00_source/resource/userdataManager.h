@@ -50,6 +50,9 @@ public:
 		CPlayerItem* pItem		// プレイヤー所持アイテム情報
 	);
 	bool IsCheckSaveData();	// 内部データ保存ファイルがあるかの確認
+	inline int GetRoom() const			{ return m_nRoom; }		// 部屋番号取得
+	inline int GetFun() const			{ return m_nFun; }		// FUN値取得
+	inline float GetPlayTime() const	{ return m_fPlayTime; }	// 総プレイ時間取得
 
 	// 静的メンバ関数
 	static CUserDataManager* Create();		// 生成

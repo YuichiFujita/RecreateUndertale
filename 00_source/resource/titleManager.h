@@ -11,12 +11,26 @@
 #define _TITLEMANAGER_H_
 
 //************************************************************
+//	前方宣言
+//************************************************************
+class CString2D;	// 文字列2Dクラス
+
+//************************************************************
 //	クラス定義
 //************************************************************
 // タイトルマネージャークラス
 class CTitleManager
 {
 public:
+	// 表示テキスト列挙
+	enum EText
+	{
+		TEXT_CONTINUE = 0,	// コンティニュー
+		TEXT_RESET,			// リセット
+		TEXT_SETTING,		// 設定
+		TEXT_MAX			// この列挙型の総数
+	};
+
 	// コンストラクタ
 	CTitleManager();
 
@@ -33,8 +47,17 @@ public:
 	static void Release(CTitleManager*& prTitleManager);	// 破棄
 
 private:
-	// メンバ変数
+	// メンバ関数
+	void UpdateSelect();	// 選択更新
+	void UpdateDecide();	// 決定更新
 
+	// メンバ変数
+	std::vector<std::vector<CString2D*>> m_vecSelect;	// 選択肢情報
+	CString2D* m_pName;		// 名前情報
+	CString2D* m_pLove;		// レベル情報
+	CString2D* m_pTime;		// 総プレイ時間情報
+	POSGRID2 m_curSelect;	// 現在の選択肢
+	POSGRID2 m_oldSelect;	// 前回の選択肢
 };
 
 #endif	// _TITLEMANAGER_H_

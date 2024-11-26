@@ -438,14 +438,18 @@ void CManager::Uninit()
 	//--------------------------------------------------------
 	// TODO：内部データの書き出し　本来はセーブ時以外あんましない
 #if 1
-	CUserDataManager* pUserData = CUserDataManager::GetInstance();	// ユーザーデータ
-	CPlayer* pPlayer = CSceneGame::GetPlayer();	// プレイヤー情報
+	if (GetMode() == CScene::MODE_GAME)
+	{ // ゲームシーンの場合
 
-	// ユーザーデータの書出
-	if (FAILED(pUserData->SaveAllData(pPlayer->GetStatus(), pPlayer->GetItem())))
-	{ // 書出に失敗した場合
+		CUserDataManager* pUserData = CUserDataManager::GetInstance();	// ユーザーデータ
+		CPlayer* pPlayer = CSceneGame::GetPlayer();	// プレイヤー情報
 
-		assert(false);
+		// ユーザーデータの書出
+		if (FAILED(pUserData->SaveAllData(pPlayer->GetStatus(), pPlayer->GetItem())))
+		{ // 書出に失敗した場合
+
+			assert(false);
+		}
 	}
 #endif
 

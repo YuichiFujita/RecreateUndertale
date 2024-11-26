@@ -14,6 +14,7 @@
 #include "scroll2D.h"
 #include "introState.h"
 #include "loadtext.h"
+#include "userdataManager.h"
 
 //************************************************************
 //	定数宣言
@@ -197,9 +198,7 @@ void CIntroManager::Update(const float fDeltaTime)
 	// スキップ操作
 	if (GET_INPUTKEY->IsTrigger(DIK_RETURN) || GET_INPUTKEY->IsTrigger(DIK_Z))
 	{
-		// TODO：ここでセーブデータがあるかの確認
-#if 0
-		if ()
+		if (CUserDataManager::GetInstance()->IsCheckSaveData())
 		{ // セーブデータがある場合
 
 			// タイトル画面に遷移する
@@ -211,10 +210,6 @@ void CIntroManager::Update(const float fDeltaTime)
 			// スタート画面に遷移する
 			GET_MANAGER->SetFadeScene(CScene::MODE_START, 0.0f, CFade::DEF_LEVEL, CFade::SKIP_LEVEL);
 		}
-#else
-		// スタート画面に遷移する
-		GET_MANAGER->SetFadeScene(CScene::MODE_START, 0.0f, CFade::DEF_LEVEL, CFade::SKIP_LEVEL);
-#endif
 	}
 }
 

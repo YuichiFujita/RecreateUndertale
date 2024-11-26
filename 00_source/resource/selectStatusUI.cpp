@@ -252,6 +252,12 @@ HRESULT CSelectStatusUI::Init()
 		name::ROT,		// Œ´“_Œü‚«
 		name::COL		// F
 	);
+	if (m_pName == nullptr)
+	{ // ¶¬‚ÉŽ¸”s‚µ‚½ê‡
+
+		assert(false);
+		return E_FAIL;
+	}
 
 	// —Dæ‡ˆÊ‚ðÝ’è
 	m_pName->SetPriority(PRIORITY);
