@@ -12,6 +12,7 @@
 #include "playerStatus.h"
 #include "userdataManager.h"
 #include "string2D.h"
+#include "version.h"
 #include "loadtext.h"
 
 //************************************************************
@@ -51,11 +52,21 @@ namespace
 
 	namespace select
 	{
-		const VECTOR3	POS = VECTOR3(255.0f, 535.0f, 0.0f);	// 位置
-		const VECTOR3	ROT = VEC3_ZERO;				// 向き
-		const COLOR		COL_DEFAULT	= color::White();	// 通常色
-		const COLOR		COL_CHOICE	= color::Yellow();	// 選択色
-		const EAlignX	ALIGN_X = XALIGN_LEFT;			// 横配置
+		const VECTOR3 POS_CONTINUE	= VECTOR3(155.0f, 535.0f, 0.0f);	// コンテニュー選択位置
+		const VECTOR3 POS_RESET		= VECTOR3(555.0f, 535.0f, 0.0f);	// リセット選択位置
+		const VECTOR3 POS_SETTING	= VECTOR3(255.0f, 605.0f, 0.0f);	// 設定選択位置
+
+		const VECTOR3 POS_SAVEDATA[] =	// セーブデータ操作の選択位置
+		{
+			POS_CONTINUE,	// コンテニュー選択位置
+			POS_RESET,		// リセット選択位置
+		};
+		const int NUM_SAVEDATA = NUM_ARRAY(POS_SAVEDATA);	// セーブデータ操作の選択数
+
+		const COLOR COL_DEFAULT = color::White();	// 通常色
+		const COLOR COL_CHOICE	= color::Yellow();	// 選択色
+		const VECTOR3 ROT		= VEC3_ZERO;		// 向き
+		const EAlignX ALIGN_X	= XALIGN_LEFT;		// 横配置
 	}
 }
 
@@ -194,24 +205,27 @@ HRESULT CTitleManager::Init()
 	// 横一行分の配列を拡張
 	m_vecSelect.emplace_back();
 
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < select::NUM_SAVEDATA; i++)
 	{ // 列の選択肢の総数分繰り返す
-
-		// 文字位置オフセット
-		VECTOR3 offset = VECTOR3(300.0f * i, 0.0f, 0.0f);
 
 		// セーブデータ操作の選択肢生成
 		CString2D* pSelect = CString2D::Create
 		( // 引数
-			FONT,					// フォントパス
-			ITALIC,					// イタリック
-			L"",					// 指定文字列
-			select::POS + offset,	// 原点位置
-			HEIGHT,					// 文字縦幅
-			select::ALIGN_X,		// 横配置
-			select::ROT,			// 原点向き
-			select::COL_DEFAULT		// 色
+			FONT,						// フォントパス
+			ITALIC,						// イタリック
+			L"",						// 指定文字列
+			select::POS_SAVEDATA[i],	// 原点位置
+			HEIGHT,						// 文字縦幅
+			select::ALIGN_X,			// 横配置
+			select::ROT,				// 原点向き
+			select::COL_DEFAULT			// 色
 		);
+		if (pSelect == nullptr)
+		{ // 生成に失敗した場合
+
+			assert(false);
+			return E_FAIL;
+		}
 
 		// 優先順位を設定
 		pSelect->SetPriority(PRIORITY);
@@ -232,15 +246,21 @@ HRESULT CTitleManager::Init()
 	// 設定の選択肢生成
 	CString2D* pSetting = CString2D::Create
 	( // 引数
-		FONT,				// フォントパス
-		ITALIC,				// イタリック
-		L"",				// 指定文字列
-		select::POS + VECTOR3(0.0f, 200.0f, 0.0f),	// 原点位置
-		HEIGHT,				// 文字縦幅
-		select::ALIGN_X,	// 横配置
-		select::ROT,		// 原点向き
-		select::COL_DEFAULT	// 色
+		FONT,					// フォントパス
+		ITALIC,					// イタリック
+		L"",					// 指定文字列
+		select::POS_SETTING,	// 原点位置
+		HEIGHT,					// 文字縦幅
+		select::ALIGN_X,		// 横配置
+		select::ROT,			// 原点向き
+		select::COL_DEFAULT		// 色
 	);
+	if (pSetting == nullptr)
+	{ // 生成に失敗した場合
+
+		assert(false);
+		return E_FAIL;
+	}
 
 	// 優先順位を設定
 	pSetting->SetPriority(PRIORITY);
@@ -250,6 +270,18 @@ HRESULT CTitleManager::Init()
 
 	// 現在の行列の最後尾に生成した文字を追加
 	m_vecSelect.back().push_back(pSetting);
+
+	//--------------------------------------------------------
+	//	バージョン表記の初期化/設定
+	//--------------------------------------------------------
+	// バージョン表記の生成
+	m_pVersion = CVersion::Create();
+	if (m_pVersion == nullptr)
+	{ // 生成に失敗した場合
+
+		assert(false);
+		return E_FAIL;
+	}
 
 	return S_OK;
 }
@@ -267,6 +299,9 @@ void CTitleManager::Uninit()
 
 	// 総プレイ時間の終了
 	SAFE_UNINIT(m_pTime);
+
+	// バージョン表記の終了
+	SAFE_UNINIT(m_pVersion);
 
 	for (int i = 0; i < (int)m_vecSelect.size(); i++)
 	{ // 行の総数分繰り返す

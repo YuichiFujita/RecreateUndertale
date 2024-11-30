@@ -287,6 +287,7 @@
     <ClCompile Include="resource\userdataManager.cpp" />
     <ClCompile Include="resource\value.cpp" />
     <ClCompile Include="resource\valueUI.cpp" />
+    <ClCompile Include="resource\version.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h" />
@@ -419,6 +420,7 @@
     <ClInclude Include="resource\userdataManager.h" />
     <ClInclude Include="resource\value.h" />
     <ClInclude Include="resource\valueUI.h" />
+    <ClInclude Include="resource\version.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource\resource.rc" />

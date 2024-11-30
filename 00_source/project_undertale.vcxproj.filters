@@ -79,6 +79,9 @@
     <Filter Include="ingame\userdata">
       <UniqueIdentifier>{7eba8d20-d6dc-4a6d-aee7-94a90a241cb8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="outgame">
+      <UniqueIdentifier>{7598e507-1ebe-4bfc-96a0-8df4716ce436}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="resource\camera.cpp">
@@ -467,6 +470,9 @@
     </ClCompile>
     <ClCompile Include="resource\userdataManager.cpp">
       <Filter>ingame\userdata</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\version.cpp">
+      <Filter>outgame</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -859,6 +865,9 @@
     </ClInclude>
     <ClInclude Include="resource\userdataManager.h">
       <Filter>ingame\userdata</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\version.h">
+      <Filter>outgame</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

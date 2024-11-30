@@ -14,6 +14,7 @@
 //	前方宣言
 //************************************************************
 class CString2D;	// 文字列2Dクラス
+class CVersion;		// バージョン表記クラス
 
 //************************************************************
 //	クラス定義
@@ -56,6 +57,7 @@ private:
 	CString2D* m_pName;		// 名前情報
 	CString2D* m_pLove;		// レベル情報
 	CString2D* m_pTime;		// 総プレイ時間情報
+	CVersion* m_pVersion;	// バージョン表記情報
 	POSGRID2 m_curSelect;	// 現在の選択肢
 	POSGRID2 m_oldSelect;	// 前回の選択肢
 };

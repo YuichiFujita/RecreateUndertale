@@ -13,6 +13,7 @@
 #include "sound.h"
 #include "string2D.h"
 #include "text2D.h"
+#include "version.h"
 #include "loadtext.h"
 
 //************************************************************
@@ -74,18 +75,6 @@ namespace
 		const COLOR		COL_CHOICE	= color::Yellow();	// 選択色
 		const EAlignX	ALIGN_X = XALIGN_LEFT;	// 横配置
 	}
-
-	namespace virsion
-	{
-		const char*	FONT	= "data\\FONT\\Crypt of Tomorrow.ttf";	// フォントパス
-		const bool	ITALIC	= false;	// イタリック
-		const float	HEIGHT	= 22.5f;	// 文字縦幅
-
-		const VECTOR3	POS = VECTOR3(SCREEN_CENT.x, 706.0f, 0.0f);	// 位置
-		const VECTOR3	ROT = VEC3_ZERO;							// 向き
-		const COLOR		COL = COLOR(0.5f, 0.5f, 0.5f, 1.0f);		// 色
-		const EAlignX	ALIGN_X = XALIGN_CENTER;	// 横配置
-	}
 }
 
 //************************************************************
@@ -140,6 +129,12 @@ HRESULT CStartStateTutorial::Init()
 		title::ROT,		// 原点向き
 		title::COL		// 色
 	);
+	if (m_pTitle == nullptr)
+	{ // 生成に失敗した場合
+
+		assert(false);
+		return E_FAIL;
+	}
 
 	// 優先順位を設定
 	m_pTitle->SetPriority(PRIORITY);
@@ -185,6 +180,12 @@ HRESULT CStartStateTutorial::Init()
 		rule::ROT,		// 原点向き
 		rule::COL		// 色
 	);
+	if (m_pRule == nullptr)
+	{ // 生成に失敗した場合
+
+		assert(false);
+		return E_FAIL;
+	}
 
 	// 優先順位を設定
 	m_pRule->SetPriority(PRIORITY);
@@ -210,6 +211,12 @@ HRESULT CStartStateTutorial::Init()
 			select::ROT,			// 原点向き
 			select::COL_DEFAULT		// 色
 		);
+		if (m_apSelect[i] == nullptr)
+		{ // 生成に失敗した場合
+
+			assert(false);
+			return E_FAIL;
+		}
 
 		// 優先順位を設定
 		m_apSelect[i]->SetPriority(PRIORITY);
@@ -219,23 +226,13 @@ HRESULT CStartStateTutorial::Init()
 	}
 
 	// バージョン表記の生成
-	m_pVersion = CString2D::Create
-	( // 引数
-		virsion::FONT,		// フォントパス
-		virsion::ITALIC,	// イタリック
-		L"",				// 指定文字列
-		virsion::POS,		// 原点位置
-		virsion::HEIGHT,	// 文字縦幅
-		virsion::ALIGN_X,	// 横配置
-		virsion::ROT,		// 原点向き
-		virsion::COL		// 色
-	);
+	m_pVersion = CVersion::Create();
+	if (m_pVersion == nullptr)
+	{ // 生成に失敗した場合
 
-	// 優先順位を設定
-	m_pVersion->SetPriority(PRIORITY);
-
-	// 文字列を割当
-	loadtext::BindString(m_pVersion, loadtext::LoadText(PATH, CStartManager::TEXT_VIRSION));
+		assert(false);
+		return E_FAIL;
+	}
 
 	// イントロノイズを停止
 	GET_MANAGER->GetSound()->Stop(CSound::LABEL_SE_INTRONOISE);
