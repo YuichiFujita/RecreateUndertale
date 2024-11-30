@@ -18,8 +18,7 @@
 //************************************************************
 //	前方宣言
 //************************************************************
-class CObject2D;	// オブジェクト2Dクラス
-class CString2D;	// 文字列2Dクラス
+class CLogoManager;	// ロゴマネージャークラス
 
 //************************************************************
 //	クラス定義
@@ -40,16 +39,8 @@ public:
 	void Update(const float fDeltaTime) override;	// 更新
 
 private:
-	// メンバ関数
-	void UpdateDispTrans(const float fDeltaTime);	// 操作表示・遷移更新
-	void UpdateCommand();	// コマンド入力更新
-
 	// メンバ変数
-	std::string m_sFragInput;	// キー入力フラグ
-	CObject2D* m_pLogo;	// タイトルロゴ
-	CString2D* m_pCont;	// 操作説明
-	float m_fCurTime;	// 現在の待機時間
-	bool m_bSndBall;	// BALLコマンド再生フラグ
+	CLogoManager* m_pLogoManager;	// ロゴマネージャー
 };
 
 #endif	// _START_STATE_LOGO_H_

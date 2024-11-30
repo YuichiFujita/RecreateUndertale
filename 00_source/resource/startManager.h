@@ -25,24 +25,23 @@ public:
 	// 表示テキスト列挙
 	enum EText
 	{
-		TEXT_PRESS_Z = 0,	// [PRESS Z OR ENTER]
-		TEXT_BUTTON_TITLE,	// ─ ボタンそうさ ─
-		TEXT_BUTTON_KINDS,	// 各種操作ボタン
-		TEXT_RULE,			// HPが0になるとゲームオーバー
-		TEXT_START,			// ゲームをはじめる
-		TEXT_OPTION,		// せってい
-		TEXT_OPTION_TITLE,	// せってい
-		TEXT_OPTION_CLOSE,	// とじる
-		TEXT_NAMING,		// なまえをつけてください
-		TEXT_HIRAGANA,		// ひらがな
-		TEXT_KATAKANA,		// カタカナ
-		TEXT_ALPHABET,		// アルファベット
-		TEXT_NAMING_QUIT,	// やめる
-		TEXT_NAMING_DEL,	// さくじょ
-		TEXT_NAMING_DEC,	// かくてい
-		TEXT_DESIDE_NO,		// いいえ
-		TEXT_DESIDE_YES,	// はい
-		TEXT_MAX			// この列挙型の総数
+		TEXT_BUTTON_TITLE = 0,	// ─ ボタンそうさ ─
+		TEXT_BUTTON_KINDS,		// 各種操作ボタン
+		TEXT_RULE,				// HPが0になるとゲームオーバー
+		TEXT_START,				// ゲームをはじめる
+		TEXT_OPTION,			// せってい
+		TEXT_OPTION_TITLE,		// せってい
+		TEXT_OPTION_CLOSE,		// とじる
+		TEXT_NAMING,			// なまえをつけてください
+		TEXT_HIRAGANA,			// ひらがな
+		TEXT_KATAKANA,			// カタカナ
+		TEXT_ALPHABET,			// アルファベット
+		TEXT_NAMING_QUIT,		// やめる
+		TEXT_NAMING_DEL,		// さくじょ
+		TEXT_NAMING_DEC,		// かくてい
+		TEXT_DESIDE_NO,			// いいえ
+		TEXT_DESIDE_YES,		// はい
+		TEXT_MAX				// この列挙型の総数
 	};
 
 	// コンストラクタ

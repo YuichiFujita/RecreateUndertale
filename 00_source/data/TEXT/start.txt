@@ -6,14 +6,10 @@
 #==============================================================================
 
 TEXT_0
-	STR = [PRESS Z OR ENTER]
-END_TEXT
-
-TEXT_1
 	STR = ─ ボタンそうさ ─
 END_TEXT
 
-TEXT_2
+TEXT_1
 	STR = [Z / ENTER]　　 かくてい
 	STR = [X / SHIFT]　　 キャンセル
 	STR = [C / CTRL] 　　 フィールドメニュー
@@ -21,12 +17,16 @@ TEXT_2
 	STR = [ESCながおし]　 しゅうりょう
 END_TEXT
 
-TEXT_3
+TEXT_2
 	STR = HPが0になるとゲームオーバー
 END_TEXT
 
-TEXT_4
+TEXT_3
 	STR = ゲームをはじめる
+END_TEXT
+
+TEXT_4
+	STR = せってい
 END_TEXT
 
 TEXT_5
@@ -34,46 +34,42 @@ TEXT_5
 END_TEXT
 
 TEXT_6
-	STR = せってい
-END_TEXT
-
-TEXT_7
 	STR = とじる
 END_TEXT
 
-TEXT_8
+TEXT_7
 	STR = おちたニンゲンに　なまえをつけてください
 END_TEXT
 
-TEXT_9
+TEXT_8
 	STR = ひらがな
 END_TEXT
 
-TEXT_10
+TEXT_9
 	STR = カタカナ
 END_TEXT
 
-TEXT_11
+TEXT_10
 	STR = アルファベット
 END_TEXT
 
-TEXT_12
+TEXT_11
 	STR = やめる
 END_TEXT
 
-TEXT_13
+TEXT_12
 	STR = さくじょ
 END_TEXT
 
-TEXT_14
+TEXT_13
 	STR = かくてい
 END_TEXT
 
-TEXT_15
+TEXT_14
 	STR = いいえ
 END_TEXT
 
-TEXT_16
+TEXT_15
 	STR = はい
 END_TEXT
 
