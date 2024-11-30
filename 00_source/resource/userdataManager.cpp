@@ -8,6 +8,7 @@
 //	インクルードファイル
 //************************************************************
 #include "userdataManager.h"
+#include "manager.h"
 #include "playerStatus.h"
 #include "playerItem.h"
 
@@ -75,8 +76,12 @@ void CUserDataManager::Uninit()
 //============================================================
 void CUserDataManager::Update(const float fDeltaTime)
 {
-	// 総プレイ時間を加算
-	m_fPlayTime += fDeltaTime;
+	if (GET_MANAGER->GetMode() == CScene::MODE_GAME)
+	{ // ゲーム画面の場合
+
+		// 総プレイ時間を加算
+		m_fPlayTime += fDeltaTime;
+	}
 }
 
 //============================================================
@@ -563,4 +568,25 @@ bool CUserDataManager::IsCheckSaveData()
 {
 	// 指定したパスがあるかを返す
 	return std::filesystem::exists(FILE0_TXT);
+}
+
+//============================================================
+//	総プレイ時間文字列の取得処理
+//============================================================
+std::string CUserDataManager::GetStrPlayTime()
+{
+	// プレイ時間を分/秒に変換
+	const long lLongTime = (DWORD)(m_fPlayTime * 1000.0f);		// 総プレイ整数時間
+	const int nSecTime = (int)(lLongTime / 1000) % 60;			// 総プレイ整数秒
+	const int nMinTime = (int)(lLongTime / 60000);				// 総プレイ整数分
+
+	// 秒数が一桁の場合はゼロ埋め用文字列を作成
+	const std::string sZero = (nSecTime < 10) ? "0" : "";
+
+	// 分/秒を文字列に変換
+	const std::string sSec = sZero + std::to_string(nSecTime);	// 総プレイ秒文字列
+	const std::string sMin = std::to_string(nMinTime);			// 総プレイ分文字列
+
+	// 総プレイ時間文字列を作成し返す
+	return (sMin + ":" + sSec);
 }

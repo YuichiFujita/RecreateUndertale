@@ -171,11 +171,7 @@ HRESULT CTitleManager::Init()
 	//--------------------------------------------------------
 	//	総プレイ時間の初期化/設定
 	//--------------------------------------------------------
-	const float fPlayTime = pUserDataManager->GetPlayTime();			// 総プレイ時間
-	const long lTime = (DWORD)(fPlayTime * 1000.0f);					// 総プレイミリ秒
-	const std::string sMin = std::to_string((int)(lTime / 60000));		// 総プレイ分文字列
-	const std::string sSec = std::to_string((int)(lTime / 1000) % 60);	// 総プレイ秒文字列
-	const std::string sTime = sMin + ":" + sSec;						// 総プレイ時間文字列
+	const std::string sTime = pUserDataManager->GetStrPlayTime();	// 総プレイ時間文字列
 
 	// 総プレイ時間の生成
 	m_pTime = CString2D::Create
