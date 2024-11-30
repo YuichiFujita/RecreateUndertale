@@ -477,6 +477,9 @@
     <ClCompile Include="resource\logoManager.cpp">
       <Filter>outgame</Filter>
     </ClCompile>
+    <ClCompile Include="resource\optionManager.cpp">
+      <Filter>outgame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h">
@@ -873,6 +876,9 @@
       <Filter>outgame</Filter>
     </ClInclude>
     <ClInclude Include="resource\logoManager.h">
+      <Filter>outgame</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\optionManager.h">
       <Filter>outgame</Filter>
     </ClInclude>
   </ItemGroup>

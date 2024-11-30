@@ -30,46 +30,38 @@ TEXT_4
 END_TEXT
 
 TEXT_5
-	STR = せってい
-END_TEXT
-
-TEXT_6
-	STR = とじる
-END_TEXT
-
-TEXT_7
 	STR = おちたニンゲンに　なまえをつけてください
 END_TEXT
 
-TEXT_8
+TEXT_6
 	STR = ひらがな
 END_TEXT
 
-TEXT_9
+TEXT_7
 	STR = カタカナ
 END_TEXT
 
-TEXT_10
+TEXT_8
 	STR = アルファベット
 END_TEXT
 
-TEXT_11
+TEXT_9
 	STR = やめる
 END_TEXT
 
-TEXT_12
+TEXT_10
 	STR = さくじょ
 END_TEXT
 
-TEXT_13
+TEXT_11
 	STR = かくてい
 END_TEXT
 
-TEXT_14
+TEXT_12
 	STR = いいえ
 END_TEXT
 
-TEXT_15
+TEXT_13
 	STR = はい
 END_TEXT
 

@@ -30,8 +30,6 @@ public:
 		TEXT_RULE,				// HPが0になるとゲームオーバー
 		TEXT_START,				// ゲームをはじめる
 		TEXT_OPTION,			// せってい
-		TEXT_OPTION_TITLE,		// せってい
-		TEXT_OPTION_CLOSE,		// とじる
 		TEXT_NAMING,			// なまえをつけてください
 		TEXT_HIRAGANA,			// ひらがな
 		TEXT_KATAKANA,			// カタカナ

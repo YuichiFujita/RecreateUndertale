@@ -1,33 +1,40 @@
 //============================================================
 //
-//	ロゴマネージャーヘッダー [logoManager.h]
+//	設定マネージャーヘッダー [optionManager.h]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	二重インクルード防止
 //************************************************************
-#ifndef _LOGO_MANAGER_H_
-#define _LOGO_MANAGER_H_
+#ifndef _OPTION_MANAGER_H_
+#define _OPTION_MANAGER_H_
 
 //************************************************************
 //	前方宣言
 //************************************************************
-class CObject2D;	// オブジェクト2Dクラス
 class CString2D;	// 文字列2Dクラス
 
 //************************************************************
 //	クラス定義
 //************************************************************
-// ロゴマネージャークラス
-class CLogoManager
+// 設定マネージャークラス
+class COptionManager
 {
 public:
+	// 表示テキスト列挙
+	enum EText
+	{
+		TEXT_TITLE = 0,	// せってい
+		TEXT_CLOSE,		// とじる
+		TEXT_MAX		// この列挙型の総数
+	};
+
 	// コンストラクタ
-	CLogoManager();
+	COptionManager();
 
 	// デストラクタ
-	~CLogoManager();
+	~COptionManager();
 
 	// メンバ関数
 	HRESULT Init();	// 初期化
@@ -35,20 +42,26 @@ public:
 	bool Update(const float fDeltaTime);	// 更新
 
 	// 静的メンバ関数
-	static CLogoManager* Create();	// 生成
-	static void Release(CLogoManager*& prLogoManager);	// 破棄
+	static COptionManager* Create();	// 生成
+	static void Release(COptionManager*& prOptionManager);	// 破棄
 
 private:
+	// 選択列挙
+	enum ESelect
+	{
+		SELECT_CLOSE = 0,	// 閉じる
+		SELECT_MAX			// この列挙型の総数
+	};
+
 	// メンバ関数
-	void UpdateDispTrans(const float fDeltaTime);	// 操作表示・遷移更新
-	void UpdateCommand();	// コマンド入力更新
+	void UpdateSelect();	// 選択更新
+	bool UpdateDecide();	// 決定更新
 
 	// メンバ変数
-	std::string m_sFragInput;	// キー入力フラグ
-	CObject2D* m_pLogo;	// タイトルロゴ
-	CString2D* m_pCont;	// 操作説明
-	float m_fCurTime;	// 現在の待機時間
-	bool m_bSndBall;	// BALLコマンド再生フラグ
+	CString2D* m_apSelect[SELECT_MAX];	// 選択肢
+	CString2D* m_pTitle;	// タイトル
+	int m_nCurSelect;		// 現在の選択肢
+	int m_nOldSelect;		// 前回の選択肢
 };
 
-#endif	// _LOGO_MANAGER_H_
+#endif	// _OPTION_MANAGER_H_

@@ -229,6 +229,7 @@
     <ClCompile Include="resource\objectMeshWall.cpp" />
     <ClCompile Include="resource\objectModel.cpp" />
     <ClCompile Include="resource\objectTornado.cpp" />
+    <ClCompile Include="resource\optionManager.cpp" />
     <ClCompile Include="resource\particle2D.cpp" />
     <ClCompile Include="resource\particle3D.cpp" />
     <ClCompile Include="resource\pause.cpp" />
@@ -365,6 +366,7 @@
     <ClInclude Include="resource\objectMeshWall.h" />
     <ClInclude Include="resource\objectModel.h" />
     <ClInclude Include="resource\objectTornado.h" />
+    <ClInclude Include="resource\optionManager.h" />
     <ClInclude Include="resource\particle2D.h" />
     <ClInclude Include="resource\particle3D.h" />
     <ClInclude Include="resource\pause.h" />

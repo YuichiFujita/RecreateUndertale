@@ -18,7 +18,7 @@
 //************************************************************
 //	前方宣言
 //************************************************************
-class CString2D;	// 文字列2Dクラス
+class COptionManager;	// 設定マネージャークラス
 
 //************************************************************
 //	クラス定義
@@ -39,22 +39,8 @@ public:
 	void Update(const float fDeltaTime) override;	// 更新
 
 private:
-	// 選択列挙
-	enum ESelect
-	{
-		SELECT_CLOSE = 0,	// 閉じる
-		SELECT_MAX			// この列挙型の総数
-	};
-
-	// メンバ関数
-	void UpdateSelect();	// 選択更新
-	void UpdateDecide();	// 決定更新
-
 	// メンバ変数
-	CString2D* m_apSelect[SELECT_MAX];	// 選択肢
-	CString2D* m_pTitle;	// タイトル
-	int m_nCurSelect;		// 現在の選択肢
-	int m_nOldSelect;		// 前回の選択肢
+	COptionManager* m_pOptionManager;	// 設定マネージャー
 };
 
 #endif	// _START_STATE_OPTION_H_

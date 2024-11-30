@@ -8,7 +8,6 @@
 //	インクルードファイル
 //************************************************************
 #include "startStateLogo.h"
-#include "inputManager.h"
 #include "startManager.h"
 #include "logoManager.h"
 
@@ -71,10 +70,9 @@ void CStartStateLogo::Update(const float fDeltaTime)
 {
 	// ロゴマネージャーの更新
 	assert(m_pLogoManager != nullptr);
-	m_pLogoManager->Update(fDeltaTime);
+	if (m_pLogoManager->Update(fDeltaTime))
+	{ // 状態遷移の操作が行われた場合
 
-	if (input::Decide())
-	{
 		// チュートリアル状態にする
 		m_pContext->ChangeState(new CStartStateTutorial);
 	}

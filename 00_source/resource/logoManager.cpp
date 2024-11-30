@@ -8,6 +8,7 @@
 //	インクルードファイル
 //************************************************************
 #include "logoManager.h"
+#include "inputManager.h"
 #include "introManager.h"
 #include "manager.h"
 #include "sound.h"
@@ -111,13 +112,18 @@ void CLogoManager::Uninit()
 //============================================================
 //	更新処理
 //============================================================
-void CLogoManager::Update(const float fDeltaTime)
+bool CLogoManager::Update(const float fDeltaTime)
 {
 	// 操作表示・遷移の更新
 	UpdateDispTrans(fDeltaTime);
 
 	// コマンド入力の更新
 	UpdateCommand();
+
+	// 状態遷移の操作があった場合trueを返す
+	if (input::Decide()) { return true; }
+
+	return false;
 }
 
 //============================================================
