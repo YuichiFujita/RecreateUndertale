@@ -285,6 +285,9 @@
     <ClCompile Include="resource\timerUI.cpp" />
     <ClCompile Include="resource\timeUI.cpp" />
     <ClCompile Include="resource\titleManager.cpp" />
+    <ClCompile Include="resource\titleState.cpp" />
+    <ClCompile Include="resource\titleStateLogo.cpp" />
+    <ClCompile Include="resource\titleStateSelect.cpp" />
     <ClCompile Include="resource\useful.cpp" />
     <ClCompile Include="resource\userdataManager.cpp" />
     <ClCompile Include="resource\value.cpp" />
@@ -420,6 +423,9 @@
     <ClInclude Include="resource\timerUI.h" />
     <ClInclude Include="resource\timeUI.h" />
     <ClInclude Include="resource\titleManager.h" />
+    <ClInclude Include="resource\titleState.h" />
+    <ClInclude Include="resource\titleStateLogo.h" />
+    <ClInclude Include="resource\titleStateSelect.h" />
     <ClInclude Include="resource\useful.h" />
     <ClInclude Include="resource\userdataManager.h" />
     <ClInclude Include="resource\value.h" />

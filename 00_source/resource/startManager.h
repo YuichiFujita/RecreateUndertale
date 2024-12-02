@@ -7,8 +7,8 @@
 //************************************************************
 //	二重インクルード防止
 //************************************************************
-#ifndef _STATEMANAGER_H_
-#define _STATEMANAGER_H_
+#ifndef _STARTMANAGER_H_
+#define _STARTMANAGER_H_
 
 //************************************************************
 //	前方宣言
@@ -66,4 +66,4 @@ private:
 	std::string m_sName;	// 名前
 };
 
-#endif	// _STATEMANAGER_H_
+#endif	// _STARTMANAGER_H_

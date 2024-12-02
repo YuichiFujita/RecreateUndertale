@@ -82,6 +82,9 @@
     <Filter Include="outgame">
       <UniqueIdentifier>{7598e507-1ebe-4bfc-96a0-8df4716ce436}</UniqueIdentifier>
     </Filter>
+    <Filter Include="state\state_title">
+      <UniqueIdentifier>{70b8fcbd-b32f-41af-bf19-557e9afd870b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="resource\camera.cpp">
@@ -479,6 +482,15 @@
     </ClCompile>
     <ClCompile Include="resource\optionManager.cpp">
       <Filter>outgame</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\titleState.cpp">
+      <Filter>state\state_title</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\titleStateLogo.cpp">
+      <Filter>state\state_title</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\titleStateSelect.cpp">
+      <Filter>state\state_title</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -880,6 +892,15 @@
     </ClInclude>
     <ClInclude Include="resource\optionManager.h">
       <Filter>outgame</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\titleState.h">
+      <Filter>state\state_title</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\titleStateLogo.h">
+      <Filter>state\state_title</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\titleStateSelect.h">
+      <Filter>state\state_title</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
