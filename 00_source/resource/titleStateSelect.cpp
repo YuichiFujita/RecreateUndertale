@@ -388,9 +388,24 @@ void CTitleStateSelect::UpdateDecide()
 {
 	if (input::Decide())
 	{
-		// TODOF‘I‘ğ‚²‚Æ‚É‘JˆÚæ•ÏX
+		// ‘I‘ğˆ‚É‰‚¶‚Ä‘JˆÚæ‚ğ•ÏX
+		switch (m_curSelect.x + m_curSelect.y * select::NUM_SAVEDATA)
+		{ // Œ»İ‚Ì‘I‘ğˆ‚²‚Æ‚Ìˆ—
+		case SELECT_CONTINUE:
+			GET_MANAGER->SetFadeScene(CScene::MODE_GAME);	// ƒQ[ƒ€‰æ–Ê‚É‘JˆÚ‚·‚é
+			break;
 
-		// ƒQ[ƒ€‰æ–Ê‚É‘JˆÚ‚·‚é
-		GET_MANAGER->SetFadeScene(CScene::MODE_GAME);
+		case SELECT_RESET:
+			//m_pContext->ChangeState(new CStartStateOption);	// ‰Šúİ’èó‘Ô
+			break;
+
+		case SELECT_SETTING:
+			m_pContext->ChangeState(new CTitleStateOption);	// İ’èó‘Ô
+			break;
+
+		default:
+			assert(false);
+			break;
+		}
 	}
 }

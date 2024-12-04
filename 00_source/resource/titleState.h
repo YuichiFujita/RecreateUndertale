@@ -46,5 +46,6 @@ protected:
 //************************************************************
 #include "titleStateLogo.h"
 #include "titleStateSelect.h"
+#include "titleStateOption.h"
 
 #endif	// _TITLE_STATE_H_

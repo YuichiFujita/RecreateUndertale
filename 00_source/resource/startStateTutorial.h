@@ -45,7 +45,7 @@ private:
 	enum ESelect
 	{
 		SELECT_START = 0,	// ƒQ[ƒ€ŠJŽn
-		SELECT_OPTION,		// ‰ŠúÝ’èz
+		SELECT_OPTION,		// ‰ŠúÝ’è
 		SELECT_MAX			// ‚±‚Ì—ñ‹“Œ^‚Ì‘”
 	};
 

@@ -287,6 +287,7 @@
     <ClCompile Include="resource\titleManager.cpp" />
     <ClCompile Include="resource\titleState.cpp" />
     <ClCompile Include="resource\titleStateLogo.cpp" />
+    <ClCompile Include="resource\titleStateOption.cpp" />
     <ClCompile Include="resource\titleStateSelect.cpp" />
     <ClCompile Include="resource\useful.cpp" />
     <ClCompile Include="resource\userdataManager.cpp" />
@@ -425,6 +426,7 @@
     <ClInclude Include="resource\titleManager.h" />
     <ClInclude Include="resource\titleState.h" />
     <ClInclude Include="resource\titleStateLogo.h" />
+    <ClInclude Include="resource\titleStateOption.h" />
     <ClInclude Include="resource\titleStateSelect.h" />
     <ClInclude Include="resource\useful.h" />
     <ClInclude Include="resource\userdataManager.h" />

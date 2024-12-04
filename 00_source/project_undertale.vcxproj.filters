@@ -492,6 +492,9 @@
     <ClCompile Include="resource\titleStateSelect.cpp">
       <Filter>state\state_title</Filter>
     </ClCompile>
+    <ClCompile Include="resource\titleStateOption.cpp">
+      <Filter>state\state_title</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h">
@@ -900,6 +903,9 @@
       <Filter>state\state_title</Filter>
     </ClInclude>
     <ClInclude Include="resource\titleStateSelect.h">
+      <Filter>state\state_title</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\titleStateOption.h">
       <Filter>state\state_title</Filter>
     </ClInclude>
   </ItemGroup>

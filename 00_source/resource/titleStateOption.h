@@ -1,14 +1,14 @@
 //============================================================
 //
-//	遷移選択状態ヘッダー [titleStateSelect.h]
+//	設定状態ヘッダー [titleStateOption.h]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	二重インクルード防止
 //************************************************************
-#ifndef _TITLE_STATE_SELECT_H_
-#define _TITLE_STATE_SELECT_H_
+#ifndef _TITLE_STATE_OPTION_H_
+#define _TITLE_STATE_OPTION_H_
 
 //************************************************************
 //	インクルードファイル
@@ -18,21 +18,20 @@
 //************************************************************
 //	前方宣言
 //************************************************************
-class CString2D;	// 文字列2Dクラス
-class CVersion;		// バージョン表記クラス
+class COptionManager;	// 設定マネージャークラス
 
 //************************************************************
 //	クラス定義
 //************************************************************
-// 遷移選択状態クラス
-class CTitleStateSelect : public CTitleState
+// 設定状態クラス
+class CTitleStateOption : public CTitleState
 {
 public:
 	// コンストラクタ
-	CTitleStateSelect();
+	CTitleStateOption();
 
 	// デストラクタ
-	~CTitleStateSelect() override;
+	~CTitleStateOption() override;
 
 	// オーバーライド関数
 	HRESULT Init() override;	// 初期化
@@ -40,27 +39,8 @@ public:
 	void Update(const float fDeltaTime) override;	// 更新
 
 private:
-	// 選択列挙
-	enum ESelect
-	{
-		SELECT_CONTINUE = 0,	// コンティニュー
-		SELECT_RESET,			// リセット
-		SELECT_SETTING,			// 設定
-		SELECT_MAX				// この列挙型の総数
-	};
-
-	// メンバ関数
-	void UpdateSelect();	// 選択更新
-	void UpdateDecide();	// 決定更新
-
 	// メンバ変数
-	std::vector<std::vector<CString2D*>> m_vecSelect;	// 選択肢情報
-	CString2D* m_pName;		// 名前情報
-	CString2D* m_pLove;		// レベル情報
-	CString2D* m_pTime;		// 総プレイ時間情報
-	CVersion* m_pVersion;	// バージョン表記情報
-	POSGRID2 m_curSelect;	// 現在の選択肢
-	POSGRID2 m_oldSelect;	// 前回の選択肢
+	COptionManager* m_pOptionManager;	// 設定マネージャー
 };
 
-#endif	// _TITLE_STATE_SELECT_H_
+#endif	// _TITLE_STATE_OPTION_H_
