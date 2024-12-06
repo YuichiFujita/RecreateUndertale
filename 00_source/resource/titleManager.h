@@ -28,6 +28,7 @@ public:
 		TEXT_CONTINUE = 0,	// コンティニュー
 		TEXT_RESET,			// リセット
 		TEXT_SETTING,		// 設定
+		TEXT_RESET_TITLE,	// すでになまえがつけられています
 		TEXT_MAX			// この列挙型の総数
 	};
 

@@ -212,6 +212,7 @@
     <ClCompile Include="resource\motion.cpp" />
     <ClCompile Include="resource\multiModel.cpp" />
     <ClCompile Include="resource\multiValue.cpp" />
+    <ClCompile Include="resource\nearNameManager.cpp" />
     <ClCompile Include="resource\object.cpp" />
     <ClCompile Include="resource\object2D.cpp" />
     <ClCompile Include="resource\object3D.cpp" />
@@ -288,6 +289,7 @@
     <ClCompile Include="resource\titleState.cpp" />
     <ClCompile Include="resource\titleStateLogo.cpp" />
     <ClCompile Include="resource\titleStateOption.cpp" />
+    <ClCompile Include="resource\titleStateReset.cpp" />
     <ClCompile Include="resource\titleStateSelect.cpp" />
     <ClCompile Include="resource\useful.cpp" />
     <ClCompile Include="resource\userdataManager.cpp" />
@@ -353,6 +355,7 @@
     <ClInclude Include="resource\motion.h" />
     <ClInclude Include="resource\multiModel.h" />
     <ClInclude Include="resource\multiValue.h" />
+    <ClInclude Include="resource\nearNameManager.h" />
     <ClInclude Include="resource\object.h" />
     <ClInclude Include="resource\object2D.h" />
     <ClInclude Include="resource\object3D.h" />
@@ -427,6 +430,7 @@
     <ClInclude Include="resource\titleState.h" />
     <ClInclude Include="resource\titleStateLogo.h" />
     <ClInclude Include="resource\titleStateOption.h" />
+    <ClInclude Include="resource\titleStateReset.h" />
     <ClInclude Include="resource\titleStateSelect.h" />
     <ClInclude Include="resource\useful.h" />
     <ClInclude Include="resource\userdataManager.h" />

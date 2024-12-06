@@ -1,31 +1,33 @@
 //============================================================
 //
-//	名前決定状態処理 [startStateDecideName.cpp]
+//	リセット状態処理 [titleStateReset.cpp]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	インクルードファイル
 //************************************************************
-#include "startStateDecideName.h"
-#include "startManager.h"
+#include "titleStateReset.h"
+#include "titleManager.h"
 #include "loadtext.h"
+#include "userdataManager.h"
+#include "playerStatus.h"
 
 //************************************************************
 //	定数宣言
 //************************************************************
 namespace
 {
-	const char* PATH = "data\\TEXT\\naming.txt";	// テキストパス
+	const char* PATH = "data\\TEXT\\title.txt";	// テキストパス
 }
 
 //************************************************************
-//	子クラス [CStartStateDecideName] のメンバ関数
+//	子クラス [CTitleStateReset] のメンバ関数
 //************************************************************
 //============================================================
 //	コンストラクタ
 //============================================================
-CStartStateDecideName::CStartStateDecideName() :
+CTitleStateReset::CTitleStateReset() :
 	m_pNearNameManager	(nullptr)	// 名前接近マネージャー
 {
 
@@ -34,7 +36,7 @@ CStartStateDecideName::CStartStateDecideName() :
 //============================================================
 //	デストラクタ
 //============================================================
-CStartStateDecideName::~CStartStateDecideName()
+CTitleStateReset::~CTitleStateReset()
 {
 
 }
@@ -42,17 +44,22 @@ CStartStateDecideName::~CStartStateDecideName()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CStartStateDecideName::Init()
+HRESULT CTitleStateReset::Init()
 {
+	CUserDataManager* pUserData = CUserDataManager::GetInstance();	// ユーザーデータマネージャー
+	CPlayerStatus status;	// ステータス情報
+
 	// メンバ変数を初期化
 	m_pNearNameManager = nullptr;	// 名前接近マネージャー
 
+	// プレイヤーステータス情報の読込
+	pUserData->LoadPlayerStatus(&status);
+
 	// 名前接近マネージャーの生成
-	const std::string& rName = m_pContext->GetName();	// 命名文字列
 	m_pNearNameManager = CNearNameManager::Create
 	( // 引数
-		rName,									// 表示名
-		loadtext::LoadText(PATH, rName.c_str())	// タイトル割当テキスト
+		status.GetName(),	// 表示名
+		loadtext::LoadText(PATH, CTitleManager::TEXT_RESET_TITLE)	// タイトル割当テキスト
 	);
 	if (m_pNearNameManager == nullptr)
 	{ // 生成に失敗した場合
@@ -67,7 +74,7 @@ HRESULT CStartStateDecideName::Init()
 //============================================================
 //	終了処理
 //============================================================
-void CStartStateDecideName::Uninit()
+void CTitleStateReset::Uninit()
 {
 	// 名前接近マネージャーの破棄
 	SAFE_REF_RELEASE(m_pNearNameManager);
@@ -79,7 +86,7 @@ void CStartStateDecideName::Uninit()
 //============================================================
 //	更新処理
 //============================================================
-void CStartStateDecideName::Update(const float fDeltaTime)
+void CTitleStateReset::Update(const float fDeltaTime)
 {
 	// 名前接近マネージャーの更新
 	assert(m_pNearNameManager != nullptr);
@@ -96,15 +103,15 @@ void CStartStateDecideName::Update(const float fDeltaTime)
 //============================================================
 //	決定の更新処理
 //============================================================
-void CStartStateDecideName::UpdateDecide(const CNearNameManager::ESelect select)
+void CTitleStateReset::UpdateDecide(const CNearNameManager::ESelect select)
 {
 	// 選択肢に応じて遷移先を変更
 	switch (select)
 	{ // 現在の選択肢ごとの処理
 	case CNearNameManager::SELECT_NO:
 
-		// 命名状態にする
-		m_pContext->ChangeState(new CStartStateCreateName);
+		// 遷移選択状態にする
+		m_pContext->ChangeState(new CTitleStateSelect);
 		break;
 
 	case CNearNameManager::SELECT_YES:

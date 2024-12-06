@@ -392,11 +392,11 @@ void CTitleStateSelect::UpdateDecide()
 		switch (m_curSelect.x + m_curSelect.y * select::NUM_SAVEDATA)
 		{ // 現在の選択肢ごとの処理
 		case SELECT_CONTINUE:
-			GET_MANAGER->SetFadeScene(CScene::MODE_GAME);	// ゲーム画面に遷移する
+			GET_MANAGER->SetScene(CScene::MODE_GAME);		// ゲーム画面に遷移する
 			break;
 
 		case SELECT_RESET:
-			//m_pContext->ChangeState(new CStartStateOption);	// 初期設定状態
+			m_pContext->ChangeState(new CTitleStateReset);	// リセット状態
 			break;
 
 		case SELECT_SETTING:

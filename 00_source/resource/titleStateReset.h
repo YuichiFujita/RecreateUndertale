@@ -1,33 +1,33 @@
 //============================================================
 //
-//	名前決定状態ヘッダー [startStateDecideName.h]
+//	リセット状態ヘッダー [titleStateReset.h]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	二重インクルード防止
 //************************************************************
-#ifndef _START_STATE_DECIDE_NAME_H_
-#define _START_STATE_DECIDE_NAME_H_
+#ifndef _TITLE_STATE_RESET_H_
+#define _TITLE_STATE_RESET_H_
 
 //************************************************************
 //	インクルードファイル
 //************************************************************
-#include "startState.h"
+#include "titleState.h"
 #include "nearNameManager.h"
 
 //************************************************************
 //	クラス定義
 //************************************************************
-// 名前決定状態クラス
-class CStartStateDecideName : public CStartState
+// リセット状態クラス
+class CTitleStateReset : public CTitleState
 {
 public:
 	// コンストラクタ
-	CStartStateDecideName();
+	CTitleStateReset();
 
 	// デストラクタ
-	~CStartStateDecideName() override;
+	~CTitleStateReset() override;
 
 	// オーバーライド関数
 	HRESULT Init() override;	// 初期化
@@ -42,4 +42,4 @@ private:
 	CNearNameManager* m_pNearNameManager;	// 名前接近マネージャー
 };
 
-#endif	// _START_STATE_DECIDE_NAME_H_
+#endif	// _TITLE_STATE_RESET_H_
