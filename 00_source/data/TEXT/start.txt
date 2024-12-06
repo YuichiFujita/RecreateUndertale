@@ -57,14 +57,6 @@ TEXT_11
 	STR = Ç©Ç≠ÇƒÇ¢
 END_TEXT
 
-TEXT_12
-	STR = Ç¢Ç¢Ç¶
-END_TEXT
-
-TEXT_13
-	STR = ÇÕÇ¢
-END_TEXT
-
 TEXT_ELSE
 	STR = ì«çûÉGÉâÅ[
 END_TEXT
