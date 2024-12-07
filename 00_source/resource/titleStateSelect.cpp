@@ -29,7 +29,7 @@ namespace
 
 	namespace name
 	{
-		const VECTOR3	POS = VECTOR3(120.0f, 140.0f, 0.0f);	// 位置
+		const VECTOR3	POS = VECTOR3(198.0f, 207.0f, 0.0f);	// 位置
 		const VECTOR3	ROT = VEC3_ZERO;		// 向き
 		const COLOR		COL = color::White();	// 色
 		const EAlignX	ALIGN_X = XALIGN_LEFT;	// 横配置
@@ -37,7 +37,7 @@ namespace
 
 	namespace love
 	{
-		const VECTOR3	POS = VECTOR3(320.0f, 140.0f, 0.0f);	// 位置
+		const VECTOR3	POS = VECTOR3(480.0f, 207.0f, 0.0f);	// 位置
 		const VECTOR3	ROT = VEC3_ZERO;		// 向き
 		const COLOR		COL = color::White();	// 色
 		const EAlignX	ALIGN_X = XALIGN_LEFT;	// 横配置
@@ -45,17 +45,25 @@ namespace
 
 	namespace time
 	{
-		const VECTOR3	POS = VECTOR3(520.0f, 140.0f, 0.0f);	// 位置
+		const VECTOR3	POS = VECTOR3(687.0f, 207.0f, 0.0f);	// 位置
 		const VECTOR3	ROT = VEC3_ZERO;		// 向き
 		const COLOR		COL = color::White();	// 色
 		const EAlignX	ALIGN_X = XALIGN_LEFT;	// 横配置
 	}
 
+	namespace save
+	{
+		const VECTOR3	POS = VECTOR3(SCREEN_CENT.x, 260.0f, 0.0f);	// 位置
+		const VECTOR3	ROT = VEC3_ZERO;			// 向き
+		const COLOR		COL = color::White();		// 色
+		const EAlignX	ALIGN_X = XALIGN_CENTER;	// 横配置
+	}
+
 	namespace select
 	{
-		const VECTOR3 POS_CONTINUE	= VECTOR3(155.0f, 535.0f, 0.0f);	// コンテニュー選択位置
-		const VECTOR3 POS_RESET		= VECTOR3(555.0f, 535.0f, 0.0f);	// リセット選択位置
-		const VECTOR3 POS_SETTING	= VECTOR3(255.0f, 605.0f, 0.0f);	// 設定選択位置
+		const VECTOR3 POS_CONTINUE	= VECTOR3(217.0f, 336.0f, 0.0f);	// コンテニュー選択位置
+		const VECTOR3 POS_RESET		= VECTOR3(597.0f, 336.0f, 0.0f);	// リセット選択位置
+		const VECTOR3 POS_SETTING	= VECTOR3(399.0f, 396.0f, 0.0f);	// 設定選択位置
 
 		const VECTOR3 POS_SAVEDATA[] =	// セーブデータ操作の選択位置
 		{
@@ -81,6 +89,7 @@ CTitleStateSelect::CTitleStateSelect() :
 	m_pName		(nullptr),		// 名前情報
 	m_pLove		(nullptr),		// レベル情報
 	m_pTime		(nullptr),		// 総プレイ時間情報
+	m_pSave		(nullptr),		// セーブ地点情報
 	m_curSelect	(GRID2_ZERO),	// 現在の選択肢
 	m_oldSelect	(GRID2_ZERO)	// 前回の選択肢
 {
@@ -108,6 +117,7 @@ HRESULT CTitleStateSelect::Init()
 	m_pName		= nullptr;		// 名前情報
 	m_pLove		= nullptr;		// レベル情報
 	m_pTime		= nullptr;		// 総プレイ時間情報
+	m_pSave		= nullptr;		// セーブ地点情報
 	m_curSelect	= GRID2_ZERO;	// 現在の選択肢
 	m_oldSelect	= GRID2_ZERO;	// 前回の選択肢
 
@@ -145,7 +155,7 @@ HRESULT CTitleStateSelect::Init()
 	//--------------------------------------------------------
 	//	レベルの初期化/設定
 	//--------------------------------------------------------
-	const std::string sLove = "LV" + std::to_string(status.GetLove());	// レベル文字列
+	const std::string sLove = "LV " + std::to_string(status.GetLove());	// レベル文字列
 
 	// レベルの生成
 	m_pLove = CString2D::Create
@@ -195,6 +205,31 @@ HRESULT CTitleStateSelect::Init()
 
 	// 優先順位を設定
 	m_pTime->SetPriority(PRIORITY);
+
+	//--------------------------------------------------------
+	//	セーブ地点の初期化/設定
+	//--------------------------------------------------------
+	// セーブ地点の生成
+	m_pSave = CString2D::Create
+	( // 引数
+		FONT,				// フォントパス
+		ITALIC,				// イタリック
+		L"ここにセーブ名",	// 指定文字列	// TODO：ここにセーブ地点の名前
+		save::POS,			// 原点位置
+		HEIGHT,				// 文字縦幅
+		save::ALIGN_X,		// 横配置
+		save::ROT,			// 原点向き
+		save::COL			// 色
+	);
+	if (m_pSave == nullptr)
+	{ // 生成に失敗した場合
+
+		assert(false);
+		return E_FAIL;
+	}
+
+	// 優先順位を設定
+	m_pSave->SetPriority(PRIORITY);
 
 	//--------------------------------------------------------
 	//	セーブデータ操作選択肢の初期化/設定
@@ -296,6 +331,9 @@ void CTitleStateSelect::Uninit()
 
 	// 総プレイ時間の終了
 	SAFE_UNINIT(m_pTime);
+
+	// セーブ地点の終了
+	SAFE_UNINIT(m_pSave);
 
 	// バージョン表記の終了
 	SAFE_UNINIT(m_pVersion);

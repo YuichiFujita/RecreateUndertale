@@ -8,7 +8,7 @@
 #	ステータス情報
 #------------------------------------------------------------------------------
 STATUSSET
-	NAME 		= ああ
+	NAME 		= おぷおぷ
 	LOVE 		= 1
 	HP 			= 20
 	MAX_HP 		= 20
@@ -43,5 +43,5 @@ END_ITEMBOXSET
 USERSET
 	ROOM	 = 0
 	FUN		 = 0
-	PLAYTIME = 6.0610
+	PLAYTIME = 133.2636
 END_USERSET
