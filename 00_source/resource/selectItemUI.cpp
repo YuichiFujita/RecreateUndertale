@@ -452,12 +452,7 @@ HRESULT CItemUI::Init()
 	m_nCurTextIdx = 0;		// 現在のテキストインデックス
 
 	// テキストボックスの生成
-	m_pTextBox = CFrameText2D::Create	// TODO：引数要素の作成
-	( // 引数
-		SCREEN_CENT,
-		VEC3_ZERO,
-		VECTOR3(1000.0f, 300.0f, 0.0f)
-	);
+	m_pTextBox = CFrameText2D::Create(CFrameText2D::PLACE_DOWN);
 	if (m_pTextBox == nullptr)
 	{ // 生成に失敗した場合
 
