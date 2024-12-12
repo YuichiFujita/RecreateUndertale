@@ -452,13 +452,16 @@ HRESULT CItemUI::Init()
 	m_nCurTextIdx = 0;		// 現在のテキストインデックス
 
 	// テキストボックスの生成
-	m_pTextBox = CFrameText2D::Create(CFrameText2D::PLACE_DOWN);
+	m_pTextBox = CFrame2D::Create(CFrame2D::PRESET_DOWN);
 	if (m_pTextBox == nullptr)
 	{ // 生成に失敗した場合
 
 		assert(false);
 		return E_FAIL;
 	}
+
+	// テキスト表示機能を設定
+	m_pTextBox->ChangeModule(new CFrame2DModuleText(CFrame2D::PRESET_DOWN));
 
 	return S_OK;
 }
@@ -482,11 +485,11 @@ void CItemUI::Update(const float fDeltaTime)
 {
 	if (input::Decide())
 	{
-		if (m_pTextBox->IsTextScroll())
+		if (IsTextBoxScroll())
 		{ // 文字送り中の場合
 
 			// 文字を全表示させる
-			m_pTextBox->SetTextEnableDraw(true);
+			SetTextBoxEnableDraw(true);
 			return;
 		}
 

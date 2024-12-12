@@ -1,64 +1,44 @@
 //============================================================
 //
-//	フレームテキスト2Dヘッダー [frameText2D.h]
+//	テキスト表示機能ヘッダー [frame2DModuleText.h]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	二重インクルード防止
 //************************************************************
-#ifndef _FRAME_TEXT2D_H_
-#define _FRAME_TEXT2D_H_
+#ifndef _FRAME2D_MODULE_TEXT_H_
+#define _FRAME2D_MODULE_TEXT_H_
 
 //************************************************************
 //	インクルードファイル
 //************************************************************
+#include "frame2DModule.h"
 #include "frame2D.h"
 #include "scrollText2D.h"
 
 //************************************************************
 //	クラス定義
 //************************************************************
-// フレームテキスト2Dクラス
-class CFrameText2D : public CFrame2D
+// テキスト表示機能クラス
+class CFrame2DModuleText : public CFrame2DModule
 {
 public:
-	// 定数
-	static const VECTOR3 POS[];		// テキストボックス位置
-	static const VECTOR3 ROT[];		// テキストボックス向き
-	static const VECTOR3 SIZE[];	// テキストボックス大きさ
-	static const VECTOR3 OFFSET[];	// テキストオフセット
-
-	// 配置列挙
-	enum EPlace
-	{
-		PLACE_DOWN = 0,	// 下部配置
-		PLACE_MAX		// この列挙型の総数
-	};
-
 	// コンストラクタ
-	CFrameText2D();
+	CFrame2DModuleText(const CFrame2D::EPreset preset);
+	CFrame2DModuleText(const VECTOR3& rOffset);
 
 	// デストラクタ
-	~CFrameText2D() override;
+	~CFrame2DModuleText() override;
 
 	// オーバーライド関数
 	HRESULT Init() override;	// 初期化
 	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;		// 更新
-	void Draw(CShader* pShader = nullptr) override;		// 描画
+	void SetPriority(const int nPriority) override;		// 優先順位設定
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
 	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
-
-	// 静的メンバ関数
-	static CFrameText2D* Create(const EPlace place);	// 生成 (配置プリセット)
-	static CFrameText2D* Create	// 生成 (配置指定)
-	( // 引数
-		const VECTOR3& rPos,	// 位置
-		const VECTOR3& rRot,	// 向き
-		const VECTOR3& rSize,	// 大きさ
-		const VECTOR3& rOffset	// オフセット
-	);
+	inline CFrame2DModuleText* GetModuleText() override { return this; }	// テキスト表示機能取得
 
 	// メンバ関数
 	void ChangeText(const AText& rText);	// テキスト変更
@@ -82,4 +62,4 @@ private:
 	VECTOR3 m_offset;		// テキストオフセット
 };
 
-#endif	// _FRAME_TEXT2D_H_
+#endif	// _FRAME2D_MODULE_TEXT_H_

@@ -1,15 +1,14 @@
 //============================================================
 //
-//	フレームテキスト2D処理 [frameText2D.cpp]
+//	テキスト表示機能処理 [frame2DModuleText.cpp]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	インクルードファイル
 //************************************************************
-#include "frameText2D.h"
-#include "string2D.h"
-#include "text2D.h"
+#include "frame2DModuleText.h"
+#include "frame2D.h"
 
 //************************************************************
 //	定数宣言
@@ -18,6 +17,10 @@ namespace
 {
 	namespace text
 	{
+		const VECTOR3 OFFSET[] =	// テキストオフセットプリセット
+		{
+			VECTOR3(-410.0f, -80.0f, 0.0f)	// 下部配置
+		};
 		const char*	FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
 		const int	PRIORITY	= 6;			// テキストの優先順位
 		const bool	ITALIC		= false;		// イタリック
@@ -30,22 +33,28 @@ namespace
 }
 
 //************************************************************
-//	静的メンバ変数宣言
+//	スタティックアサート
 //************************************************************
-const VECTOR3 CFrameText2D::POS[]	 = { VECTOR3(SCREEN_CENT.x, 594.0f, 0.0f) };	// テキストボックス位置
-const VECTOR3 CFrameText2D::ROT[]	 = { VEC3_ZERO };								// テキストボックス向き
-const VECTOR3 CFrameText2D::SIZE[]	 = { VECTOR3(850.0f, 210.0f, 0.0f) };			// テキストボックス大きさ
-const VECTOR3 CFrameText2D::OFFSET[] = { VECTOR3(-410.0f, -80.0f, 0.0f) };			// テキストオフセット
+static_assert(NUM_ARRAY(text::OFFSET) == CFrame2D::PRESET_MAX, "ERROR : Preset Count Mismatch");
 
 //************************************************************
-//	子クラス [CFrameText2D] のメンバ関数
+//	子クラス [CFrame2DModuleText] のメンバ関数
 //************************************************************
 //============================================================
-//	コンストラクタ
+//	移譲コンストラクタ (配置プリセット)
 //============================================================
-CFrameText2D::CFrameText2D() :
-	m_pText	 (nullptr),		// テキスト情報
-	m_offset (VEC3_ZERO)	// テキストオフセット
+CFrame2DModuleText::CFrame2DModuleText(const CFrame2D::EPreset preset) : CFrame2DModuleText(text::OFFSET[preset])
+{
+	// プリセット範囲外エラー
+	assert(preset > NONE_IDX && preset < CFrame2D::PRESET_MAX);
+}
+
+//============================================================
+//	コンストラクタ (配置指定)
+//============================================================
+CFrame2DModuleText::CFrame2DModuleText(const VECTOR3& rOffset) :
+	m_pText	 (nullptr),	// テキスト情報
+	m_offset (rOffset)	// テキストオフセット
 {
 
 }
@@ -53,7 +62,7 @@ CFrameText2D::CFrameText2D() :
 //============================================================
 //	デストラクタ
 //============================================================
-CFrameText2D::~CFrameText2D()
+CFrame2DModuleText::~CFrame2DModuleText()
 {
 
 }
@@ -61,19 +70,10 @@ CFrameText2D::~CFrameText2D()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CFrameText2D::Init()
+HRESULT CFrame2DModuleText::Init()
 {
 	// メンバ変数を初期化
-	m_pText	 = nullptr;		// テキスト情報
-	m_offset = VEC3_ZERO;	// テキストオフセット
-
-	// フレーム2Dの初期化
-	if (FAILED(CFrame2D::Init()))
-	{ // 初期化に失敗した場合
-
-		assert(false);
-		return E_FAIL;
-	}
+	m_pText = nullptr;	// テキスト情報
 
 	// テキストの生成
 	m_pText = CScrollText2D::Create
@@ -94,11 +94,14 @@ HRESULT CFrameText2D::Init()
 		return E_FAIL;
 	}
 
-	// 優先順位をフェードより上にする
-	m_pText->SetPriority(GetPriority());
+	// 優先順位を設定
+	m_pText->SetPriority(m_pContext->GetPriority());
 
 	// 文字送り時の再生SEを設定
 	m_pText->SetScrollSE(CSound::LABEL_SE_TEXT01);
+
+	// 相対位置の設定
+	SetPositionRelative();
 
 	return S_OK;
 }
@@ -106,41 +109,37 @@ HRESULT CFrameText2D::Init()
 //============================================================
 //	終了処理
 //============================================================
-void CFrameText2D::Uninit()
+void CFrame2DModuleText::Uninit()
 {
 	// テキストの終了
 	SAFE_UNINIT(m_pText);
 
-	// フレーム2Dの終了
-	CFrame2D::Uninit();
+	// 自身の破棄
+	delete this;
 }
 
 //============================================================
 //	更新処理
 //============================================================
-void CFrameText2D::Update(const float fDeltaTime)
+void CFrame2DModuleText::Update(const float fDeltaTime)
 {
-	// フレーム2Dの更新
-	CFrame2D::Update(fDeltaTime);
+
 }
 
 //============================================================
-//	描画処理
+//	優先順位の設定処理
 //============================================================
-void CFrameText2D::Draw(CShader* pShader)
+void CFrame2DModuleText::SetPriority(const int nPriority)
 {
-	// フレーム2Dの描画
-	CFrame2D::Draw(pShader);
+	// 引数の優先順位を設定
+	m_pText->SetPriority(nPriority);	// テキスト
 }
 
 //============================================================
 //	位置の設定処理
 //============================================================
-void CFrameText2D::SetVec3Position(const VECTOR3& rPos)
+void CFrame2DModuleText::SetVec3Position(const VECTOR3& /*rPos*/)
 {
-	// 親クラスの位置を設定
-	CFrame2D::SetVec3Position(rPos);
-
 	// 相対位置の設定
 	SetPositionRelative();
 }
@@ -148,12 +147,9 @@ void CFrameText2D::SetVec3Position(const VECTOR3& rPos)
 //============================================================
 //	向きの設定処理
 //============================================================
-void CFrameText2D::SetVec3Rotation(const VECTOR3& rRot)
+void CFrame2DModuleText::SetVec3Rotation(const VECTOR3& rRot)
 {
-	// 親クラスの向きを設定
-	CFrame2D::SetVec3Rotation(rRot);
-
-	// テキストの向きを設定
+	// 引数の向きを設定
 	m_pText->SetVec3Rotation(rRot);
 
 	// 相対位置の設定
@@ -161,71 +157,9 @@ void CFrameText2D::SetVec3Rotation(const VECTOR3& rRot)
 }
 
 //============================================================
-//	生成処理 (配置プリセット)
-//============================================================
-CFrameText2D* CFrameText2D::Create(const EPlace place)
-{
-	// フレームテキスト2Dの生成
-	return CFrameText2D::Create
-	( // 引数
-		POS[place],		// 位置
-		ROT[place],		// 向き
-		SIZE[place],	// 大きさ
-		OFFSET[place]	// オフセット
-	);
-}
-
-//============================================================
-//	生成処理 (配置指定)
-//============================================================
-CFrameText2D* CFrameText2D::Create
-(
-	const VECTOR3& rPos,	// 位置
-	const VECTOR3& rRot,	// 向き
-	const VECTOR3& rSize,	// 大きさ
-	const VECTOR3& rOffset	// オフセット
-)
-{
-	// フレームテキスト2Dの生成
-	CFrameText2D* pFrameText2D = new CFrameText2D;
-	if (pFrameText2D == nullptr)
-	{ // 生成に失敗した場合
-
-		return nullptr;
-	}
-	else
-	{ // 生成に成功した場合
-
-		// フレームテキスト2Dの初期化
-		if (FAILED(pFrameText2D->Init()))
-		{ // 初期化に失敗した場合
-
-			// フレームテキスト2Dの破棄
-			SAFE_DELETE(pFrameText2D);
-			return nullptr;
-		}
-
-		// 位置を設定
-		pFrameText2D->SetVec3Position(rPos);
-
-		// 向きを設定
-		pFrameText2D->SetVec3Rotation(rRot);
-
-		// 大きさを設定
-		pFrameText2D->SetVec3Size(rSize);
-
-		// テキストオフセットを設定
-		pFrameText2D->SetOffset(rOffset);
-
-		// 確保したアドレスを返す
-		return pFrameText2D;
-	}
-}
-
-//============================================================
 //	テキスト変更処理
 //============================================================
-void CFrameText2D::ChangeText(const AText& rText)
+void CFrame2DModuleText::ChangeText(const AText& rText)
 {
 	// 文字列を全て削除
 	m_pText->DeleteStringAll();
@@ -246,7 +180,7 @@ void CFrameText2D::ChangeText(const AText& rText)
 //============================================================
 //	テキストオフセットの設定処理
 //============================================================
-void CFrameText2D::SetOffset(const VECTOR3& rOffset)
+void CFrame2DModuleText::SetOffset(const VECTOR3& rOffset)
 {
 	// テキストオフセットの設定
 	m_offset = rOffset;
@@ -258,10 +192,10 @@ void CFrameText2D::SetOffset(const VECTOR3& rOffset)
 //============================================================
 //	相対位置の設定処理
 //============================================================
-void CFrameText2D::SetPositionRelative()
+void CFrame2DModuleText::SetPositionRelative()
 {
-	VECTOR3 posFrame = GetVec3Position();	// フレーム位置
-	VECTOR3 rotFrame = GetVec3Rotation();	// フレーム向き
+	VECTOR3 posFrame = m_pContext->GetVec3Position();	// フレーム位置
+	VECTOR3 rotFrame = m_pContext->GetVec3Rotation();	// フレーム向き
 
 	// X座標オフセット分ずらす
 	posFrame.x += sinf(rotFrame.z + HALF_PI) * m_offset.x;

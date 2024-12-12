@@ -8,6 +8,7 @@
 //	インクルードファイル
 //************************************************************
 #include "frame2D.h"
+#include "frame2DModule.h"
 #include "object2D.h"
 
 //************************************************************
@@ -15,10 +16,29 @@
 //************************************************************
 namespace
 {
-	const COLOR COL_FRAME[] = { color::White(), color::Black() };	// フレーム色
-	const VECTOR3 BORD_THICK = VECTOR3(18.0f, 18.0f, 0.0f);	// 縁取り太さ
-	const int PRIORITY = 6;	// フレーム2Dの優先順位
+	const VECTOR3 FRAME_POS[] =		// フレーム位置プリセット
+	{
+		VECTOR3(SCREEN_CENT.x, 594.0f, 0.0f)	// 下部配置
+	};
+	const VECTOR3 FRAME_ROT[] =		// フレーム向きプリセット
+	{
+		VEC3_ZERO	// 下部配置
+	};
+	const VECTOR3 FRAME_SIZE[] =	// フレーム大きさプリセット
+	{
+		VECTOR3(850.0f, 210.0f, 0.0f)	// 下部配置
+	};
+	const COLOR	COL_FRAME[]	= { color::White(), color::Black() };	// フレーム色
+	const int	PRIORITY	= 6;		// フレーム2Dの優先順位
+	const float	BORD_THICK	= 18.0f;	// 縁取り太さ
 }
+
+//************************************************************
+//	スタティックアサート
+//************************************************************
+static_assert(NUM_ARRAY(FRAME_POS)  == CFrame2D::PRESET_MAX, "ERROR : Preset Count Mismatch");
+static_assert(NUM_ARRAY(FRAME_ROT)  == CFrame2D::PRESET_MAX, "ERROR : Preset Count Mismatch");
+static_assert(NUM_ARRAY(FRAME_SIZE) == CFrame2D::PRESET_MAX, "ERROR : Preset Count Mismatch");
 
 //************************************************************
 //	子クラス [CFrame2D] のメンバ関数
@@ -27,9 +47,10 @@ namespace
 //	コンストラクタ
 //============================================================
 CFrame2D::CFrame2D() : CObject(LABEL_UI, DIM_2D, PRIORITY),
-	m_pos	(VEC3_ZERO),	// 位置
-	m_rot	(VEC3_ZERO),	// 向き
-	m_size	(VEC3_ZERO)		// 大きさ
+	m_pModule	(nullptr),		// 機能
+	m_pos		(VEC3_ZERO),	// 位置
+	m_rot		(VEC3_ZERO),	// 向き
+	m_size		(VEC3_ZERO)		// 大きさ
 {
 	// メンバ変数をクリア
 	memset(&m_apFrame[0], 0, sizeof(m_apFrame));	// フレーム情報
@@ -50,9 +71,10 @@ HRESULT CFrame2D::Init()
 {
 	// メンバ変数を初期化
 	memset(&m_apFrame[0], 0, sizeof(m_apFrame));	// フレーム情報
-	m_pos	= VEC3_ZERO;	// 位置
-	m_rot	= VEC3_ZERO;	// 向き
-	m_size	= VEC3_ZERO;	// 大きさ
+	m_pModule	= nullptr;		// 機能
+	m_pos		= VEC3_ZERO;	// 位置
+	m_rot		= VEC3_ZERO;	// 向き
+	m_size		= VEC3_ZERO;	// 大きさ
 
 	for (int i = 0; i < POLYGON_MAX; i++)
 	{ // ポリゴンの総数分繰り返す
@@ -89,6 +111,9 @@ void CFrame2D::Uninit()
 		SAFE_UNINIT(m_apFrame[i]);
 	}
 
+	// 機能の終了
+	SAFE_UNINIT(m_pModule);
+
 	// オブジェクトを破棄
 	Release();
 }
@@ -103,6 +128,13 @@ void CFrame2D::Update(const float fDeltaTime)
 
 		// フレームの更新
 		m_apFrame[i]->Update(fDeltaTime);
+	}
+
+	if (m_pModule != nullptr)
+	{ // 機能が割り当てられている場合
+
+		// 機能の更新
+		m_pModule->Update(fDeltaTime);
 	}
 }
 
@@ -124,12 +156,21 @@ void CFrame2D::Draw(CShader* pShader)
 //============================================================
 void CFrame2D::SetPriority(const int nPriority)
 {
-	// 引数の優先順位を設定
-	CObject::SetPriority(nPriority);	// 自身
+	// 自身の優先順位を設定
+	CObject::SetPriority(nPriority);
+
+	if (m_pModule != nullptr)
+	{ // 機能が割り当てられている場合
+
+		// 機能の優先順位を設定
+		m_pModule->SetPriority(nPriority);
+	}
+
 	for (int i = 0; i < POLYGON_MAX; i++)
 	{ // ポリゴンの総数分繰り返す
 
-		m_apFrame[i]->SetPriority(nPriority);	// フレーム
+		// フレームの優先順位を設定
+		m_apFrame[i]->SetPriority(nPriority);
 	}
 }
 
@@ -138,12 +179,21 @@ void CFrame2D::SetPriority(const int nPriority)
 //============================================================
 void CFrame2D::SetVec3Position(const VECTOR3& rPos)
 {
-	// 引数の位置を設定
+	// 自身の位置を設定
 	m_pos = rPos;
+
+	if (m_pModule != nullptr)
+	{ // 機能が割り当てられている場合
+
+		// 機能の位置を設定
+		m_pModule->SetVec3Position(rPos);
+	}
+
 	for (int i = 0; i < POLYGON_MAX; i++)
 	{ // ポリゴンの総数分繰り返す
 
-		m_apFrame[i]->SetVec3Position(rPos);	// フレーム
+		// フレームの位置を設定
+		m_apFrame[i]->SetVec3Position(rPos);
 	}
 }
 
@@ -152,16 +202,24 @@ void CFrame2D::SetVec3Position(const VECTOR3& rPos)
 //============================================================
 void CFrame2D::SetVec3Rotation(const VECTOR3& rRot)
 {
-	// 引数の向きを設定
+	// 自身の向きを設定
 	m_rot = rRot;
 
 	// 向きの正規化
 	useful::NormalizeRot(m_rot);
 
+	if (m_pModule != nullptr)
+	{ // 機能が割り当てられている場合
+
+		// 機能の向きを設定
+		m_pModule->SetVec3Rotation(rRot);
+	}
+
 	for (int i = 0; i < POLYGON_MAX; i++)
 	{ // ポリゴンの総数分繰り返す
 
-		m_apFrame[i]->SetVec3Rotation(rRot);	// フレーム
+		// フレームの向きを設定
+		m_apFrame[i]->SetVec3Rotation(rRot);
 	}
 }
 
@@ -170,18 +228,42 @@ void CFrame2D::SetVec3Rotation(const VECTOR3& rRot)
 //============================================================
 void CFrame2D::SetVec3Size(const VECTOR3& rSize)
 {
-	// 引数の大きさを設定
+	// 自身の大きさを設定
 	m_size = rSize;
+
+	if (m_pModule != nullptr)
+	{ // 機能が割り当てられている場合
+
+		// 機能の大きさを設定
+		m_pModule->SetVec3Size(rSize);
+	}
+
 	for (int i = 0; i < POLYGON_MAX; i++)
 	{ // ポリゴンの総数分繰り返す
 
-		float fCalcScale = (-1.0f * (i - 1));	// 大きさ調整値
-		m_apFrame[i]->SetVec3Size(rSize + fCalcScale * BORD_THICK);	// フレーム
+		// フレームの大きさを設定
+		VECTOR3 bord = VECTOR3(BORD_THICK, BORD_THICK, 0.0f);	// 縁取り太さ
+		float fCalcScale = (-1.0f * (i - 1));					// 大きさ調整値
+		m_apFrame[i]->SetVec3Size(rSize + fCalcScale * bord);	// 大きさ設定
 	}
 }
 
 //============================================================
-//	生成処理
+//	生成処理 (配置プリセット)
+//============================================================
+CFrame2D* CFrame2D::Create(const EPreset preset)
+{
+	// フレーム2Dの生成
+	return CFrame2D::Create
+	( // 引数
+		FRAME_POS[preset],	// 位置
+		FRAME_ROT[preset],	// 向き
+		FRAME_SIZE[preset]	// 大きさ
+	);
+}
+
+//============================================================
+//	生成処理 (配置指定)
 //============================================================
 CFrame2D* CFrame2D::Create
 (
@@ -221,4 +303,33 @@ CFrame2D* CFrame2D::Create
 		// 確保したアドレスを返す
 		return pFrame2D;
 	}
+}
+
+//============================================================
+//	機能の変更処理
+//============================================================
+HRESULT CFrame2D::ChangeModule(CFrame2DModule* pModule)
+{
+	// 機能の生成に失敗している場合抜ける
+	if (pModule == nullptr) { assert(false); return E_FAIL; }
+
+	// 機能インスタンスを終了
+	SAFE_UNINIT(m_pModule);
+
+	// 機能インスタンスを変更
+	assert(m_pModule == nullptr);
+	m_pModule = pModule;
+
+	// 機能にコンテキストを設定
+	m_pModule->SetContext(this);
+
+	// 機能インスタンスを初期化
+	if (FAILED(m_pModule->Init()))
+	{ // 初期化に失敗した場合
+
+		assert(false);
+		return E_FAIL;
+	}
+
+	return S_OK;
 }

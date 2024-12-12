@@ -14,7 +14,9 @@
 //	インクルードファイル
 //************************************************************
 #include "menuSelectUI.h"
-#include "frameText2D.h"
+#include "frame2D.h"
+#include "frame2DModule.h"
+#include "frame2DModuleText.h"
 
 //************************************************************
 //	前方宣言
@@ -128,18 +130,18 @@ public:
 	);
 
 	// メンバ関数
-	inline HRESULT PushFrontString(const std::string& rStr)		{ return m_pTextBox->PushFrontString(rStr); }	// 文字列の先頭追加 (マルチバイト文字列)
-	inline HRESULT PushFrontString(const std::wstring& rStr)	{ return m_pTextBox->PushFrontString(rStr); }	// 文字列の先頭追加 (ワイド文字列)
-	inline HRESULT PushBackString(const std::string& rStr)		{ return m_pTextBox->PushBackString(rStr); }	// 文字列の最後尾追加 (マルチバイト文字列)
-	inline HRESULT PushBackString(const std::wstring& rStr)		{ return m_pTextBox->PushBackString(rStr); }	// 文字列の最後尾追加 (ワイド文字列)
-	inline void DeleteString(const int nStrIdx)			{ m_pTextBox->DeleteString(nStrIdx); }		// 文字列削除
-	inline void DeleteStringAll()						{ m_pTextBox->DeleteStringAll(); }			// 文字列全削除
-	inline void ChangeTextBox(const AText& rText)		{ m_pTextBox->ChangeText(rText); }			// テキスト変更
-	inline void SetTextBoxEnableDraw(const bool bDraw)	{ m_pTextBox->SetTextEnableDraw(bDraw); };	// 描画状況設定
-	inline bool IsTextBoxScroll() const	{ return m_pTextBox->IsTextScroll(); }	// 文字送り状況取得
-	inline int GetChoiceItemIdx() const	{ return m_nChoiceItemIdx; }			// 選択中アイテムインデックス取得
-	inline int GetChoiceBagIdx() const	{ return m_nChoiceBagIdx; }				// 選択中バッグインデックス取得
-	inline int GetCurTextIdx() const	{ return m_nCurTextIdx; }				// 現在のテキストインデックス取得
+	inline HRESULT PushFrontString(const std::string& rStr)		{ return m_pTextBox->GetModule()->GetModuleText()->PushFrontString(rStr); }	// 文字列の先頭追加 (マルチバイト文字列)
+	inline HRESULT PushFrontString(const std::wstring& rStr)	{ return m_pTextBox->GetModule()->GetModuleText()->PushFrontString(rStr); }	// 文字列の先頭追加 (ワイド文字列)
+	inline HRESULT PushBackString(const std::string& rStr)		{ return m_pTextBox->GetModule()->GetModuleText()->PushBackString(rStr); }	// 文字列の最後尾追加 (マルチバイト文字列)
+	inline HRESULT PushBackString(const std::wstring& rStr)		{ return m_pTextBox->GetModule()->GetModuleText()->PushBackString(rStr); }	// 文字列の最後尾追加 (ワイド文字列)
+	inline void DeleteString(const int nStrIdx)			{ m_pTextBox->GetModule()->GetModuleText()->DeleteString(nStrIdx); }	// 文字列削除
+	inline void DeleteStringAll()						{ m_pTextBox->GetModule()->GetModuleText()->DeleteStringAll(); }		// 文字列全削除
+	inline void ChangeTextBox(const AText& rText)		{ m_pTextBox->GetModule()->GetModuleText()->ChangeText(rText); }		// テキスト変更
+	inline void SetTextBoxEnableDraw(const bool bDraw)	{ m_pTextBox->GetModule()->GetModuleText()->SetTextEnableDraw(bDraw); }	// 描画状況設定
+	inline bool IsTextBoxScroll() const	{ return m_pTextBox->GetModule()->GetModuleText()->IsTextScroll(); }					// 文字送り状況取得
+	inline int GetChoiceItemIdx() const	{ return m_nChoiceItemIdx; }	// 選択中アイテムインデックス取得
+	inline int GetChoiceBagIdx() const	{ return m_nChoiceBagIdx; }		// 選択中バッグインデックス取得
+	inline int GetCurTextIdx() const	{ return m_nCurTextIdx; }		// 現在のテキストインデックス取得
 
 protected:
 	// 純粋仮想関数
@@ -152,7 +154,7 @@ private:
 	// メンバ変数
 	const int m_nChoiceItemIdx;	// 選択中アイテムインデックス
 	const int m_nChoiceBagIdx;	// 選択中バッグインデックス
-	CFrameText2D* m_pTextBox;	// テキストボックス情報
+	CFrame2D* m_pTextBox;		// テキストボックス情報
 	int m_nCurTextIdx;			// 現在のテキストインデックス
 };
 
