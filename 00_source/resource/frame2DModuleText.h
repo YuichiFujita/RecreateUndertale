@@ -51,6 +51,7 @@ public:
 	inline void DeleteStringAll()					{ m_pText->DeleteStringAll(); }		// 文字列全削除
 	inline void SetTextEnableDraw(const bool bDraw)	{ m_pText->SetEnableDraw(bDraw); };	// 描画状況設定
 	inline bool IsTextScroll() const				{ return m_pText->IsScroll(); }		// 文字送り状況取得
+	inline bool IsTextEndScroll() const				{ return m_pText->IsEndScroll(); }	// 文字送り終了状況取得
 	inline VECTOR3 GetOffset() const				{ return m_offset; }				// テキストオフセット取得
 
 private:
@@ -61,5 +62,10 @@ private:
 	CScrollText2D* m_pText;	// テキスト情報
 	VECTOR3 m_offset;		// テキストオフセット
 };
+
+//************************************************************
+//	インクルードファイル
+//************************************************************
+#include "frame2DModuleTextSelect.h"
 
 #endif	// _FRAME2D_MODULE_TEXT_H_

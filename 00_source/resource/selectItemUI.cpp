@@ -452,7 +452,7 @@ HRESULT CItemUI::Init()
 	m_nCurTextIdx = 0;		// 現在のテキストインデックス
 
 	// テキストボックスの生成
-	m_pTextBox = CFrame2D::Create(CFrame2D::PRESET_DOWN);
+	m_pTextBox = CFrame2D::Create(CFrame2D::PRESET_DOWN);	// TODO：ちょっと怖い、時間作ってブレークポイント
 	if (m_pTextBox == nullptr)
 	{ // 生成に失敗した場合
 

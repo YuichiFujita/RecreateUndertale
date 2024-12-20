@@ -507,6 +507,9 @@
     <ClCompile Include="resource\frame2DModuleText.cpp">
       <Filter>ingame\frame\module</Filter>
     </ClCompile>
+    <ClCompile Include="resource\frame2DModuleTextSelect.cpp">
+      <Filter>ingame\frame\module</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h">
@@ -927,6 +930,9 @@
       <Filter>ingame\frame\module</Filter>
     </ClInclude>
     <ClInclude Include="resource\frame2DModuleText.h">
+      <Filter>ingame\frame\module</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\frame2DModuleTextSelect.h">
       <Filter>ingame\frame\module</Filter>
     </ClInclude>
   </ItemGroup>

@@ -131,8 +131,8 @@ void CFrame2DModuleText::Update(const float fDeltaTime)
 //============================================================
 void CFrame2DModuleText::SetPriority(const int nPriority)
 {
-	// 引数の優先順位を設定
-	m_pText->SetPriority(nPriority);	// テキスト
+	// テキストの優先順位を設定
+	m_pText->SetPriority(nPriority);
 }
 
 //============================================================
@@ -149,7 +149,7 @@ void CFrame2DModuleText::SetVec3Position(const VECTOR3& /*rPos*/)
 //============================================================
 void CFrame2DModuleText::SetVec3Rotation(const VECTOR3& rRot)
 {
-	// 引数の向きを設定
+	// テキストの向きを設定
 	m_pText->SetVec3Rotation(rRot);
 
 	// 相対位置の設定

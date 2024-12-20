@@ -65,6 +65,7 @@ public:
 	);
 
 	// メンバ関数
+	bool IsEndScroll() const;	// 文字送り終了状況取得
 	inline void SetNextTime(const float fNextTime)			{ m_fNextTime = fNextTime; }		// 文字表示の待機時間設定
 	inline float GetNextTime() const						{ return m_fNextTime; }				// 文字表示の待機時間取得
 	inline void SetEnableScroll(const bool bScroll)			{ m_bScroll = bScroll; }			// 文字送り状況設定
