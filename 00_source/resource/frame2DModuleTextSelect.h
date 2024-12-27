@@ -54,17 +54,28 @@ public:
 	inline CFrame2DModuleTextSelect* GetModuleTextSelect() override { return this; }	// 選択付きテキスト表示機能取得
 
 	// メンバ関数
-#if 0
-	void ChangeText(const AText& rText);	// テキスト変更
+	//void ChangeText(const ESelect select, const AText& rText);	// テキスト変更	// TODO
 	inline HRESULT PushFrontString(const ESelect select, const std::string& rStr)	{ return m_apSelect[select]->PushFrontString(rStr); }	// 文字列の先頭追加 (マルチバイト文字列)
 	inline HRESULT PushFrontString(const ESelect select, const std::wstring& rStr)	{ return m_apSelect[select]->PushFrontString(rStr); }	// 文字列の先頭追加 (ワイド文字列)
 	inline HRESULT PushBackString(const ESelect select, const std::string& rStr)	{ return m_apSelect[select]->PushBackString(rStr); }	// 文字列の最後尾追加 (マルチバイト文字列)
 	inline HRESULT PushBackString(const ESelect select, const std::wstring& rStr)	{ return m_apSelect[select]->PushBackString(rStr); }	// 文字列の最後尾追加 (ワイド文字列)
-	inline void DeleteString(const ESelect select, const int nStrIdx)		{ m_apSelect[select]->DeleteString(nStrIdx); }	// 文字列削除
-	inline void DeleteStringAll(const ESelect select)						{ m_apSelect[select]->DeleteStringAll(); }		// 文字列全削除
-	inline void SetTextEnableDraw(const ESelect select, const bool bDraw)	{ m_apSelect[select]->SetEnableDraw(bDraw); };	// 描画状況設定
-	inline bool IsTextScroll(const ESelect select) const					{ return m_apSelect[select]->IsScroll(); }		// 文字送り状況取得
-#endif
+	inline void DeleteString(const ESelect select, const int nStrIdx)				{ m_apSelect[select]->DeleteString(nStrIdx); }			// 文字列削除
+	inline void DeleteStringAll(const ESelect select)								{ m_apSelect[select]->DeleteStringAll(); }				// 文字列全削除
+	inline void SetTextEnableDraw(const ESelect select, const bool bDraw)			{ m_apSelect[select]->SetEnableDraw(bDraw); };			// テキスト描画状況設定
+	inline void SetTextEnableScroll(const ESelect select, const bool bScroll)		{ m_apSelect[select]->SetEnableScroll(bScroll); };		// テキスト文字送り状況設定
+	inline bool IsTextScroll(const ESelect select) const							{ return m_apSelect[select]->IsScroll(); }				// テキスト文字送り状況取得
+	inline bool IsTextEndScroll(const ESelect select) const							{ return m_apSelect[select]->IsEndScroll(); }			// テキスト文字送り終了状況取得
+
+	// オーバーロード関数再公開
+	using CFrame2DModuleText::ChangeText;			// テキスト変更
+	using CFrame2DModuleText::PushFrontString;		// 文字列の先頭追加
+	using CFrame2DModuleText::PushBackString;		// 文字列の最後尾追加
+	using CFrame2DModuleText::DeleteString;			// 文字列削除
+	using CFrame2DModuleText::DeleteStringAll;		// 文字列全削除
+	using CFrame2DModuleText::SetTextEnableDraw;	// テキスト描画状況設定
+	using CFrame2DModuleText::SetTextEnableScroll;	// テキスト文字送り状況設定
+	using CFrame2DModuleText::IsTextScroll;			// テキスト文字送り状況取得
+	using CFrame2DModuleText::IsTextEndScroll;		// テキスト文字送り終了状況取得
 
 private:
 	// メンバ関数

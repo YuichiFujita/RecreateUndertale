@@ -270,7 +270,7 @@ void CFrame2DModuleTextSelect::SetVec3Rotation(const VECTOR3& rRot)
 //============================================================
 //	テキスト変更処理
 //============================================================
-void CFrame2DModuleTextSelect::ChangeText(const AText& rText)
+void CFrame2DModuleTextSelect::ChangeText(const ESelect select, const AText& rText)
 {
 #if 0
 	// 文字列を全て削除
@@ -285,7 +285,7 @@ void CFrame2DModuleTextSelect::ChangeText(const AText& rText)
 		m_pText->PushBackString(rText[i]);
 	}
 
-	// 文字列を全て非表示にする
+	// 文字送りを開始する
 	m_pText->SetEnableScroll(true);
 #else
 

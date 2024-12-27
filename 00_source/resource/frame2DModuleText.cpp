@@ -173,7 +173,7 @@ void CFrame2DModuleText::ChangeText(const AText& rText)
 		m_pText->PushBackString(rText[i]);
 	}
 
-	// 文字列を全て非表示にする
+	// 文字送りを開始する
 	m_pText->SetEnableScroll(true);
 }
 
