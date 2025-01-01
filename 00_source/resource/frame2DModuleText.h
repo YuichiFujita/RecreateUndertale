@@ -43,6 +43,7 @@ public:
 	// メンバ関数
 	void ChangeText(const AText& rText);	// テキスト変更
 	void SetOffset(const VECTOR3& rOffset);	// テキストオフセット設定
+	HRESULT BindText(const std::string& rPath, const std::string& rBoxKey, const std::string& rTextKey);	// テキスト割当
 	inline HRESULT PushFrontString(const std::string& rStr)		{ return m_pText->PushFrontString(rStr); }	// 文字列の先頭追加 (マルチバイト文字列)
 	inline HRESULT PushFrontString(const std::wstring& rStr)	{ return m_pText->PushFrontString(rStr); }	// 文字列の先頭追加 (ワイド文字列)
 	inline HRESULT PushBackString(const std::string& rStr)		{ return m_pText->PushBackString(rStr); }	// 文字列の最後尾追加 (マルチバイト文字列)
@@ -58,10 +59,17 @@ public:
 private:
 	// メンバ関数
 	void SetPositionRelative();	// 相対位置設定
+	bool IsNextTextBox(std::string* pPath, std::string* pBoxKey);	// 次テキストボックスがあるかの確認
+	void LoadString(std::ifstream* pFile, AText* pText);			// 文字列読込
+	void LoadText(std::ifstream* pFile, AText* pText, const std::string& rTextKey);	// テキスト読込
+	AText LoadTextBox(const std::string& rPath, const std::string& rBoxKey, const std::string& rTextKey);	// テキストボックス読込
 
 	// メンバ変数
-	CScrollText2D* m_pText;	// テキスト情報
-	VECTOR3 m_offset;		// テキストオフセット
+	CScrollText2D* m_pText;		// テキスト情報
+	VECTOR3 m_offset;			// テキストオフセット
+	std::string m_sNextPath;	// 次テキストボックスの保存パス
+	std::string m_sNextBoxKey;	// 次テキストボックスの検索キー
+	std::string m_sNextTextKey;	// 次テキストの検索キー
 };
 
 //************************************************************

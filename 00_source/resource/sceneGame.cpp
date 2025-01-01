@@ -18,6 +18,11 @@
 #include "stage.h"
 #include "player.h"
 
+// TODO
+#include "frame2D.h"
+#include "loadtext.h"
+#include "frame2DModule.h"
+
 //************************************************************
 //	静的メンバ変数宣言
 //************************************************************
@@ -180,6 +185,21 @@ void CSceneGame::Update(const float fDeltaTime)
 	}
 
 #endif	// _DEBUG
+
+	// TODO
+#if 1
+	if (GET_INPUTKEY->IsTrigger(DIK_0))
+	{
+		CFrame2D* pFrame = CFrame2D::Create(CFrame2D::PRESET_DOWN);
+		pFrame->ChangeModule(new CFrame2DModuleText(CFrame2D::PRESET_DOWN));
+		pFrame->GetModule()->GetModuleText()->BindText
+		(
+			"data\\TXT\\検証テキスト.txt",
+			"0",
+			"0"
+		);
+	}
+#endif
 }
 
 //============================================================
