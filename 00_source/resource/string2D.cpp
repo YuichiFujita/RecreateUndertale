@@ -476,7 +476,7 @@ void CString2D::SetAlignX(const EAlignX alignX)
 float CString2D::GetStrWidth() const
 {
 	// 文字列がない場合抜ける
-	if ((int)m_wsStr.size() <= 0) { assert(false); return 0.0f; }
+	if ((int)m_wsStr.size() <= 0) { return 0.0f; }
 
 	float fStrWidth = 0.0f;	// 文字列の横幅
 	int nEndCharIdx = (int)m_wsStr.size() - 1;	// 終端文字のインデックス

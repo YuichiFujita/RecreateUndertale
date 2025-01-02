@@ -512,7 +512,7 @@ CString2D* CText2D::GetString2D(const int nStrIdx) const
 float CText2D::GetTextWidth() const
 {
 	// 文字列がない場合抜ける
-	if ((int)m_listString.size() <= 0) { assert(false); return 0.0f; }
+	if ((int)m_listString.size() <= 0) { return 0.0f; }
 
 	float fMaxWidth = 0.0f;	// 文字列の最大横幅
 	for (const auto& rList : m_listString)
@@ -537,7 +537,7 @@ float CText2D::GetTextWidth() const
 float CText2D::GetTextHeight() const
 {
 	// 文字列がない場合抜ける
-	if ((int)m_listString.size() <= 0) { assert(false); return 0.0f; }
+	if ((int)m_listString.size() <= 0) { return 0.0f; }
 
 	float fTextHeight = 0.0f;	// テキストの縦幅
 	int nEndStrIdx = (int)m_listString.size() - 1;	// 終端文字列のインデックス

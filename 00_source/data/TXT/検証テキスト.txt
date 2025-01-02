@@ -13,6 +13,7 @@ TEXTBOX_0
 	
 	# テキスト情報
 	TEXT_0
+		MODULE = TEXT	# 使用モジュール
 		NEXT = 1		# 次テキストキー
 		EMOTION = -1	# 表情インデックス
 		
@@ -22,8 +23,9 @@ TEXTBOX_0
 	
 	# テキスト情報
 	TEXT_1
-		NEXT = 2		# 次テキストキー
-		EMOTION = -1	# 表情インデックス
+		MODULE = TEXT_FACE	# 使用モジュール
+		NEXT = 2			# 次テキストキー
+		EMOTION = -1		# 表情インデックス
 		
 		# 文字列情報
 		STR = ＊ 1ボックス 2テキスト目
@@ -32,8 +34,9 @@ TEXTBOX_0
 	
 	# テキスト情報
 	TEXT_2
-		NEXT = -1		# 次テキストキー
-		EMOTION = -1	# 表情インデックス
+		MODULE = TEXT_FACE	# 使用モジュール
+		NEXT = -1			# 次テキストキー
+		EMOTION = -1		# 表情インデックス
 		
 		# 文字列情報
 		STR = ＊ 1ボックス 3テキスト目
@@ -50,6 +53,7 @@ TEXTBOX_1
 	
 	# テキスト情報
 	TEXT_0
+		MODULE = TEXT	# 使用モジュール
 		NEXT = 1		# 次テキストキー
 		EMOTION = -1	# 表情インデックス
 		
@@ -59,6 +63,7 @@ TEXTBOX_1
 	
 	# テキスト情報
 	TEXT_1
+		MODULE = SELECT	# 使用モジュール
 		EMOTION = -1	# 表情インデックス
 		
 		# 文字列情報
@@ -85,8 +90,9 @@ TEXTBOX_1
 	
 	# テキスト情報
 	TEXT_2
-		NEXT = -1		# 次テキストキー
-		EMOTION = -1	# 表情インデックス
+		MODULE = TEXT_FACE	# 使用モジュール
+		NEXT = -1			# 次テキストキー
+		EMOTION = -1		# 表情インデックス
 		
 		# 文字列情報
 		STR = ＊ 2ボックス 3テキスト目
@@ -96,8 +102,9 @@ TEXTBOX_1
 	
 	# テキスト情報
 	TEXT_3
-		NEXT = -1		# 次テキストキー
-		EMOTION = -1	# 表情インデックス
+		MODULE = TEXT_FACE	# 使用モジュール
+		NEXT = -1			# 次テキストキー
+		EMOTION = -1		# 表情インデックス
 		
 		# 文字列情報
 		STR = ＊ 2ボックス 4テキスト目
