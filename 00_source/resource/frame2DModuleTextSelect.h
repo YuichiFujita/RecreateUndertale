@@ -21,6 +21,7 @@
 //	インクルードファイル
 //************************************************************
 class CObject2D;	// オブジェクト2Dクラス
+class CTextSave;	// 機能保存クラス
 
 //************************************************************
 //	クラス定義
@@ -78,15 +79,42 @@ public:
 	using CFrame2DModuleText::IsTextEndScroll;		// テキスト文字送り終了状況取得
 
 private:
+	// 仮想関数
+	virtual void BindTextSave(CFrame2DModule* pModule, CTextSave* pText);	// 保存機能の割当
+
 	// メンバ関数
 	void UpdateSelect();		// 選択更新
 	void UpdateDecide();		// 決定更新
 	void SetPositionRelative();	// 相対位置設定
 
 	// メンバ変数
+	std::string m_aNextTextKey[SELECT_MAX];	// 次テキストの検索キー
 	CScrollText2D* m_apSelect[SELECT_MAX];	// 選択肢情報
 	CObject2D* m_pSoul;	// ソウルカーソル情報
 	int m_nCurSelect;	// 現在の選択肢
+};
+
+// 選択付きテキスト機能保存クラス
+class CTextSaveSelect : public CTextSave
+{
+public:
+	// コンストラクタ
+	CTextSaveSelect() {}
+
+	// デストラクタ
+	~CTextSaveSelect() override {}
+
+	// オーバーライド関数
+	CFrame2DModule* CreateModule(const CFrame2D::EPreset preset) override;		// テキスト機能生成
+	void LoadKeyString(std::ifstream* pFile, std::string& rString) override;	// 現在キーの文字列読込
+	inline CTextSaveSelect* GetSelect() override { return this; }				// 選択付きテキスト取得
+
+	// メンバ関数
+	void LoadSelect(std::ifstream* pFile, const CFrame2DModuleTextSelect::ESelect select);	// 現在キーの文字列読込
+
+	// メンバ変数
+	std::string m_aNextTextKey[CFrame2DModuleTextSelect::SELECT_MAX];	// 次テキストの検索キー
+	AText m_aSelect[CFrame2DModuleTextSelect::SELECT_MAX];	// 選択テキスト保存
 };
 
 #endif	// _FRAME2D_MODULE_TEXT_SELECT_H_

@@ -35,7 +35,6 @@ namespace
 	namespace soul
 	{
 		const char* PATH	= "data\\TEXTURE\\spr_heartsmall.png";	// ソウルカーソルテクスチャパス
-		const VECTOR3 POS	= VECTOR3(97.5f, 308.5f, 0.0f);			// ソウルカーソル位置
 		const VECTOR3 SIZE	= VECTOR3(26.5f, 26.5f, 0.0f);			// ソウルカーソル大きさ
 	}
 }
@@ -127,16 +126,12 @@ HRESULT CFrame2DModuleTextSelect::Init()
 
 		// 文字送り時の再生SEを設定
 		m_apSelect[i]->SetScrollSE(CSound::LABEL_SE_TEXT01);
-
-		// TODO
-		m_apSelect[i]->PushBackString("あああ");
-		m_apSelect[i]->PushBackString("あああ");
 	}
 
 	// ソウルカーソルの生成
 	m_pSoul = CObject2D::Create
 	( // 引数
-		soul::POS,	// 位置
+		VEC3_ZERO,	// 位置
 		soul::SIZE	// 大きさ
 	);
 	if (m_pSoul == nullptr)
@@ -191,6 +186,18 @@ void CFrame2DModuleTextSelect::Update(const float fDeltaTime)
 	if (!m_pSoul->IsDraw())
 	{ // カーソルが表示されていない場合
 
+		if (input::Decide())
+		{
+			// 文字を全表示させる
+			SetTextEnableDraw(true);
+			m_apSelect[SELECT_LEFT]->SetEnableDraw(true);
+			m_apSelect[SELECT_RIGHT]->SetEnableDraw(true);
+
+			// カーソルの自動描画をONにする
+			m_pSoul->SetEnableDraw(true);
+			return;
+		}
+
 		if (IsTextEndScroll())
 		{ // 本文の文字送りが終了した場合
 
@@ -223,9 +230,6 @@ void CFrame2DModuleTextSelect::Update(const float fDeltaTime)
 		// 決定の更新
 		UpdateDecide();
 	}
-
-	// 親クラスの更新
-	CFrame2DModuleText::Update(fDeltaTime);
 }
 
 //============================================================
@@ -294,6 +298,43 @@ void CFrame2DModuleTextSelect::ChangeText(const ESelect select, const AText& rTe
 #endif
 
 //============================================================
+//	保存機能の割当処理
+//============================================================
+void CFrame2DModuleTextSelect::BindTextSave(CFrame2DModule* pModule, CTextSave* pText)
+{
+	// 選択付きテキスト表示機能に変換できない場合抜ける
+	CFrame2DModuleTextSelect* pModuleSelect = pModule->GetModuleTextSelect();
+	if (pModuleSelect == nullptr) { assert(false); return; }
+
+	// 選択付きテキスト保存ポインタに変換できない場合抜ける
+	CTextSaveSelect* pSaveSelect = pText->GetSelect();
+	if (pSaveSelect == nullptr) { assert(false); return; }
+
+	for (int i = 0; i < SELECT_MAX; i++)
+	{ // 選択肢の総数分繰り返す
+
+		// 次テキストの検索キーを割当
+		pModuleSelect->m_aNextTextKey[i] = pSaveSelect->m_aNextTextKey[i];
+
+		// 選択肢のテキスト情報を割当
+		for (int j = 0; j < (int)pSaveSelect->m_aSelect[i].size(); j++)
+		{ // 文字列数分繰り返す
+
+			// 文字列を最後尾に追加
+			pModuleSelect->m_apSelect[i]->PushBackString(pSaveSelect->m_aSelect[i][j]);
+		}
+	}
+
+	// テキスト情報を割当
+	for (int i = 0; i < (int)pSaveSelect->m_text.size(); i++)
+	{ // 文字列数分繰り返す
+
+		// 文字列を最後尾に追加
+		pModuleSelect->PushBackString(pSaveSelect->m_text[i]);
+	}
+}
+
+//============================================================
 //	選択の更新処理
 //============================================================
 void CFrame2DModuleTextSelect::UpdateSelect()
@@ -327,7 +368,35 @@ void CFrame2DModuleTextSelect::UpdateDecide()
 {
 	if (input::Decide())
 	{
+		const std::string& rSelectTextKey = m_aNextTextKey[m_nCurSelect];	// 選択中の次テキスト検索キー
+		std::string sNextPath = GetNextPath();		// 次テキストボックスの保存パス
+		std::string sNextBoxKey = GetNextBoxKey();	// 次テキストボックスの検索キー
+		if (rSelectTextKey == "-1"
+		||  rSelectTextKey == "NONE")
+		{ // テキスト遷移先がない場合
 
+			if (IsNextTextBox(&sNextPath, &sNextBoxKey))
+			{ // テキストボックス遷移先がある場合
+
+				SetNextPath(sNextPath);
+				SetNextBoxKey(sNextBoxKey);
+
+				// 次のテキストを割当
+				BindText(sNextPath, sNextBoxKey, "0");
+			}
+			else
+			{ // テキストボックス遷移先がない場合
+
+				// コンテキストの終了
+				SAFE_UNINIT(m_pContext);
+			}
+		}
+		else
+		{ // テキスト遷移先がある場合
+
+			// 次のテキストを割当
+			BindText(sNextPath, sNextBoxKey, rSelectTextKey);
+		}
 	}
 }
 
@@ -351,6 +420,90 @@ void CFrame2DModuleTextSelect::SetPositionRelative()
 	// テキスト位置の反映
 	m_pText->SetVec3Position(posFrame);
 #else
+	// TODO：1Fだけ位置ずれしてる
+	VECTOR3 posSelect = m_apSelect[m_nCurSelect]->GetVec3Position();
+	posSelect.x -= m_apSelect[m_nCurSelect]->GetTextWidth() * 0.5f + 30.0f;
+	posSelect.y += m_apSelect[m_nCurSelect]->GetCharHeight() * 0.5f;
 
+	// ソウルカーソルの位置を移動
+	m_pSoul->SetVec3Position(posSelect);
 #endif
+}
+
+//************************************************************
+//	子クラス [CTextSaveText] のメンバ関数
+//************************************************************
+//============================================================
+//	テキスト機能の生成処理
+//============================================================
+CFrame2DModule* CTextSaveSelect::CreateModule(const CFrame2D::EPreset preset)
+{
+	// 選択付きテキスト表示機能を生成し返す
+	return new CFrame2DModuleTextSelect(preset);
+}
+
+//============================================================
+//	現在キーの文字列読込処理
+//============================================================
+void CTextSaveSelect::LoadKeyString(std::ifstream* pFile, std::string& rString)
+{
+	// ファイルポインタがない場合抜ける
+	if (pFile == nullptr) { assert(false); return; }
+
+	// 開けてないファイルの場合抜ける
+	if (!pFile->is_open()) { assert(false); return; }
+
+	if (rString == "SELECT_LEFT")
+	{
+		// 選択肢文字列の読込
+		LoadSelect(pFile, CFrame2DModuleTextSelect::SELECT_LEFT);
+	}
+	else if (rString == "SELECT_RIGHT")
+	{
+		// 選択肢文字列の読込
+		LoadSelect(pFile, CFrame2DModuleTextSelect::SELECT_RIGHT);
+	}
+}
+
+//============================================================
+//	選択肢文字列の読込処理
+//============================================================
+void CTextSaveSelect::LoadSelect(std::ifstream* pFile, const CFrame2DModuleTextSelect::ESelect select)
+{
+	// ファイルポインタがない場合抜ける
+	if (pFile == nullptr) { assert(false); return; }
+
+	// 開けてないファイルの場合抜ける
+	if (!pFile->is_open()) { assert(false); return; }
+
+	// 選択付きテキスト保存ポインタに変換できない場合抜ける
+	CTextSaveSelect* pSelect = GetSelect();
+	if (pSelect == nullptr) { assert(false); return; }
+
+	// ファイルを読込
+	std::string str;	// 読込文字列
+	do { // END_SELECTを読み込むまでループ
+
+		// 文字列を読み込む
+		*pFile >> str;
+
+		if (str.front() == '#') { std::getline(*pFile, str); }	// コメントアウト
+		else if (str == "NEXT")
+		{
+			*pFile >> str;						// ＝を読込
+			*pFile >> m_aNextTextKey[select];	// 次テキストの検索キーを読込
+		}
+		else if (str == "STR")
+		{
+			*pFile >> str;					// ＝を読込
+			pFile->seekg(1, std::ios::cur);	// 読込位置を空白分ずらす
+			std::getline(*pFile, str);		// 一行全て読み込む
+
+			// 文字列の先頭に空白を追加
+			str.insert(0, " ");
+
+			// 文字列を最後尾に追加
+			pSelect->m_aSelect[select].push_back(str);
+		}
+	} while (str != "END_SELECT");	// END_SELECTを読み込むまでループ
 }

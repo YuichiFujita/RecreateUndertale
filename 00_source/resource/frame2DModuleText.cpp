@@ -280,8 +280,13 @@ HRESULT CFrame2DModuleText::BindText(const std::string& rPath, const std::string
 	const std::string sNextBoxKey	= rBoxKey;	// 次テキストボックスの検索キー
 	const std::string sNextTextKey	= rTextKey;	// 次テキストの検索キー
 
+	// テキストボックス情報を読込
+	CTextSave* pText = LoadTextBox(sNextPath, sNextBoxKey, sNextTextKey);	// AText＋必要なModule列挙指定/情報保存したものを返そう (staticなら可能)
+
 	// テキスト表示機能を設定
-	if (FAILED(pFrame2D->ChangeModule(new CFrame2DModuleText(CFrame2D::PRESET_DOWN))))	// TODO：Select対応	// TODO：CFrame2DのPresetGetter作成、んでBindTextのプリセットを指定
+	// TODO：Select対応	// TODO：CFrame2DのPresetGetter作成、んでBindTextのプリセットを指定
+	// TODO：SetPresetでOffset設定後にプリセット保存する (SetOffset内ではプリセットNONEにする)
+	if (FAILED(pFrame2D->ChangeModule(pText->CreateModule(CFrame2D::PRESET_DOWN))))
 	{ // 設定に失敗した場合
 
 		assert(false);
@@ -300,27 +305,46 @@ HRESULT CFrame2DModuleText::BindText(const std::string& rPath, const std::string
 	// 引数情報の保存
 	pModule->m_sNextPath	= sNextPath;	// 次テキストボックスの保存パス
 	pModule->m_sNextBoxKey	= sNextBoxKey;	// 次テキストボックスの検索キー
-	pModule->m_sNextTextKey	= sNextTextKey;	// 次テキストの検索キー
 
-	// テキストボックス情報を読込
-	AText text = pModule->LoadTextBox(sNextPath, sNextBoxKey, sNextTextKey);	// AText＋必要なModule列挙指定/情報保存したものを返そう (staticなら可能)
+	// 次テキストの検索キーを初期化
+	pModule->m_sNextTextKey = "NONE";
 
-	// TODO：各Moduleごとの割当関数作成
-#if 1
-	// テキスト情報を割当
-	for (int i = 0; i < (int)text.size(); i++)
-	{ // 文字列数分繰り返す
-
-		// 文字列を最後尾に追加
-		pModule->PushBackString(text[i]);
-	}
-#endif
+	// 保存機能の割当
+	pModule->BindTextSave(pModule, pText);
 
 	// 文字送りを開始する
 	pModule->SetTextEnableScroll(true);
+
+	// テキスト情報保存クラスの破棄
+	SAFE_DELETE(pText);
 #endif
 
 	return S_OK;
+}
+
+//============================================================
+//	保存機能の割当処理
+//============================================================
+void CFrame2DModuleText::BindTextSave(CFrame2DModule* pModule, CTextSave* pText)
+{
+	// テキスト表示機能に変換できない場合抜ける
+	CFrame2DModuleText* pModuleText = pModule->GetModuleText();
+	if (pModuleText == nullptr) { assert(false); return; }
+
+	// テキスト保存ポインタに変換できない場合抜ける
+	CTextSaveText* pSaveText = pText->GetText();
+	if (pSaveText == nullptr) { assert(false); return; }
+
+	// 次テキストの検索キーを割当
+	pModuleText->m_sNextTextKey = pSaveText->m_sNextTextKey;
+
+	// テキスト情報を割当
+	for (int i = 0; i < (int)pSaveText->m_text.size(); i++)
+	{ // 文字列数分繰り返す
+
+		// 文字列を最後尾に追加
+		pModuleText->PushBackString(pSaveText->m_text[i]);
+	}
 }
 
 //============================================================
@@ -346,7 +370,7 @@ void CFrame2DModuleText::SetPositionRelative()
 //============================================================
 //	テキストボックスの読込処理
 //============================================================
-AText CFrame2DModuleText::LoadTextBox(const std::string& rPath, const std::string& rBoxKey, const std::string& rTextKey)
+CTextSave* CFrame2DModuleText::LoadTextBox(const std::string& rPath, const std::string& rBoxKey, const std::string& rTextKey)
 {
 	// 読込の開始文字列を作成
 	std::string sLoadStart = "TEXTBOX_";	// 認識用の先頭文字を設定
@@ -359,12 +383,12 @@ AText CFrame2DModuleText::LoadTextBox(const std::string& rPath, const std::strin
 
 		// エラーメッセージボックス
 		MessageBox(nullptr, "テキストファイルの読み込みに失敗！", "警告！", MB_ICONWARNING);
-		return {};
+		return nullptr;
 	}
 
 	// ファイルを読込
-	AText text;			// テキスト情報
-	std::string str;	// 読込文字列
+	CTextSave* pText = nullptr;	// テキスト情報保存クラス
+	std::string str;			// 読込文字列
 	while (file >> str)
 	{ // ファイルの終端ではない場合ループ
 
@@ -373,7 +397,8 @@ AText CFrame2DModuleText::LoadTextBox(const std::string& rPath, const std::strin
 		{ // 読込開始の文字列と一致した場合
 
 			// テキストの読込
-			LoadText(&file, &text, rTextKey);
+			assert(pText == nullptr);
+			pText = LoadText(&file, rTextKey);
 		}
 	}
 
@@ -381,29 +406,27 @@ AText CFrame2DModuleText::LoadTextBox(const std::string& rPath, const std::strin
 	file.close();
 
 	// テキスト情報を返す
-	return text;
+	return pText;
 }
 
 //============================================================
 //	テキストの読込処理
 //============================================================
-void CFrame2DModuleText::LoadText(std::ifstream* pFile, AText* pText, const std::string& rTextKey)
+CTextSave* CFrame2DModuleText::LoadText(std::ifstream* pFile, const std::string& rTextKey)
 {
-	// テキスト保存ポインタがない場合抜ける
-	if (pText == nullptr) { assert(false); return; }
-
 	// ファイルポインタがない場合抜ける
-	if (pFile == nullptr) { assert(false); return; }
+	if (pFile == nullptr) { assert(false); return nullptr; }
 
 	// 開けてないファイルの場合抜ける
-	if (!pFile->is_open()) { assert(false); return; }
+	if (!pFile->is_open()) { assert(false); return nullptr; }
 
 	// 読込の開始文字列を作成
 	std::string sLoadStart = "TEXT_";	// 認識用の先頭文字を設定
 	sLoadStart.append(rTextKey);		// 引数の認識用文字列と連結
 
 	// ファイルを読込
-	std::string str;	// 読込文字列
+	CTextSave* pText = nullptr;	// テキスト情報保存クラス
+	std::string str;			// 読込文字列
 	do { // END_TEXTBOXを読み込むまでループ
 
 		// 文字列を読み込む
@@ -414,37 +437,53 @@ void CFrame2DModuleText::LoadText(std::ifstream* pFile, AText* pText, const std:
 		{ // 読込開始の文字列と一致した場合
 
 			// 文字列の読込
-			LoadString(pFile, pText);
+			assert(pText == nullptr);
+			pText = LoadString(pFile);
+		}
+		else if (pText != nullptr)
+		{
+			// 現在キーのテキスト読込
+			pText->LoadKeyText(pFile, str);
 		}
 	} while (str != "END_TEXTBOX");	// END_TEXTBOXを読み込むまでループ
+
+	// テキスト情報保存クラスを返す
+	return pText;
 }
 
 //============================================================
 //	文字列の読込処理
 //============================================================
-void CFrame2DModuleText::LoadString(std::ifstream* pFile, AText* pText)
+CTextSave* CFrame2DModuleText::LoadString(std::ifstream* pFile)
 {
-	// テキスト保存ポインタがない場合抜ける
-	if (pText == nullptr) { assert(false); return; }
-
 	// ファイルポインタがない場合抜ける
-	if (pFile == nullptr) { assert(false); return; }
+	if (pFile == nullptr) { assert(false); return nullptr; }
 
 	// 開けてないファイルの場合抜ける
-	if (!pFile->is_open()) { assert(false); return; }
+	if (!pFile->is_open()) { assert(false); return nullptr; }
 
 	// ファイルを読込
-	std::string str;	// 読込文字列
+	CTextSave* pText = nullptr;	// テキスト情報保存クラス
+	std::string str;			// 読込文字列
 	do { // END_TEXTを読み込むまでループ
 
 		// 文字列を読み込む
 		*pFile >> str;
 
 		if (str.front() == '#') { std::getline(*pFile, str); }	// コメントアウト
-		else if (str == "NEXT")
+		else if (str == "MODULE")
 		{
-			*pFile >> str;				// ＝を読込
-			*pFile >> m_sNextTextKey;	// 次テキストの検索キーを読込
+			*pFile >> str;	// ＝を読込
+			*pFile >> str;	// 生成するモジュールを読込
+
+			// テキスト情報保存クラスの生成
+			assert(pText == nullptr);
+			if		(str == "TEXT")			{ pText = new CTextSaveText; }		// テキストモジュール
+			else if	(str == "SELECT")		{ pText = new CTextSaveSelect; }	// 選択付きテキストモジュール
+			// TODO：追加したら修正
+			else if	(str == "TEXT_FACE")	{ pText = new CTextSaveText; }		// 表情付きテキストモジュール
+			else if	(str == "SELECT_FACE")	{ pText = new CTextSaveSelect; }	// 表情/選択付きテキストモジュール
+			else	{ assert(false); }	// エラー
 		}
 		else if (str == "STR")
 		{
@@ -456,10 +495,17 @@ void CFrame2DModuleText::LoadString(std::ifstream* pFile, AText* pText)
 			str.insert(0, " ");
 
 			// 文字列を最後尾に追加
-			pText->push_back(str);
+			pText->m_text.push_back(str);
 		}
-
+		else if (pText != nullptr)
+		{
+			// 現在キーの文字列読込
+			pText->LoadKeyString(pFile, str);
+		}
 	} while (str != "END_TEXT");	// END_TEXTを読み込むまでループ
+
+	// テキスト情報保存クラスを返す
+	return pText;
 }
 
 //============================================================
@@ -516,4 +562,35 @@ bool CFrame2DModuleText::IsNextTextBox(std::string* pPath, std::string* pBoxKey)
 
 	// 次のテキストボックスがあるかを返す
 	return !(*pBoxKey == "-1" || *pBoxKey == "NONE");
+}
+
+//************************************************************
+//	子クラス [CTextSaveText] のメンバ関数
+//************************************************************
+//============================================================
+//	テキスト機能の生成処理
+//============================================================
+CFrame2DModule* CTextSaveText::CreateModule(const CFrame2D::EPreset preset)
+{
+	// テキスト表示機能を生成し返す
+	return new CFrame2DModuleText(preset);
+}
+
+//============================================================
+//	現在キーの文字列読込処理
+//============================================================
+void CTextSaveText::LoadKeyString(std::ifstream* pFile, std::string& rString)
+{
+	// ファイルポインタがない場合抜ける
+	if (pFile == nullptr) { assert(false); return; }
+
+	// 開けてないファイルの場合抜ける
+	if (!pFile->is_open()) { assert(false); return; }
+
+	std::string str;	// 読込文字列
+	if (rString == "NEXT")
+	{
+		*pFile >> str;				// ＝を読込
+		*pFile >> m_sNextTextKey;	// 次テキストの検索キーを読込
+	}
 }
