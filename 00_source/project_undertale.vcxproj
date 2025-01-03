@@ -178,6 +178,9 @@
     <ClCompile Include="resource\frame2DTextBuffer.cpp" />
     <ClCompile Include="resource\frame2DTextBufferSelect.cpp" />
     <ClCompile Include="resource\frame2DTextBufferText.cpp" />
+    <ClCompile Include="resource\frame2DTextState.cpp" />
+    <ClCompile Include="resource\frame2DTextStateSelect.cpp" />
+    <ClCompile Include="resource\frame2DTextStateText.cpp" />
     <ClCompile Include="resource\gameManager.cpp" />
     <ClCompile Include="resource\gauge2D.cpp" />
     <ClCompile Include="resource\hitStop.cpp" />
@@ -326,6 +329,9 @@
     <ClInclude Include="resource\frame2DTextBuffer.h" />
     <ClInclude Include="resource\frame2DTextBufferSelect.h" />
     <ClInclude Include="resource\frame2DTextBufferText.h" />
+    <ClInclude Include="resource\frame2DTextState.h" />
+    <ClInclude Include="resource\frame2DTextStateSelect.h" />
+    <ClInclude Include="resource\frame2DTextStateText.h" />
     <ClInclude Include="resource\gameManager.h" />
     <ClInclude Include="resource\gauge2D.h" />
     <ClInclude Include="resource\hitStop.h" />
