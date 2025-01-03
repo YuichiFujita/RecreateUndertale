@@ -8,6 +8,7 @@
 //	インクルードファイル
 //************************************************************
 #include "frame2DModuleTextSelect.h"
+#include "frame2DTextBuffer.h"
 #include "manager.h"
 #include "object2D.h"
 
@@ -298,39 +299,39 @@ void CFrame2DModuleTextSelect::ChangeText(const ESelect select, const AText& rTe
 #endif
 
 //============================================================
-//	保存機能の割当処理
+//	テキスト情報保存バッファの割当処理
 //============================================================
-void CFrame2DModuleTextSelect::BindTextSave(CFrame2DModule* pModule, CTextSave* pText)
+void CFrame2DModuleTextSelect::BindTextBuffer(CFrame2DModule* pModule, CFrame2DTextBuffer* pTextBuffer)
 {
 	// 選択付きテキスト表示機能に変換できない場合抜ける
 	CFrame2DModuleTextSelect* pModuleSelect = pModule->GetModuleTextSelect();
 	if (pModuleSelect == nullptr) { assert(false); return; }
 
-	// 選択付きテキスト保存ポインタに変換できない場合抜ける
-	CTextSaveSelect* pSaveSelect = pText->GetSelect();
-	if (pSaveSelect == nullptr) { assert(false); return; }
+	// 選択付きテキスト保存バッファに変換できない場合抜ける
+	CFrame2DTextBufferSelect* pBufferSelect = pTextBuffer->GetSelect();
+	if (pBufferSelect == nullptr) { assert(false); return; }
 
 	for (int i = 0; i < SELECT_MAX; i++)
 	{ // 選択肢の総数分繰り返す
 
 		// 次テキストの検索キーを割当
-		pModuleSelect->m_aNextTextKey[i] = pSaveSelect->m_aNextTextKey[i];
+		pModuleSelect->m_aNextTextKey[i] = pBufferSelect->m_aNextTextKey[i];
 
 		// 選択肢のテキスト情報を割当
-		for (int j = 0; j < (int)pSaveSelect->m_aSelect[i].size(); j++)
+		for (int j = 0; j < (int)pBufferSelect->m_aSelect[i].size(); j++)
 		{ // 文字列数分繰り返す
 
 			// 文字列を最後尾に追加
-			pModuleSelect->m_apSelect[i]->PushBackString(pSaveSelect->m_aSelect[i][j]);
+			pModuleSelect->m_apSelect[i]->PushBackString(pBufferSelect->m_aSelect[i][j]);
 		}
 	}
 
 	// テキスト情報を割当
-	for (int i = 0; i < (int)pSaveSelect->m_text.size(); i++)
+	for (int i = 0; i < (int)pBufferSelect->m_text.size(); i++)
 	{ // 文字列数分繰り返す
 
 		// 文字列を最後尾に追加
-		pModuleSelect->PushBackString(pSaveSelect->m_text[i]);
+		pModuleSelect->PushBackString(pBufferSelect->m_text[i]);
 	}
 }
 
@@ -428,82 +429,4 @@ void CFrame2DModuleTextSelect::SetPositionRelative()
 	// ソウルカーソルの位置を移動
 	m_pSoul->SetVec3Position(posSelect);
 #endif
-}
-
-//************************************************************
-//	子クラス [CTextSaveText] のメンバ関数
-//************************************************************
-//============================================================
-//	テキスト機能の生成処理
-//============================================================
-CFrame2DModule* CTextSaveSelect::CreateModule(const CFrame2D::EPreset preset)
-{
-	// 選択付きテキスト表示機能を生成し返す
-	return new CFrame2DModuleTextSelect(preset);
-}
-
-//============================================================
-//	現在キーの文字列読込処理
-//============================================================
-void CTextSaveSelect::LoadKeyString(std::ifstream* pFile, std::string& rString)
-{
-	// ファイルポインタがない場合抜ける
-	if (pFile == nullptr) { assert(false); return; }
-
-	// 開けてないファイルの場合抜ける
-	if (!pFile->is_open()) { assert(false); return; }
-
-	if (rString == "SELECT_LEFT")
-	{
-		// 選択肢文字列の読込
-		LoadSelect(pFile, CFrame2DModuleTextSelect::SELECT_LEFT);
-	}
-	else if (rString == "SELECT_RIGHT")
-	{
-		// 選択肢文字列の読込
-		LoadSelect(pFile, CFrame2DModuleTextSelect::SELECT_RIGHT);
-	}
-}
-
-//============================================================
-//	選択肢文字列の読込処理
-//============================================================
-void CTextSaveSelect::LoadSelect(std::ifstream* pFile, const CFrame2DModuleTextSelect::ESelect select)
-{
-	// ファイルポインタがない場合抜ける
-	if (pFile == nullptr) { assert(false); return; }
-
-	// 開けてないファイルの場合抜ける
-	if (!pFile->is_open()) { assert(false); return; }
-
-	// 選択付きテキスト保存ポインタに変換できない場合抜ける
-	CTextSaveSelect* pSelect = GetSelect();
-	if (pSelect == nullptr) { assert(false); return; }
-
-	// ファイルを読込
-	std::string str;	// 読込文字列
-	do { // END_SELECTを読み込むまでループ
-
-		// 文字列を読み込む
-		*pFile >> str;
-
-		if (str.front() == '#') { std::getline(*pFile, str); }	// コメントアウト
-		else if (str == "NEXT")
-		{
-			*pFile >> str;						// ＝を読込
-			*pFile >> m_aNextTextKey[select];	// 次テキストの検索キーを読込
-		}
-		else if (str == "STR")
-		{
-			*pFile >> str;					// ＝を読込
-			pFile->seekg(1, std::ios::cur);	// 読込位置を空白分ずらす
-			std::getline(*pFile, str);		// 一行全て読み込む
-
-			// 文字列の先頭に空白を追加
-			str.insert(0, " ");
-
-			// 文字列を最後尾に追加
-			pSelect->m_aSelect[select].push_back(str);
-		}
-	} while (str != "END_SELECT");	// END_SELECTを読み込むまでループ
 }

@@ -40,20 +40,8 @@
     <Filter Include="utility">
       <UniqueIdentifier>{f6608d6c-8b6c-412d-a240-d8aff196d570}</UniqueIdentifier>
     </Filter>
-    <Filter Include="state">
-      <UniqueIdentifier>{28170c41-ab9a-462a-b7af-18ac38e5ecae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="state\state_intro">
-      <UniqueIdentifier>{2c554e48-e799-4b07-a604-03ad41adfbad}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="state\state_start">
-      <UniqueIdentifier>{790bf131-e956-4a23-8e0d-7f3fb3f9c830}</UniqueIdentifier>
-    </Filter>
     <Filter Include="UI">
       <UniqueIdentifier>{fe84aab8-8421-49dd-b4d2-9db8f62f3ba5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="state\state_player">
-      <UniqueIdentifier>{8f0b4680-be3d-4759-b180-c03d52e50cb4}</UniqueIdentifier>
     </Filter>
     <Filter Include="ingame">
       <UniqueIdentifier>{b06a5a0f-755e-465b-ada1-cd07cde8f5d6}</UniqueIdentifier>
@@ -79,14 +67,35 @@
     <Filter Include="ingame\userdata">
       <UniqueIdentifier>{7eba8d20-d6dc-4a6d-aee7-94a90a241cb8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="state\state_title">
-      <UniqueIdentifier>{70b8fcbd-b32f-41af-bf19-557e9afd870b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="outgame">
       <UniqueIdentifier>{7598e507-1ebe-4bfc-96a0-8df4716ce436}</UniqueIdentifier>
     </Filter>
     <Filter Include="ingame\frame\module">
       <UniqueIdentifier>{f9d2a053-c081-4303-a993-0a3cccb3807f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ingame\frame\module\text">
+      <UniqueIdentifier>{fdc6247b-b0d1-4702-85fe-942c63c4ecc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ingame\frame\module\text\buffer">
+      <UniqueIdentifier>{a0045395-e851-4d72-84c6-694f384b02a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ingame\frame\module\text\state">
+      <UniqueIdentifier>{1d5ab550-f3c1-44d0-8e23-93c4d2f24f6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scene\intro\state">
+      <UniqueIdentifier>{c729f779-aa6c-4d19-8fad-de2bb389f6f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ingame\player">
+      <UniqueIdentifier>{7a7ab059-3330-4ecd-a1e4-601ff04382e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ingame\player\state">
+      <UniqueIdentifier>{f2ac5cb6-e10b-419a-bc96-61cd89e69f14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scene\start\state">
+      <UniqueIdentifier>{41d5a9ee-3ca3-4dca-8ff2-66842b9c4d76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scene\title\state">
+      <UniqueIdentifier>{b089839c-5ea1-4863-9877-d02600a9823d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -273,21 +282,6 @@
     <ClCompile Include="resource\useful.cpp">
       <Filter>utility</Filter>
     </ClCompile>
-    <ClCompile Include="resource\introStateLogo.cpp">
-      <Filter>state\state_intro</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\introState.cpp">
-      <Filter>state\state_intro</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\introStateWait.cpp">
-      <Filter>state\state_intro</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\introStateText.cpp">
-      <Filter>state\state_intro</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\introStateEnd.cpp">
-      <Filter>state\state_intro</Filter>
-    </ClCompile>
     <ClCompile Include="resource\sceneIntro.cpp">
       <Filter>scene\intro</Filter>
     </ClCompile>
@@ -309,38 +303,11 @@
     <ClCompile Include="resource\loadtext.cpp">
       <Filter>utility</Filter>
     </ClCompile>
-    <ClCompile Include="resource\introStateTextSlow.cpp">
-      <Filter>state\state_intro</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\introStateScroll.cpp">
-      <Filter>state\state_intro</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\introStateFade.cpp">
-      <Filter>state\state_intro</Filter>
-    </ClCompile>
     <ClCompile Include="resource\sceneStart.cpp">
       <Filter>scene\start</Filter>
     </ClCompile>
     <ClCompile Include="resource\startManager.cpp">
       <Filter>scene\start</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\startState.cpp">
-      <Filter>state\state_start</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\startStateLogo.cpp">
-      <Filter>state\state_start</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\startStateOption.cpp">
-      <Filter>state\state_start</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\startStateTutorial.cpp">
-      <Filter>state\state_start</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\startStateCreateName.cpp">
-      <Filter>state\state_start</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\startStateDecideName.cpp">
-      <Filter>state\state_start</Filter>
     </ClCompile>
     <ClCompile Include="resource\shakeString2D.cpp">
       <Filter>2D</Filter>
@@ -365,15 +332,6 @@
     </ClCompile>
     <ClCompile Include="resource\anim3D.cpp">
       <Filter>3D</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\playerState.cpp">
-      <Filter>state\state_player</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\playerStateNormal.cpp">
-      <Filter>state\state_player</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\player.cpp">
-      <Filter>ingame</Filter>
     </ClCompile>
     <ClCompile Include="resource\stage.cpp">
       <Filter>ingame</Filter>
@@ -480,23 +438,8 @@
     <ClCompile Include="resource\optionManager.cpp">
       <Filter>outgame</Filter>
     </ClCompile>
-    <ClCompile Include="resource\titleState.cpp">
-      <Filter>state\state_title</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\titleStateLogo.cpp">
-      <Filter>state\state_title</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\titleStateSelect.cpp">
-      <Filter>state\state_title</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\titleStateOption.cpp">
-      <Filter>state\state_title</Filter>
-    </ClCompile>
     <ClCompile Include="resource\nearNameManager.cpp">
       <Filter>outgame</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\titleStateReset.cpp">
-      <Filter>state\state_title</Filter>
     </ClCompile>
     <ClCompile Include="resource\frame2D.cpp">
       <Filter>ingame\frame</Filter>
@@ -509,6 +452,81 @@
     </ClCompile>
     <ClCompile Include="resource\frame2DModuleTextSelect.cpp">
       <Filter>ingame\frame\module</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\introState.cpp">
+      <Filter>scene\intro\state</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\introStateEnd.cpp">
+      <Filter>scene\intro\state</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\introStateFade.cpp">
+      <Filter>scene\intro\state</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\introStateLogo.cpp">
+      <Filter>scene\intro\state</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\introStateScroll.cpp">
+      <Filter>scene\intro\state</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\introStateText.cpp">
+      <Filter>scene\intro\state</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\introStateTextSlow.cpp">
+      <Filter>scene\intro\state</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\introStateWait.cpp">
+      <Filter>scene\intro\state</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\player.cpp">
+      <Filter>ingame\player</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\playerState.cpp">
+      <Filter>ingame\player\state</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\playerStateNormal.cpp">
+      <Filter>ingame\player\state</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\startState.cpp">
+      <Filter>scene\start\state</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\startStateCreateName.cpp">
+      <Filter>scene\start\state</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\startStateDecideName.cpp">
+      <Filter>scene\start\state</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\startStateLogo.cpp">
+      <Filter>scene\start\state</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\startStateOption.cpp">
+      <Filter>scene\start\state</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\startStateTutorial.cpp">
+      <Filter>scene\start\state</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\titleState.cpp">
+      <Filter>scene\title\state</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\titleStateLogo.cpp">
+      <Filter>scene\title\state</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\titleStateOption.cpp">
+      <Filter>scene\title\state</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\titleStateReset.cpp">
+      <Filter>scene\title\state</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\titleStateSelect.cpp">
+      <Filter>scene\title\state</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\frame2DTextBuffer.cpp">
+      <Filter>ingame\frame\module\text\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\frame2DTextBufferText.cpp">
+      <Filter>ingame\frame\module\text\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\frame2DTextBufferSelect.cpp">
+      <Filter>ingame\frame\module\text\buffer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -698,21 +716,6 @@
     <ClInclude Include="resource\useful.h">
       <Filter>utility</Filter>
     </ClInclude>
-    <ClInclude Include="resource\introStateLogo.h">
-      <Filter>state\state_intro</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\introState.h">
-      <Filter>state\state_intro</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\introStateWait.h">
-      <Filter>state\state_intro</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\introStateText.h">
-      <Filter>state\state_intro</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\introStateEnd.h">
-      <Filter>state\state_intro</Filter>
-    </ClInclude>
     <ClInclude Include="resource\sceneIntro.h">
       <Filter>scene\intro</Filter>
     </ClInclude>
@@ -734,38 +737,11 @@
     <ClInclude Include="resource\loadtext.h">
       <Filter>utility</Filter>
     </ClInclude>
-    <ClInclude Include="resource\introStateTextSlow.h">
-      <Filter>state\state_intro</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\introStateScroll.h">
-      <Filter>state\state_intro</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\introStateFade.h">
-      <Filter>state\state_intro</Filter>
-    </ClInclude>
     <ClInclude Include="resource\sceneStart.h">
       <Filter>scene\start</Filter>
     </ClInclude>
     <ClInclude Include="resource\startManager.h">
       <Filter>scene\start</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\startState.h">
-      <Filter>state\state_start</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\startStateLogo.h">
-      <Filter>state\state_start</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\startStateOption.h">
-      <Filter>state\state_start</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\startStateTutorial.h">
-      <Filter>state\state_start</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\startStateCreateName.h">
-      <Filter>state\state_start</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\startStateDecideName.h">
-      <Filter>state\state_start</Filter>
     </ClInclude>
     <ClInclude Include="resource\shakeString2D.h">
       <Filter>2D</Filter>
@@ -790,15 +766,6 @@
     </ClInclude>
     <ClInclude Include="resource\anim3D.h">
       <Filter>3D</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\playerState.h">
-      <Filter>state\state_player</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\playerStateNormal.h">
-      <Filter>state\state_player</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\player.h">
-      <Filter>ingame</Filter>
     </ClInclude>
     <ClInclude Include="resource\stage.h">
       <Filter>ingame</Filter>
@@ -905,23 +872,8 @@
     <ClInclude Include="resource\optionManager.h">
       <Filter>outgame</Filter>
     </ClInclude>
-    <ClInclude Include="resource\titleState.h">
-      <Filter>state\state_title</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\titleStateLogo.h">
-      <Filter>state\state_title</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\titleStateSelect.h">
-      <Filter>state\state_title</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\titleStateOption.h">
-      <Filter>state\state_title</Filter>
-    </ClInclude>
     <ClInclude Include="resource\nearNameManager.h">
       <Filter>outgame</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\titleStateReset.h">
-      <Filter>state\state_title</Filter>
     </ClInclude>
     <ClInclude Include="resource\frame2D.h">
       <Filter>ingame\frame</Filter>
@@ -934,6 +886,81 @@
     </ClInclude>
     <ClInclude Include="resource\frame2DModuleTextSelect.h">
       <Filter>ingame\frame\module</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\introState.h">
+      <Filter>scene\intro\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\introStateEnd.h">
+      <Filter>scene\intro\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\introStateFade.h">
+      <Filter>scene\intro\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\introStateLogo.h">
+      <Filter>scene\intro\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\introStateScroll.h">
+      <Filter>scene\intro\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\introStateText.h">
+      <Filter>scene\intro\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\introStateTextSlow.h">
+      <Filter>scene\intro\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\introStateWait.h">
+      <Filter>scene\intro\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\player.h">
+      <Filter>ingame\player</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\playerState.h">
+      <Filter>ingame\player\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\playerStateNormal.h">
+      <Filter>ingame\player\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\startState.h">
+      <Filter>scene\start\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\startStateCreateName.h">
+      <Filter>scene\start\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\startStateDecideName.h">
+      <Filter>scene\start\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\startStateLogo.h">
+      <Filter>scene\start\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\startStateOption.h">
+      <Filter>scene\start\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\startStateTutorial.h">
+      <Filter>scene\start\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\titleState.h">
+      <Filter>scene\title\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\titleStateLogo.h">
+      <Filter>scene\title\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\titleStateOption.h">
+      <Filter>scene\title\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\titleStateReset.h">
+      <Filter>scene\title\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\titleStateSelect.h">
+      <Filter>scene\title\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\frame2DTextBuffer.h">
+      <Filter>ingame\frame\module\text\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\frame2DTextBufferText.h">
+      <Filter>ingame\frame\module\text\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\frame2DTextBufferSelect.h">
+      <Filter>ingame\frame\module\text\buffer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

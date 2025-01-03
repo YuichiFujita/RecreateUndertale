@@ -20,9 +20,7 @@
 //************************************************************
 //	前方宣言
 //************************************************************
-class CTextSave;		// 機能保存クラス
-class CTextSaveText;	// テキスト機能保存クラス
-class CTextSaveSelect;	// 選択付きテキスト機能保存クラス
+class CFrame2DTextBuffer;	// テキスト情報保存バッファクラス
 
 //************************************************************
 //	クラス定義
@@ -73,64 +71,20 @@ protected:
 
 private:
 	// 仮想関数
-	virtual void BindTextSave(CFrame2DModule* pModule, CTextSave* pText);	// 保存機能の割当
+	virtual void BindTextBuffer(CFrame2DModule* pModule, CFrame2DTextBuffer* pTextBuffer);	// テキスト情報保存バッファ割当
 
 	// メンバ関数
+	CFrame2DTextBuffer* LoadTextBox(const std::string& rPath, const std::string& rBoxKey, const std::string& rTextKey);	// テキストボックス読込
+	CFrame2DTextBuffer* LoadText(std::ifstream* pFile, const std::string& rTextKey);	// テキスト読込
+	CFrame2DTextBuffer* LoadString(std::ifstream* pFile);	// 文字列読込
 	void SetPositionRelative();	// 相対位置設定
-	CTextSave* LoadTextBox(const std::string& rPath, const std::string& rBoxKey, const std::string& rTextKey);	// テキストボックス読込
-	CTextSave* LoadText(std::ifstream* pFile, const std::string& rTextKey);	// テキスト読込
-	CTextSave* LoadString(std::ifstream* pFile);	// 文字列読込
 
 	// メンバ変数
-	CScrollText2D* m_pText;		// テキスト情報
-	VECTOR3 m_offset;			// テキストオフセット
 	std::string m_sNextPath;	// 次テキストボックスの保存パス
 	std::string m_sNextBoxKey;	// 次テキストボックスの検索キー
 	std::string m_sNextTextKey;	// 次テキストの検索キー
-};
-
-// 機能保存クラス
-class CTextSave
-{
-public:
-	// コンストラクタ
-	CTextSave() {}
-
-	// デストラクタ
-	virtual ~CTextSave() {}
-
-	// 純粋仮想関数
-	virtual CFrame2DModule* CreateModule(const CFrame2D::EPreset preset) = 0;	// テキスト機能生成
-
-	// 仮想関数
-	virtual inline CTextSaveText* GetText()		{ return nullptr; }	// テキスト取得
-	virtual inline CTextSaveSelect* GetSelect()	{ return nullptr; }	// 選択付きテキスト取得
-
-	// TODO：各キーで読込情報がある場合はこれを派生クラスでoverride
-	virtual inline void LoadKeyText(std::ifstream* /*pFile*/, std::string& /*rString*/)		{}	// 現在キーのテキスト読込
-	virtual inline void LoadKeyString(std::ifstream* /*pFile*/, std::string& /*rString*/)	{}	// 現在キーの文字列読込
-
-	// メンバ変数
-	AText m_text;	// テキスト保存
-};
-
-// テキスト機能保存クラス
-class CTextSaveText : public CTextSave
-{
-public:
-	// コンストラクタ
-	CTextSaveText() {}
-
-	// デストラクタ
-	~CTextSaveText() override {}
-
-	// オーバーライド関数
-	CFrame2DModule* CreateModule(const CFrame2D::EPreset preset) override;		// テキスト機能生成
-	void LoadKeyString(std::ifstream* pFile, std::string& rString) override;	// 現在キーの文字列読込
-	inline CTextSaveText* GetText() override { return this; }					// テキスト取得
-
-	// メンバ変数
-	std::string m_sNextTextKey;	// 次テキストの検索キー
+	CScrollText2D* m_pText;		// テキスト情報
+	VECTOR3 m_offset;			// テキストオフセット
 };
 
 //************************************************************
