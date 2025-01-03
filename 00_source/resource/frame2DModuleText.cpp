@@ -335,7 +335,7 @@ void CFrame2DModuleText::BindTextBuffer(CFrame2DModule* pModule, CFrame2DTextBuf
 	if (pModuleText == nullptr) { assert(false); return; }
 
 	// テキスト保存バッファに変換できない場合抜ける
-	CFrame2DTextBufferText* pBufferText = pTextBuffer->GetText();
+	CFrame2DTextBufferText* pBufferText = pTextBuffer->GetBufferText();
 	if (pBufferText == nullptr) { assert(false); return; }
 
 	// 次テキストの検索キーを割当

@@ -39,8 +39,8 @@ public:
 	virtual CFrame2DModule* CreateModule(const CFrame2D::EPreset preset) = 0;	// テキスト機能生成
 
 	// 仮想関数
-	virtual inline CFrame2DTextBufferText* GetText()		{ return nullptr; }	// テキスト取得
-	virtual inline CFrame2DTextBufferSelect* GetSelect()	{ return nullptr; }	// 選択付きテキスト取得
+	virtual inline CFrame2DTextBufferText* GetBufferText()		{ return nullptr; }	// テキスト取得
+	virtual inline CFrame2DTextBufferSelect* GetBufferSelect()	{ return nullptr; }	// 選択付きテキスト取得
 	virtual inline void LoadKeyText(std::ifstream* /*pFile*/, std::string& /*rString*/)		{}	// 現在キーテキスト読込
 	virtual inline void LoadKeyString(std::ifstream* /*pFile*/, std::string& /*rString*/)	{}	// 現在キー文字列読込
 

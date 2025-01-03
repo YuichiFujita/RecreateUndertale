@@ -308,7 +308,7 @@ void CFrame2DModuleTextSelect::BindTextBuffer(CFrame2DModule* pModule, CFrame2DT
 	if (pModuleSelect == nullptr) { assert(false); return; }
 
 	// 選択付きテキスト保存バッファに変換できない場合抜ける
-	CFrame2DTextBufferSelect* pBufferSelect = pTextBuffer->GetSelect();
+	CFrame2DTextBufferSelect* pBufferSelect = pTextBuffer->GetBufferSelect();
 	if (pBufferSelect == nullptr) { assert(false); return; }
 
 	for (int i = 0; i < SELECT_MAX; i++)

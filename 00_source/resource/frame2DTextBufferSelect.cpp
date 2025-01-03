@@ -79,7 +79,7 @@ void CFrame2DTextBufferSelect::LoadSelect(std::ifstream* pFile, const CFrame2DMo
 	if (!pFile->is_open()) { assert(false); return; }
 
 	// 選択付きテキスト保存ポインタに変換できない場合抜ける
-	CFrame2DTextBufferSelect* pSelect = GetSelect();
+	CFrame2DTextBufferSelect* pSelect = GetBufferSelect();
 	if (pSelect == nullptr) { assert(false); return; }
 
 	// ファイルを読込
