@@ -37,7 +37,7 @@ public:
 	// オーバーライド関数
 	CFrame2DModule* CreateModule(const CFrame2D::EPreset preset) override;		// テキスト機能生成
 	void LoadKeyString(std::ifstream* pFile, std::string& rString) override;	// 現在キー文字列読込
-	inline CFrame2DTextBufferText* GetBufferText() override { return this; }	// テキスト取得
+	inline CFrame2DTextBufferText* GetBufferText() override { return this; }	// テキストバッファ取得
 
 	// メンバ変数
 	std::string m_sNextTextKey;	// 次テキストの検索キー

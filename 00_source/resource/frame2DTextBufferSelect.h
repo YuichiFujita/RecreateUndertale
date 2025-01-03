@@ -38,7 +38,7 @@ public:
 	// オーバーライド関数
 	CFrame2DModule* CreateModule(const CFrame2D::EPreset preset) override;			// テキスト機能生成
 	void LoadKeyString(std::ifstream* pFile, std::string& rString) override;		// 現在キー文字列読込
-	inline CFrame2DTextBufferSelect* GetBufferSelect() override { return this; }	// 選択付きテキスト取得
+	inline CFrame2DTextBufferSelect* GetBufferSelect() override { return this; }	// 選択付きテキストバッファ取得
 
 	// メンバ関数
 	void LoadSelect(std::ifstream* pFile, const CFrame2DModuleTextSelect::ESelect select);	// 選択肢文字列読込
