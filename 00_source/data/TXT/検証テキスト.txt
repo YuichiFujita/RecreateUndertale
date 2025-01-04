@@ -7,15 +7,16 @@
 
 # テキストボックス情報
 TEXTBOX_0
-	NEXT_PATH = data\TXT\検証テキスト.txt	# 次テキストボックスパス
-	NEXT_KEY = 1	# 次テキストボックスキー
-	FACE = -1		# 顔インデックス
+	NEXT_PATH	= data\TXT\検証テキスト.txt	# 次テキストボックスパス
+	NEXT_BOX	= 1		# 次テキストボックスキー
+	NEXT_START	= 0		# 次テキストボックスのテキスト開始キー
+	FACE		= -1	# 顔インデックス
 	
 	# テキスト情報
 	TEXT_0
-		MODULE = TEXT	# 使用モジュール
-		NEXT = 1		# 次テキストキー
-		EMOTION = -1	# 表情インデックス
+		MODULE	= TEXT	# 使用モジュール
+		NEXT	= 1		# 次テキストキー
+		EMOTION	= -1	# 表情インデックス
 		
 		# 文字列情報
 		STR = ＊ 1ボックス 1テキスト目
@@ -23,9 +24,9 @@ TEXTBOX_0
 	
 	# テキスト情報
 	TEXT_1
-		MODULE = TEXT_FACE	# 使用モジュール
-		NEXT = 2			# 次テキストキー
-		EMOTION = -1		# 表情インデックス
+		MODULE	= TEXT_FACE	# 使用モジュール
+		NEXT	= 2			# 次テキストキー
+		EMOTION	= -1		# 表情インデックス
 		
 		# 文字列情報
 		STR = ＊ 1ボックス 2テキスト目
@@ -34,9 +35,9 @@ TEXTBOX_0
 	
 	# テキスト情報
 	TEXT_2
-		MODULE = TEXT_FACE	# 使用モジュール
-		NEXT = -1			# 次テキストキー
-		EMOTION = -1		# 表情インデックス
+		MODULE	= TEXT_FACE	# 使用モジュール
+		NEXT	= -1		# 次テキストキー
+		EMOTION	= -1		# 表情インデックス
 		
 		# 文字列情報
 		STR = ＊ 1ボックス 3テキスト目
@@ -47,15 +48,16 @@ END_TEXTBOX
 
 # テキストボックス情報
 TEXTBOX_1
-	NEXT_PATH = NONE	# 次テキストボックスパス
-	NEXT_KEY = -1		# 次テキストボックスキー
-	FACE = -1			# 顔インデックス
+	NEXT_PATH	= NONE	# 次テキストボックスパス
+	NEXT_BOX	= -1	# 次テキストボックスキー
+	NEXT_START	= -1	# 次テキストボックスのテキスト開始キー
+	FACE		= -1	# 顔インデックス
 	
 	# テキスト情報
 	TEXT_0
-		MODULE = TEXT	# 使用モジュール
-		NEXT = 1		# 次テキストキー
-		EMOTION = -1	# 表情インデックス
+		MODULE	= TEXT	# 使用モジュール
+		NEXT	= 1		# 次テキストキー
+		EMOTION	= -1	# 表情インデックス
 		
 		# 文字列情報
 		STR = ＊ 2ボックス 1テキスト目
@@ -63,8 +65,8 @@ TEXTBOX_1
 	
 	# テキスト情報
 	TEXT_1
-		MODULE = SELECT	# 使用モジュール
-		EMOTION = -1	# 表情インデックス
+		MODULE	= SELECT	# 使用モジュール
+		EMOTION	= -1		# 表情インデックス
 		
 		# 文字列情報
 		STR = ＊ 2ボックス 2テキスト目
@@ -90,9 +92,9 @@ TEXTBOX_1
 	
 	# テキスト情報
 	TEXT_2
-		MODULE = TEXT_FACE	# 使用モジュール
-		NEXT = -1			# 次テキストキー
-		EMOTION = -1		# 表情インデックス
+		MODULE	= TEXT_FACE	# 使用モジュール
+		NEXT	= -1		# 次テキストキー
+		EMOTION	= -1		# 表情インデックス
 		
 		# 文字列情報
 		STR = ＊ 2ボックス 3テキスト目
@@ -102,9 +104,9 @@ TEXTBOX_1
 	
 	# テキスト情報
 	TEXT_3
-		MODULE = TEXT_FACE	# 使用モジュール
-		NEXT = -1			# 次テキストキー
-		EMOTION = -1		# 表情インデックス
+		MODULE	= TEXT_FACE	# 使用モジュール
+		NEXT	= -1		# 次テキストキー
+		EMOTION	= -1		# 表情インデックス
 		
 		# 文字列情報
 		STR = ＊ 2ボックス 4テキスト目

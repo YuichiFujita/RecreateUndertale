@@ -9,55 +9,20 @@
 //************************************************************
 #include "frame2DModuleText.h"
 #include "frame2DTextBuffer.h"
-
-//************************************************************
-//	定数宣言
-//************************************************************
-namespace
-{
-	namespace text
-	{
-		const VECTOR3 OFFSET[] =	// テキストオフセットプリセット
-		{
-			VECTOR3(-410.0f, -80.0f, 0.0f)	// 下部配置
-		};
-		const char*	FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
-		const int	PRIORITY	= 6;			// テキストの優先順位
-		const bool	ITALIC		= false;		// イタリック
-		const float	CHAR_HEIGHT	= 42.0f;		// 文字縦幅
-		const float	LINE_HEIGHT	= 54.0f;		// 行間縦幅
-		const float	WAIT_TIME	= 0.045f;		// 文字表示の待機時間
-		const EAlignX ALIGN_X	= XALIGN_LEFT;	// 横配置
-		const EAlignY ALIGN_Y	= YALIGN_TOP;	// 縦配置
-	}
-}
-
-//************************************************************
-//	スタティックアサート
-//************************************************************
-static_assert(NUM_ARRAY(text::OFFSET) == CFrame2D::PRESET_MAX, "ERROR : Preset Count Mismatch");
+#include "frame2DTextState.h"
 
 //************************************************************
 //	子クラス [CFrame2DModuleText] のメンバ関数
 //************************************************************
 //============================================================
-//	移譲コンストラクタ (配置プリセット)
+//	コンストラクタ
 //============================================================
-CFrame2DModuleText::CFrame2DModuleText(const CFrame2D::EPreset preset) : CFrame2DModuleText(text::OFFSET[preset])
-{
-	// プリセット範囲外エラー
-	assert(preset > NONE_IDX && preset < CFrame2D::PRESET_MAX);
-}
-
-//============================================================
-//	コンストラクタ (配置指定)
-//============================================================
-CFrame2DModuleText::CFrame2DModuleText(const VECTOR3& rOffset) :
+CFrame2DModuleText::CFrame2DModuleText() :
+	m_mapBuffText	({}),		// テキストバッファ連想配列
+	m_pState		(nullptr),	// 状態
 	m_sNextPath		({}),		// 次テキストボックスの保存パス
 	m_sNextBoxKey	({}),		// 次テキストボックスの検索キー
-	m_sNextTextKey	({}),		// 次テキストの検索キー
-	m_pText			(nullptr),	// テキスト情報
-	m_offset		(rOffset)	// テキストオフセット
+	m_sNextStartKey	({})		// 次テキストボックスのテキスト開始キー
 {
 
 }
@@ -76,35 +41,14 @@ CFrame2DModuleText::~CFrame2DModuleText()
 HRESULT CFrame2DModuleText::Init()
 {
 	// メンバ変数を初期化
-	m_pText = nullptr;	// テキスト情報
+	m_mapBuffText	= {};		// テキストバッファ連想配列
+	m_pState		= nullptr;	// 状態
+	m_sNextPath		= {};		// 次テキストボックスの保存パス
+	m_sNextBoxKey	= {};		// 次テキストボックスの検索キー
+	m_sNextStartKey	= {};		// 次テキストボックスのテキスト開始キー
 
-	// テキストの生成
-	m_pText = CScrollText2D::Create
-	( // 引数
-		text::FONT,			// フォントパス
-		text::ITALIC,		// イタリック
-		VEC3_ZERO,			// 原点位置
-		text::WAIT_TIME,	// 文字表示の待機時間
-		text::CHAR_HEIGHT,	// 文字縦幅
-		text::LINE_HEIGHT,	// 行間縦幅
-		text::ALIGN_X,		// 横配置
-		text::ALIGN_Y		// 縦配置
-	);
-	if (m_pText == nullptr)
-	{ // 生成に失敗した場合
-
-		assert(false);
-		return E_FAIL;
-	}
-
-	// 優先順位を設定
-	m_pText->SetPriority(m_pContext->GetPriority());
-
-	// 文字送り時の再生SEを設定
-	m_pText->SetScrollSE(CSound::LABEL_SE_TEXT01);
-
-	// 相対位置の設定
-	SetPositionRelative();
+	// TODO：初期状態どう決めよっかな
+	ChangeState(new CFrame2DTextStateText(CFrame2D::PRESET_DOWN));
 
 	return S_OK;
 }
@@ -114,8 +58,14 @@ HRESULT CFrame2DModuleText::Init()
 //============================================================
 void CFrame2DModuleText::Uninit()
 {
-	// テキストの終了
-	SAFE_UNINIT(m_pText);
+	// テキストバッファの削除
+	DeleteBuffText();
+
+	// 状態の終了
+	SAFE_UNINIT(m_pState);
+
+	// 機能の初期化
+	m_pContext->InitModule();
 
 	// 自身の破棄
 	delete this;
@@ -126,40 +76,9 @@ void CFrame2DModuleText::Uninit()
 //============================================================
 void CFrame2DModuleText::Update(const float fDeltaTime)
 {
-	if (input::Decide())
-	{
-		if (!m_pText->IsEndScroll())
-		{ // 文字送り中の場合
-
-			// 文字を全表示させる
-			m_pText->SetEnableDraw(true);
-			return;
-		}
-
-		if (m_sNextTextKey == "-1"
-		||  m_sNextTextKey == "NONE")
-		{ // テキスト遷移先がない場合
-
-			if (IsNextTextBox(&m_sNextPath, &m_sNextBoxKey))
-			{ // テキストボックス遷移先がある場合
-
-				// 次のテキストを割当
-				BindText(m_sNextPath, m_sNextBoxKey, "0");
-			}
-			else
-			{ // テキストボックス遷移先がない場合
-
-				// コンテキストの終了
-				SAFE_UNINIT(m_pContext);
-			}
-		}
-		else
-		{ // テキスト遷移先がある場合
-
-			// 次のテキストを割当
-			BindText(m_sNextPath, m_sNextBoxKey, m_sNextTextKey);
-		}
-	}
+	// 状態ごとの更新
+	assert(m_pState != nullptr);
+	m_pState->Update(fDeltaTime);
 }
 
 //============================================================
@@ -167,17 +86,17 @@ void CFrame2DModuleText::Update(const float fDeltaTime)
 //============================================================
 void CFrame2DModuleText::SetPriority(const int nPriority)
 {
-	// テキストの優先順位を設定
-	m_pText->SetPriority(nPriority);
+	// テキスト状態の優先順位を設定
+	m_pState->SetPriority(nPriority);
 }
 
 //============================================================
 //	位置の設定処理
 //============================================================
-void CFrame2DModuleText::SetVec3Position(const VECTOR3& /*rPos*/)
+void CFrame2DModuleText::SetVec3Position(const VECTOR3& rPos)
 {
-	// 相対位置の設定
-	SetPositionRelative();
+	// テキスト状態の位置を設定
+	m_pState->SetVec3Position(rPos);
 }
 
 //============================================================
@@ -185,212 +104,184 @@ void CFrame2DModuleText::SetVec3Position(const VECTOR3& /*rPos*/)
 //============================================================
 void CFrame2DModuleText::SetVec3Rotation(const VECTOR3& rRot)
 {
-	// テキストの向きを設定
-	m_pText->SetVec3Rotation(rRot);
-
-	// 相対位置の設定
-	SetPositionRelative();
+	// テキスト状態の向きを設定
+	m_pState->SetVec3Rotation(rRot);
 }
 
 //============================================================
-//	テキスト変更処理
+//	テキストボックスの割当処理
 //============================================================
-void CFrame2DModuleText::ChangeText(const AText& rText)
+HRESULT CFrame2DModuleText::BindTextBox(const std::string& rFilePath, const std::string& rBoxKey, const std::string& rNextStartKey)
 {
-	// 文字列を全て削除
-	m_pText->DeleteStringAll();
+	// 次テキストボックスのテキスト開始キーを保存
+	const std::string sNextStartKey = rNextStartKey;
 
-	// テキストを割当
-	int nLoop = (int)rText.size();	// 文字列数
-	for (int i = 0; i < nLoop; i++)
-	{ // 文字列の数分繰り返す
+	// テキストバッファの削除
+	DeleteBuffText();
 
-		// 文字列を最後尾に追加
-		m_pText->PushBackString(rText[i]);
-	}
-
-	// 文字送りを開始する
-	m_pText->SetEnableScroll(true);
-}
-
-//============================================================
-//	テキストオフセットの設定処理
-//============================================================
-void CFrame2DModuleText::SetOffset(const VECTOR3& rOffset)
-{
-	// テキストオフセットの設定
-	m_offset = rOffset;
-
-	// 相対位置の設定
-	SetPositionRelative();
-}
-
-//============================================================
-//	テキスト割当処理
-//============================================================
-HRESULT CFrame2DModuleText::BindText(const std::string& rPath, const std::string& rBoxKey, const std::string& rTextKey)
-{
-#if 0
-	// コンテキストの保存
-	CFrame2D* pFrame2D = m_pContext;
-
-	// 引数情報の保存
-	std::string sNextPath		= rPath;	// 次テキストボックスの保存パス
-	std::string sNextBoxKey		= rBoxKey;	// 次テキストボックスの検索キー
-	std::string sNextTextKey	= rTextKey;	// 次テキストの検索キー
-
-	// テキスト表示機能を設定
-	if (FAILED(pFrame2D->ChangeModule(new CFrame2DModuleText(CFrame2D::PRESET_DOWN))))	// TODO：Select対応
-	{ // 設定に失敗した場合
+	// テキストボックスの読込
+	if (FAILED(LoadTextBox(rFilePath, rBoxKey)))
+	{ // 読込に失敗した場合
 
 		assert(false);
 		return E_FAIL;
 	}
 
-	// テキスト表示機能を取得
-	CFrame2DModuleText* pModule = pFrame2D->GetModule()->GetModuleText();
-	if (pModule == nullptr)
-	{ // 取得に失敗した場合
+	// テキストの割当
+	if (FAILED(BindText(sNextStartKey)))
+	{ // 割当に失敗した場合
 
 		assert(false);
 		return E_FAIL;
 	}
-
-	// 引数情報の保存
-	pModule->m_sNextPath	= sNextPath;	// 次テキストボックスの保存パス
-	pModule->m_sNextBoxKey	= sNextBoxKey;	// 次テキストボックスの検索キー
-	pModule->m_sNextTextKey	= sNextTextKey;	// 次テキストの検索キー
-
-	// テキストボックス情報を読込
-	AText text = pModule->LoadTextBox(sNextPath, sNextBoxKey, sNextTextKey);
-
-	// テキスト情報を割当
-	for (int i = 0; i < (int)text.size(); i++)
-	{ // 文字列数分繰り返す
-
-		// 文字列を最後尾に追加
-		pModule->PushBackString(text[i]);
-	}
-
-	// 文字送りを開始する
-	pModule->SetTextEnableScroll(true);
-#else
-	// コンテキストの保存
-	CFrame2D* pFrame2D = m_pContext;
-
-	// 引数情報の保存
-	const std::string sNextPath		= rPath;	// 次テキストボックスの保存パス
-	const std::string sNextBoxKey	= rBoxKey;	// 次テキストボックスの検索キー
-	const std::string sNextTextKey	= rTextKey;	// 次テキストの検索キー
-
-	// テキストボックス情報を読込
-	CFrame2DTextBuffer* pTextBuffer = LoadTextBox(sNextPath, sNextBoxKey, sNextTextKey);	// AText＋必要なModule列挙指定/情報保存したものを返そう (staticなら可能)
-
-	// テキスト表示機能を設定
-	// TODO：Select対応	// TODO：CFrame2DのPresetGetter作成、んでBindTextのプリセットを指定
-	// TODO：SetPresetでOffset設定後にプリセット保存する (SetOffset内ではプリセットNONEにする)
-	if (FAILED(pFrame2D->ChangeModule(pTextBuffer->CreateModule(CFrame2D::PRESET_DOWN))))
-	{ // 設定に失敗した場合
-
-		assert(false);
-		return E_FAIL;
-	}
-
-	// テキスト表示機能を取得
-	CFrame2DModuleText* pModule = pFrame2D->GetModule()->GetModuleText();
-	if (pModule == nullptr)
-	{ // 取得に失敗した場合
-
-		assert(false);
-		return E_FAIL;
-	}
-
-	// 引数情報の保存
-	pModule->m_sNextPath	= sNextPath;	// 次テキストボックスの保存パス
-	pModule->m_sNextBoxKey	= sNextBoxKey;	// 次テキストボックスの検索キー
-
-	// 次テキストの検索キーを初期化
-	pModule->m_sNextTextKey = "NONE";
-
-	// テキスト情報保存バッファの割当
-	pModule->BindTextBuffer(pModule, pTextBuffer);
-
-	// 文字送りを開始する
-	pModule->SetTextEnableScroll(true);
-
-	// テキスト情報保存バッファの破棄
-	SAFE_DELETE(pTextBuffer);
-#endif
 
 	return S_OK;
 }
 
 //============================================================
-//	テキスト情報保存バッファの割当処理
+//	テキストの遷移処理
 //============================================================
-void CFrame2DModuleText::BindTextBuffer(CFrame2DModule* pModule, CFrame2DTextBuffer* pTextBuffer)
+void CFrame2DModuleText::TransText(const std::string& rNextTextKey)
 {
-	// テキスト表示機能に変換できない場合抜ける
-	CFrame2DModuleText* pModuleText = pModule->GetModuleText();
-	if (pModuleText == nullptr) { assert(false); return; }
+	if (rNextTextKey == "-1"
+	||  rNextTextKey == "NONE")
+	{ // テキスト遷移先がない場合
 
-	// テキスト保存バッファに変換できない場合抜ける
-	CFrame2DTextBufferText* pBufferText = pTextBuffer->GetBufferText();
-	if (pBufferText == nullptr) { assert(false); return; }
+		if (m_sNextBoxKey == "-1"
+		||  m_sNextBoxKey == "NONE")
+		{ // テキストボックス遷移先がない場合
 
-	// 次テキストの検索キーを割当
-	pModuleText->m_sNextTextKey = pBufferText->m_sNextTextKey;
+			if (true)	// TODO：自動破棄フラグの追加
+			{ // フレーム自動破棄がONの場合
 
-	// テキスト情報を割当
-	for (int i = 0; i < (int)pBufferText->m_text.size(); i++)
-	{ // 文字列数分繰り返す
+				// コンテキストの終了
+				SAFE_UNINIT(m_pContext);
+			}
+			else
+			{ // フレーム自動破棄がOFFの場合
 
-		// 文字列を最後尾に追加
-		pModuleText->PushBackString(pBufferText->m_text[i]);
+				// テキスト表示機能の終了
+				Uninit();
+			}
+		}
+		else
+		{ // テキストボックス遷移先がある場合
+
+			// 次のテキストボックスを割当
+			BindTextBox(m_sNextPath, m_sNextBoxKey, m_sNextStartKey);
+		}
+	}
+	else
+	{ // テキスト遷移先がある場合
+
+		// 次のテキストを割当
+		BindText(rNextTextKey);
 	}
 }
 
 //============================================================
-//	相対位置の設定処理
+//	状態の変更処理
 //============================================================
-void CFrame2DModuleText::SetPositionRelative()
+HRESULT CFrame2DModuleText::ChangeState(CFrame2DTextState* pState)
 {
-	VECTOR3 posFrame = m_pContext->GetVec3Position();	// フレーム位置
-	VECTOR3 rotFrame = m_pContext->GetVec3Rotation();	// フレーム向き
+	// 状態の生成に失敗している場合抜ける
+	if (pState == nullptr) { assert(false); return E_FAIL; }
 
-	// X座標オフセット分ずらす
-	posFrame.x += sinf(rotFrame.z + HALF_PI) * m_offset.x;
-	posFrame.y += cosf(rotFrame.z + HALF_PI) * m_offset.x;
+	// 状態インスタンスを終了
+	SAFE_UNINIT(m_pState);
 
-	// Y座標オフセット分ずらす
-	posFrame.x += sinf(rotFrame.z) * m_offset.y;
-	posFrame.y += cosf(rotFrame.z) * m_offset.y;
+	// 状態インスタンスを変更
+	assert(m_pState == nullptr);
+	m_pState = pState;
 
-	// テキスト位置の反映
-	m_pText->SetVec3Position(posFrame);
+	// 状態にコンテキストを設定
+	m_pState->SetContext(this);
+
+	// 状態インスタンスを初期化
+	if (FAILED(m_pState->Init()))
+	{ // 初期化に失敗した場合
+
+		assert(false);
+		return E_FAIL;
+	}
+
+	return S_OK;
+}
+
+//============================================================
+//	テキスト割当処理
+//============================================================
+HRESULT CFrame2DModuleText::BindText(const std::string& rTextKey)
+{
+	// 引数キーのテキストを検索
+	auto itr = m_mapBuffText.find(rTextKey);
+	if (itr == m_mapBuffText.end()) { assert(false); return E_FAIL; }
+
+	// テキストバッファを簡略化
+	CFrame2DTextBuffer* pNextBuffText = itr->second;
+
+	// テキスト機能状態の変更
+	ChangeState(pNextBuffText->CreateState(CFrame2D::PRESET_DOWN));	// 次テキストに使用する機能を取得
+
+	// テキストバッファの割当
+	m_pState->BindTextBuffer(pNextBuffText);
+
+	return S_OK;
+}
+
+//============================================================
+//	テキストバッファ連想配列の削除処理
+//============================================================
+void CFrame2DModuleText::DeleteBuffText()
+{
+	for (auto& rMap : m_mapBuffText)
+	{ // 要素数分繰り返す
+
+		// テキストバッファの破棄
+		SAFE_DELETE(rMap.second);
+	}
+
+	// テキストバッファ連想配列をクリア
+	m_mapBuffText.clear();
+}
+
+//============================================================
+//	テキストバッファの生成処理
+//============================================================
+CFrame2DTextBuffer* CFrame2DModuleText::CreateBuffText(const std::string& rCreateKey)
+{
+	// 生成キーに応じた保存バッファの生成
+	if		(rCreateKey == "TEXT")			{ return new CFrame2DTextBufferText; }		// テキスト保存バッファ
+	else if	(rCreateKey == "SELECT")		{ return new CFrame2DTextBufferSelect; }	// 選択付きテキスト保存バッファ
+	// TODO：追加したら修正
+	else if	(rCreateKey == "TEXT_FACE")		{ return new CFrame2DTextBufferText; }		// 表情付きテキスト保存バッファ
+	else if	(rCreateKey == "SELECT_FACE")	{ return new CFrame2DTextBufferSelect; }	// 表情/選択付きテキスト保存バッファ
+
+	// 存在しない生成キーの場合エラー
+	assert(false);
+	return nullptr;
 }
 
 //============================================================
 //	テキストボックスの読込処理
 //============================================================
-CFrame2DTextBuffer* CFrame2DModuleText::LoadTextBox(const std::string& rPath, const std::string& rBoxKey, const std::string& rTextKey)
+HRESULT CFrame2DModuleText::LoadTextBox(const std::string& rFilePath, const std::string& rBoxKey)
 {
 	// 読込の開始文字列を作成
 	std::string sLoadStart = "TEXTBOX_";	// 認識用の先頭文字を設定
 	sLoadStart.append(rBoxKey);				// 引数の認識用文字列と連結
 
 	// ファイルを開く
-	std::ifstream file(rPath);	// ファイルストリーム
+	std::ifstream file(rFilePath);	// ファイルストリーム
 	if (file.fail())
 	{ // ファイルが開けなかった場合
 
 		// エラーメッセージボックス
 		MessageBox(nullptr, "テキストファイルの読み込みに失敗！", "警告！", MB_ICONWARNING);
-		return nullptr;
+		return E_FAIL;
 	}
 
 	// ファイルを読込
-	CFrame2DTextBuffer* pTextBuffer = nullptr;	// テキスト情報保存バッファ
 	std::string str;	// 読込文字列
 	while (file >> str)
 	{ // ファイルの終端ではない場合ループ
@@ -400,35 +291,28 @@ CFrame2DTextBuffer* CFrame2DModuleText::LoadTextBox(const std::string& rPath, co
 		{ // 読込開始の文字列と一致した場合
 
 			// テキストの読込
-			assert(pTextBuffer == nullptr);
-			pTextBuffer = LoadText(&file, rTextKey);
+			LoadText(&file);
 		}
 	}
 
 	// ファイルを閉じる
 	file.close();
 
-	// テキスト情報保存バッファを返す
-	return pTextBuffer;
+	return S_OK;
 }
 
 //============================================================
 //	テキストの読込処理
 //============================================================
-CFrame2DTextBuffer* CFrame2DModuleText::LoadText(std::ifstream* pFile, const std::string& rTextKey)
+void CFrame2DModuleText::LoadText(std::ifstream* pFile)
 {
 	// ファイルポインタがない場合抜ける
-	if (pFile == nullptr) { assert(false); return nullptr; }
+	if (pFile == nullptr) { assert(false); return; }
 
 	// 開けてないファイルの場合抜ける
-	if (!pFile->is_open()) { assert(false); return nullptr; }
-
-	// 読込の開始文字列を作成
-	std::string sLoadStart = "TEXT_";	// 認識用の先頭文字を設定
-	sLoadStart.append(rTextKey);		// 引数の認識用文字列と連結
+	if (!pFile->is_open()) { assert(false); return; }
 
 	// ファイルを読込
-	CFrame2DTextBuffer* pTextBuffer = nullptr;	// テキスト情報保存バッファ
 	std::string str;	// 読込文字列
 	do { // END_TEXTBOXを読み込むまでループ
 
@@ -436,22 +320,34 @@ CFrame2DTextBuffer* CFrame2DModuleText::LoadText(std::ifstream* pFile, const std
 		*pFile >> str;
 
 		if (str.front() == '#') { std::getline(*pFile, str); }	// コメントアウト
-		else if (str == sLoadStart)
-		{ // 読込開始の文字列と一致した場合
+		else if (str == "NEXT_PATH")
+		{
+			*pFile >> str;				// ＝を読込
+			*pFile >> m_sNextPath;		// 次テキストボックスの保存パスを読込
+		}
+		else if (str == "NEXT_BOX")
+		{
+			*pFile >> str;				// ＝を読込
+			*pFile >> m_sNextBoxKey;	// 次テキストボックスの検索キーを読込
+		}
+		else if (str == "NEXT_START")
+		{
+			*pFile >> str;				// ＝を読込
+			*pFile >> m_sNextStartKey;	// 次テキストボックスのテキスト開始キーを読込
+		}
+		else if (size_t findIdx = str.find("TEXT_") != std::string::npos)	// TODO：ここどう書くかは要検討
+		{ // 読込開始の文字列が含まれていた場合
+
+			// テキストの検索キーを読込
+			str.erase(0, findIdx + 4);	// TODO：定数
 
 			// 文字列の読込
-			assert(pTextBuffer == nullptr);
-			pTextBuffer = LoadString(pFile);
-		}
-		else if (pTextBuffer != nullptr)
-		{
-			// 現在キーのテキスト読込
-			pTextBuffer->LoadKeyText(pFile, str);
+			CFrame2DTextBuffer* pBuffText = LoadString(pFile);	// 読み込んだテキストバッファ取得
+
+			// テキストバッファを保存
+			m_mapBuffText.insert(std::make_pair(str, pBuffText));
 		}
 	} while (str != "END_TEXTBOX");	// END_TEXTBOXを読み込むまでループ
-
-	// テキスト情報保存バッファを返す
-	return pTextBuffer;
 }
 
 //============================================================
@@ -466,7 +362,7 @@ CFrame2DTextBuffer* CFrame2DModuleText::LoadString(std::ifstream* pFile)
 	if (!pFile->is_open()) { assert(false); return nullptr; }
 
 	// ファイルを読込
-	CFrame2DTextBuffer* pTextBuffer = nullptr;	// テキスト情報保存バッファ
+	CFrame2DTextBuffer* pBuffText = nullptr;	// テキスト情報保存バッファ
 	std::string str;	// 読込文字列
 	do { // END_TEXTを読み込むまでループ
 
@@ -479,14 +375,9 @@ CFrame2DTextBuffer* CFrame2DModuleText::LoadString(std::ifstream* pFile)
 			*pFile >> str;	// ＝を読込
 			*pFile >> str;	// 生成するモジュールを読込
 
-			// テキスト情報保存クラスの生成
-			assert(pTextBuffer == nullptr);
-			if		(str == "TEXT")			{ pTextBuffer = new CFrame2DTextBufferText; }	// テキストモジュール
-			else if	(str == "SELECT")		{ pTextBuffer = new CFrame2DTextBufferSelect; }	// 選択付きテキストモジュール
-			// TODO：追加したら修正
-			else if	(str == "TEXT_FACE")	{ pTextBuffer = new CFrame2DTextBufferText; }	// 表情付きテキストモジュール
-			else if	(str == "SELECT_FACE")	{ pTextBuffer = new CFrame2DTextBufferSelect; }	// 表情/選択付きテキストモジュール
-			else	{ assert(false); }	// エラー
+			// テキストバッファの生成
+			assert(pBuffText == nullptr);
+			pBuffText = CreateBuffText(str);
 		}
 		else if (str == "STR")
 		{
@@ -498,71 +389,15 @@ CFrame2DTextBuffer* CFrame2DModuleText::LoadString(std::ifstream* pFile)
 			str.insert(0, " ");
 
 			// 文字列を最後尾に追加
-			pTextBuffer->m_text.push_back(str);
+			pBuffText->m_text.push_back(str);
 		}
-		else if (pTextBuffer != nullptr)
+		else if (pBuffText != nullptr)
 		{
 			// 現在キーの文字列読込
-			pTextBuffer->LoadKeyString(pFile, str);
+			pBuffText->LoadKeyString(pFile, str);
 		}
 	} while (str != "END_TEXT");	// END_TEXTを読み込むまでループ
 
 	// テキスト情報保存バッファを返す
-	return pTextBuffer;
-}
-
-//============================================================
-//	次テキストボックスがあるかの確認処理
-//============================================================
-bool CFrame2DModuleText::IsNextTextBox(std::string* pPath, std::string* pBoxKey)
-{
-	// 読込の開始文字列を作成
-	std::string sLoadStart = "TEXTBOX_";	// 認識用の先頭文字を設定
-	sLoadStart.append(*pBoxKey);			// 引数の認識用文字列と連結
-
-	// ファイルを開く
-	std::ifstream file(*pPath);	// ファイルストリーム
-	if (file.fail())
-	{ // ファイルが開けなかった場合
-
-		// エラーメッセージボックス
-		MessageBox(nullptr, "テキストファイルの読み込みに失敗！", "警告！", MB_ICONWARNING);
-		return false;
-	}
-
-	// ファイルを読込
-	AText text;			// テキスト情報
-	std::string str;	// 読込文字列
-	while (file >> str)
-	{ // ファイルの終端ではない場合ループ
-
-		if (str.front() == '#') { std::getline(file, str); }	// コメントアウト
-		else if (str == sLoadStart)
-		{ // 読込開始の文字列と一致した場合
-
-			do { // END_TEXTBOXを読み込むまでループ
-
-				// 文字列を読み込む
-				file >> str;
-
-				if (str.front() == '#') { std::getline(file, str); }	// コメントアウト
-				else if (str == "NEXT_PATH")
-				{
-					file >> str;		// ＝を読込
-					file >> *pPath;		// 次テキストボックスの保存パスを読込
-				}
-				else if (str == "NEXT_KEY")
-				{
-					file >> str;		// ＝を読込
-					file >> *pBoxKey;	// 次テキストボックスの検索キーを読込
-				}
-			} while (str != "END_TEXTBOX");	// END_TEXTBOXを読み込むまでループ
-		}
-	}
-
-	// ファイルを閉じる
-	file.close();
-
-	// 次のテキストボックスがあるかを返す
-	return !(*pBoxKey == "-1" || *pBoxKey == "NONE");
+	return pBuffText;
 }

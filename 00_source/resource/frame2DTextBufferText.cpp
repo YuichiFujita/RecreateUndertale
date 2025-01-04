@@ -8,7 +8,7 @@
 //	インクルードファイル
 //************************************************************
 #include "frame2DTextBufferText.h"
-#include "frame2DModuleText.h"
+#include "frame2DTextStateText.h"
 
 //************************************************************
 //	子クラス [CFrame2DTextBufferText] のメンバ関数
@@ -31,12 +31,12 @@ CFrame2DTextBufferText::~CFrame2DTextBufferText()
 }
 
 //============================================================
-//	テキスト機能の生成処理
+//	テキスト機能状態の生成処理
 //============================================================
-CFrame2DModule* CFrame2DTextBufferText::CreateModule(const CFrame2D::EPreset preset)
+CFrame2DTextState* CFrame2DTextBufferText::CreateState(const CFrame2D::EPreset preset)
 {
-	// テキスト表示機能を生成し返す
-	return new CFrame2DModuleText(preset);
+	// テキスト状態を生成し返す
+	return new CFrame2DTextStateText(preset);
 }
 
 //============================================================

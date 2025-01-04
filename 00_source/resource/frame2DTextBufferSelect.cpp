@@ -8,7 +8,6 @@
 //	インクルードファイル
 //************************************************************
 #include "frame2DTextBufferSelect.h"
-#include "frame2DModuleTextSelect.h"
 
 //************************************************************
 //	子クラス [CFrame2DTextBufferSelect] のメンバ関数
@@ -19,7 +18,7 @@
 CFrame2DTextBufferSelect::CFrame2DTextBufferSelect()
 {
 	// メンバ変数をクリア
-	for (int i = 0; i < CFrame2DModuleTextSelect::SELECT_MAX; i++)
+	for (int i = 0; i < CFrame2DTextStateSelect::SELECT_MAX; i++)
 	{ // 選択肢の総数分繰り返す
 
 		m_aNextTextKey[i] = {};	// 次テキストの検索キー
@@ -36,12 +35,12 @@ CFrame2DTextBufferSelect::~CFrame2DTextBufferSelect()
 }
 
 //============================================================
-//	テキスト機能の生成処理
+//	テキスト機能状態の生成処理
 //============================================================
-CFrame2DModule* CFrame2DTextBufferSelect::CreateModule(const CFrame2D::EPreset preset)
+CFrame2DTextState* CFrame2DTextBufferSelect::CreateState(const CFrame2D::EPreset preset)
 {
-	// 選択付きテキスト表示機能を生成し返す
-	return new CFrame2DModuleTextSelect(preset);
+	// 選択付きテキスト状態を生成し返す
+	return new CFrame2DTextStateSelect(preset);
 }
 
 //============================================================
@@ -58,19 +57,19 @@ void CFrame2DTextBufferSelect::LoadKeyString(std::ifstream* pFile, std::string& 
 	if (rString == "SELECT_LEFT")
 	{
 		// 選択肢文字列の読込
-		LoadSelect(pFile, CFrame2DModuleTextSelect::SELECT_LEFT);
+		LoadSelect(pFile, CFrame2DTextStateSelect::SELECT_LEFT);
 	}
 	else if (rString == "SELECT_RIGHT")
 	{
 		// 選択肢文字列の読込
-		LoadSelect(pFile, CFrame2DModuleTextSelect::SELECT_RIGHT);
+		LoadSelect(pFile, CFrame2DTextStateSelect::SELECT_RIGHT);
 	}
 }
 
 //============================================================
 //	選択肢文字列の読込処理
 //============================================================
-void CFrame2DTextBufferSelect::LoadSelect(std::ifstream* pFile, const CFrame2DModuleTextSelect::ESelect select)
+void CFrame2DTextBufferSelect::LoadSelect(std::ifstream* pFile, const CFrame2DTextStateSelect::ESelect select)
 {
 	// ファイルポインタがない場合抜ける
 	if (pFile == nullptr) { assert(false); return; }

@@ -450,9 +450,6 @@
     <ClCompile Include="resource\frame2DModuleText.cpp">
       <Filter>ingame\frame\module</Filter>
     </ClCompile>
-    <ClCompile Include="resource\frame2DModuleTextSelect.cpp">
-      <Filter>ingame\frame\module</Filter>
-    </ClCompile>
     <ClCompile Include="resource\introState.cpp">
       <Filter>scene\intro\state</Filter>
     </ClCompile>
@@ -891,9 +888,6 @@
       <Filter>ingame\frame\module</Filter>
     </ClInclude>
     <ClInclude Include="resource\frame2DModuleText.h">
-      <Filter>ingame\frame\module</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\frame2DModuleTextSelect.h">
       <Filter>ingame\frame\module</Filter>
     </ClInclude>
     <ClInclude Include="resource\introState.h">

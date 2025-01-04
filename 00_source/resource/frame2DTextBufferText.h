@@ -35,7 +35,7 @@ public:
 	~CFrame2DTextBufferText() override;
 
 	// オーバーライド関数
-	CFrame2DModule* CreateModule(const CFrame2D::EPreset preset) override;		// テキスト機能生成
+	CFrame2DTextState* CreateState(const CFrame2D::EPreset preset) override;	// テキスト機能状態生成
 	void LoadKeyString(std::ifstream* pFile, std::string& rString) override;	// 現在キー文字列読込
 	inline CFrame2DTextBufferText* GetBufferText() override { return this; }	// テキストバッファ取得
 

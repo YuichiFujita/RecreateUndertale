@@ -64,7 +64,8 @@ public:
 	);
 
 	// メンバ関数
-	HRESULT ChangeModule(CFrame2DModule* pModule);	// 機能変更
+	HRESULT ChangeModule(CFrame2DModule* pModule);		// 機能変更
+	inline void InitModule() { m_pModule = nullptr; }	// 機能初期化
 	inline CFrame2DModule* GetModule() const { return m_pModule; }	// 機能取得
 
 private:

@@ -461,7 +461,7 @@ HRESULT CItemUI::Init()
 	}
 
 	// テキスト表示機能を設定
-	m_pTextBox->ChangeModule(new CFrame2DModuleText(CFrame2D::PRESET_DOWN));
+	m_pTextBox->ChangeModule(new CFrame2DModuleText);
 
 	return S_OK;
 }

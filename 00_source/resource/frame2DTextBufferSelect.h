@@ -15,7 +15,7 @@
 //************************************************************
 #include "frame2DTextBuffer.h"
 #include "frame2D.h"
-#include "frame2DModuleTextSelect.h"
+#include "frame2DTextStateSelect.h"
 
 //************************************************************
 //	前方宣言
@@ -36,16 +36,16 @@ public:
 	~CFrame2DTextBufferSelect() override;
 
 	// オーバーライド関数
-	CFrame2DModule* CreateModule(const CFrame2D::EPreset preset) override;			// テキスト機能生成
+	CFrame2DTextState* CreateState(const CFrame2D::EPreset preset) override;		// テキスト機能状態生成
 	void LoadKeyString(std::ifstream* pFile, std::string& rString) override;		// 現在キー文字列読込
 	inline CFrame2DTextBufferSelect* GetBufferSelect() override { return this; }	// 選択付きテキストバッファ取得
 
 	// メンバ関数
-	void LoadSelect(std::ifstream* pFile, const CFrame2DModuleTextSelect::ESelect select);	// 選択肢文字列読込
+	void LoadSelect(std::ifstream* pFile, const CFrame2DTextStateSelect::ESelect select);	// 選択肢文字列読込
 
 	// メンバ変数
-	std::string m_aNextTextKey[CFrame2DModuleTextSelect::SELECT_MAX];	// 次テキストの検索キー
-	AText m_aSelect[CFrame2DModuleTextSelect::SELECT_MAX];	// 選択テキスト保存
+	std::string m_aNextTextKey[CFrame2DTextStateSelect::SELECT_MAX];	// 次テキストの検索キー
+	AText m_aSelect[CFrame2DTextStateSelect::SELECT_MAX];	// 選択テキスト保存
 };
 
 #endif	// _FRAME2D_TEXT_BUFFER_SELECT_H_

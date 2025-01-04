@@ -11,9 +11,13 @@
 #define _FRAME2D_MODULE_H_
 
 //************************************************************
+//	インクルードファイル
+//************************************************************
+#include "frame2D.h"
+
+//************************************************************
 //	前方宣言
 //************************************************************
-class CFrame2D;					// フレーム2Dクラス
 class CFrame2DModuleText;		// テキスト表示機能クラス
 class CFrame2DModuleTextSelect;	// 選択付きテキスト表示機能クラス
 
@@ -44,7 +48,11 @@ public:
 	inline virtual CFrame2DModuleTextSelect* GetModuleTextSelect()	{ return nullptr; }	// 選択付きテキスト表示機能取得
 
 	// メンバ関数
-	inline void SetContext(CFrame2D* pContext) { m_pContext = pContext; }	// コンテキスト設定
+	inline void SetContext(CFrame2D* pContext)	{ m_pContext = pContext; }					// コンテキスト設定
+	inline int GetFramePriority() const			{ return m_pContext->GetPriority(); }		// フレーム優先順位取得
+	inline VECTOR3 GetFramePosition() const		{ return m_pContext->GetVec3Position(); }	// フレーム位置取得
+	inline VECTOR3 GetFrameRotation() const		{ return m_pContext->GetVec3Rotation(); }	// フレーム向き取得
+	inline VECTOR3 GetFrameSize() const			{ return m_pContext->GetVec3Size(); }		// フレーム大きさ取得
 
 protected:
 	// メンバ変数

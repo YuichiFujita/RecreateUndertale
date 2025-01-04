@@ -14,6 +14,7 @@
 //	前方宣言
 //************************************************************
 class CFrame2DModuleText;		// テキスト表示機能クラス
+class CFrame2DTextBuffer;		// テキスト情報保存バッファクラス
 class CFrame2DTextStateText;	// テキスト状態クラス
 class CFrame2DTextStateSelect;	// 選択付きテキスト状態クラス
 
@@ -34,8 +35,13 @@ public:
 	virtual HRESULT Init()	= 0;	// 初期化
 	virtual void Uninit()	= 0;	// 終了
 	virtual void Update(const float fDeltaTime) = 0;	// 更新
+	virtual void BindTextBuffer(CFrame2DTextBuffer* pBuffer) = 0;	// テキスト情報保存バッファ割当
 
 	// 仮想関数
+	inline virtual void SetPriority(const int)				 {}	// 優先順位設定
+	inline virtual void SetVec3Position(const VECTOR3&)		 {}	// 位置設定
+	inline virtual void SetVec3Rotation(const VECTOR3&)		 {}	// 向き設定
+	inline virtual void SetVec3Size(const VECTOR3&)			 {}	// 大きさ設定
 	inline virtual CFrame2DTextStateText* GetStateText()	 { return nullptr; }	// テキスト状態取得
 	inline virtual CFrame2DTextStateSelect* GetStateSelect() { return nullptr; }	// 選択付きテキスト状態取得
 

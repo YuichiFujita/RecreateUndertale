@@ -18,7 +18,7 @@
 //************************************************************
 //	前方宣言
 //************************************************************
-class CFrame2DModule;			// フレーム2D機能クラス
+class CFrame2DTextState;		// テキスト機能状態クラス
 class CFrame2DTextBufferText;	// テキスト機能保存クラス
 class CFrame2DTextBufferSelect;	// 選択付きテキスト機能保存クラス
 
@@ -36,12 +36,11 @@ public:
 	virtual ~CFrame2DTextBuffer();
 
 	// 純粋仮想関数
-	virtual CFrame2DModule* CreateModule(const CFrame2D::EPreset preset) = 0;	// テキスト機能生成
+	virtual CFrame2DTextState* CreateState(const CFrame2D::EPreset preset) = 0;	// テキスト機能状態生成
 
 	// 仮想関数
 	virtual inline CFrame2DTextBufferText* GetBufferText()		{ return nullptr; }	// テキストバッファ取得
 	virtual inline CFrame2DTextBufferSelect* GetBufferSelect()	{ return nullptr; }	// 選択付きテキストバッファ取得
-	virtual inline void LoadKeyText(std::ifstream* /*pFile*/, std::string& /*rString*/)		{}	// 現在キーテキスト読込
 	virtual inline void LoadKeyString(std::ifstream* /*pFile*/, std::string& /*rString*/)	{}	// 現在キー文字列読込
 
 	// メンバ変数

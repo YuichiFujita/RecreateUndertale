@@ -191,11 +191,10 @@ void CSceneGame::Update(const float fDeltaTime)
 	if (GET_INPUTKEY->IsTrigger(DIK_0))
 	{
 		CFrame2D* pFrame = CFrame2D::Create(CFrame2D::PRESET_DOWN);
-		pFrame->ChangeModule(new CFrame2DModuleText(CFrame2D::PRESET_DOWN));
-		pFrame->GetModule()->GetModuleText()->BindText
+		pFrame->ChangeModule(new CFrame2DModuleText);
+		pFrame->GetModule()->GetModuleText()->BindTextBox
 		(
 			"data\\TXT\\検証テキスト.txt",
-			"0",
 			"0"
 		);
 	}
