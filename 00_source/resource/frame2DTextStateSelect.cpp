@@ -18,12 +18,24 @@
 //************************************************************
 namespace
 {
-	namespace text
+	namespace select
 	{
-		const VECTOR3 OFFSET[] =	// テキストオフセットプリセット
+		namespace L
 		{
-			VECTOR3(-410.0f, -80.0f, 0.0f)	// 下部配置
-		};
+			const VECTOR3 OFFSET[] =	// テキストオフセットプリセット
+			{
+				VECTOR3(-410.0f, -80.0f, 0.0f)	// 下部配置
+			};
+		}
+
+		namespace R
+		{
+			const VECTOR3 OFFSET[] =	// テキストオフセットプリセット
+			{
+				VECTOR3(-410.0f, -80.0f, 0.0f)	// 下部配置
+			};
+		}
+
 		const char*	FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
 		const int	PRIORITY	= 6;				// テキストの優先順位
 		const bool	ITALIC		= false;			// イタリック
@@ -44,29 +56,57 @@ namespace
 //************************************************************
 //	スタティックアサート
 //************************************************************
-static_assert(NUM_ARRAY(text::OFFSET) == CFrame2D::PRESET_MAX, "ERROR : Preset Count Mismatch");	// TODO：このオフセットはさすがにGetter用意しよう
+static_assert(NUM_ARRAY(select::L::OFFSET) == CFrame2D::PRESET_MAX, "ERROR : Preset Count Mismatch");
+static_assert(NUM_ARRAY(select::R::OFFSET) == CFrame2D::PRESET_MAX, "ERROR : Preset Count Mismatch");
 
 //************************************************************
 //	子クラス [CFrame2DTextStateSelect] のメンバ関数
 //************************************************************
 //============================================================
-//	移譲コンストラクタ (配置プリセット)
+//	移譲コンストラクタ (デフォルト)
 //============================================================
-CFrame2DTextStateSelect::CFrame2DTextStateSelect(const CFrame2D::EPreset preset) : CFrame2DTextStateText(text::OFFSET[preset])
+CFrame2DTextStateSelect::CFrame2DTextStateSelect() : CFrame2DTextStateSelect(VEC3_ZERO, VEC3_ZERO, VEC3_ZERO)	// TODO：コンストラクタ群それぞれ想定した挙動になっているか検証
+{
+
+}
+
+//============================================================
+//	コンストラクタ (配置プリセット)
+//============================================================
+CFrame2DTextStateSelect::CFrame2DTextStateSelect(const CFrame2D::EPreset preset) : CFrame2DTextStateText(preset),
+	m_pSoul		 (nullptr),	// ソウルカーソル情報
+	m_nCurSelect (0)		// 現在の選択肢
 {
 	// プリセット範囲外エラー
-	assert(preset > NONE_IDX && preset < CFrame2D::PRESET_MAX);
+	assert(preset > CFrame2D::PRESET_NONE && preset < CFrame2D::PRESET_MAX);
+
+	// メンバ変数をクリア
+	m_aOffset[SELECT_LEFT]	= select::L::OFFSET[preset];	// 左選択肢オフセット
+	m_aOffset[SELECT_RIGHT]	= select::R::OFFSET[preset];	// 右選択肢オフセット
+	for (int i = 0; i < SELECT_MAX; i++)
+	{ // 選択肢の総数分繰り返す
+
+		m_aNextTextKey[i]	= {};		// 次テキストの検索キー
+		m_apSelect[i]		= nullptr;	// 選択肢情報
+	}
 }
 
 //============================================================
 //	コンストラクタ (配置指定)
 //============================================================
-CFrame2DTextStateSelect::CFrame2DTextStateSelect(const VECTOR3& rOffset) : CFrame2DTextStateText(rOffset),
+CFrame2DTextStateSelect::CFrame2DTextStateSelect(const VECTOR3& rOffsetText, const VECTOR3& rOffsetSelectL, const VECTOR3& rOffsetSelectR) : CFrame2DTextStateText(rOffsetText),
 	m_pSoul		 (nullptr),	// ソウルカーソル情報
 	m_nCurSelect (0)		// 現在の選択肢
 {
 	// メンバ変数をクリア
-	memset(&m_apSelect[0], 0, sizeof(m_apSelect));	// 選択肢情報
+	m_aOffset[SELECT_LEFT]	= rOffsetSelectL;	// 左選択肢オフセット
+	m_aOffset[SELECT_RIGHT]	= rOffsetSelectR;	// 右選択肢オフセット
+	for (int i = 0; i < SELECT_MAX; i++)
+	{ // 選択肢の総数分繰り返す
+
+		m_aNextTextKey[i]	= {};		// 次テキストの検索キー
+		m_apSelect[i]		= nullptr;	// 選択肢情報
+	}
 }
 
 //============================================================
@@ -83,9 +123,14 @@ CFrame2DTextStateSelect::~CFrame2DTextStateSelect()
 HRESULT CFrame2DTextStateSelect::Init()
 {
 	// メンバ変数を初期化
-	memset(&m_apSelect[0], 0, sizeof(m_apSelect));	// 選択肢情報
 	m_pSoul		 = nullptr;	// ソウルカーソル情報
 	m_nCurSelect = 0;		// 現在の選択肢
+	for (int i = 0; i < SELECT_MAX; i++)
+	{ // 選択肢の総数分繰り返す
+
+		m_aNextTextKey[i]	= "NONE";	// 次テキストの検索キー
+		m_apSelect[i]		= nullptr;	// 選択肢情報
+	}
 
 	// 親クラスの初期化
 	if (FAILED(CFrame2DTextStateText::Init()))
@@ -102,19 +147,19 @@ HRESULT CFrame2DTextStateSelect::Init()
 		// 選択肢の生成
 		m_apSelect[i] = CScrollText2D::Create
 		( // 引数
-			text::FONT,			// フォントパス
-			text::ITALIC,		// イタリック
+			select::FONT,			// フォントパス
+			select::ITALIC,			// イタリック
 // TODO
 #if 0
-			VEC3_ZERO,			// 原点位置
+			VEC3_ZERO,				// 原点位置
 #else
 			VECTOR3(SCREEN_CENT.x - 150.0f + 300.0f * (float)i, 600.0f, 0.0f),	// 原点位置
 #endif
-			text::WAIT_TIME,	// 文字表示の待機時間
-			text::CHAR_HEIGHT,	// 文字縦幅
-			text::LINE_HEIGHT,	// 行間縦幅
-			text::ALIGN_X,		// 横配置
-			text::ALIGN_Y		// 縦配置
+			select::WAIT_TIME,		// 文字表示の待機時間
+			select::CHAR_HEIGHT,	// 文字縦幅
+			select::LINE_HEIGHT,	// 行間縦幅
+			select::ALIGN_X,		// 横配置
+			select::ALIGN_Y			// 縦配置
 		);
 		if (m_apSelect[i] == nullptr)
 		{ // 生成に失敗した場合

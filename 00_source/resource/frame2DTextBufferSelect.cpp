@@ -21,8 +21,8 @@ CFrame2DTextBufferSelect::CFrame2DTextBufferSelect()
 	for (int i = 0; i < CFrame2DTextStateSelect::SELECT_MAX; i++)
 	{ // 選択肢の総数分繰り返す
 
-		m_aNextTextKey[i] = {};	// 次テキストの検索キー
-		m_aSelect[i] = {};		// 選択テキスト保存
+		m_aNextTextKey[i]	= {};	// 次テキストの検索キー
+		m_aSelect[i]		= {};	// 選択テキスト保存
 	}
 }
 
@@ -39,14 +39,24 @@ CFrame2DTextBufferSelect::~CFrame2DTextBufferSelect()
 //============================================================
 CFrame2DTextState* CFrame2DTextBufferSelect::CreateState(const CFrame2D::EPreset preset)
 {
-	// 選択付きテキスト状態を生成し返す
-	return new CFrame2DTextStateSelect(preset);
+	if (preset > CFrame2D::PRESET_NONE && preset < CFrame2D::PRESET_MAX)
+	{ // プリセットが範囲内の場合
+
+		// 選択付きテキスト状態を生成し返す
+		return new CFrame2DTextStateSelect(preset);	// 配置指定
+	}
+	else
+	{ // プリセットが範囲外の場合
+
+		// 選択付きテキスト状態を生成し返す
+		return new CFrame2DTextStateSelect;	// デフォルト
+	}
 }
 
 //============================================================
-//	現在キーの文字列読込処理
+//	バッファごとのセットアップ処理
 //============================================================
-void CFrame2DTextBufferSelect::LoadKeyString(std::ifstream* pFile, std::string& rString)
+void CFrame2DTextBufferSelect::LoadSetup(std::ifstream* pFile, const std::string& rString)
 {
 	// ファイルポインタがない場合抜ける
 	if (pFile == nullptr) { assert(false); return; }

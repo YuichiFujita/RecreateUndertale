@@ -179,6 +179,9 @@ void CFrame2D::SetPriority(const int nPriority)
 //============================================================
 void CFrame2D::SetVec3Position(const VECTOR3& rPos)
 {
+	// 配置プリセットの初期化
+	m_preset = PRESET_NONE;
+
 	// 自身の位置を設定
 	m_pos = rPos;
 
@@ -202,6 +205,9 @@ void CFrame2D::SetVec3Position(const VECTOR3& rPos)
 //============================================================
 void CFrame2D::SetVec3Rotation(const VECTOR3& rRot)
 {
+	// 配置プリセットの初期化
+	m_preset = PRESET_NONE;
+
 	// 自身の向きを設定
 	m_rot = rRot;
 
@@ -228,6 +234,9 @@ void CFrame2D::SetVec3Rotation(const VECTOR3& rRot)
 //============================================================
 void CFrame2D::SetVec3Size(const VECTOR3& rSize)
 {
+	// 配置プリセットの初期化
+	m_preset = PRESET_NONE;
+
 	// 自身の大きさを設定
 	m_size = rSize;
 
@@ -253,13 +262,27 @@ void CFrame2D::SetVec3Size(const VECTOR3& rSize)
 //============================================================
 CFrame2D* CFrame2D::Create(const EPreset preset)
 {
+	// プリセット範囲外エラー
+	assert(preset > CFrame2D::PRESET_NONE && preset < CFrame2D::PRESET_MAX);
+
 	// フレーム2Dの生成
-	return CFrame2D::Create
+	CFrame2D* pFrame2D = CFrame2D::Create
 	( // 引数
 		FRAME_POS[preset],	// 位置
 		FRAME_ROT[preset],	// 向き
 		FRAME_SIZE[preset]	// 大きさ
 	);
+	if (pFrame2D == nullptr)
+	{ // 生成に失敗した場合
+
+		return nullptr;
+	}
+
+	// 配置プリセットの初期化
+	pFrame2D->m_preset = preset;
+
+	// 確保したアドレスを返す
+	return pFrame2D;
 }
 
 //============================================================
@@ -332,4 +355,22 @@ HRESULT CFrame2D::ChangeModule(CFrame2DModule* pModule)
 	}
 
 	return S_OK;
+}
+
+//============================================================
+//	配置プリセットの設定処理
+//============================================================
+void CFrame2D::SetPreset(const EPreset preset)
+{
+	// 配置プリセットの保存
+	m_preset = preset;
+
+	// 位置を設定
+	SetVec3Position(FRAME_POS[preset]);
+
+	// 向きを設定
+	SetVec3Rotation(FRAME_ROT[preset]);
+
+	// 大きさを設定
+	SetVec3Size(FRAME_SIZE[preset]);
 }

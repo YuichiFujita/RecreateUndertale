@@ -10,7 +10,7 @@
 STATUSSET
 	NAME 		= Ç®Ç’Ç®Ç’
 	LOVE 		= 1
-	HP 			= 20
+	HP 			= 0
 	MAX_HP 		= 20
 	EXP			= 0
 	WPN_ITEMIDX	= 0
@@ -23,7 +23,6 @@ END_STATUSSET
 #	èäéùÉAÉCÉeÉÄèÓïÒ
 #------------------------------------------------------------------------------
 ITEMSET
-	ITEMIDX = 2
 	ITEMIDX = 3
 	ITEMIDX = 4
 	ITEMIDX = 5
@@ -41,5 +40,5 @@ END_ITEMBOXSET
 USERSET
 	ROOM	 = 0
 	FUN		 = 0
-	PLAYTIME = 2173.4363
+	PLAYTIME = 2371.6560
 END_USERSET

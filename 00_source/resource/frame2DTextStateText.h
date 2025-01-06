@@ -30,6 +30,7 @@ class CFrame2DTextStateText : public CFrame2DTextState
 {
 public:
 	// コンストラクタ
+	CFrame2DTextStateText();
 	CFrame2DTextStateText(const CFrame2D::EPreset preset);
 	CFrame2DTextStateText(const VECTOR3& rOffset);
 

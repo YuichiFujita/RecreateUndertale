@@ -31,7 +31,8 @@ public:
 	// 配置プリセット列挙
 	enum EPreset
 	{
-		PRESET_DOWN = 0,	// 下部配置
+		PRESET_NONE = -1,	// 指定無し
+		PRESET_DOWN,		// 下部配置
 		PRESET_MAX			// この列挙型の総数
 	};
 
@@ -64,9 +65,11 @@ public:
 	);
 
 	// メンバ関数
-	HRESULT ChangeModule(CFrame2DModule* pModule);		// 機能変更
-	inline void InitModule() { m_pModule = nullptr; }	// 機能初期化
-	inline CFrame2DModule* GetModule() const { return m_pModule; }	// 機能取得
+	HRESULT ChangeModule(CFrame2DModule* pModule);	// 機能変更
+	void SetPreset(const EPreset preset);			// 配置プリセット設定
+	inline void InitModule()					{ m_pModule = nullptr; }	// 機能初期化
+	inline CFrame2DModule* GetModule() const	{ return m_pModule; }		// 機能取得
+	inline EPreset GetPreset() const			{ return m_preset; }		// 配置プリセット取得
 
 private:
 	// ポリゴン列挙
@@ -83,9 +86,10 @@ private:
 	// メンバ変数
 	CObject2D* m_apFrame[POLYGON_MAX];	// フレーム情報
 	CFrame2DModule* m_pModule;	// 機能
-	VECTOR3 m_pos;	// 位置
-	VECTOR3 m_rot;	// 向き
-	VECTOR3 m_size;	// 大きさ
+	VECTOR3 m_pos;		// 位置
+	VECTOR3 m_rot;		// 向き
+	VECTOR3 m_size;		// 大きさ
+	EPreset m_preset;	// 配置プリセット
 };
 
 #endif	// _FRAME2D_H_

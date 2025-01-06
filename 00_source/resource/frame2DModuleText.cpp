@@ -9,7 +9,6 @@
 //************************************************************
 #include "frame2DModuleText.h"
 #include "frame2DTextBuffer.h"
-#include "frame2DTextState.h"
 
 //************************************************************
 //	子クラス [CFrame2DModuleText] のメンバ関数
@@ -17,12 +16,13 @@
 //============================================================
 //	コンストラクタ
 //============================================================
-CFrame2DModuleText::CFrame2DModuleText() :
-	m_mapBuffText	({}),		// テキストバッファ連想配列
-	m_pState		(nullptr),	// 状態
-	m_sNextPath		({}),		// 次テキストボックスの保存パス
-	m_sNextBoxKey	({}),		// 次テキストボックスの検索キー
-	m_sNextStartKey	({})		// 次テキストボックスのテキスト開始キー
+CFrame2DModuleText::CFrame2DModuleText(const bool bAutoUninit) :
+	m_mapBuffText		({}),			// テキストバッファ連想配列
+	m_pState			(nullptr),		// 状態
+	m_sNextPath			({}),			// 次テキストボックスの保存パス
+	m_sNextBoxKey		({}),			// 次テキストボックスの検索キー
+	m_sNextStartKey		({}),			// 次テキストボックスのテキスト開始キー
+	m_bAutoUninitFrame	(bAutoUninit)	// フレーム自動破棄フラグ
 {
 
 }
@@ -43,12 +43,23 @@ HRESULT CFrame2DModuleText::Init()
 	// メンバ変数を初期化
 	m_mapBuffText	= {};		// テキストバッファ連想配列
 	m_pState		= nullptr;	// 状態
-	m_sNextPath		= {};		// 次テキストボックスの保存パス
-	m_sNextBoxKey	= {};		// 次テキストボックスの検索キー
-	m_sNextStartKey	= {};		// 次テキストボックスのテキスト開始キー
+	m_sNextPath		= "NONE";	// 次テキストボックスの保存パス
+	m_sNextBoxKey	= "NONE";	// 次テキストボックスの検索キー
+	m_sNextStartKey	= "NONE";	// 次テキストボックスのテキスト開始キー
 
-	// TODO：初期状態どう決めよっかな
-	ChangeState(new CFrame2DTextStateText(CFrame2D::PRESET_DOWN));
+	CFrame2D::EPreset preset = GetFramePreset();	// 配置プリセット
+	if (preset > CFrame2D::PRESET_NONE && preset < CFrame2D::PRESET_MAX)
+	{ // プリセットが範囲内の場合
+
+		// テキスト状態を生成
+		ChangeState(new CFrame2DTextStateText(preset));	// 配置指定
+	}
+	else
+	{ // プリセットが範囲外の場合
+
+		// テキスト状態を生成
+		ChangeState(new CFrame2DTextStateText);	// デフォルト
+	}
 
 	return S_OK;
 }
@@ -144,14 +155,16 @@ HRESULT CFrame2DModuleText::BindTextBox(const std::string& rFilePath, const std:
 void CFrame2DModuleText::TransText(const std::string& rNextTextKey)
 {
 	if (rNextTextKey == "-1"
-	||  rNextTextKey == "NONE")
+	||  rNextTextKey == "NONE"
+	||  rNextTextKey.empty())
 	{ // テキスト遷移先がない場合
 
 		if (m_sNextBoxKey == "-1"
-		||  m_sNextBoxKey == "NONE")
+		||  m_sNextBoxKey == "NONE"
+		||  m_sNextBoxKey.empty())
 		{ // テキストボックス遷移先がない場合
 
-			if (true)	// TODO：自動破棄フラグの追加
+			if (m_bAutoUninitFrame)
 			{ // フレーム自動破棄がONの場合
 
 				// コンテキストの終了
@@ -221,7 +234,7 @@ HRESULT CFrame2DModuleText::BindText(const std::string& rTextKey)
 	CFrame2DTextBuffer* pNextBuffText = itr->second;
 
 	// テキスト機能状態の変更
-	ChangeState(pNextBuffText->CreateState(CFrame2D::PRESET_DOWN));	// 次テキストに使用する機能を取得
+	ChangeState(pNextBuffText->CreateState(GetFramePreset()));	// 次テキストに使用する機能を取得
 
 	// テキストバッファの割当
 	m_pState->BindTextBuffer(pNextBuffText);
@@ -393,8 +406,8 @@ CFrame2DTextBuffer* CFrame2DModuleText::LoadString(std::ifstream* pFile)
 		}
 		else if (pBuffText != nullptr)
 		{
-			// 現在キーの文字列読込
-			pBuffText->LoadKeyString(pFile, str);
+			// バッファごとのセットアップ読込
+			pBuffText->LoadSetup(pFile, str);
 		}
 	} while (str != "END_TEXT");	// END_TEXTを読み込むまでループ
 

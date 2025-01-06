@@ -42,12 +42,20 @@ static_assert(NUM_ARRAY(text::OFFSET) == CFrame2D::PRESET_MAX, "ERROR : Preset C
 //	子クラス [CFrame2DTextStateText] のメンバ関数
 //************************************************************
 //============================================================
+//	移譲コンストラクタ (デフォルト)
+//============================================================
+CFrame2DTextStateText::CFrame2DTextStateText() : CFrame2DTextStateText(VEC3_ZERO)	// TODO：コンストラクタ群それぞれ想定した挙動になっているか検証
+{
+
+}
+
+//============================================================
 //	移譲コンストラクタ (配置プリセット)
 //============================================================
 CFrame2DTextStateText::CFrame2DTextStateText(const CFrame2D::EPreset preset) : CFrame2DTextStateText(text::OFFSET[preset])
 {
 	// プリセット範囲外エラー
-	assert(preset > NONE_IDX && preset < CFrame2D::PRESET_MAX);
+	assert(preset > CFrame2D::PRESET_NONE && preset < CFrame2D::PRESET_MAX);
 }
 
 //============================================================
@@ -75,7 +83,7 @@ CFrame2DTextStateText::~CFrame2DTextStateText()
 HRESULT CFrame2DTextStateText::Init()
 {
 	// メンバ変数を初期化
-	m_sNextTextKey	= {};		// 次テキストの検索キー
+	m_sNextTextKey	= "NONE";	// 次テキストの検索キー
 	m_pText			= nullptr;	// テキスト情報
 
 	// テキストの生成

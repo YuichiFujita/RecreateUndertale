@@ -287,6 +287,9 @@ CScrollString2D* CScrollString2D::Create
 //============================================================
 bool CScrollString2D::IsEndScroll() const
 {
+	// 文字列がない場合抜ける
+	if (GetNumChar() <= 0) { return true; }
+
 	// 終端文字の自動描画フラグから文字送りの終了を判定する
 	return GetChar2D(GetNumChar() - 1)->IsDraw();
 }

@@ -190,7 +190,16 @@ void CSceneGame::Update(const float fDeltaTime)
 #if 1
 	if (GET_INPUTKEY->IsTrigger(DIK_0))
 	{
+#if 0
+		CFrame2D* pFrame = CFrame2D::Create
+		(
+			VECTOR3(SCREEN_CENT.x, 594.0f, 0.0f),	// 下部配置
+			VEC3_ZERO,								// 下部配置
+			VECTOR3(850.0f, 210.0f, 0.0f)			// 下部配置
+		);
+#else
 		CFrame2D* pFrame = CFrame2D::Create(CFrame2D::PRESET_DOWN);
+#endif
 		pFrame->ChangeModule(new CFrame2DModuleText);
 		pFrame->GetModule()->GetModuleText()->BindTextBox
 		(

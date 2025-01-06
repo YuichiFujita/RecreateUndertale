@@ -14,8 +14,6 @@
 //	インクルードファイル
 //************************************************************
 #include "frame2DModule.h"
-#include "frame2D.h"
-#include "scrollText2D.h"
 
 //************************************************************
 //	前方宣言
@@ -31,7 +29,7 @@ class CFrame2DModuleText : public CFrame2DModule
 {
 public:
 	// コンストラクタ
-	CFrame2DModuleText();
+	CFrame2DModuleText(const bool bAutoUninit = true);
 
 	// デストラクタ
 	~CFrame2DModuleText() override;
@@ -66,6 +64,7 @@ private:
 	std::string m_sNextPath;		// 次テキストボックスの保存パス
 	std::string m_sNextBoxKey;		// 次テキストボックスの検索キー
 	std::string m_sNextStartKey;	// 次テキストボックスのテキスト開始キー
+	bool m_bAutoUninitFrame;		// フレーム自動破棄フラグ
 };
 
 #endif	// _FRAME2D_MODULE_TEXT_H_

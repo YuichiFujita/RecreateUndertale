@@ -41,7 +41,7 @@ public:
 	// 仮想関数
 	virtual inline CFrame2DTextBufferText* GetBufferText()		{ return nullptr; }	// テキストバッファ取得
 	virtual inline CFrame2DTextBufferSelect* GetBufferSelect()	{ return nullptr; }	// 選択付きテキストバッファ取得
-	virtual inline void LoadKeyString(std::ifstream* /*pFile*/, std::string& /*rString*/)	{}	// 現在キー文字列読込
+	virtual inline void LoadSetup(std::ifstream* /*pFile*/, const std::string& /*rString*/)	{}	// バッファごとのセットアップ
 
 	// メンバ変数
 	AText m_text;	// テキスト保存

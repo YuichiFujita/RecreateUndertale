@@ -97,6 +97,18 @@
     <Filter Include="scene\title\state">
       <UniqueIdentifier>{b089839c-5ea1-4863-9877-d02600a9823d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="system\debug">
+      <UniqueIdentifier>{da254c13-368e-4bdc-acf0-f1e08160e83f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="system\input">
+      <UniqueIdentifier>{eb6302f3-508e-466d-a49b-9c5317c450bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="system\light">
+      <UniqueIdentifier>{9d3b4274-43d4-4297-a0f3-7945c2926c94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="system\renderer">
+      <UniqueIdentifier>{1d629d4f-54f1-48a0-9cff-67931db8084a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="resource\camera.cpp">
@@ -106,18 +118,6 @@
       <Filter>system</Filter>
     </ClCompile>
     <ClCompile Include="resource\deltaTime.cpp">
-      <Filter>system</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\debugproc.cpp">
-      <Filter>system</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\debug.cpp">
-      <Filter>system</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\input.cpp">
-      <Filter>system</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\light.cpp">
       <Filter>system</Filter>
     </ClCompile>
     <ClCompile Include="resource\main.cpp">
@@ -243,17 +243,8 @@
     <ClCompile Include="resource\value.cpp">
       <Filter>2D</Filter>
     </ClCompile>
-    <ClCompile Include="resource\renderState.cpp">
-      <Filter>system</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\renderer.cpp">
-      <Filter>system</Filter>
-    </ClCompile>
     <ClCompile Include="resource\multiValue.cpp">
       <Filter>2D</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\screen.cpp">
-      <Filter>system</Filter>
     </ClCompile>
     <ClCompile Include="resource\multiModel.cpp">
       <Filter>3D</Filter>
@@ -360,9 +351,6 @@
     <ClCompile Include="resource\menuStatusUI.cpp">
       <Filter>ingame\menu</Filter>
     </ClCompile>
-    <ClCompile Include="resource\inputManager.cpp">
-      <Filter>system</Filter>
-    </ClCompile>
     <ClCompile Include="resource\menuManager.cpp">
       <Filter>ingame\menu</Filter>
     </ClCompile>
@@ -393,12 +381,6 @@
     <ClCompile Include="resource\itemInfoUI.cpp">
       <Filter>ingame\menu\select\item</Filter>
     </ClCompile>
-    <ClCompile Include="resource\lightDir.cpp">
-      <Filter>system</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\lightManager.cpp">
-      <Filter>system</Filter>
-    </ClCompile>
     <ClCompile Include="resource\characterAnim3D.cpp">
       <Filter>flyweight</Filter>
     </ClCompile>
@@ -407,9 +389,6 @@
     </ClCompile>
     <ClCompile Include="resource\extension.cpp">
       <Filter>utility</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\renderTexture.cpp">
-      <Filter>system</Filter>
     </ClCompile>
     <ClCompile Include="resource\itemHeal.cpp">
       <Filter>ingame\item</Filter>
@@ -534,6 +513,39 @@
     <ClCompile Include="resource\frame2DTextStateSelect.cpp">
       <Filter>ingame\frame\module\text\state</Filter>
     </ClCompile>
+    <ClCompile Include="resource\debug.cpp">
+      <Filter>system\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\debugproc.cpp">
+      <Filter>system\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\input.cpp">
+      <Filter>system\input</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\inputManager.cpp">
+      <Filter>system\input</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\light.cpp">
+      <Filter>system\light</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\lightDir.cpp">
+      <Filter>system\light</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\lightManager.cpp">
+      <Filter>system\light</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\renderer.cpp">
+      <Filter>system\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\renderState.cpp">
+      <Filter>system\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\renderTexture.cpp">
+      <Filter>system\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\screen.cpp">
+      <Filter>system\renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h">
@@ -647,12 +659,6 @@
     <ClInclude Include="resource\camera.h">
       <Filter>system</Filter>
     </ClInclude>
-    <ClInclude Include="resource\debug.h">
-      <Filter>system</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\debugproc.h">
-      <Filter>system</Filter>
-    </ClInclude>
     <ClInclude Include="resource\deltaTime.h">
       <Filter>system</Filter>
     </ClInclude>
@@ -668,28 +674,13 @@
     <ClInclude Include="resource\manager.h">
       <Filter>system</Filter>
     </ClInclude>
-    <ClInclude Include="resource\renderer.h">
-      <Filter>system</Filter>
-    </ClInclude>
     <ClInclude Include="resource\sound.h">
-      <Filter>system</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\input.h">
-      <Filter>system</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\light.h">
       <Filter>system</Filter>
     </ClInclude>
     <ClInclude Include="resource\precompile.h">
       <Filter>system</Filter>
     </ClInclude>
-    <ClInclude Include="resource\renderState.h">
-      <Filter>system</Filter>
-    </ClInclude>
     <ClInclude Include="resource\resource.h">
-      <Filter>system</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\screen.h">
       <Filter>system</Filter>
     </ClInclude>
     <ClInclude Include="resource\multiValue.h">
@@ -800,9 +791,6 @@
     <ClInclude Include="resource\menuStatusUI.h">
       <Filter>ingame\menu</Filter>
     </ClInclude>
-    <ClInclude Include="resource\inputManager.h">
-      <Filter>system</Filter>
-    </ClInclude>
     <ClInclude Include="resource\menuManager.h">
       <Filter>ingame\menu</Filter>
     </ClInclude>
@@ -833,12 +821,6 @@
     <ClInclude Include="resource\itemInfoUI.h">
       <Filter>ingame\menu\select\item</Filter>
     </ClInclude>
-    <ClInclude Include="resource\lightDir.h">
-      <Filter>system</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\lightManager.h">
-      <Filter>system</Filter>
-    </ClInclude>
     <ClInclude Include="resource\characterAnim3D.h">
       <Filter>flyweight</Filter>
     </ClInclude>
@@ -847,9 +829,6 @@
     </ClInclude>
     <ClInclude Include="resource\extension.h">
       <Filter>utility</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\renderTexture.h">
-      <Filter>system</Filter>
     </ClInclude>
     <ClInclude Include="resource\itemHeal.h">
       <Filter>ingame\item</Filter>
@@ -973,6 +952,39 @@
     </ClInclude>
     <ClInclude Include="resource\frame2DTextStateSelect.h">
       <Filter>ingame\frame\module\text\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\debug.h">
+      <Filter>system\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\debugproc.h">
+      <Filter>system\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\inputManager.h">
+      <Filter>system\input</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\input.h">
+      <Filter>system\input</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\lightManager.h">
+      <Filter>system\light</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\light.h">
+      <Filter>system\light</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\lightDir.h">
+      <Filter>system\light</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\renderer.h">
+      <Filter>system\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\renderState.h">
+      <Filter>system\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\renderTexture.h">
+      <Filter>system\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\screen.h">
+      <Filter>system\renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

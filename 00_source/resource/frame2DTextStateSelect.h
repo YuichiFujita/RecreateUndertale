@@ -39,8 +39,9 @@ public:
 	};
 
 	// コンストラクタ
+	CFrame2DTextStateSelect();
 	CFrame2DTextStateSelect(const CFrame2D::EPreset preset);
-	CFrame2DTextStateSelect(const VECTOR3& rOffset);
+	CFrame2DTextStateSelect(const VECTOR3& rOffsetText, const VECTOR3& rOffsetSelectL, const VECTOR3& rOffsetSelectR);
 
 	// デストラクタ
 	~CFrame2DTextStateSelect() override;
@@ -88,6 +89,7 @@ private:
 	// メンバ変数
 	std::string m_aNextTextKey[SELECT_MAX];	// 次テキストの検索キー
 	CScrollText2D* m_apSelect[SELECT_MAX];	// 選択肢情報
+	VECTOR3 m_aOffset[SELECT_MAX];			// 選択肢オフセット
 	CObject2D* m_pSoul;	// ソウルカーソル情報
 	int m_nCurSelect;	// 現在の選択肢
 };

@@ -330,6 +330,9 @@ CScrollText2D* CScrollText2D::Create
 //============================================================
 bool CScrollText2D::IsEndScroll() const
 {
+	// 文字列がない場合抜ける
+	if ((int)m_vecChar.size() <= 0) { return true; }
+
 	// 終端文字の自動描画フラグから文字送りの終了を判定する
 	return m_vecChar.back()->IsDraw();
 }

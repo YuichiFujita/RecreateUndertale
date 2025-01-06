@@ -35,14 +35,24 @@ CFrame2DTextBufferText::~CFrame2DTextBufferText()
 //============================================================
 CFrame2DTextState* CFrame2DTextBufferText::CreateState(const CFrame2D::EPreset preset)
 {
-	// テキスト状態を生成し返す
-	return new CFrame2DTextStateText(preset);
+	if (preset > CFrame2D::PRESET_NONE && preset < CFrame2D::PRESET_MAX)
+	{ // プリセットが範囲内の場合
+
+		// テキスト状態を生成し返す
+		return new CFrame2DTextStateText(preset);	// 配置指定
+	}
+	else
+	{ // プリセットが範囲外の場合
+
+		// テキスト状態を生成し返す
+		return new CFrame2DTextStateText;	// デフォルト
+	}
 }
 
 //============================================================
-//	現在キーの文字列読込処理
+//	バッファごとのセットアップ処理
 //============================================================
-void CFrame2DTextBufferText::LoadKeyString(std::ifstream* pFile, std::string& rString)
+void CFrame2DTextBufferText::LoadSetup(std::ifstream* pFile, const std::string& rString)
 {
 	// ファイルポインタがない場合抜ける
 	if (pFile == nullptr) { assert(false); return; }

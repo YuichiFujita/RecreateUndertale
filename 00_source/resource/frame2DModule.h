@@ -18,8 +18,7 @@
 //************************************************************
 //	前方宣言
 //************************************************************
-class CFrame2DModuleText;		// テキスト表示機能クラス
-class CFrame2DModuleTextSelect;	// 選択付きテキスト表示機能クラス
+class CFrame2DModuleText;	// テキスト表示機能クラス
 
 //************************************************************
 //	クラス定義
@@ -44,15 +43,15 @@ public:
 	inline virtual void SetVec3Position(const VECTOR3&)	{}	// 位置設定
 	inline virtual void SetVec3Rotation(const VECTOR3&)	{}	// 向き設定
 	inline virtual void SetVec3Size(const VECTOR3&)		{}	// 大きさ設定
-	inline virtual CFrame2DModuleText* GetModuleText()				{ return nullptr; }	// テキスト表示機能取得
-	inline virtual CFrame2DModuleTextSelect* GetModuleTextSelect()	{ return nullptr; }	// 選択付きテキスト表示機能取得
+	inline virtual CFrame2DModuleText* GetModuleText()	{ return nullptr; }	// テキスト表示機能取得
 
 	// メンバ関数
-	inline void SetContext(CFrame2D* pContext)	{ m_pContext = pContext; }					// コンテキスト設定
-	inline int GetFramePriority() const			{ return m_pContext->GetPriority(); }		// フレーム優先順位取得
-	inline VECTOR3 GetFramePosition() const		{ return m_pContext->GetVec3Position(); }	// フレーム位置取得
-	inline VECTOR3 GetFrameRotation() const		{ return m_pContext->GetVec3Rotation(); }	// フレーム向き取得
-	inline VECTOR3 GetFrameSize() const			{ return m_pContext->GetVec3Size(); }		// フレーム大きさ取得
+	inline void SetContext(CFrame2D* pContext)		{ m_pContext = pContext; }					// コンテキスト設定
+	inline int GetFramePriority() const				{ return m_pContext->GetPriority(); }		// フレーム優先順位取得
+	inline VECTOR3 GetFramePosition() const			{ return m_pContext->GetVec3Position(); }	// フレーム位置取得
+	inline VECTOR3 GetFrameRotation() const			{ return m_pContext->GetVec3Rotation(); }	// フレーム向き取得
+	inline VECTOR3 GetFrameSize() const				{ return m_pContext->GetVec3Size(); }		// フレーム大きさ取得
+	inline CFrame2D::EPreset GetFramePreset() const	{ return m_pContext->GetPreset(); }			// フレーム配置プリセット取得
 
 protected:
 	// メンバ変数
