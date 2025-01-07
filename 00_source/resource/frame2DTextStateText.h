@@ -62,10 +62,11 @@ public:
 	inline bool IsTextEndScroll() const					{ return m_pText->IsEndScroll(); }		// テキスト文字送り終了状況取得
 	inline VECTOR3 GetOffset() const					{ return m_offset; }					// テキストオフセット取得
 
-private:
-	// メンバ関数
-	void SetPositionRelative();	// 相対位置設定
+protected:
+	// 仮想関数
+	virtual void SetPositionRelative();	// 相対位置設定
 
+private:
 	// メンバ変数
 	std::string m_sNextTextKey;	// 次テキストの検索キー
 	CScrollText2D* m_pText;		// テキスト情報

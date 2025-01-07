@@ -8,8 +8,6 @@
 //	インクルードファイル
 //************************************************************
 #include "screen.h"
-#include "manager.h"
-#include "renderer.h"
 
 //************************************************************
 //	子クラス [CScreen] のメンバ関数
@@ -79,18 +77,8 @@ void CScreen::Update(const float fDeltaTime)
 //============================================================
 void CScreen::Draw(CShader* pShader)
 {
-	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
-
-	// サンプラーステートを設定
-	pDevice->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_CLAMP);	// U方向のラッピングを無効化
-	pDevice->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_CLAMP);	// V方向のラッピングを無効化
-
 	// オブジェクト2Dの描画
 	CObject2D::Draw(pShader);
-
-	// サンプラーステートを設定
-	pDevice->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_WRAP);	// U方向のラッピングを有効化
-	pDevice->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_WRAP);	// V方向のラッピングを有効化
 }
 
 //============================================================

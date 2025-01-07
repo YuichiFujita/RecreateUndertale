@@ -9,7 +9,6 @@
 //************************************************************
 #include "loading.h"
 #include "manager.h"
-#include "renderer.h"
 #include "object.h"
 #include "anim2D.h"
 
@@ -247,18 +246,8 @@ void CLoading::Update(const float fDeltaTime)
 //============================================================
 void CLoading::Draw()
 {
-	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
-
-	// サンプラーステートを設定
-	pDevice->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_CLAMP);	// U方向のラッピングを無効化
-	pDevice->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_CLAMP);	// V方向のラッピングを無効化
-
 	// ロード画面の描画
 	m_pLoad->Draw();
-
-	// サンプラーステートを設定
-	pDevice->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_WRAP);	// U方向のラッピングを有効化
-	pDevice->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_WRAP);	// V方向のラッピングを有効化
 }
 
 //============================================================

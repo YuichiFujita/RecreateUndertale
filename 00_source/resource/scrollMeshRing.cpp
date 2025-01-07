@@ -8,6 +8,8 @@
 //	インクルードファイル
 //************************************************************
 #include "scrollMeshRing.h"
+#include "manager.h"
+#include "renderer.h"
 
 //************************************************************
 //	子クラス [CScrollMeshRing] のメンバ関数
@@ -101,8 +103,16 @@ void CScrollMeshRing::Update(const float fDeltaTime)
 //============================================================
 void CScrollMeshRing::Draw(CShader* pShader)
 {
+	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
+
+	pDevice->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_WRAP);
+	pDevice->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_WRAP);
+
 	// メッシュリングの描画
 	CObjectMeshRing::Draw(pShader);
+
+	pDevice->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_CLAMP);
+	pDevice->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_CLAMP);
 }
 
 //============================================================

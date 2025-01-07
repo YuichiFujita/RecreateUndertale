@@ -24,7 +24,7 @@ namespace
 		{
 			const VECTOR3 OFFSET[] =	// テキストオフセットプリセット
 			{
-				VECTOR3(-410.0f, -80.0f, 0.0f)	// 下部配置
+				VECTOR3(-160.0f, -80.0f + 54.0f * 2.0f, 0.0f)	// 下部配置
 			};
 		}
 
@@ -32,7 +32,7 @@ namespace
 		{
 			const VECTOR3 OFFSET[] =	// テキストオフセットプリセット
 			{
-				VECTOR3(-410.0f, -80.0f, 0.0f)	// 下部配置
+				VECTOR3(160.0f, -80.0f + 54.0f * 2.0f, 0.0f)	// 下部配置
 			};
 		}
 
@@ -49,6 +49,7 @@ namespace
 	namespace soul
 	{
 		const char* PATH	= "data\\TEXTURE\\spr_heartsmall.png";	// ソウルカーソルテクスチャパス
+		const float OFFSET	= 10.0f;								// ソウルカーソルオフセット
 		const VECTOR3 SIZE	= VECTOR3(26.5f, 26.5f, 0.0f);			// ソウルカーソル大きさ
 	}
 }
@@ -149,12 +150,7 @@ HRESULT CFrame2DTextStateSelect::Init()
 		( // 引数
 			select::FONT,			// フォントパス
 			select::ITALIC,			// イタリック
-// TODO
-#if 0
 			VEC3_ZERO,				// 原点位置
-#else
-			VECTOR3(SCREEN_CENT.x - 150.0f + 300.0f * (float)i, 600.0f, 0.0f),	// 原点位置
-#endif
 			select::WAIT_TIME,		// 文字表示の待機時間
 			select::CHAR_HEIGHT,	// 文字縦幅
 			select::LINE_HEIGHT,	// 行間縦幅
@@ -201,7 +197,7 @@ HRESULT CFrame2DTextStateSelect::Init()
 	m_pSoul->SetEnableDraw(false);
 
 	// 相対位置の設定
-	SetPositionRelative();
+	CFrame2DTextStateSelect::SetPositionRelative();	// 自身の相対位置
 
 	return S_OK;
 }
@@ -284,6 +280,9 @@ void CFrame2DTextStateSelect::Update(const float fDeltaTime)
 //============================================================
 void CFrame2DTextStateSelect::SetPriority(const int nPriority)
 {
+	// 親クラスの優先順位を設定
+	CFrame2DTextStateText::SetPriority(nPriority);
+
 	for (int i = 0; i < SELECT_MAX; i++)
 	{ // 選択肢の総数分繰り返す
 
@@ -295,8 +294,11 @@ void CFrame2DTextStateSelect::SetPriority(const int nPriority)
 //============================================================
 //	位置の設定処理
 //============================================================
-void CFrame2DTextStateSelect::SetVec3Position(const VECTOR3& /*rPos*/)
+void CFrame2DTextStateSelect::SetVec3Position(const VECTOR3& rPos)
 {
+	// 親クラスの位置を設定
+	CFrame2DTextStateText::SetVec3Position(rPos);
+
 	// 相対位置の設定
 	SetPositionRelative();
 }
@@ -306,6 +308,9 @@ void CFrame2DTextStateSelect::SetVec3Position(const VECTOR3& /*rPos*/)
 //============================================================
 void CFrame2DTextStateSelect::SetVec3Rotation(const VECTOR3& rRot)
 {
+	// 親クラスの向きを設定
+	CFrame2DTextStateText::SetVec3Rotation(rRot);
+
 	for (int i = 0; i < SELECT_MAX; i++)
 	{ // 選択肢の総数分繰り返す
 
@@ -353,17 +358,18 @@ void CFrame2DTextStateSelect::BindTextBuffer(CFrame2DTextBuffer* pBuffer)
 
 	// 文字送りを開始する
 	SetTextEnableScroll(true);
+
+	// 相対位置の設定
+	SetPositionRelative();
 }
 
-#if 0
 //============================================================
 //	テキスト変更処理
 //============================================================
 void CFrame2DTextStateSelect::ChangeText(const ESelect select, const AText& rText)
 {
-#if 0
 	// 文字列を全て削除
-	m_pText->DeleteStringAll();
+	m_apSelect[select]->DeleteStringAll();
 
 	// テキストを割当
 	int nLoop = (int)rText.size();	// 文字列数
@@ -371,16 +377,51 @@ void CFrame2DTextStateSelect::ChangeText(const ESelect select, const AText& rTex
 	{ // 文字列の数分繰り返す
 
 		// 文字列を最後尾に追加
-		m_pText->PushBackString(rText[i]);
+		m_apSelect[select]->PushBackString(rText[i]);
 	}
 
 	// 文字送りを開始する
-	m_pText->SetEnableScroll(true);
-#else
+	m_apSelect[select]->SetEnableScroll(true);
 
-#endif
+	// 相対位置の設定
+	SetPositionRelative();
 }
-#endif
+
+//============================================================
+//	相対位置の設定処理
+//============================================================
+void CFrame2DTextStateSelect::SetPositionRelative()
+{
+	// 親クラスの相対位置の設定
+	CFrame2DTextStateText::SetPositionRelative();
+
+	VECTOR3 posFrame = m_pContext->GetFramePosition();	// フレーム位置
+	VECTOR3 rotFrame = m_pContext->GetFrameRotation();	// フレーム向き
+	for (int i = 0; i < SELECT_MAX; i++)
+	{ // 選択肢の総数分繰り返す
+
+		VECTOR3 posSelect = posFrame;	// 選択肢位置
+
+		// X座標オフセット分ずらす
+		posSelect.x += sinf(rotFrame.z + HALF_PI) * m_aOffset[i].x;
+		posSelect.y += cosf(rotFrame.z + HALF_PI) * m_aOffset[i].x;
+
+		// Y座標オフセット分ずらす
+		posSelect.x += sinf(rotFrame.z) * m_aOffset[i].y;
+		posSelect.y += cosf(rotFrame.z) * m_aOffset[i].y;
+
+		// 選択肢位置の反映
+		m_apSelect[i]->SetVec3Position(posSelect);
+	}
+
+	// ソウルカーソル位置を計算
+	VECTOR3 posCursor = m_apSelect[m_nCurSelect]->GetVec3Position();
+	posCursor.x -= m_apSelect[m_nCurSelect]->GetTextWidth() * 0.5f + soul::OFFSET;
+	posCursor.y += m_apSelect[m_nCurSelect]->GetCharHeight() * 0.5f;
+
+	// ソウルカーソル位置の反映
+	m_pSoul->SetVec3Position(posCursor);
+}
 
 //============================================================
 //	選択の更新処理
@@ -393,20 +434,18 @@ void CFrame2DTextStateSelect::UpdateSelect()
 	{
 		// 左に選択をずらす
 		m_nCurSelect = (m_nCurSelect + 1) % SELECT_MAX;
+
+		// 相対位置の設定
+		SetPositionRelative();
 	}
 	if (pKey->IsTrigger(DIK_RIGHT))
 	{
 		// 右に選択をずらす
 		m_nCurSelect = (m_nCurSelect + (SELECT_MAX - 1)) % SELECT_MAX;
+
+		// 相対位置の設定
+		SetPositionRelative();
 	}
-
-	// TODO
-	VECTOR3 posSelect = m_apSelect[m_nCurSelect]->GetVec3Position();
-	posSelect.x -= m_apSelect[m_nCurSelect]->GetTextWidth() * 0.5f + 30.0f;
-	posSelect.y += m_apSelect[m_nCurSelect]->GetCharHeight() * 0.5f;
-
-	// ソウルカーソルの位置を移動
-	m_pSoul->SetVec3Position(posSelect);
 }
 
 //============================================================
@@ -419,34 +458,4 @@ void CFrame2DTextStateSelect::UpdateDecide()
 		// テキストの遷移
 		m_pContext->TransText(m_aNextTextKey[m_nCurSelect]);
 	}
-}
-
-//============================================================
-//	相対位置の設定処理
-//============================================================
-void CFrame2DTextStateSelect::SetPositionRelative()
-{
-#if 0
-	VECTOR3 posFrame = m_pContext->GetVec3Position();	// フレーム位置
-	VECTOR3 rotFrame = m_pContext->GetVec3Rotation();	// フレーム向き
-
-	// X座標オフセット分ずらす
-	posFrame.x += sinf(rotFrame.z + HALF_PI) * m_offset.x;
-	posFrame.y += cosf(rotFrame.z + HALF_PI) * m_offset.x;
-
-	// Y座標オフセット分ずらす
-	posFrame.x += sinf(rotFrame.z) * m_offset.y;
-	posFrame.y += cosf(rotFrame.z) * m_offset.y;
-
-	// テキスト位置の反映
-	m_pText->SetVec3Position(posFrame);
-#else
-	// TODO：1Fだけ位置ずれしてる
-	VECTOR3 posSelect = m_apSelect[m_nCurSelect]->GetVec3Position();
-	posSelect.x -= m_apSelect[m_nCurSelect]->GetTextWidth() * 0.5f + 30.0f;
-	posSelect.y += m_apSelect[m_nCurSelect]->GetCharHeight() * 0.5f;
-
-	// ソウルカーソルの位置を移動
-	m_pSoul->SetVec3Position(posSelect);
-#endif
 }

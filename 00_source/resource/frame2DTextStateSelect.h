@@ -57,7 +57,7 @@ public:
 	inline CFrame2DTextStateSelect* GetStateSelect() override { return this; }	// 選択付きテキスト状態取得
 
 	// メンバ関数
-	//void ChangeText(const ESelect select, const AText& rText);	// テキスト変更	// TODO
+	void ChangeText(const ESelect select, const AText& rText);	// テキスト変更
 	inline HRESULT PushFrontString(const ESelect select, const std::string& rStr)	{ return m_apSelect[select]->PushFrontString(rStr); }	// 文字列の先頭追加 (マルチバイト文字列)
 	inline HRESULT PushFrontString(const ESelect select, const std::wstring& rStr)	{ return m_apSelect[select]->PushFrontString(rStr); }	// 文字列の先頭追加 (ワイド文字列)
 	inline HRESULT PushBackString(const ESelect select, const std::string& rStr)	{ return m_apSelect[select]->PushBackString(rStr); }	// 文字列の最後尾追加 (マルチバイト文字列)
@@ -80,11 +80,14 @@ public:
 	using CFrame2DTextStateText::IsTextScroll;			// テキスト文字送り状況取得
 	using CFrame2DTextStateText::IsTextEndScroll;		// テキスト文字送り終了状況取得
 
+protected:
+	// オーバーライド関数
+	void SetPositionRelative() override;	// 相対位置設定
+
 private:
 	// メンバ関数
-	void UpdateSelect();		// 選択更新
-	void UpdateDecide();		// 決定更新
-	void SetPositionRelative();	// 相対位置設定
+	void UpdateSelect();	// 選択更新
+	void UpdateDecide();	// 決定更新
 
 	// メンバ変数
 	std::string m_aNextTextKey[SELECT_MAX];	// 次テキストの検索キー

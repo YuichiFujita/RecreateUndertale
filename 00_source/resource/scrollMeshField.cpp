@@ -8,6 +8,8 @@
 //	インクルードファイル
 //************************************************************
 #include "scrollMeshField.h"
+#include "manager.h"
+#include "renderer.h"
 
 //************************************************************
 //	子クラス [CScrollMeshField] のメンバ関数
@@ -101,8 +103,16 @@ void CScrollMeshField::Update(const float fDeltaTime)
 //============================================================
 void CScrollMeshField::Draw(CShader* pShader)
 {
+	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
+
+	pDevice->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_WRAP);
+	pDevice->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_WRAP);
+
 	// メッシュフィールドの描画
 	CObjectMeshField::Draw(pShader);
+
+	pDevice->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_CLAMP);
+	pDevice->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_CLAMP);
 }
 
 //============================================================

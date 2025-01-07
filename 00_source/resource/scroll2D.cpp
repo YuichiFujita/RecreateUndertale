@@ -8,6 +8,8 @@
 //	インクルードファイル
 //************************************************************
 #include "scroll2D.h"
+#include "manager.h"
+#include "renderer.h"
 
 //************************************************************
 //	子クラス [CScroll2D] のメンバ関数
@@ -110,8 +112,16 @@ void CScroll2D::Update(const float fDeltaTime)
 //============================================================
 void CScroll2D::Draw(CShader* pShader)
 {
+	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
+
+	pDevice->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_WRAP);
+	pDevice->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_WRAP);
+
 	// オブジェクト2Dの描画
 	CObject2D::Draw(pShader);
+
+	pDevice->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_CLAMP);
+	pDevice->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_CLAMP);
 }
 
 //============================================================

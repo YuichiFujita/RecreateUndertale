@@ -123,6 +123,9 @@ void CFrame2D::Uninit()
 //============================================================
 void CFrame2D::Update(const float fDeltaTime)
 {
+	// TODO
+	SetVec3Rotation(GetVec3Rotation() + VECTOR3(0.0f, 0.0f, 0.01f));
+
 	for (int i = 0; i < POLYGON_MAX; i++)
 	{ // ポリゴンの総数分繰り返す
 
@@ -179,9 +182,6 @@ void CFrame2D::SetPriority(const int nPriority)
 //============================================================
 void CFrame2D::SetVec3Position(const VECTOR3& rPos)
 {
-	// 配置プリセットの初期化
-	m_preset = PRESET_NONE;
-
 	// 自身の位置を設定
 	m_pos = rPos;
 
@@ -205,9 +205,6 @@ void CFrame2D::SetVec3Position(const VECTOR3& rPos)
 //============================================================
 void CFrame2D::SetVec3Rotation(const VECTOR3& rRot)
 {
-	// 配置プリセットの初期化
-	m_preset = PRESET_NONE;
-
 	// 自身の向きを設定
 	m_rot = rRot;
 

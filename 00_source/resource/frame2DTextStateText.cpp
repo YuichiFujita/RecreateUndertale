@@ -112,7 +112,7 @@ HRESULT CFrame2DTextStateText::Init()
 	m_pText->SetScrollSE(CSound::LABEL_SE_TEXT01);
 
 	// 相対位置の設定
-	SetPositionRelative();
+	CFrame2DTextStateText::SetPositionRelative();	// 自身の相対位置
 
 	return S_OK;
 }
@@ -202,6 +202,9 @@ void CFrame2DTextStateText::BindTextBuffer(CFrame2DTextBuffer* pBuffer)
 
 	// 文字送りを開始する
 	m_pText->SetEnableScroll(true);
+
+	// 相対位置の設定
+	SetPositionRelative();
 }
 
 //============================================================
@@ -223,6 +226,9 @@ void CFrame2DTextStateText::ChangeText(const AText& rText)
 
 	// 文字送りを開始する
 	m_pText->SetEnableScroll(true);
+
+	// 相対位置の設定
+	SetPositionRelative();
 }
 
 //============================================================
