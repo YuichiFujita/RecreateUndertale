@@ -86,6 +86,7 @@ protected:
 
 private:
 	// メンバ関数
+	void UpdateScroll();	// 文字送り更新
 	void UpdateSelect();	// 選択更新
 	void UpdateDecide();	// 決定更新
 

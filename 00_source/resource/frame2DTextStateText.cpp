@@ -23,7 +23,6 @@ namespace
 			VECTOR3(-410.0f, -80.0f, 0.0f)	// 下部配置
 		};
 		const char*	FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
-		const int	PRIORITY	= 6;			// テキストの優先順位
 		const bool	ITALIC		= false;		// イタリック
 		const float	CHAR_HEIGHT	= 42.0f;		// 文字縦幅
 		const float	LINE_HEIGHT	= 54.0f;		// 行間縦幅

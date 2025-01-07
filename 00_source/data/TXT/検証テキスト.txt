@@ -86,7 +86,6 @@ TEXTBOX_1
 			
 			# •¶Žš—ñî•ñ
 			STR = ‰E‘I‘ðŽˆ
-			STR = ‰üsŒŸØ
 		END_SELECT
 	END_TEXT
 	

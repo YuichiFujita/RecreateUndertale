@@ -37,7 +37,6 @@ namespace
 		}
 
 		const char*	FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
-		const int	PRIORITY	= 6;				// テキストの優先順位
 		const bool	ITALIC		= false;			// イタリック
 		const float	CHAR_HEIGHT	= 42.0f;			// 文字縦幅
 		const float	LINE_HEIGHT	= 54.0f;			// 行間縦幅
@@ -241,28 +240,8 @@ void CFrame2DTextStateSelect::Update(const float fDeltaTime)
 			return;
 		}
 
-		if (IsTextEndScroll())
-		{ // 本文の文字送りが終了した場合
-
-			// 左選択肢の文字送りを開始
-			m_apSelect[SELECT_LEFT]->SetEnableScroll(true);
-		}
-		else { return; }
-
-		if (m_apSelect[SELECT_LEFT]->IsEndScroll())
-		{ // 左選択肢の文字送りが終了した場合
-
-			// 右選択肢の文字送りを開始
-			m_apSelect[SELECT_RIGHT]->SetEnableScroll(true);
-		}
-		else { return; }
-
-		if (m_apSelect[SELECT_RIGHT]->IsEndScroll())
-		{ // 右選択肢の文字送りが終了した場合
-
-			// カーソルの自動描画をONにする
-			m_pSoul->SetEnableDraw(true);
-		}
+		// 文字送りの更新
+		UpdateScroll();
 	}
 	else
 	{ // カーソルが表示されている場合
@@ -317,6 +296,9 @@ void CFrame2DTextStateSelect::SetVec3Rotation(const VECTOR3& rRot)
 		// テキストの向きを設定
 		m_apSelect[i]->SetVec3Rotation(rRot);
 	}
+
+	// ソウルカーソル向きを設定
+	m_pSoul->SetVec3Rotation(rRot);
 
 	// 相対位置の設定
 	SetPositionRelative();
@@ -395,6 +377,21 @@ void CFrame2DTextStateSelect::SetPositionRelative()
 	// 親クラスの相対位置の設定
 	CFrame2DTextStateText::SetPositionRelative();
 
+	// TODO：オフセットY座標の補正
+#if 1
+	int nMaxNumStr = 0;
+	for (int i = 0; i < SELECT_MAX; i++)
+	{ // 選択肢の総数分繰り返す
+
+		int nNumStr = m_apSelect[i]->GetNumString();
+		if (nMaxNumStr < nNumStr)
+		{
+			nMaxNumStr = nNumStr;
+		}
+	}
+	m_aOffset[0].y = m_aOffset[1].y = -80.0f + select::LINE_HEIGHT * (float)(3 - nMaxNumStr);
+#endif
+
 	VECTOR3 posFrame = m_pContext->GetFramePosition();	// フレーム位置
 	VECTOR3 rotFrame = m_pContext->GetFrameRotation();	// フレーム向き
 	for (int i = 0; i < SELECT_MAX; i++)
@@ -414,13 +411,49 @@ void CFrame2DTextStateSelect::SetPositionRelative()
 		m_apSelect[i]->SetVec3Position(posSelect);
 	}
 
-	// ソウルカーソル位置を計算
-	VECTOR3 posCursor = m_apSelect[m_nCurSelect]->GetVec3Position();
-	posCursor.x -= m_apSelect[m_nCurSelect]->GetTextWidth() * 0.5f + soul::OFFSET;
-	posCursor.y += m_apSelect[m_nCurSelect]->GetCharHeight() * 0.5f;
+	VECTOR3 posCursor = m_apSelect[m_nCurSelect]->GetVec3Position();	// ソウルカーソル位置
+
+	// X座標オフセット分ずらす
+	float fOffsetX = m_apSelect[m_nCurSelect]->GetTextWidth() * 0.5f + soul::OFFSET;
+	posCursor.x -= sinf(rotFrame.z + HALF_PI) * fOffsetX;
+	posCursor.y -= cosf(rotFrame.z + HALF_PI) * fOffsetX;
+
+	// Y座標オフセット分ずらす
+	float fOffsetY = m_apSelect[m_nCurSelect]->GetCharHeight() * 0.5f;
+	posCursor.x += sinf(rotFrame.z) * fOffsetY;
+	posCursor.y += cosf(rotFrame.z) * fOffsetY;
 
 	// ソウルカーソル位置の反映
 	m_pSoul->SetVec3Position(posCursor);
+}
+
+//============================================================
+//	文字送りの更新処理
+//============================================================
+void CFrame2DTextStateSelect::UpdateScroll()
+{
+	if (IsTextEndScroll())
+	{ // 本文の文字送りが終了した場合
+
+		// 左選択肢の文字送りを開始
+		m_apSelect[SELECT_LEFT]->SetEnableScroll(true);
+	}
+	else { return; }
+
+	if (m_apSelect[SELECT_LEFT]->IsEndScroll())
+	{ // 左選択肢の文字送りが終了した場合
+
+		// 右選択肢の文字送りを開始
+		m_apSelect[SELECT_RIGHT]->SetEnableScroll(true);
+	}
+	else { return; }
+
+	if (m_apSelect[SELECT_RIGHT]->IsEndScroll())
+	{ // 右選択肢の文字送りが終了した場合
+
+		// カーソルの自動描画をONにする
+		m_pSoul->SetEnableDraw(true);
+	}
 }
 
 //============================================================

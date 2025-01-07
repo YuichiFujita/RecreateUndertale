@@ -123,9 +123,6 @@ void CFrame2D::Uninit()
 //============================================================
 void CFrame2D::Update(const float fDeltaTime)
 {
-	// TODO
-	SetVec3Rotation(GetVec3Rotation() + VECTOR3(0.0f, 0.0f, 0.01f));
-
 	for (int i = 0; i < POLYGON_MAX; i++)
 	{ // ƒ|ƒŠƒSƒ“‚Ì‘”•ªŒJ‚è•Ô‚·
 

@@ -233,14 +233,8 @@ HRESULT CFrame2DModuleText::BindText(const std::string& rTextKey)
 	// テキストバッファを簡略化
 	CFrame2DTextBuffer* pNextBuffText = itr->second;
 
-	// TODO：デバッグ検証中、絶対修正
-#if 1
 	// テキスト機能状態の変更
 	ChangeState(pNextBuffText->CreateState(GetFramePreset()));	// 次テキストに使用する機能を取得
-#else
-	// テキスト機能状態の変更
-	ChangeState(new CFrame2DTextStateSelect(CFrame2D::PRESET_NONE));
-#endif
 
 	// テキストバッファの割当
 	m_pState->BindTextBuffer(pNextBuffText);
