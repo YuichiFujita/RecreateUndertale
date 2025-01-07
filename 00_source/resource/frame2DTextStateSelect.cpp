@@ -65,7 +65,7 @@ static_assert(NUM_ARRAY(select::R::OFFSET) == CFrame2D::PRESET_MAX, "ERROR : Pre
 //============================================================
 //	移譲コンストラクタ (デフォルト)
 //============================================================
-CFrame2DTextStateSelect::CFrame2DTextStateSelect() : CFrame2DTextStateSelect(VEC3_ZERO, VEC3_ZERO, VEC3_ZERO)	// TODO：コンストラクタ群それぞれ想定した挙動になっているか検証
+CFrame2DTextStateSelect::CFrame2DTextStateSelect() : CFrame2DTextStateSelect(VEC3_ZERO, VEC3_ZERO, VEC3_ZERO)
 {
 
 }
@@ -259,15 +259,18 @@ void CFrame2DTextStateSelect::Update(const float fDeltaTime)
 //============================================================
 void CFrame2DTextStateSelect::SetPriority(const int nPriority)
 {
-	// 親クラスの優先順位を設定
-	CFrame2DTextStateText::SetPriority(nPriority);
-
 	for (int i = 0; i < SELECT_MAX; i++)
 	{ // 選択肢の総数分繰り返す
 
 		// テキストの優先順位を設定
 		m_apSelect[i]->SetPriority(nPriority);
 	}
+
+	// ソウルカーソルの優先順位を設定
+	m_pSoul->SetPriority(nPriority);
+
+	// 親クラスの優先順位を設定
+	CFrame2DTextStateText::SetPriority(nPriority);
 }
 
 //============================================================
@@ -277,9 +280,6 @@ void CFrame2DTextStateSelect::SetVec3Position(const VECTOR3& rPos)
 {
 	// 親クラスの位置を設定
 	CFrame2DTextStateText::SetVec3Position(rPos);
-
-	// 相対位置の設定
-	SetPositionRelative();
 }
 
 //============================================================
@@ -287,9 +287,6 @@ void CFrame2DTextStateSelect::SetVec3Position(const VECTOR3& rPos)
 //============================================================
 void CFrame2DTextStateSelect::SetVec3Rotation(const VECTOR3& rRot)
 {
-	// 親クラスの向きを設定
-	CFrame2DTextStateText::SetVec3Rotation(rRot);
-
 	for (int i = 0; i < SELECT_MAX; i++)
 	{ // 選択肢の総数分繰り返す
 
@@ -297,11 +294,11 @@ void CFrame2DTextStateSelect::SetVec3Rotation(const VECTOR3& rRot)
 		m_apSelect[i]->SetVec3Rotation(rRot);
 	}
 
-	// ソウルカーソル向きを設定
+	// ソウルカーソルの向きを設定
 	m_pSoul->SetVec3Rotation(rRot);
 
-	// 相対位置の設定
-	SetPositionRelative();
+	// 親クラスの向きを設定
+	CFrame2DTextStateText::SetVec3Rotation(rRot);
 }
 
 //============================================================

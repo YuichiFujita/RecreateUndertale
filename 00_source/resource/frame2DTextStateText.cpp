@@ -43,7 +43,7 @@ static_assert(NUM_ARRAY(text::OFFSET) == CFrame2D::PRESET_MAX, "ERROR : Preset C
 //============================================================
 //	移譲コンストラクタ (デフォルト)
 //============================================================
-CFrame2DTextStateText::CFrame2DTextStateText() : CFrame2DTextStateText(VEC3_ZERO)	// TODO：コンストラクタ群それぞれ想定した挙動になっているか検証
+CFrame2DTextStateText::CFrame2DTextStateText() : CFrame2DTextStateText(VEC3_ZERO)
 {
 
 }
