@@ -29,6 +29,11 @@ class CFrame2DTextBuffer;	// テキスト情報保存バッファクラス
 class CFrame2DTextStateText : public CFrame2DTextState
 {
 public:
+	// 定数
+	static constexpr float CHAR_HEIGHT	= 42.0f;	// 文字縦幅
+	static constexpr float LINE_HEIGHT	= 54.0f;	// 行間縦幅
+	static constexpr float WAIT_TIME	= 0.045f;	// 文字表示の待機時間
+	
 	// コンストラクタ
 	CFrame2DTextStateText();
 	CFrame2DTextStateText(const CFrame2D::EPreset preset);
@@ -64,9 +69,11 @@ public:
 
 protected:
 	// 仮想関数
+	virtual VECTOR3 GetPresetOffset(const CFrame2D::EPreset preset);	// プリセットオフセット取得
 	virtual void SetPositionRelative();	// 相対位置設定
 
 private:
+
 	// メンバ変数
 	std::string m_sNextTextKey;	// 次テキストの検索キー
 	CScrollText2D* m_pText;		// テキスト情報

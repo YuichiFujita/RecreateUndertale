@@ -24,9 +24,6 @@ namespace
 		};
 		const char*	FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
 		const bool	ITALIC		= false;		// イタリック
-		const float	CHAR_HEIGHT	= 42.0f;		// 文字縦幅
-		const float	LINE_HEIGHT	= 54.0f;		// 行間縦幅
-		const float	WAIT_TIME	= 0.045f;		// 文字表示の待機時間
 		const EAlignX ALIGN_X	= XALIGN_LEFT;	// 横配置
 		const EAlignY ALIGN_Y	= YALIGN_TOP;	// 縦配置
 	}
@@ -51,10 +48,9 @@ CFrame2DTextStateText::CFrame2DTextStateText() : CFrame2DTextStateText(VEC3_ZERO
 //============================================================
 //	移譲コンストラクタ (配置プリセット)
 //============================================================
-CFrame2DTextStateText::CFrame2DTextStateText(const CFrame2D::EPreset preset) : CFrame2DTextStateText(text::OFFSET[preset])
+CFrame2DTextStateText::CFrame2DTextStateText(const CFrame2D::EPreset preset) : CFrame2DTextStateText(GetPresetOffset(preset))
 {
-	// プリセット範囲外エラー
-	assert(preset > CFrame2D::PRESET_NONE && preset < CFrame2D::PRESET_MAX);
+
 }
 
 //============================================================
@@ -88,14 +84,14 @@ HRESULT CFrame2DTextStateText::Init()
 	// テキストの生成
 	m_pText = CScrollText2D::Create
 	( // 引数
-		text::FONT,			// フォントパス
-		text::ITALIC,		// イタリック
-		VEC3_ZERO,			// 原点位置
-		text::WAIT_TIME,	// 文字表示の待機時間
-		text::CHAR_HEIGHT,	// 文字縦幅
-		text::LINE_HEIGHT,	// 行間縦幅
-		text::ALIGN_X,		// 横配置
-		text::ALIGN_Y		// 縦配置
+		text::FONT,							// フォントパス
+		text::ITALIC,						// イタリック
+		VEC3_ZERO,							// 原点位置
+		CFrame2DTextStateText::WAIT_TIME,	// 文字表示の待機時間
+		CFrame2DTextStateText::CHAR_HEIGHT,	// 文字縦幅
+		CFrame2DTextStateText::LINE_HEIGHT,	// 行間縦幅
+		text::ALIGN_X,						// 横配置
+		text::ALIGN_Y						// 縦配置
 	);
 	if (m_pText == nullptr)
 	{ // 生成に失敗した場合
@@ -240,6 +236,18 @@ void CFrame2DTextStateText::SetOffset(const VECTOR3& rOffset)
 
 	// 相対位置の設定
 	SetPositionRelative();
+}
+
+//============================================================
+//	プリセットオフセットの取得処理
+//============================================================
+VECTOR3 CFrame2DTextStateText::GetPresetOffset(const CFrame2D::EPreset preset)
+{
+	// プリセット範囲外エラー
+	assert(preset > CFrame2D::PRESET_NONE && preset < CFrame2D::PRESET_MAX);
+
+	// 引数プリセットのオフセットを返す
+	return text::OFFSET[preset];
 }
 
 //============================================================

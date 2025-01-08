@@ -81,14 +81,29 @@ public:
 	using CFrame2DTextStateText::IsTextEndScroll;		// テキスト文字送り終了状況取得
 
 protected:
+	// 仮想関数
+	virtual VECTOR3 GetPresetOffset(const ESelect select, const CFrame2D::EPreset preset);	// オフセット取得
+
+	// オーバーロード関数再公開
+	using CFrame2DTextStateText::GetPresetOffset;	// オフセット取得
+
 	// オーバーライド関数
 	void SetPositionRelative() override;	// 相対位置設定
 
 private:
+	// エイリアス定義
+	typedef VECTOR3(CFrame2DTextStateSelect::*AFuncOffset)();	// オフセット取得関数ポインタ
+
+	// 関数配列
+	static AFuncOffset m_aFuncOffset[][SELECT_MAX];	// オフセット取得関数リスト
+
 	// メンバ関数
 	void UpdateScroll();	// 文字送り更新
 	void UpdateSelect();	// 選択更新
 	void UpdateDecide();	// 決定更新
+	int GetMaxSelectLine();	// 選択肢の最大行数取得
+	VECTOR3 GetOffsetDownLeft();	// 左下部配置オフセット取得
+	VECTOR3 GetOffsetDownRight();	// 右下部配置オフセット取得
 
 	// メンバ変数
 	std::string m_aNextTextKey[SELECT_MAX];	// 次テキストの検索キー

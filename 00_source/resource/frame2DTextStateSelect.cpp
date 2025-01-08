@@ -20,27 +20,8 @@ namespace
 {
 	namespace select
 	{
-		namespace L
-		{
-			const VECTOR3 OFFSET[] =	// テキストオフセットプリセット
-			{
-				VECTOR3(-160.0f, -80.0f + 54.0f * 2.0f, 0.0f)	// 下部配置
-			};
-		}
-
-		namespace R
-		{
-			const VECTOR3 OFFSET[] =	// テキストオフセットプリセット
-			{
-				VECTOR3(160.0f, -80.0f + 54.0f * 2.0f, 0.0f)	// 下部配置
-			};
-		}
-
 		const char*	FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
 		const bool	ITALIC		= false;			// イタリック
-		const float	CHAR_HEIGHT	= 42.0f;			// 文字縦幅
-		const float	LINE_HEIGHT	= 54.0f;			// 行間縦幅
-		const float	WAIT_TIME	= 0.045f;			// 文字表示の待機時間
 		const EAlignX ALIGN_X	= XALIGN_CENTER;	// 横配置
 		const EAlignY ALIGN_Y	= YALIGN_TOP;		// 縦配置
 	}
@@ -54,10 +35,12 @@ namespace
 }
 
 //************************************************************
-//	スタティックアサート
+//	静的メンバ変数宣言
 //************************************************************
-static_assert(NUM_ARRAY(select::L::OFFSET) == CFrame2D::PRESET_MAX, "ERROR : Preset Count Mismatch");
-static_assert(NUM_ARRAY(select::R::OFFSET) == CFrame2D::PRESET_MAX, "ERROR : Preset Count Mismatch");
+CFrame2DTextStateSelect::AFuncOffset CFrame2DTextStateSelect::m_aFuncOffset[][SELECT_MAX] =	// オフセット取得関数リスト
+{
+	{ &CFrame2DTextStateSelect::GetOffsetDownLeft, &CFrame2DTextStateSelect::GetOffsetDownRight },	// 下部配置オフセット
+};
 
 //************************************************************
 //	子クラス [CFrame2DTextStateSelect] のメンバ関数
@@ -67,7 +50,8 @@ static_assert(NUM_ARRAY(select::R::OFFSET) == CFrame2D::PRESET_MAX, "ERROR : Pre
 //============================================================
 CFrame2DTextStateSelect::CFrame2DTextStateSelect() : CFrame2DTextStateSelect(VEC3_ZERO, VEC3_ZERO, VEC3_ZERO)
 {
-
+	// スタティックアサート
+	static_assert(NUM_ARRAY(m_aFuncOffset) == CFrame2D::PRESET_MAX, "ERROR : Preset Count Mismatch");
 }
 
 //============================================================
@@ -77,18 +61,15 @@ CFrame2DTextStateSelect::CFrame2DTextStateSelect(const CFrame2D::EPreset preset)
 	m_pSoul		 (nullptr),	// ソウルカーソル情報
 	m_nCurSelect (0)		// 現在の選択肢
 {
-	// プリセット範囲外エラー
-	assert(preset > CFrame2D::PRESET_NONE && preset < CFrame2D::PRESET_MAX);
-
 	// メンバ変数をクリア
-	m_aOffset[SELECT_LEFT]	= select::L::OFFSET[preset];	// 左選択肢オフセット
-	m_aOffset[SELECT_RIGHT]	= select::R::OFFSET[preset];	// 右選択肢オフセット
 	for (int i = 0; i < SELECT_MAX; i++)
 	{ // 選択肢の総数分繰り返す
 
 		m_aNextTextKey[i]	= {};		// 次テキストの検索キー
 		m_apSelect[i]		= nullptr;	// 選択肢情報
 	}
+	m_aOffset[SELECT_LEFT]	= GetPresetOffset(SELECT_LEFT, preset);		// 左選択肢オフセット
+	m_aOffset[SELECT_RIGHT]	= GetPresetOffset(SELECT_RIGHT, preset);	// 右選択肢オフセット
 }
 
 //============================================================
@@ -99,14 +80,14 @@ CFrame2DTextStateSelect::CFrame2DTextStateSelect(const VECTOR3& rOffsetText, con
 	m_nCurSelect (0)		// 現在の選択肢
 {
 	// メンバ変数をクリア
-	m_aOffset[SELECT_LEFT]	= rOffsetSelectL;	// 左選択肢オフセット
-	m_aOffset[SELECT_RIGHT]	= rOffsetSelectR;	// 右選択肢オフセット
 	for (int i = 0; i < SELECT_MAX; i++)
 	{ // 選択肢の総数分繰り返す
 
 		m_aNextTextKey[i]	= {};		// 次テキストの検索キー
 		m_apSelect[i]		= nullptr;	// 選択肢情報
 	}
+	m_aOffset[SELECT_LEFT]	= rOffsetSelectL;	// 左選択肢オフセット
+	m_aOffset[SELECT_RIGHT]	= rOffsetSelectR;	// 右選択肢オフセット
 }
 
 //============================================================
@@ -147,14 +128,14 @@ HRESULT CFrame2DTextStateSelect::Init()
 		// 選択肢の生成
 		m_apSelect[i] = CScrollText2D::Create
 		( // 引数
-			select::FONT,			// フォントパス
-			select::ITALIC,			// イタリック
-			VEC3_ZERO,				// 原点位置
-			select::WAIT_TIME,		// 文字表示の待機時間
-			select::CHAR_HEIGHT,	// 文字縦幅
-			select::LINE_HEIGHT,	// 行間縦幅
-			select::ALIGN_X,		// 横配置
-			select::ALIGN_Y			// 縦配置
+			select::FONT,						// フォントパス
+			select::ITALIC,						// イタリック
+			VEC3_ZERO,							// 原点位置
+			CFrame2DTextStateText::WAIT_TIME,	// 文字表示の待機時間
+			CFrame2DTextStateText::CHAR_HEIGHT,	// 文字縦幅
+			CFrame2DTextStateText::LINE_HEIGHT,	// 行間縦幅
+			select::ALIGN_X,					// 横配置
+			select::ALIGN_Y						// 縦配置
 		);
 		if (m_apSelect[i] == nullptr)
 		{ // 生成に失敗した場合
@@ -367,6 +348,18 @@ void CFrame2DTextStateSelect::ChangeText(const ESelect select, const AText& rTex
 }
 
 //============================================================
+//	プリセットオフセットの取得処理
+//============================================================
+VECTOR3 CFrame2DTextStateSelect::GetPresetOffset(const ESelect select, const CFrame2D::EPreset preset)
+{
+	// プリセット範囲外エラー
+	assert(preset > CFrame2D::PRESET_NONE && preset < CFrame2D::PRESET_MAX);
+
+	// 引数プリセットのオフセットを返す
+	return (this->*(m_aFuncOffset[preset][select]))();
+}
+
+//============================================================
 //	相対位置の設定処理
 //============================================================
 void CFrame2DTextStateSelect::SetPositionRelative()
@@ -374,20 +367,17 @@ void CFrame2DTextStateSelect::SetPositionRelative()
 	// 親クラスの相対位置の設定
 	CFrame2DTextStateText::SetPositionRelative();
 
-	// TODO：オフセットY座標の補正
-#if 1
-	int nMaxNumStr = 0;
-	for (int i = 0; i < SELECT_MAX; i++)
-	{ // 選択肢の総数分繰り返す
+	CFrame2D::EPreset preset = m_pContext->GetFramePreset();	// フレームプリセット
+	if (preset != CFrame2D::PRESET_NONE)
+	{ // プリセットが指定されている場合
 
-		int nNumStr = m_apSelect[i]->GetNumString();
-		if (nMaxNumStr < nNumStr)
-		{
-			nMaxNumStr = nNumStr;
+		for (int i = 0; i < SELECT_MAX; i++)
+		{ // 選択肢の総数分繰り返す
+
+			// オフセットを更新
+			m_aOffset[i] = GetPresetOffset((ESelect)i, preset);
 		}
 	}
-	m_aOffset[0].y = m_aOffset[1].y = -80.0f + select::LINE_HEIGHT * (float)(3 - nMaxNumStr);
-#endif
 
 	VECTOR3 posFrame = m_pContext->GetFramePosition();	// フレーム位置
 	VECTOR3 rotFrame = m_pContext->GetFrameRotation();	// フレーム向き
@@ -488,4 +478,57 @@ void CFrame2DTextStateSelect::UpdateDecide()
 		// テキストの遷移
 		m_pContext->TransText(m_aNextTextKey[m_nCurSelect]);
 	}
+}
+
+//============================================================
+//	選択肢の最大行数の取得処理
+//============================================================
+int CFrame2DTextStateSelect::GetMaxSelectLine()
+{
+	int nMaxNumLine = 0;	// 最大の行数
+	for (int i = 0; i < SELECT_MAX; i++)
+	{ // 選択肢の総数分繰り返す
+
+		// 選択肢が未生成の場合次へ
+		if (m_apSelect[i] == nullptr) { continue; }
+
+		int nNumLine = m_apSelect[i]->GetNumString();	// 現在の行数
+		if (nMaxNumLine < nNumLine)
+		{ // より多い行数の場合
+
+			// 行数を保存
+			nMaxNumLine = nNumLine;
+		}
+	}
+
+	// 最大の行数を返す
+	return nMaxNumLine;
+}
+
+//============================================================
+//	左下部配置オフセットの取得処理
+//============================================================
+VECTOR3 CFrame2DTextStateSelect::GetOffsetDownLeft()
+{
+	// オフセットの計算
+	VECTOR3 offset;
+	offset.x = -160.0f;
+	offset.y = GetPresetOffset(CFrame2D::PRESET_DOWN).y + CFrame2DTextStateText::LINE_HEIGHT * (float)(3 - GetMaxSelectLine());
+
+	// オフセットを返す
+	return offset;
+}
+
+//============================================================
+//	右下部配置オフセットの取得処理
+//============================================================
+VECTOR3 CFrame2DTextStateSelect::GetOffsetDownRight()
+{
+	// オフセットの計算
+	VECTOR3 offset;
+	offset.x = 160.0f;
+	offset.y = GetPresetOffset(CFrame2D::PRESET_DOWN).y + CFrame2DTextStateText::LINE_HEIGHT * (float)(3 - GetMaxSelectLine());
+
+	// オフセットを返す
+	return offset;
 }
