@@ -17,6 +17,7 @@ class CFrame2DModuleText;		// テキスト表示機能クラス
 class CFrame2DTextBuffer;		// テキスト情報保存バッファクラス
 class CFrame2DTextStateText;	// テキスト状態クラス
 class CFrame2DTextStateSelect;	// 選択付きテキスト状態クラス
+class CFrame2DTextStateItem;	// アイテムテキスト状態クラス
 
 //************************************************************
 //	クラス定義
@@ -42,8 +43,9 @@ public:
 	inline virtual void SetVec3Position(const VECTOR3&)		 {}	// 位置設定
 	inline virtual void SetVec3Rotation(const VECTOR3&)		 {}	// 向き設定
 	inline virtual void SetVec3Size(const VECTOR3&)			 {}	// 大きさ設定
-	inline virtual CFrame2DTextStateText* GetStateText()	 { return nullptr; }	// テキスト状態取得
-	inline virtual CFrame2DTextStateSelect* GetStateSelect() { return nullptr; }	// 選択付きテキスト状態取得
+	inline virtual CFrame2DTextStateText*	GetStateText()	 { return nullptr; }	// テキスト状態取得
+	inline virtual CFrame2DTextStateSelect*	GetStateSelect() { return nullptr; }	// 選択付きテキスト状態取得
+	inline virtual CFrame2DTextStateItem*	GetStateItem()	 { return nullptr; }	// アイテムテキスト状態取得
 
 	// メンバ関数
 	inline void SetContext(CFrame2DModuleText* pContext) { m_pContext = pContext; }	// コンテキスト設定

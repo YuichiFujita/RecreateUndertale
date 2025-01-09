@@ -269,6 +269,7 @@ CFrame2DTextBuffer* CFrame2DModuleText::CreateBuffText(const std::string& rCreat
 	// TODO：追加したら修正
 	else if	(rCreateKey == "TEXT_FACE")		{ return new CFrame2DTextBufferText; }		// 表情付きテキスト保存バッファ
 	else if	(rCreateKey == "SELECT_FACE")	{ return new CFrame2DTextBufferSelect; }	// 表情/選択付きテキスト保存バッファ
+	else if	(rCreateKey == "ITEM")			{ return new CFrame2DTextBufferItem; }		// アイテムテキスト保存バッファ
 
 	// 存在しない生成キーの場合エラー
 	assert(false);

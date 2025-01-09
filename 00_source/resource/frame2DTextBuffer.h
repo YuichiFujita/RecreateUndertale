@@ -21,6 +21,7 @@
 class CFrame2DTextState;		// テキスト機能状態クラス
 class CFrame2DTextBufferText;	// テキスト機能保存クラス
 class CFrame2DTextBufferSelect;	// 選択付きテキスト機能保存クラス
+class CFrame2DTextBufferItem;	// アイテムテキスト機能保存クラス
 
 //************************************************************
 //	クラス定義
@@ -41,6 +42,7 @@ public:
 	// 仮想関数
 	virtual inline CFrame2DTextBufferText* GetBufferText()		{ return nullptr; }	// テキストバッファ取得
 	virtual inline CFrame2DTextBufferSelect* GetBufferSelect()	{ return nullptr; }	// 選択付きテキストバッファ取得
+	virtual inline CFrame2DTextBufferItem* GetBufferItem()		{ return nullptr; }	// アイテムテキストバッファ取得
 	virtual inline void LoadSetup(std::ifstream* /*pFile*/, const std::string& /*rString*/)	{}	// バッファごとのセットアップ
 
 	// メンバ変数

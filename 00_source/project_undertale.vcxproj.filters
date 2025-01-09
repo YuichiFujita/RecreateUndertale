@@ -546,6 +546,12 @@
     <ClCompile Include="resource\screen.cpp">
       <Filter>system\renderer</Filter>
     </ClCompile>
+    <ClCompile Include="resource\frame2DTextStateItem.cpp">
+      <Filter>ingame\frame\module\text\state</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\frame2DTextBufferItem.cpp">
+      <Filter>ingame\frame\module\text\buffer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h">
@@ -985,6 +991,12 @@
     </ClInclude>
     <ClInclude Include="resource\screen.h">
       <Filter>system\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\frame2DTextStateItem.h">
+      <Filter>ingame\frame\module\text\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\frame2DTextBufferItem.h">
+      <Filter>ingame\frame\module\text\buffer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

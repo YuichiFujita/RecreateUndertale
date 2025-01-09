@@ -14,7 +14,7 @@ TEXTBOX_0
 	
 	# テキスト情報
 	TEXT_0
-		MODULE	= TEXT	# 使用モジュール
+		MODULE	= ITEM	# 使用モジュール
 		NEXT	= 1		# 次テキストキー
 		EMOTION	= -1	# 表情インデックス
 		
