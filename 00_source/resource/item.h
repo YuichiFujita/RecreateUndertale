@@ -44,6 +44,8 @@ public:
 	virtual void Drop(const int nBagIdx) const;	// アイテム破棄
 	virtual std::string Detail() const;	// アイテム詳細の文字列取得
 	virtual std::string UseEnd() const;	// アイテム使用後の文字列取得
+
+	// TODO：今後消える
 	virtual void InitUseText();			// 使用テキスト初期化
 	virtual void InitInfoText();		// 情報テキスト初期化
 	virtual void InitDropText();		// 破棄テキスト初期化
@@ -52,12 +54,16 @@ public:
 	static CItemData* Create(const EType type);	// 生成
 
 	// メンバ関数
-	inline void SetName(const char* pName)			{ m_sName = pName; }		// アイテム名設定
-	inline const char* GetName() const				{ return m_sName.c_str(); }	// アイテム名取得
+	inline void SetDataPath(const std::string& rDataPath)	{ m_sDataPath = rDataPath; }	// アイテム情報パス設定
+	inline std::string GetDataPath() const			{ return m_sDataPath; }		// アイテム情報パス取得
+	inline void SetName(const std::string& rName)	{ m_sName = rName; }		// アイテム名設定
+	inline std::string GetName() const				{ return m_sName; }			// アイテム名取得
 	inline void SetAddAtk(const int nAddAtk)		{ m_nAddAtk = nAddAtk; }	// 攻撃力上昇量設定
 	inline int GetAddAtk() const					{ return m_nAddAtk; }		// 攻撃力上昇量取得
 	inline void SetAddDef(const int nAddDef)		{ m_nAddDef = nAddDef; }	// 防御力上昇量設定
 	inline int GetAddDef() const					{ return m_nAddDef; }		// 防御力上昇量取得
+
+	// TODO：今後消える
 	inline void SetUse(const ATextBox& rVecUse)		{ m_vecUse = rVecUse; }		// 使用テキスト設定
 	inline const ATextBox& GetUse() const			{ return m_vecUse; }		// 使用テキスト取得
 	inline void SetInfo(const ATextBox& rVecInfo)	{ m_vecInfo = rVecInfo; }	// 情報テキスト設定
@@ -67,9 +73,12 @@ public:
 
 private:
 	// メンバ変数
-	std::string m_sName;	// アイテム名
-	int m_nAddAtk;			// 攻撃力上昇量
-	int m_nAddDef;			// 防御力上昇量
+	std::string m_sDataPath;	// アイテム情報パス
+	std::string m_sName;		// アイテム名
+	int m_nAddAtk;				// 攻撃力上昇量
+	int m_nAddDef;				// 防御力上昇量
+
+	// TODO：今後消える
 	ATextBox m_vecUse;		// 使用テキスト
 	ATextBox m_vecInfo;		// 情報テキスト
 	ATextBox m_vecDrop;		// 破棄テキスト
@@ -98,6 +107,10 @@ public:
 private:
 	// メンバ関数
 	HRESULT LoadSetup();	// セットアップ
+	CItemData* LoadDataSetup(const char* pDataPath);	// アイテム情報セットアップ
+
+	// TODO：今後消える
+	HRESULT LoadSetupOld();	// セットアップ
 	ATextBox LoadText(std::ifstream& rFile, const char* pEndStr, const CItemData& rItem);	// テキストセットアップ
 	void ReplaceCommand(std::string* pStr, const CItemData& rItem);	// 文字列内のコマンドの置換
 

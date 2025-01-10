@@ -4,9 +4,9 @@
 #	Author : 藤田 勇一
 #
 #==============================================================================
-ITEMPATH = "data\ITEM\data00.txt"	# モンスターあめ
-#ITEMPATH = "data\ITEM\data01.txt"
-#ITEMPATH = "data\ITEM\data02.txt"
-#ITEMPATH = "data\ITEM\data03.txt"
-#ITEMPATH = "data\ITEM\data04.txt"
-#ITEMPATH = "data\ITEM\data05.txt"
+ITEMPATH = data\ITEM\data00.txt	# モンスターあめ
+#ITEMPATH = data\ITEM\data01.txt
+#ITEMPATH = data\ITEM\data02.txt
+#ITEMPATH = data\ITEM\data03.txt
+#ITEMPATH = data\ITEM\data04.txt
+#ITEMPATH = data\ITEM\data05.txt

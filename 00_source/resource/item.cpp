@@ -23,7 +23,10 @@
 //************************************************************
 namespace
 {
-	const char* LOAD_TXT = "data\\TXT\\item.txt";	// アイテムテキスト相対パス
+	// TODO：今後消える
+	const char* LOAD_TXT_OLD = "data\\TXT\\item.txt";	// アイテムテキスト相対パス
+
+	const char* LOAD_TXT = "data\\ITEM\\info.txt";	// アイテムテキスト相対パス
 	const std::string CMD_NAME = "/name";	// 文字列を名前に置き換えるコマンド
 }
 
@@ -34,6 +37,7 @@ namespace
 //	コンストラクタ
 //============================================================
 CItemData::CItemData() :
+	m_sDataPath	(""),	// アイテム情報パス
 	m_sName		(""),	// アイテム名
 	m_nAddAtk	(0),	// 攻撃力上昇量
 	m_nAddDef	(0),	// 防御力上昇量
@@ -58,6 +62,7 @@ CItemData::~CItemData()
 HRESULT CItemData::Init()
 {
 	// メンバ変数を初期化
+	m_sDataPath	= "";	// アイテム情報パス
 	m_sName		= "";	// アイテム名
 	m_nAddAtk	= 0;	// 攻撃力上昇量
 	m_nAddDef	= 0;	// 防御力上昇量
@@ -271,6 +276,17 @@ HRESULT CItem::LoadAll()
 		return E_FAIL;
 	}
 
+	// TODO：今後消える
+	// 旧アイテム情報のセットアップ
+#if 0
+	if (FAILED(LoadSetupOld()))
+	{ // セットアップに失敗した場合
+
+		assert(false);
+		return E_FAIL;
+	}
+#endif
+
 	return S_OK;
 }
 
@@ -335,9 +351,157 @@ void CItem::Release(CItem*& prItem)
 }
 
 //============================================================
-//	アイテム情報のセットアップ処理
+//	セットアップ処理
 //============================================================
 HRESULT CItem::LoadSetup()
+{
+	// ファイルを開く
+	std::ifstream file(LOAD_TXT);	// ファイルストリーム
+	if (file.fail())
+	{ // ファイルが開けなかった場合
+
+		// エラーメッセージボックス
+		MessageBox(nullptr, "アイテムセットアップの読み込みに失敗！", "警告！", MB_ICONWARNING);
+		return E_FAIL;
+	}
+
+	// ファイルを読込
+	std::string str;	// 読込文字列
+	while (file >> str)
+	{ // ファイルの終端ではない場合ループ
+
+		if (str.front() == '#') { std::getline(file, str); }	// コメントアウト
+		else if (str == "ITEMPATH")
+		{
+			file >> str;	// ＝を読込
+			file >> str;	// アイテム種類を読込
+
+			// アイテム情報の読込
+			CItemData* pItemData = LoadDataSetup(str.c_str());
+			if (pItemData == nullptr)
+			{ // 読込に失敗した場合
+
+				assert(false);
+				return E_FAIL;
+			}
+
+			// アイテム情報を最後尾に追加
+			m_vecItemData.push_back(pItemData);
+		}
+	}
+
+	// ファイルを閉じる
+	file.close();
+
+	return S_OK;
+}
+
+//============================================================
+//	アイテム情報のセットアップ処理
+//============================================================
+CItemData* CItem::LoadDataSetup(const char* pDataPath)
+{
+	CItemData* pItemData = nullptr;	// アイテム情報
+	int nAddAtk = 0;		// 攻撃力上昇量
+	int nAddDef = 0;		// 防御力上昇量
+	int nType = NONE_IDX;	// アイテム種類
+
+	// ファイルを開く
+	std::ifstream file(pDataPath);	// ファイルストリーム
+	if (file.fail())
+	{ // ファイルが開けなかった場合
+
+		// エラーメッセージボックス
+		MessageBox(nullptr, "アイテム情報セットアップの読み込みに失敗！", "警告！", MB_ICONWARNING);
+		return nullptr;
+	}
+
+	// ファイルを読込
+	std::string str;	// 読込文字列
+	while (file >> str)
+	{ // ファイルの終端ではない場合ループ
+
+		if (str.front() == '#') { std::getline(file, str); }	// コメントアウト
+		else if (str == "ITEMSET")
+		{
+			do { // END_ITEMSETを読み込むまでループ
+
+				// 文字列を読み込む
+				file >> str;
+
+				if (str.front() == '#') { std::getline(file, str); }	// コメントアウト
+				else if (str == "TYPE")
+				{
+					file >> str;	// ＝を読込
+					file >> nType;	// アイテム種類を読込
+
+					// 空のアイテムデータを生成
+					assert(pItemData == nullptr);
+					pItemData = CItemData::Create((CItemData::EType)nType);
+					if (pItemData == nullptr)
+					{ // 生成に失敗した場合
+
+						assert(false);
+						return nullptr;
+					}
+
+					// アイテム情報パスを保存
+					pItemData->SetDataPath(pDataPath);
+				}
+				else if (str == "NAME")
+				{
+					file >> str;	// ＝を読込
+					file >> str;	// アイテム名を読込
+
+					// アイテム名を保存
+					pItemData->SetName(str);
+
+					// テキストの初期化
+					pItemData->InitUseText();	// 使用テキスト
+					pItemData->InitInfoText();	// 情報テキスト
+					pItemData->InitDropText();	// 破棄テキスト
+				}
+				else if (str == "ADD_ATK")
+				{
+					file >> str;		// ＝を読込
+					file >> nAddAtk;	// 攻撃力上昇量を読込
+
+					// 攻撃力上昇量を保存
+					pItemData->SetAddAtk(nAddAtk);
+				}
+				else if (str == "ADD_DEF")
+				{
+					file >> str;		// ＝を読込
+					file >> nAddDef;	// 防御力上昇量を読込
+
+					// 防御力上昇量を保存
+					pItemData->SetAddDef(nAddDef);
+				}
+				else if (pItemData != nullptr)
+				{
+					// 種類ごとの情報読込
+					if (FAILED(pItemData->LoadSetup(&file, str)))
+					{ // 読込に失敗した場合
+
+						assert(false);
+						return nullptr;
+					}
+				}
+			} while (str != "END_ITEMSET");	// END_ITEMSETを読み込むまでループ
+		}
+	}
+
+	// ファイルを閉じる
+	file.close();
+
+	// 生成したアイテム情報を返す
+	return pItemData;
+}
+
+//============================================================
+//	アイテム情報のセットアップ処理
+//============================================================
+HRESULT CItem::LoadSetupOld()
 {
 	int nIdx = 0;			// アイテムインデックス
 	int nAddAtk = 0;		// 攻撃力上昇量
@@ -345,7 +509,7 @@ HRESULT CItem::LoadSetup()
 	int nType = NONE_IDX;	// アイテム種類
 
 	// ファイルを開く
-	std::ifstream file(LOAD_TXT);	// ファイルストリーム
+	std::ifstream file(LOAD_TXT_OLD);	// ファイルストリーム
 	if (file.fail())
 	{ // ファイルが開けなかった場合
 
@@ -391,7 +555,7 @@ HRESULT CItem::LoadSetup()
 					file >> str;	// アイテム名を読込
 
 					// アイテム名を保存
-					m_vecItemData[nIdx]->SetName(str.c_str());
+					m_vecItemData[nIdx]->SetName(str);
 
 					// テキストの初期化
 					m_vecItemData[nIdx]->InitUseText();		// 使用テキスト
