@@ -181,7 +181,7 @@ void CFrame2DModuleText::TransText(const std::string& rNextTextKey)
 		{ // テキストボックス遷移先がある場合
 
 			// 次のテキストボックスを割当
-			BindTextBox(m_sNextPath, m_sNextBoxKey, m_sNextStartKey);
+			BindTextBox(m_sNextPath, m_sNextBoxKey, m_sNextStartKey);	// TODO：選択肢ごとに違うテキストボックスにも飛べるようにする
 		}
 	}
 	else
@@ -234,10 +234,16 @@ HRESULT CFrame2DModuleText::BindText(const std::string& rTextKey)
 	CFrame2DTextBuffer* pNextBuffText = itr->second;
 
 	// テキスト機能状態の変更
-	ChangeState(pNextBuffText->CreateState(GetFramePreset()));	// 次テキストに使用する機能を取得
+	ChangeState(pNextBuffText->CreateState(GetFramePreset()));	// 次テキストに使用する機能を取得	// TODO：同じ状態なら変更なしにすれば壊れない
 
 	// テキストバッファの割当
 	m_pState->BindTextBuffer(pNextBuffText);
+
+	// TODO：アイテムテキストがテキスト進行ごとにアイテムインデックスを忘れる問題の解決案
+	//  １ ：同じテキスト機能状態なら変更しないでテキストの初期化のみ行う
+	//  ２ ：frame2DModuleTextItemを作成し、メンバ変数でアイテムインデックスを管理する
+	//  ３ ：frame2DTextStateItemが読込毎にアイテムの名前を読み込み、アイテム管理をmapにしてアイテム名からインデックスを検索
+	//  ４ ：全く同じものを独自関数として再作成
 
 	return S_OK;
 }
@@ -305,7 +311,7 @@ HRESULT CFrame2DModuleText::LoadTextBox(const std::string& rFilePath, const std:
 		{ // 読込開始の文字列と一致した場合
 
 			// テキストの読込
-			LoadText(&file);
+			LoadText(rFilePath, &file);
 		}
 	}
 
@@ -318,13 +324,13 @@ HRESULT CFrame2DModuleText::LoadTextBox(const std::string& rFilePath, const std:
 //============================================================
 //	テキストの読込処理
 //============================================================
-void CFrame2DModuleText::LoadText(std::ifstream* pFile)
+HRESULT CFrame2DModuleText::LoadText(const std::string& rFilePath, std::ifstream* pFile)
 {
 	// ファイルポインタがない場合抜ける
-	if (pFile == nullptr) { assert(false); return; }
+	if (pFile == nullptr) { assert(false); return E_FAIL; }
 
 	// 開けてないファイルの場合抜ける
-	if (!pFile->is_open()) { assert(false); return; }
+	if (!pFile->is_open()) { assert(false); return E_FAIL; }
 
 	// ファイルを読込
 	std::string str;	// 読込文字列
@@ -349,6 +355,10 @@ void CFrame2DModuleText::LoadText(std::ifstream* pFile)
 			*pFile >> str;				// ＝を読込
 			*pFile >> m_sNextStartKey;	// 次テキストボックスのテキスト開始キーを読込
 		}
+
+		// TODO：ここでFACEとNAMEのキーを判定
+		//		 FACE = -1でないならこれ以降のテキスト生成は顔つき
+
 		else if (size_t findIdx = str.find("TEXT_") != std::string::npos)	// TODO：ここどう書くかは要検討
 		{ // 読込開始の文字列が含まれていた場合
 
@@ -357,11 +367,22 @@ void CFrame2DModuleText::LoadText(std::ifstream* pFile)
 
 			// 文字列の読込
 			CFrame2DTextBuffer* pBuffText = LoadString(pFile);	// 読み込んだテキストバッファ取得
+			if (pBuffText == nullptr)
+			{ // 生成に失敗した場合
+
+				assert(false);
+				return E_FAIL;
+			}
+
+			// 読み込んだファイルパスを保存
+			pBuffText->m_sPath = rFilePath;
 
 			// テキストバッファを保存
 			m_mapBuffText.insert(std::make_pair(str, pBuffText));
 		}
 	} while (str != "END_TEXTBOX");	// END_TEXTBOXを読み込むまでループ
+
+	return S_OK;
 }
 
 //============================================================

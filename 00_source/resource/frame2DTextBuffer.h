@@ -46,7 +46,8 @@ public:
 	virtual inline void LoadSetup(std::ifstream* /*pFile*/, const std::string& /*rString*/)	{}	// バッファごとのセットアップ
 
 	// メンバ変数
-	AText m_text;	// テキスト保存
+	std::string m_sPath;	// テキスト保存パス
+	AText m_text;			// テキスト保存
 };
 
 //************************************************************

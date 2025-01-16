@@ -25,9 +25,9 @@ namespace
 {
 	// TODO：今後消える
 	const char* LOAD_TXT_OLD = "data\\TXT\\item.txt";	// アイテムテキスト相対パス
+	const std::string CMD_NAME = "/name";	// 文字列を名前に置き換えるコマンド
 
 	const char* LOAD_TXT = "data\\ITEM\\info.txt";	// アイテムテキスト相対パス
-	const std::string CMD_NAME = "/name";	// 文字列を名前に置き換えるコマンド
 }
 
 //************************************************************
@@ -291,7 +291,7 @@ HRESULT CItem::LoadAll()
 }
 
 //============================================================
-//	アイテム情報の取得処理
+//	アイテム情報の取得処理 (インデックス)
 //============================================================
 const CItemData& CItem::GetInfo(const int nIdx)
 {
@@ -301,6 +301,32 @@ const CItemData& CItem::GetInfo(const int nIdx)
 
 		// 引数のアイテム情報を返す
 		return *m_vecItemData[nIdx];
+	}
+
+	// 空のアイテム情報を返す
+	assert(false);
+	return *m_vecItemData[0];
+}
+
+//============================================================
+//	アイテム情報の取得処理 (パス)
+//============================================================
+const CItemData& CItem::GetInfo(const std::string& rPath)
+{
+	// 同一アイテムを判定するラムダ関数を作成
+	auto funcSamePath = [rPath](CItemData* pItemData)
+	{
+		// 引数のパスと同一かを判定する
+		return pItemData->GetDataPath() == rPath;
+	};
+
+	// 同一アイテムの検索
+	auto itr = std::find_if(m_vecItemData.begin(), m_vecItemData.end(), funcSamePath);
+	if (itr != m_vecItemData.end())
+	{ // 同一アイテムが見つかった場合
+
+		// 検索したアイテム情報を返す
+		return *(*itr);
 	}
 
 	// 空のアイテム情報を返す

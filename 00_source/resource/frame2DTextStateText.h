@@ -72,8 +72,10 @@ protected:
 	virtual VECTOR3 GetPresetOffset(const CFrame2D::EPreset preset);	// プリセットオフセット取得
 	virtual void SetPositionRelative();	// 相対位置設定
 
-private:
+	// メンバ関数
+	inline void SetNextTextKey(const std::string& rKey) { m_sNextTextKey = rKey; }	// 次テキストの検索キー設定
 
+private:
 	// メンバ変数
 	std::string m_sNextTextKey;	// 次テキストの検索キー
 	CScrollText2D* m_pText;		// テキスト情報

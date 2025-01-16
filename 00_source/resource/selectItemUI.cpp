@@ -20,6 +20,9 @@
 #include "player.h"
 #include "playerItem.h"
 
+// TODO：使わない方法あれば勝ち
+#include "frame2DTextStateItem.h"
+
 // TODO：デバッグ
 #if 0
 #define RAND_ITEM
@@ -485,16 +488,16 @@ void CItemUI::Update(const float fDeltaTime)
 {
 	if (input::Decide())
 	{
-		if (IsTextBoxScroll())
-		{ // 文字送り中の場合
+		//if (IsTextBoxScroll())
+		//{ // 文字送り中の場合
 
-			// 文字を全表示させる
-			SetTextBoxEnableDraw(true);
-			return;
-		}
+		//	// 文字を全表示させる
+		//	SetTextBoxEnableDraw(true);
+		//	return;
+		//}
 
 		// テキスト内容の進行
-		NextText();
+		//NextText();	// TODO
 	}
 }
 
@@ -552,6 +555,31 @@ CItemUI* CItemUI::Create
 			// アイテムの破棄
 			SAFE_DELETE(pItemUI);
 			return nullptr;
+		}
+
+		// TODO：関数化
+		CItem* pItem = GET_MANAGER->GetItem();	// アイテム情報
+		std::string sPath = pItem->GetInfo(nChoiceItemIdx).GetDataPath();
+
+		//pItemUI->m_pTextBox->GetModule()->GetModuleText()->ChangeState(new CFrame2DTextStateItem(pItemUI->m_pTextBox->GetPreset()));
+
+		switch (choiceAct)
+		{ // 選択肢ごとの処理
+		case CSelectItemUI::SELECT_USE:
+			pItemUI->m_pTextBox->GetModule()->GetModuleText()->BindTextBox(sPath, "USE");
+			break;
+
+		case CSelectItemUI::SELECT_INFO:
+			pItemUI->m_pTextBox->GetModule()->GetModuleText()->BindTextBox(sPath, "INFO");
+			break;
+
+		case CSelectItemUI::SELECT_DROP:
+			pItemUI->m_pTextBox->GetModule()->GetModuleText()->BindTextBox(sPath, "DROP");
+			break;
+
+		default:	// 例外処理
+			assert(false);
+			break;
 		}
 
 		// 確保したアドレスを返す

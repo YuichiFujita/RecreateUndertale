@@ -47,25 +47,3 @@ CFrame2DTextState* CFrame2DTextBufferItem::CreateState(const CFrame2D::EPreset p
 		return new CFrame2DTextStateItem;	// デフォルト
 	}
 }
-
-// TODO：いる？
-#if 0
-//============================================================
-//	バッファごとのセットアップ処理
-//============================================================
-void CFrame2DTextBufferItem::LoadSetup(std::ifstream* pFile, const std::string& rString)
-{
-	// ファイルポインタがない場合抜ける
-	if (pFile == nullptr) { assert(false); return; }
-
-	// 開けてないファイルの場合抜ける
-	if (!pFile->is_open()) { assert(false); return; }
-
-	std::string str;	// 読込文字列
-	if (rString == "NEXT")
-	{
-		*pFile >> str;				// ＝を読込
-		*pFile >> m_sNextTextKey;	// 次テキストの検索キーを読込
-	}
-}
-#endif

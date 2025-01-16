@@ -20,6 +20,7 @@
 //	前方宣言
 //************************************************************
 class CFrame2DTextBuffer;	// テキスト情報保存バッファクラス
+class CItemData;			// アイテム情報クラス
 
 //************************************************************
 //	クラス定義
@@ -40,7 +41,12 @@ public:
 	HRESULT Init() override;	// 初期化
 	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
+	void BindTextBuffer(CFrame2DTextBuffer* pBuffer) override;	// テキスト情報保存バッファ割当
 	inline CFrame2DTextStateItem* GetStateItem() override { return this; }	// アイテムテキスト状態取得
+
+private:
+	// メンバ関数
+	void ReplaceCommand(std::string* pStr, const CItemData& rItem);	// 文字列内のコマンドの置換
 };
 
 #endif	// _FRAME2D_TEXT_STATE_ITEM_H_

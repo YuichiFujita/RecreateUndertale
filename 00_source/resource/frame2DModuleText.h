@@ -55,7 +55,7 @@ private:
 	void DeleteBuffText();							// テキストバッファ連想配列削除
 	CFrame2DTextBuffer* CreateBuffText(const std::string& rCreateKey);				// テキストバッファ生成
 	HRESULT LoadTextBox(const std::string& rFilePath, const std::string& rBoxKey);	// テキストボックス読込
-	void LoadText(std::ifstream* pFile);					// テキスト読込
+	HRESULT LoadText(const std::string& rFilePath, std::ifstream* pFile);			// テキスト読込
 	CFrame2DTextBuffer* LoadString(std::ifstream* pFile);	// 文字列読込
 
 	// メンバ変数
