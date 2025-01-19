@@ -134,7 +134,7 @@ void CFrame2DTextStateItem::BindTextBuffer(CFrame2DTextBuffer* pBuffer)
 void CFrame2DTextStateItem::ReplaceCommand(std::string* pStr, const CItemData& rItem)
 {
 	// 名前変換コマンドの検索
-	size_t idxName = pStr->find(CMD_NAME);
+	size_t idxName = pStr->find(CMD_NAME);	// TODO：一つの文字列に二つコマンド設定できない
 	if (idxName != std::string::npos)
 	{ // コマンドが存在した場合
 

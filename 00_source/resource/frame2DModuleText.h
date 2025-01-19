@@ -28,6 +28,9 @@ class CFrame2DTextBuffer;	// テキスト情報保存バッファクラス
 class CFrame2DModuleText : public CFrame2DModule
 {
 public:
+	// エイリアス定義
+	using ABuffTextArray = std::map<std::string, CFrame2DTextBuffer*>;	// テキストバッファ連想配列型
+
 	// コンストラクタ
 	CFrame2DModuleText(const bool bAutoUninit = true);
 
@@ -44,22 +47,23 @@ public:
 	inline CFrame2DModuleText* GetModuleText() override	{ return this; }	// テキスト表示機能取得
 
 	// メンバ関数
+	void BindBuffTextArray(const ABuffTextArray& rMapBuffText, const std::string& rFilePath, const std::string& rBoxKey, const std::string& rNextStartKey = "0");	// テキストバッファ連想配列割当
 	HRESULT BindTextBox(const std::string& rFilePath, const std::string& rBoxKey, const std::string& rNextStartKey = "0");	// テキストボックス割当
+	HRESULT BindText(const std::string& rTextKey);					// テキスト割当
 	void TransText(const std::string& rNextTextKey);				// テキスト遷移
 	HRESULT ChangeState(CFrame2DTextState* pState);					// 状態変更
 	inline CFrame2DTextState* GetState() const { return m_pState; }	// 状態取得
 
 private:
 	// メンバ関数
-	HRESULT BindText(const std::string& rTextKey);	// テキスト割当
-	void DeleteBuffText();							// テキストバッファ連想配列削除
-	CFrame2DTextBuffer* CreateBuffText(const std::string& rCreateKey);				// テキストバッファ生成
-	HRESULT LoadTextBox(const std::string& rFilePath, const std::string& rBoxKey);	// テキストボックス読込
-	HRESULT LoadText(const std::string& rFilePath, std::ifstream* pFile);			// テキスト読込
+	void DeleteBuffText();	// テキストバッファ連想配列削除
+	CFrame2DTextBuffer* CreateBuffText(const std::string& rCreateKey);			// テキストバッファ生成
+	bool LoadTextBox(const std::string& rFilePath, const std::string& rBoxKey);	// テキストボックス読込
+	bool LoadText(const std::string& rFilePath, std::ifstream* pFile);			// テキスト読込
 	CFrame2DTextBuffer* LoadString(std::ifstream* pFile);	// 文字列読込
 
 	// メンバ変数
-	std::map<std::string, CFrame2DTextBuffer*> m_mapBuffText;	// テキストバッファ連想配列
+	ABuffTextArray m_mapBuffText;	// テキストバッファ連想配列
 	CFrame2DTextState* m_pState;	// 状態
 	std::string m_sNextPath;		// 次テキストボックスの保存パス
 	std::string m_sNextBoxKey;		// 次テキストボックスの検索キー

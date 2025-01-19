@@ -44,9 +44,6 @@ CItemInfoUI::~CItemInfoUI()
 //============================================================
 HRESULT CItemInfoUI::Init()
 {
-	CItem* pItem = GET_MANAGER->GetItem();								// アイテム情報
-	const CItemData& rItemData = pItem->GetInfo(GetChoiceItemIdx());	// アイテム内部データ
-
 	// アイテムUIの初期化
 	if (FAILED(CItemUI::Init()))
 	{ // 初期化に失敗した場合
@@ -55,11 +52,41 @@ HRESULT CItemInfoUI::Init()
 		return E_FAIL;
 	}
 
-	// テキスト内容の進行
-	NextText();
+	// 機能が未設定の場合エラー
+	CFrame2DModule* pModule = GetModule();
+	if (pModule == nullptr) { assert(false); return E_FAIL; }
 
-	// アイテム詳細を先頭に追加
-	PushFrontString(rItemData.Detail());
+	// テキスト機能が未設定の場合エラー
+	CFrame2DModuleText* pModuleText = pModule->GetModuleText();
+	if (pModuleText == nullptr) { assert(false); return E_FAIL; }
+
+	// アイテム情報を読み込んだパスを取得
+	CItem* pItem = GET_MANAGER->GetItem();							// アイテム情報
+	const CItemData& rItem = pItem->GetInfo(GetChoiceItemIdx());	// アイテム情報
+	const std::string sPath = rItem.GetDataPath();					// アイテム情報読込パス
+
+
+
+	// テキストの初期化バッファを取得
+	CFrame2DModuleText::ABuffTextArray mapBuffText = rItem.CreateInfoBuffTextArray();
+
+	// テキストバッファ連想配列の割当
+	pModuleText->BindBuffTextArray(mapBuffText, "NONE", "NONE", "0");
+
+	// テキストバッファの割当
+	pModuleText->BindText("0");
+
+
+
+	// アイテム情報の確認時のテキストを割当
+	pModuleText->BindTextBox(sPath, "INFO");
+
+	//// テキスト内容の進行
+	//NextText();
+
+	//// アイテム詳細を先頭に追加
+	//const CItemData& rItemData = pItem->GetInfo(GetChoiceItemIdx());	// アイテム内部データ
+	//PushFrontString(rItemData.Detail());
 
 	return S_OK;
 }
@@ -96,6 +123,8 @@ void CItemInfoUI::Draw(CShader* pShader)
 //============================================================
 void CItemInfoUI::NextText()
 {
+	// TODO：NextTextの作成
+#if 0
 	int nTextIdx = GetCurTextIdx();			// テキスト進行度インデックス
 	int nItemIdx = GetChoiceItemIdx();		// 選択アイテムインデックス
 	CItem* pItem = GET_MANAGER->GetItem();	// アイテム情報
@@ -122,4 +151,5 @@ void CItemInfoUI::NextText()
 
 	// テキスト進行度を進める
 	CItemUI::NextText();
+#endif
 }

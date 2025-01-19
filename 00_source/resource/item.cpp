@@ -17,6 +17,7 @@
 #include "sceneGame.h"
 #include "player.h"
 #include "playerItem.h"
+#include "frame2DTextBuffer.h"
 
 //************************************************************
 //	定数宣言
@@ -40,10 +41,7 @@ CItemData::CItemData() :
 	m_sDataPath	(""),	// アイテム情報パス
 	m_sName		(""),	// アイテム名
 	m_nAddAtk	(0),	// 攻撃力上昇量
-	m_nAddDef	(0),	// 防御力上昇量
-	m_vecUse	({}),	// 使用テキスト
-	m_vecInfo	({}),	// 情報テキスト
-	m_vecDrop	({})	// 破棄テキスト
+	m_nAddDef	(0)		// 防御力上昇量
 {
 
 }
@@ -66,9 +64,6 @@ HRESULT CItemData::Init()
 	m_sName		= "";	// アイテム名
 	m_nAddAtk	= 0;	// 攻撃力上昇量
 	m_nAddDef	= 0;	// 防御力上昇量
-	m_vecUse	= {};	// 使用テキスト
-	m_vecInfo	= {};	// 情報テキスト
-	m_vecDrop	= {};	// 破棄テキスト
 
 	return S_OK;
 }
@@ -124,44 +119,68 @@ std::string CItemData::UseEnd() const
 }
 
 //============================================================
-//	使用テキストの初期化処理
+//	初期の使用テキストバッファ連想配列の生成処理
 //============================================================
-void CItemData::InitUseText()
+CFrame2DModuleText::ABuffTextArray CItemData::CreateUseBuffTextArray() const
 {
-	// 使用テキストの初期化
-	m_vecUse.clear();			// テキストのクリア
-	m_vecUse.emplace_back();	// 空の要素を最後尾に追加
+	CFrame2DModuleText::ABuffTextArray mapBuffText;
+	CFrame2DTextBufferItem* pBuffItem = new CFrame2DTextBufferItem;
 
-	// 使用テキストの作成
-	m_vecUse[0].push_back(" ＊ エラーメッセージ");
+	// アイテム情報パスを保存
+	pBuffItem->m_sPath = m_sDataPath;
+
+	// 使用テキストを最後尾に追加
+	pBuffItem->m_text.push_back(" ＊ エラーメッセージ");
+
+	// テキストバッファを保存
+	mapBuffText.insert(std::make_pair("0", pBuffItem));
+
+	return mapBuffText;
 }
 
 //============================================================
-//	情報テキストの初期化処理
+//	初期の情報テキストバッファ連想配列の生成処理
 //============================================================
-void CItemData::InitInfoText()
+CFrame2DModuleText::ABuffTextArray CItemData::CreateInfoBuffTextArray() const
 {
-	// 情報テキストの初期化
-	m_vecInfo.clear();			// テキストのクリア
-	m_vecInfo.emplace_back();	// 空の要素を最後尾に追加
+	CFrame2DModuleText::ABuffTextArray mapBuffText;
+	CFrame2DTextBufferItem* pBuffItem = new CFrame2DTextBufferItem;
 
-	// 情報テキストの作成
-	m_vecInfo[0].push_back(" ＊ エラーメッセージ");
+	// アイテム情報パスを保存
+	pBuffItem->m_sPath = m_sDataPath;
+
+	// 情報テキストを最後尾に追加
+	pBuffItem->m_text.push_back(" ＊ エラーメッセージ");
+
+	// テキストバッファを保存
+	mapBuffText.insert(std::make_pair("0", pBuffItem));
+
+	return mapBuffText;
 }
 
 //============================================================
-//	破棄テキストの初期化処理
+//	初期の破棄テキストバッファ連想配列の生成処理
 //============================================================
-void CItemData::InitDropText()
+CFrame2DModuleText::ABuffTextArray CItemData::CreateDropBuffTextArray() const
 {
-	// 破棄テキストの初期化
-	m_vecDrop.clear();			// テキストのクリア
-	m_vecDrop.emplace_back();	// 空の要素を最後尾に追加
+	CFrame2DModuleText::ABuffTextArray mapBuffText;
+	CFrame2DTextBufferItem* pBuffItem = new CFrame2DTextBufferItem;
+
+	// アイテム情報パスを保存
+	pBuffItem->m_sPath = m_sDataPath;
 
 	// 破棄テキストの作成
-	m_vecDrop[0].push_back(" ＊ ");
-	m_vecDrop[0][0].append(m_sName);
-	m_vecDrop[0][0].append("を　すてた");
+	std::string sText = " ＊ ";
+	sText.append(m_sName);
+	sText.append("を　すてた");
+
+	// 破棄テキストを最後尾に追加
+	pBuffItem->m_text.push_back(sText);
+
+	// テキストバッファを保存
+	mapBuffText.insert(std::make_pair("0", pBuffItem));
+
+	return mapBuffText;
 }
 
 //============================================================
@@ -481,11 +500,6 @@ CItemData* CItem::LoadDataSetup(const char* pDataPath)
 
 					// アイテム名を保存
 					pItemData->SetName(str);
-
-					// テキストの初期化
-					pItemData->InitUseText();	// 使用テキスト
-					pItemData->InitInfoText();	// 情報テキスト
-					pItemData->InitDropText();	// 破棄テキスト
 				}
 				else if (str == "ADD_ATK")
 				{
@@ -522,190 +536,4 @@ CItemData* CItem::LoadDataSetup(const char* pDataPath)
 
 	// 生成したアイテム情報を返す
 	return pItemData;
-}
-
-//============================================================
-//	アイテム情報のセットアップ処理
-//============================================================
-HRESULT CItem::LoadSetupOld()
-{
-	int nIdx = 0;			// アイテムインデックス
-	int nAddAtk = 0;		// 攻撃力上昇量
-	int nAddDef = 0;		// 防御力上昇量
-	int nType = NONE_IDX;	// アイテム種類
-
-	// ファイルを開く
-	std::ifstream file(LOAD_TXT_OLD);	// ファイルストリーム
-	if (file.fail())
-	{ // ファイルが開けなかった場合
-
-		// エラーメッセージボックス
-		MessageBox(nullptr, "アイテムセットアップの読み込みに失敗！", "警告！", MB_ICONWARNING);
-		return E_FAIL;
-	}
-
-	// ファイルを読込
-	std::string str;	// 読込文字列
-	while (file >> str)
-	{ // ファイルの終端ではない場合ループ
-
-		if (str.front() == '#') { std::getline(file, str); }	// コメントアウト
-		else if (str == "ITEMSET")
-		{
-			// 空の要素を最後尾に追加
-			m_vecItemData.emplace_back();
-
-			do { // END_ITEMSETを読み込むまでループ
-
-				// 文字列を読み込む
-				file >> str;
-
-				if (str.front() == '#') { std::getline(file, str); }	// コメントアウト
-				else if (str == "TYPE")
-				{
-					file >> str;	// ＝を読込
-					file >> nType;	// アイテム種類を読込
-
-					// 空のアイテムデータを生成
-					m_vecItemData[nIdx] = CItemData::Create((CItemData::EType)nType);
-					if (m_vecItemData[nIdx] == nullptr)
-					{ // 生成に失敗した場合
-
-						assert(false);
-						return E_FAIL;
-					}
-				}
-				else if (str == "NAME")
-				{
-					file >> str;	// ＝を読込
-					file >> str;	// アイテム名を読込
-
-					// アイテム名を保存
-					m_vecItemData[nIdx]->SetName(str);
-
-					// テキストの初期化
-					m_vecItemData[nIdx]->InitUseText();		// 使用テキスト
-					m_vecItemData[nIdx]->InitInfoText();	// 情報テキスト
-					m_vecItemData[nIdx]->InitDropText();	// 破棄テキスト
-				}
-				else if (str == "ADD_ATK")
-				{
-					file >> str;		// ＝を読込
-					file >> nAddAtk;	// 攻撃力上昇量を読込
-
-					// 攻撃力上昇量を保存
-					m_vecItemData[nIdx]->SetAddAtk(nAddAtk);
-				}
-				else if (str == "ADD_DEF")
-				{
-					file >> str;		// ＝を読込
-					file >> nAddDef;	// 防御力上昇量を読込
-
-					// 防御力上昇量を保存
-					m_vecItemData[nIdx]->SetAddDef(nAddDef);
-				}
-				else if (str == "USE")
-				{
-					// 使用テキスト情報のセットアップ
-					m_vecItemData[nIdx]->SetUse(LoadText(file, "END_USE", *m_vecItemData[nIdx]));
-				}
-				else if (str == "INFO")
-				{
-					// 情報テキスト情報のセットアップ
-					m_vecItemData[nIdx]->SetInfo(LoadText(file, "END_INFO", *m_vecItemData[nIdx]));
-				}
-				else if (str == "DROP")
-				{
-					// 破棄テキスト情報のセットアップ
-					m_vecItemData[nIdx]->SetDrop(LoadText(file, "END_DROP", *m_vecItemData[nIdx]));
-				}
-				else if (m_vecItemData[nIdx] != nullptr)
-				{
-					// 種類ごとの情報読込
-					if (FAILED(m_vecItemData[nIdx]->LoadSetup(&file, str)))
-					{ // 読込に失敗した場合
-
-						assert(false);
-						return E_FAIL;
-					}
-				}
-			} while (str != "END_ITEMSET");	// END_ITEMSETを読み込むまでループ
-
-			// アイテムインデックスを進める
-			nIdx++;
-		}
-	}
-
-	// ファイルを閉じる
-	file.close();
-
-	return S_OK;
-}
-
-//============================================================
-//	テキスト情報のセットアップ処理
-//============================================================
-ATextBox CItem::LoadText(std::ifstream& rFile, const char* pEndStr, const CItemData& rItem)
-{
-	ATextBox text = {};	// 読込テキスト情報
-	int nBoxIdx = 0;	// テキストボックスインデックス
-
-	// ファイルを読込
-	std::string str;	// 読込文字列
-	do { // 終了文字列を読み込むまでループ
-
-		// 文字列を読み込む
-		rFile >> str;
-
-		if (str.front() == '#') { std::getline(rFile, str); }	// コメントアウト
-		else if (str == "TEXT")
-		{
-			// 空の要素を最後尾に追加
-			text.emplace_back();
-
-			do { // END_TEXTを読み込むまでループ
-
-				// 文字列を読み込む
-				rFile >> str;
-
-				if (str.front() == '#') { std::getline(rFile, str); }	// コメントアウト
-				else if (str == "STR")
-				{
-					rFile >> str;					// ＝を読込
-					rFile.seekg(1, std::ios::cur);	// 読込位置を空白分ずらす
-					std::getline(rFile, str);		// 一行全て読み込む
-
-					// 文字列の先頭に空白を追加
-					str.insert(0, " ");
-
-					// 文字列内のコマンドを置換
-					ReplaceCommand(&str, rItem);
-
-					// 文字列を最後尾に追加
-					text[nBoxIdx].push_back(str);
-				}
-			} while (str != "END_TEXT");	// END_TEXTを読み込むまでループ
-
-			// テキストボックスインデックスを進める
-			nBoxIdx++;
-		}
-	} while (str != pEndStr);	// 終了文字列を読み込むまでループ
-
-	// 読み込んだテキストを返す
-	return text;
-}
-
-//============================================================
-//	文字列内のコマンドの置換処理
-//============================================================
-void CItem::ReplaceCommand(std::string* pStr, const CItemData& rItem)
-{
-	// 名前変換コマンドの検索
-	size_t idxName = pStr->find(CMD_NAME);
-	if (idxName != std::string::npos)
-	{ // コマンドが存在した場合
-
-		// アイテム名に変換する
-		pStr->replace(idxName, CMD_NAME.length(), rItem.GetName());
-	}
 }

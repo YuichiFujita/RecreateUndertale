@@ -86,5 +86,6 @@ private:
 //	インクルードファイル
 //************************************************************
 #include "frame2DTextStateSelect.h"
+#include "frame2DTextStateItem.h"
 
 #endif	// _FRAME2D_TEXT_STATE_TEXT_H_

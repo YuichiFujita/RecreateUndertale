@@ -11,6 +11,7 @@
 #include "manager.h"
 #include "item.h"
 #include "menuManager.h"
+#include "frame2DTextBuffer.h"
 
 //************************************************************
 //	定数宣言
@@ -52,8 +53,37 @@ HRESULT CItemUseUI::Init()
 		return E_FAIL;
 	}
 
+	// 機能が未設定の場合エラー
+	CFrame2DModule* pModule = GetModule();
+	if (pModule == nullptr) { assert(false); return E_FAIL; }
+
+	// テキスト機能が未設定の場合エラー
+	CFrame2DModuleText* pModuleText = pModule->GetModuleText();
+	if (pModuleText == nullptr) { assert(false); return E_FAIL; }
+
+	// アイテム情報を読み込んだパスを取得
+	CItem* pItem = GET_MANAGER->GetItem();							// アイテム情報
+	const CItemData& rItem = pItem->GetInfo(GetChoiceItemIdx());	// アイテム情報
+	const std::string sPath = rItem.GetDataPath();					// アイテム情報読込パス
+
+
+
+	// テキストの初期化バッファを取得
+	CFrame2DModuleText::ABuffTextArray mapBuffText = rItem.CreateUseBuffTextArray();
+
+	// テキストバッファ連想配列の割当
+	pModuleText->BindBuffTextArray(mapBuffText, "NONE", "NONE", "0");
+
+	// テキストバッファの割当
+	pModuleText->BindText("0");
+
+
+
+	// アイテム使用時のテキストを割当
+	pModuleText->BindTextBox(sPath, "USE");
+
 	// テキスト内容の進行
-	NextText();
+	//NextText();
 
 	return S_OK;
 }
@@ -90,6 +120,8 @@ void CItemUseUI::Draw(CShader* pShader)
 //============================================================
 void CItemUseUI::NextText()
 {
+	// TODO：NextTextの作成
+#if 0
 	int nTextIdx = GetCurTextIdx();			// テキスト進行度インデックス
 	int nItemIdx = GetChoiceItemIdx();		// 選択アイテムインデックス
 	CItem* pItem = GET_MANAGER->GetItem();	// アイテム情報
@@ -123,4 +155,5 @@ void CItemUseUI::NextText()
 		// アイテム使用後の文字列を最後尾に追加
 		PushBackString(rItemData.UseEnd());
 	}
+#endif
 }

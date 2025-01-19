@@ -428,10 +428,9 @@ void CSelectItemUI::UpdateDecideAct()
 //============================================================
 //	コンストラクタ
 //============================================================
-CItemUI::CItemUI(const int nChoiceItemIdx, const int nChoiceBagIdx) : CObject(CObject::LABEL_NONE, CObject::DIM_3D, PRIORITY),
+CItemUI::CItemUI(const int nChoiceItemIdx, const int nChoiceBagIdx) :
 	m_nChoiceItemIdx	(nChoiceItemIdx),	// 選択中アイテムインデックス
 	m_nChoiceBagIdx		(nChoiceBagIdx),	// 選択中バッグインデックス
-	m_pTextBox			(nullptr),			// テキストボックス情報
 	m_nCurTextIdx		(0)					// 現在のテキストインデックス
 {
 
@@ -451,20 +450,21 @@ CItemUI::~CItemUI()
 HRESULT CItemUI::Init()
 {
 	// メンバ変数を初期化
-	m_pTextBox = nullptr;	// テキストボックス情報
-	m_nCurTextIdx = 0;		// 現在のテキストインデックス
+	m_nCurTextIdx = 0;	// 現在のテキストインデックス
 
-	// テキストボックスの生成
-	m_pTextBox = CFrame2D::Create(CFrame2D::PRESET_DOWN);	// TODO：ちょっと怖い、時間作ってブレークポイント
-	if (m_pTextBox == nullptr)
-	{ // 生成に失敗した場合
+	// 親クラスの初期化
+	if (FAILED(CFrame2D::Init()))
+	{ // 初期化に失敗した場合
 
 		assert(false);
 		return E_FAIL;
 	}
 
+	// プリセットを設定
+	SetPreset(PRESET_DOWN);	// TODO：今は固定
+
 	// テキスト表示機能を設定
-	m_pTextBox->ChangeModule(new CFrame2DModuleText);
+	ChangeModule(new CFrame2DModuleText(false));	// TODO：このクラスは継承しないで、Module側を継承させた方が効率的。
 
 	return S_OK;
 }
@@ -474,11 +474,8 @@ HRESULT CItemUI::Init()
 //============================================================
 void CItemUI::Uninit()
 {
-	// テキストボックスの終了
-	SAFE_UNINIT(m_pTextBox);
-
-	// オブジェクトを破棄
-	Release();
+	// 親クラスの終了
+	CFrame2D::Uninit();
 }
 
 //============================================================
@@ -486,6 +483,11 @@ void CItemUI::Uninit()
 //============================================================
 void CItemUI::Update(const float fDeltaTime)
 {
+	// 親クラスの更新
+	CFrame2D::Update(fDeltaTime);
+
+	// TODO：NextTextの参考
+#if 0
 	if (input::Decide())
 	{
 		//if (IsTextBoxScroll())
@@ -497,16 +499,18 @@ void CItemUI::Update(const float fDeltaTime)
 		//}
 
 		// テキスト内容の進行
-		//NextText();	// TODO
+		//NextText();
 	}
+#endif
 }
 
 //============================================================
 //	描画処理
 //============================================================
-void CItemUI::Draw(CShader* /*pShader*/)
+void CItemUI::Draw(CShader* pShader)
 {
-
+	// 親クラスの描画
+	CFrame2D::Draw(pShader);
 }
 
 //============================================================
@@ -555,31 +559,6 @@ CItemUI* CItemUI::Create
 			// アイテムの破棄
 			SAFE_DELETE(pItemUI);
 			return nullptr;
-		}
-
-		// TODO：関数化
-		CItem* pItem = GET_MANAGER->GetItem();	// アイテム情報
-		std::string sPath = pItem->GetInfo(nChoiceItemIdx).GetDataPath();
-
-		//pItemUI->m_pTextBox->GetModule()->GetModuleText()->ChangeState(new CFrame2DTextStateItem(pItemUI->m_pTextBox->GetPreset()));
-
-		switch (choiceAct)
-		{ // 選択肢ごとの処理
-		case CSelectItemUI::SELECT_USE:
-			pItemUI->m_pTextBox->GetModule()->GetModuleText()->BindTextBox(sPath, "USE");
-			break;
-
-		case CSelectItemUI::SELECT_INFO:
-			pItemUI->m_pTextBox->GetModule()->GetModuleText()->BindTextBox(sPath, "INFO");
-			break;
-
-		case CSelectItemUI::SELECT_DROP:
-			pItemUI->m_pTextBox->GetModule()->GetModuleText()->BindTextBox(sPath, "DROP");
-			break;
-
-		default:	// 例外処理
-			assert(false);
-			break;
 		}
 
 		// 確保したアドレスを返す

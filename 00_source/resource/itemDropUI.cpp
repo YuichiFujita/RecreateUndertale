@@ -52,8 +52,37 @@ HRESULT CItemDropUI::Init()
 		return E_FAIL;
 	}
 
+	// 機能が未設定の場合エラー
+	CFrame2DModule* pModule = GetModule();
+	if (pModule == nullptr) { assert(false); return E_FAIL; }
+
+	// テキスト機能が未設定の場合エラー
+	CFrame2DModuleText* pModuleText = pModule->GetModuleText();
+	if (pModuleText == nullptr) { assert(false); return E_FAIL; }
+
+	// アイテム情報を読み込んだパスを取得
+	CItem* pItem = GET_MANAGER->GetItem();							// アイテム情報
+	const CItemData& rItem = pItem->GetInfo(GetChoiceItemIdx());	// アイテム情報
+	const std::string sPath = rItem.GetDataPath();					// アイテム情報読込パス
+
+
+
+	// テキストの初期化バッファを取得
+	CFrame2DModuleText::ABuffTextArray mapBuffText = rItem.CreateDropBuffTextArray();
+
+	// テキストバッファ連想配列の割当
+	pModuleText->BindBuffTextArray(mapBuffText, "NONE", "NONE", "0");
+
+	// テキストバッファの割当
+	pModuleText->BindText("0");
+
+
+
+	// アイテム破棄時のテキストを割当
+	pModuleText->BindTextBox(sPath, "DROP");
+
 	// テキスト内容の進行
-	NextText();
+	//NextText();
 
 	return S_OK;
 }
@@ -90,6 +119,8 @@ void CItemDropUI::Draw(CShader* pShader)
 //============================================================
 void CItemDropUI::NextText()
 {
+	// TODO：NextTextの作成
+#if 0
 	int nTextIdx = GetCurTextIdx();			// テキスト進行度インデックス
 	int nItemIdx = GetChoiceItemIdx();		// 選択アイテムインデックス
 	CItem* pItem = GET_MANAGER->GetItem();	// アイテム情報
@@ -116,4 +147,5 @@ void CItemDropUI::NextText()
 
 	// テキスト進行度を進める
 	CItemUI::NextText();
+#endif
 }

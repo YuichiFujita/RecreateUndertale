@@ -11,6 +11,11 @@
 #define _ITEM_H_
 
 //************************************************************
+//	インクルードファイル
+//************************************************************
+#include "frame2DModuleText.h"
+
+//************************************************************
 //	クラス定義
 //************************************************************
 // アイテム情報クラス
@@ -42,13 +47,11 @@ public:
 	virtual void Uninit();	// 終了
 	virtual void Info(const int nBagIdx) const;	// アイテム情報
 	virtual void Drop(const int nBagIdx) const;	// アイテム破棄
-	virtual std::string Detail() const;	// アイテム詳細の文字列取得
-	virtual std::string UseEnd() const;	// アイテム使用後の文字列取得
-
-	// TODO：今後消える
-	virtual void InitUseText();			// 使用テキスト初期化
-	virtual void InitInfoText();		// 情報テキスト初期化
-	virtual void InitDropText();		// 破棄テキスト初期化
+	virtual std::string Detail() const;			// アイテム詳細の文字列取得
+	virtual std::string UseEnd() const;			// アイテム使用後の文字列取得
+	virtual CFrame2DModuleText::ABuffTextArray CreateUseBuffTextArray() const;	// 初期使用テキストバッファ連想配列生成
+	virtual CFrame2DModuleText::ABuffTextArray CreateInfoBuffTextArray() const;	// 初期情報テキストバッファ連想配列生成
+	virtual CFrame2DModuleText::ABuffTextArray CreateDropBuffTextArray() const;	// 初期破棄テキストバッファ連想配列生成
 
 	// 静的メンバ関数
 	static CItemData* Create(const EType type);	// 生成
@@ -63,25 +66,12 @@ public:
 	inline void SetAddDef(const int nAddDef)		{ m_nAddDef = nAddDef; }	// 防御力上昇量設定
 	inline int GetAddDef() const					{ return m_nAddDef; }		// 防御力上昇量取得
 
-	// TODO：今後消える
-	inline void SetUse(const ATextBox& rVecUse)		{ m_vecUse = rVecUse; }		// 使用テキスト設定
-	inline const ATextBox& GetUse() const			{ return m_vecUse; }		// 使用テキスト取得
-	inline void SetInfo(const ATextBox& rVecInfo)	{ m_vecInfo = rVecInfo; }	// 情報テキスト設定
-	inline const ATextBox& GetInfo() const			{ return m_vecInfo; }		// 情報テキスト取得
-	inline void SetDrop(const ATextBox& rVecDrop)	{ m_vecDrop = rVecDrop; }	// 破棄テキスト設定
-	inline const ATextBox& GetDrop() const			{ return m_vecDrop; }		// 破棄テキスト取得
-
 private:
 	// メンバ変数
 	std::string m_sDataPath;	// アイテム情報パス
 	std::string m_sName;		// アイテム名
 	int m_nAddAtk;				// 攻撃力上昇量
 	int m_nAddDef;				// 防御力上昇量
-
-	// TODO：今後消える
-	ATextBox m_vecUse;		// 使用テキスト
-	ATextBox m_vecInfo;		// 情報テキスト
-	ATextBox m_vecDrop;		// 破棄テキスト
 };
 
 // アイテムクラス
@@ -109,11 +99,6 @@ private:
 	// メンバ関数
 	HRESULT LoadSetup();	// セットアップ
 	CItemData* LoadDataSetup(const char* pDataPath);	// アイテム情報セットアップ
-
-	// TODO：今後消える
-	HRESULT LoadSetupOld();	// セットアップ
-	ATextBox LoadText(std::ifstream& rFile, const char* pEndStr, const CItemData& rItem);	// テキストセットアップ
-	void ReplaceCommand(std::string* pStr, const CItemData& rItem);	// 文字列内のコマンドの置換
 
 	// メンバ変数
 	std::vector<CItemData*> m_vecItemData;	// アイテム動的配列

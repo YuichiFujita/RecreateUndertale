@@ -50,7 +50,8 @@ CFrame2D::CFrame2D() : CObject(LABEL_UI, DIM_2D, PRIORITY),
 	m_pModule	(nullptr),		// 機能
 	m_pos		(VEC3_ZERO),	// 位置
 	m_rot		(VEC3_ZERO),	// 向き
-	m_size		(VEC3_ZERO)		// 大きさ
+	m_size		(VEC3_ZERO),	// 大きさ
+	m_preset	(PRESET_NONE)	// 配置プリセット
 {
 	// メンバ変数をクリア
 	memset(&m_apFrame[0], 0, sizeof(m_apFrame));	// フレーム情報
@@ -75,6 +76,7 @@ HRESULT CFrame2D::Init()
 	m_pos		= VEC3_ZERO;	// 位置
 	m_rot		= VEC3_ZERO;	// 向き
 	m_size		= VEC3_ZERO;	// 大きさ
+	m_preset	= PRESET_NONE;	// 配置プリセット
 
 	for (int i = 0; i < POLYGON_MAX; i++)
 	{ // ポリゴンの総数分繰り返す
@@ -356,9 +358,6 @@ HRESULT CFrame2D::ChangeModule(CFrame2DModule* pModule)
 //============================================================
 void CFrame2D::SetPreset(const EPreset preset)
 {
-	// 配置プリセットの保存
-	m_preset = preset;
-
 	// 位置を設定
 	SetVec3Position(FRAME_POS[preset]);
 
@@ -367,4 +366,7 @@ void CFrame2D::SetPreset(const EPreset preset)
 
 	// 大きさを設定
 	SetVec3Size(FRAME_SIZE[preset]);
+
+	// 配置プリセットの保存
+	m_preset = preset;
 }

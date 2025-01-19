@@ -804,19 +804,6 @@ struct COLOR : public D3DXCOLOR
 	}
 };
 
-// TODO
-#if 0
-// 書き出し形式ファイルストリーム
-struct IF_STREAM : public std::ifstream
-{
-	// コンストラクタ継承
-	using std::ifstream::ifstream;
-
-	// メンバ変数
-	std::string path;	// 参照ファイルパス
-};
-#endif
-
 //************************************************************
 //	エイリアス定義
 //************************************************************
