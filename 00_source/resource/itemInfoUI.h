@@ -23,7 +23,7 @@ class CItemInfoUI : public CItemUI
 {
 public:
 	// コンストラクタ
-	explicit CItemInfoUI(const int nChoiceItemIdx, const int nChoiceBagIdx);
+	CItemInfoUI(const int nChoiceItemIdx, const int nChoiceBagIdx);
 
 	// デストラクタ
 	~CItemInfoUI() override;
@@ -33,10 +33,6 @@ public:
 	void Uninit() override;		// 終了
 	void Update(const float fDeltaTime) override;	// 更新
 	void Draw(CShader* pShader = nullptr) override;	// 描画
-
-private:
-	// オーバーライド関数
-	void NextText() override;	// テキストボックス進行
 };
 
 #endif	// _ITEM_INFO_UI_H_

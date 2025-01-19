@@ -54,6 +54,14 @@ public:
 	HRESULT ChangeState(CFrame2DTextState* pState);					// 状態変更
 	inline CFrame2DTextState* GetState() const { return m_pState; }	// 状態取得
 
+	// TODO
+	inline int GetNumText() const								{ return (int)m_mapBuffText.size(); }									// テキスト数取得
+	//inline int GetNumString(const std::string& rTextKey) const	{ return (int)m_mapBuffText.find(rTextKey)->second->m_text.size(); }	// 文字列数取得
+	HRESULT PushFrontString(const std::string& rStr, const std::string& rTextKey);	// 文字列の先頭追加 (マルチバイト文字列)
+	HRESULT PushFrontString(const std::wstring& rStr, const std::string& rTextKey);	// 文字列の先頭追加 (ワイド文字列)
+	HRESULT PushBackString(const std::string& rStr, const std::string& rTextKey);	// 文字列の最後尾追加 (マルチバイト文字列)
+	HRESULT PushBackString(const std::wstring& rStr, const std::string& rTextKey);	// 文字列の最後尾追加 (ワイド文字列)
+
 private:
 	// メンバ関数
 	void DeleteBuffText();	// テキストバッファ連想配列削除

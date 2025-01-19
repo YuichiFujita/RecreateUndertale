@@ -79,14 +79,17 @@ HRESULT CItemInfoUI::Init()
 
 
 	// アイテム情報の確認時のテキストを割当
-	pModuleText->BindTextBox(sPath, "INFO");
+	if (SUCCEEDED(pModuleText->BindTextBox(sPath, "INFO")))
+	{ // 割当に成功した場合
 
-	//// テキスト内容の進行
-	//NextText();
+		// アイテム詳細を先頭に追加
+		pModuleText->PushFrontString(rItem.Detail(), "0");
+	}
 
-	//// アイテム詳細を先頭に追加
-	//const CItemData& rItemData = pItem->GetInfo(GetChoiceItemIdx());	// アイテム内部データ
-	//PushFrontString(rItemData.Detail());
+	// 選択アイテムの情報を確認済みにする
+	int nItemIdx = GetChoiceItemIdx();	// 選択アイテムインデックス
+	int nBagIdx = GetChoiceBagIdx();	// 選択バッグインデックス
+	pItem->GetInfo(nItemIdx).Info(nBagIdx);
 
 	return S_OK;
 }
@@ -107,6 +110,13 @@ void CItemInfoUI::Update(const float fDeltaTime)
 {
 	// アイテムUIの更新
 	CItemUI::Update(fDeltaTime);
+
+	if (!IsModuleText())
+	{ // テキスト表示機能が終了した場合
+
+		// フィールドメニューの終了
+		CMenuManager::GetInstance()->SetEnableDrawMenu(false);
+	}
 }
 
 //============================================================
@@ -116,40 +126,4 @@ void CItemInfoUI::Draw(CShader* pShader)
 {
 	// アイテムUIの描画
 	CItemUI::Draw(pShader);
-}
-
-//============================================================
-//	テキストボックス進行処理
-//============================================================
-void CItemInfoUI::NextText()
-{
-	// TODO：NextTextの作成
-#if 0
-	int nTextIdx = GetCurTextIdx();			// テキスト進行度インデックス
-	int nItemIdx = GetChoiceItemIdx();		// 選択アイテムインデックス
-	CItem* pItem = GET_MANAGER->GetItem();	// アイテム情報
-	const CItemData& rItemData = pItem->GetInfo(nItemIdx);	// アイテム内部データ
-
-	// アイテム情報の確認時のテキスト情報を取得
-	ATextBox textData = rItemData.GetInfo();
-
-	int nNumText = (int)textData.size();	// テキスト総数
-	if (nTextIdx >= nNumText)
-	{ // テキストが終了した場合
-
-		// 選択アイテムの情報を確認済みにする
-		int nBagIdx = GetChoiceBagIdx();	// 選択バッグインデックス
-		pItem->GetInfo(nItemIdx).Info(nBagIdx);
-
-		// フィールドメニューの終了
-		CMenuManager::GetInstance()->SetEnableDrawMenu(false);
-		return;
-	}
-
-	// 現在のテキスト進行度に合わせたテキスト内容に変更
-	ChangeTextBox(textData[nTextIdx]);
-
-	// テキスト進行度を進める
-	CItemUI::NextText();
-#endif
 }

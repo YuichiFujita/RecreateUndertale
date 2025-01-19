@@ -430,8 +430,7 @@ void CSelectItemUI::UpdateDecideAct()
 //============================================================
 CItemUI::CItemUI(const int nChoiceItemIdx, const int nChoiceBagIdx) :
 	m_nChoiceItemIdx	(nChoiceItemIdx),	// 選択中アイテムインデックス
-	m_nChoiceBagIdx		(nChoiceBagIdx),	// 選択中バッグインデックス
-	m_nCurTextIdx		(0)					// 現在のテキストインデックス
+	m_nChoiceBagIdx		(nChoiceBagIdx)		// 選択中バッグインデックス
 {
 
 }
@@ -449,9 +448,6 @@ CItemUI::~CItemUI()
 //============================================================
 HRESULT CItemUI::Init()
 {
-	// メンバ変数を初期化
-	m_nCurTextIdx = 0;	// 現在のテキストインデックス
-
 	// 親クラスの初期化
 	if (FAILED(CFrame2D::Init()))
 	{ // 初期化に失敗した場合
@@ -460,11 +456,14 @@ HRESULT CItemUI::Init()
 		return E_FAIL;
 	}
 
+	// 自動破棄/更新をしないラベルにする
+	SetLabel(LABEL_NONE);
+
 	// プリセットを設定
 	SetPreset(PRESET_DOWN);	// TODO：今は固定
 
 	// テキスト表示機能を設定
-	ChangeModule(new CFrame2DModuleText(false));	// TODO：このクラスは継承しないで、Module側を継承させた方が効率的。
+	ChangeModule(new CFrame2DModuleText(false));
 
 	return S_OK;
 }
@@ -485,23 +484,6 @@ void CItemUI::Update(const float fDeltaTime)
 {
 	// 親クラスの更新
 	CFrame2D::Update(fDeltaTime);
-
-	// TODO：NextTextの参考
-#if 0
-	if (input::Decide())
-	{
-		//if (IsTextBoxScroll())
-		//{ // 文字送り中の場合
-
-		//	// 文字を全表示させる
-		//	SetTextBoxEnableDraw(true);
-		//	return;
-		//}
-
-		// テキスト内容の進行
-		//NextText();
-	}
-#endif
 }
 
 //============================================================
@@ -564,4 +546,18 @@ CItemUI* CItemUI::Create
 		// 確保したアドレスを返す
 		return pItemUI;
 	}
+}
+
+//============================================================
+//	テキスト表示機能かの確認処理
+//============================================================
+bool CItemUI::IsModuleText() const
+{
+	CFrame2DModule* pModule = GetModule();	// 現在機能
+
+	// 機能が割り当てられていない場合抜ける
+	if (pModule == nullptr) { return false; }	// テキスト表示ではない
+
+	// 機能がテキスト表示かを返す
+	return (typeid(*pModule) == typeid(CFrame2DModuleText));
 }

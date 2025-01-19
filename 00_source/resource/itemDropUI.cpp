@@ -81,8 +81,10 @@ HRESULT CItemDropUI::Init()
 	// アイテム破棄時のテキストを割当
 	pModuleText->BindTextBox(sPath, "DROP");
 
-	// テキスト内容の進行
-	//NextText();
+	// 選択アイテムを破棄済みにする
+	int nItemIdx = GetChoiceItemIdx();	// 選択アイテムインデックス
+	int nBagIdx = GetChoiceBagIdx();	// 選択バッグインデックス
+	pItem->GetInfo(nItemIdx).Drop(nBagIdx);
 
 	return S_OK;
 }
@@ -103,6 +105,13 @@ void CItemDropUI::Update(const float fDeltaTime)
 {
 	// アイテムUIの更新
 	CItemUI::Update(fDeltaTime);
+
+	if (!IsModuleText())
+	{ // テキスト表示機能が終了した場合
+
+		// フィールドメニューの終了
+		CMenuManager::GetInstance()->SetEnableDrawMenu(false);
+	}
 }
 
 //============================================================
@@ -112,40 +121,4 @@ void CItemDropUI::Draw(CShader* pShader)
 {
 	// アイテムUIの描画
 	CItemUI::Draw(pShader);
-}
-
-//============================================================
-//	テキストボックス進行処理
-//============================================================
-void CItemDropUI::NextText()
-{
-	// TODO：NextTextの作成
-#if 0
-	int nTextIdx = GetCurTextIdx();			// テキスト進行度インデックス
-	int nItemIdx = GetChoiceItemIdx();		// 選択アイテムインデックス
-	CItem* pItem = GET_MANAGER->GetItem();	// アイテム情報
-	const CItemData& rItemData = pItem->GetInfo(nItemIdx);	// アイテム内部データ
-
-	// アイテム破棄時のテキスト情報を取得
-	ATextBox textData = rItemData.GetDrop();
-
-	int nNumText = (int)textData.size();	// テキスト総数
-	if (nTextIdx >= nNumText)
-	{ // テキストが終了した場合
-
-		// 選択アイテムを破棄済みにする
-		int nBagIdx = GetChoiceBagIdx();	// 選択バッグインデックス
-		pItem->GetInfo(nItemIdx).Drop(nBagIdx);
-
-		// フィールドメニューの終了
-		CMenuManager::GetInstance()->SetEnableDrawMenu(false);
-		return;
-	}
-
-	// 現在のテキスト進行度に合わせたテキスト内容に変更
-	ChangeTextBox(textData[nTextIdx]);
-
-	// テキスト進行度を進める
-	CItemUI::NextText();
-#endif
 }

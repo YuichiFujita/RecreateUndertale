@@ -261,6 +261,95 @@ HRESULT CFrame2DModuleText::ChangeState(CFrame2DTextState* pState)
 	return S_OK;
 }
 
+// TODO
+#if 1
+//============================================================
+//	文字列の先頭追加処理 (マルチバイト文字列)
+//============================================================
+HRESULT CFrame2DModuleText::PushFrontString(const std::string& rStr, const std::string& rBoxKey)
+{
+	// 引数キーのテキストを検索
+	auto itr = m_mapBuffText.find(rBoxKey);
+	if (itr == m_mapBuffText.end()) { assert(false); return E_FAIL; }
+
+	// テキストを簡略化
+	AText* pText = &itr->second->m_text;
+
+	// 先頭に文字列を追加
+	pText->insert(pText->begin(), rStr);
+
+	// テキストの割当
+	if (FAILED(BindText("0")))	// TODO：テキストの割当はどのタイミングですっかな　今読み込んでるキーを保存しとくか？
+	{ // 割当に失敗した場合
+
+		return E_FAIL;
+	}
+
+	return S_OK;
+}
+
+//============================================================
+//	文字列の先頭追加処理 (ワイド文字列)
+//============================================================
+HRESULT CFrame2DModuleText::PushFrontString(const std::wstring& rStr, const std::string& rBoxKey)
+{
+	// 文字列をマルチバイト変換
+	std::string sStr = useful::WideToMultiByte(rStr);
+
+	// 文字列を先頭に追加
+	if (FAILED(PushFrontString(sStr, rBoxKey)))
+	{ // 追加に失敗した場合
+
+		return E_FAIL;
+	}
+
+	return S_OK;
+}
+
+//============================================================
+//	文字列の最後尾追加処理 (マルチバイト文字列)
+//============================================================
+HRESULT CFrame2DModuleText::PushBackString(const std::string& rStr, const std::string& rBoxKey)
+{
+	// 引数キーのテキストを検索
+	auto itr = m_mapBuffText.find(rBoxKey);
+	if (itr == m_mapBuffText.end()) { assert(false); return E_FAIL; }
+
+	// テキストを簡略化
+	AText* pText = &itr->second->m_text;
+
+	// 最後尾に文字列を追加
+	pText->push_back(rStr);
+
+	// テキストの割当
+	if (FAILED(BindText("0")))	// TODO：テキストの割当はどのタイミングですっかな　今読み込んでるキーを保存しとくか？
+	{ // 割当に失敗した場合
+
+		return E_FAIL;
+	}
+
+	return S_OK;
+}
+
+//============================================================
+//	文字列の最後尾追加処理 (ワイド文字列)
+//============================================================
+HRESULT CFrame2DModuleText::PushBackString(const std::wstring& rStr, const std::string& rBoxKey)
+{
+	// 文字列をマルチバイト変換
+	std::string sStr = useful::WideToMultiByte(rStr);
+
+	// 文字列を最後尾に追加
+	if (FAILED(PushBackString(sStr, rBoxKey)))
+	{ // 追加に失敗した場合
+
+		return E_FAIL;
+	}
+
+	return S_OK;
+}
+#endif
+
 //============================================================
 //	テキストバッファ連想配列の削除処理
 //============================================================

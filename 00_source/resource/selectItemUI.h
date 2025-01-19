@@ -110,7 +110,7 @@ class CItemUI : public CFrame2D
 {
 public:
 	// コンストラクタ
-	explicit CItemUI(const int nChoiceItemIdx, const int nChoiceBagIdx);
+	CItemUI(const int nChoiceItemIdx, const int nChoiceBagIdx);
 
 	// デストラクタ
 	~CItemUI() override;
@@ -130,22 +130,9 @@ public:
 	);
 
 	// メンバ関数
-	inline HRESULT PushFrontString(const std::string& rStr)		{ return GetModule()->GetModuleText()->GetState()->GetStateItem()->PushFrontString(rStr); }	// 文字列の先頭追加 (マルチバイト文字列)
-	inline HRESULT PushFrontString(const std::wstring& rStr)	{ return GetModule()->GetModuleText()->GetState()->GetStateItem()->PushFrontString(rStr); }	// 文字列の先頭追加 (ワイド文字列)
-	inline HRESULT PushBackString(const std::string& rStr)		{ return GetModule()->GetModuleText()->GetState()->GetStateItem()->PushBackString(rStr); }	// 文字列の最後尾追加 (マルチバイト文字列)
-	inline HRESULT PushBackString(const std::wstring& rStr)		{ return GetModule()->GetModuleText()->GetState()->GetStateItem()->PushBackString(rStr); }	// 文字列の最後尾追加 (ワイド文字列)
-	inline void DeleteString(const int nStrIdx)			{ GetModule()->GetModuleText()->GetState()->GetStateItem()->DeleteString(nStrIdx); }	// 文字列削除
-	inline void DeleteStringAll()						{ GetModule()->GetModuleText()->GetState()->GetStateItem()->DeleteStringAll(); }		// 文字列全削除
-	inline void ChangeTextBox(const AText& rText)		{ GetModule()->GetModuleText()->GetState()->GetStateItem()->ChangeText(rText); }		// テキスト変更
-	inline void SetTextBoxEnableDraw(const bool bDraw)	{ GetModule()->GetModuleText()->GetState()->GetStateItem()->SetTextEnableDraw(bDraw); }	// 描画状況設定
-	inline bool IsTextBoxScroll() const	{ return GetModule()->GetModuleText()->GetState()->GetStateItem()->IsTextScroll(); }					// 文字送り状況取得
+	bool IsModuleText() const;	// テキスト表示機能かの確認
 	inline int GetChoiceItemIdx() const	{ return m_nChoiceItemIdx; }	// 選択中アイテムインデックス取得
 	inline int GetChoiceBagIdx() const	{ return m_nChoiceBagIdx; }		// 選択中バッグインデックス取得
-	inline int GetCurTextIdx() const	{ return m_nCurTextIdx; }		// 現在のテキストインデックス取得
-
-protected:
-	// 純粋仮想関数
-	virtual inline void NextText() = 0 { m_nCurTextIdx++; }	// テキストボックス進行
 
 private:
 	// オーバーライド関数
@@ -154,7 +141,6 @@ private:
 	// メンバ変数
 	const int m_nChoiceItemIdx;	// 選択中アイテムインデックス
 	const int m_nChoiceBagIdx;	// 選択中バッグインデックス
-	int m_nCurTextIdx;			// 現在のテキストインデックス
 };
 
 #endif	// _SELECT_ITEM_UI_H_
