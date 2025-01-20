@@ -1,3 +1,4 @@
+#if 0
 //============================================================
 //
 //	情報メニュー処理 [itemInfoUI.cpp]
@@ -127,3 +128,4 @@ void CItemInfoUI::Draw(CShader* pShader)
 	// アイテムUIの描画
 	CItemUI::Draw(pShader);
 }
+#endif

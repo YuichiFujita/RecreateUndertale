@@ -1,3 +1,4 @@
+#if 0
 //============================================================
 //
 //	破棄メニュー処理 [itemDropUI.cpp]
@@ -122,3 +123,4 @@ void CItemDropUI::Draw(CShader* pShader)
 	// アイテムUIの描画
 	CItemUI::Draw(pShader);
 }
+#endif
