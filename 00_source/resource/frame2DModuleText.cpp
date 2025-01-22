@@ -16,7 +16,7 @@
 namespace
 {
 	const std::string KEY_TEXT = "TEXT_";				// テキスト読込開始キー
-	const int KET_TEXT_LEN = (int)KEY_TEXT.length() - 1;	// 読込開始テキストキーの文字数	// TODO：なんで-1？変じゃね？
+	const int KET_TEXT_LEN = (int)KEY_TEXT.length();	// 読込開始テキストキーの文字数
 }
 
 //************************************************************
@@ -492,29 +492,13 @@ bool CFrame2DModuleText::LoadText(std::ifstream* pFile, const std::string& rFile
 		// 文字列を読み込む
 		*pFile >> str;
 
+		// テキスト開始キーを検索
+		size_t find = str.find(KEY_TEXT);
+
 		if (str.front() == '#') { std::getline(*pFile, str); }	// コメントアウト
-		else if (str == "NEXT_PATH")
-		{
-			*pFile >> str;				// ＝を読込
-			*pFile >> sNextPath;		// 次テキストボックスの保存パスを読込
-		}
-		else if (str == "NEXT_BOX")
-		{
-			*pFile >> str;				// ＝を読込
-			*pFile >> sNextBoxKey;		// 次テキストボックスの検索キーを読込
-		}
-		else if (str == "NEXT_START")
-		{
-			*pFile >> str;				// ＝を読込
-			*pFile >> sNextStartKey;	// 次テキストボックスのテキスト開始キーを読込
-		}
-		else if (str == "FACE")
-		{
-			*pFile >> str;		// ＝を読込
-			*pFile >> nFaceIdx;	// 顔インデックスを読込
-		}
-		else if (size_t find = str.find(KEY_TEXT) != std::string::npos)
-		{
+		if (find != std::string::npos)
+		{ // テキスト開始キーがあった場合
+
 			// 文字列の読込
 			CFrame2DTextBuffer* pBuffText = LoadString(pFile, nFaceIdx);	// 読み込んだテキストバッファ取得
 			if (pBuffText == nullptr)
@@ -535,6 +519,26 @@ bool CFrame2DModuleText::LoadText(std::ifstream* pFile, const std::string& rFile
 
 			// テキスト読込を保存
 			bLoad = true;
+		}
+		else if (str == "NEXT_PATH")
+		{
+			*pFile >> str;				// ＝を読込
+			*pFile >> sNextPath;		// 次テキストボックスの保存パスを読込
+		}
+		else if (str == "NEXT_BOX")
+		{
+			*pFile >> str;				// ＝を読込
+			*pFile >> sNextBoxKey;		// 次テキストボックスの検索キーを読込
+		}
+		else if (str == "NEXT_START")
+		{
+			*pFile >> str;				// ＝を読込
+			*pFile >> sNextStartKey;	// 次テキストボックスのテキスト開始キーを読込
+		}
+		else if (str == "FACE")
+		{
+			*pFile >> str;		// ＝を読込
+			*pFile >> nFaceIdx;	// 顔インデックスを読込
 		}
 	} while (str != "END_TEXTBOX");	// END_TEXTBOXを読み込むまでループ
 
