@@ -18,7 +18,14 @@
 //************************************************************
 namespace
 {
-	const std::string CMD_NAME = "/name";	// 文字列を名前に置き換えるコマンド
+	namespace cmd
+	{
+		namespace name
+		{
+			const std::string KEY = "/name";		// 文字列を名前に置き換えるコマンド
+			const int LENGTH = (int)KEY.length();	// コマンド文字列の長さ
+		}
+	}
 }
 
 //************************************************************
@@ -134,11 +141,11 @@ void CFrame2DTextStateItem::BindTextBuffer(CFrame2DTextBuffer* pBuffer)
 void CFrame2DTextStateItem::ReplaceCommand(std::string* pStr, const CItemData& rItem)
 {
 	// 名前変換コマンドの検索
-	size_t idxName = pStr->find(CMD_NAME);	// TODO：一つの文字列に二つコマンド設定できない
+	size_t idxName = pStr->find(cmd::name::KEY);	// TODO：一つの文字列に二つコマンド設定できない
 	if (idxName != std::string::npos)
 	{ // コマンドが存在した場合
 
 		// アイテム名に変換する
-		pStr->replace(idxName, CMD_NAME.length(), rItem.GetName());
+		pStr->replace(idxName, cmd::name::LENGTH, rItem.GetName());
 	}
 }

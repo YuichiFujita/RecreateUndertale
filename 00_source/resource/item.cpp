@@ -12,8 +12,6 @@
 #include "itemHeal.h"
 #include "itemWeapon.h"
 #include "itemArmor.h"
-#include "manager.h"
-#include "renderer.h"
 #include "sceneGame.h"
 #include "player.h"
 #include "playerItem.h"
@@ -24,10 +22,6 @@
 //************************************************************
 namespace
 {
-	// TODO：今後消える
-	const char* LOAD_TXT_OLD = "data\\TXT\\item.txt";	// アイテムテキスト相対パス
-	const std::string CMD_NAME = "/name";	// 文字列を名前に置き換えるコマンド
-
 	const char* LOAD_TXT = "data\\ITEM\\info.txt";	// アイテムテキスト相対パス
 }
 
@@ -294,17 +288,6 @@ HRESULT CItem::LoadAll()
 		assert(false);
 		return E_FAIL;
 	}
-
-	// TODO：今後消える
-	// 旧アイテム情報のセットアップ
-#if 0
-	if (FAILED(LoadSetupOld()))
-	{ // セットアップに失敗した場合
-
-		assert(false);
-		return E_FAIL;
-	}
-#endif
 
 	return S_OK;
 }

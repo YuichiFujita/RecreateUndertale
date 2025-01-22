@@ -372,15 +372,6 @@
     <ClCompile Include="resource\menuSelectUI.cpp">
       <Filter>ingame\menu</Filter>
     </ClCompile>
-    <ClCompile Include="resource\itemUseUI.cpp">
-      <Filter>ingame\menu\select\item</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\itemDropUI.cpp">
-      <Filter>ingame\menu\select\item</Filter>
-    </ClCompile>
-    <ClCompile Include="resource\itemInfoUI.cpp">
-      <Filter>ingame\menu\select\item</Filter>
-    </ClCompile>
     <ClCompile Include="resource\characterAnim3D.cpp">
       <Filter>flyweight</Filter>
     </ClCompile>
@@ -551,6 +542,9 @@
     </ClCompile>
     <ClCompile Include="resource\frame2DTextBufferItem.cpp">
       <Filter>ingame\frame\module\text\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\itemUI.cpp">
+      <Filter>ingame\menu\select\item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -818,15 +812,6 @@
     <ClInclude Include="resource\menuSelectUI.h">
       <Filter>ingame\menu</Filter>
     </ClInclude>
-    <ClInclude Include="resource\itemUseUI.h">
-      <Filter>ingame\menu\select\item</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\itemDropUI.h">
-      <Filter>ingame\menu\select\item</Filter>
-    </ClInclude>
-    <ClInclude Include="resource\itemInfoUI.h">
-      <Filter>ingame\menu\select\item</Filter>
-    </ClInclude>
     <ClInclude Include="resource\characterAnim3D.h">
       <Filter>flyweight</Filter>
     </ClInclude>
@@ -997,6 +982,9 @@
     </ClInclude>
     <ClInclude Include="resource\frame2DTextBufferItem.h">
       <Filter>ingame\frame\module\text\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\itemUI.h">
+      <Filter>ingame\menu\select\item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

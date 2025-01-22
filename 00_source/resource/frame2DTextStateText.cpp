@@ -140,7 +140,7 @@ void CFrame2DTextStateText::Update(const float fDeltaTime)
 		}
 
 		// テキストの遷移
-		m_pContext->TransText(m_sNextTextKey);	// TODO：こいつ継承してアイテムテキスト表示状態クラスを作ろう
+		m_pContext->TransText(m_sNextTextKey);
 	}
 }
 

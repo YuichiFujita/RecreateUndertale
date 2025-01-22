@@ -11,6 +11,15 @@
 #include "frame2DTextBuffer.h"
 
 //************************************************************
+//	定数宣言
+//************************************************************
+namespace
+{
+	const std::string KEY_TEXT = "TEXT_";				// テキスト読込開始キー
+	const int KET_TEXT_LEN = (int)KEY_TEXT.length() - 1;	// 読込開始テキストキーの文字数	// TODO：なんで-1？変じゃね？
+}
+
+//************************************************************
 //	子クラス [CFrame2DModuleText] のメンバ関数
 //************************************************************
 //============================================================
@@ -69,8 +78,8 @@ HRESULT CFrame2DModuleText::Init()
 //============================================================
 void CFrame2DModuleText::Uninit()
 {
-	// テキストバッファの削除
-	DeleteBuffText();
+	// テキストバッファの破棄
+	ReleaseBuffText();
 
 	// 状態の終了
 	SAFE_UNINIT(m_pState);
@@ -124,8 +133,8 @@ void CFrame2DModuleText::SetVec3Rotation(const VECTOR3& rRot)
 //============================================================
 void CFrame2DModuleText::BindBuffTextArray(const ABuffTextArray& rMapBuffText, const std::string& rFilePath, const std::string& rBoxKey, const std::string& rNextStartKey)
 {
-	// テキストバッファの削除
-	DeleteBuffText();
+	// テキストバッファの破棄
+	ReleaseBuffText();
 
 	// テキストバッファ連想配列の割当
 	m_mapBuffText = rMapBuffText;
@@ -145,7 +154,7 @@ HRESULT CFrame2DModuleText::BindTextBox(const std::string& rFilePath, const std:
 	const std::string sNextStartKey = rNextStartKey;
 
 	// テキストボックスの読込
-	if (!LoadTextBox(rFilePath, rBoxKey))
+	if (!LoadTextBox(rFilePath, rBoxKey))	// TODO：本来はここにテキストバッファ破棄があった。BindBuffTextArrayを絶対通るから消したよ
 	{ // テキストがない場合
 
 		return E_FAIL;
@@ -192,7 +201,7 @@ HRESULT CFrame2DModuleText::BindText(const std::string& rTextKey)
 //============================================================
 //	テキストの遷移処理
 //============================================================
-void CFrame2DModuleText::TransText(const std::string& rNextTextKey)
+HRESULT CFrame2DModuleText::TransText(const std::string& rNextTextKey)
 {
 	if (rNextTextKey == "-1"
 	||  rNextTextKey == "NONE"
@@ -221,15 +230,27 @@ void CFrame2DModuleText::TransText(const std::string& rNextTextKey)
 		{ // テキストボックス遷移先がある場合
 
 			// 次のテキストボックスを割当
-			BindTextBox(m_sNextPath, m_sNextBoxKey, m_sNextStartKey);	// TODO：選択肢ごとに違うテキストボックスにも飛べるようにする
+			if (FAILED(BindTextBox(m_sNextPath, m_sNextBoxKey, m_sNextStartKey)))	// TODO：選択肢ごとに違うテキストボックスにも飛べるようにする
+			{ // 割当に失敗した場合
+
+				assert(false);
+				return E_FAIL;
+			}
 		}
 	}
 	else
 	{ // テキスト遷移先がある場合
 
 		// 次のテキストを割当
-		BindText(rNextTextKey);
+		if (FAILED(BindText(rNextTextKey)))
+		{ // 割当に失敗した場合
+
+			assert(false);
+			return E_FAIL;
+		}
 	}
+
+	return S_OK;
 }
 
 //============================================================
@@ -261,15 +282,13 @@ HRESULT CFrame2DModuleText::ChangeState(CFrame2DTextState* pState)
 	return S_OK;
 }
 
-// TODO
-#if 1
 //============================================================
 //	文字列の先頭追加処理 (マルチバイト文字列)
 //============================================================
-HRESULT CFrame2DModuleText::PushFrontString(const std::string& rStr, const std::string& rBoxKey)
+HRESULT CFrame2DModuleText::PushFrontString(const std::string& rStr, const std::string& rTextKey)
 {
 	// 引数キーのテキストを検索
-	auto itr = m_mapBuffText.find(rBoxKey);
+	auto itr = m_mapBuffText.find(rTextKey);
 	if (itr == m_mapBuffText.end()) { assert(false); return E_FAIL; }
 
 	// テキストを簡略化
@@ -291,13 +310,13 @@ HRESULT CFrame2DModuleText::PushFrontString(const std::string& rStr, const std::
 //============================================================
 //	文字列の先頭追加処理 (ワイド文字列)
 //============================================================
-HRESULT CFrame2DModuleText::PushFrontString(const std::wstring& rStr, const std::string& rBoxKey)
+HRESULT CFrame2DModuleText::PushFrontString(const std::wstring& rStr, const std::string& rTextKey)
 {
 	// 文字列をマルチバイト変換
 	std::string sStr = useful::WideToMultiByte(rStr);
 
 	// 文字列を先頭に追加
-	if (FAILED(PushFrontString(sStr, rBoxKey)))
+	if (FAILED(PushFrontString(sStr, rTextKey)))
 	{ // 追加に失敗した場合
 
 		return E_FAIL;
@@ -309,10 +328,10 @@ HRESULT CFrame2DModuleText::PushFrontString(const std::wstring& rStr, const std:
 //============================================================
 //	文字列の最後尾追加処理 (マルチバイト文字列)
 //============================================================
-HRESULT CFrame2DModuleText::PushBackString(const std::string& rStr, const std::string& rBoxKey)
+HRESULT CFrame2DModuleText::PushBackString(const std::string& rStr, const std::string& rTextKey)
 {
 	// 引数キーのテキストを検索
-	auto itr = m_mapBuffText.find(rBoxKey);
+	auto itr = m_mapBuffText.find(rTextKey);
 	if (itr == m_mapBuffText.end()) { assert(false); return E_FAIL; }
 
 	// テキストを簡略化
@@ -334,13 +353,13 @@ HRESULT CFrame2DModuleText::PushBackString(const std::string& rStr, const std::s
 //============================================================
 //	文字列の最後尾追加処理 (ワイド文字列)
 //============================================================
-HRESULT CFrame2DModuleText::PushBackString(const std::wstring& rStr, const std::string& rBoxKey)
+HRESULT CFrame2DModuleText::PushBackString(const std::wstring& rStr, const std::string& rTextKey)
 {
 	// 文字列をマルチバイト変換
 	std::string sStr = useful::WideToMultiByte(rStr);
 
 	// 文字列を最後尾に追加
-	if (FAILED(PushBackString(sStr, rBoxKey)))
+	if (FAILED(PushBackString(sStr, rTextKey)))
 	{ // 追加に失敗した場合
 
 		return E_FAIL;
@@ -348,12 +367,27 @@ HRESULT CFrame2DModuleText::PushBackString(const std::wstring& rStr, const std::
 
 	return S_OK;
 }
-#endif
 
 //============================================================
-//	テキストバッファ連想配列の削除処理
+//	行数の取得処理
 //============================================================
-void CFrame2DModuleText::DeleteBuffText()
+int CFrame2DModuleText::GetNumString(const std::string& rTextKey) const
+{
+	// 引数キーのテキストを検索
+	auto itr = m_mapBuffText.find(rTextKey);
+	if (itr == m_mapBuffText.end()) { assert(false); return NONE_IDX; }
+
+	// テキストを簡略化
+	AText* pText = &itr->second->m_text;
+
+	// テキストの行数を返す
+	return (int)pText->size();
+}
+
+//============================================================
+//	テキストバッファ連想配列の破棄処理
+//============================================================
+void CFrame2DModuleText::ReleaseBuffText()
 {
 	for (auto& rMap : m_mapBuffText)
 	{ // 要素数分繰り返す
@@ -369,15 +403,23 @@ void CFrame2DModuleText::DeleteBuffText()
 //============================================================
 //	テキストバッファの生成処理
 //============================================================
-CFrame2DTextBuffer* CFrame2DModuleText::CreateBuffText(const std::string& rCreateKey)
+CFrame2DTextBuffer* CFrame2DModuleText::CreateBuffText(const std::string& rCreateKey, const int nFaceIdx)
 {
-	// 生成キーに応じた保存バッファの生成
-	if		(rCreateKey == "TEXT")			{ return new CFrame2DTextBufferText; }		// テキスト保存バッファ
-	else if	(rCreateKey == "SELECT")		{ return new CFrame2DTextBufferSelect; }	// 選択付きテキスト保存バッファ
 	// TODO：追加したら修正
-	else if	(rCreateKey == "TEXT_FACE")		{ return new CFrame2DTextBufferText; }		// 表情付きテキスト保存バッファ
-	else if	(rCreateKey == "SELECT_FACE")	{ return new CFrame2DTextBufferSelect; }	// 表情/選択付きテキスト保存バッファ
-	else if	(rCreateKey == "ITEM")			{ return new CFrame2DTextBufferItem; }		// アイテムテキスト保存バッファ
+	// 生成キーに応じた保存バッファの生成
+	if		(rCreateKey == "TEXT")
+	{
+		// 顔インデックスに応じて生成変更
+		if (nFaceIdx == -1)	{ return new CFrame2DTextBufferText; }			// テキスト保存バッファ
+		else				{ return new CFrame2DTextBufferText; }			// 表情付きテキスト保存バッファ
+	}
+	else if	(rCreateKey == "SELECT")
+	{
+		// 顔インデックスに応じて生成変更
+		if (nFaceIdx == -1)	{ return new CFrame2DTextBufferSelect; }		// 選択付きテキスト保存バッファ
+		else				{ return new CFrame2DTextBufferSelect; }		// 表情/選択付きテキスト保存バッファ
+	}
+	else if	(rCreateKey == "ITEM") { return new CFrame2DTextBufferItem; }	// アイテムテキスト保存バッファ
 
 	// 存在しない生成キーの場合エラー
 	assert(false);
@@ -414,7 +456,7 @@ bool CFrame2DModuleText::LoadTextBox(const std::string& rFilePath, const std::st
 		{ // 読込開始の文字列と一致した場合
 
 			// テキストの読込
-			bLoad = LoadText(rFilePath, &file);
+			bLoad = LoadText(&file, rFilePath);
 			break;
 		}
 	}
@@ -429,7 +471,7 @@ bool CFrame2DModuleText::LoadTextBox(const std::string& rFilePath, const std::st
 //============================================================
 //	テキストの読込処理
 //============================================================
-bool CFrame2DModuleText::LoadText(const std::string& rFilePath, std::ifstream* pFile)
+bool CFrame2DModuleText::LoadText(std::ifstream* pFile, const std::string& rFilePath)
 {
 	// ファイルポインタがない場合抜ける
 	if (pFile == nullptr) { assert(false); return false; }
@@ -438,12 +480,13 @@ bool CFrame2DModuleText::LoadText(const std::string& rFilePath, std::ifstream* p
 	if (!pFile->is_open()) { assert(false); return false; }
 
 	// ファイルを読込
-	ABuffTextArray mapBuffText	= {};		// テキストバッファ連想配列
+	std::string str;			// 読込文字列
+	bool bLoad = false;			// 読込フラグ
+	int nFaceIdx = NONE_IDX;	// 顔インデックス
 	std::string sNextPath		= "NONE";	// 次テキストボックスの保存パス
 	std::string sNextBoxKey		= "NONE";	// 次テキストボックスの検索キー
 	std::string sNextStartKey	= "NONE";	// 次テキストボックスのテキスト開始キー
-	std::string str;			// 読込文字列
-	bool bLoad = false;			// 読込フラグ
+	ABuffTextArray mapBuffText	= {};		// テキストバッファ連想配列
 	do { // END_TEXTBOXを読み込むまでループ
 
 		// 文字列を読み込む
@@ -452,31 +495,28 @@ bool CFrame2DModuleText::LoadText(const std::string& rFilePath, std::ifstream* p
 		if (str.front() == '#') { std::getline(*pFile, str); }	// コメントアウト
 		else if (str == "NEXT_PATH")
 		{
-			*pFile >> str;			// ＝を読込
-			*pFile >> sNextPath;	// 次テキストボックスの保存パスを読込
+			*pFile >> str;				// ＝を読込
+			*pFile >> sNextPath;		// 次テキストボックスの保存パスを読込
 		}
 		else if (str == "NEXT_BOX")
 		{
-			*pFile >> str;			// ＝を読込
-			*pFile >> sNextBoxKey;	// 次テキストボックスの検索キーを読込
+			*pFile >> str;				// ＝を読込
+			*pFile >> sNextBoxKey;		// 次テキストボックスの検索キーを読込
 		}
 		else if (str == "NEXT_START")
 		{
 			*pFile >> str;				// ＝を読込
 			*pFile >> sNextStartKey;	// 次テキストボックスのテキスト開始キーを読込
 		}
-
-		// TODO：ここでFACEとNAMEのキーを判定
-		//		 FACE = -1でないならこれ以降のテキスト生成は顔つき
-
-		else if (size_t findIdx = str.find("TEXT_") != std::string::npos)	// TODO：ここどう書くかは要検討
-		{ // 読込開始の文字列が含まれていた場合
-
-			// テキストの検索キーを読込
-			str.erase(0, findIdx + 4);	// TODO：定数
-
+		else if (str == "FACE")
+		{
+			*pFile >> str;		// ＝を読込
+			*pFile >> nFaceIdx;	// 顔インデックスを読込
+		}
+		else if (size_t find = str.find(KEY_TEXT) != std::string::npos)
+		{
 			// 文字列の読込
-			CFrame2DTextBuffer* pBuffText = LoadString(pFile);	// 読み込んだテキストバッファ取得
+			CFrame2DTextBuffer* pBuffText = LoadString(pFile, nFaceIdx);	// 読み込んだテキストバッファ取得
 			if (pBuffText == nullptr)
 			{ // 生成に失敗した場合
 
@@ -484,14 +524,17 @@ bool CFrame2DModuleText::LoadText(const std::string& rFilePath, std::ifstream* p
 				return false;
 			}
 
-			// テキスト読込を保存
-			bLoad = true;
-
 			// 読み込んだファイルパスを保存
 			pBuffText->m_sPath = rFilePath;
 
+			// テキストの検索キー以外の部分を削除
+			str.erase(0, find + KET_TEXT_LEN);
+
 			// テキストバッファを保存
 			mapBuffText.insert(std::make_pair(str, pBuffText));
+
+			// テキスト読込を保存
+			bLoad = true;
 		}
 	} while (str != "END_TEXTBOX");	// END_TEXTBOXを読み込むまでループ
 
@@ -509,7 +552,7 @@ bool CFrame2DModuleText::LoadText(const std::string& rFilePath, std::ifstream* p
 //============================================================
 //	文字列の読込処理
 //============================================================
-CFrame2DTextBuffer* CFrame2DModuleText::LoadString(std::ifstream* pFile)
+CFrame2DTextBuffer* CFrame2DModuleText::LoadString(std::ifstream* pFile, const int nFaceIdx)
 {
 	// ファイルポインタがない場合抜ける
 	if (pFile == nullptr) { assert(false); return nullptr; }
@@ -533,7 +576,7 @@ CFrame2DTextBuffer* CFrame2DModuleText::LoadString(std::ifstream* pFile)
 
 			// テキストバッファの生成
 			assert(pBuffText == nullptr);
-			pBuffText = CreateBuffText(str);
+			pBuffText = CreateBuffText(str, nFaceIdx);
 		}
 		else if (str == "STR")
 		{

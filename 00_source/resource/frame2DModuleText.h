@@ -49,26 +49,25 @@ public:
 	// メンバ関数
 	void BindBuffTextArray(const ABuffTextArray& rMapBuffText, const std::string& rFilePath, const std::string& rBoxKey, const std::string& rNextStartKey = "0");	// テキストバッファ連想配列割当
 	HRESULT BindTextBox(const std::string& rFilePath, const std::string& rBoxKey, const std::string& rNextStartKey = "0");	// テキストボックス割当
-	HRESULT BindText(const std::string& rTextKey);					// テキスト割当
-	void TransText(const std::string& rNextTextKey);				// テキスト遷移
-	HRESULT ChangeState(CFrame2DTextState* pState);					// 状態変更
+	HRESULT BindText(const std::string& rTextKey);		// テキスト割当
+	HRESULT TransText(const std::string& rNextTextKey);	// テキスト遷移
+	HRESULT ChangeState(CFrame2DTextState* pState);		// 状態変更
 	inline CFrame2DTextState* GetState() const { return m_pState; }	// 状態取得
 
-	// TODO
-	inline int GetNumText() const								{ return (int)m_mapBuffText.size(); }									// テキスト数取得
-	//inline int GetNumString(const std::string& rTextKey) const	{ return (int)m_mapBuffText.find(rTextKey)->second->m_text.size(); }	// 文字列数取得
 	HRESULT PushFrontString(const std::string& rStr, const std::string& rTextKey);	// 文字列の先頭追加 (マルチバイト文字列)
 	HRESULT PushFrontString(const std::wstring& rStr, const std::string& rTextKey);	// 文字列の先頭追加 (ワイド文字列)
 	HRESULT PushBackString(const std::string& rStr, const std::string& rTextKey);	// 文字列の最後尾追加 (マルチバイト文字列)
 	HRESULT PushBackString(const std::wstring& rStr, const std::string& rTextKey);	// 文字列の最後尾追加 (ワイド文字列)
+	int GetNumString(const std::string& rTextKey) const;				// 行数取得
+	inline int GetNumText() const { return (int)m_mapBuffText.size(); }	// テキスト数取得
 
 private:
 	// メンバ関数
-	void DeleteBuffText();	// テキストバッファ連想配列削除
-	CFrame2DTextBuffer* CreateBuffText(const std::string& rCreateKey);			// テキストバッファ生成
+	void ReleaseBuffText();	// テキストバッファ連想配列破棄
+	CFrame2DTextBuffer* CreateBuffText(const std::string& rCreateKey, const int nFaceIdx);	// テキストバッファ生成
 	bool LoadTextBox(const std::string& rFilePath, const std::string& rBoxKey);	// テキストボックス読込
-	bool LoadText(const std::string& rFilePath, std::ifstream* pFile);			// テキスト読込
-	CFrame2DTextBuffer* LoadString(std::ifstream* pFile);	// 文字列読込
+	bool LoadText(std::ifstream* pFile, const std::string& rFilePath);			// テキスト読込
+	CFrame2DTextBuffer* LoadString(std::ifstream* pFile, const int nFaceIdx);	// 文字列読込
 
 	// メンバ変数
 	ABuffTextArray m_mapBuffText;	// テキストバッファ連想配列
