@@ -183,6 +183,9 @@ void CFrame2DTextStateText::BindTextBuffer(CFrame2DTextBuffer* pBuffer)
 	CFrame2DTextBufferText* pBuffText = pBuffer->GetBufferText();
 	if (pBuffText == nullptr) { assert(false); return; }
 
+	// 割り当てるテキストの検索キーを保存
+	SetCurTextKey(pBuffer->m_sKey);
+
 	// 次テキストの検索キーを割当
 	m_sNextTextKey = pBuffText->m_sNextTextKey;
 

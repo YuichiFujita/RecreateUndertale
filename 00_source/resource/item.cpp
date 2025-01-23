@@ -123,6 +123,9 @@ CFrame2DModuleText::ABuffTextArray CItemData::CreateUseBuffTextArray() const
 	// アイテム情報パスを保存
 	pBuffItem->m_sPath = m_sDataPath;
 
+	// テキスト検索キーを初期化
+	pBuffItem->m_sKey = "NONE";
+
 	// 使用テキストを最後尾に追加
 	pBuffItem->m_text.push_back(" ＊ エラーメッセージ");
 
@@ -143,6 +146,9 @@ CFrame2DModuleText::ABuffTextArray CItemData::CreateInfoBuffTextArray() const
 	// アイテム情報パスを保存
 	pBuffItem->m_sPath = m_sDataPath;
 
+	// テキスト検索キーを初期化
+	pBuffItem->m_sKey = "NONE";
+
 	// 情報テキストを最後尾に追加
 	pBuffItem->m_text.push_back(" ＊ エラーメッセージ");
 
@@ -162,6 +168,9 @@ CFrame2DModuleText::ABuffTextArray CItemData::CreateDropBuffTextArray() const
 
 	// アイテム情報パスを保存
 	pBuffItem->m_sPath = m_sDataPath;
+
+	// テキスト検索キーを初期化
+	pBuffItem->m_sKey = "NONE";
 
 	// 破棄テキストの作成
 	std::string sText = " ＊ ";

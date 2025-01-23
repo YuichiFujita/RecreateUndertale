@@ -13,7 +13,7 @@ ITEMSET
 	TEXTBOX_USE
 		NEXT_PATH	= NONE	# 次テキストボックスパス
 		NEXT_BOX	= -1	# 次テキストボックスキー
-		NEXT_START	= -1	# 次テキストボックスのテキスト開始キー
+		START_KEY	= 0		# テキスト開始キー
 		FACE		= -1	# 顔インデックス
 		
 		TEXT_0
@@ -52,7 +52,7 @@ ITEMSET
 	TEXTBOX_INFO
 		NEXT_PATH	= NONE	# 次テキストボックスパス
 		NEXT_BOX	= -1	# 次テキストボックスキー
-		NEXT_START	= -1	# 次テキストボックスのテキスト開始キー
+		START_KEY	= 0		# テキスト開始キー
 		FACE		= -1	# 顔インデックス
 		
 		TEXT_0

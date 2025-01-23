@@ -109,6 +109,9 @@ void CFrame2DTextStateItem::BindTextBuffer(CFrame2DTextBuffer* pBuffer)
 	CFrame2DTextBufferItem* pBuffItem = pBuffer->GetBufferItem();
 	if (pBuffItem == nullptr) { assert(false); return; }
 
+	// 割り当てるテキストの検索キーを保存
+	SetCurTextKey(pBuffer->m_sKey);
+
 	// テキストパスからアイテム情報を検索
 	CItem* pItem = GET_MANAGER->GetItem();
 	const CItemData& rItemData = pItem->GetInfo(pBuffItem->m_sPath);

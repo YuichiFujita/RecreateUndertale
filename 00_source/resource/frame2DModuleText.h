@@ -47,8 +47,8 @@ public:
 	inline CFrame2DModuleText* GetModuleText() override	{ return this; }	// テキスト表示機能取得
 
 	// メンバ関数
-	void BindBuffTextArray(const ABuffTextArray& rMapBuffText, const std::string& rFilePath, const std::string& rBoxKey, const std::string& rNextStartKey = "0");	// テキストバッファ連想配列割当
-	HRESULT BindTextBox(const std::string& rFilePath, const std::string& rBoxKey, const std::string& rNextStartKey = "0");	// テキストボックス割当
+	void BindBuffTextArray(const ABuffTextArray& rMapBuffText, const std::string& rFilePath, const std::string& rBoxKey, const std::string& rStartKey = "0");	// テキストバッファ連想配列割当
+	HRESULT BindTextBox(const std::string& rFilePath, const std::string& rBoxKey);	// テキストボックス割当
 	HRESULT BindText(const std::string& rTextKey);		// テキスト割当
 	HRESULT TransText(const std::string& rNextTextKey);	// テキスト遷移
 	HRESULT ChangeState(CFrame2DTextState* pState);		// 状態変更
@@ -70,11 +70,11 @@ private:
 	CFrame2DTextBuffer* LoadString(std::ifstream* pFile, const int nFaceIdx);	// 文字列読込
 
 	// メンバ変数
-	ABuffTextArray m_mapBuffText;	// テキストバッファ連想配列
 	CFrame2DTextState* m_pState;	// 状態
+	ABuffTextArray m_mapBuffText;	// テキストバッファ連想配列
 	std::string m_sNextPath;		// 次テキストボックスの保存パス
 	std::string m_sNextBoxKey;		// 次テキストボックスの検索キー
-	std::string m_sNextStartKey;	// 次テキストボックスのテキスト開始キー
+	std::string m_sStartKey;		// テキストボックスのテキスト開始キー
 	bool m_bAutoUninitFrame;		// フレーム自動破棄フラグ
 };
 

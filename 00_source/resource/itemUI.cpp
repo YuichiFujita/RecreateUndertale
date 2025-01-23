@@ -185,7 +185,7 @@ HRESULT CItemUI::InitUseText()
 	CFrame2DModuleText::ABuffTextArray mapBuffText = rItemData.CreateUseBuffTextArray();
 
 	// テキストバッファ連想配列の割当
-	pModuleText->BindBuffTextArray(mapBuffText, "NONE", "NONE", "0");
+	pModuleText->BindBuffTextArray(mapBuffText, "NONE", "NONE");
 
 	// テキストバッファの割当
 	pModuleText->BindText("0");
@@ -214,7 +214,7 @@ HRESULT CItemUI::InitInfoText()
 	CFrame2DModuleText::ABuffTextArray mapBuffText = rItemData.CreateInfoBuffTextArray();
 
 	// テキストバッファ連想配列の割当
-	pModuleText->BindBuffTextArray(mapBuffText, "NONE", "NONE", "0");
+	pModuleText->BindBuffTextArray(mapBuffText, "NONE", "NONE");
 
 	// テキストバッファの割当
 	pModuleText->BindText("0");
@@ -243,7 +243,7 @@ HRESULT CItemUI::InitDropText()
 	CFrame2DModuleText::ABuffTextArray mapBuffText = rItemData.CreateDropBuffTextArray();
 
 	// テキストバッファ連想配列の割当
-	pModuleText->BindBuffTextArray(mapBuffText, "NONE", "NONE", "0");
+	pModuleText->BindBuffTextArray(mapBuffText, "NONE", "NONE");
 
 	// テキストバッファの割当
 	pModuleText->BindText("0");

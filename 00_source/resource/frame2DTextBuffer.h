@@ -47,6 +47,7 @@ public:
 
 	// メンバ変数
 	std::string m_sPath;	// テキスト保存パス
+	std::string m_sKey;		// テキスト検索キー
 	AText m_text;			// テキスト保存
 };
 

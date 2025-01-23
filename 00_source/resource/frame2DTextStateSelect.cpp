@@ -312,6 +312,9 @@ void CFrame2DTextStateSelect::BindTextBuffer(CFrame2DTextBuffer* pBuffer)
 	CFrame2DTextBufferSelect* pBuffSelect = pBuffer->GetBufferSelect();
 	if (pBuffSelect == nullptr) { assert(false); return; }
 
+	// 割り当てるテキストの検索キーを保存
+	SetCurTextKey(pBuffer->m_sKey);
+
 	for (int i = 0; i < SELECT_MAX; i++)
 	{ // 選択肢の総数分繰り返す
 

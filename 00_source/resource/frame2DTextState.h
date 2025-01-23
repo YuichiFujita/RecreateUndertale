@@ -48,11 +48,14 @@ public:
 	inline virtual CFrame2DTextStateItem*	GetStateItem()	 { return nullptr; }	// アイテムテキスト状態取得
 
 	// メンバ関数
-	inline void SetContext(CFrame2DModuleText* pContext) { m_pContext = pContext; }	// コンテキスト設定
+	inline void SetContext(CFrame2DModuleText* pContext)	 { m_pContext = pContext; }	// コンテキスト設定
+	inline void SetCurTextKey(const std::string& rKey)		 { m_sCurTextKey = rKey; }	// テキスト検索キー設定
+	inline std::string GetCurTextKey() const				 { return m_sCurTextKey; }	// テキスト検索キー取得
 
 protected:
 	// メンバ変数
 	CFrame2DModuleText* m_pContext;	// コンテキスト
+	std::string m_sCurTextKey;		// 割当済みテキストの検索キー
 };
 
 //************************************************************

@@ -15,7 +15,9 @@
 //============================================================
 //	コンストラクタ
 //============================================================
-CFrame2DTextState::CFrame2DTextState() : m_pContext(nullptr)
+CFrame2DTextState::CFrame2DTextState() :
+	m_pContext		(nullptr),	// コンテキスト
+	m_sCurTextKey	("")		// 割当済みテキストの検索キー
 {
 
 }
