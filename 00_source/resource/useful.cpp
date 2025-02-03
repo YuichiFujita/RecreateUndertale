@@ -87,7 +87,7 @@ void useful::ReplaceConsecChar
 )
 {
 	int nStartIdx = 0;	// 文字検出の開始インデックス
-	while (1)
+	while (true)
 	{ // 区切り文字が見つかった場合
 
 		// 文字列内から引数の文字を検出

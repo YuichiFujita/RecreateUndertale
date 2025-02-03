@@ -28,9 +28,9 @@ namespace
 CFrame2DModuleText::CFrame2DModuleText(const bool bAutoUninit) :
 	m_pState			(nullptr),		// 状態
 	m_mapBuffText		({}),			// テキストバッファ連想配列
-	m_sNextPath			({}),			// 次テキストボックスの保存パス
-	m_sNextBoxKey		({}),			// 次テキストボックスの検索キー
-	m_sStartKey			({}),			// テキストボックスのテキスト開始キー
+	m_sNextPath			(""),			// 次テキストボックスの保存パス
+	m_sNextBoxKey		(""),			// 次テキストボックスの検索キー
+	m_sStartKey			(""),			// テキストボックスのテキスト開始キー
 	m_bAutoUninitFrame	(bAutoUninit)	// フレーム自動破棄フラグ
 {
 
@@ -142,7 +142,7 @@ void CFrame2DModuleText::BindBuffTextArray(const ABuffTextArray& rMapBuffText, c
 	// 次テキストボックス情報の割当
 	m_sNextPath		= rFilePath;	// 次テキストボックスの保存パス
 	m_sNextBoxKey	= rBoxKey;		// 次テキストボックスの検索キー
-	m_sStartKey		= rStartKey;	// 次テキストボックスのテキスト開始キー
+	m_sStartKey		= rStartKey;	// テキストボックスのテキスト開始キー
 }
 
 //============================================================
@@ -294,6 +294,9 @@ HRESULT CFrame2DModuleText::PushFrontString(const std::string& rStr, const std::
 	// 先頭に文字列を追加
 	pText->insert(pText->begin(), rStr);
 
+	// 状態が未設定の場合抜ける
+	if (m_pState == nullptr) { return S_OK; }
+
 	if (rTextKey == m_pState->GetCurTextKey())
 	{ // 現在の割当テキスト保存キーと同一の場合
 
@@ -340,6 +343,9 @@ HRESULT CFrame2DModuleText::PushBackString(const std::string& rStr, const std::s
 
 	// 最後尾に文字列を追加
 	pText->push_back(rStr);
+
+	// 状態が未設定の場合抜ける
+	if (m_pState == nullptr) { return S_OK; }
 
 	if (rTextKey == m_pState->GetCurTextKey())
 	{ // 現在の割当テキスト保存キーと同一の場合
@@ -490,7 +496,7 @@ bool CFrame2DModuleText::LoadText(std::ifstream* pFile, const std::string& rFile
 	int nFaceIdx = NONE_IDX;	// 顔インデックス
 	std::string sNextPath		= "NONE";	// 次テキストボックスの保存パス
 	std::string sNextBoxKey		= "NONE";	// 次テキストボックスの検索キー
-	std::string sStartKey		= "NONE";	// 次テキストボックスのテキスト開始キー
+	std::string sStartKey		= "NONE";	// テキストボックスのテキスト開始キー
 	ABuffTextArray mapBuffText	= {};		// テキストバッファ連想配列
 	do { // END_TEXTBOXを読み込むまでループ
 
@@ -498,10 +504,10 @@ bool CFrame2DModuleText::LoadText(std::ifstream* pFile, const std::string& rFile
 		*pFile >> str;
 
 		// テキスト開始キーを検索
-		size_t find = str.find(KEY_TEXT);
+		size_t idxFind = str.find(KEY_TEXT);
 
 		if (str.front() == '#') { std::getline(*pFile, str); }	// コメントアウト
-		if (find != std::string::npos)
+		else if (idxFind != std::string::npos)
 		{ // テキスト開始キーがあった場合
 
 			// 文字列の読込
@@ -514,7 +520,7 @@ bool CFrame2DModuleText::LoadText(std::ifstream* pFile, const std::string& rFile
 			}
 
 			// テキストの検索キー以外の部分を削除
-			str.erase(0, find + KET_TEXT_LEN);
+			str.erase(0, idxFind + KET_TEXT_LEN);
 
 			// 読み込んだファイルパスを保存
 			pBuffText->m_sPath = rFilePath;
@@ -541,7 +547,7 @@ bool CFrame2DModuleText::LoadText(std::ifstream* pFile, const std::string& rFile
 		else if (str == "START_KEY")
 		{
 			*pFile >> str;			// ＝を読込
-			*pFile >> sStartKey;	// 次テキストボックスのテキスト開始キーを読込
+			*pFile >> sStartKey;	// テキストボックスのテキスト開始キーを読込
 		}
 		else if (str == "FACE")
 		{

@@ -28,11 +28,6 @@ ITEMSET
 	ITEMIDX = 0
 	ITEMIDX = 0
 	ITEMIDX = 0
-	ITEMIDX = 0
-	ITEMIDX = 0
-	ITEMIDX = 0
-	ITEMIDX = 0
-	ITEMIDX = 0
 END_ITEMSET
 
 #------------------------------------------------------------------------------
@@ -47,5 +42,5 @@ END_ITEMBOXSET
 USERSET
 	ROOM	 = 0
 	FUN		 = 0
-	PLAYTIME = 96.7329
+	PLAYTIME = 603.4980
 END_USERSET
