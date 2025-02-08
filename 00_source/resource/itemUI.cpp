@@ -376,9 +376,8 @@ void CItemUI::ActDropItem()
 //============================================================
 bool CItemUI::IsModuleText() const
 {
-	CFrame2DModule* pModule = GetModule();	// 現在機能
-
 	// 機能が割り当てられていない場合抜ける
+	CFrame2DModule* pModule = GetModule();		// 現在機能
 	if (pModule == nullptr) { return false; }	// テキスト表示ではない
 
 	// 機能がテキスト表示かを返す

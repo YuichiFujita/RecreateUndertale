@@ -90,6 +90,7 @@ CTitleStateSelect::CTitleStateSelect() :
 	m_pLove		(nullptr),		// レベル情報
 	m_pTime		(nullptr),		// 総プレイ時間情報
 	m_pSave		(nullptr),		// セーブ地点情報
+	m_pVersion	(nullptr),		// バージョン表記情報
 	m_curSelect	(GRID2_ZERO),	// 現在の選択肢
 	m_oldSelect	(GRID2_ZERO)	// 前回の選択肢
 {
@@ -118,6 +119,7 @@ HRESULT CTitleStateSelect::Init()
 	m_pLove		= nullptr;		// レベル情報
 	m_pTime		= nullptr;		// 総プレイ時間情報
 	m_pSave		= nullptr;		// セーブ地点情報
+	m_pVersion	= nullptr;		// バージョン表記情報
 	m_curSelect	= GRID2_ZERO;	// 現在の選択肢
 	m_oldSelect	= GRID2_ZERO;	// 前回の選択肢
 
