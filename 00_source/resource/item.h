@@ -49,9 +49,9 @@ public:
 	virtual void Drop(const int nBagIdx) const;	// アイテム破棄
 	virtual std::string Detail() const;			// アイテム詳細の文字列取得
 	virtual std::string UseEnd() const;			// アイテム使用後の文字列取得
-	virtual CFrame2DModuleText::ABuffTextArray CreateUseBuffTextArray() const;	// 初期使用テキストバッファ連想配列生成
-	virtual CFrame2DModuleText::ABuffTextArray CreateInfoBuffTextArray() const;	// 初期情報テキストバッファ連想配列生成
-	virtual CFrame2DModuleText::ABuffTextArray CreateDropBuffTextArray() const;	// 初期破棄テキストバッファ連想配列生成
+	virtual CFrame2DModuleText::AMapBuffText* CreateUseBuffText() const;	// 初期使用テキストバッファ連想配列生成
+	virtual CFrame2DModuleText::AMapBuffText* CreateInfoBuffText() const;	// 初期情報テキストバッファ連想配列生成
+	virtual CFrame2DModuleText::AMapBuffText* CreateDropBuffText() const;	// 初期破棄テキストバッファ連想配列生成
 
 	// 静的メンバ関数
 	static CItemData* Create(const EType type);	// 生成

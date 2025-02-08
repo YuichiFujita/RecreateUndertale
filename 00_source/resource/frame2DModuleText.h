@@ -29,7 +29,7 @@ class CFrame2DModuleText : public CFrame2DModule
 {
 public:
 	// エイリアス定義
-	using ABuffTextArray = std::map<std::string, CFrame2DTextBuffer*>;	// テキストバッファ連想配列型
+	using AMapBuffText = std::map<std::string, CFrame2DTextBuffer*>;	// テキストバッファ連想配列型
 
 	// コンストラクタ
 	CFrame2DModuleText(const bool bAutoUninit = true);
@@ -47,7 +47,7 @@ public:
 	inline CFrame2DModuleText* GetModuleText() override	{ return this; }	// テキスト表示機能取得
 
 	// メンバ関数
-	void BindBuffTextArray(const ABuffTextArray& rMapBuffText, const std::string& rFilePath, const std::string& rBoxKey, const std::string& rStartKey = "0");	// テキストバッファ連想配列割当
+	void BindBuffTextArray(AMapBuffText* pMapBuffText, const std::string& rFilePath, const std::string& rBoxKey, const std::string& rStartKey = "0");	// テキストバッファ連想配列割当
 	HRESULT BindTextBox(const std::string& rFilePath, const std::string& rBoxKey);	// テキストボックス割当
 	HRESULT BindText(const std::string& rTextKey);		// テキスト割当
 	HRESULT TransText(const std::string& rNextTextKey);	// テキスト遷移
@@ -58,8 +58,8 @@ public:
 	HRESULT PushFrontString(const std::wstring& rStr, const std::string& rTextKey);	// 文字列の先頭追加 (ワイド文字列)
 	HRESULT PushBackString(const std::string& rStr, const std::string& rTextKey);	// 文字列の最後尾追加 (マルチバイト文字列)
 	HRESULT PushBackString(const std::wstring& rStr, const std::string& rTextKey);	// 文字列の最後尾追加 (ワイド文字列)
-	int GetNumString(const std::string& rTextKey) const;				// 行数取得
-	inline int GetNumText() const { return (int)m_mapBuffText.size(); }	// テキスト数取得
+	int GetNumString(const std::string& rTextKey) const;	// 行数取得
+	int GetNumText() const;	// テキスト数取得
 
 private:
 	// メンバ関数
@@ -71,7 +71,7 @@ private:
 
 	// メンバ変数
 	CFrame2DTextState* m_pState;	// 状態
-	ABuffTextArray m_mapBuffText;	// テキストバッファ連想配列
+	AMapBuffText* m_pMapBuffText;	// テキストバッファ連想配列
 	std::string m_sNextPath;		// 次テキストボックスの保存パス
 	std::string m_sNextBoxKey;		// 次テキストボックスの検索キー
 	std::string m_sStartKey;		// テキストボックスのテキスト開始キー

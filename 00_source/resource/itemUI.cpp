@@ -182,10 +182,10 @@ HRESULT CItemUI::InitUseText()
 	const CItemData& rItemData = pItem->GetInfo(m_nChoiceItemIdx);	// アイテム情報
 
 	// テキストの初期化バッファを取得
-	CFrame2DModuleText::ABuffTextArray mapBuffText = rItemData.CreateUseBuffTextArray();
+	CFrame2DModuleText::AMapBuffText* pMapBuffText = rItemData.CreateUseBuffText();
 
 	// テキストバッファ連想配列の割当
-	pModuleText->BindBuffTextArray(mapBuffText, "NONE", "NONE");
+	pModuleText->BindBuffTextArray(pMapBuffText, "NONE", "NONE");
 
 	// テキストバッファの割当
 	pModuleText->BindText("0");
@@ -211,10 +211,10 @@ HRESULT CItemUI::InitInfoText()
 	const CItemData& rItemData = pItem->GetInfo(m_nChoiceItemIdx);	// アイテム情報
 
 	// テキストの初期化バッファを取得
-	CFrame2DModuleText::ABuffTextArray mapBuffText = rItemData.CreateInfoBuffTextArray();
+	CFrame2DModuleText::AMapBuffText* pMapBuffText = rItemData.CreateInfoBuffText();
 
 	// テキストバッファ連想配列の割当
-	pModuleText->BindBuffTextArray(mapBuffText, "NONE", "NONE");
+	pModuleText->BindBuffTextArray(pMapBuffText, "NONE", "NONE");
 
 	// テキストバッファの割当
 	pModuleText->BindText("0");
@@ -240,10 +240,10 @@ HRESULT CItemUI::InitDropText()
 	const CItemData& rItemData = pItem->GetInfo(m_nChoiceItemIdx);	// アイテム情報
 
 	// テキストの初期化バッファを取得
-	CFrame2DModuleText::ABuffTextArray mapBuffText = rItemData.CreateDropBuffTextArray();
+	CFrame2DModuleText::AMapBuffText* pMapBuffText = rItemData.CreateDropBuffText();
 
 	// テキストバッファ連想配列の割当
-	pModuleText->BindBuffTextArray(mapBuffText, "NONE", "NONE");
+	pModuleText->BindBuffTextArray(pMapBuffText, "NONE", "NONE");
 
 	// テキストバッファの割当
 	pModuleText->BindText("0");

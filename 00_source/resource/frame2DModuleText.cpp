@@ -27,7 +27,7 @@ namespace
 //============================================================
 CFrame2DModuleText::CFrame2DModuleText(const bool bAutoUninit) :
 	m_pState			(nullptr),		// 状態
-	m_mapBuffText		({}),			// テキストバッファ連想配列
+	m_pMapBuffText		(nullptr),		// テキストバッファ連想配列
 	m_sNextPath			(""),			// 次テキストボックスの保存パス
 	m_sNextBoxKey		(""),			// 次テキストボックスの検索キー
 	m_sStartKey			(""),			// テキストボックスのテキスト開始キー
@@ -51,7 +51,7 @@ HRESULT CFrame2DModuleText::Init()
 {
 	// メンバ変数を初期化
 	m_pState		= nullptr;	// 状態
-	m_mapBuffText	= {};		// テキストバッファ連想配列
+	m_pMapBuffText	= nullptr;	// テキストバッファ連想配列
 	m_sNextPath		= "NONE";	// 次テキストボックスの保存パス
 	m_sNextBoxKey	= "NONE";	// 次テキストボックスの検索キー
 	m_sStartKey		= "NONE";	// テキストボックスのテキスト開始キー
@@ -131,13 +131,13 @@ void CFrame2DModuleText::SetVec3Rotation(const VECTOR3& rRot)
 //============================================================
 //	テキストバッファ連想配列の割当処理
 //============================================================
-void CFrame2DModuleText::BindBuffTextArray(const ABuffTextArray& rMapBuffText, const std::string& rFilePath, const std::string& rBoxKey, const std::string& rStartKey)
+void CFrame2DModuleText::BindBuffTextArray(AMapBuffText* pMapBuffText, const std::string& rFilePath, const std::string& rBoxKey, const std::string& rStartKey)
 {
 	// テキストバッファの破棄
 	ReleaseBuffText();
 
 	// テキストバッファ連想配列の割当
-	m_mapBuffText = rMapBuffText;
+	m_pMapBuffText = pMapBuffText;
 
 	// 次テキストボックス情報の割当
 	m_sNextPath		= rFilePath;	// 次テキストボックスの保存パス
@@ -173,8 +173,8 @@ HRESULT CFrame2DModuleText::BindTextBox(const std::string& rFilePath, const std:
 HRESULT CFrame2DModuleText::BindText(const std::string& rTextKey)
 {
 	// 引数キーのテキストを検索
-	auto itr = m_mapBuffText.find(rTextKey);
-	if (itr == m_mapBuffText.end()) { assert(false); return E_FAIL; }
+	auto itr = m_pMapBuffText->find(rTextKey);
+	if (itr == m_pMapBuffText->end()) { assert(false); return E_FAIL; }
 
 	// テキストバッファを簡略化
 	CFrame2DTextBuffer* pNextBuffText = itr->second;
@@ -285,8 +285,8 @@ HRESULT CFrame2DModuleText::ChangeState(CFrame2DTextState* pState)
 HRESULT CFrame2DModuleText::PushFrontString(const std::string& rStr, const std::string& rTextKey)
 {
 	// 引数キーのテキストを検索
-	auto itr = m_mapBuffText.find(rTextKey);
-	if (itr == m_mapBuffText.end()) { assert(false); return E_FAIL; }
+	auto itr = m_pMapBuffText->find(rTextKey);
+	if (itr == m_pMapBuffText->end()) { assert(false); return E_FAIL; }
 
 	// テキストを簡略化
 	AText* pText = &itr->second->m_text;
@@ -335,8 +335,8 @@ HRESULT CFrame2DModuleText::PushFrontString(const std::wstring& rStr, const std:
 HRESULT CFrame2DModuleText::PushBackString(const std::string& rStr, const std::string& rTextKey)
 {
 	// 引数キーのテキストを検索
-	auto itr = m_mapBuffText.find(rTextKey);
-	if (itr == m_mapBuffText.end()) { assert(false); return E_FAIL; }
+	auto itr = m_pMapBuffText->find(rTextKey);
+	if (itr == m_pMapBuffText->end()) { assert(false); return E_FAIL; }
 
 	// テキストを簡略化
 	AText* pText = &itr->second->m_text;
@@ -385,8 +385,8 @@ HRESULT CFrame2DModuleText::PushBackString(const std::wstring& rStr, const std::
 int CFrame2DModuleText::GetNumString(const std::string& rTextKey) const
 {
 	// 引数キーのテキストを検索
-	auto itr = m_mapBuffText.find(rTextKey);
-	if (itr == m_mapBuffText.end()) { assert(false); return NONE_IDX; }
+	auto itr = m_pMapBuffText->find(rTextKey);
+	if (itr == m_pMapBuffText->end()) { assert(false); return NONE_IDX; }
 
 	// テキストを簡略化
 	AText* pText = &itr->second->m_text;
@@ -396,11 +396,26 @@ int CFrame2DModuleText::GetNumString(const std::string& rTextKey) const
 }
 
 //============================================================
+//	テキスト数の取得処理
+//============================================================
+int CFrame2DModuleText::GetNumText() const
+{
+	// テキストバッファ配列がない場合エラー
+	if (m_pMapBuffText == nullptr) { assert(false); return 0; }
+
+	// 現在のテキスト数を返す
+	return (int)m_pMapBuffText->size();
+}
+
+//============================================================
 //	テキストバッファ連想配列の破棄処理
 //============================================================
 void CFrame2DModuleText::ReleaseBuffText()
 {
-	for (auto& rMap : m_mapBuffText)
+	// テキストが存在しない場合抜ける
+	if (m_pMapBuffText == nullptr) { return; }
+
+	for (auto& rMap : *m_pMapBuffText)
 	{ // 要素数分繰り返す
 
 		// テキストバッファの破棄
@@ -408,7 +423,10 @@ void CFrame2DModuleText::ReleaseBuffText()
 	}
 
 	// テキストバッファ連想配列をクリア
-	m_mapBuffText.clear();
+	m_pMapBuffText->clear();
+
+	// テキストバッファ連想配列の破棄
+	SAFE_DELETE(m_pMapBuffText);
 }
 
 //============================================================
@@ -492,12 +510,11 @@ bool CFrame2DModuleText::LoadText(std::ifstream* pFile, const std::string& rFile
 
 	// ファイルを読込
 	std::string str;			// 読込文字列
-	bool bLoad = false;			// 読込フラグ
 	int nFaceIdx = NONE_IDX;	// 顔インデックス
 	std::string sNextPath		= "NONE";	// 次テキストボックスの保存パス
 	std::string sNextBoxKey		= "NONE";	// 次テキストボックスの検索キー
 	std::string sStartKey		= "NONE";	// テキストボックスのテキスト開始キー
-	ABuffTextArray mapBuffText	= {};		// テキストバッファ連想配列
+	AMapBuffText* pMapBuffText	= nullptr;	// テキストバッファ連想配列
 	do { // END_TEXTBOXを読み込むまでループ
 
 		// 文字列を読み込む
@@ -528,11 +545,21 @@ bool CFrame2DModuleText::LoadText(std::ifstream* pFile, const std::string& rFile
 			// テキストの検索キーを保存
 			pBuffText->m_sKey = str;
 
-			// テキストバッファを保存
-			mapBuffText.insert(std::make_pair(str, pBuffText));
+			if (pMapBuffText == nullptr)
+			{ // テキストバッファ連想配列が未生成の場合
 
-			// テキスト読込を保存
-			bLoad = true;
+				// テキストバッファ連想配列の生成
+				pMapBuffText = new AMapBuffText;
+				if (pMapBuffText == nullptr)
+				{ // 生成に失敗した場合
+
+					assert(false);
+					return false;
+				}
+			}
+
+			// テキストバッファを保存
+			pMapBuffText->insert(std::make_pair(str, pBuffText));
 		}
 		else if (str == "NEXT_PATH")
 		{
@@ -556,11 +583,12 @@ bool CFrame2DModuleText::LoadText(std::ifstream* pFile, const std::string& rFile
 		}
 	} while (str != "END_TEXTBOX");	// END_TEXTBOXを読み込むまでループ
 
+	bool bLoad = (pMapBuffText != nullptr);	// テキスト読込フラグ
 	if (bLoad)
 	{ // テキストが存在する場合
 
 		// テキストバッファ連想配列の割当
-		BindBuffTextArray(mapBuffText, sNextPath, sNextBoxKey, sStartKey);
+		BindBuffTextArray(pMapBuffText, sNextPath, sNextBoxKey, sStartKey);
 	}
 
 	// テキストが存在したかを返す

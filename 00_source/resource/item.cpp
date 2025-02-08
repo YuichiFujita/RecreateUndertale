@@ -115,10 +115,15 @@ std::string CItemData::UseEnd() const
 //============================================================
 //	初期の使用テキストバッファ連想配列の生成処理
 //============================================================
-CFrame2DModuleText::ABuffTextArray CItemData::CreateUseBuffTextArray() const
+CFrame2DModuleText::AMapBuffText* CItemData::CreateUseBuffText() const
 {
-	CFrame2DModuleText::ABuffTextArray mapBuffText;
+	// テキストバッファ連想配列が生成失敗した場合エラー
+	CFrame2DModuleText::AMapBuffText* pMapBuffText = new CFrame2DModuleText::AMapBuffText;
+	if (pMapBuffText == nullptr) { assert(false); return nullptr; }
+
+	// アイテムテキスト保存バッファが生成失敗した場合エラー
 	CFrame2DTextBufferItem* pBuffItem = new CFrame2DTextBufferItem;
+	if (pBuffItem == nullptr) { assert(false); return nullptr; }
 
 	// アイテム情報パスを保存
 	pBuffItem->m_sPath = m_sDataPath;
@@ -130,18 +135,24 @@ CFrame2DModuleText::ABuffTextArray CItemData::CreateUseBuffTextArray() const
 	pBuffItem->m_text.push_back(" ＊ エラーメッセージ");
 
 	// テキストバッファを保存
-	mapBuffText.insert(std::make_pair("0", pBuffItem));
+	pMapBuffText->insert(std::make_pair("0", pBuffItem));
 
-	return mapBuffText;
+	// 作成したテキストバッファ連想配列を返す
+	return pMapBuffText;
 }
 
 //============================================================
 //	初期の情報テキストバッファ連想配列の生成処理
 //============================================================
-CFrame2DModuleText::ABuffTextArray CItemData::CreateInfoBuffTextArray() const
+CFrame2DModuleText::AMapBuffText* CItemData::CreateInfoBuffText() const
 {
-	CFrame2DModuleText::ABuffTextArray mapBuffText;
+	// テキストバッファ連想配列が生成失敗した場合エラー
+	CFrame2DModuleText::AMapBuffText* pMapBuffText = new CFrame2DModuleText::AMapBuffText;
+	if (pMapBuffText == nullptr) { assert(false); return nullptr; }
+
+	// アイテムテキスト保存バッファが生成失敗した場合エラー
 	CFrame2DTextBufferItem* pBuffItem = new CFrame2DTextBufferItem;
+	if (pBuffItem == nullptr) { assert(false); return nullptr; }
 
 	// アイテム情報パスを保存
 	pBuffItem->m_sPath = m_sDataPath;
@@ -153,18 +164,24 @@ CFrame2DModuleText::ABuffTextArray CItemData::CreateInfoBuffTextArray() const
 	pBuffItem->m_text.push_back(" ＊ エラーメッセージ");
 
 	// テキストバッファを保存
-	mapBuffText.insert(std::make_pair("0", pBuffItem));
+	pMapBuffText->insert(std::make_pair("0", pBuffItem));
 
-	return mapBuffText;
+	// 作成したテキストバッファ連想配列を返す
+	return pMapBuffText;
 }
 
 //============================================================
 //	初期の破棄テキストバッファ連想配列の生成処理
 //============================================================
-CFrame2DModuleText::ABuffTextArray CItemData::CreateDropBuffTextArray() const
+CFrame2DModuleText::AMapBuffText* CItemData::CreateDropBuffText() const
 {
-	CFrame2DModuleText::ABuffTextArray mapBuffText;
+	// テキストバッファ連想配列が生成失敗した場合エラー
+	CFrame2DModuleText::AMapBuffText* pMapBuffText = new CFrame2DModuleText::AMapBuffText;
+	if (pMapBuffText == nullptr) { assert(false); return nullptr; }
+
+	// アイテムテキスト保存バッファが生成失敗した場合エラー
 	CFrame2DTextBufferItem* pBuffItem = new CFrame2DTextBufferItem;
+	if (pBuffItem == nullptr) { assert(false); return nullptr; }
 
 	// アイテム情報パスを保存
 	pBuffItem->m_sPath = m_sDataPath;
@@ -181,9 +198,10 @@ CFrame2DModuleText::ABuffTextArray CItemData::CreateDropBuffTextArray() const
 	pBuffItem->m_text.push_back(sText);
 
 	// テキストバッファを保存
-	mapBuffText.insert(std::make_pair("0", pBuffItem));
+	pMapBuffText->insert(std::make_pair("0", pBuffItem));
 
-	return mapBuffText;
+	// 作成したテキストバッファ連想配列を返す
+	return pMapBuffText;
 }
 
 //============================================================
