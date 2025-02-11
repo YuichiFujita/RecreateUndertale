@@ -79,15 +79,18 @@ CFrame2DTextStateSelect::CFrame2DTextStateSelect() : CFrame2DTextStateSelect(VEC
 //	コンストラクタ (配置プリセット)
 //============================================================
 CFrame2DTextStateSelect::CFrame2DTextStateSelect(const CFrame2D::EPreset preset) : CFrame2DTextStateText(preset),
-	m_pSoul		 (nullptr),	// ソウルカーソル情報
-	m_nCurSelect (0)		// 現在の選択肢
+	m_sCutTextPath	(""),		// 現在テキストの保存パス
+	m_pSoul			(nullptr),	// ソウルカーソル情報
+	m_nCurSelect	(0)			// 現在の選択肢
 {
 	// メンバ変数をクリア
 	for (int i = 0; i < SELECT_MAX; i++)
 	{ // 選択肢の総数分繰り返す
 
-		m_aNextTextKey[i]	= {};		// 次テキストの検索キー
-		m_apSelect[i]		= nullptr;	// 選択肢情報
+		m_aNextPath[i]	 = "";		// 次テキストボックスの保存パス
+		m_aNextBoxKey[i] = "";		// 次テキストボックスの検索キー
+		m_aNextKey[i]	 = "";		// テキストボックスのテキスト開始キー
+		m_apSelect[i]	 = nullptr;	// 選択肢情報
 	}
 	m_aOffset[SELECT_LEFT]	= GetPresetOffset(SELECT_LEFT, preset);		// 左選択肢オフセット
 	m_aOffset[SELECT_RIGHT]	= GetPresetOffset(SELECT_RIGHT, preset);	// 右選択肢オフセット
@@ -97,15 +100,18 @@ CFrame2DTextStateSelect::CFrame2DTextStateSelect(const CFrame2D::EPreset preset)
 //	コンストラクタ (配置指定)
 //============================================================
 CFrame2DTextStateSelect::CFrame2DTextStateSelect(const VECTOR3& rOffsetText, const VECTOR3& rOffsetSelectL, const VECTOR3& rOffsetSelectR) : CFrame2DTextStateText(rOffsetText),
-	m_pSoul		 (nullptr),	// ソウルカーソル情報
-	m_nCurSelect (0)		// 現在の選択肢
+	m_sCutTextPath	(""),		// 現在テキストの保存パス
+	m_pSoul			(nullptr),	// ソウルカーソル情報
+	m_nCurSelect	(0)			// 現在の選択肢
 {
 	// メンバ変数をクリア
 	for (int i = 0; i < SELECT_MAX; i++)
 	{ // 選択肢の総数分繰り返す
 
-		m_aNextTextKey[i]	= {};		// 次テキストの検索キー
-		m_apSelect[i]		= nullptr;	// 選択肢情報
+		m_aNextPath[i]	 = "";		// 次テキストボックスの保存パス
+		m_aNextBoxKey[i] = "";		// 次テキストボックスの検索キー
+		m_aNextKey[i]	 = "";		// テキストボックスのテキスト開始キー
+		m_apSelect[i]	 = nullptr;	// 選択肢情報
 	}
 	m_aOffset[SELECT_LEFT]	= rOffsetSelectL;	// 左選択肢オフセット
 	m_aOffset[SELECT_RIGHT]	= rOffsetSelectR;	// 右選択肢オフセット
@@ -125,14 +131,20 @@ CFrame2DTextStateSelect::~CFrame2DTextStateSelect()
 HRESULT CFrame2DTextStateSelect::Init()
 {
 	// メンバ変数を初期化
-	m_pSoul		 = nullptr;	// ソウルカーソル情報
-	m_nCurSelect = 0;		// 現在の選択肢
+	m_sCutTextPath	= "NONE";	// 現在テキストの保存パス
+	m_pSoul			= nullptr;	// ソウルカーソル情報
+	m_nCurSelect	= 0;		// 現在の選択肢
 	for (int i = 0; i < SELECT_MAX; i++)
 	{ // 選択肢の総数分繰り返す
 
-		m_aNextTextKey[i]	= "NONE";	// 次テキストの検索キー
-		m_apSelect[i]		= nullptr;	// 選択肢情報
+		m_aNextPath[i]	 = "NONE";	// 次テキストボックスの保存パス
+		m_aNextBoxKey[i] = "NONE";	// 次テキストボックスの検索キー
+		m_aNextKey[i]	 = "NONE";	// テキストボックスのテキスト開始キー
+		m_apSelect[i]	 = nullptr;	// 選択肢情報
 	}
+
+	// TODO：ここで他のキー情報の初期値を設定
+	// TODO：それと他のキー初期化では何の文字列入れてるかも確認
 
 	// 親クラスの初期化
 	if (FAILED(CFrame2DTextStateText::Init()))
@@ -315,11 +327,16 @@ void CFrame2DTextStateSelect::BindTextBuffer(CFrame2DTextBuffer* pBuffer)
 	// 割り当てるテキストの検索キーを保存
 	SetCurTextKey(pBuffer->m_sKey);
 
+	// 割り当てるテキストの保存パスを保存
+	m_sCutTextPath = pBuffer->m_sPath;
+
 	for (int i = 0; i < SELECT_MAX; i++)
 	{ // 選択肢の総数分繰り返す
 
-		// 次テキストの検索キーを割当
-		m_aNextTextKey[i] = pBuffSelect->m_aNextTextKey[i];
+		// テキストの識別情報を割当
+		m_aNextPath[i]	 = pBuffSelect->m_aNextPath[i];		// 次テキストボックスの保存パス
+		m_aNextBoxKey[i] = pBuffSelect->m_aNextBoxKey[i];	// 次テキストボックスの検索キー
+		m_aNextKey[i]	 = pBuffSelect->m_aNextKey[i];		// テキストボックスのテキスト開始キー
 
 		// 選択肢のテキスト情報を割当
 		int nNumSelect = (int)pBuffSelect->m_aSelect[i].size();	// 文字列数
@@ -422,9 +439,8 @@ void CFrame2DTextStateSelect::SetPositionRelative()
 		m_apSelect[i]->SetVec3Position(posSelect);
 	}
 
-	VECTOR3 posCursor = m_apSelect[m_nCurSelect]->GetVec3Position();	// ソウルカーソル位置
-
 	// X座標オフセット分ずらす
+	VECTOR3 posCursor = m_apSelect[m_nCurSelect]->GetVec3Position();
 	posCursor.x -= sinf(rotFrame.z + HALF_PI) * soul::OFFSET;
 	posCursor.y -= cosf(rotFrame.z + HALF_PI) * soul::OFFSET;
 
@@ -496,10 +512,48 @@ void CFrame2DTextStateSelect::UpdateSelect()
 //============================================================
 void CFrame2DTextStateSelect::UpdateDecide()
 {
-	if (input::Decide())
-	{
-		// テキストの遷移
-		m_pContext->TransText(m_aNextTextKey[m_nCurSelect]);
+	// 決定操作がされていない場合抜ける
+	if (!input::Decide()) { return; }
+
+	if (m_aNextPath[m_nCurSelect] == "-1"
+	||  m_aNextPath[m_nCurSelect] == "NONE"
+	||  m_aNextPath[m_nCurSelect].empty())
+	{ // テキスト遷移先が同一パスにある場合
+
+		if (m_aNextBoxKey[m_nCurSelect] == "-1"
+		||  m_aNextBoxKey[m_nCurSelect] == "NONE"
+		||  m_aNextBoxKey[m_nCurSelect].empty())
+		{ // テキストボックス検索キーの指定がない場合
+
+			// テキストの遷移
+			m_pContext->TransText(m_aNextKey[m_nCurSelect]);	// 遷移前と同一のテキストバッファ連想配列を使用
+		}
+		else
+		{ // テキストボックス検索キーの指定がある場合
+
+			// テキストボックスの読込
+			m_pContext->LoadTextBox
+			( // 引数
+				m_sCutTextPath,				// 次テキストボックスの保存パス
+				m_aNextBoxKey[m_nCurSelect]	// 次テキストボックスの検索キー
+			);
+
+			// テキストの割当
+			m_pContext->BindText(m_aNextKey[m_nCurSelect]);
+		}
+	}
+	else
+	{ // テキスト遷移先が別パスにある場合
+
+		// テキストボックスの読込
+		m_pContext->LoadTextBox
+		( // 引数
+			m_aNextPath[m_nCurSelect],	// 次テキストボックスの保存パス
+			m_aNextBoxKey[m_nCurSelect]	// 次テキストボックスの検索キー
+		);
+
+		// テキストの割当
+		m_pContext->BindText(m_aNextKey[m_nCurSelect]);
 	}
 }
 

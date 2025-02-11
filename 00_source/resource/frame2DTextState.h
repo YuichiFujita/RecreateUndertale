@@ -39,10 +39,10 @@ public:
 	virtual void BindTextBuffer(CFrame2DTextBuffer* pBuffer) = 0;	// テキスト情報保存バッファ割当
 
 	// 仮想関数
-	inline virtual void SetPriority(const int)				 {}	// 優先順位設定
-	inline virtual void SetVec3Position(const VECTOR3&)		 {}	// 位置設定
-	inline virtual void SetVec3Rotation(const VECTOR3&)		 {}	// 向き設定
-	inline virtual void SetVec3Size(const VECTOR3&)			 {}	// 大きさ設定
+	inline virtual void SetPriority(const int)				 { assert(false); }		// 優先順位設定
+	inline virtual void SetVec3Position(const VECTOR3&)		 { assert(false); }		// 位置設定
+	inline virtual void SetVec3Rotation(const VECTOR3&)		 { assert(false); }		// 向き設定
+	inline virtual void SetVec3Size(const VECTOR3&)			 { assert(false); }		// 大きさ設定
 	inline virtual CFrame2DTextStateText*	GetStateText()	 { return nullptr; }	// テキスト状態取得
 	inline virtual CFrame2DTextStateSelect*	GetStateSelect() { return nullptr; }	// 選択付きテキスト状態取得
 	inline virtual CFrame2DTextStateItem*	GetStateItem()	 { return nullptr; }	// アイテムテキスト状態取得

@@ -47,13 +47,24 @@ public:
 	inline CFrame2DModuleText* GetModuleText() override	{ return this; }	// テキスト表示機能取得
 
 	// メンバ関数
-	void BindBuffTextArray(AMapBuffText* pMapBuffText, const std::string& rFilePath, const std::string& rBoxKey, const std::string& rStartKey = "0");	// テキストバッファ連想配列割当
-	HRESULT BindTextBox(const std::string& rFilePath, const std::string& rBoxKey);	// テキストボックス割当
+	void BindMapBuffText	// テキストバッファ連想配列割当
+	( // 引数
+		AMapBuffText* pMapBuffText,		// テキストバッファ連想配列ポインタ
+		const std::string& rFilePath,	// 次テキストボックスの保存パス
+		const std::string& rBoxKey,		// 次テキストボックスの検索キー
+		const std::string& rStartKey	// テキストボックスのテキスト開始キー
+	);
+	HRESULT BindTextBox		// テキストボックス割当
+	( // 引数
+		const std::string& rFilePath,	// 次テキストボックスの保存パス
+		const std::string& rBoxKey		// 次テキストボックスの検索キー
+	);
 	HRESULT BindText(const std::string& rTextKey);		// テキスト割当
 	HRESULT TransText(const std::string& rNextTextKey);	// テキスト遷移
 	HRESULT ChangeState(CFrame2DTextState* pState);		// 状態変更
 	inline CFrame2DTextState* GetState() const { return m_pState; }	// 状態取得
 
+	bool LoadTextBox(const std::string& rFilePath, const std::string& rBoxKey);		// テキストボックス読込
 	HRESULT PushFrontString(const std::string& rStr, const std::string& rTextKey);	// 文字列の先頭追加 (マルチバイト文字列)
 	HRESULT PushFrontString(const std::wstring& rStr, const std::string& rTextKey);	// 文字列の先頭追加 (ワイド文字列)
 	HRESULT PushBackString(const std::string& rStr, const std::string& rTextKey);	// 文字列の最後尾追加 (マルチバイト文字列)
@@ -65,7 +76,6 @@ private:
 	// メンバ関数
 	void ReleaseBuffText();	// テキストバッファ連想配列破棄
 	CFrame2DTextBuffer* CreateBuffText(const std::string& rCreateKey, const int nFaceIdx);	// テキストバッファ生成
-	bool LoadTextBox(const std::string& rFilePath, const std::string& rBoxKey);	// テキストボックス読込
 	bool LoadText(std::ifstream* pFile, const std::string& rFilePath);			// テキスト読込
 	CFrame2DTextBuffer* LoadString(std::ifstream* pFile, const int nFaceIdx);	// 文字列読込
 

@@ -106,11 +106,14 @@ private:
 	VECTOR3 GetOffsetDownRight();	// 右下部配置オフセット取得
 
 	// メンバ変数
-	std::string m_aNextTextKey[SELECT_MAX];	// 次テキストの検索キー
+	std::string m_aNextPath[SELECT_MAX];	// 次テキストボックスの保存パス
+	std::string m_aNextBoxKey[SELECT_MAX];	// 次テキストボックスの検索キー
+	std::string m_aNextKey[SELECT_MAX];		// テキストボックスのテキスト開始キー
 	CScrollText2D* m_apSelect[SELECT_MAX];	// 選択肢情報
 	VECTOR3 m_aOffset[SELECT_MAX];			// 選択肢オフセット
-	CObject2D* m_pSoul;	// ソウルカーソル情報
-	int m_nCurSelect;	// 現在の選択肢
+	std::string m_sCutTextPath;	// 現在テキストの保存パス
+	CObject2D* m_pSoul;			// ソウルカーソル情報
+	int m_nCurSelect;			// 現在の選択肢
 };
 
 #endif	// _FRAME2D_TEXT_STATE_SELECT_H_

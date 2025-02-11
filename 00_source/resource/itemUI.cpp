@@ -13,6 +13,14 @@
 #include "menuManager.h"
 
 //************************************************************
+//	定数宣言
+//************************************************************
+namespace
+{
+	const char* KEY_START = "0";	// 仮想開始キー
+}
+
+//************************************************************
 //	静的メンバ変数宣言
 //************************************************************
 CItemUI::AFuncInitText CItemUI::m_aFuncInitText[] =	// テキスト初期化関数リスト
@@ -185,10 +193,10 @@ HRESULT CItemUI::InitUseText()
 	CFrame2DModuleText::AMapBuffText* pMapBuffText = rItemData.CreateUseBuffText();
 
 	// テキストバッファ連想配列の割当
-	pModuleText->BindBuffTextArray(pMapBuffText, "NONE", "NONE");
+	pModuleText->BindMapBuffText(pMapBuffText, "NONE", "NONE", KEY_START);
 
 	// テキストバッファの割当
-	pModuleText->BindText("0");
+	pModuleText->BindText(KEY_START);
 
 	return S_OK;
 }
@@ -214,10 +222,10 @@ HRESULT CItemUI::InitInfoText()
 	CFrame2DModuleText::AMapBuffText* pMapBuffText = rItemData.CreateInfoBuffText();
 
 	// テキストバッファ連想配列の割当
-	pModuleText->BindBuffTextArray(pMapBuffText, "NONE", "NONE");
+	pModuleText->BindMapBuffText(pMapBuffText, "NONE", "NONE", KEY_START);
 
 	// テキストバッファの割当
-	pModuleText->BindText("0");
+	pModuleText->BindText(KEY_START);
 
 	return S_OK;
 }
@@ -243,10 +251,10 @@ HRESULT CItemUI::InitDropText()
 	CFrame2DModuleText::AMapBuffText* pMapBuffText = rItemData.CreateDropBuffText();
 
 	// テキストバッファ連想配列の割当
-	pModuleText->BindBuffTextArray(pMapBuffText, "NONE", "NONE");
+	pModuleText->BindMapBuffText(pMapBuffText, "NONE", "NONE", KEY_START);
 
 	// テキストバッファの割当
-	pModuleText->BindText("0");
+	pModuleText->BindText(KEY_START);
 
 	return S_OK;
 }

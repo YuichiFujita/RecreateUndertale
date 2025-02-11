@@ -21,9 +21,13 @@ CFrame2DTextBufferSelect::CFrame2DTextBufferSelect()
 	for (int i = 0; i < CFrame2DTextStateSelect::SELECT_MAX; i++)
 	{ // 選択肢の総数分繰り返す
 
-		m_aNextTextKey[i]	= {};	// 次テキストの検索キー
-		m_aSelect[i]		= {};	// 選択テキスト保存
+		m_aNextPath[i]	 = "";	// 次テキストボックスの保存パス
+		m_aNextBoxKey[i] = "";	// 次テキストボックスの検索キー
+		m_aNextKey[i]	 = "";	// テキストボックスのテキスト開始キー
+		m_aSelect[i]	 = {};	// 選択テキスト保存
 	}
+
+	// TODO：初期化どうにかしないと
 }
 
 //============================================================
@@ -99,10 +103,20 @@ void CFrame2DTextBufferSelect::LoadSelect(std::ifstream* pFile, const CFrame2DTe
 		*pFile >> str;
 
 		if (str.front() == '#') { std::getline(*pFile, str); }	// コメントアウト
-		else if (str == "NEXT")
+		else if (str == "NEXT_PATH")
 		{
 			*pFile >> str;						// ＝を読込
-			*pFile >> m_aNextTextKey[select];	// 次テキストの検索キーを読込
+			*pFile >> m_aNextPath[select];		// 次テキストボックスの保存パスを読込
+		}
+		else if (str == "NEXT_BOX")
+		{
+			*pFile >> str;						// ＝を読込
+			*pFile >> m_aNextBoxKey[select];	// 次テキストボックスの検索キーを読込
+		}
+		else if (str == "NEXT_KEY")
+		{
+			*pFile >> str;					// ＝を読込
+			*pFile >> m_aNextKey[select];	// テキストボックスのテキスト開始キーを読込
 		}
 		else if (str == "STR")
 		{

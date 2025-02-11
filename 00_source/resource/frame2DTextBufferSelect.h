@@ -39,8 +39,10 @@ public:
 	void LoadSelect(std::ifstream* pFile, const CFrame2DTextStateSelect::ESelect select);	// 選択肢文字列読込
 
 	// メンバ変数
-	std::string m_aNextTextKey[CFrame2DTextStateSelect::SELECT_MAX];	// 次テキストの検索キー
-	AText m_aSelect[CFrame2DTextStateSelect::SELECT_MAX];	// 選択テキスト保存
+	std::string m_aNextPath[CFrame2DTextStateSelect::SELECT_MAX];	// 次テキストボックスの保存パス
+	std::string m_aNextBoxKey[CFrame2DTextStateSelect::SELECT_MAX];	// 次テキストボックスの検索キー
+	std::string m_aNextKey[CFrame2DTextStateSelect::SELECT_MAX];	// テキストボックスのテキスト開始キー
+	AText m_aSelect[CFrame2DTextStateSelect::SELECT_MAX];			// 選択テキスト保存
 };
 
 #endif	// _FRAME2D_TEXT_BUFFER_SELECT_H_

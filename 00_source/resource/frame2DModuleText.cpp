@@ -131,7 +131,13 @@ void CFrame2DModuleText::SetVec3Rotation(const VECTOR3& rRot)
 //============================================================
 //	テキストバッファ連想配列の割当処理
 //============================================================
-void CFrame2DModuleText::BindBuffTextArray(AMapBuffText* pMapBuffText, const std::string& rFilePath, const std::string& rBoxKey, const std::string& rStartKey)
+void CFrame2DModuleText::BindMapBuffText
+(
+	AMapBuffText* pMapBuffText,		// テキストバッファ連想配列ポインタ
+	const std::string& rFilePath,	// 次テキストボックスの保存パス
+	const std::string& rBoxKey,		// 次テキストボックスの検索キー
+	const std::string& rStartKey	// テキストボックスのテキスト開始キー
+)
 {
 	// テキストバッファの破棄
 	ReleaseBuffText();
@@ -148,10 +154,14 @@ void CFrame2DModuleText::BindBuffTextArray(AMapBuffText* pMapBuffText, const std
 //============================================================
 //	テキストボックスの割当処理
 //============================================================
-HRESULT CFrame2DModuleText::BindTextBox(const std::string& rFilePath, const std::string& rBoxKey)
+HRESULT CFrame2DModuleText::BindTextBox
+(
+	const std::string& rFilePath,	// 次テキストボックスの保存パス
+	const std::string& rBoxKey		// 次テキストボックスの検索キー
+)
 {
 	// テキストボックスの読込
-	if (!LoadTextBox(rFilePath, rBoxKey))	// TODO：本来はここにテキストバッファ破棄があった。BindBuffTextArrayを絶対通るから消したよ
+	if (!LoadTextBox(rFilePath, rBoxKey))
 	{ // テキストがない場合
 
 		return E_FAIL;
@@ -494,7 +504,7 @@ bool CFrame2DModuleText::LoadTextBox(const std::string& rFilePath, const std::st
 	file.close();
 
 	// テキストが存在したかを返す
-	return bLoad;
+	return bLoad;	// TODO：失敗して止まらないのきつい。FailOKみたいな関数と使い分けるべき。その方が効率的。
 }
 
 //============================================================
@@ -513,7 +523,7 @@ bool CFrame2DModuleText::LoadText(std::ifstream* pFile, const std::string& rFile
 	int nFaceIdx = NONE_IDX;	// 顔インデックス
 	std::string sNextPath		= "NONE";	// 次テキストボックスの保存パス
 	std::string sNextBoxKey		= "NONE";	// 次テキストボックスの検索キー
-	std::string sStartKey		= "NONE";	// テキストボックスのテキスト開始キー
+	std::string sStartKey		= "0";		// テキストボックスのテキスト開始キー
 	AMapBuffText* pMapBuffText	= nullptr;	// テキストバッファ連想配列
 	do { // END_TEXTBOXを読み込むまでループ
 
@@ -588,7 +598,7 @@ bool CFrame2DModuleText::LoadText(std::ifstream* pFile, const std::string& rFile
 	{ // テキストが存在する場合
 
 		// テキストバッファ連想配列の割当
-		BindBuffTextArray(pMapBuffText, sNextPath, sNextBoxKey, sStartKey);
+		BindMapBuffText(pMapBuffText, sNextPath, sNextBoxKey, sStartKey);
 	}
 
 	// テキストが存在したかを返す
@@ -634,11 +644,13 @@ CFrame2DTextBuffer* CFrame2DModuleText::LoadString(std::ifstream* pFile, const i
 			str.insert(0, " ");
 
 			// 文字列を最後尾に追加
+			assert(pBuffText != nullptr);
 			pBuffText->m_text.push_back(str);
 		}
 		else if (pBuffText != nullptr)
 		{
 			// バッファごとのセットアップ読込
+			assert(pBuffText != nullptr);
 			pBuffText->LoadSetup(pFile, str);
 		}
 	} while (str != "END_TEXT");	// END_TEXTを読み込むまでループ
