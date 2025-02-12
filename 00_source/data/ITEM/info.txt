@@ -5,8 +5,8 @@
 #
 #==============================================================================
 ITEMPATH = data\ITEM\item00.txt	# モンスターあめ
-#ITEMPATH = data\ITEM\item01.txt
-#ITEMPATH = data\ITEM\item02.txt
-#ITEMPATH = data\ITEM\item03.txt
-#ITEMPATH = data\ITEM\item04.txt
-#ITEMPATH = data\ITEM\item05.txt
+ITEMPATH = data\ITEM\item01.txt	# じゃがいも
+ITEMPATH = data\ITEM\item02.txt	# いやなおもいで
+ITEMPATH = data\ITEM\item03.txt	# ゆきだるまのかけら
+ITEMPATH = data\ITEM\item04.txt	# ほんもののナイフ
+ITEMPATH = data\ITEM\item05.txt	# ロケット

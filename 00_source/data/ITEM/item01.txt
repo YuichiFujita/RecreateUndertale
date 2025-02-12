@@ -1,14 +1,14 @@
 #==============================================================================
 #
-#	モンスターあめ情報 [item00.txt]
+#	じゃがいも情報 [item01.txt]
 #	Author : 藤田 勇一
 #
 #==============================================================================
 
 ITEMSET
 	TYPE = 1
-	NAME = モンスターあめ
-	HEAL = 10
+	NAME = じゃがいも
+	HEAL = 99
 END_ITEMSET
 
 TEXTBOX_USE
@@ -16,21 +16,21 @@ TEXTBOX_USE
 	
 	TEXT_0
 		NEXT = 1
-		STR  = ＊ /nameを　たべた。
+		STR  = ＊ え、生食するの？
 	END_TEXT
 	
 	TEXT_1
 		NEXT = 2
-		STR  = ＊ /nameを　たべたよ。
+		STR  = ＊ いや...おなか壊すよ？
 	END_TEXT
 	
 	TEXT_2
 		NEXT = 3
-		STR  = ＊ /nameを　たべたって。
+		STR  = ＊ ま、まぁ...止めないけど。
 	END_TEXT
 	
 	TEXT_3
-		STR = ＊ /nameを　たべたっつてるだろ！！！
+		STR = ＊ あ～あ。
 	END_TEXT
 END_TEXTBOX
 
@@ -38,7 +38,12 @@ TEXTBOX_INFO
 	ALL_MODULE = ITEM
 	
 	TEXT_0
-		STR = ＊ ハッカとは　またちがった
-		STR = 　 どくとくな　ふうみ。
+		NEXT = 1
+		STR  = ＊ まず間違いなく
+		STR  = 　 火を通した方がいい。
+	END_TEXT
+	
+	TEXT_1
+		STR = ＊ てか共食いで草
 	END_TEXT
 END_TEXTBOX

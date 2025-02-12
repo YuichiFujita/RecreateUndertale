@@ -13,8 +13,8 @@ STATUSSET
 	HP 			= 20
 	MAX_HP 		= 20
 	EXP			= 0
-	WPN_ITEMIDX	= 0
-	AMR_ITEMIDX	= 0
+	WPN_ITEMIDX	= 4
+	AMR_ITEMIDX	= 5
 	NUM_GOLD	= 0
 	NUM_KILL	= 0
 END_STATUSSET
@@ -23,6 +23,8 @@ END_STATUSSET
 #	èäéùÉAÉCÉeÉÄèÓïÒ
 #------------------------------------------------------------------------------
 ITEMSET
+	ITEMIDX = 0
+	ITEMIDX = 0
 	ITEMIDX = 0
 END_ITEMSET
 
@@ -38,5 +40,5 @@ END_ITEMBOXSET
 USERSET
 	ROOM	 = 0
 	FUN		 = 0
-	PLAYTIME = 952.6085
+	PLAYTIME = 114.3707
 END_USERSET
