@@ -152,7 +152,35 @@ void CFrame2DModuleText::BindMapBuffText
 }
 
 //============================================================
-//	テキストボックスの割当処理
+//	テキストボックスの割当処理 (失敗無視)
+//============================================================
+CFrame2DModuleText::ETextResult CFrame2DModuleText::BindTextBoxIgnoreFail
+(
+	const std::string& rFilePath,	// 次テキストボックスの保存パス
+	const std::string& rBoxKey		// 次テキストボックスの検索キー
+)
+{
+	// テキストボックスの読込
+	ETextResult tr = LoadTextBoxIgnoreFail(rFilePath, rBoxKey);
+	if (TR_SAFE_FAIL(tr))
+	{ // 読込に失敗した場合
+
+		return tr;
+	}
+
+	// テキストの割当
+	if (FAILED(BindText(m_sStartKey)))
+	{ // 割当に失敗した場合
+
+		assert(false);
+		return RES_FAIL;
+	}
+
+	return RES_OK;
+}
+
+//============================================================
+//	テキストボックスの割当処理 (失敗停止)
 //============================================================
 HRESULT CFrame2DModuleText::BindTextBox
 (
@@ -160,17 +188,28 @@ HRESULT CFrame2DModuleText::BindTextBox
 	const std::string& rBoxKey		// 次テキストボックスの検索キー
 )
 {
-	// テキストボックスの読込
-	if (!LoadTextBox(rFilePath, rBoxKey))
-	{ // テキストがない場合
-
-		return E_FAIL;
-	}
-
-	// テキストの割当
-	if (FAILED(BindText(m_sStartKey)))
+	// テキストボックスの割当
+	ETextResult tr = BindTextBoxIgnoreFail(rFilePath, rBoxKey);
+	if (TR_SAFE_FAIL(tr))
 	{ // 割当に失敗した場合
 
+		// エラーメッセージボックス
+		switch (tr)
+		{ // テキストリザルトごとの処理
+		case RES_TEXTBOX_FAIL:
+			MessageBox(nullptr, "テキストボックスの割り当てに失敗！", "警告！", MB_ICONWARNING);
+			break;
+
+		case RES_TEXT_FAIL:
+			MessageBox(nullptr, "テキストの割り当てに失敗！", "警告！", MB_ICONWARNING);
+			break;
+
+		default:
+			MessageBox(nullptr, "テキストボックスの割り当て時に例外が発生！", "警告！", MB_ICONWARNING);
+			break;
+		}
+
+		assert(false);
 		return E_FAIL;
 	}
 
@@ -237,7 +276,7 @@ HRESULT CFrame2DModuleText::TransText(const std::string& rNextTextKey)
 		{ // テキストボックス遷移先がある場合
 
 			// 次のテキストボックスを割当
-			if (FAILED(BindTextBox(m_sNextPath, m_sNextBoxKey)))	// TODO：選択肢ごとに違うテキストボックスにも飛べるようにする
+			if (FAILED(BindTextBox(m_sNextPath, m_sNextBoxKey)))
 			{ // 割当に失敗した場合
 
 				assert(false);
@@ -466,9 +505,9 @@ CFrame2DTextBuffer* CFrame2DModuleText::CreateBuffText(const std::string& rCreat
 }
 
 //============================================================
-//	テキストボックスの読込処理
+//	テキストボックスの読込処理 (例外無視)
 //============================================================
-bool CFrame2DModuleText::LoadTextBox(const std::string& rFilePath, const std::string& rBoxKey)
+CFrame2DModuleText::ETextResult CFrame2DModuleText::LoadTextBoxIgnoreFail(const std::string& rFilePath, const std::string& rBoxKey)
 {
 	// 読込の開始文字列を作成
 	std::string sLoadStart = "TEXTBOX_";	// 認識用の先頭文字を設定
@@ -481,12 +520,12 @@ bool CFrame2DModuleText::LoadTextBox(const std::string& rFilePath, const std::st
 
 		// エラーメッセージボックス
 		MessageBox(nullptr, "テキストファイルの読み込みに失敗！", "警告！", MB_ICONWARNING);
-		return false;
+		return RES_FAIL;
 	}
 
 	// ファイルを読込
-	std::string str;	// 読込文字列
-	bool bLoad = false;	// 読込フラグ
+	std::string str;					// 読込文字列
+	ETextResult tr = RES_TEXTBOX_FAIL;	// 読込フラグ
 	while (file >> str)
 	{ // ファイルの終端ではない場合ループ
 
@@ -495,7 +534,7 @@ bool CFrame2DModuleText::LoadTextBox(const std::string& rFilePath, const std::st
 		{ // 読込開始の文字列と一致した場合
 
 			// テキストの読込
-			bLoad = LoadText(&file, rFilePath);
+			tr = LoadText(&file, rFilePath);
 			break;
 		}
 	}
@@ -504,19 +543,52 @@ bool CFrame2DModuleText::LoadTextBox(const std::string& rFilePath, const std::st
 	file.close();
 
 	// テキストが存在したかを返す
-	return bLoad;	// TODO：失敗して止まらないのきつい。FailOKみたいな関数と使い分けるべき。その方が効率的。
+	return tr;
+}
+
+//============================================================
+//	テキストボックスの読込処理 (失敗停止)
+//============================================================
+HRESULT CFrame2DModuleText::LoadTextBox(const std::string& rFilePath, const std::string& rBoxKey)
+{
+	// テキストボックスの読込
+	ETextResult tr = LoadTextBoxIgnoreFail(rFilePath, rBoxKey);
+	if (TR_SAFE_FAIL(tr))
+	{ // 読込に失敗した場合
+
+		// エラーメッセージボックス
+		switch (tr)
+		{ // テキストリザルトごとの処理
+		case RES_TEXTBOX_FAIL:
+			MessageBox(nullptr, "テキストボックスの読み込みに失敗！", "警告！", MB_ICONWARNING);
+			break;
+
+		case RES_TEXT_FAIL:
+			MessageBox(nullptr, "テキストの読み込みに失敗！", "警告！", MB_ICONWARNING);
+			break;
+
+		default:
+			MessageBox(nullptr, "テキストボックスの読み込み時に例外が発生！", "警告！", MB_ICONWARNING);
+			break;
+		}
+
+		assert(false);
+		return E_FAIL;
+	}
+
+	return S_OK;
 }
 
 //============================================================
 //	テキストの読込処理
 //============================================================
-bool CFrame2DModuleText::LoadText(std::ifstream* pFile, const std::string& rFilePath)
+CFrame2DModuleText::ETextResult CFrame2DModuleText::LoadText(std::ifstream* pFile, const std::string& rFilePath)
 {
 	// ファイルポインタがない場合抜ける
-	if (pFile == nullptr) { assert(false); return false; }
+	if (pFile == nullptr) { assert(false); return RES_FAIL; }
 
 	// 開けてないファイルの場合抜ける
-	if (!pFile->is_open()) { assert(false); return false; }
+	if (!pFile->is_open()) { assert(false); return RES_FAIL; }
 
 	// ファイルを読込
 	std::string str;			// 読込文字列
@@ -543,7 +615,7 @@ bool CFrame2DModuleText::LoadText(std::ifstream* pFile, const std::string& rFile
 			{ // 生成に失敗した場合
 
 				assert(false);
-				return false;
+				return RES_FAIL;
 			}
 
 			// テキストの検索キー以外の部分を削除
@@ -564,7 +636,7 @@ bool CFrame2DModuleText::LoadText(std::ifstream* pFile, const std::string& rFile
 				{ // 生成に失敗した場合
 
 					assert(false);
-					return false;
+					return RES_FAIL;
 				}
 			}
 
@@ -593,16 +665,15 @@ bool CFrame2DModuleText::LoadText(std::ifstream* pFile, const std::string& rFile
 		}
 	} while (str != "END_TEXTBOX");	// END_TEXTBOXを読み込むまでループ
 
-	bool bLoad = (pMapBuffText != nullptr);	// テキスト読込フラグ
-	if (bLoad)
+	if (pMapBuffText != nullptr)
 	{ // テキストが存在する場合
 
 		// テキストバッファ連想配列の割当
 		BindMapBuffText(pMapBuffText, sNextPath, sNextBoxKey, sStartKey);
+		return RES_OK;
 	}
 
-	// テキストが存在したかを返す
-	return bLoad;
+	return RES_TEXT_FAIL;
 }
 
 //============================================================

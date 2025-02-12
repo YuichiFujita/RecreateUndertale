@@ -28,6 +28,15 @@ class CFrame2DTextBuffer;	// テキスト情報保存バッファクラス
 class CFrame2DModuleText : public CFrame2DModule
 {
 public:
+	// テキストリザルト列挙
+	enum ETextResult
+	{
+		RES_OK = 0,			// 成功
+		RES_TEXTBOX_FAIL,	// テキストボックス失敗
+		RES_TEXT_FAIL,		// テキスト失敗
+		RES_FAIL,			// 失敗
+	};
+
 	// エイリアス定義
 	using AMapBuffText = std::map<std::string, CFrame2DTextBuffer*>;	// テキストバッファ連想配列型
 
@@ -54,7 +63,12 @@ public:
 		const std::string& rBoxKey,		// 次テキストボックスの検索キー
 		const std::string& rStartKey	// テキストボックスのテキスト開始キー
 	);
-	HRESULT BindTextBox		// テキストボックス割当
+	ETextResult BindTextBoxIgnoreFail	// テキストボックス割当 (失敗無視)
+	( // 引数
+		const std::string& rFilePath,	// 次テキストボックスの保存パス
+		const std::string& rBoxKey		// 次テキストボックスの検索キー
+	);
+	HRESULT BindTextBox	// テキストボックス割当 (失敗停止)
 	( // 引数
 		const std::string& rFilePath,	// 次テキストボックスの保存パス
 		const std::string& rBoxKey		// 次テキストボックスの検索キー
@@ -64,7 +78,8 @@ public:
 	HRESULT ChangeState(CFrame2DTextState* pState);		// 状態変更
 	inline CFrame2DTextState* GetState() const { return m_pState; }	// 状態取得
 
-	bool LoadTextBox(const std::string& rFilePath, const std::string& rBoxKey);		// テキストボックス読込
+	ETextResult LoadTextBoxIgnoreFail(const std::string& rFilePath, const std::string& rBoxKey);	// テキストボックス読込 (失敗無視)
+	HRESULT LoadTextBox(const std::string& rFilePath, const std::string& rBoxKey);	// テキストボックス読込 (失敗停止)
 	HRESULT PushFrontString(const std::string& rStr, const std::string& rTextKey);	// 文字列の先頭追加 (マルチバイト文字列)
 	HRESULT PushFrontString(const std::wstring& rStr, const std::string& rTextKey);	// 文字列の先頭追加 (ワイド文字列)
 	HRESULT PushBackString(const std::string& rStr, const std::string& rTextKey);	// 文字列の最後尾追加 (マルチバイト文字列)
@@ -76,7 +91,7 @@ private:
 	// メンバ関数
 	void ReleaseBuffText();	// テキストバッファ連想配列破棄
 	CFrame2DTextBuffer* CreateBuffText(const std::string& rCreateKey, const int nFaceIdx);	// テキストバッファ生成
-	bool LoadText(std::ifstream* pFile, const std::string& rFilePath);			// テキスト読込
+	ETextResult LoadText(std::ifstream* pFile, const std::string& rFilePath);	// テキスト読込
 	CFrame2DTextBuffer* LoadString(std::ifstream* pFile, const int nFaceIdx);	// 文字列読込
 
 	// メンバ変数
@@ -87,5 +102,14 @@ private:
 	std::string m_sStartKey;		// テキストボックスのテキスト開始キー
 	bool m_bAutoUninitFrame;		// フレーム自動破棄フラグ
 };
+
+//************************************************************
+//	マクロ定義
+//************************************************************
+#define TR_OK(tr)			(((CFrame2DModuleText::ETextResult)(tr)) == CFrame2DModuleText::RES_OK)		// 成功
+#define TR_FAIL(tr)			(((CFrame2DModuleText::ETextResult)(tr)) == CFrame2DModuleText::RES_FAIL)	// 例外失敗
+#define TR_SAFE_FAIL(tr)	(((CFrame2DModuleText::ETextResult)(tr)) >  CFrame2DModuleText::RES_OK)		// 全失敗
+#define TR_TEXTBOX_FAIL(tr)	(((CFrame2DModuleText::ETextResult)(tr)) >= CFrame2DModuleText::RES_TEXTBOX_FAIL)	// テキストボックス失敗
+#define TR_TEXT_FAIL(tr)	(((CFrame2DModuleText::ETextResult)(tr)) >= CFrame2DModuleText::RES_TEXT_FAIL)		// テキスト失敗
 
 #endif	// _FRAME2D_MODULE_TEXT_H_

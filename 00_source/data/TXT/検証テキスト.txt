@@ -75,7 +75,7 @@ TEXTBOX_0
 		# 左選択情報
 		SELECT_LEFT
 			NEXT_PATH	= data\TXT\検証テキスト2.txt	# 次テキストボックスパス
-			NEXT_BOX	= 0	# 次テキストボックスキー
+			NEXT_BOX	= 2	# 次テキストボックスキー
 			NEXT_KEY	= 0	# 次テキストキー
 			
 			# 文字列情報

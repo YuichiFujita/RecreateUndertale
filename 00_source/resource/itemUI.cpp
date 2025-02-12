@@ -277,7 +277,7 @@ HRESULT CItemUI::BindUseText()
 	const CItemData& rItemData = pItem->GetInfo(m_nChoiceItemIdx);	// アイテム情報
 
 	// アイテム使用時のテキストを割当
-	if (SUCCEEDED(pModuleText->BindTextBox(rItemData.GetDataPath(), "USE")))
+	if (TR_OK(pModuleText->BindTextBoxIgnoreFail(rItemData.GetDataPath(), "USE")))
 	{ // 割当に成功した場合
 
 		// アイテム使用後の文字列を最後尾に追加
@@ -311,7 +311,7 @@ HRESULT CItemUI::BindInfoText()
 	const CItemData& rItemData = pItem->GetInfo(m_nChoiceItemIdx);	// アイテム情報
 
 	// アイテム情報の確認時のテキストを割当
-	if (SUCCEEDED(pModuleText->BindTextBox(rItemData.GetDataPath(), "INFO")))
+	if (TR_OK(pModuleText->BindTextBoxIgnoreFail(rItemData.GetDataPath(), "INFO")))
 	{ // 割当に成功した場合
 
 		// アイテム詳細を先頭に追加
@@ -344,7 +344,7 @@ HRESULT CItemUI::BindDropText()
 	const CItemData& rItemData = pItem->GetInfo(m_nChoiceItemIdx);	// アイテム情報
 
 	// アイテム破棄時のテキストを割当
-	pModuleText->BindTextBox(rItemData.GetDataPath(), "DROP");
+	pModuleText->BindTextBoxIgnoreFail(rItemData.GetDataPath(), "DROP");
 
 	return S_OK;
 }
