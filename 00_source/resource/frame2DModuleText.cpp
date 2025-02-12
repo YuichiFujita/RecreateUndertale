@@ -254,7 +254,10 @@ HRESULT CFrame2DModuleText::TransText(const std::string& rNextTextKey)
 	||  rNextTextKey.empty())
 	{ // テキスト遷移先がない場合
 
-		if (m_sNextBoxKey == "-1"
+		if (m_sNextPath == "-1"
+		||  m_sNextPath == "NONE"
+		||  m_sNextPath.empty()
+		||  m_sNextBoxKey == "-1"
 		||  m_sNextBoxKey == "NONE"
 		||  m_sNextBoxKey.empty())
 		{ // テキストボックス遷移先がない場合
@@ -592,11 +595,12 @@ CFrame2DModuleText::ETextResult CFrame2DModuleText::LoadText(std::ifstream* pFil
 
 	// ファイルを読込
 	std::string str;			// 読込文字列
+	std::string sModuleKey;		// モジュール生成キー
 	int nFaceIdx = NONE_IDX;	// 顔インデックス
-	std::string sNextPath		= "NONE";	// 次テキストボックスの保存パス
-	std::string sNextBoxKey		= "NONE";	// 次テキストボックスの検索キー
-	std::string sStartKey		= "0";		// テキストボックスのテキスト開始キー
-	AMapBuffText* pMapBuffText	= nullptr;	// テキストバッファ連想配列
+	std::string sNextPath		= rFilePath;	// 次テキストボックスの保存パス
+	std::string sNextBoxKey		= "NONE";		// 次テキストボックスの検索キー
+	std::string sStartKey		= "0";			// テキストボックスのテキスト開始キー
+	AMapBuffText* pMapBuffText	= nullptr;		// テキストバッファ連想配列
 	do { // END_TEXTBOXを読み込むまでループ
 
 		// 文字列を読み込む
@@ -610,7 +614,7 @@ CFrame2DModuleText::ETextResult CFrame2DModuleText::LoadText(std::ifstream* pFil
 		{ // テキスト開始キーがあった場合
 
 			// 文字列の読込
-			CFrame2DTextBuffer* pBuffText = LoadString(pFile, nFaceIdx);	// 読み込んだテキストバッファ取得
+			CFrame2DTextBuffer* pBuffText = LoadString(pFile, sModuleKey, nFaceIdx);	// 読み込んだテキストバッファ取得
 			if (pBuffText == nullptr)
 			{ // 生成に失敗した場合
 
@@ -658,6 +662,11 @@ CFrame2DModuleText::ETextResult CFrame2DModuleText::LoadText(std::ifstream* pFil
 			*pFile >> str;			// ＝を読込
 			*pFile >> sStartKey;	// テキストボックスのテキスト開始キーを読込
 		}
+		else if (str == "ALL_MODULE")
+		{
+			*pFile >> str;			// ＝を読込
+			*pFile >> sModuleKey;	// 生成するモジュールを読込
+		}
 		else if (str == "FACE")
 		{
 			*pFile >> str;			// ＝を読込
@@ -679,7 +688,7 @@ CFrame2DModuleText::ETextResult CFrame2DModuleText::LoadText(std::ifstream* pFil
 //============================================================
 //	文字列の読込処理
 //============================================================
-CFrame2DTextBuffer* CFrame2DModuleText::LoadString(std::ifstream* pFile, const int nFaceIdx)
+CFrame2DTextBuffer* CFrame2DModuleText::LoadString(std::ifstream* pFile, const std::string& rModuleKey, const int nFaceIdx)
 {
 	// ファイルポインタがない場合抜ける
 	if (pFile == nullptr) { assert(false); return nullptr; }
@@ -687,8 +696,16 @@ CFrame2DTextBuffer* CFrame2DModuleText::LoadString(std::ifstream* pFile, const i
 	// 開けてないファイルの場合抜ける
 	if (!pFile->is_open()) { assert(false); return nullptr; }
 
-	// ファイルを読込
 	CFrame2DTextBuffer* pBuffText = nullptr;	// テキスト情報保存バッファ
+	if (!rModuleKey.empty())
+	{ // 生成キーが設定されている場合
+
+		// テキストバッファの生成
+		assert(pBuffText == nullptr);
+		pBuffText = CreateBuffText(rModuleKey, nFaceIdx);
+	}
+
+	// ファイルを読込
 	std::string str;	// 読込文字列
 	do { // END_TEXTを読み込むまでループ
 
@@ -701,9 +718,18 @@ CFrame2DTextBuffer* CFrame2DModuleText::LoadString(std::ifstream* pFile, const i
 			*pFile >> str;	// ＝を読込
 			*pFile >> str;	// 生成するモジュールを読込
 
-			// テキストバッファの生成
-			assert(pBuffText == nullptr);
-			pBuffText = CreateBuffText(str, nFaceIdx);
+			if (pBuffText != nullptr)
+			{ // テキストバッファが生成済みの場合
+
+				// エラーメッセージボックス
+				MessageBox(nullptr, "テキストバッファは生成済みです！", "警告！", MB_ICONWARNING);
+			}
+			else
+			{ // テキストバッファが未生成の場合
+
+				// テキストバッファの生成
+				pBuffText = CreateBuffText(str, nFaceIdx);
+			}
 		}
 		else if (str == "STR")
 		{

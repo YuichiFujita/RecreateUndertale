@@ -91,8 +91,8 @@ private:
 	// メンバ関数
 	void ReleaseBuffText();	// テキストバッファ連想配列破棄
 	CFrame2DTextBuffer* CreateBuffText(const std::string& rCreateKey, const int nFaceIdx);	// テキストバッファ生成
-	ETextResult LoadText(std::ifstream* pFile, const std::string& rFilePath);	// テキスト読込
-	CFrame2DTextBuffer* LoadString(std::ifstream* pFile, const int nFaceIdx);	// 文字列読込
+	ETextResult LoadText(std::ifstream* pFile, const std::string& rFilePath);				// テキスト読込
+	CFrame2DTextBuffer* LoadString(std::ifstream* pFile, const std::string& rModuleKey, const int nFaceIdx);	// 文字列読込
 
 	// メンバ変数
 	CFrame2DTextState* m_pState;	// 状態
@@ -106,9 +106,9 @@ private:
 //************************************************************
 //	マクロ定義
 //************************************************************
-#define TR_OK(tr)			(((CFrame2DModuleText::ETextResult)(tr)) == CFrame2DModuleText::RES_OK)		// 成功
-#define TR_FAIL(tr)			(((CFrame2DModuleText::ETextResult)(tr)) == CFrame2DModuleText::RES_FAIL)	// 例外失敗
-#define TR_SAFE_FAIL(tr)	(((CFrame2DModuleText::ETextResult)(tr)) >  CFrame2DModuleText::RES_OK)		// 全失敗
+#define TR_OK(tr)			(((CFrame2DModuleText::ETextResult)(tr)) == CFrame2DModuleText::RES_OK)				// 成功
+#define TR_FAIL(tr)			(((CFrame2DModuleText::ETextResult)(tr)) == CFrame2DModuleText::RES_FAIL)			// 例外失敗
+#define TR_SAFE_FAIL(tr)	(((CFrame2DModuleText::ETextResult)(tr)) >  CFrame2DModuleText::RES_OK)				// 全失敗
 #define TR_TEXTBOX_FAIL(tr)	(((CFrame2DModuleText::ETextResult)(tr)) >= CFrame2DModuleText::RES_TEXTBOX_FAIL)	// テキストボックス失敗
 #define TR_TEXT_FAIL(tr)	(((CFrame2DModuleText::ETextResult)(tr)) >= CFrame2DModuleText::RES_TEXT_FAIL)		// テキスト失敗
 

@@ -143,9 +143,6 @@ HRESULT CFrame2DTextStateSelect::Init()
 		m_apSelect[i]	 = nullptr;	// 選択肢情報
 	}
 
-	// TODO：ここで他のキー情報の初期値を設定
-	// TODO：それと他のキー初期化では何の文字列入れてるかも確認
-
 	// 親クラスの初期化
 	if (FAILED(CFrame2DTextStateText::Init()))
 	{ // 初期化に失敗した場合

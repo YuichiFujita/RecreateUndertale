@@ -1,0 +1,91 @@
+#==============================================================================
+#
+#	テストテキストボックス情報テキスト [del_test00.txt]
+#	Author : 藤田 勇一
+#
+#==============================================================================
+
+# テキストボックス情報
+TEXTBOX_0
+	NEXT_BOX	= 1		# 次テキストボックスキー
+	ALL_MODULE	= TEXT	# 使用モジュール
+	
+	# テキスト情報
+	TEXT_0
+		NEXT = 1	# 次テキストキー
+		STR = ＊ del_test00 0ボックス 0テキスト目
+	END_TEXT
+	
+	# テキスト情報
+	TEXT_1
+		NEXT = 2	# 次テキストキー
+		STR = ＊ del_test00 0ボックス 1テキスト目
+		STR = 　 改行検証
+	END_TEXT
+	
+	# テキスト情報
+	TEXT_2
+		STR = ＊ del_test00 0ボックス 2テキスト目
+		STR = 　 del_test00 1ボックス 0テキスト目へ遷移
+		STR = ＊ Enter/Zで次へ
+	END_TEXT
+END_TEXTBOX
+
+# テキストボックス情報
+TEXTBOX_1
+	# テキスト情報
+	TEXT_0
+		MODULE	= TEXT	# 使用モジュール
+		NEXT	= 1		# 次テキストキー
+		
+		# 文字列情報
+		STR = ＊ del_test00 1ボックス 0テキスト目
+	END_TEXT
+	
+	# テキスト情報
+	TEXT_1
+		MODULE = SELECT	# 使用モジュール
+		
+		# 文字列情報
+		STR = ＊ del_test00 1ボックス 1テキスト目
+		STR = 　 選択項目検証
+		
+		# 左選択情報
+		SELECT_LEFT
+			#NEXT_PATH	= data\TEXTBOX\test01.txt	# 次テキストボックスパス
+			#NEXT_BOX	= 0	# 次テキストボックスキー
+			NEXT_KEY	= 2	# 次テキストキー
+			
+			# 文字列情報
+			STR = del_test01 0 0
+		END_SELECT
+		
+		# 右選択情報
+		SELECT_RIGHT
+			NEXT_KEY = 3	# 次テキストキー
+			
+			# 文字列情報
+			STR = del_test00 1 3
+		END_SELECT
+	END_TEXT
+	
+	# テキスト情報
+	TEXT_2
+		MODULE = TEXT	# 使用モジュール
+		
+		# 文字列情報
+		STR = ＊ del_test00 1ボックス 2テキスト目
+		STR = 　 左選択肢からの遷移
+		STR = 　 現在は入り込み不可
+	END_TEXT
+	
+	# テキスト情報
+	TEXT_3
+		MODULE = TEXT	# 使用モジュール
+		
+		# 文字列情報
+		STR = ＊ del_test00 1ボックス 3テキスト目
+		STR = 　 右選択肢からの遷移
+		STR = 　 Enter/Zでテキストボックスの終了
+	END_TEXT
+END_TEXTBOX

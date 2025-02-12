@@ -17,7 +17,7 @@
 //	コンストラクタ
 //============================================================
 CFrame2DTextBufferText::CFrame2DTextBufferText() :
-	m_sNextTextKey	({})	// 次テキストの検索キー
+	m_sNextTextKey	("NONE")	// 次テキストの検索キー
 {
 
 }

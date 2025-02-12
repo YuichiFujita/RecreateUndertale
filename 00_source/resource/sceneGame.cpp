@@ -203,7 +203,7 @@ void CSceneGame::Update(const float fDeltaTime)
 		pFrame->ChangeModule(new CFrame2DModuleText);
 		pFrame->GetModule()->GetModuleText()->BindTextBox
 		(
-			"data\\TXT\\検証テキスト.txt",
+			"data\\TEXTBOX\\del_test00.txt",
 			"0"
 		);
 	}

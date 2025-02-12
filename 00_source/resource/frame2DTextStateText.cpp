@@ -57,7 +57,7 @@ CFrame2DTextStateText::CFrame2DTextStateText(const CFrame2D::EPreset preset) : C
 //	コンストラクタ (配置指定)
 //============================================================
 CFrame2DTextStateText::CFrame2DTextStateText(const VECTOR3& rOffset) :
-	m_sNextTextKey	({}),		// 次テキストの検索キー
+	m_sNextTextKey	(""),		// 次テキストの検索キー
 	m_pText			(nullptr),	// テキスト情報
 	m_offset		(rOffset)	// テキストオフセット
 {

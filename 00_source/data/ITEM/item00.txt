@@ -9,59 +9,34 @@ ITEMSET
 	TYPE = 1
 	NAME = モンスターあめ
 	HEAL = 10
-	
-	TEXTBOX_USE
-		NEXT_PATH	= NONE	# 次テキストボックスパス
-		NEXT_BOX	= -1	# 次テキストボックスキー
-		START_KEY	= 0		# テキスト開始キー
-		FACE		= -1	# 顔インデックス
-		
-		TEXT_0
-			MODULE	= ITEM	# 使用モジュール
-			NEXT	= 1		# 次テキストキー
-			EMOTION	= -1	# 表情インデックス
-			
-			STR = ＊ /nameを　たべた。
-		END_TEXT
-		
-		TEXT_1
-			MODULE	= ITEM	# 使用モジュール
-			NEXT	= 2		# 次テキストキー
-			EMOTION	= -1	# 表情インデックス
-			
-			STR = ＊ /nameを　たべたよ。
-		END_TEXT
-		
-		TEXT_2
-			MODULE	= ITEM	# 使用モジュール
-			NEXT	= 3		# 次テキストキー
-			EMOTION	= -1	# 表情インデックス
-			
-			STR = ＊ /nameを　たべたって。
-		END_TEXT
-		
-		TEXT_3
-			MODULE	= ITEM	# 使用モジュール
-			NEXT	= -1	# 次テキストキー
-			EMOTION	= -1	# 表情インデックス
-			
-			STR = ＊ /nameを　たべたっつてるだろ！！！
-		END_TEXT
-	END_TEXTBOX
-	
-	TEXTBOX_INFO
-		NEXT_PATH	= NONE	# 次テキストボックスパス
-		NEXT_BOX	= -1	# 次テキストボックスキー
-		START_KEY	= 0		# テキスト開始キー
-		FACE		= -1	# 顔インデックス
-		
-		TEXT_0
-			MODULE	= ITEM	# 使用モジュール
-			NEXT	= -1	# 次テキストキー
-			EMOTION	= -1	# 表情インデックス
-			
-			STR = ＊ ハッカとは　またちがった
-			STR = 　 どくとくな　ふうみ。
-		END_TEXT
-	END_TEXTBOX
 END_ITEMSET
+
+TEXTBOX_USE
+	ALL_MODULE = ITEM	# 使用モジュール
+	TEXT_0
+		NEXT = 1	# 次テキストキー
+		STR = ＊ /nameを　たべた。
+	END_TEXT
+	
+	TEXT_1
+		NEXT = 2	# 次テキストキー
+		STR = ＊ /nameを　たべたよ。
+	END_TEXT
+	
+	TEXT_2
+		NEXT = 3	# 次テキストキー
+		STR = ＊ /nameを　たべたって。
+	END_TEXT
+	
+	TEXT_3
+		STR = ＊ /nameを　たべたっつてるだろ！！！
+	END_TEXT
+END_TEXTBOX
+
+TEXTBOX_INFO
+	ALL_MODULE = ITEM	# 使用モジュール
+	TEXT_0
+		STR = ＊ ハッカとは　またちがった
+		STR = 　 どくとくな　ふうみ。
+	END_TEXT
+END_TEXTBOX

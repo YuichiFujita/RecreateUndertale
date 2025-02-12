@@ -21,13 +21,11 @@ CFrame2DTextBufferSelect::CFrame2DTextBufferSelect()
 	for (int i = 0; i < CFrame2DTextStateSelect::SELECT_MAX; i++)
 	{ // 選択肢の総数分繰り返す
 
-		m_aNextPath[i]	 = "";	// 次テキストボックスの保存パス
-		m_aNextBoxKey[i] = "";	// 次テキストボックスの検索キー
-		m_aNextKey[i]	 = "";	// テキストボックスのテキスト開始キー
-		m_aSelect[i]	 = {};	// 選択テキスト保存
+		m_aNextPath[i]	 = "NONE";	// 次テキストボックスの保存パス
+		m_aNextBoxKey[i] = "NONE";	// 次テキストボックスの検索キー
+		m_aNextKey[i]	 = "NONE";	// テキストボックスのテキスト開始キー
+		m_aSelect[i]	 = {};		// 選択テキスト保存
 	}
-
-	// TODO：初期化どうにかしないと
 }
 
 //============================================================
