@@ -20,6 +20,7 @@
 #include "font.h"
 #include "character.h"
 #include "characterAnim3D.h"
+#include "faceAnim2D.h"
 #include "item.h"
 #include "shader.h"
 #include "retention.h"
@@ -57,6 +58,7 @@ CManager::CManager() :
 	m_pFont				(nullptr),	// フォントインスタンス
 	m_pCharacter		(nullptr),	// キャラクターインスタンス
 	m_pCharacterAnim3D	(nullptr),	// キャラクターアニメーション3Dインスタンス
+	m_pFaceAnim2D		(nullptr),	// 表情アニメーション2Dインスタンス
 	m_pItem				(nullptr),	// アイテムインスタンス
 	m_pFade				(nullptr),	// フェードインスタンス
 	m_pLoading			(nullptr),	// ローディングインスタンス
@@ -99,6 +101,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	m_pFont				= nullptr;		// フォントインスタンス
 	m_pCharacter		= nullptr;		// キャラクターインスタンス
 	m_pCharacterAnim3D	= nullptr;		// キャラクターアニメーション3Dインスタンス
+	m_pFaceAnim2D		= nullptr;		// 表情アニメーション2Dインスタンス
 	m_pItem				= nullptr;		// アイテムインスタンス
 	m_pFade				= nullptr;		// フェードインスタンス
 	m_pLoading			= nullptr;		// ローディングインスタンス
@@ -247,6 +250,15 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 		return E_FAIL;
 	}
 
+	// 表情アニメーション2Dの生成
+	m_pFaceAnim2D = CFaceAnim2D::Create();
+	if (m_pFaceAnim2D == nullptr)
+	{ // 生成に失敗した場合
+
+		assert(false);
+		return E_FAIL;
+	}
+
 	// アイテムの生成
 	m_pItem = CItem::Create();
 	if (m_pItem == nullptr)
@@ -386,6 +398,15 @@ HRESULT CManager::Load()
 		return E_FAIL;
 	}
 
+	// 表情アニメーション2Dの全読込
+	assert(m_pFaceAnim2D != nullptr);
+	if (FAILED(m_pFaceAnim2D->LoadAll()))
+	{ // 全読込に失敗した場合
+
+		assert(false);
+		return E_FAIL;
+	}
+
 	CUserDataManager* pUserData = CUserDataManager::GetInstance();	// ユーザーデータ
 	if (pUserData->IsCheckSaveData())
 	{ // 内部データの保存ファイルがある場合
@@ -506,6 +527,9 @@ void CManager::Uninit()
 
 	// キャラクターアニメーション3Dの破棄
 	SAFE_REF_RELEASE(m_pCharacterAnim3D);
+
+	// 表情アニメーション2Dの破棄
+	SAFE_REF_RELEASE(m_pFaceAnim2D);
 
 	// アイテムの破棄
 	SAFE_REF_RELEASE(m_pItem);
@@ -1050,6 +1074,18 @@ CCharacterAnim3D* CManager::GetCharacterAnim3D()
 
 	// キャラクターアニメーション3Dを返す
 	return m_pCharacterAnim3D;
+}
+
+//============================================================
+//	表情アニメーション2D取得処理
+//============================================================
+CFaceAnim2D* CManager::GetFaceAnim2D()
+{
+	// インスタンス未使用
+	assert(m_pFaceAnim2D != nullptr);
+
+	// 表情アニメーション2Dを返す
+	return m_pFaceAnim2D;
 }
 
 //============================================================

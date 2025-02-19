@@ -417,9 +417,6 @@
     <ClCompile Include="resource\frame2DModule.cpp">
       <Filter>ingame\frame\module</Filter>
     </ClCompile>
-    <ClCompile Include="resource\frame2DModuleText.cpp">
-      <Filter>ingame\frame\module</Filter>
-    </ClCompile>
     <ClCompile Include="resource\introState.cpp">
       <Filter>scene\intro\state</Filter>
     </ClCompile>
@@ -545,6 +542,15 @@
     </ClCompile>
     <ClCompile Include="resource\itemUI.cpp">
       <Filter>ingame\menu\select\item</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\faceAnim2D.cpp">
+      <Filter>flyweight</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\objectFaceAnim2D.cpp">
+      <Filter>object</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\frame2DModuleText.cpp">
+      <Filter>ingame\frame\module\text</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -857,9 +863,6 @@
     <ClInclude Include="resource\frame2DModule.h">
       <Filter>ingame\frame\module</Filter>
     </ClInclude>
-    <ClInclude Include="resource\frame2DModuleText.h">
-      <Filter>ingame\frame\module</Filter>
-    </ClInclude>
     <ClInclude Include="resource\introState.h">
       <Filter>scene\intro\state</Filter>
     </ClInclude>
@@ -985,6 +988,15 @@
     </ClInclude>
     <ClInclude Include="resource\itemUI.h">
       <Filter>ingame\menu\select\item</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\faceAnim2D.h">
+      <Filter>flyweight</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\objectFaceAnim2D.h">
+      <Filter>object</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\frame2DModuleText.h">
+      <Filter>ingame\frame\module\text</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -21,7 +21,7 @@ namespace
 
 	const POSGRID2 PTRN = POSGRID2(12, 4);	// テクスチャ分割数
 	const int	PRIORITY	= 7;			// ローディングの優先順位
-	const int	ANIM_WAIT	= 2;			// アニメーションの変更フレーム
+	const float	ANIM_TIME	= 0.03f;		// アニメーションの変更時間
 	const float	FADE_LEVEL	= 0.05f;		// フェードのα値の加減量
 
 #ifdef _DEBUG
@@ -74,9 +74,9 @@ HRESULT CLoading::Init()
 	// ロード画面の生成
 	m_pLoad = CAnim2D::Create
 	( // 引数
-		PTRN.x,				// テクスチャ横分割数
-		PTRN.y,				// テクスチャ縦分割数
+		PTRN,				// テクスチャ分割数
 		SCREEN_CENT,		// 位置
+		ANIM_TIME,			// パターン変更時間
 		SCREEN_SIZE,		// 大きさ
 		VEC3_ZERO,			// 向き
 		color::White(0.0f)	// 色
@@ -97,11 +97,8 @@ HRESULT CLoading::Init()
 	// ラベル指定なしに設定
 	m_pLoad->SetLabel(CObject::LABEL_NONE);
 
-	// 変更フレームの設定
-	m_pLoad->SetCounter(ANIM_WAIT);
-
 	// ロードのアニメーションを停止
-	m_pLoad->SetEnableStop(true);
+	m_pLoad->SetEnablePlay(false);
 
 	return S_OK;
 }
@@ -153,7 +150,7 @@ void CLoading::Update(const float fDeltaTime)
 				colLoad.a = 1.0f;
 
 				// ロードのアニメーションを再生
-				m_pLoad->SetEnableStop(false);
+				m_pLoad->SetEnablePlay(true);
 
 				// ロード更新状態にする
 				m_state = LOAD_UPDATE;
@@ -195,14 +192,14 @@ void CLoading::Update(const float fDeltaTime)
 
 #ifdef NDEBUG
 			// ロードのキリが悪い場合抜ける
-			if (m_pLoad->GetPattern() != 0) { break; }
+			if (m_pLoad->GetCurPtrn() != 0) { break; }
 #endif	// NDEBUG
 
 			// 最低ロード回数未満の場合抜ける
-			if (m_pLoad->GetLoopAnimation() < MIN_LOAD) { break; }
+			if (m_pLoad->GetLoopAnim() < MIN_LOAD) { break; }
 
 			// ロードのアニメーションを停止
-			m_pLoad->SetEnableStop(true);
+			m_pLoad->SetEnablePlay(false);
 
 			// 関数情報を切り離す
 			m_func.detach();
@@ -292,7 +289,7 @@ HRESULT CLoading::Set(std::function<HRESULT(bool*)> func)
 		m_func = std::thread(funcLambda, &m_bEnd);
 
 		// ロード画面のパターンを先頭にする
-		m_pLoad->SetPattern(0);
+		m_pLoad->SetCurPtrn(0);
 
 		// ロードの表示開始状態にする
 		m_state = LOAD_FADEOUT;

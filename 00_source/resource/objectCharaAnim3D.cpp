@@ -18,7 +18,8 @@
 //============================================================
 //	コンストラクタ
 //============================================================
-CObjectCharaAnim3D::CObjectCharaAnim3D(const CObject::ELabel label, const CObject::EDim dimension, const int nPriority) : CAnim3D(label, dimension, nPriority)
+CObjectCharaAnim3D::CObjectCharaAnim3D(const CObject::ELabel label, const CObject::EDim dimension, const int nPriority) : CAnim3D(label, dimension, nPriority),
+	m_info	({})	// モーション情報
 {
 
 }
@@ -36,6 +37,9 @@ CObjectCharaAnim3D::~CObjectCharaAnim3D()
 //============================================================
 HRESULT CObjectCharaAnim3D::Init()
 {
+	// メンバ変数を初期化
+	m_info = {};	// モーション情報
+
 	// アニメーション3Dの初期化
 	if (FAILED(CAnim3D::Init()))
 	{ // 初期化に失敗した場合

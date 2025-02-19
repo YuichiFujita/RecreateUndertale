@@ -10,21 +10,33 @@
 #include "anim2D.h"
 
 //************************************************************
+//	定数宣言
+//************************************************************
+namespace
+{
+	const POSGRID2 INIT_PTRN = GRID2_ONE;	// テクスチャ分割数の初期値
+}
+
+//************************************************************
 //	子クラス [CAnim2D] のメンバ関数
 //************************************************************
 //============================================================
 //	コンストラクタ
 //============================================================
 CAnim2D::CAnim2D(const CObject::ELabel label, const EDim dimension, const int nPriority) : CObject2D(label, dimension, nPriority),
-	m_nCounter		(0),	// アニメーションカウンター
-	m_nCntChange	(0),	// パターン変更カウント
-	m_nPattern		(0),	// アニメーションパターン
-	m_nMaxPtrn		(0),	// パターンの総数
-	m_nWidthPtrn	(0),	// テクスチャの横の分割数
-	m_nHeightPtrn	(0),	// テクスチャの縦の分割数
-	m_nNumLoop		(0),	// パターン繰り返し数
-	m_bStop		(false),	// 停止状況
-	m_bPlayBack	(false)		// 逆再生状況
+	m_funcPattern	(nullptr),		// パターン変更関数ポインタ
+	m_ptrn			(GRID2_ZERO),	// テクスチャ分割数
+	m_pNextTime		(nullptr),		// パターン変更時間
+	m_fCurTime		(0.0f),			// 現在の待機時間
+	m_fCurWholeTime	(0.0f),			// 現在の全体時間
+	m_fMaxWholeTime	(0.0f),			// 総全体時間
+	m_nCurPtrn		(0),			// 現在のパターン
+	m_nMaxPtrn		(0),			// パターンの総数
+	m_nNumLoop		(0),			// パターン繰り返し数
+	m_bPlay			(false),		// 再生フラグ
+	m_bPlayBack		(false),		// 逆再生フラグ
+	m_bLoop			(false),		// ループフラグ
+	m_bFinish		(false)			// 終了フラグ
 {
 
 }
@@ -43,15 +55,25 @@ CAnim2D::~CAnim2D()
 HRESULT CAnim2D::Init()
 {
 	// メンバ変数を初期化
-	m_nCounter		= 0;	// アニメーションカウンター
-	m_nCntChange	= 0;	// パターン変更カウント
-	m_nPattern		= 0;	// アニメーションパターン
-	m_nMaxPtrn		= 0;	// パターンの総数
-	m_nWidthPtrn	= 1;	// テクスチャの横の分割数
-	m_nHeightPtrn	= 1;	// テクスチャの縦の分割数
-	m_nNumLoop		= 0;	// パターン繰り返し数
-	m_bStop		= false;	// 停止状況
-	m_bPlayBack	= false;	// 逆再生状況
+	m_funcPattern	= nullptr;		// パターン変更関数ポインタ
+	m_ptrn			= GRID2_ZERO;	// テクスチャ分割数
+	m_pNextTime		= nullptr;		// パターン変更時間
+	m_fCurTime		= 0.0f;			// 現在の待機時間
+	m_fCurWholeTime	= 0.0f;			// 現在の全体時間
+	m_fMaxWholeTime	= 0.0f;			// 総全体時間
+	m_nCurPtrn		= 0;			// 現在のパターン
+	m_nMaxPtrn		= 0;			// パターン総数
+	m_nNumLoop		= 0;			// パターン繰り返し数
+	m_bPlay			= true;			// 再生フラグ
+	m_bPlayBack		= false;		// 逆再生フラグ
+	m_bLoop			= true;			// ループフラグ
+	m_bFinish		= false;		// 終了フラグ
+
+	// テクスチャ分割数を初期化
+	SetTexPtrn(INIT_PTRN);
+
+	// 通常再生を初期化
+	SetEnablePlayBack(false);
 
 	// オブジェクト2Dの初期化
 	if (FAILED(CObject2D::Init()))
@@ -62,7 +84,7 @@ HRESULT CAnim2D::Init()
 	}
 
 	// アニメーションのテクスチャ座標の設定
-	CObject2D::SetAnimTex(m_nPattern, m_nWidthPtrn, m_nHeightPtrn);
+	CObject2D::SetAnimTex(m_nCurPtrn, m_ptrn.x, m_ptrn.y);
 
 	return S_OK;
 }
@@ -72,6 +94,9 @@ HRESULT CAnim2D::Init()
 //============================================================
 void CAnim2D::Uninit()
 {
+	// パターン変更時間の破棄
+	SAFE_DEL_ARRAY(m_pNextTime);
+
 	// オブジェクト2Dの終了
 	CObject2D::Uninit();
 }
@@ -82,47 +107,17 @@ void CAnim2D::Uninit()
 void CAnim2D::Update(const float fDeltaTime)
 {
 	// 停止中の場合抜ける
-	if (m_bStop) { return; }
+	if (!m_bPlay) { return; }
 
-	if (m_nCntChange > 0)
-	{ // 変更カウントが 0より大きい場合
-
-		// カウンターを加算
-		m_nCounter++;
-
-		if (m_nCounter % m_nCntChange == 0)
-		{ // カウンターが変更カウントになった場合
-
-			// カウンターを初期化
-			m_nCounter = 0;
-
-			if (!m_bPlayBack)
-			{ // 通常再生の場合
-
-				// パターンを加算
-				m_nPattern = (m_nPattern + 1) % m_nMaxPtrn;
-			}
-			else
-			{ // 逆再生の場合
-
-				// パターンを減算
-				m_nPattern = (m_nPattern + (m_nMaxPtrn - 1)) % m_nMaxPtrn;
-			}
-
-			if (m_nPattern == 0)
-			{ // パターン数が一枚目の場合
-
-				// 繰り返し数を加算
-				m_nNumLoop++;
-			}
-		}
-	}
+	// パターンの更新
+	assert(m_funcPattern != nullptr);
+	m_funcPattern(fDeltaTime);
 
 	// オブジェクト2Dの更新
 	CObject2D::Update(fDeltaTime);
 
 	// アニメーションのテクスチャ座標の設定
-	CObject2D::SetAnimTex(m_nPattern, m_nWidthPtrn, m_nHeightPtrn);
+	CObject2D::SetAnimTex(m_nCurPtrn, m_ptrn.x, m_ptrn.y);
 }
 
 //============================================================
@@ -139,9 +134,9 @@ void CAnim2D::Draw(CShader* pShader)
 //============================================================
 CAnim2D* CAnim2D::Create
 (
-	const int nWidthPtrn,	// テクスチャの横の分割数
-	const int nHeightPtrn,	// テクスチャの縦の分割数
+	const POSGRID2& rPtrn,	// テクスチャ分割数
 	const VECTOR3& rPos,	// 位置
+	const float fNextTime,	// パターン変更時間
 	const VECTOR3& rSize,	// 大きさ
 	const VECTOR3& rRot,	// 向き
 	const COLOR& rCol		// 色
@@ -166,11 +161,11 @@ CAnim2D* CAnim2D::Create
 			return nullptr;
 		}
 
-		// テクスチャ横分割数を設定
-		pAnim2D->SetWidthPattern(nWidthPtrn);
+		// テクスチャ分割数を設定
+		pAnim2D->SetTexPtrn(rPtrn);
 
-		// テクスチャ縦分割数を設定
-		pAnim2D->SetHeightPattern(nHeightPtrn);
+		// パターン変更時間を設定
+		pAnim2D->SetNextTime(fNextTime);
 
 		// 位置を設定
 		pAnim2D->SetVec3Position(rPos);
@@ -198,7 +193,7 @@ void CAnim2D::SetVec3Position(const VECTOR3& rPos)
 	CObject2D::SetVec3Position(rPos);
 
 	// アニメーションのテクスチャ座標の設定
-	CObject2D::SetAnimTex(m_nPattern, m_nWidthPtrn, m_nHeightPtrn);
+	CObject2D::SetAnimTex(m_nCurPtrn, m_ptrn.x, m_ptrn.y);
 }
 
 //============================================================
@@ -210,7 +205,7 @@ void CAnim2D::SetVec3Rotation(const VECTOR3& rRot)
 	CObject2D::SetVec3Rotation(rRot);
 
 	// アニメーションのテクスチャ座標の設定
-	CObject2D::SetAnimTex(m_nPattern, m_nWidthPtrn, m_nHeightPtrn);
+	CObject2D::SetAnimTex(m_nCurPtrn, m_ptrn.x, m_ptrn.y);
 }
 
 //============================================================
@@ -222,7 +217,7 @@ void CAnim2D::SetVec3Size(const VECTOR3& rSize)
 	CObject2D::SetVec3Size(rSize);
 
 	// アニメーションのテクスチャ座標の設定
-	CObject2D::SetAnimTex(m_nPattern, m_nWidthPtrn, m_nHeightPtrn);
+	CObject2D::SetAnimTex(m_nCurPtrn, m_ptrn.x, m_ptrn.y);
 }
 
 //============================================================
@@ -234,7 +229,7 @@ void CAnim2D::SetAlpha(const float fAlpha)
 	CObject2D::SetAlpha(fAlpha);
 
 	// アニメーションのテクスチャ座標の設定
-	CObject2D::SetAnimTex(m_nPattern, m_nWidthPtrn, m_nHeightPtrn);
+	CObject2D::SetAnimTex(m_nCurPtrn, m_ptrn.x, m_ptrn.y);
 }
 
 //============================================================
@@ -246,93 +241,315 @@ void CAnim2D::SetColor(const COLOR& rCol)
 	CObject2D::SetColor(rCol);
 
 	// アニメーションのテクスチャ座標の設定
-	CObject2D::SetAnimTex(m_nPattern, m_nWidthPtrn, m_nHeightPtrn);
+	CObject2D::SetAnimTex(m_nCurPtrn, m_ptrn.x, m_ptrn.y);
 }
 
 //============================================================
-//	パターンの設定処理
+//	現在パターンの設定処理
 //============================================================
-void CAnim2D::SetPattern(const int nPattern)
+void CAnim2D::SetCurPtrn(const int nPtrn)
 {
-	// 引数のパターン数を代入
-	m_nPattern = nPattern;
+	// 引数のパターン数を設定
+	m_nCurPtrn = nPtrn;
+
+	// 終了フラグをOFFにする
+	m_bFinish = false;
+
+	// 全体時間の初期化
+	m_fCurWholeTime = 0.0f;
+
+	// 全体時間をパターンの開始時間に設定
+	int nAddTime = (!m_bPlayBack) ? 0 : 1;	// 逆再生の場合は現在パターンの待機時間も含む
+	int nLoop = m_nCurPtrn + nAddTime;		// 繰り返し数を求める
+	for (int i = 0; i < nLoop; i++)
+	{ // 開始パターンまで繰り返す
+
+		// 待機時間を加算
+		m_fCurWholeTime += m_pNextTime[i];
+	}
 
 	// アニメーションのテクスチャ座標の設定
-	CObject2D::SetAnimTex(m_nPattern, m_nWidthPtrn, m_nHeightPtrn);
+	CObject2D::SetAnimTex(m_nCurPtrn, m_ptrn.x, m_ptrn.y);
 }
 
 //============================================================
-//	パターンの総数の設定処理
+//	テクスチャ分割数の設定処理
 //============================================================
-void CAnim2D::SetMaxPattern(const int nMaxPtrn)
+void CAnim2D::SetTexPtrn(const POSGRID2& rPtrn)
 {
-	// 引数のパターンの総数を代入
-	m_nMaxPtrn = nMaxPtrn;
+	// 引数のテクスチャ分割数を設定
+	m_ptrn = rPtrn;
 
-	// アニメーションのテクスチャ座標の設定
-	CObject2D::SetAnimTex(m_nPattern, m_nWidthPtrn, m_nHeightPtrn);
+	// パターン総数を設定
+	SetMaxPtrn(m_ptrn.x * m_ptrn.y);
 }
 
 //============================================================
-//	テクスチャの横分割数の設定処理
+//	テクスチャ横分割数の設定処理
 //============================================================
-void CAnim2D::SetWidthPattern(const int nWidthPtrn)
+void CAnim2D::SetTexPtrnWidth(const int nTexPtrnW)
 {
 	// 引数のテクスチャ横分割数を設定
-	m_nWidthPtrn = nWidthPtrn;
+	m_ptrn.x = nTexPtrnW;
 
-	// パターンの総数を設定
-	m_nMaxPtrn = m_nWidthPtrn * m_nHeightPtrn;
-
-	// アニメーションのテクスチャ座標の設定
-	CObject2D::SetAnimTex(m_nPattern, m_nWidthPtrn, m_nHeightPtrn);
+	// パターン総数を設定
+	SetMaxPtrn(m_ptrn.x * m_ptrn.y);
 }
 
 //============================================================
-//	テクスチャの縦分割数の設定処理
+//	テクスチャ縦分割数の設定処理
 //============================================================
-void CAnim2D::SetHeightPattern(const int nHeightPtrn)
+void CAnim2D::SetTexPtrnHeight(const int nTexPtrnH)
 {
 	// 引数のテクスチャ縦分割数を設定
-	m_nHeightPtrn = nHeightPtrn;
+	m_ptrn.y = nTexPtrnH;
 
-	// パターンの総数を設定
-	m_nMaxPtrn = m_nWidthPtrn * m_nHeightPtrn;
-
-	// アニメーションのテクスチャ座標の設定
-	CObject2D::SetAnimTex(m_nPattern, m_nWidthPtrn, m_nHeightPtrn);
+	// パターン総数を設定
+	SetMaxPtrn(m_ptrn.x * m_ptrn.y);
 }
 
 //============================================================
-//	カウンターの設定処理
+//	再生フラグの設定処理
 //============================================================
-void CAnim2D::SetCounter(const int nCntChange)
+void CAnim2D::SetEnablePlay(const bool bPlay)
 {
-	// 引数のパターン変更カウントを代入
-	m_nCntChange = nCntChange;
+	// 停止した場合に繰り返し数を初期化
+	if (!bPlay) { m_nNumLoop = 0; }
+
+	// 引数の再生状況を設定
+	m_bPlay = bPlay;
 }
 
 //============================================================
-//	停止状況の設定処理
+//	逆再生フラグの設定処理
 //============================================================
-void CAnim2D::SetEnableStop(const bool bStop)
+void CAnim2D::SetEnablePlayBack(const bool bPlayBack)
 {
-	// 引数の停止状況を代入
-	m_bStop = bStop;
+	// 再生/逆再生が反転した場合に繰り返し数と終了フラグを初期化
+	if (m_bPlayBack != bPlayBack) { m_nNumLoop = 0; m_bFinish = false; }
 
-	if (m_bStop)
-	{ // 停止された場合
+	// 引数の逆再生状況を設定
+	m_bPlayBack = bPlayBack;
 
-		// 繰り返し数を初期化
-		m_nNumLoop = 0;
+	if (!m_bPlayBack)
+	{ // 通常再生の場合
+
+		// パターン加算関数を設定
+		m_funcPattern = std::bind(&CAnim2D::NextPtrn, this, std::placeholders::_1);
+	}
+	else
+	{ // 逆再生の場合
+
+		// パターン減算関数を設定
+		m_funcPattern = std::bind(&CAnim2D::BackPtrn, this, std::placeholders::_1);
 	}
 }
 
 //============================================================
-//	逆再生状況の設定処理
+//	ループフラグの設定処理
 //============================================================
-void CAnim2D::SetEnablePlayBack(const bool bPlayBack)
+void CAnim2D::SetEnableLoop(const bool bLoop)
 {
-	// 引数の逆再生状況を代入
-	m_bPlayBack = bPlayBack;
+	// ループする場合終了フラグを初期化
+	if (bLoop) { m_bFinish = false; }
+
+	// 引数のループ状況を設定
+	m_bLoop = bLoop;
+}
+
+//============================================================
+//	現在パターンの初期化処理
+//============================================================
+void CAnim2D::ResetCurPtrn()
+{
+	// 終了フラグをOFFにする
+	m_bFinish = false;
+
+	if (!m_bPlayBack)
+	{ // 通常再生の場合
+
+		// 開始パターンの初期化
+		m_nCurPtrn = 0;
+
+		// 待機時間の初期化
+		m_fCurTime = 0.0f;
+		m_fCurWholeTime = 0.0f;
+	}
+	else
+	{ // 逆再生の場合
+
+		// 開始パターンの初期化
+		m_nCurPtrn = m_nMaxPtrn - 1;
+
+		// 待機時間の初期化
+		m_fCurTime = m_pNextTime[m_nCurPtrn];
+		m_fCurWholeTime = m_fMaxWholeTime;
+	}
+}
+
+//============================================================
+//	パターン変更時間の設定処理 (パターン指定)
+//============================================================
+void CAnim2D::SetNextTime(const int nPtrnIdx, const float fNextTime)
+{
+	// パターンインデックスが範囲外の場合抜ける
+	if (nPtrnIdx <= NONE_IDX || nPtrnIdx >= m_nMaxPtrn) { assert(false); return; }
+
+	// 変更時間がプラスではない場合抜ける
+	if (fNextTime <= 0.0f) { assert(false); return; }
+
+	// 変更前のパターン変更時間を保存
+	float fOldNextTime = m_pNextTime[nPtrnIdx];
+
+	// 引数のパターン変更時間を設定
+	m_pNextTime[nPtrnIdx] = fNextTime;
+
+	// 総全体時間を変更
+	m_fMaxWholeTime -= fOldNextTime;
+	m_fMaxWholeTime += fNextTime;
+}
+
+//============================================================
+//	パターン変更時間の設定処理 (全パターン)
+//============================================================
+void CAnim2D::SetNextTime(const float fNextTime)
+{
+	// 変更時間がプラスではない場合抜ける
+	if (fNextTime <= 0.0f) { assert(false); return; }
+
+	for (int i = 0; i < m_nMaxPtrn; i++)
+	{ // パターンの総数分繰り返す
+
+		// 引数のパターン変更時間を設定
+		m_pNextTime[i] = fNextTime;
+	}
+
+	// 総全体時間を変更
+	m_fMaxWholeTime = fNextTime * (float)m_nMaxPtrn;
+}
+
+//============================================================
+//	パターン総数の設定処理
+//============================================================
+HRESULT CAnim2D::SetMaxPtrn(const int nMaxPtrn)
+{
+	// 引数のパターンの総数を設定
+	m_nMaxPtrn = nMaxPtrn;
+
+	// パターン変更時間の破棄
+	SAFE_DEL_ARRAY(m_pNextTime);
+
+	// パターン変更時間の再生成
+	m_pNextTime = new float[m_nMaxPtrn];
+	if (m_pNextTime == nullptr)
+	{ // 生成に失敗した場合
+
+		assert(false);
+		return E_FAIL;
+	}
+
+	// パターン変更時間を初期化
+	SetNextTime(DEF_NEXT);
+
+	// アニメーションのテクスチャ座標の設定
+	CObject2D::SetAnimTex(m_nCurPtrn, m_ptrn.x, m_ptrn.y);
+
+	return S_OK;
+}
+
+//============================================================
+//	パターン加算処理
+//============================================================
+void CAnim2D::NextPtrn(const float fDeltaTime)
+{
+	// アニメーションが終了している場合抜ける
+	if (m_bFinish) { return; }
+
+	// 現在の待機時間を加算
+	m_fCurTime += fDeltaTime;
+	m_fCurWholeTime += fDeltaTime;
+
+	while (m_fCurTime >= m_pNextTime[m_nCurPtrn])
+	{ // 待機し終わった場合
+
+		// 現在の待機時間から今回の待機時間を減算
+		m_fCurTime -= m_pNextTime[m_nCurPtrn];
+
+		// パターンを加算
+		m_nCurPtrn = (m_nCurPtrn + 1) % m_nMaxPtrn;
+		if (m_nCurPtrn == 0)
+		{ // 先頭パターンの場合
+
+			if (m_bLoop)
+			{ // ループする場合
+
+				// 繰り返し数を加算
+				m_nNumLoop++;
+
+				// 全体時間を初期化
+				m_fCurWholeTime = 0.0f;
+			}
+			else
+			{ // ループしない場合
+
+				// パターンを補正
+				m_nCurPtrn = m_nMaxPtrn - 1;
+
+				// 全体時間を初期化
+				m_fCurWholeTime = m_fMaxWholeTime;
+
+				// アニメーション終了を保存
+				m_bFinish = true;
+			}
+		}
+	}
+}
+
+//============================================================
+//	パターン減算処理
+//============================================================
+void CAnim2D::BackPtrn(const float fDeltaTime)
+{
+	// アニメーションが終了している場合抜ける
+	if (m_bFinish) { return; }
+
+	// 現在の待機時間を加算
+	m_fCurTime -= fDeltaTime;
+	m_fCurWholeTime -= fDeltaTime;
+
+	while (m_fCurTime <= 0.0f)
+	{ // 待機し終わった場合
+
+		// 現在の待機時間から今回の待機時間を減算
+		m_fCurTime += m_pNextTime[m_nCurPtrn];
+
+		// パターンを減算
+		m_nCurPtrn = (m_nCurPtrn + (m_nMaxPtrn - 1)) % m_nMaxPtrn;
+
+		if (m_nCurPtrn == m_nMaxPtrn - 1)
+		{ // 最終パターンの場合
+
+			if (m_bLoop)
+			{ // ループする場合
+
+				// 繰り返し数を加算
+				m_nNumLoop++;
+
+				// 全体時間を初期化
+				m_fCurWholeTime = m_fMaxWholeTime;
+			}
+			else
+			{ // ループしない場合
+
+				// パターンを補正
+				m_nCurPtrn = 0;
+
+				// 全体時間を初期化
+				m_fCurWholeTime = 0.0f;
+
+				// アニメーション終了を保存
+				m_bFinish = true;
+			}
+		}
+	}
 }

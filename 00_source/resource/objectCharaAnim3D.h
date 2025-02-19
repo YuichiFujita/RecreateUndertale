@@ -51,7 +51,7 @@ public:
 		// デフォルトコンストラクタ
 		SChara() :
 			vecNextTime	 ({}),			// パターン変更時間配列
-			sPathTexture (""),			// テクスチャパスをクリア
+			sPathTexture (""),			// テクスチャパス
 			ptrnTexture	 (GRID2_ZERO),	// テクスチャ分割数
 			nMaxPtrn	 (0),			// 最大パターン数
 			offset		 (VEC3_ZERO),	// 原点オフセット

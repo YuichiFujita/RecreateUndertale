@@ -168,6 +168,7 @@
     <ClCompile Include="resource\effect2D.cpp" />
     <ClCompile Include="resource\effect3D.cpp" />
     <ClCompile Include="resource\extension.cpp" />
+    <ClCompile Include="resource\faceAnim2D.cpp" />
     <ClCompile Include="resource\fade.cpp" />
     <ClCompile Include="resource\font.cpp" />
     <ClCompile Include="resource\fontChar.cpp" />
@@ -226,6 +227,7 @@
     <ClCompile Include="resource\objectBillboard.cpp" />
     <ClCompile Include="resource\objectChara.cpp" />
     <ClCompile Include="resource\objectCharaAnim3D.cpp" />
+    <ClCompile Include="resource\objectFaceAnim2D.cpp" />
     <ClCompile Include="resource\objectMeshCircle.cpp" />
     <ClCompile Include="resource\objectMeshCube.cpp" />
     <ClCompile Include="resource\objectMeshCylinder.cpp" />
@@ -318,6 +320,7 @@
     <ClInclude Include="resource\effect2D.h" />
     <ClInclude Include="resource\effect3D.h" />
     <ClInclude Include="resource\extension.h" />
+    <ClInclude Include="resource\faceAnim2D.h" />
     <ClInclude Include="resource\fade.h" />
     <ClInclude Include="resource\font.h" />
     <ClInclude Include="resource\fontChar.h" />
@@ -376,6 +379,7 @@
     <ClInclude Include="resource\objectBillboard.h" />
     <ClInclude Include="resource\objectChara.h" />
     <ClInclude Include="resource\objectCharaAnim3D.h" />
+    <ClInclude Include="resource\objectFaceAnim2D.h" />
     <ClInclude Include="resource\objectMeshCircle.h" />
     <ClInclude Include="resource\objectMeshCube.h" />
     <ClInclude Include="resource\objectMeshCylinder.h" />

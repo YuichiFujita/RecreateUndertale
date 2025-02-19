@@ -22,9 +22,8 @@ namespace
 		"data\\TEXTURE\\number000.png",	// 通常テクスチャ
 	};
 
-	const int PRIORITY		= 5;	// 数字の優先順位
-	const int PTRN_WIDTH	= 10;	// テクスチャの横の分割数
-	const int PTRN_HEIGHT	= 1;	// テクスチャの縦の分割数
+	const int PRIORITY = 5;	// 数字の優先順位
+	const POSGRID2 PTRN = POSGRID2(10, 1);	// テクスチャ分割数
 }
 
 //************************************************************
@@ -67,14 +66,11 @@ HRESULT CValue::Init()
 		return E_FAIL;
 	}
 
-	// テクスチャ横分割数の設定
-	SetWidthPattern(PTRN_WIDTH);
-
-	// テクスチャ縦分割数の設定
-	SetHeightPattern(PTRN_HEIGHT);
+	// テクスチャ分割数の設定
+	SetTexPtrn(PTRN);
 
 	// アニメーションを停止
-	SetEnableStop(true);
+	SetEnablePlay(false);
 
 	return S_OK;
 }
@@ -175,5 +171,5 @@ void CValue::SetNumber(const int nNum)
 	m_nNum = nNum;
 
 	// パターンの設定
-	CAnim2D::SetPattern(m_nNum);
+	CAnim2D::SetCurPtrn(m_nNum);
 }
