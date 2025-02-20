@@ -18,10 +18,12 @@
 //************************************************************
 //	前方宣言
 //************************************************************
-class CFrame2DTextState;		// テキスト機能状態クラス
-class CFrame2DTextBufferText;	// テキスト機能保存クラス
-class CFrame2DTextBufferSelect;	// 選択付きテキスト機能保存クラス
-class CFrame2DTextBufferItem;	// アイテムテキスト機能保存クラス
+class CFrame2DTextState;			// テキスト機能状態クラス
+class CFrame2DTextBufferText;		// テキスト保存バッファクラス
+class CFrame2DTextBufferSelect;		// 選択付きテキスト保存バッファクラス
+class CFrame2DTextBufferFaceText;	// 表情付きテキスト保存バッファクラス
+class CFrame2DTextBufferFaceSelect;	// 表情/選択付きテキスト保存バッファクラス
+class CFrame2DTextBufferItem;		// アイテムテキスト保存バッファクラス
 
 //************************************************************
 //	クラス定義
@@ -40,9 +42,11 @@ public:
 	virtual CFrame2DTextState* CreateState(const CFrame2D::EPreset preset) = 0;	// テキスト機能状態生成
 
 	// 仮想関数
-	virtual inline CFrame2DTextBufferText* GetBufferText()		{ return nullptr; }	// テキストバッファ取得
-	virtual inline CFrame2DTextBufferSelect* GetBufferSelect()	{ return nullptr; }	// 選択付きテキストバッファ取得
-	virtual inline CFrame2DTextBufferItem* GetBufferItem()		{ return nullptr; }	// アイテムテキストバッファ取得
+	virtual inline CFrame2DTextBufferText* GetBufferText()				{ return nullptr; }		// テキストバッファ取得
+	virtual inline CFrame2DTextBufferSelect* GetBufferSelect()			{ return nullptr; }		// 選択付きテキストバッファ取得
+	virtual inline CFrame2DTextBufferFaceText* GetBufferFaceText()		{ return nullptr; }		// 表情付きテキストバッファ取得
+	virtual inline CFrame2DTextBufferFaceSelect* GetBufferFaceSelect()	{ return nullptr; }		// 表情/選択付きテキストバッファ取得
+	virtual inline CFrame2DTextBufferItem* GetBufferItem()				{ return nullptr; }		// アイテムテキストバッファ取得
 	virtual inline void LoadSetup(std::ifstream* /*pFile*/, const std::string& /*rString*/)	{}	// バッファごとのセットアップ
 
 	// メンバ変数
