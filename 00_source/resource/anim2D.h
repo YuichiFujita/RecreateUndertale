@@ -61,6 +61,7 @@ public:
 	void SetEnablePlay(const bool bPlay);			// 再生フラグ設定
 	void SetEnablePlayBack(const bool bPlayBack);	// 逆再生フラグ設定
 	void SetEnableLoop(const bool bLoop);			// ループフラグ設定
+	void SetLoopWaitTime(const float fWaitTime);	// ループ待機時間設定
 	void ResetCurPtrn();							// 現在パターン初期化
 	void SetNextTime(const int nPtrnIdx, const float fNextTime);	// パターン変更時間設定 (パターン指定)
 	void SetNextTime(const float fNextTime);						// パターン変更時間設定 (全パターン)
@@ -77,18 +78,30 @@ public:
 	inline float GetMaxWholeTime() const	{ return m_fMaxWholeTime; }	// 総全体時間
 
 private:
+	// 状態列挙
+	enum EState
+	{
+		STATE_PLAY = 0,	// 再生状態
+		STATE_WAIT,		// 待機状態
+		STATE_MAX		// この列挙型の総数
+	};
+
 	// メンバ関数
-	HRESULT SetMaxPtrn(const int nMaxPtrn);	// パターン総数設定
-	void NextPtrn(const float fDeltaTime);	// パターン加算
-	void BackPtrn(const float fDeltaTime);	// パターン減算
+	HRESULT SetMaxPtrn(const int nMaxPtrn);		// パターン総数設定
+	void NextPtrn(const float fDeltaTime);		// パターン加算
+	void BackPtrn(const float fDeltaTime);		// パターン減算
+	void UpdateWait(const float fDeltaTime);	// 待機時間更新
 
 	// メンバ変数
 	std::function<void(float)> m_funcPattern;	// パターン変更関数ポインタ
+	EState m_state;			// 状態
 	POSGRID2 m_ptrn;		// テクスチャ分割数
 	float* m_pNextTime;		// パターン変更時間
 	float m_fCurTime;		// 現在の待機時間
 	float m_fCurWholeTime;	// 現在の全体時間
 	float m_fMaxWholeTime;	// 総全体時間
+	float m_fCurLoopTime;	// 現在のループ待機時間
+	float m_fLoopWaitTime;	// ループ待機時間
 	int m_nCurPtrn;			// 現在のパターン
 	int m_nMaxPtrn;			// パターン総数
 	int m_nNumLoop;			// パターン繰り返し数

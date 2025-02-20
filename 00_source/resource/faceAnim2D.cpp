@@ -330,6 +330,11 @@ HRESULT CFaceAnim2D::LoadEmotionSetup(SFace* pInfoFace, const char* pEmoPath)
 			// 読み込んだ値をbool型に変換
 			pInfoEmo->bLoop = (nCastBool != 0);
 		}
+		else if (str == "LOOP_WAIT")
+		{
+			file >> str;						// ＝を読込
+			file >> pInfoEmo->fLoopWaitTime;	// ループ待機時間を読込
+		}
 	}
 
 	// ファイルを閉じる

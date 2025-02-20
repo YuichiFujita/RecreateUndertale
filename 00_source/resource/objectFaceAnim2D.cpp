@@ -171,9 +171,13 @@ void CObjectFaceAnim2D::SetEmotion(const int nTypeEmo)
 	BindTexture(pInfoEmo->sPathTexture.c_str());
 
 	// 表情情報を設定
-	SetTexPtrn(pInfoEmo->ptrnTexture);	// テクスチャ分割数
-	SetEnableLoop(pInfoEmo->bLoop);		// ループON/OFF
-	SetVec3Size(pInfoEmo->size);		// 大きさ
+	SetTexPtrn(pInfoEmo->ptrnTexture);			// テクスチャ分割数
+	SetEnableLoop(pInfoEmo->bLoop);				// ループON/OFF
+	SetLoopWaitTime(pInfoEmo->fLoopWaitTime);	// ループ待機時間
+	SetVec3Size(pInfoEmo->size);				// 大きさ
+
+	// TODO
+	SetEnablePlayBack(true);
 
 	assert((int)pInfoEmo->vecNextTime.size() == pInfoEmo->nMaxPtrn);
 	for (int i = 0; i < pInfoEmo->nMaxPtrn; i++)

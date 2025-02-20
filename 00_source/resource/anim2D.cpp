@@ -9,6 +9,9 @@
 //************************************************************
 #include "anim2D.h"
 
+// TODO
+#include "manager.h"
+
 //************************************************************
 //	定数宣言
 //************************************************************
@@ -25,11 +28,14 @@ namespace
 //============================================================
 CAnim2D::CAnim2D(const CObject::ELabel label, const EDim dimension, const int nPriority) : CObject2D(label, dimension, nPriority),
 	m_funcPattern	(nullptr),		// パターン変更関数ポインタ
+	m_state			(STATE_PLAY),	// 状態
 	m_ptrn			(GRID2_ZERO),	// テクスチャ分割数
 	m_pNextTime		(nullptr),		// パターン変更時間
 	m_fCurTime		(0.0f),			// 現在の待機時間
 	m_fCurWholeTime	(0.0f),			// 現在の全体時間
 	m_fMaxWholeTime	(0.0f),			// 総全体時間
+	m_fCurLoopTime	(0.0f),			// 現在のループ待機時間
+	m_fLoopWaitTime	(0.0f),			// ループ待機時間
 	m_nCurPtrn		(0),			// 現在のパターン
 	m_nMaxPtrn		(0),			// パターンの総数
 	m_nNumLoop		(0),			// パターン繰り返し数
@@ -56,11 +62,14 @@ HRESULT CAnim2D::Init()
 {
 	// メンバ変数を初期化
 	m_funcPattern	= nullptr;		// パターン変更関数ポインタ
+	m_state			= STATE_PLAY;	// 状態
 	m_ptrn			= GRID2_ZERO;	// テクスチャ分割数
 	m_pNextTime		= nullptr;		// パターン変更時間
 	m_fCurTime		= 0.0f;			// 現在の待機時間
 	m_fCurWholeTime	= 0.0f;			// 現在の全体時間
 	m_fMaxWholeTime	= 0.0f;			// 総全体時間
+	m_fCurLoopTime	= 0.0f;			// 現在のループ待機時間
+	m_fLoopWaitTime = 0.0f;			// ループ待機時間
 	m_nCurPtrn		= 0;			// 現在のパターン
 	m_nMaxPtrn		= 0;			// パターン総数
 	m_nNumLoop		= 0;			// パターン繰り返し数
@@ -109,15 +118,40 @@ void CAnim2D::Update(const float fDeltaTime)
 	// 停止中の場合抜ける
 	if (!m_bPlay) { return; }
 
-	// パターンの更新
-	assert(m_funcPattern != nullptr);
-	m_funcPattern(fDeltaTime);
+	switch (m_state)
+	{ // 状態ごとの処理
+	case STATE_PLAY:
+
+		// パターンの更新
+		assert(m_funcPattern != nullptr);
+		m_funcPattern(fDeltaTime);
+		break;
+
+	case STATE_WAIT:
+
+		// 待機時間の更新
+		UpdateWait(fDeltaTime);
+		break;
+
+	default:
+		assert(false);
+		break;
+	}
 
 	// オブジェクト2Dの更新
 	CObject2D::Update(fDeltaTime);
 
 	// アニメーションのテクスチャ座標の設定
 	CObject2D::SetAnimTex(m_nCurPtrn, m_ptrn.x, m_ptrn.y);
+
+	// TODO
+	GET_MANAGER->GetDebugProc()->Print(CDebugProc::POINT_LEFT, "\n");
+	GET_MANAGER->GetDebugProc()->Print(CDebugProc::POINT_LEFT, "[　パターン変更時間　]：%f\n", m_pNextTime[m_nCurPtrn]);
+	GET_MANAGER->GetDebugProc()->Print(CDebugProc::POINT_LEFT, "[　 現在の待機時間 　]：%f\n", m_fCurTime);
+	GET_MANAGER->GetDebugProc()->Print(CDebugProc::POINT_LEFT, "[　 現在の全体時間 　]：%f\n", m_fCurWholeTime);
+	GET_MANAGER->GetDebugProc()->Print(CDebugProc::POINT_LEFT, "[　　 総全体時間 　　]：%f\n", m_fMaxWholeTime);
+	GET_MANAGER->GetDebugProc()->Print(CDebugProc::POINT_LEFT, "[現在のループ待機時間]：%f\n", m_fCurLoopTime);
+	GET_MANAGER->GetDebugProc()->Print(CDebugProc::POINT_LEFT, "[　 ループ待機時間 　]：%f\n", m_fLoopWaitTime);
 }
 
 //============================================================
@@ -358,6 +392,15 @@ void CAnim2D::SetEnableLoop(const bool bLoop)
 }
 
 //============================================================
+//	ループ待機時間の設定処理
+//============================================================
+void CAnim2D::SetLoopWaitTime(const float fWaitTime)
+{
+	// 引数の待機時間を設定
+	m_fLoopWaitTime = fWaitTime;
+}
+
+//============================================================
 //	現在パターンの初期化処理
 //============================================================
 void CAnim2D::ResetCurPtrn()
@@ -487,7 +530,28 @@ void CAnim2D::NextPtrn(const float fDeltaTime)
 				m_nNumLoop++;
 
 				// 全体時間を初期化
-				m_fCurWholeTime = 0.0f;
+				m_fCurWholeTime = m_fCurTime;
+
+				if (m_fLoopWaitTime > 0.0f)
+				{ // ループ後に待機する場合
+
+					// 余剰分の経過時間を保存
+					m_fCurLoopTime = m_fCurTime;
+					if (m_fCurLoopTime < m_fLoopWaitTime)
+					{ // ループ待機が必要な場合
+
+						// 時間を初期化
+						m_fCurTime = 0.0f;		// 待機時間
+						m_fCurWholeTime = 0.0f;	// 全体時間
+
+						// 待機状態にする
+						m_state = STATE_WAIT;
+						return;
+					}
+
+					// 現在のループ待機時間を初期化
+					m_fCurLoopTime = 0.0f;
+				}
 			}
 			else
 			{ // ループしない場合
@@ -520,6 +584,9 @@ void CAnim2D::BackPtrn(const float fDeltaTime)
 	while (m_fCurTime <= 0.0f)
 	{ // 待機し終わった場合
 
+		int nOldPtrn = m_nCurPtrn;		// 前回パターン
+		float fOldTime = m_fCurTime;	// 前回時間
+
 		// 現在の待機時間から今回の待機時間を減算
 		m_fCurTime += m_pNextTime[m_nCurPtrn];
 
@@ -536,7 +603,28 @@ void CAnim2D::BackPtrn(const float fDeltaTime)
 				m_nNumLoop++;
 
 				// 全体時間を初期化
-				m_fCurWholeTime = m_fMaxWholeTime;
+				m_fCurWholeTime = m_fMaxWholeTime + fOldTime;
+
+				if (m_fLoopWaitTime > 0.0f)
+				{ // ループ後に待機する場合
+
+					// 余剰分の経過時間を保存
+					m_fCurLoopTime = (m_fCurTime - m_pNextTime[nOldPtrn]) * -1.0f;
+					if (m_fCurLoopTime < m_fLoopWaitTime)
+					{ // ループ待機が必要な場合
+
+						// 時間を初期化
+						m_fCurTime = m_pNextTime[m_nCurPtrn];	// 待機時間
+						m_fCurWholeTime = m_fMaxWholeTime;		// 全体時間
+
+						// 待機状態にする
+						m_state = STATE_WAIT;
+						return;
+					}
+
+					// 現在のループ待機時間を初期化
+					m_fCurLoopTime = 0.0f;
+				}
 			}
 			else
 			{ // ループしない場合
@@ -551,5 +639,40 @@ void CAnim2D::BackPtrn(const float fDeltaTime)
 				m_bFinish = true;
 			}
 		}
+	}
+}
+
+//============================================================
+//	待機時間の更新処理
+//============================================================
+void CAnim2D::UpdateWait(const float fDeltaTime)
+{
+	// アニメーションが終了している場合抜ける
+	if (m_bFinish) { return; }
+
+	// 現在の待機時間を加算
+	m_fCurLoopTime += fDeltaTime;
+	if (m_fCurLoopTime >= m_fLoopWaitTime)
+	{ // 待機終了した場合
+
+		// 再生状態にする
+		m_state = STATE_PLAY;
+
+		// 余剰分の経過時間を保存
+		if (!m_bPlayBack)
+		{ // 通常再生の場合
+
+			// 
+			m_fCurTime = m_fCurLoopTime - m_fLoopWaitTime;
+		}
+		else
+		{ // 逆再生の場合
+
+			// 
+			m_fCurTime = m_pNextTime[m_nCurPtrn] - (m_fCurLoopTime - m_fLoopWaitTime);
+		}
+
+		// 現在のループ待機時間を初期化
+		m_fCurLoopTime = 0.0f;
 	}
 }

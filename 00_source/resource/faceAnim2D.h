@@ -34,13 +34,14 @@ public:
 	{
 		// デフォルトコンストラクタ
 		SEmotion() :
-			vecNextTime	 ({}),			// パターン変更時間配列
-			sPathTexture (""),			// テクスチャパス
-			ptrnTexture	 (GRID2_ZERO),	// テクスチャ分割数
-			nMaxPtrn	 (0),			// 最大パターン数
-			offset		 (VEC3_ZERO),	// 原点オフセット
-			size		 (VEC3_ZERO),	// キャラクター大きさ
-			bLoop		 (false)		// ループON/OFF
+			vecNextTime		({}),			// パターン変更時間配列
+			sPathTexture	(""),			// テクスチャパス
+			ptrnTexture		(GRID2_ZERO),	// テクスチャ分割数
+			nMaxPtrn		(0),			// 最大パターン数
+			offset			(VEC3_ZERO),	// 原点オフセット
+			size			(VEC3_ZERO),	// キャラクター大きさ
+			bLoop			(false),		// ループON/OFF
+			fLoopWaitTime	(0.0f)			// ループ待機時間
 		{}
 
 		// デストラクタ
@@ -84,10 +85,11 @@ public:
 		std::vector<float> vecNextTime;	// パターン変更時間配列
 		std::string sPathTexture;		// テクスチャパス
 		POSGRID2 ptrnTexture;			// テクスチャ分割数
-		int nMaxPtrn;	// 最大パターン数
-		VECTOR3 offset;	// 原点オフセット
-		VECTOR3 size;	// 顔大きさ
-		bool bLoop;		// ループON/OFF
+		int nMaxPtrn;			// 最大パターン数
+		VECTOR3 offset;			// 原点オフセット
+		VECTOR3 size;			// 顔大きさ
+		bool bLoop;				// ループON/OFF
+		float fLoopWaitTime;	// ループ待機時間
 	};
 
 	// 顔管理構造体
