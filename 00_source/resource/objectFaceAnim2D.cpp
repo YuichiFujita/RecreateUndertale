@@ -176,9 +176,6 @@ void CObjectFaceAnim2D::SetEmotion(const int nTypeEmo)
 	SetLoopWaitTime(pInfoEmo->fLoopWaitTime);	// ƒ‹[ƒv‘Ò‹@ŽžŠÔ
 	SetVec3Size(pInfoEmo->size);				// ‘å‚«‚³
 
-	// TODO
-	SetEnablePlayBack(true);
-
 	assert((int)pInfoEmo->vecNextTime.size() == pInfoEmo->nMaxPtrn);
 	for (int i = 0; i < pInfoEmo->nMaxPtrn; i++)
 	{
