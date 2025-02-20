@@ -22,7 +22,6 @@
 #include "frame2D.h"
 #include "loadtext.h"
 #include "frame2DModule.h"
-#include "objectFaceAnim2D.h"
 
 //************************************************************
 //	Ã“Iƒƒ“ƒo•Ï”éŒ¾
@@ -117,9 +116,6 @@ HRESULT CSceneGame::Init()
 
 	// BGM‚ÌÄ¶
 	PLAY_SOUND(CSound::LABEL_BGM_GENERAL);
-
-	CObjectFaceAnim2D*p=CObjectFaceAnim2D::Create(0, 0, SCREEN_CENT);
-	p->SetLabel(CObject::LABEL_UI);
 
 	return S_OK;
 }

@@ -1,14 +1,14 @@
 //============================================================
 //
-//	オブジェクト表情アニメーション2Dヘッダー [objectFaceAnim2D.h]	// TODO：顔UI
+//	表情UIヘッダー [faceUI.h]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	二重インクルード防止
 //************************************************************
-#ifndef _OBJECTFACE_ANIM2D_H_
-#define _OBJECTFACE_ANIM2D_H_
+#ifndef _FACE_UI_H_
+#define _FACE_UI_H_
 
 //************************************************************
 //	インクルードファイル
@@ -19,15 +19,15 @@
 //************************************************************
 //	クラス定義
 //************************************************************
-// オブジェクト表情アニメーション2Dクラス
-class CObjectFaceAnim2D : public CAnim2D
+// 表情UIクラス
+class CFaceUI : public CAnim2D
 {
 public:
 	// コンストラクタ
-	explicit CObjectFaceAnim2D(const CObject::ELabel label = LABEL_NONE, const CObject::EDim dimension = DIM_2D, const int nPriority = DEFAULT_PRIO);
+	CFaceUI();
 
 	// デストラクタ
-	~CObjectFaceAnim2D() override;
+	~CFaceUI() override;
 
 	// エイリアス定義
 	using AEmotion = CFaceAnim2D::SEmotion;	// 表情管理型
@@ -41,7 +41,13 @@ public:
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
 
 	// 静的メンバ関数
-	static CObjectFaceAnim2D* Create(const int nIdxFace, const int nTypeEmo, const VECTOR3& rPos, const VECTOR3& rRot = VEC3_ZERO);	// 生成
+	static CFaceUI* Create	// 生成
+	( // 引数
+		const int nIdxFace,				// 顔インデックス
+		const int nTypeEmo,				// 表情種類
+		const VECTOR3& rPos,			// 位置
+		const VECTOR3& rRot = VEC3_ZERO	// 向き
+	);
 
 	// メンバ関数
 	void BindFaceData(const int nIdxFace);	// 顔割当
@@ -62,4 +68,4 @@ private:
 	int m_nTypeEmo;	// 表情種類
 };
 
-#endif	// _OBJECTFACE_ANIM2D_H_
+#endif	// _FACE_UI_H_

@@ -1,24 +1,30 @@
 //============================================================
 //
-//	オブジェクト表情アニメーション2D処理 [objectFaceAnim2D.cpp]
+//	表情UI処理 [faceUI.cpp]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	インクルードファイル
 //************************************************************
-#include "objectFaceAnim2D.h"
+#include "faceUI.h"
 #include "manager.h"
-#include "renderer.h"
-#include "faceAnim2D.h"
 
 //************************************************************
-//	子クラス [CObjectFaceAnim2D] のメンバ関数
+//	定数宣言
+//************************************************************
+namespace
+{
+	const int PRIORITY = 6;	// 表情UIの優先順位
+}
+
+//************************************************************
+//	子クラス [CFaceUI] のメンバ関数
 //************************************************************
 //============================================================
 //	コンストラクタ
 //============================================================
-CObjectFaceAnim2D::CObjectFaceAnim2D(const CObject::ELabel label, const CObject::EDim dimension, const int nPriority) : CAnim2D(label, dimension, nPriority),
+CFaceUI::CFaceUI() : CAnim2D(CObject::LABEL_UI, CObject::DIM_2D, PRIORITY),
 	m_pos		(VEC3_ZERO),	// 原点位置
 	m_info		({}),			// 表情情報
 	m_nTypeEmo	(0)				// 表情種類
@@ -29,7 +35,7 @@ CObjectFaceAnim2D::CObjectFaceAnim2D(const CObject::ELabel label, const CObject:
 //============================================================
 //	デストラクタ
 //============================================================
-CObjectFaceAnim2D::~CObjectFaceAnim2D()
+CFaceUI::~CFaceUI()
 {
 
 }
@@ -37,7 +43,7 @@ CObjectFaceAnim2D::~CObjectFaceAnim2D()
 //============================================================
 //	初期化処理
 //============================================================
-HRESULT CObjectFaceAnim2D::Init()
+HRESULT CFaceUI::Init()
 {
 	// メンバ変数を初期化
 	m_pos		= VEC3_ZERO;	// 原点位置
@@ -58,7 +64,7 @@ HRESULT CObjectFaceAnim2D::Init()
 //============================================================
 //	終了処理
 //============================================================
-void CObjectFaceAnim2D::Uninit()
+void CFaceUI::Uninit()
 {
 	// アニメーション2Dの終了
 	CAnim2D::Uninit();
@@ -67,7 +73,7 @@ void CObjectFaceAnim2D::Uninit()
 //============================================================
 //	更新処理
 //============================================================
-void CObjectFaceAnim2D::Update(const float fDeltaTime)
+void CFaceUI::Update(const float fDeltaTime)
 {
 	// 表情がない場合抜ける
 	if (m_info.vecEmotion.empty()) { assert(false); return; }
@@ -79,7 +85,7 @@ void CObjectFaceAnim2D::Update(const float fDeltaTime)
 //============================================================
 //	描画処理
 //============================================================
-void CObjectFaceAnim2D::Draw(CShader* pShader)
+void CFaceUI::Draw(CShader* pShader)
 {
 	// アニメーション2Dの描画
 	CAnim2D::Draw(pShader);
@@ -88,7 +94,7 @@ void CObjectFaceAnim2D::Draw(CShader* pShader)
 //============================================================
 //	位置の設定処理
 //============================================================
-void CObjectFaceAnim2D::SetVec3Position(const VECTOR3& rPos)
+void CFaceUI::SetVec3Position(const VECTOR3& rPos)
 {
 	// 原点位置の保存
 	m_pos = rPos;
@@ -103,11 +109,11 @@ void CObjectFaceAnim2D::SetVec3Position(const VECTOR3& rPos)
 //============================================================
 //	生成処理
 //============================================================
-CObjectFaceAnim2D* CObjectFaceAnim2D::Create(const int nIdxFace, const int nTypeEmo, const VECTOR3& rPos, const VECTOR3& rRot)
+CFaceUI* CFaceUI::Create(const int nIdxFace, const int nTypeEmo, const VECTOR3& rPos, const VECTOR3& rRot)
 {
-	// オブジェクト表情アニメーション2Dの生成
-	CObjectFaceAnim2D* pObjectFaceAnim2D = new CObjectFaceAnim2D;
-	if (pObjectFaceAnim2D == nullptr)
+	// 表情UIの生成
+	CFaceUI* pFaceUI = new CFaceUI;
+	if (pFaceUI == nullptr)
 	{ // 生成に失敗した場合
 
 		return nullptr;
@@ -115,36 +121,36 @@ CObjectFaceAnim2D* CObjectFaceAnim2D::Create(const int nIdxFace, const int nType
 	else
 	{ // 生成に成功した場合
 
-		// オブジェクト表情アニメーション2Dの初期化
-		if (FAILED(pObjectFaceAnim2D->Init()))
+		// 表情UIの初期化
+		if (FAILED(pFaceUI->Init()))
 		{ // 初期化に失敗した場合
 
-			// オブジェクト表情アニメーション2Dの破棄
-			SAFE_DELETE(pObjectFaceAnim2D);
+			// 表情UIの破棄
+			SAFE_DELETE(pFaceUI);
 			return nullptr;
 		}
 
 		// 顔を割当
-		pObjectFaceAnim2D->BindFaceData(nIdxFace);
+		pFaceUI->BindFaceData(nIdxFace);
 
 		// 表情を設定
-		pObjectFaceAnim2D->SetEmotion(nTypeEmo);
+		pFaceUI->SetEmotion(nTypeEmo);
 
 		// 位置を設定
-		pObjectFaceAnim2D->SetVec3Position(rPos);
+		pFaceUI->SetVec3Position(rPos);
 
 		// 向きを設定
-		pObjectFaceAnim2D->SetVec3Rotation(rRot);
+		pFaceUI->SetVec3Rotation(rRot);
 
 		// 確保したアドレスを返す
-		return pObjectFaceAnim2D;
+		return pFaceUI;
 	}
 }
 
 //============================================================
 //	顔の割当処理
 //============================================================
-void CObjectFaceAnim2D::BindFaceData(const int nIdxFace)
+void CFaceUI::BindFaceData(const int nIdxFace)
 {
 	// モーション情報の全設定
 	SetAllInfo(GET_MANAGER->GetFaceAnim2D()->GetInfo(nIdxFace));
@@ -156,7 +162,7 @@ void CObjectFaceAnim2D::BindFaceData(const int nIdxFace)
 //============================================================
 //	表情の設定処理
 //============================================================
-void CObjectFaceAnim2D::SetEmotion(const int nTypeEmo)
+void CFaceUI::SetEmotion(const int nTypeEmo)
 {
 	// 指定された表情が存在しない場合抜ける
 	if (nTypeEmo <= NONE_IDX || nTypeEmo >= m_info.GetNumEmotion()) { assert(false); return; }
@@ -191,7 +197,7 @@ void CObjectFaceAnim2D::SetEmotion(const int nTypeEmo)
 //============================================================
 //	表情の追加処理
 //============================================================
-void CObjectFaceAnim2D::AddInfo(const AEmotion& rEmotion)
+void CFaceUI::AddInfo(const AEmotion& rEmotion)
 {
 	int nSetEmotionIdx = m_info.GetNumEmotion();	// 表情を設定する配列番号
 
@@ -205,7 +211,7 @@ void CObjectFaceAnim2D::AddInfo(const AEmotion& rEmotion)
 //============================================================
 //	表情の全設定処理
 //============================================================
-void CObjectFaceAnim2D::SetAllInfo(const AFace& rFace)
+void CFaceUI::SetAllInfo(const AFace& rFace)
 {
 	// 表情情報をクリア
 	m_info.vecEmotion.clear();
@@ -221,7 +227,7 @@ void CObjectFaceAnim2D::SetAllInfo(const AFace& rFace)
 //============================================================
 //	相対位置の設定処理
 //============================================================
-void CObjectFaceAnim2D::SetPositionRelative()
+void CFaceUI::SetPositionRelative()
 {
 	VECTOR3 posThis = m_pos;				// 自身の位置
 	VECTOR3 rotThis = GetVec3Rotation();	// 自身の向き

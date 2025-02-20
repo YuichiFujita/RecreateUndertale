@@ -546,11 +546,11 @@
     <ClCompile Include="resource\faceAnim2D.cpp">
       <Filter>flyweight</Filter>
     </ClCompile>
-    <ClCompile Include="resource\objectFaceAnim2D.cpp">
-      <Filter>object</Filter>
-    </ClCompile>
     <ClCompile Include="resource\frame2DModuleText.cpp">
       <Filter>ingame\frame\module\text</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\faceUI.cpp">
+      <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -992,11 +992,11 @@
     <ClInclude Include="resource\faceAnim2D.h">
       <Filter>flyweight</Filter>
     </ClInclude>
-    <ClInclude Include="resource\objectFaceAnim2D.h">
-      <Filter>object</Filter>
-    </ClInclude>
     <ClInclude Include="resource\frame2DModuleText.h">
       <Filter>ingame\frame\module\text</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\faceUI.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
