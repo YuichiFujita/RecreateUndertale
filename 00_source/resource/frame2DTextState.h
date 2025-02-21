@@ -46,10 +46,10 @@ public:
 	inline virtual CFrame2DTextStateFaceText* GetStateFaceText()	 { return nullptr; }	// 表情付きテキスト状態取得
 	inline virtual CFrame2DTextStateFaceSelect* GetStateFaceSelect() { return nullptr; }	// 表情/選択付きテキスト状態取得
 	inline virtual CFrame2DTextStateItem* GetStateItem()			 { return nullptr; }	// アイテムテキスト状態取得
-	inline virtual void SetPriority(const int)			{ assert(false); }	// 優先順位設定
-	inline virtual void SetVec3Position(const VECTOR3&)	{ assert(false); }	// 位置設定
-	inline virtual void SetVec3Rotation(const VECTOR3&)	{ assert(false); }	// 向き設定
-	inline virtual void SetVec3Size(const VECTOR3&)		{ assert(false); }	// 大きさ設定
+	inline virtual void SetPriority(const int)			 { assert(false); }	// 優先順位設定
+	inline virtual void SetVec3Position(const VECTOR3&)	 { assert(false); }	// 位置設定
+	inline virtual void SetVec3Rotation(const VECTOR3&)	 { assert(false); }	// 向き設定
+	inline virtual void SetVec3Size(const VECTOR3&)		 { assert(false); }	// 大きさ設定
 
 	// メンバ関数
 	inline void SetContext(CFrame2DModuleText* pContext) { m_pContext = pContext; }	// コンテキスト設定

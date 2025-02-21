@@ -140,7 +140,7 @@ void CFrame2DTextStateText::Update(const float fDeltaTime)
 		}
 
 		// テキストの遷移
-		m_pContext->TransText(m_sNextTextKey);
+		m_pContext->TransText(m_sNextTextKey);	// TODO：次テキスト検索キーを選択状態のとき使ってないな
 	}
 }
 

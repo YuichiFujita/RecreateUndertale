@@ -8,16 +8,19 @@
 # テキストボックス情報
 TEXTBOX_0
 	NEXT_BOX	= 1		# 次テキストボックスキー
+	FACE		= 0		# 顔インデックス
 	ALL_MODULE	= TEXT	# 使用モジュール
 	
 	# テキスト情報
 	TEXT_0
+		EMOTION = 0	# 表情種類
 		NEXT = 1	# 次テキストキー
 		STR = ＊ del_test00 0ボックス 0テキスト目
 	END_TEXT
 	
 	# テキスト情報
 	TEXT_1
+		EMOTION = 0	# 表情種類
 		NEXT = 2	# 次テキストキー
 		STR = ＊ del_test00 0ボックス 1テキスト目
 		STR = 　 改行検証
@@ -25,6 +28,7 @@ TEXTBOX_0
 	
 	# テキスト情報
 	TEXT_2
+		EMOTION = 0	# 表情種類
 		STR = ＊ del_test00 0ボックス 2テキスト目
 		STR = 　 del_test00 1ボックス 0テキスト目へ遷移
 		STR = ＊ Enter/Zで次へ

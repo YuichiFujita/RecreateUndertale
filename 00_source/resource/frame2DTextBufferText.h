@@ -41,6 +41,7 @@ public:
 //************************************************************
 //	インクルードファイル
 //************************************************************
+#include "frame2DTextBufferFaceText.h"
 #include "frame2DTextBufferItem.h"
 
 #endif	// _FRAME2D_TEXT_BUFFER_TEXT_H_

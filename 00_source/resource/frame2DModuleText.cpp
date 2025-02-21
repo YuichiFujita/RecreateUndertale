@@ -491,8 +491,8 @@ CFrame2DTextBuffer* CFrame2DModuleText::CreateBuffText(const std::string& rCreat
 	if		(rCreateKey == "TEXT")
 	{
 		// 顔インデックスに応じて生成変更
-		if (nFaceIdx == -1)	{ return new CFrame2DTextBufferText; }			// テキスト保存バッファ
-		else				{ return new CFrame2DTextBufferText; }			// 表情付きテキスト保存バッファ
+		if (nFaceIdx == -1)	{ return new CFrame2DTextBufferText; }					// テキスト保存バッファ
+		else				{ return new CFrame2DTextBufferFaceText(nFaceIdx); }	// 表情付きテキスト保存バッファ
 	}
 	else if	(rCreateKey == "SELECT")
 	{

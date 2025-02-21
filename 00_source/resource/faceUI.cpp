@@ -109,7 +109,13 @@ void CFaceUI::SetVec3Position(const VECTOR3& rPos)
 //============================================================
 //	生成処理
 //============================================================
-CFaceUI* CFaceUI::Create(const int nIdxFace, const int nTypeEmo, const VECTOR3& rPos, const VECTOR3& rRot)
+CFaceUI* CFaceUI::Create
+(
+	const int nIdxFace,		// 顔インデックス
+	const int nTypeEmo,		// 表情種類
+	const VECTOR3& rPos,	// 位置
+	const VECTOR3& rRot		// 向き
+)
 {
 	// 表情UIの生成
 	CFaceUI* pFaceUI = new CFaceUI;

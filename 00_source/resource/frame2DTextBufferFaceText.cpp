@@ -16,7 +16,9 @@
 //============================================================
 //	コンストラクタ
 //============================================================
-CFrame2DTextBufferFaceText::CFrame2DTextBufferFaceText()
+CFrame2DTextBufferFaceText::CFrame2DTextBufferFaceText(const int nIdxFace) :
+	m_nIdxFace	(nIdxFace),	// 顔インデックス
+	m_nTypeEmo	(0)			// 表情種類
 {
 
 }
@@ -45,5 +47,32 @@ CFrame2DTextState* CFrame2DTextBufferFaceText::CreateState(const CFrame2D::EPres
 
 		// 表情付きテキスト状態を生成し返す
 		return new CFrame2DTextStateFaceText;	// デフォルト
+	}
+}
+
+//============================================================
+//	バッファごとのセットアップ処理
+//============================================================
+void CFrame2DTextBufferFaceText::LoadSetup(std::ifstream* pFile, const std::string& rString)
+{
+	// 基底バッファのセットアップ
+	CFrame2DTextBufferText::LoadSetup(pFile, rString);
+
+	// ファイルポインタがない場合抜ける
+	if (pFile == nullptr) { assert(false); return; }
+
+	// 開けてないファイルの場合抜ける
+	if (!pFile->is_open()) { assert(false); return; }
+
+	// 表情付きテキスト保存バッファに変換できない場合抜ける
+	CFrame2DTextBufferFaceText* pBuffFaceText = GetBufferFaceText();
+	if (pBuffFaceText == nullptr) { assert(false); return; }
+
+	// ファイルを読込
+	std::string str;	// 読込文字列
+	if (rString == "EMOTION")
+	{
+		*pFile >> str;							// ＝を読込
+		*pFile >> pBuffFaceText->m_nTypeEmo;	// 表情種類を読込
 	}
 }

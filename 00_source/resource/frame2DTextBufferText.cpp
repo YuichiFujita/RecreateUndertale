@@ -60,6 +60,7 @@ void CFrame2DTextBufferText::LoadSetup(std::ifstream* pFile, const std::string& 
 	// 開けてないファイルの場合抜ける
 	if (!pFile->is_open()) { assert(false); return; }
 
+	// ファイルを読込
 	std::string str;	// 読込文字列
 	if (rString == "NEXT")
 	{
