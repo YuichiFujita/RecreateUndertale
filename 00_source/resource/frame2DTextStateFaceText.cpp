@@ -17,11 +17,19 @@
 //************************************************************
 namespace
 {
-	namespace face
+	namespace text
 	{
 		const VECTOR3 OFFSET[] =	// テキストオフセットプリセット
 		{
-			VECTOR3(-410.0f, -80.0f, 0.0f)	// 下部配置
+			VECTOR3(-210.0f, -80.0f, 0.0f)	// 下部配置
+		};
+	}
+
+	namespace face
+	{
+		const VECTOR3 OFFSET[] =	// 表情オフセットプリセット
+		{
+			VECTOR3(315.0f, 0.0f, 0.0f)	// 下部配置
 		};
 		const char*	FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
 		const bool	ITALIC		= false;		// イタリック
@@ -46,12 +54,20 @@ CFrame2DTextStateFaceText::CFrame2DTextStateFaceText() : CFrame2DTextStateFaceTe
 
 }
 
+// TODO：関数呼べねぇんだよな
+#if 1
 //============================================================
 //	コンストラクタ (配置プリセット)
 //============================================================
 CFrame2DTextStateFaceText::CFrame2DTextStateFaceText(const CFrame2D::EPreset preset) : CFrame2DTextStateText(preset),
 	m_pFace	 (nullptr),				// 表情情報
 	m_offset (face::OFFSET[preset])	// 表情オフセット
+#else
+//============================================================
+//	移譲コンストラクタ (配置プリセット)
+//============================================================
+CFrame2DTextStateFaceText::CFrame2DTextStateFaceText(const CFrame2D::EPreset preset) : CFrame2DTextStateFaceText(text::OFFSET[preset], face::OFFSET[preset])
+#endif
 {
 
 }
@@ -91,8 +107,7 @@ HRESULT CFrame2DTextStateFaceText::Init()
 	}
 
 	// 表情の生成
-	//m_pFace = CFaceUI::Create(0, 0, VEC3_ZERO);	// TODO
-	m_pFace = CFaceUI::Create(0, 0, SCREEN_CENT);
+	m_pFace = CFaceUI::Create(0, 0, VEC3_ZERO);
 	if (m_pFace == nullptr)
 	{ // 生成に失敗した場合
 
@@ -183,57 +198,36 @@ void CFrame2DTextStateFaceText::BindTextBuffer(CFrame2DTextBuffer* pBuffer)
 }
 
 //============================================================
+//	プリセットオフセットの取得処理
+//============================================================
+VECTOR3 CFrame2DTextStateFaceText::GetPresetOffset(const CFrame2D::EPreset preset)
+{
+	// プリセット範囲外エラー
+	assert(preset > CFrame2D::PRESET_NONE && preset < CFrame2D::PRESET_MAX);
+
+	// 引数プリセットのオフセットを返す
+	return text::OFFSET[preset];
+}
+
+//============================================================
 //	相対位置の設定処理
 //============================================================
 void CFrame2DTextStateFaceText::SetPositionRelative()
 {
+	VECTOR3 posFrame = m_pContext->GetFramePosition();	// フレーム位置
+	VECTOR3 rotFrame = m_pContext->GetFrameRotation();	// フレーム向き
+
 	// 親クラスの相対位置の設定
 	CFrame2DTextStateText::SetPositionRelative();
 
-	// TODO
-#if 0
-	CFrame2D::EPreset preset = m_pContext->GetFramePreset();	// フレームプリセット
-	if (preset != CFrame2D::PRESET_NONE)
-	{ // プリセットが指定されている場合
-
-		for (int i = 0; i < SELECT_MAX; i++)
-		{ // 選択肢の総数分繰り返す
-
-			// オフセットを更新
-			m_aOffset[i] = GetPresetOffset((ESelect)i, preset);
-		}
-	}
-
-	VECTOR3 posFrame = m_pContext->GetFramePosition();	// フレーム位置
-	VECTOR3 rotFrame = m_pContext->GetFrameRotation();	// フレーム向き
-	for (int i = 0; i < SELECT_MAX; i++)
-	{ // 選択肢の総数分繰り返す
-
-		VECTOR3 posSelect = posFrame;	// 選択肢位置
-
-		// X座標オフセット分ずらす
-		posSelect.x += sinf(rotFrame.z + HALF_PI) * m_aOffset[i].x;
-		posSelect.y += cosf(rotFrame.z + HALF_PI) * m_aOffset[i].x;
-
-		// Y座標オフセット分ずらす
-		posSelect.x += sinf(rotFrame.z) * m_aOffset[i].y;
-		posSelect.y += cosf(rotFrame.z) * m_aOffset[i].y;
-
-		// 選択肢位置の反映
-		m_apSelect[i]->SetVec3Position(posSelect);
-	}
-
 	// X座標オフセット分ずらす
-	VECTOR3 posCursor = m_apSelect[m_nCurSelect]->GetVec3Position();
-	posCursor.x -= sinf(rotFrame.z + HALF_PI) * soul::OFFSET;
-	posCursor.y -= cosf(rotFrame.z + HALF_PI) * soul::OFFSET;
+	posFrame.x -= sinf(rotFrame.z + HALF_PI) * m_offset.x;
+	posFrame.y -= cosf(rotFrame.z + HALF_PI) * m_offset.x;
 
 	// Y座標オフセット分ずらす
-	float fOffsetY = m_apSelect[m_nCurSelect]->GetCharHeight() * 0.5f;
-	posCursor.x += sinf(rotFrame.z) * fOffsetY;
-	posCursor.y += cosf(rotFrame.z) * fOffsetY;
+	posFrame.x += sinf(rotFrame.z) * m_offset.y;
+	posFrame.y += cosf(rotFrame.z) * m_offset.y;
 
-	// ソウルカーソル位置の反映
-	m_pSoul->SetVec3Position(posCursor);
-#endif
+	// 表情位置の反映
+	m_pFace->SetVec3Position(posFrame);
 }

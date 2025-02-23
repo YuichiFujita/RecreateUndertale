@@ -48,7 +48,8 @@ CFrame2DTextStateText::CFrame2DTextStateText() : CFrame2DTextStateText(VEC3_ZERO
 //============================================================
 //	移譲コンストラクタ (配置プリセット)
 //============================================================
-CFrame2DTextStateText::CFrame2DTextStateText(const CFrame2D::EPreset preset) : CFrame2DTextStateText(GetPresetOffset(preset))
+CFrame2DTextStateText::CFrame2DTextStateText(const CFrame2D::EPreset preset) : CFrame2DTextStateText(GetPresetOffset(preset))	// TODO：このままだと派生クラスができる前にここが呼ばれて派生クラス内の関数が呼ばれない
+//CFrame2DTextStateText::CFrame2DTextStateText(const CFrame2D::EPreset preset) : CFrame2DTextStateText(text::OFFSET[preset])
 {
 
 }

@@ -17,5 +17,5 @@ OFFSET_ORIGIN = 0 0 0	# 原点オフセット
 CHARA_SIZE = 150 108 0	# キャラ大きさ
 
 LOOP = 1			# 繰り返し状況 [0：ループOFF / 1：ループON]
-LOOP_WAIT = 2.0		# ループ待機時間
+LOOP_WAIT = 1.0		# ループ待機時間
 NEXT_TIME = 0.15	# パターン変更時間

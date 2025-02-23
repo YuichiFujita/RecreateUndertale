@@ -80,6 +80,7 @@ private:
 	std::string m_sNextTextKey;	// 次テキストの検索キー
 	CScrollText2D* m_pText;		// テキスト情報
 	VECTOR3 m_offset;			// テキストオフセット
+	// TODO：ここにpreset保存を置くしかないかぁ。コンストラクタ時の保存にしか使わないように、const指定子で置いとくか
 };
 
 //************************************************************
