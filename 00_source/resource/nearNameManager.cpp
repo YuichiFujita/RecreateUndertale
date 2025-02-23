@@ -32,7 +32,7 @@ namespace
 	namespace title
 	{	
 		const char*	FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
-		const char*	PATH = "data\\TEXT\\naming.txt";	// テキストパス
+		const char*	PATH = "data\\TXT\\TEXT\\naming.txt";	// テキストパス
 		const bool	ITALIC		= false;	// イタリック
 		const float	CHAR_HEIGHT	= 42.0f;	// 文字縦幅
 		const float	LINE_HEIGHT	= 54.0f;	// 行間縦幅

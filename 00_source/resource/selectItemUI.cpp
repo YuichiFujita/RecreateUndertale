@@ -28,7 +28,7 @@
 namespace
 {
 	const char	*FONT	 = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
-	const char	*PATH	 = "data\\TEXT\\selectItem.txt";				// テキストパス
+	const char	*PATH	 = "data\\TXT\\TEXT\\selectItem.txt";			// テキストパス
 	const bool	ITALIC	 = false;	// イタリック
 	const float	HEIGHT	 = 42.0f;	// 文字縦幅
 	const int	PRIORITY = 6;		// アイテムメニューの優先順位

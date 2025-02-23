@@ -21,7 +21,7 @@
 //************************************************************
 namespace
 {
-	const char* PATH	 = "data\\TEXT\\title.txt";	// テキストパス
+	const char* PATH	 = "data\\TXT\\TEXT\\title.txt";	// テキストパス
 	const char*	FONT	 = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
 	const bool	ITALIC	 = false;	// イタリック
 	const float	HEIGHT	 = 42.0f;	// 文字縦幅

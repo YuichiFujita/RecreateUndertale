@@ -1,0 +1,12 @@
+#==============================================================================
+#
+#	アイテム情報テキスト [item.txt]
+#	Author : 藤田 勇一
+#
+#==============================================================================
+ITEMPATH = data\TXT\ITEM\item00.txt	# モンスターあめ
+ITEMPATH = data\TXT\ITEM\item01.txt	# じゃがいも
+ITEMPATH = data\TXT\ITEM\item02.txt	# いやなおもいで
+ITEMPATH = data\TXT\ITEM\item03.txt	# ゆきだるまのかけら
+ITEMPATH = data\TXT\ITEM\item04.txt	# ほんもののナイフ
+ITEMPATH = data\TXT\ITEM\item05.txt	# ロケット

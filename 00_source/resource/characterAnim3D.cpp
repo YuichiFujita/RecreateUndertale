@@ -17,7 +17,7 @@
 namespace
 {
 	const char* LOAD_EXTENSION = "data\\TXT\\EXTENSION\\characterAnim3D.txt";	// キャラクター読込拡張子相対パス
-	const char* LOAD_FOLDER = "data\\CHARACTER";	// キャラクターフォルダ相対パス
+	const char* LOAD_FOLDER = "data\\TXT\\CHARACTER";	// キャラクターフォルダ相対パス
 }
 
 //************************************************************
@@ -210,7 +210,7 @@ HRESULT CCharacterAnim3D::SearchFolderAll(std::string sFolderPath)
 			if (extension::IsLoadOK(m_load, sFullPath.c_str()))
 			{ // 読込可能な拡張子だった場合
 
-				// テクスチャを登録
+				// キャラクターを登録
 				Regist(sFullPath.c_str());
 			}
 		}
@@ -249,7 +249,7 @@ HRESULT CCharacterAnim3D::LoadSetup(AMotion* pInfoChara, const char* pCharaPath)
 			// 一行全て読み込む
 			std::getline(file, str);
 		}
-		else if (str == "MOTIONPASS")
+		else if (str == "MOTIONPATH")
 		{
 			file >> str;	// ＝を読込
 			file >> str;	// モーションパスを読込
@@ -300,7 +300,7 @@ HRESULT CCharacterAnim3D::LoadMotionSetup(AMotion* pInfoChara, const char* pMoti
 			// 一行全て読み込む
 			std::getline(file, str);
 		}
-		else if (str == "TEXTURE_PASS")
+		else if (str == "TEXTURE_PATH")
 		{
 			file >> str;					// ＝を読込
 			file >> pChara->sPathTexture;	// テクスチャパスを読込

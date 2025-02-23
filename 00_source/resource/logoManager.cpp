@@ -30,8 +30,8 @@ namespace
 	namespace str
 	{
 		const char*	FONT	= "data\\FONT\\Crypt of Tomorrow.ttf";	// フォントパス
-		const char*	PATH	= "data\\TEXT\\start.txt";	// テキストパス
-		const char* STRING	= "[PRESS Z OR ENTER]";		// 表示文字列
+		const char*	PATH	= "data\\TXT\\TEXT\\start.txt";	// テキストパス
+		const char* STRING	= "[PRESS Z OR ENTER]";	// 表示文字列
 		const bool	ITALIC	= false;	// イタリック
 		const float	HEIGHT	= 22.5f;	// 文字縦幅
 

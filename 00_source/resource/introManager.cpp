@@ -51,7 +51,7 @@ namespace
 	namespace text
 	{
 		const char* FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
-		const char* PATH = "data\\TEXT\\intro.txt";	// テキストパス
+		const char* PATH = "data\\TXT\\TEXT\\intro.txt";	// テキストパス
 
 		const int	PRIORITY	= 6;		// テキストの優先順位
 		const bool	ITALIC		= false;	// イタリック

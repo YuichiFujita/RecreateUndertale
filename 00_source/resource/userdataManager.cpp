@@ -17,10 +17,10 @@
 //************************************************************
 namespace
 {
-	const char* FILE0_TXT		= "data\\TXT\\file0.txt";			// 内部データテキスト相対パス
-	const char* INIT_STATUS_TXT	= "data\\TXT\\init_status.txt";		// ステータス初期化テキスト相対パス
-	const char* INIT_ITEM_TXT	= "data\\TXT\\init_item.txt";		// 所持アイテム初期化テキスト相対パス
-	const char* INIT_USER_TXT	= "data\\TXT\\init_userdata.txt";	// ユーザーデータ初期化テキスト相対パス
+	const char* FILE0_TXT		= "data\\TXT\\USER\\file0.txt";			// 内部データテキスト相対パス
+	const char* INIT_STATUS_TXT	= "data\\TXT\\USER\\init_status.txt";	// ステータス初期化テキスト相対パス
+	const char* INIT_ITEM_TXT	= "data\\TXT\\USER\\init_item.txt";		// 所持アイテム初期化テキスト相対パス
+	const char* INIT_USER_TXT	= "data\\TXT\\USER\\init_userdata.txt";	// ユーザーデータ初期化テキスト相対パス
 }
 
 //************************************************************

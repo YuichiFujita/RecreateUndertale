@@ -34,7 +34,7 @@ namespace
 	namespace select
 	{
 		const char*	FONT		= "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
-		const char*	PATH		= "data\\TEXT\\menu.txt";	// テキストパス
+		const char*	PATH		= "data\\TXT\\TEXT\\menu.txt";	// テキストパス
 		const bool	ITALIC		= false;	// イタリック
 		const float	CHAR_HEIGHT	= 43.0f;	// 文字縦幅
 		const float	LINE_HEIGHT	= 53.0f;	// 行間縦幅

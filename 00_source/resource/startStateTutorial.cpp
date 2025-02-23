@@ -21,7 +21,7 @@
 //************************************************************
 namespace
 {
-	const char* PATH = "data\\TEXT\\start.txt";	// テキストパス
+	const char* PATH = "data\\TXT\\TEXT\\start.txt";	// テキストパス
 	const int PRIORITY = 6;	// 優先順位
 
 	namespace title

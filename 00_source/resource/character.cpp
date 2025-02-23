@@ -17,7 +17,7 @@
 namespace
 {
 	const char* LOAD_EXTENSION = "data\\TXT\\EXTENSION\\character.txt";	// キャラクター読込拡張子相対パス
-	const char* LOAD_FOLDER = "data\\CHARACTER";	// キャラクターフォルダ相対パス
+	const char* LOAD_FOLDER = "data\\TXT\\CHARACTER";	// キャラクターフォルダ相対パス
 }
 
 //************************************************************
@@ -227,7 +227,7 @@ HRESULT CCharacter::SearchFolderAll(std::string sFolderPath)
 			if (extension::IsLoadOK(m_load, sFullPath.c_str()))
 			{ // 読込可能な拡張子だった場合
 
-				// テクスチャを登録
+				// キャラクターを登録
 				Regist(sFullPath.c_str());
 			}
 		}
@@ -332,7 +332,7 @@ HRESULT CCharacter::LoadSetup(SCharaData* pInfoChara, const char* pCharaPath)
 				}
 			} while (str != "END_CHARACTERSET");	// END_CHARACTERSETを読み込むまでループ
 		}
-		else if (str == "MOTIONPASS")
+		else if (str == "MOTIONPATH")
 		{
 			file >> str;	// ＝を読込
 			file >> str;	// モーションパスを読込

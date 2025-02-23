@@ -17,7 +17,7 @@
 //************************************************************
 namespace
 {
-	const char*	PATH = "data\\TEXT\\option.txt";					// テキストパス
+	const char*	PATH = "data\\TXT\\TEXT\\option.txt";				// テキストパス
 	const char*	FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
 	const bool	ITALIC = false;	// イタリック
 	const int	PRIORITY = 6;	// 優先順位

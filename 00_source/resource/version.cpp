@@ -15,7 +15,7 @@
 //************************************************************
 namespace
 {
-	const char*	PATH	 = "data\\TEXT\\version.txt";			// テキストパス
+	const char*	PATH	 = "data\\TXT\\TEXT\\version.txt";		// テキストパス
 	const char*	FONT	 = "data\\FONT\\Crypt of Tomorrow.ttf";	// フォントパス
 	const int	PRIORITY = 6;		// 優先順位
 	const bool	ITALIC	 = false;	// イタリック

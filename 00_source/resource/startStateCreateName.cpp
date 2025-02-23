@@ -26,7 +26,7 @@ namespace
 		"data\\CSV\\char_alphabet.csv",	// アルファベット配置情報
 	};
 
-	const char* PATH		= "data\\TEXT\\start.txt";	// テキストパス
+	const char* PATH		= "data\\TXT\\TEXT\\start.txt";	// テキストパス
 	const int PRIORITY		= 6;	// 優先順位
 	const int MAX_STR_NAME	= 6;	// 名前の最大文字数
 

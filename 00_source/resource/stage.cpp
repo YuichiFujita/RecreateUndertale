@@ -26,7 +26,7 @@
 //************************************************************
 namespace
 {
-	const char* INIT_PATH = "data\\ROOM\\room004.txt";	// セットアップテキスト相対パス	// TODO：この定数を外部読み込みできるようにしないと
+	const char* INIT_PATH = "data\\TXT\\ROOM\\room004.txt";	// セットアップテキスト相対パス	// TODO：この定数を外部読み込みできるようにしないと
 }
 
 //************************************************************
@@ -374,7 +374,7 @@ HRESULT CStage::LoadSpawn(std::ifstream* pFile, std::string& rString)
 					// 一行全て読み込む
 					std::getline(*pFile, str);
 				}
-				else if (str == "PREV_ROOMPASS")
+				else if (str == "PREV_ROOMPATH")
 				{
 					*pFile >> str;			// ＝を読込
 					*pFile >> sPathPrev;	// 遷移元のルームパスを読込
@@ -456,7 +456,7 @@ HRESULT CStage::LoadTrans(std::ifstream* pFile, std::string& rString)
 					// 一行全て読み込む
 					std::getline(*pFile, str);
 				}
-				else if (str == "NEXT_ROOMPASS")
+				else if (str == "NEXT_ROOMPATH")
 				{
 					*pFile >> str;			// ＝を読込
 					*pFile >> sPathNext;	// 遷移先のルームパスを読込
