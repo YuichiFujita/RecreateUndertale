@@ -7,7 +7,7 @@
 
 # テキストボックス情報
 TEXTBOX_0
-	NEXT_PATH	= data\TEXTBOX\del_test01.txt	# 次テキストボックスパス
+	NEXT_PATH	= data\TXT\TEXTBOX\del_test01.txt	# 次テキストボックスパス
 	NEXT_BOX	= 1		# 次テキストボックスキー
 	START_KEY	= 0		# テキスト開始キー
 	FACE		= -1	# 顔インデックス

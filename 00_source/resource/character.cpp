@@ -320,7 +320,7 @@ HRESULT CCharacter::LoadSetup(SCharaData* pInfoChara, const char* pCharaPath)
 							file >> pInfoParts->vecParts[nIdx].rot.y;	// Y向きオフセットを読込
 							file >> pInfoParts->vecParts[nIdx].rot.z;	// Z向きオフセットを読込
 						}
-						else if (str == "FILEPASS")
+						else if (str == "FILEPATH")
 						{
 							file >> str;								// ＝を読込
 							file >> pInfoParts->vecParts[nIdx].sPath;	// モデルパスを読込

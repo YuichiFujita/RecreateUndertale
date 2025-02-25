@@ -7,7 +7,7 @@
 
 # テキストボックス情報
 TEXTBOX_0
-	NEXT_PATH	= data\TEXTBOX\test01.txt	# 次テキストボックスパス
+	NEXT_PATH	= data\TXT\TEXTBOX\test01.txt	# 次テキストボックスパス
 	NEXT_BOX	= 1		# 次テキストボックスキー
 	START_KEY	= 0		# テキスト開始キー
 	FACE		= -1	# 顔インデックス
@@ -49,7 +49,7 @@ END_TEXTBOX
 
 # テキストボックス情報
 TEXTBOX_1
-	NEXT_PATH	= data\TEXTBOX\test00.txt	# 次テキストボックスパス
+	NEXT_PATH	= data\TXT\TEXTBOX\test00.txt	# 次テキストボックスパス
 	NEXT_BOX	= 0		# 次テキストボックスキー
 	START_KEY	= 0		# テキスト開始キー
 	FACE		= -1	# 顔インデックス

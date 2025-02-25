@@ -4,4 +4,4 @@
 #	Author : 藤田 勇一
 #
 #==============================================================================
-FACEPATH = data\FACE\TORIEL\info.txt	# トリエル
+FACEPATH = data\TXT\FACE\TORIEL\info.txt	# トリエル
