@@ -90,8 +90,6 @@ private:
 	VECTOR3 m_rot;		// 向き
 	VECTOR3 m_size;		// 大きさ
 	EPreset m_preset;	// 配置プリセット
-	// TODO
-	VECTOR3 m_originPos;
 };
 
 #endif	// _FRAME2D_H_
