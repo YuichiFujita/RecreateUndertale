@@ -67,9 +67,9 @@ public:
 	// メンバ関数
 	HRESULT ChangeModule(CFrame2DModule* pModule);	// 機能変更
 	void SetPreset(const EPreset preset);			// 配置プリセット設定
-	inline void InitModule()					{ m_pModule = nullptr; }	// 機能初期化
-	inline CFrame2DModule* GetModule() const	{ return m_pModule; }		// 機能取得
-	inline EPreset GetPreset() const			{ return m_preset; }		// 配置プリセット取得
+	inline void InitModule()				 { m_pModule = nullptr; }	// 機能初期化
+	inline CFrame2DModule* GetModule() const { return m_pModule; }		// 機能取得
+	inline EPreset GetPreset() const		 { return m_preset; }		// 配置プリセット取得
 
 private:
 	// ポリゴン列挙
@@ -90,6 +90,8 @@ private:
 	VECTOR3 m_rot;		// 向き
 	VECTOR3 m_size;		// 大きさ
 	EPreset m_preset;	// 配置プリセット
+	// TODO
+	VECTOR3 m_originPos;
 };
 
 #endif	// _FRAME2D_H_

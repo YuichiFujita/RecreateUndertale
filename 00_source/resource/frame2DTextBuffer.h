@@ -39,7 +39,7 @@ public:
 	virtual ~CFrame2DTextBuffer();
 
 	// 純粋仮想関数
-	virtual CFrame2DTextState* CreateState(const CFrame2D::EPreset preset) = 0;	// テキスト機能状態生成
+	virtual CFrame2DTextState* CreateState() = 0;	// テキスト機能状態生成
 
 	// 仮想関数
 	virtual inline CFrame2DTextBufferText* GetBufferText()				{ return nullptr; }		// テキストバッファ取得

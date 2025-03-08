@@ -18,7 +18,7 @@ namespace
 {
 	const VECTOR3 FRAME_POS[] =		// フレーム位置プリセット
 	{
-		VECTOR3(SCREEN_CENT.x, 594.0f, 0.0f)	// 下部配置
+		VECTOR3(SCREEN_CENT.x, SCREEN_CENT.y, 0.0f)	// 下部配置
 	};
 	const VECTOR3 FRAME_ROT[] =		// フレーム向きプリセット
 	{
@@ -125,6 +125,29 @@ void CFrame2D::Uninit()
 //============================================================
 void CFrame2D::Update(const float fDeltaTime)
 {
+	// TODO
+#if 1
+	static float fOffsetRot = 0.0f;
+	static float fRot = 0.0f;
+
+	// 加算
+	fOffsetRot	+= 0.01f;
+	fRot		+= 0.01f;
+
+	// 補正
+	useful::NormalizeRot(fOffsetRot);
+	useful::NormalizeRot(fRot);
+
+	// 位置ずらす
+	VECTOR3 pos = m_originPos;
+	pos.x += sinf(fOffsetRot) * 300.0f;
+	pos.y += cosf(fOffsetRot) * 300.0f;
+	SetVec3Position(pos);
+
+	// 向きずらす
+	SetVec3Rotation(VECTOR3(0.0f, 0.0f, fRot));
+#endif
+
 	for (int i = 0; i < POLYGON_MAX; i++)
 	{ // ポリゴンの総数分繰り返す
 
@@ -312,6 +335,7 @@ CFrame2D* CFrame2D::Create
 
 		// 位置を設定
 		pFrame2D->SetVec3Position(rPos);
+		pFrame2D->m_originPos = rPos;
 
 		// 向きを設定
 		pFrame2D->SetVec3Rotation(rRot);

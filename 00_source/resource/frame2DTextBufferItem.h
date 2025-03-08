@@ -30,7 +30,7 @@ public:
 	~CFrame2DTextBufferItem() override;
 
 	// オーバーライド関数
-	CFrame2DTextState* CreateState(const CFrame2D::EPreset preset = CFrame2D::PRESET_NONE) override;	// テキスト機能状態生成
+	CFrame2DTextState* CreateState() override;	// テキスト機能状態生成
 	inline CFrame2DTextBufferItem* GetBufferItem() override { return this; }	// アイテムテキストバッファ取得
 };
 

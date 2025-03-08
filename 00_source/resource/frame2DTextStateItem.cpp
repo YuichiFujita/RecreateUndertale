@@ -40,14 +40,6 @@ CFrame2DTextStateItem::CFrame2DTextStateItem() : CFrame2DTextStateItem(VEC3_ZERO
 }
 
 //============================================================
-//	コンストラクタ (配置プリセット)
-//============================================================
-CFrame2DTextStateItem::CFrame2DTextStateItem(const CFrame2D::EPreset preset) : CFrame2DTextStateText(preset)
-{
-
-}
-
-//============================================================
 //	コンストラクタ (配置指定)
 //============================================================
 CFrame2DTextStateItem::CFrame2DTextStateItem(const VECTOR3& rOffset) : CFrame2DTextStateText(rOffset)

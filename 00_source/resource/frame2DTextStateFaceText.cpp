@@ -54,24 +54,6 @@ CFrame2DTextStateFaceText::CFrame2DTextStateFaceText() : CFrame2DTextStateFaceTe
 
 }
 
-// TODO：関数呼べねぇんだよな
-#if 1
-//============================================================
-//	コンストラクタ (配置プリセット)
-//============================================================
-CFrame2DTextStateFaceText::CFrame2DTextStateFaceText(const CFrame2D::EPreset preset) : CFrame2DTextStateText(preset),
-	m_pFace	 (nullptr),				// 表情情報
-	m_offset (face::OFFSET[preset])	// 表情オフセット
-#else
-//============================================================
-//	移譲コンストラクタ (配置プリセット)
-//============================================================
-CFrame2DTextStateFaceText::CFrame2DTextStateFaceText(const CFrame2D::EPreset preset) : CFrame2DTextStateFaceText(text::OFFSET[preset], face::OFFSET[preset])
-#endif
-{
-
-}
-
 //============================================================
 //	コンストラクタ (配置指定)
 //============================================================
@@ -104,6 +86,17 @@ HRESULT CFrame2DTextStateFaceText::Init()
 
 		assert(false);
 		return E_FAIL;
+	}
+
+	CFrame2D::EPreset preset = m_pContext->GetFramePreset();	// フレーム配置プリセット
+	if (preset > CFrame2D::PRESET_NONE && preset < CFrame2D::PRESET_MAX)
+	{ // プリセットが範囲内の場合
+
+		// テキストオフセットの設定
+		SetOffset(GetPresetOffset(preset));
+
+		// 顔オフセットの設定
+		m_offset = face::OFFSET[preset];
 	}
 
 	// 表情の生成
@@ -214,20 +207,25 @@ VECTOR3 CFrame2DTextStateFaceText::GetPresetOffset(const CFrame2D::EPreset prese
 //============================================================
 void CFrame2DTextStateFaceText::SetPositionRelative()
 {
-	VECTOR3 posFrame = m_pContext->GetFramePosition();	// フレーム位置
-	VECTOR3 rotFrame = m_pContext->GetFrameRotation();	// フレーム向き
-
 	// 親クラスの相対位置の設定
 	CFrame2DTextStateText::SetPositionRelative();
 
-	// X座標オフセット分ずらす
-	posFrame.x -= sinf(rotFrame.z + HALF_PI) * m_offset.x;
-	posFrame.y -= cosf(rotFrame.z + HALF_PI) * m_offset.x;
+	if (m_pFace != nullptr)
+	{ // 表情が生成済みの場合
 
-	// Y座標オフセット分ずらす
-	posFrame.x += sinf(rotFrame.z) * m_offset.y;
-	posFrame.y += cosf(rotFrame.z) * m_offset.y;
+		VECTOR3 posFrame = m_pContext->GetFramePosition();	// フレーム位置
+		VECTOR3 rotFrame = m_pContext->GetFrameRotation();	// フレーム向き
 
-	// 表情位置の反映
-	m_pFace->SetVec3Position(posFrame);
+		// X座標オフセット分ずらす
+		posFrame.x -= sinf(rotFrame.z + HALF_PI) * m_offset.x;
+		posFrame.y -= cosf(rotFrame.z + HALF_PI) * m_offset.x;
+
+		// Y座標オフセット分ずらす
+		posFrame.x += sinf(rotFrame.z) * m_offset.y;
+		posFrame.y += cosf(rotFrame.z) * m_offset.y;
+
+		// 表情位置の反映
+		m_pFace->SetVec3Position(posFrame);
+		m_pFace->SetVec3Rotation(rotFrame);
+	}
 }

@@ -30,7 +30,7 @@ public:
 	~CFrame2DTextBufferText() override;
 
 	// オーバーライド関数
-	CFrame2DTextState* CreateState(const CFrame2D::EPreset preset = CFrame2D::PRESET_NONE) override;	// テキスト機能状態生成
+	CFrame2DTextState* CreateState() override;	// テキスト機能状態生成
 	void LoadSetup(std::ifstream* pFile, const std::string& rString) override;	// バッファごとのセットアップ
 	inline CFrame2DTextBufferText* GetBufferText() override { return this; }	// テキストバッファ取得
 

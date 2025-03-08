@@ -32,18 +32,8 @@ CFrame2DTextBufferItem::~CFrame2DTextBufferItem()
 //============================================================
 //	テキスト機能状態の生成処理
 //============================================================
-CFrame2DTextState* CFrame2DTextBufferItem::CreateState(const CFrame2D::EPreset preset)
+CFrame2DTextState* CFrame2DTextBufferItem::CreateState()
 {
-	if (preset > CFrame2D::PRESET_NONE && preset < CFrame2D::PRESET_MAX)
-	{ // プリセットが範囲内の場合
-
-		// アイテムテキスト状態を生成し返す
-		return new CFrame2DTextStateItem(preset);	// 配置指定
-	}
-	else
-	{ // プリセットが範囲外の場合
-
-		// アイテムテキスト状態を生成し返す
-		return new CFrame2DTextStateItem;	// デフォルト
-	}
+	// アイテムテキスト状態を生成し返す
+	return new CFrame2DTextStateItem;
 }

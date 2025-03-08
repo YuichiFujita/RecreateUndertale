@@ -46,15 +46,6 @@ CFrame2DTextStateText::CFrame2DTextStateText() : CFrame2DTextStateText(VEC3_ZERO
 }
 
 //============================================================
-//	移譲コンストラクタ (配置プリセット)
-//============================================================
-CFrame2DTextStateText::CFrame2DTextStateText(const CFrame2D::EPreset preset) : CFrame2DTextStateText(GetPresetOffset(preset))	// TODO：このままだと派生クラスができる前にここが呼ばれて派生クラス内の関数が呼ばれない
-//CFrame2DTextStateText::CFrame2DTextStateText(const CFrame2D::EPreset preset) : CFrame2DTextStateText(text::OFFSET[preset])
-{
-
-}
-
-//============================================================
 //	コンストラクタ (配置指定)
 //============================================================
 CFrame2DTextStateText::CFrame2DTextStateText(const VECTOR3& rOffset) :
@@ -81,6 +72,14 @@ HRESULT CFrame2DTextStateText::Init()
 	// メンバ変数を初期化
 	m_sNextTextKey	= "NONE";	// 次テキストの検索キー
 	m_pText			= nullptr;	// テキスト情報
+
+	CFrame2D::EPreset preset = m_pContext->GetFramePreset();	// フレーム配置プリセット
+	if (preset > CFrame2D::PRESET_NONE && preset < CFrame2D::PRESET_MAX)
+	{ // プリセットが範囲内の場合
+
+		// テキストオフセットの設定
+		m_offset = GetPresetOffset(preset);
+	}
 
 	// テキストの生成
 	m_pText = CScrollText2D::Create
@@ -259,17 +258,22 @@ VECTOR3 CFrame2DTextStateText::GetPresetOffset(const CFrame2D::EPreset preset)
 //============================================================
 void CFrame2DTextStateText::SetPositionRelative()
 {
-	VECTOR3 posFrame = m_pContext->GetFramePosition();	// フレーム位置
-	VECTOR3 rotFrame = m_pContext->GetFrameRotation();	// フレーム向き
+	if (m_pText != nullptr)
+	{ // テキストが生成済みの場合
 
-	// X座標オフセット分ずらす
-	posFrame.x += sinf(rotFrame.z + HALF_PI) * m_offset.x;
-	posFrame.y += cosf(rotFrame.z + HALF_PI) * m_offset.x;
+		VECTOR3 posFrame = m_pContext->GetFramePosition();	// フレーム位置
+		VECTOR3 rotFrame = m_pContext->GetFrameRotation();	// フレーム向き
 
-	// Y座標オフセット分ずらす
-	posFrame.x += sinf(rotFrame.z) * m_offset.y;
-	posFrame.y += cosf(rotFrame.z) * m_offset.y;
+		// X座標オフセット分ずらす
+		posFrame.x += sinf(rotFrame.z + HALF_PI) * m_offset.x;
+		posFrame.y += cosf(rotFrame.z + HALF_PI) * m_offset.x;
 
-	// テキスト位置の反映
-	m_pText->SetVec3Position(posFrame);
+		// Y座標オフセット分ずらす
+		posFrame.x += sinf(rotFrame.z) * m_offset.y;
+		posFrame.y += cosf(rotFrame.z) * m_offset.y;
+
+		// テキスト位置の反映
+		m_pText->SetVec3Position(posFrame);
+		m_pText->SetVec3Rotation(rotFrame);
+	}
 }

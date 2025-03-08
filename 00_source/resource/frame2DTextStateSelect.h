@@ -40,7 +40,6 @@ public:
 
 	// コンストラクタ
 	CFrame2DTextStateSelect();
-	CFrame2DTextStateSelect(const CFrame2D::EPreset preset);
 	CFrame2DTextStateSelect(const VECTOR3& rOffsetText, const VECTOR3& rOffsetSelectL, const VECTOR3& rOffsetSelectR);
 
 	// デストラクタ

@@ -76,27 +76,6 @@ CFrame2DTextStateSelect::CFrame2DTextStateSelect() : CFrame2DTextStateSelect(VEC
 }
 
 //============================================================
-//	コンストラクタ (配置プリセット)
-//============================================================
-CFrame2DTextStateSelect::CFrame2DTextStateSelect(const CFrame2D::EPreset preset) : CFrame2DTextStateText(preset),
-	m_sCutTextPath	(""),		// 現在テキストの保存パス
-	m_pSoul			(nullptr),	// ソウルカーソル情報
-	m_nCurSelect	(0)			// 現在の選択肢
-{
-	// メンバ変数をクリア
-	for (int i = 0; i < SELECT_MAX; i++)
-	{ // 選択肢の総数分繰り返す
-
-		m_aNextPath[i]	 = "";		// 次テキストボックスの保存パス
-		m_aNextBoxKey[i] = "";		// 次テキストボックスの検索キー
-		m_aNextKey[i]	 = "";		// テキストボックスのテキスト開始キー
-		m_apSelect[i]	 = nullptr;	// 選択肢情報
-	}
-	m_aOffset[SELECT_LEFT]	= GetPresetOffset(SELECT_LEFT, preset);		// 左選択肢オフセット
-	m_aOffset[SELECT_RIGHT]	= GetPresetOffset(SELECT_RIGHT, preset);	// 右選択肢オフセット
-}
-
-//============================================================
 //	コンストラクタ (配置指定)
 //============================================================
 CFrame2DTextStateSelect::CFrame2DTextStateSelect(const VECTOR3& rOffsetText, const VECTOR3& rOffsetSelectL, const VECTOR3& rOffsetSelectR) : CFrame2DTextStateText(rOffsetText),
@@ -149,6 +128,15 @@ HRESULT CFrame2DTextStateSelect::Init()
 
 		assert(false);
 		return E_FAIL;
+	}
+
+	CFrame2D::EPreset preset = m_pContext->GetFramePreset();	// フレーム配置プリセット
+	if (preset > CFrame2D::PRESET_NONE && preset < CFrame2D::PRESET_MAX)
+	{ // プリセットが範囲内の場合
+
+		// 選択肢オフセットの設定
+		m_aOffset[SELECT_LEFT]	= GetPresetOffset(SELECT_LEFT, preset);		// 左
+		m_aOffset[SELECT_RIGHT]	= GetPresetOffset(SELECT_RIGHT, preset);	// 右
 	}
 
 	const int nPrioFrame = m_pContext->GetFramePriority();	// コンテキストの優先順位
@@ -402,12 +390,10 @@ VECTOR3 CFrame2DTextStateSelect::GetPresetOffset(const ESelect select, const CFr
 //============================================================
 void CFrame2DTextStateSelect::SetPositionRelative()
 {
-	// 親クラスの相対位置の設定
-	CFrame2DTextStateText::SetPositionRelative();
-
-	CFrame2D::EPreset preset = m_pContext->GetFramePreset();	// フレームプリセット
-	if (preset != CFrame2D::PRESET_NONE)
-	{ // プリセットが指定されている場合
+	// オフセットの更新
+	CFrame2D::EPreset preset = m_pContext->GetFramePreset();	// フレーム配置プリセット
+	if (preset > CFrame2D::PRESET_NONE && preset < CFrame2D::PRESET_MAX)
+	{ // プリセットが範囲内の場合
 
 		for (int i = 0; i < SELECT_MAX; i++)
 		{ // 選択肢の総数分繰り返す
@@ -417,14 +403,20 @@ void CFrame2DTextStateSelect::SetPositionRelative()
 		}
 	}
 
+	// 親クラスの相対位置の設定
+	CFrame2DTextStateText::SetPositionRelative();
+
+	// 選択肢の相対位置の設定
 	VECTOR3 posFrame = m_pContext->GetFramePosition();	// フレーム位置
 	VECTOR3 rotFrame = m_pContext->GetFrameRotation();	// フレーム向き
 	for (int i = 0; i < SELECT_MAX; i++)
 	{ // 選択肢の総数分繰り返す
 
-		VECTOR3 posSelect = posFrame;	// 選択肢位置
+		// 選択肢が未生成の場合次へ
+		if (m_apSelect[i] == nullptr) { continue; }
 
 		// X座標オフセット分ずらす
+		VECTOR3 posSelect = posFrame;	// 選択肢位置
 		posSelect.x += sinf(rotFrame.z + HALF_PI) * m_aOffset[i].x;
 		posSelect.y += cosf(rotFrame.z + HALF_PI) * m_aOffset[i].x;
 
@@ -432,22 +424,29 @@ void CFrame2DTextStateSelect::SetPositionRelative()
 		posSelect.x += sinf(rotFrame.z) * m_aOffset[i].y;
 		posSelect.y += cosf(rotFrame.z) * m_aOffset[i].y;
 
-		// 選択肢位置の反映
+		// 選択肢位置/向きの反映
 		m_apSelect[i]->SetVec3Position(posSelect);
+		m_apSelect[i]->SetVec3Rotation(rotFrame);
 	}
 
-	// X座標オフセット分ずらす
-	VECTOR3 posCursor = m_apSelect[m_nCurSelect]->GetVec3Position();
-	posCursor.x -= sinf(rotFrame.z + HALF_PI) * soul::OFFSET;
-	posCursor.y -= cosf(rotFrame.z + HALF_PI) * soul::OFFSET;
+	// ソウルカーソルの相対位置の設定
+	if (m_apSelect[m_nCurSelect] != nullptr && m_pSoul != nullptr)
+	{ // 選択中の選択肢/ソウルカーソルのいずれも生成済みの場合
 
-	// Y座標オフセット分ずらす
-	float fOffsetY = m_apSelect[m_nCurSelect]->GetCharHeight() * 0.5f;
-	posCursor.x += sinf(rotFrame.z) * fOffsetY;
-	posCursor.y += cosf(rotFrame.z) * fOffsetY;
+		// X座標オフセット分ずらす
+		VECTOR3 posCursor = m_apSelect[m_nCurSelect]->GetVec3Position();
+		posCursor.x -= sinf(rotFrame.z + HALF_PI) * soul::OFFSET;
+		posCursor.y -= cosf(rotFrame.z + HALF_PI) * soul::OFFSET;
 
-	// ソウルカーソル位置の反映
-	m_pSoul->SetVec3Position(posCursor);
+		// Y座標オフセット分ずらす
+		float fOffsetY = m_apSelect[m_nCurSelect]->GetCharHeight() * 0.5f;
+		posCursor.x += sinf(rotFrame.z) * fOffsetY;
+		posCursor.y += cosf(rotFrame.z) * fOffsetY;
+
+		// ソウルカーソル位置/向きの反映
+		m_pSoul->SetVec3Position(posCursor);
+		m_pSoul->SetVec3Rotation(rotFrame);
+	}
 }
 
 //============================================================

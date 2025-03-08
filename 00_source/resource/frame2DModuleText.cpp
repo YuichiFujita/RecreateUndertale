@@ -56,19 +56,8 @@ HRESULT CFrame2DModuleText::Init()
 	m_sNextBoxKey	= "NONE";	// 次テキストボックスの検索キー
 	m_sStartKey		= "NONE";	// テキストボックスのテキスト開始キー
 
-	CFrame2D::EPreset preset = GetFramePreset();	// 配置プリセット
-	if (preset > CFrame2D::PRESET_NONE && preset < CFrame2D::PRESET_MAX)
-	{ // プリセットが範囲内の場合
-
-		// テキスト状態を生成
-		ChangeState(new CFrame2DTextStateText(preset));	// 配置指定
-	}
-	else
-	{ // プリセットが範囲外の場合
-
-		// テキスト状態を生成
-		ChangeState(new CFrame2DTextStateText);	// デフォルト
-	}
+	// テキスト状態を生成
+	ChangeState(new CFrame2DTextStateText);
 
 	return S_OK;
 }
@@ -229,8 +218,7 @@ HRESULT CFrame2DModuleText::BindText(const std::string& rTextKey)
 	CFrame2DTextBuffer* pNextBuffText = itr->second;
 
 	// テキスト機能状態の変更
-	CFrame2D::EPreset preset = GetFramePreset();					// フレームプリセット
-	CFrame2DTextState* pState = pNextBuffText->CreateState(preset);	// テキスト機能状態
+	CFrame2DTextState* pState = pNextBuffText->CreateState();	// テキスト機能状態
 	if (FAILED(ChangeState(pState)))
 	{ // 変更に失敗した場合
 
