@@ -55,6 +55,8 @@ private:
 	// メンバ変数
 	CFaceUI* m_pFace;	// 表情情報
 	VECTOR3 m_offset;	// 表情オフセット
+	int m_nTypeTalkEmo;	// 会話中の表情種類
+	int m_nTypeIdolEmo;	// 待機中の表情種類
 };
 
 #endif	// _FRAME2D_TEXT_STATE_FACE_TEXT_H_

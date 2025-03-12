@@ -58,8 +58,10 @@ CFrame2DTextStateFaceText::CFrame2DTextStateFaceText() : CFrame2DTextStateFaceTe
 //	コンストラクタ (配置指定)
 //============================================================
 CFrame2DTextStateFaceText::CFrame2DTextStateFaceText(const VECTOR3& rOffsetText, const VECTOR3& rOffsetFace) : CFrame2DTextStateText(rOffsetText),
-	m_pFace	 (nullptr),		// 表情情報
-	m_offset (rOffsetFace)	// 表情オフセット
+	m_pFace			(nullptr),		// 表情情報
+	m_offset		(rOffsetFace),	// 表情オフセット
+	m_nTypeTalkEmo	(0),			// 会話中の表情種類
+	m_nTypeIdolEmo	(0)				// 待機中の表情種類
 {
 
 }
@@ -78,7 +80,9 @@ CFrame2DTextStateFaceText::~CFrame2DTextStateFaceText()
 HRESULT CFrame2DTextStateFaceText::Init()
 {
 	// メンバ変数を初期化
-	m_pFace = nullptr;	// 表情情報
+	m_pFace			= nullptr;	// 表情情報
+	m_nTypeTalkEmo	= 0;		// 会話中の表情種類
+	m_nTypeIdolEmo	= 0;		// 待機中の表情種類
 
 	// 親クラスの初期化
 	if (FAILED(CFrame2DTextStateText::Init()))
@@ -134,6 +138,19 @@ void CFrame2DTextStateFaceText::Uninit()
 //============================================================
 void CFrame2DTextStateFaceText::Update(const float fDeltaTime)
 {
+	if (IsTextEndScroll())
+	{ // 文字送りが終了した場合
+
+		if (m_pFace->GetEmotion() != m_nTypeIdolEmo)
+		{
+			// TODO：待機表情への遷移時は待機時間が欲しい
+			//		 待機表情の待機時間取得して経過させる感じかな
+
+			// 待機表情の設定
+			m_pFace->SetEmotion(m_nTypeIdolEmo);
+		}
+	}
+
 	// 親クラスの更新
 	CFrame2DTextStateText::Update(fDeltaTime);
 }
@@ -183,8 +200,12 @@ void CFrame2DTextStateFaceText::BindTextBuffer(CFrame2DTextBuffer* pBuffer)
 	// 顔情報の割当
 	m_pFace->BindFaceData(pBuffFaceText->m_nIdxFace);
 
-	// 表情の設定
-	m_pFace->SetEmotion(pBuffFaceText->m_nTypeEmo);
+	// 表情種類の保存
+	m_nTypeTalkEmo = pBuffFaceText->m_nTypeTalkEmo;	// 会話中
+	m_nTypeIdolEmo = pBuffFaceText->m_nTypeIdolEmo;	// 待機中
+
+	// 初期表情の設定
+	m_pFace->SetEmotion(m_nTypeTalkEmo);	// 会話表情から始める
 
 	// 親クラスのテキスト情報保存バッファの割当
 	CFrame2DTextStateText::BindTextBuffer(pBuffer);

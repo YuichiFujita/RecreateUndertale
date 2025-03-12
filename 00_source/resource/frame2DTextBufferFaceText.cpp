@@ -17,8 +17,9 @@
 //	コンストラクタ
 //============================================================
 CFrame2DTextBufferFaceText::CFrame2DTextBufferFaceText(const int nIdxFace) :
-	m_nIdxFace	(nIdxFace),	// 顔インデックス
-	m_nTypeEmo	(0)			// 表情種類
+	m_nIdxFace		(nIdxFace),	// 顔インデックス
+	m_nTypeTalkEmo	(0),		// 会話中の表情種類
+	m_nTypeIdolEmo	(0)			// 待機中の表情種類
 {
 
 }
@@ -60,9 +61,14 @@ void CFrame2DTextBufferFaceText::LoadSetup(std::ifstream* pFile, const std::stri
 
 	// ファイルを読込
 	std::string str;	// 読込文字列
-	if (rString == "EMOTION")
+	if (rString == "TALK_EMO")
 	{
-		*pFile >> str;							// ＝を読込
-		*pFile >> pBuffFaceText->m_nTypeEmo;	// 表情種類を読込
+		*pFile >> str;								// ＝を読込
+		*pFile >> pBuffFaceText->m_nTypeTalkEmo;	// 会話中の表情種類を読込
+	}
+	else if (rString == "IDOL_EMO")
+	{
+		*pFile >> str;								// ＝を読込
+		*pFile >> pBuffFaceText->m_nTypeIdolEmo;	// 待機中の表情種類を読込
 	}
 }

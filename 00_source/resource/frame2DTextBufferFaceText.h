@@ -36,7 +36,8 @@ public:
 
 	// メンバ変数
 	const int m_nIdxFace;	// 顔インデックス
-	int m_nTypeEmo;			// 表情種類
+	int m_nTypeTalkEmo;		// 会話中の表情種類
+	int m_nTypeIdolEmo;		// 待機中の表情種類
 };
 
 #endif	// _FRAME2D_TEXT_BUFFER_FACE_TEXT_H_

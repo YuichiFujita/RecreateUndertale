@@ -4,4 +4,5 @@
 #	Author : “¡“c —Eˆê
 #
 #==============================================================================
-EMOTIONPATH = data\TXT\FACE\TORIEL\emotion00.txt	# 
+EMOTIONPATH = data\TXT\FACE\TORIEL\idol.txt			# ‘Ò‹@
+EMOTIONPATH = data\TXT\FACE\TORIEL\talk_idol.txt	# ‰ï˜b
