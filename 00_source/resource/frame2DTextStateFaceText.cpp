@@ -138,13 +138,17 @@ void CFrame2DTextStateFaceText::Uninit()
 //============================================================
 void CFrame2DTextStateFaceText::Update(const float fDeltaTime)
 {
-	if (IsTextEndScroll())
-	{ // 文字送りが終了した場合
+	// 前回のループ数を保存
+	int nOldNumLoop = m_pFace->GetLoopAnim();
 
-		if (m_pFace->GetEmotion() != m_nTypeIdolEmo)
-		{
-			// TODO：待機表情への遷移時は待機時間が欲しい
-			//		 待機表情の待機時間取得して経過させる感じかな
+	// 表情の更新
+	m_pFace->Update(fDeltaTime);
+
+	if (m_pFace->GetEmotion() != m_nTypeIdolEmo)
+	{ // 表情変更前の場合
+
+		if (IsTextEndScroll() && m_pFace->GetLoopAnim() > nOldNumLoop)
+		{ // 文字送りが終了している且つ、ループが更新された場合
 
 			// 待機表情の設定
 			m_pFace->SetEmotion(m_nTypeIdolEmo);

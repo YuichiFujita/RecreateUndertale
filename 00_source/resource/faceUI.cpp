@@ -25,7 +25,7 @@ namespace
 //============================================================
 //	コンストラクタ
 //============================================================
-CFaceUI::CFaceUI() : CAnim2D(CObject::LABEL_UI, CObject::DIM_2D, PRIORITY),
+CFaceUI::CFaceUI() : CAnim2D(CObject::LABEL_NONE, CObject::DIM_2D, PRIORITY),
 	m_pos		(VEC3_ZERO),	// 原点位置
 	m_info		({}),			// 表情情報
 	m_nTypeEmo	(0)				// 表情種類
