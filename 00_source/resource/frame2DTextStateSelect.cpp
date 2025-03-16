@@ -36,9 +36,9 @@ namespace
 		}
 
 		const char*	FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
-		const bool	ITALIC		= false;		// イタリック
-		const EAlignX ALIGN_X	= XALIGN_LEFT;	// 横配置
-		const EAlignY ALIGN_Y	= YALIGN_TOP;	// 縦配置
+		const bool	ITALIC		= false;			// イタリック
+		const EAlignX ALIGN_X	= XALIGN_CENTER;	// 横配置
+		const EAlignY ALIGN_Y	= YALIGN_TOP;		// 縦配置
 	}
 
 	namespace soul
@@ -374,6 +374,29 @@ void CFrame2DTextStateSelect::ChangeText(const ESelect select, const AText& rTex
 }
 
 //============================================================
+//	プリセットXオフセットの取得処理
+//============================================================
+float CFrame2DTextStateSelect::GetPresetOffsetX(const ESelect select, const CFrame2D::EPreset preset)
+{
+	// プリセット範囲外エラー
+	assert(preset > CFrame2D::PRESET_NONE && preset < CFrame2D::PRESET_MAX);
+
+	// 引数プリセットのXオフセットを返す
+	switch (select)
+	{ // 選択ごとの処理
+	case SELECT_LEFT:
+		return select::L::OFFSET_X[preset];
+
+	case SELECT_RIGHT:
+		return select::R::OFFSET_X[preset];
+
+	default:
+		assert(false);
+		return 0.0f;
+	}
+}
+
+//============================================================
 //	プリセットオフセットの取得処理
 //============================================================
 VECTOR3 CFrame2DTextStateSelect::GetPresetOffset(const ESelect select, const CFrame2D::EPreset preset)
@@ -435,8 +458,9 @@ void CFrame2DTextStateSelect::SetPositionRelative()
 
 		// X座標オフセット分ずらす
 		VECTOR3 posCursor = m_apSelect[m_nCurSelect]->GetVec3Position();
-		posCursor.x -= sinf(rotFrame.z + HALF_PI) * soul::OFFSET;
-		posCursor.y -= cosf(rotFrame.z + HALF_PI) * soul::OFFSET;
+		float fOffsetX = m_apSelect[m_nCurSelect]->GetTextWidth() * 0.5f;
+		posCursor.x -= sinf(rotFrame.z + HALF_PI) * (soul::OFFSET + fOffsetX);
+		posCursor.y -= cosf(rotFrame.z + HALF_PI) * (soul::OFFSET + fOffsetX);
 
 		// Y座標オフセット分ずらす
 		float fOffsetY = m_apSelect[m_nCurSelect]->GetCharHeight() * 0.5f;
@@ -585,7 +609,7 @@ VECTOR3 CFrame2DTextStateSelect::GetOffsetDownLeft()
 {
 	// オフセットの計算
 	VECTOR3 offset;
-	offset.x = select::L::OFFSET_X[CFrame2D::PRESET_DOWN];	// TODO：このOFFSETをGetterつくってFaceSelectからも変更できるように
+	offset.x = GetPresetOffsetX(SELECT_LEFT, CFrame2D::PRESET_DOWN);
 	offset.y = GetPresetOffset(CFrame2D::PRESET_DOWN).y + CFrame2DTextStateText::LINE_HEIGHT * (float)(3 - GetMaxSelectLine());
 
 	// オフセットを返す
@@ -599,7 +623,7 @@ VECTOR3 CFrame2DTextStateSelect::GetOffsetDownRight()
 {
 	// オフセットの計算
 	VECTOR3 offset;
-	offset.x = select::R::OFFSET_X[CFrame2D::PRESET_DOWN];
+	offset.x = GetPresetOffsetX(SELECT_RIGHT, CFrame2D::PRESET_DOWN);
 	offset.y = GetPresetOffset(CFrame2D::PRESET_DOWN).y + CFrame2DTextStateText::LINE_HEIGHT * (float)(3 - GetMaxSelectLine());
 
 	// オフセットを返す

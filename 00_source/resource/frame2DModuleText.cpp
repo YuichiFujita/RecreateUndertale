@@ -475,19 +475,19 @@ void CFrame2DModuleText::ReleaseBuffText()
 CFrame2DTextBuffer* CFrame2DModuleText::CreateBuffText(const std::string& rCreateKey, const int nFaceIdx)
 {
 	// 生成キーに応じた保存バッファの生成
-	if		(rCreateKey == "TEXT")
+	if (rCreateKey == "TEXT")
 	{
 		// 顔インデックスに応じて生成変更
-		if (nFaceIdx == -1)	{ return new CFrame2DTextBufferText; }					// テキスト保存バッファ
-		else				{ return new CFrame2DTextBufferFaceText(nFaceIdx); }	// 表情付きテキスト保存バッファ
+		if (nFaceIdx == NONE_IDX)	{ return new CFrame2DTextBufferText; }					// テキスト保存バッファ
+		else						{ return new CFrame2DTextBufferFaceText(nFaceIdx); }	// 表情付きテキスト保存バッファ
 	}
-	else if	(rCreateKey == "SELECT")
+	else if (rCreateKey == "SELECT")
 	{
 		// 顔インデックスに応じて生成変更
-		if (nFaceIdx == -1)	{ return new CFrame2DTextBufferSelect; }				// 選択付きテキスト保存バッファ
-		else				{ return new CFrame2DTextBufferFaceSelect(nFaceIdx); }	// 表情/選択付きテキスト保存バッファ
+		if (nFaceIdx == NONE_IDX)	{ return new CFrame2DTextBufferSelect; }				// 選択付きテキスト保存バッファ
+		else						{ return new CFrame2DTextBufferFaceSelect(nFaceIdx); }	// 表情/選択付きテキスト保存バッファ
 	}
-	else if	(rCreateKey == "ITEM") { return new CFrame2DTextBufferItem; }	// アイテムテキスト保存バッファ
+	else if (rCreateKey == "ITEM")	{ return new CFrame2DTextBufferItem; }	// アイテムテキスト保存バッファ
 
 	// 存在しない生成キーの場合エラー
 	assert(false);

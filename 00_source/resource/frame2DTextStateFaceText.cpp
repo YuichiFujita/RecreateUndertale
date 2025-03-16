@@ -31,16 +31,13 @@ namespace
 		{
 			VECTOR3(315.0f, 0.0f, 0.0f)	// 下部配置
 		};
-		const char*	FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
-		const bool	ITALIC		= false;		// イタリック
-		const EAlignX ALIGN_X	= XALIGN_LEFT;	// 横配置
-		const EAlignY ALIGN_Y	= YALIGN_TOP;	// 縦配置
 	}
 }
 
 //************************************************************
 //	スタティックアサート
 //************************************************************
+static_assert(NUM_ARRAY(text::OFFSET) == CFrame2D::PRESET_MAX, "ERROR : Preset Count Mismatch");
 static_assert(NUM_ARRAY(face::OFFSET) == CFrame2D::PRESET_MAX, "ERROR : Preset Count Mismatch");
 
 //************************************************************
@@ -95,9 +92,6 @@ HRESULT CFrame2DTextStateFaceText::Init()
 	CFrame2D::EPreset preset = m_pContext->GetFramePreset();	// フレーム配置プリセット
 	if (preset > CFrame2D::PRESET_NONE && preset < CFrame2D::PRESET_MAX)
 	{ // プリセットが範囲内の場合
-
-		// テキストオフセットの設定
-		SetOffset(GetPresetOffset(preset));
 
 		// 顔オフセットの設定
 		m_offset = face::OFFSET[preset];

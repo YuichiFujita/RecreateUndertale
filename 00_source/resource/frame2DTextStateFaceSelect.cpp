@@ -25,23 +25,40 @@ namespace
 		};
 	}
 
+	namespace select
+	{
+		namespace L
+		{
+			const float OFFSET_X[] =	// テキストオフセットプリセット
+			{
+				-120.0f,	// 下部配置
+			};
+		}
+		namespace R
+		{
+			const float OFFSET_X[] =	// テキストオフセットプリセット
+			{
+				120.0f,		// 下部配置
+			};
+		}
+	}
+
 	namespace face
 	{
 		const VECTOR3 OFFSET[] =	// 表情オフセットプリセット
 		{
 			VECTOR3(315.0f, 0.0f, 0.0f)	// 下部配置
 		};
-		const char*	FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
-		const bool	ITALIC		= false;		// イタリック
-		const EAlignX ALIGN_X	= XALIGN_LEFT;	// 横配置
-		const EAlignY ALIGN_Y	= YALIGN_TOP;	// 縦配置
 	}
 }
 
 //************************************************************
 //	スタティックアサート
 //************************************************************
-static_assert(NUM_ARRAY(face::OFFSET) == CFrame2D::PRESET_MAX, "ERROR : Preset Count Mismatch");
+static_assert(NUM_ARRAY(text::OFFSET)		 == CFrame2D::PRESET_MAX, "ERROR : Preset Count Mismatch");
+static_assert(NUM_ARRAY(select::L::OFFSET_X) == CFrame2D::PRESET_MAX, "ERROR : Preset Count Mismatch");
+static_assert(NUM_ARRAY(select::R::OFFSET_X) == CFrame2D::PRESET_MAX, "ERROR : Preset Count Mismatch");
+static_assert(NUM_ARRAY(face::OFFSET)		 == CFrame2D::PRESET_MAX, "ERROR : Preset Count Mismatch");
 
 //************************************************************
 //	子クラス [CFrame2DTextStateFaceSelect] のメンバ関数
@@ -95,9 +112,6 @@ HRESULT CFrame2DTextStateFaceSelect::Init()
 	CFrame2D::EPreset preset = m_pContext->GetFramePreset();	// フレーム配置プリセット
 	if (preset > CFrame2D::PRESET_NONE && preset < CFrame2D::PRESET_MAX)
 	{ // プリセットが範囲内の場合
-
-		// テキストオフセットの設定
-		SetOffset(GetPresetOffset(preset));
 
 		// 顔オフセットの設定
 		m_offset = face::OFFSET[preset];
@@ -213,6 +227,29 @@ void CFrame2DTextStateFaceSelect::BindTextBuffer(CFrame2DTextBuffer* pBuffer)
 
 	// 親クラスのテキスト情報保存バッファの割当
 	CFrame2DTextStateSelect::BindTextBuffer(pBuffer);
+}
+
+//============================================================
+//	プリセットXオフセットの取得処理
+//============================================================
+float CFrame2DTextStateFaceSelect::GetPresetOffsetX(const ESelect select, const CFrame2D::EPreset preset)
+{
+	// プリセット範囲外エラー
+	assert(preset > CFrame2D::PRESET_NONE && preset < CFrame2D::PRESET_MAX);
+
+	// 引数プリセットのXオフセットを返す
+	switch (select)
+	{ // 選択ごとの処理
+	case SELECT_LEFT:
+		return select::L::OFFSET_X[preset];
+
+	case SELECT_RIGHT:
+		return select::R::OFFSET_X[preset];
+
+	default:
+		assert(false);
+		return 0.0f;
+	}
 }
 
 //============================================================

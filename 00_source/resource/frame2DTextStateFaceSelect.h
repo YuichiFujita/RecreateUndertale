@@ -48,6 +48,7 @@ public:
 
 protected:
 	// オーバーライド関数
+	float GetPresetOffsetX(const ESelect select, const CFrame2D::EPreset preset) override;	// プリセットXオフセット取得
 	VECTOR3 GetPresetOffset(const CFrame2D::EPreset preset) override;	// プリセットオフセット取得
 	void SetPositionRelative() override;	// 相対位置設定
 

@@ -81,10 +81,13 @@ public:
 
 protected:
 	// 仮想関数
-	virtual VECTOR3 GetPresetOffset(const ESelect select, const CFrame2D::EPreset preset);	// オフセット取得
+	virtual float GetPresetOffsetX(const ESelect select, const CFrame2D::EPreset preset);	// プリセットXオフセット取得
+
+	// メンバ関数
+	VECTOR3 GetPresetOffset(const ESelect select, const CFrame2D::EPreset preset);	// プリセットオフセット取得
 
 	// オーバーロード関数再公開
-	using CFrame2DTextStateText::GetPresetOffset;	// オフセット取得
+	using CFrame2DTextStateText::GetPresetOffset;	// プリセットオフセット取得
 
 	// オーバーライド関数
 	void SetPositionRelative() override;	// 相対位置設定
