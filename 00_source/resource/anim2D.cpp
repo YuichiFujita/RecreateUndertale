@@ -391,8 +391,11 @@ void CAnim2D::SetLoopWaitTime(const float fWaitTime)
 //============================================================
 //	現在パターンの初期化処理
 //============================================================
-void CAnim2D::ResetCurPtrn()
+void CAnim2D::ResetCurPtrn(const bool bLoopWait)
 {
+	// ループ待機フラグをもとに状態を設定
+	m_state = (bLoopWait) ? STATE_WAIT : STATE_PLAY;
+
 	// 終了フラグをOFFにする
 	m_bFinish = false;
 

@@ -330,8 +330,25 @@ HRESULT CFaceAnim2D::LoadEmotionSetup(SFace* pInfoFace, const char* pEmoPath)
 		}
 		else if (str == "LOOP_WAIT")
 		{
-			file >> str;						// ＝を読込
-			file >> pInfoEmo->fLoopWaitTime;	// ループ待機時間を読込
+			assert(pInfoEmo->bLoop);		// ループがOFFの場合設定不可
+			file >> str;					// ＝を読込
+			file >> pInfoEmo->fLoopWait;	// ループ待機時間を読込
+
+			// 最小ループ待機時間を初期化
+			pInfoEmo->fMinLoopWait = 0.0f;
+
+			// 待機時間のランダム化をOFFにする
+			pInfoEmo->bRandomWait = false;
+		}
+		else if (str == "RAND_LOOP_WAIT")
+		{
+			assert(pInfoEmo->bLoop);		// ループがOFFの場合設定不可
+			file >> str;					// ＝を読込
+			file >> pInfoEmo->fMinLoopWait;	// 最小ループ待機時間を読込
+			file >> pInfoEmo->fLoopWait;	// 最大ループ待機時間を読込
+
+			// 待機時間のランダム化をONにする
+			pInfoEmo->bRandomWait = true;
 		}
 	}
 

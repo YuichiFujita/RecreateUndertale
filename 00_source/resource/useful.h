@@ -859,6 +859,8 @@ namespace useful
 		float* pMaxPosY = nullptr	// 最大到達Y座標
 	);
 
+	float Random(const float fMin, const float fMax, const int nDigit);	// ランダム値取得 (float型)
+	int Random(int nMin, int nMax);		// ランダム値取得 (int型)
 	float RandomRot();					// ランダム向き取得
 	void NormalizeRot(float& rRot);		// 向きの正規化
 	void NormalizeRot(VECTOR3& rRot);	// 三軸向きの正規化
@@ -897,21 +899,26 @@ namespace useful
 		const T min,	// 最小範囲
 		const T max		// 最大範囲
 	);
-	template<class T> T RateToValue		// 割合の値変換
+	template<class T> T RateToValue	// 割合の値変換
 	( // 引数
 		const float fRate,	// 値化する数値
 		const T min,		// 最小範囲
 		const T max			// 最大範囲
 	);
-	template<class T> void SortNum		// 値のソート
+	template<class T> void SortNum	// 値のソート
 	( // 引数
 		T* pSortNum,		// ソート配列
 		const int nMaxKeep	// 配列サイズ
 	);
-	template<class T> void Shuffle		// シャッフル
+	template<class T> void Shuffle	// シャッフル
 	(
 		T* pShuffleData,		// シャッフル配列
 		const int nMaxShuffle	// 配列サイズ
+	);
+	template<class T> void Swap		// 入れ替え
+	( // 引数
+		T& rNum1,	// 数値1
+		T& rNum2	// 数値2
 	);
 }
 
@@ -1245,6 +1252,21 @@ template<class T> void useful::Shuffle
 		pShuffleData[nRandom]	= pShuffleData[nCntShu];
 		pShuffleData[nCntShu]	= swap;
 	}
+}
+
+//============================================================
+//	入れ替え処理
+//============================================================
+template<class T> void useful::Swap
+(
+	T& rNum1,	// 数値1
+	T& rNum2	// 数値2
+)
+{
+	// 要素の入れ替え
+	T swap	= rNum1;
+	rNum1	= rNum2;
+	rNum2	= swap;
 }
 
 #endif	// _USEFUL_H_

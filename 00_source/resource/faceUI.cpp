@@ -15,7 +15,8 @@
 //************************************************************
 namespace
 {
-	const int PRIORITY = 6;	// 表情UIの優先順位
+	const int PRIORITY = 6;		// 表情UIの優先順位
+	const int RAND_DIGIT = 1;	// ランダムの小数点桁
 }
 
 //************************************************************
@@ -78,8 +79,19 @@ void CFaceUI::Update(const float fDeltaTime)
 	// 表情がない場合抜ける
 	if (m_info.vecEmotion.empty()) { assert(false); return; }
 
+	// 前回のループ数を保存
+	int nOldNumLoop = GetLoopAnim();
+
 	// アニメーション2Dの更新
 	CAnim2D::Update(fDeltaTime);
+
+	const CFaceAnim2D::SEmotion& rInfoEmo = m_info.vecEmotion[m_nTypeEmo];	// 現在の表情情報
+	if (rInfoEmo.bRandomWait && nOldNumLoop < GetLoopAnim())
+	{ // 待機時間のランダム化がON且つ、ループが更新された場合
+
+		// ランダムなループ待機時間を再設定
+		SetLoopWaitTime(useful::Random(rInfoEmo.fMinLoopWait, rInfoEmo.fLoopWait, RAND_DIGIT));
+	}
 }
 
 //============================================================
@@ -183,10 +195,22 @@ void CFaceUI::SetEmotion(const int nTypeEmo)
 	BindTexture(pInfoEmo->sPathTexture.c_str());
 
 	// 表情情報を設定
-	SetTexPtrn(pInfoEmo->ptrnTexture);			// テクスチャ分割数
-	SetEnableLoop(pInfoEmo->bLoop);				// ループON/OFF
-	SetLoopWaitTime(pInfoEmo->fLoopWaitTime);	// ループ待機時間
-	SetVec3Size(pInfoEmo->size);				// 大きさ
+	SetTexPtrn(pInfoEmo->ptrnTexture);	// テクスチャ分割数
+	SetEnableLoop(pInfoEmo->bLoop);		// ループON/OFF
+	SetVec3Size(pInfoEmo->size);		// 大きさ
+
+	if (pInfoEmo->bRandomWait)
+	{ // ループ待機時間のランダム化がONの場合
+
+		// ループ待機時間をランダムに設定
+		SetLoopWaitTime(useful::Random(pInfoEmo->fMinLoopWait, pInfoEmo->fLoopWait, RAND_DIGIT));
+	}
+	else
+	{ // ループ待機時間のランダム化がOFFの場合
+
+		// ループ待機時間を設定
+		SetLoopWaitTime(pInfoEmo->fLoopWait);
+	}
 
 	assert((int)pInfoEmo->vecNextTime.size() == pInfoEmo->nMaxPtrn);
 	for (int i = 0; i < pInfoEmo->nMaxPtrn; i++)
@@ -196,8 +220,8 @@ void CFaceUI::SetEmotion(const int nTypeEmo)
 	}
 
 	// 顔情報を初期化
-	ResetCurPtrn();	// 開始パターン
-	ResetNumLoop();	// 繰り返し数
+	ResetCurPtrn(true);	// 開始パターン
+	ResetNumLoop();		// 繰り返し数
 }
 
 //============================================================

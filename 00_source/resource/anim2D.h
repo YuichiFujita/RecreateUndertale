@@ -52,17 +52,17 @@ public:
 	);
 
 	// メンバ関数
-	void SetAlpha(const float fAlpha);				// 透明度設定
-	void SetColor(const COLOR& rCol);				// 色設定
-	void SetCurPtrn(const int nPtrn);				// 現在パターン設定
-	void SetTexPtrn(const POSGRID2& rPtrn);			// テクスチャ分割数設定
-	void SetTexPtrnWidth(const int nTexPtrnW);		// テクスチャ横分割数設定
-	void SetTexPtrnHeight(const int nTexPtrnH);		// テクスチャ縦分割数設定
-	void SetEnablePlay(const bool bPlay);			// 再生フラグ設定
-	void SetEnablePlayBack(const bool bPlayBack);	// 逆再生フラグ設定
-	void SetEnableLoop(const bool bLoop);			// ループフラグ設定
-	void SetLoopWaitTime(const float fWaitTime);	// ループ待機時間設定
-	void ResetCurPtrn();							// 現在パターン初期化
+	void SetAlpha(const float fAlpha);					// 透明度設定
+	void SetColor(const COLOR& rCol);					// 色設定
+	void SetCurPtrn(const int nPtrn);					// 現在パターン設定
+	void SetTexPtrn(const POSGRID2& rPtrn);				// テクスチャ分割数設定
+	void SetTexPtrnWidth(const int nTexPtrnW);			// テクスチャ横分割数設定
+	void SetTexPtrnHeight(const int nTexPtrnH);			// テクスチャ縦分割数設定
+	void SetEnablePlay(const bool bPlay);				// 再生フラグ設定
+	void SetEnablePlayBack(const bool bPlayBack);		// 逆再生フラグ設定
+	void SetEnableLoop(const bool bLoop);				// ループフラグ設定
+	void SetLoopWaitTime(const float fWaitTime);		// ループ待機時間設定
+	void ResetCurPtrn(const bool bLoopWait = false);	// 現在パターン初期化
 	void SetNextTime(const int nPtrnIdx, const float fNextTime);	// パターン変更時間設定 (パターン指定)
 	void SetNextTime(const float fNextTime);						// パターン変更時間設定 (全パターン)
 
