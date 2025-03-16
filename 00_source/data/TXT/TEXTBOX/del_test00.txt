@@ -45,6 +45,8 @@ TEXTBOX_1
 	# テキスト情報
 	TEXT_0
 		MODULE	= TEXT	# 使用モジュール
+		TALK_EMO = 1	# 会話時表情
+		IDOL_EMO = 0	# 待機時表情
 		NEXT	= 1		# 次テキストキー
 		
 		# 文字列情報
@@ -83,6 +85,8 @@ TEXTBOX_1
 	# テキスト情報
 	TEXT_2
 		MODULE = TEXT	# 使用モジュール
+		TALK_EMO = 1	# 会話時表情
+		IDOL_EMO = 0	# 待機時表情
 		
 		# 文字列情報
 		STR = ＊ いい選択
@@ -91,6 +95,8 @@ TEXTBOX_1
 	# テキスト情報
 	TEXT_3
 		MODULE = TEXT	# 使用モジュール
+		TALK_EMO = 1	# 会話時表情
+		IDOL_EMO = 0	# 待機時表情
 		
 		# 文字列情報
 		STR = ＊ いいね
