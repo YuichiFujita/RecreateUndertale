@@ -558,6 +558,12 @@
     <ClCompile Include="resource\frame2DTextStateFaceText.cpp">
       <Filter>ingame\frame\module\text\state</Filter>
     </ClCompile>
+    <ClCompile Include="resource\frame2DTextBufferFaceSelect.cpp">
+      <Filter>ingame\frame\module\text\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\frame2DTextStateFaceSelect.cpp">
+      <Filter>ingame\frame\module\text\state</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h">
@@ -1008,6 +1014,12 @@
       <Filter>ingame\frame\module\text\buffer</Filter>
     </ClInclude>
     <ClInclude Include="resource\frame2DTextStateFaceText.h">
+      <Filter>ingame\frame\module\text\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\frame2DTextBufferFaceSelect.h">
+      <Filter>ingame\frame\module\text\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\frame2DTextStateFaceSelect.h">
       <Filter>ingame\frame\module\text\state</Filter>
     </ClInclude>
   </ItemGroup>

@@ -585,7 +585,7 @@ VECTOR3 CFrame2DTextStateSelect::GetOffsetDownLeft()
 {
 	// オフセットの計算
 	VECTOR3 offset;
-	offset.x = select::L::OFFSET_X[CFrame2D::PRESET_DOWN];
+	offset.x = select::L::OFFSET_X[CFrame2D::PRESET_DOWN];	// TODO：このOFFSETをGetterつくってFaceSelectからも変更できるように
 	offset.y = GetPresetOffset(CFrame2D::PRESET_DOWN).y + CFrame2DTextStateText::LINE_HEIGHT * (float)(3 - GetMaxSelectLine());
 
 	// オフセットを返す

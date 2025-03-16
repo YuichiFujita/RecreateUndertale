@@ -474,7 +474,6 @@ void CFrame2DModuleText::ReleaseBuffText()
 //============================================================
 CFrame2DTextBuffer* CFrame2DModuleText::CreateBuffText(const std::string& rCreateKey, const int nFaceIdx)
 {
-	// TODO：追加したら修正
 	// 生成キーに応じた保存バッファの生成
 	if		(rCreateKey == "TEXT")
 	{
@@ -485,8 +484,8 @@ CFrame2DTextBuffer* CFrame2DModuleText::CreateBuffText(const std::string& rCreat
 	else if	(rCreateKey == "SELECT")
 	{
 		// 顔インデックスに応じて生成変更
-		if (nFaceIdx == -1)	{ return new CFrame2DTextBufferSelect; }		// 選択付きテキスト保存バッファ
-		else				{ return new CFrame2DTextBufferSelect; }		// 表情/選択付きテキスト保存バッファ
+		if (nFaceIdx == -1)	{ return new CFrame2DTextBufferSelect; }				// 選択付きテキスト保存バッファ
+		else				{ return new CFrame2DTextBufferFaceSelect(nFaceIdx); }	// 表情/選択付きテキスト保存バッファ
 	}
 	else if	(rCreateKey == "ITEM") { return new CFrame2DTextBufferItem; }	// アイテムテキスト保存バッファ
 

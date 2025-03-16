@@ -115,4 +115,9 @@ private:
 	int m_nCurSelect;			// 現在の選択肢
 };
 
+//************************************************************
+//	インクルードファイル
+//************************************************************
+#include "frame2DTextStateFaceSelect.h"
+
 #endif	// _FRAME2D_TEXT_STATE_SELECT_H_

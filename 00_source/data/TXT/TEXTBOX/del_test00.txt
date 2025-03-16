@@ -40,22 +40,26 @@ END_TEXTBOX
 
 # テキストボックス情報
 TEXTBOX_1
+	FACE = 0		# 顔インデックス
+
 	# テキスト情報
 	TEXT_0
 		MODULE	= TEXT	# 使用モジュール
 		NEXT	= 1		# 次テキストキー
 		
 		# 文字列情報
-		STR = ＊ del_test00 1ボックス 0テキスト目
+		STR = ＊ よいしょ（よいしょ）
 	END_TEXT
 	
 	# テキスト情報
 	TEXT_1
 		MODULE = SELECT	# 使用モジュール
+		TALK_EMO = 1	# 会話時表情
+		IDOL_EMO = 0	# 待機時表情
 		
 		# 文字列情報
-		STR = ＊ del_test00 1ボックス 1テキスト目
-		STR = 　 選択項目検証
+		STR = ＊ こんちは
+		STR = 　 選択しろ
 		
 		# 左選択情報
 		SELECT_LEFT
@@ -64,7 +68,7 @@ TEXTBOX_1
 			NEXT_KEY	= 2	# 次テキストキー
 			
 			# 文字列情報
-			STR = del_test01 0 0
+			STR = 選択1
 		END_SELECT
 		
 		# 右選択情報
@@ -72,7 +76,7 @@ TEXTBOX_1
 			NEXT_KEY = 3	# 次テキストキー
 			
 			# 文字列情報
-			STR = del_test00 1 3
+			STR = 選択2
 		END_SELECT
 	END_TEXT
 	
@@ -81,9 +85,7 @@ TEXTBOX_1
 		MODULE = TEXT	# 使用モジュール
 		
 		# 文字列情報
-		STR = ＊ del_test00 1ボックス 2テキスト目
-		STR = 　 左選択肢からの遷移
-		STR = 　 現在は入り込み不可
+		STR = ＊ いい選択
 	END_TEXT
 	
 	# テキスト情報
@@ -91,8 +93,7 @@ TEXTBOX_1
 		MODULE = TEXT	# 使用モジュール
 		
 		# 文字列情報
-		STR = ＊ del_test00 1ボックス 3テキスト目
-		STR = 　 右選択肢からの遷移
-		STR = 　 Enter/Zでテキストボックスの終了
+		STR = ＊ いいね
+		STR = 　 あいあい
 	END_TEXT
 END_TEXTBOX

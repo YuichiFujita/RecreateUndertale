@@ -45,4 +45,9 @@ public:
 	AText m_aSelect[CFrame2DTextStateSelect::SELECT_MAX];			// 選択テキスト保存
 };
 
+//************************************************************
+//	インクルードファイル
+//************************************************************
+#include "frame2DTextBufferFaceSelect.h"
+
 #endif	// _FRAME2D_TEXT_BUFFER_SELECT_H_
