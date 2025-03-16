@@ -7,99 +7,74 @@
 
 # テキストボックス情報
 TEXTBOX_0
-	NEXT_BOX	= 1		# 次テキストボックスキー
-	FACE		= 0		# 顔インデックス
-	ALL_MODULE	= TEXT	# 使用モジュール
-	
-	# テキスト情報
-	TEXT_0
-		TALK_EMO = 1	# 会話時表情
-		IDOL_EMO = 0	# 待機時表情
-		NEXT = 1		# 次テキストキー
-		STR = ＊ あなたって
-		STR = 　 どうしようもないクズね
-	END_TEXT
-	
-	# テキスト情報
-	TEXT_1
-		TALK_EMO = 1	# 会話時表情
-		IDOL_EMO = 0	# 待機時表情
-		NEXT = 2		# 次テキストキー
-		STR = ＊ ばかばかばか
-		STR = 　 あほまぬけかす
-	END_TEXT
-	
-	# テキスト情報
-	TEXT_2
-		TALK_EMO = 1	# 会話時表情
-		IDOL_EMO = 0	# 待機時表情
-		STR = ＊ じょうだんやん
-		STR = 　 すまんて
-	END_TEXT
-END_TEXTBOX
-
-# テキストボックス情報
-TEXTBOX_1
+	NEXT_BOX = 1	# 次テキストボックスキー
 	FACE = 0		# 顔インデックス
-
-	# テキスト情報
+	
 	TEXT_0
-		MODULE	= TEXT	# 使用モジュール
+		MODULE = TEXT	# 使用モジュール
+		NEXT = 1		# 次テキストキー
 		TALK_EMO = 1	# 会話時表情
 		IDOL_EMO = 0	# 待機時表情
-		NEXT	= 1		# 次テキストキー
 		
-		# 文字列情報
-		STR = ＊ よいしょ（よいしょ）
+		STR = ＊ ちゃんと　しるしを
+		STR = 　 つけておいて
+		STR = 　 あげたでしょう…？
 	END_TEXT
 	
-	# テキスト情報
 	TEXT_1
 		MODULE = SELECT	# 使用モジュール
 		TALK_EMO = 1	# 会話時表情
 		IDOL_EMO = 0	# 待機時表情
 		
-		# 文字列情報
-		STR = ＊ こんちは
-		STR = 　 選択しろ
+		STR = ＊ シナモン？　それとも
+		STR = 　 バタースコッチ？
 		
-		# 左選択情報
 		SELECT_LEFT
-			#NEXT_PATH	= data\TXT\TEXTBOX\test01.txt	# 次テキストボックスパス
-			#NEXT_BOX	= 0	# 次テキストボックスキー
-			NEXT_KEY	= 2	# 次テキストキー
-			
-			# 文字列情報
-			STR = 選択1
+			NEXT_KEY = 2	# 次テキストキー
+			STR = シナモン
 		END_SELECT
 		
-		# 右選択情報
 		SELECT_RIGHT
-			NEXT_KEY = 3	# 次テキストキー
-			
-			# 文字列情報
-			STR = 選択2
+			NEXT_KEY = 2	# 次テキストキー
+			STR = バタスコ
 		END_SELECT
 	END_TEXT
 	
-	# テキスト情報
 	TEXT_2
 		MODULE = TEXT	# 使用モジュール
 		TALK_EMO = 1	# 会話時表情
 		IDOL_EMO = 0	# 待機時表情
+
+		STR = ＊ そう　わかったわ。
+		STR = ＊ おしえてくれて
+		STR = 　 ありがとう！
+	END_TEXT
+END_TEXTBOX
+
+# テキストボックス情報
+TEXTBOX_1
+	TEXT_0
+		MODULE = SELECT	# 使用モジュール
+		STR = ＊ ムリヤリ　どかす？
 		
-		# 文字列情報
-		STR = ＊ いい選択
+		SELECT_LEFT
+			NEXT_KEY = 1	# 次テキストキー
+			STR = はい
+		END_SELECT
+		
+		SELECT_RIGHT
+			NEXT_KEY = 2	# 次テキストキー
+			STR = いいえ
+		END_SELECT
 	END_TEXT
 	
-	# テキスト情報
-	TEXT_3
+	TEXT_1
 		MODULE = TEXT	# 使用モジュール
-		TALK_EMO = 1	# 会話時表情
-		IDOL_EMO = 0	# 待機時表情
-		
-		# 文字列情報
+		STR = ＊ かわいそう
+	END_TEXT
+	
+	TEXT_2
+		MODULE = TEXT	# 使用モジュール
 		STR = ＊ いいね
-		STR = 　 あいあい
 	END_TEXT
 END_TEXTBOX

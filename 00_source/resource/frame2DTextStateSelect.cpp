@@ -24,14 +24,14 @@ namespace
 		{
 			const float OFFSET_X[] =	// テキストオフセットプリセット
 			{
-				-160.0f,	// 下部配置
+				-154.0f,	// 下部配置
 			};
 		}
 		namespace R
 		{
 			const float OFFSET_X[] =	// テキストオフセットプリセット
 			{
-				160.0f,		// 下部配置
+				154.0f,		// 下部配置
 			};
 		}
 
@@ -44,7 +44,7 @@ namespace
 	namespace soul
 	{
 		const char* PATH	= "data\\TEXTURE\\spr_heartsmall.png";	// ソウルカーソルテクスチャパス
-		const float OFFSET	= 10.0f;								// ソウルカーソルオフセット
+		const float OFFSET	= 3.0f;									// ソウルカーソルオフセット
 		const VECTOR3 SIZE	= VECTOR3(26.5f, 26.5f, 0.0f);			// ソウルカーソル大きさ
 	}
 }

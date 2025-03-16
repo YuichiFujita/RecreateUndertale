@@ -21,7 +21,7 @@ namespace
 	{
 		const VECTOR3 OFFSET[] =	// テキストオフセットプリセット
 		{
-			VECTOR3(-210.0f, -80.0f, 0.0f)	// 下部配置
+			VECTOR3(-238.0f, -80.0f, 0.0f)	// 下部配置
 		};
 	}
 
@@ -29,7 +29,7 @@ namespace
 	{
 		const VECTOR3 OFFSET[] =	// 表情オフセットプリセット
 		{
-			VECTOR3(315.0f, 0.0f, 0.0f)	// 下部配置
+			VECTOR3(-329.0f, 0.0f, 0.0f)	// 下部配置
 		};
 	}
 }
@@ -236,8 +236,8 @@ void CFrame2DTextStateFaceText::SetPositionRelative()
 		VECTOR3 rotFrame = m_pContext->GetFrameRotation();	// フレーム向き
 
 		// X座標オフセット分ずらす
-		posFrame.x -= sinf(rotFrame.z + HALF_PI) * m_offset.x;
-		posFrame.y -= cosf(rotFrame.z + HALF_PI) * m_offset.x;
+		posFrame.x += sinf(rotFrame.z + HALF_PI) * m_offset.x;
+		posFrame.y += cosf(rotFrame.z + HALF_PI) * m_offset.x;
 
 		// Y座標オフセット分ずらす
 		posFrame.x += sinf(rotFrame.z) * m_offset.y;
