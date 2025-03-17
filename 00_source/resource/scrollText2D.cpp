@@ -112,6 +112,40 @@ void CScrollText2D::SetEnableDraw(const bool bDraw)
 }
 
 //============================================================
+//	フォントの設定処理
+//============================================================
+void CScrollText2D::SetFont
+(
+	const std::string& rFilePath,	// フォントパス
+	const bool bItalic				// イタリック
+)
+{
+	// フォントの設定
+	CText2D::SetFont(rFilePath, bItalic);
+
+	// 全文字の自動描画をOFFにする
+	SetEnableDraw(false);
+
+	// 全文字情報配列をクリア
+	m_vecChar.clear();
+
+	// 全文字配列に変更を反映
+	const int nNumStr = GetNumString();	// 行数
+	for (int i = 0; i < nNumStr; i++)
+	{ // 行数(文字列数)分繰り返す
+
+		CString2D* pStr = GetString2D(i);			// 文字列情報
+		const int nNumChar = pStr->GetNumChar();	// 文字数
+		for (int j = 0; j < nNumChar; j++)
+		{ // 文字数分繰り返す
+
+			// 最後尾に文字アドレスを追加
+			m_vecChar.push_back(pStr->GetChar2D(j));
+		}
+	}
+}
+
+//============================================================
 //	文字列の先頭追加処理 (マルチバイト文字列)
 //============================================================
 HRESULT CScrollText2D::PushFrontString(const std::string& rStr)

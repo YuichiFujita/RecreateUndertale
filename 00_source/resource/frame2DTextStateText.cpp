@@ -103,9 +103,6 @@ HRESULT CFrame2DTextStateText::Init()
 	// 優先順位を設定
 	m_pText->SetPriority(m_pContext->GetFramePriority());
 
-	// 文字送り時の再生SEを設定
-	m_pText->SetScrollSE(CSound::LABEL_SE_TEXT01);
-
 	// 相対位置の設定
 	CFrame2DTextStateText::SetPositionRelative();	// 自身の相対位置
 
@@ -175,6 +172,24 @@ void CFrame2DTextStateText::SetVec3Rotation(const VECTOR3& rRot)
 }
 
 //============================================================
+//	フォントパスの設定処理
+//============================================================
+void CFrame2DTextStateText::SetFontPath(const EFont font)
+{
+	// 引数のフォントを設定
+	m_pText->SetFont(GetFontPath(font));
+}
+
+//============================================================
+//	サウンドラベルの設定処理
+//============================================================
+void CFrame2DTextStateText::SetSoundLabel(const ESound sound)
+{
+	// 引数の文字送り時の再生SEを設定
+	m_pText->SetScrollSE(GetSoundLabel(sound));
+}
+
+//============================================================
 //	テキスト情報保存バッファの割当処理
 //============================================================
 void CFrame2DTextStateText::BindTextBuffer(CFrame2DTextBuffer* pBuffer)
@@ -182,9 +197,6 @@ void CFrame2DTextStateText::BindTextBuffer(CFrame2DTextBuffer* pBuffer)
 	// テキスト保存バッファに変換できない場合抜ける
 	CFrame2DTextBufferText* pBuffText = pBuffer->GetBufferText();
 	if (pBuffText == nullptr) { assert(false); return; }
-
-	// 割り当てるテキストの検索キーを保存
-	SetCurTextKey(pBuffer->m_sKey);
 
 	// 次テキストの検索キーを割当
 	m_sNextTextKey = pBuffText->m_sNextTextKey;
@@ -201,8 +213,8 @@ void CFrame2DTextStateText::BindTextBuffer(CFrame2DTextBuffer* pBuffer)
 	// 文字送りを開始する
 	m_pText->SetEnableScroll(true);
 
-	// 相対位置の設定
-	SetPositionRelative();
+	// 親クラスのテキスト情報保存バッファの割当
+	CFrame2DTextState::BindTextBuffer(pBuffer);
 }
 
 //============================================================

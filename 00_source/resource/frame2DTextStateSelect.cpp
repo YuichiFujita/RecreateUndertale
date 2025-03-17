@@ -164,9 +164,6 @@ HRESULT CFrame2DTextStateSelect::Init()
 
 		// 優先順位を設定
 		m_apSelect[i]->SetPriority(nPrioFrame);
-
-		// 文字送り時の再生SEを設定
-		m_apSelect[i]->SetScrollSE(CSound::LABEL_SE_TEXT01);
 	}
 
 	// ソウルカーソルの生成
@@ -301,6 +298,40 @@ void CFrame2DTextStateSelect::SetVec3Rotation(const VECTOR3& rRot)
 }
 
 //============================================================
+//	フォントパスの設定処理
+//============================================================
+void CFrame2DTextStateSelect::SetFontPath(const EFont font)
+{
+	const std::string& rFontPath = GetFontPath(font);	// フォントパス
+	for (int i = 0; i < SELECT_MAX; i++)
+	{ // 選択肢の総数分繰り返す
+
+		// 引数のフォントを設定
+		m_apSelect[i]->SetFont(rFontPath);
+	}
+
+	// 親クラスのフォントパスを設定
+	CFrame2DTextStateText::SetFontPath(font);
+}
+
+//============================================================
+//	サウンドラベルの設定処理
+//============================================================
+void CFrame2DTextStateSelect::SetSoundLabel(const ESound sound)
+{
+	const CSound::ELabel label = GetSoundLabel(sound);	// サウンドラベル
+	for (int i = 0; i < SELECT_MAX; i++)
+	{ // 選択肢の総数分繰り返す
+
+		// 引数の文字送り時の再生SEを設定
+		m_apSelect[i]->SetScrollSE(label);
+	}
+
+	// 親クラスのサウンドラベルを設定
+	CFrame2DTextStateText::SetSoundLabel(sound);
+}
+
+//============================================================
 //	テキスト情報保存バッファの割当処理
 //============================================================
 void CFrame2DTextStateSelect::BindTextBuffer(CFrame2DTextBuffer* pBuffer)
@@ -308,9 +339,6 @@ void CFrame2DTextStateSelect::BindTextBuffer(CFrame2DTextBuffer* pBuffer)
 	// 選択付きテキスト保存バッファに変換できない場合抜ける
 	CFrame2DTextBufferSelect* pBuffSelect = pBuffer->GetBufferSelect();
 	if (pBuffSelect == nullptr) { assert(false); return; }
-
-	// 割り当てるテキストの検索キーを保存
-	SetCurTextKey(pBuffer->m_sKey);
 
 	// 割り当てるテキストの保存パスを保存
 	m_sCutTextPath = pBuffer->m_sPath;
@@ -345,8 +373,8 @@ void CFrame2DTextStateSelect::BindTextBuffer(CFrame2DTextBuffer* pBuffer)
 	// 文字送りを開始する
 	SetTextEnableScroll(true);
 
-	// 相対位置の設定
-	SetPositionRelative();
+	// 親クラスのテキスト情報保存バッファの割当
+	CFrame2DTextState::BindTextBuffer(pBuffer);
 }
 
 //============================================================

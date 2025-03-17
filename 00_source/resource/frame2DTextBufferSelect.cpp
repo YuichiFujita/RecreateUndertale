@@ -50,6 +50,9 @@ CFrame2DTextState* CFrame2DTextBufferSelect::CreateState()
 //============================================================
 void CFrame2DTextBufferSelect::LoadSetup(std::ifstream* pFile, const std::string& rString)
 {
+	// 基底バッファのセットアップ
+	CFrame2DTextBuffer::LoadSetup(pFile, rString);
+
 	// ファイルポインタがない場合抜ける
 	if (pFile == nullptr) { assert(false); return; }
 

@@ -32,9 +32,10 @@ public:
 	// オーバーライド関数
 	HRESULT Init() override;	// 初期化
 	void Uninit() override;		// 終了
-	void Update(const float fDeltaTime) override;			// 更新
-	void Draw(CShader* pShader = nullptr) override;			// 描画
-	void SetEnableDraw(const bool bDraw) override;			// 描画状況設定
+	void Update(const float fDeltaTime) override;	// 更新
+	void Draw(CShader* pShader = nullptr) override;	// 描画
+	void SetEnableDraw(const bool bDraw) override;	// 描画状況設定
+	void SetFont(const std::string& rFilePath, const bool bItalic = false) override;	// フォント設定
 	HRESULT SetString(const std::string& rStr) override;	// 文字列設定 (マルチバイト文字列)
 	HRESULT SetString(const std::wstring& rStr) override;	// 文字列設定 (ワイド文字列)
 

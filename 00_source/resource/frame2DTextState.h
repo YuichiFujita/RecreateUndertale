@@ -11,6 +11,11 @@
 #define _FRAME2D_TEXT_STATE_H_
 
 //************************************************************
+//	インクルードファイル
+//************************************************************
+#include "sound.h"
+
+//************************************************************
 //	前方宣言
 //************************************************************
 class CFrame2DModuleText;			// テキスト表示機能クラス
@@ -28,6 +33,20 @@ class CFrame2DTextStateItem;		// アイテムテキスト状態クラス
 class CFrame2DTextState
 {
 public:
+	// フォント列挙
+	enum EFont
+	{
+		FONT_DEFAULT = 0,	// デフォルト
+		FONT_MAX			// この列挙型の総数
+	};
+
+	// サウンド列挙
+	enum ESound
+	{
+		SOUND_DEFAULT = 0,	// デフォルト
+		SOUND_MAX			// この列挙型の総数
+	};
+
 	// コンストラクタ
 	CFrame2DTextState();
 
@@ -46,20 +65,32 @@ public:
 	inline virtual CFrame2DTextStateFaceText* GetStateFaceText()	 { return nullptr; }	// 表情付きテキスト状態取得
 	inline virtual CFrame2DTextStateFaceSelect* GetStateFaceSelect() { return nullptr; }	// 表情/選択付きテキスト状態取得
 	inline virtual CFrame2DTextStateItem* GetStateItem()			 { return nullptr; }	// アイテムテキスト状態取得
-	inline virtual void SetPriority(const int)			 { assert(false); }	// 優先順位設定
-	inline virtual void SetVec3Position(const VECTOR3&)	 { assert(false); }	// 位置設定
-	inline virtual void SetVec3Rotation(const VECTOR3&)	 { assert(false); }	// 向き設定
-	inline virtual void SetVec3Size(const VECTOR3&)		 { assert(false); }	// 大きさ設定
+	inline virtual void SetPriority(const int)			{ assert(false); }	// 優先順位設定
+	inline virtual void SetVec3Position(const VECTOR3&)	{ assert(false); }	// 位置設定
+	inline virtual void SetVec3Rotation(const VECTOR3&)	{ assert(false); }	// 向き設定
+	inline virtual void SetVec3Size(const VECTOR3&)		{ assert(false); }	// 大きさ設定
+	inline virtual void SetFontPath(const EFont /*font*/)		{}	// フォントパス設定
+	inline virtual void SetSoundLabel(const ESound /*sound*/)	{}	// サウンドラベル設定
 
 	// メンバ関数
+	std::string GetFontPath(const EFont font);			 // フォントパス取得
+	CSound::ELabel GetSoundLabel(const ESound sound);	 // サウンドラベル取得
 	inline void SetContext(CFrame2DModuleText* pContext) { m_pContext = pContext; }	// コンテキスト設定
 	inline void SetCurTextKey(const std::string& rKey)	 { m_sCurTextKey = rKey; }	// テキスト検索キー設定
 	inline std::string GetCurTextKey() const			 { return m_sCurTextKey; }	// テキスト検索キー取得
 
 protected:
+	// 純粋仮想関数
+	virtual void SetPositionRelative() = 0;	// 相対位置設定
+
 	// メンバ変数
 	CFrame2DModuleText* m_pContext;	// コンテキスト
-	std::string m_sCurTextKey;		// 割当済みテキストの検索キー
+
+private:
+	// メンバ変数
+	std::string m_sCurTextKey;	// 割当済みテキストの検索キー
+	EFont m_font;	// フォント
+	ESound m_sound;	// サウンド
 };
 
 //************************************************************

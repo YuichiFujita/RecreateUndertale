@@ -62,6 +62,7 @@ public:
 	);
 
 	// 仮想関数
+	virtual void SetFont(const std::string& rFilePath, const bool bItalic = false);	// フォント設定
 	virtual HRESULT PushFrontString(const std::string& rStr);	// 文字列の先頭追加 (マルチバイト文字列)
 	virtual HRESULT PushFrontString(const std::wstring& rStr);	// 文字列の先頭追加 (ワイド文字列)
 	virtual HRESULT PushBackString(const std::string& rStr);	// 文字列の最後尾追加 (マルチバイト文字列)
@@ -70,11 +71,6 @@ public:
 	virtual void DeleteStringAll();					// 文字列全削除
 
 	// メンバ関数
-	void SetFont	// フォントの設定
-	( // 引数
-		const std::string& rFilePath,	// フォントパス
-		const bool bItalic = false		// イタリック
-	);
 	void SetAlpha(const float fAlpha);					// 透明度設定
 	void SetColor(const COLOR& rCol);					// 色設定
 	void SetCharHeight(const float fHeight);			// 文字の縦幅設定

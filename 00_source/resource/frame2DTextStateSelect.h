@@ -52,6 +52,8 @@ public:
 	void SetPriority(const int nPriority) override;		// 優先順位設定
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
 	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
+	void SetFontPath(const EFont font) override;		// フォントパス設定
+	void SetSoundLabel(const ESound sound) override;	// サウンドラベル設定
 	void BindTextBuffer(CFrame2DTextBuffer* pBuffer) override;	// テキスト情報保存バッファ割当
 	inline CFrame2DTextStateSelect* GetStateSelect() override { return this; }	// 選択付きテキスト状態取得
 

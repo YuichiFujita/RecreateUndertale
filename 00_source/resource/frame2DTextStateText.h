@@ -48,6 +48,8 @@ public:
 	void SetPriority(const int nPriority) override;		// 優先順位設定
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
 	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
+	void SetFontPath(const EFont font) override;		// フォントパス設定
+	void SetSoundLabel(const ESound sound) override;	// サウンドラベル設定
 	void BindTextBuffer(CFrame2DTextBuffer* pBuffer) override;	// テキスト情報保存バッファ割当
 	inline CFrame2DTextStateText* GetStateText() override { return this; }	// テキスト状態取得
 
@@ -69,7 +71,9 @@ public:
 protected:
 	// 仮想関数
 	virtual VECTOR3 GetPresetOffset(const CFrame2D::EPreset preset);	// プリセットオフセット取得
-	virtual void SetPositionRelative();	// 相対位置設定
+
+	// オーバーライド関数
+	void SetPositionRelative() override;	// 相対位置設定
 
 	// メンバ関数
 	inline void SetNextTextKey(const std::string& rKey) { m_sNextTextKey = rKey; }	// 次テキストの検索キー設定

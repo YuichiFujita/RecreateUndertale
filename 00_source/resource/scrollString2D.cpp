@@ -105,6 +105,22 @@ void CScrollString2D::SetEnableDraw(const bool bDraw)
 }
 
 //============================================================
+//	フォントの設定処理
+//============================================================
+void CScrollString2D::SetFont
+(
+	const std::string& rFilePath,	// フォントパス
+	const bool bItalic				// イタリック
+)
+{
+	// フォントの設定
+	CString2D::SetFont(rFilePath, bItalic);
+
+	// 文字列の自動描画をOFFにする
+	SetEnableDraw(false);
+}
+
+//============================================================
 //	文字列の設定処理 (マルチバイト文字列)
 //============================================================
 HRESULT CScrollString2D::SetString(const std::string& rStr)

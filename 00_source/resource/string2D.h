@@ -72,15 +72,11 @@ public:
 	);
 
 	// 仮想関数
+	virtual void SetFont(const std::string& rFilePath, const bool bItalic = false);	// フォント設定
 	virtual HRESULT SetString(const std::string& rStr);		// 文字列の設定 (マルチバイト文字列)
 	virtual HRESULT SetString(const std::wstring& rStr);	// 文字列の設定 (ワイド文字列)
 
 	// メンバ関数
-	void SetFont	// フォントの設定
-	( // 引数
-		const std::string& rFilePath,	// フォントパス
-		const bool bItalic = false		// イタリック
-	);
 	void SetAlpha(const float fAlpha);				// 透明度設定
 	void SetColor(const COLOR& rCol);				// 色設定
 	void SetCharHeight(const float fHeight);		// 文字の縦幅設定

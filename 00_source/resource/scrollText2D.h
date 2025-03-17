@@ -35,6 +35,7 @@ public:
 	void Update(const float fDeltaTime) override;	// 更新
 	void Draw(CShader* pShader = nullptr) override;	// 描画
 	void SetEnableDraw(const bool bDraw) override;	// 描画状況設定
+	void SetFont(const std::string& rFilePath, const bool bItalic = false) override;	// フォント設定
 	HRESULT PushFrontString(const std::string& rStr) override;	// 文字列の先頭追加 (マルチバイト文字列)
 	HRESULT PushFrontString(const std::wstring& rStr) override;	// 文字列の先頭追加 (ワイド文字列)
 	HRESULT PushBackString(const std::string& rStr) override;	// 文字列の最後尾追加 (マルチバイト文字列)

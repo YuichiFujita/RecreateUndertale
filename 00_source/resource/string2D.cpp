@@ -310,6 +310,23 @@ CString2D* CString2D::Create
 }
 
 //============================================================
+//	フォントの設定処理
+//============================================================
+void CString2D::SetFont
+(
+	const std::string& rFilePath,	// フォントパス
+	const bool bItalic				// イタリック
+)
+{
+	// フォント文字情報を設定
+	CFont* pFont = GET_MANAGER->GetFont();	// フォント情報
+	m_pFontChar = pFont->Regist(rFilePath, bItalic).pFontChar;
+
+	// 文字列の再設定
+	SetString(m_wsStr);
+}
+
+//============================================================
 //	文字列の設定処理 (マルチバイト文字列)
 //============================================================
 HRESULT CString2D::SetString(const std::string& rStr)
@@ -390,23 +407,6 @@ HRESULT CString2D::SetString(const std::wstring& rStr)
 	SetPositionRelative();
 
 	return S_OK;
-}
-
-//============================================================
-//	フォントの設定処理
-//============================================================
-void CString2D::SetFont
-(
-	const std::string& rFilePath,	// フォントパス
-	const bool bItalic				// イタリック
-)
-{
-	// フォント文字情報を設定
-	CFont* pFont = GET_MANAGER->GetFont();	// フォント情報
-	m_pFontChar = pFont->Regist(rFilePath, bItalic).pFontChar;
-
-	// 文字列の再設定
-	SetString(m_wsStr);
 }
 
 //============================================================
