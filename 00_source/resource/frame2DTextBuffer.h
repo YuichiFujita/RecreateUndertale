@@ -14,6 +14,7 @@
 //	インクルードファイル
 //************************************************************
 #include "frame2D.h"
+#include "frame2DModuleText.h"
 #include "frame2DTextState.h"
 
 //************************************************************
@@ -50,8 +51,8 @@ public:
 	virtual inline CFrame2DTextBufferItem* GetBufferItem()				{ return nullptr; }	// アイテムテキストバッファ取得
 
 	// メンバ変数
-	CFrame2DTextState::EFont m_font;	// フォント
-	CFrame2DTextState::ESound m_sound;	// サウンド
+	CFrame2DModuleText::EFont m_font;	// フォント
+	CFrame2DModuleText::ESound m_sound;	// サウンド
 	std::string m_sPath;	// テキスト保存パス
 	std::string m_sKey;		// テキスト検索キー
 	AText m_text;			// テキスト保存

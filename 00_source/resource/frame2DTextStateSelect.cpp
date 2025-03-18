@@ -150,7 +150,7 @@ HRESULT CFrame2DTextStateSelect::Init()
 			select::ITALIC,						// イタリック
 			VEC3_ZERO,							// 原点位置
 			CFrame2DTextStateText::WAIT_TIME,	// 文字表示の待機時間
-			CFrame2DTextStateText::CHAR_HEIGHT,	// 文字縦幅
+			0.0f,								// 文字縦幅
 			CFrame2DTextStateText::LINE_HEIGHT,	// 行間縦幅
 			select::ALIGN_X,					// 横配置
 			select::ALIGN_Y						// 縦配置
@@ -300,14 +300,18 @@ void CFrame2DTextStateSelect::SetVec3Rotation(const VECTOR3& rRot)
 //============================================================
 //	フォントパスの設定処理
 //============================================================
-void CFrame2DTextStateSelect::SetFontPath(const EFont font)
+void CFrame2DTextStateSelect::SetFontPath(const CFrame2DModuleText::EFont font)
 {
 	const std::string& rFontPath = GetFontPath(font);	// フォントパス
+	const float fFontHeight = GetFontHeight(font);		// フォント縦幅
 	for (int i = 0; i < SELECT_MAX; i++)
 	{ // 選択肢の総数分繰り返す
 
 		// 引数のフォントを設定
 		m_apSelect[i]->SetFont(rFontPath);
+
+		// 引数のフォントの縦幅を設定
+		m_apSelect[i]->SetCharHeight(fFontHeight);
 	}
 
 	// 親クラスのフォントパスを設定
@@ -317,7 +321,7 @@ void CFrame2DTextStateSelect::SetFontPath(const EFont font)
 //============================================================
 //	サウンドラベルの設定処理
 //============================================================
-void CFrame2DTextStateSelect::SetSoundLabel(const ESound sound)
+void CFrame2DTextStateSelect::SetSoundLabel(const CFrame2DModuleText::ESound sound)
 {
 	const CSound::ELabel label = GetSoundLabel(sound);	// サウンドラベル
 	for (int i = 0; i < SELECT_MAX; i++)

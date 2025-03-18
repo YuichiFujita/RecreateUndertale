@@ -33,6 +33,7 @@ public:
 		LABEL_SE_BALLCHIME,		// BALL入力効果音
 		LABEL_SE_TEXT00,		// 文字送り表示音 (インゲーム)
 		LABEL_SE_TEXT01,		// 文字送り表示音 (イントロ)
+		LABEL_SE_TEXT_TORIEL00,	// トリエル文字送り表示音
 		LABEL_MAX				// この列挙型の総数
 	};
 

@@ -88,7 +88,7 @@ HRESULT CFrame2DTextStateText::Init()
 		text::ITALIC,						// イタリック
 		VEC3_ZERO,							// 原点位置
 		CFrame2DTextStateText::WAIT_TIME,	// 文字表示の待機時間
-		CFrame2DTextStateText::CHAR_HEIGHT,	// 文字縦幅
+		0.0f,								// 文字縦幅
 		CFrame2DTextStateText::LINE_HEIGHT,	// 行間縦幅
 		text::ALIGN_X,						// 横配置
 		text::ALIGN_Y						// 縦配置
@@ -174,16 +174,19 @@ void CFrame2DTextStateText::SetVec3Rotation(const VECTOR3& rRot)
 //============================================================
 //	フォントパスの設定処理
 //============================================================
-void CFrame2DTextStateText::SetFontPath(const EFont font)
+void CFrame2DTextStateText::SetFontPath(const CFrame2DModuleText::EFont font)
 {
 	// 引数のフォントを設定
 	m_pText->SetFont(GetFontPath(font));
+
+	// 引数のフォントの縦幅を設定
+	m_pText->SetCharHeight(GetFontHeight(font));
 }
 
 //============================================================
 //	サウンドラベルの設定処理
 //============================================================
-void CFrame2DTextStateText::SetSoundLabel(const ESound sound)
+void CFrame2DTextStateText::SetSoundLabel(const CFrame2DModuleText::ESound sound)
 {
 	// 引数の文字送り時の再生SEを設定
 	m_pText->SetScrollSE(GetSoundLabel(sound));

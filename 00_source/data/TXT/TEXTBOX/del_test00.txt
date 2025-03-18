@@ -8,10 +8,14 @@
 # テキストボックス情報
 TEXTBOX_0
 	NEXT_BOX = 1	# 次テキストボックスキー
+	ALL_FONT = 0	# フォント
+	ALL_SOUND = 2	# サウンド
 	FACE = 0		# 顔インデックス
 	
 	TEXT_0
 		MODULE = TEXT	# 使用モジュール
+		FONT = 0		# フォント
+		SOUND = 2		# サウンド
 		NEXT = 1		# 次テキストキー
 		TALK_EMO = 1	# 会話時表情
 		IDOL_EMO = 0	# 待機時表情
@@ -53,8 +57,14 @@ END_TEXTBOX
 
 # テキストボックス情報
 TEXTBOX_1
+	ALL_FONT = 0	# フォント
+	ALL_SOUND = 0	# サウンド
+
 	TEXT_0
 		MODULE = SELECT	# 使用モジュール
+		FONT = 0	# フォント
+		SOUND = 0	# サウンド
+		
 		STR = ＊ ムリヤリ　どかす？
 		
 		SELECT_LEFT

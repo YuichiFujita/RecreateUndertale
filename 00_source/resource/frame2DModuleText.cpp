@@ -448,53 +448,6 @@ int CFrame2DModuleText::GetNumText() const
 }
 
 //============================================================
-//	テキストバッファ連想配列の破棄処理
-//============================================================
-void CFrame2DModuleText::ReleaseBuffText()
-{
-	// テキストが存在しない場合抜ける
-	if (m_pMapBuffText == nullptr) { return; }
-
-	for (auto& rMap : *m_pMapBuffText)
-	{ // 要素数分繰り返す
-
-		// テキストバッファの破棄
-		SAFE_DELETE(rMap.second);
-	}
-
-	// テキストバッファ連想配列をクリア
-	m_pMapBuffText->clear();
-
-	// テキストバッファ連想配列の破棄
-	SAFE_DELETE(m_pMapBuffText);
-}
-
-//============================================================
-//	テキストバッファの生成処理
-//============================================================
-CFrame2DTextBuffer* CFrame2DModuleText::CreateBuffText(const std::string& rCreateKey, const int nFaceIdx)
-{
-	// 生成キーに応じた保存バッファの生成
-	if (rCreateKey == "TEXT")
-	{
-		// 顔インデックスに応じて生成変更
-		if (nFaceIdx == NONE_IDX)	{ return new CFrame2DTextBufferText; }					// テキスト保存バッファ
-		else						{ return new CFrame2DTextBufferFaceText(nFaceIdx); }	// 表情付きテキスト保存バッファ
-	}
-	else if (rCreateKey == "SELECT")
-	{
-		// 顔インデックスに応じて生成変更
-		if (nFaceIdx == NONE_IDX)	{ return new CFrame2DTextBufferSelect; }				// 選択付きテキスト保存バッファ
-		else						{ return new CFrame2DTextBufferFaceSelect(nFaceIdx); }	// 表情/選択付きテキスト保存バッファ
-	}
-	else if (rCreateKey == "ITEM")	{ return new CFrame2DTextBufferItem; }	// アイテムテキスト保存バッファ
-
-	// 存在しない生成キーの場合エラー
-	assert(false);
-	return nullptr;
-}
-
-//============================================================
 //	テキストボックスの読込処理 (例外無視)
 //============================================================
 CFrame2DModuleText::ETextResult CFrame2DModuleText::LoadTextBoxIgnoreFail(const std::string& rFilePath, const std::string& rBoxKey)
@@ -581,9 +534,11 @@ CFrame2DModuleText::ETextResult CFrame2DModuleText::LoadText(std::ifstream* pFil
 	if (!pFile->is_open()) { assert(false); return RES_FAIL; }
 
 	// ファイルを読込
-	std::string str;			// 読込文字列
-	std::string sModuleKey;		// モジュール生成キー
-	int nFaceIdx = NONE_IDX;	// 顔インデックス
+	std::string str;				// 読込文字列
+	std::string sModuleKey;			// モジュール生成キー
+	EFont font = FONT_DEFAULT;		// フォントインデックス
+	ESound sound = SOUND_DEFAULT;	// サウンドインデックス
+	int nFaceIdx = NONE_IDX;		// 顔インデックス
 	std::string sNextPath		= rFilePath;	// 次テキストボックスの保存パス
 	std::string sNextBoxKey		= "NONE";		// 次テキストボックスの検索キー
 	std::string sStartKey		= "0";			// テキストボックスのテキスト開始キー
@@ -601,7 +556,14 @@ CFrame2DModuleText::ETextResult CFrame2DModuleText::LoadText(std::ifstream* pFil
 		{ // テキスト開始キーがあった場合
 
 			// 文字列の読込
-			CFrame2DTextBuffer* pBuffText = LoadString(pFile, sModuleKey, nFaceIdx);	// 読み込んだテキストバッファ取得
+			CFrame2DTextBuffer* pBuffText = LoadString	// 読み込んだテキストバッファ取得
+			( // 引数
+				pFile,		// ファイルポインタ
+				sModuleKey,	// モジュール生成キー
+				font,		// フォントインデックス
+				sound,		// サウンドインデックス
+				nFaceIdx	// 顔インデックス
+			);
 			if (pBuffText == nullptr)
 			{ // 生成に失敗した場合
 
@@ -654,6 +616,26 @@ CFrame2DModuleText::ETextResult CFrame2DModuleText::LoadText(std::ifstream* pFil
 			*pFile >> str;			// ＝を読込
 			*pFile >> sModuleKey;	// 生成するモジュールを読込
 		}
+		else if (str == "ALL_FONT")
+		{
+			int nCastFont = 0;		// EFont型変換
+			*pFile >> str;			// ＝を読込
+			*pFile >> nCastFont;	// フォントインデックスを読込
+
+			// 読み込んだ値をEFont型に変換
+			assert(nCastFont > NONE_IDX && nCastFont < FONT_MAX);
+			font = (EFont)nCastFont;
+		}
+		else if (str == "ALL_SOUND")
+		{
+			int nCastSound = 0;		// ESound型変換
+			*pFile >> str;			// ＝を読込
+			*pFile >> nCastSound;	// サウンドインデックスを読込
+
+			// 読み込んだ値をESound型に変換
+			assert(nCastSound > NONE_IDX && nCastSound < SOUND_MAX);
+			sound = (ESound)nCastSound;
+		}
 		else if (str == "FACE")
 		{
 			*pFile >> str;			// ＝を読込
@@ -675,7 +657,14 @@ CFrame2DModuleText::ETextResult CFrame2DModuleText::LoadText(std::ifstream* pFil
 //============================================================
 //	文字列の読込処理
 //============================================================
-CFrame2DTextBuffer* CFrame2DModuleText::LoadString(std::ifstream* pFile, const std::string& rModuleKey, const int nFaceIdx)
+CFrame2DTextBuffer* CFrame2DModuleText::LoadString
+(
+	std::ifstream* pFile,			// ファイルポインタ
+	const std::string& rModuleKey,	// モジュール生成キー
+	const EFont font,				// フォントインデックス
+	const ESound sound,				// サウンドインデックス
+	const int nFaceIdx				// 顔インデックス
+)
 {
 	// ファイルポインタがない場合抜ける
 	if (pFile == nullptr) { assert(false); return nullptr; }
@@ -689,7 +678,7 @@ CFrame2DTextBuffer* CFrame2DModuleText::LoadString(std::ifstream* pFile, const s
 
 		// テキストバッファの生成
 		assert(pBuffText == nullptr);
-		pBuffText = CreateBuffText(rModuleKey, nFaceIdx);
+		pBuffText = CreateBuffText(rModuleKey, font, sound, nFaceIdx);
 	}
 
 	// ファイルを読込
@@ -715,7 +704,7 @@ CFrame2DTextBuffer* CFrame2DModuleText::LoadString(std::ifstream* pFile, const s
 			{ // テキストバッファが未生成の場合
 
 				// テキストバッファの生成
-				pBuffText = CreateBuffText(str, nFaceIdx);
+				pBuffText = CreateBuffText(str, font, sound, nFaceIdx);
 			}
 		}
 		else if (str == "STR")
@@ -741,4 +730,71 @@ CFrame2DTextBuffer* CFrame2DModuleText::LoadString(std::ifstream* pFile, const s
 
 	// テキスト情報保存バッファを返す
 	return pBuffText;
+}
+
+//============================================================
+//	テキストバッファの生成処理
+//============================================================
+CFrame2DTextBuffer* CFrame2DModuleText::CreateBuffText
+(
+	const std::string& rModuleKey,	// モジュール生成キー
+	const EFont font,				// フォントインデックス
+	const ESound sound,				// サウンドインデックス
+	const int nFaceIdx				// 顔インデックス
+)
+{
+	// 生成キーに応じた保存バッファの生成
+	CFrame2DTextBuffer* pTextBuff = nullptr;	// テキストバッファ情報
+	if (rModuleKey == "TEXT")
+	{
+		// 顔インデックスに応じて生成変更
+		if (nFaceIdx == NONE_IDX)	{ pTextBuff = new CFrame2DTextBufferText; }					// テキスト保存バッファ
+		else						{ pTextBuff = new CFrame2DTextBufferFaceText(nFaceIdx); }	// 表情付きテキスト保存バッファ
+	}
+	else if (rModuleKey == "SELECT")
+	{
+		// 顔インデックスに応じて生成変更
+		if (nFaceIdx == NONE_IDX)	{ pTextBuff = new CFrame2DTextBufferSelect; }				// 選択付きテキスト保存バッファ
+		else						{ pTextBuff = new CFrame2DTextBufferFaceSelect(nFaceIdx); }	// 表情/選択付きテキスト保存バッファ
+	}
+	else if (rModuleKey == "ITEM")	{ pTextBuff = new CFrame2DTextBufferItem; }	// アイテムテキスト保存バッファ
+
+	if (pTextBuff != nullptr)
+	{ // 生成に成功した場合
+
+		// フォントインデックスを設定
+		pTextBuff->m_font = font;
+
+		// サウンドインデックスを設定
+		pTextBuff->m_sound = sound;
+
+		// 確保したアドレスを返す
+		return pTextBuff;
+	}
+
+	// 存在しない生成キーの場合エラー
+	assert(false);
+	return nullptr;
+}
+
+//============================================================
+//	テキストバッファ連想配列の破棄処理
+//============================================================
+void CFrame2DModuleText::ReleaseBuffText()
+{
+	// テキストが存在しない場合抜ける
+	if (m_pMapBuffText == nullptr) { return; }
+
+	for (auto& rMap : *m_pMapBuffText)
+	{ // 要素数分繰り返す
+
+		// テキストバッファの破棄
+		SAFE_DELETE(rMap.second);
+	}
+
+	// テキストバッファ連想配列をクリア
+	m_pMapBuffText->clear();
+
+	// テキストバッファ連想配列の破棄
+	SAFE_DELETE(m_pMapBuffText);
 }

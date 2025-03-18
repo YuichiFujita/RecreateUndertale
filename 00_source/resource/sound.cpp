@@ -44,6 +44,7 @@ namespace
 		SSoundInfo("data\\SE\\snd_ballchime.wav", 0),			// BALL入力効果音
 		SSoundInfo("data\\SE\\TEXT\\snd_txt1.wav", 0),			// 文字送り表示音 (インゲーム)
 		SSoundInfo("data\\SE\\TEXT\\snd_txt2.wav", 0),			// 文字送り表示音 (イントロ)
+		SSoundInfo("data\\SE\\TEXT\\snd_txttor.wav", 0),		// トリエル文字送り表示音
 	};
 }
 

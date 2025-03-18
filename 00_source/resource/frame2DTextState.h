@@ -14,6 +14,7 @@
 //	インクルードファイル
 //************************************************************
 #include "sound.h"
+#include "frame2DModuleText.h"
 
 //************************************************************
 //	前方宣言
@@ -33,20 +34,6 @@ class CFrame2DTextStateItem;		// アイテムテキスト状態クラス
 class CFrame2DTextState
 {
 public:
-	// フォント列挙
-	enum EFont
-	{
-		FONT_DEFAULT = 0,	// デフォルト
-		FONT_MAX			// この列挙型の総数
-	};
-
-	// サウンド列挙
-	enum ESound
-	{
-		SOUND_DEFAULT = 0,	// デフォルト
-		SOUND_MAX			// この列挙型の総数
-	};
-
 	// コンストラクタ
 	CFrame2DTextState();
 
@@ -69,12 +56,13 @@ public:
 	inline virtual void SetVec3Position(const VECTOR3&)	{ assert(false); }	// 位置設定
 	inline virtual void SetVec3Rotation(const VECTOR3&)	{ assert(false); }	// 向き設定
 	inline virtual void SetVec3Size(const VECTOR3&)		{ assert(false); }	// 大きさ設定
-	inline virtual void SetFontPath(const EFont /*font*/)		{}	// フォントパス設定
-	inline virtual void SetSoundLabel(const ESound /*sound*/)	{}	// サウンドラベル設定
+	inline virtual void SetFontPath(const CFrame2DModuleText::EFont /*font*/)		{}	// フォントパス設定
+	inline virtual void SetSoundLabel(const CFrame2DModuleText::ESound /*sound*/)	{}	// サウンドラベル設定
 
 	// メンバ関数
-	std::string GetFontPath(const EFont font);			 // フォントパス取得
-	CSound::ELabel GetSoundLabel(const ESound sound);	 // サウンドラベル取得
+	std::string GetFontPath(const CFrame2DModuleText::EFont font);					// フォントパス取得
+	float GetFontHeight(const CFrame2DModuleText::EFont font);						// フォント縦幅取得
+	CSound::ELabel GetSoundLabel(const CFrame2DModuleText::ESound sound);			// サウンドラベル取得
 	inline void SetContext(CFrame2DModuleText* pContext) { m_pContext = pContext; }	// コンテキスト設定
 	inline void SetCurTextKey(const std::string& rKey)	 { m_sCurTextKey = rKey; }	// テキスト検索キー設定
 	inline std::string GetCurTextKey() const			 { return m_sCurTextKey; }	// テキスト検索キー取得
@@ -89,8 +77,6 @@ protected:
 private:
 	// メンバ変数
 	std::string m_sCurTextKey;	// 割当済みテキストの検索キー
-	EFont m_font;	// フォント
-	ESound m_sound;	// サウンド
 };
 
 //************************************************************

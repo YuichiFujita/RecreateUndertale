@@ -37,6 +37,24 @@ public:
 		RES_FAIL,			// 失敗
 	};
 
+	// フォント列挙
+	enum EFont
+	{
+		FONT_DEFAULT = 0,	// デフォルト
+		FONT_TEST00,		// テスト00
+		FONT_TEST01,		// テスト01
+		FONT_MAX			// この列挙型の総数
+	};
+
+	// サウンド列挙
+	enum ESound
+	{
+		SOUND_DEFAULT = 0,	// デフォルト
+		SOUND_INTRO,		// イントロ
+		SOUND_TORIEL,		// トリエル
+		SOUND_MAX			// この列挙型の総数
+	};
+
 	// エイリアス定義
 	using AMapBuffText = std::map<std::string, CFrame2DTextBuffer*>;	// テキストバッファ連想配列型
 
@@ -89,10 +107,23 @@ public:
 
 private:
 	// メンバ関数
+	ETextResult LoadText(std::ifstream* pFile, const std::string& rFilePath);	// テキスト読込
+	CFrame2DTextBuffer* LoadString		// 文字列読込
+	( // 引数
+		std::ifstream* pFile,			// ファイルポインタ
+		const std::string& rModuleKey,	// モジュール生成キー
+		const EFont font,				// フォントインデックス
+		const ESound sound,				// サウンドインデックス
+		const int nFaceIdx				// 顔インデックス
+	);
+	CFrame2DTextBuffer* CreateBuffText	// テキストバッファ生成
+	( // 引数
+		const std::string& rModuleKey,	// モジュール生成キー
+		const EFont font,				// フォントインデックス
+		const ESound sound,				// サウンドインデックス
+		const int nFaceIdx				// 顔インデックス
+	);
 	void ReleaseBuffText();	// テキストバッファ連想配列破棄
-	CFrame2DTextBuffer* CreateBuffText(const std::string& rCreateKey, const int nFaceIdx);	// テキストバッファ生成
-	ETextResult LoadText(std::ifstream* pFile, const std::string& rFilePath);				// テキスト読込
-	CFrame2DTextBuffer* LoadString(std::ifstream* pFile, const std::string& rModuleKey, const int nFaceIdx);	// 文字列読込
 
 	// メンバ変数
 	CFrame2DTextState* m_pState;	// 状態

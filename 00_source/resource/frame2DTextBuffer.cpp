@@ -16,8 +16,8 @@
 //	コンストラクタ
 //============================================================
 CFrame2DTextBuffer::CFrame2DTextBuffer() :
-	m_font	(CFrame2DTextState::FONT_DEFAULT),	// フォント
-	m_sound	(CFrame2DTextState::SOUND_DEFAULT),	// サウンド
+	m_font	(CFrame2DModuleText::FONT_DEFAULT),		// フォント
+	m_sound	(CFrame2DModuleText::SOUND_DEFAULT),	// サウンド
 	m_sPath	(""),	// テキスト保存パス
 	m_sKey	(""),	// テキスト検索キー
 	m_text	({})	// テキスト保存
@@ -53,8 +53,8 @@ void CFrame2DTextBuffer::LoadSetup(std::ifstream* pFile, const std::string& rStr
 		*pFile >> nCastFont;	// フォントを読込
 
 		// 読み込んだ値をEFont型に変換
-		assert(nCastFont > NONE_IDX && nCastFont < CFrame2DTextState::FONT_MAX);
-		m_font = (CFrame2DTextState::EFont)nCastFont;
+		assert(nCastFont > NONE_IDX && nCastFont < CFrame2DModuleText::FONT_MAX);
+		m_font = (CFrame2DModuleText::EFont)nCastFont;
 	}
 	else if (rString == "SOUND")
 	{
@@ -63,7 +63,7 @@ void CFrame2DTextBuffer::LoadSetup(std::ifstream* pFile, const std::string& rStr
 		*pFile >> nCastSound;	// サウンドを読込
 
 		// 読み込んだ値をESound型に変換
-		assert(nCastSound > NONE_IDX && nCastSound < CFrame2DTextState::SOUND_MAX);
-		m_sound = (CFrame2DTextState::ESound)nCastSound;
+		assert(nCastSound > NONE_IDX && nCastSound < CFrame2DModuleText::SOUND_MAX);
+		m_sound = (CFrame2DModuleText::ESound)nCastSound;
 	}
 }

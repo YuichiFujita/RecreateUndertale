@@ -15,6 +15,7 @@
 //************************************************************
 #include "frame2DTextState.h"
 #include "frame2D.h"
+#include "frame2DModuleText.h"
 #include "scrollText2D.h"
 
 //************************************************************
@@ -30,7 +31,6 @@ class CFrame2DTextStateText : public CFrame2DTextState
 {
 public:
 	// 定数
-	static constexpr float CHAR_HEIGHT	= 42.0f;	// 文字縦幅
 	static constexpr float LINE_HEIGHT	= 54.0f;	// 行間縦幅
 	static constexpr float WAIT_TIME	= 0.045f;	// 文字表示の待機時間
 	
@@ -48,9 +48,9 @@ public:
 	void SetPriority(const int nPriority) override;		// 優先順位設定
 	void SetVec3Position(const VECTOR3& rPos) override;	// 位置設定
 	void SetVec3Rotation(const VECTOR3& rRot) override;	// 向き設定
-	void SetFontPath(const EFont font) override;		// フォントパス設定
-	void SetSoundLabel(const ESound sound) override;	// サウンドラベル設定
-	void BindTextBuffer(CFrame2DTextBuffer* pBuffer) override;	// テキスト情報保存バッファ割当
+	void SetFontPath(const CFrame2DModuleText::EFont font) override;		// フォントパス設定
+	void SetSoundLabel(const CFrame2DModuleText::ESound sound) override;	// サウンドラベル設定
+	void BindTextBuffer(CFrame2DTextBuffer* pBuffer) override;				// テキスト情報保存バッファ割当
 	inline CFrame2DTextStateText* GetStateText() override { return this; }	// テキスト状態取得
 
 	// メンバ関数

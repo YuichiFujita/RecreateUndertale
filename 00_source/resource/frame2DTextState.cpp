@@ -18,19 +18,29 @@ namespace
 	const char* FONT_PATH[] =	// フォントパス
 	{
 		"data\\FONT\\JFドット東雲ゴシック14.ttf",	// デフォルト
+		"data\\FONT\\玉ねぎ楷書激無料版v7改.ttf",	// テスト00
+		"data\\FONT\\零ゴシック.otf",				// テスト01
 	};
-
+	const float FONT_HEIGHT[] =	// フォント縦幅
+	{
+		42.0f,	// デフォルト
+		46.0f,	// テスト00
+		60.0f,	// テスト01
+	};
 	const CSound::ELabel SOUND_LABEL[] =	// サウンドラベル
 	{
-		CSound::LABEL_SE_TEXT00,	// デフォルト
+		CSound::LABEL_SE_TEXT00,		// デフォルト
+		CSound::LABEL_SE_TEXT01,		// イントロ
+		CSound::LABEL_SE_TEXT_TORIEL00,	// トリエル00
 	};
 }
 
 //************************************************************
 //	スタティックアサート
 //************************************************************
-static_assert(NUM_ARRAY(FONT_PATH)   == CFrame2DTextState::FONT_MAX,  "ERROR : Font Count Mismatch");
-static_assert(NUM_ARRAY(SOUND_LABEL) == CFrame2DTextState::SOUND_MAX, "ERROR : Sound Count Mismatch");
+static_assert(NUM_ARRAY(FONT_PATH)   == CFrame2DModuleText::FONT_MAX,  "ERROR : Font Count Mismatch");
+static_assert(NUM_ARRAY(FONT_HEIGHT) == CFrame2DModuleText::FONT_MAX,  "ERROR : Font Count Mismatch");
+static_assert(NUM_ARRAY(SOUND_LABEL) == CFrame2DModuleText::SOUND_MAX, "ERROR : Sound Count Mismatch");
 
 //************************************************************
 //	親クラス [CFrame2DTextState] のメンバ関数
@@ -39,10 +49,8 @@ static_assert(NUM_ARRAY(SOUND_LABEL) == CFrame2DTextState::SOUND_MAX, "ERROR : S
 //	コンストラクタ
 //============================================================
 CFrame2DTextState::CFrame2DTextState() :
-	m_pContext		(nullptr),		// コンテキスト
-	m_sCurTextKey	(""),			// 割当済みテキストの検索キー
-	m_font			(FONT_DEFAULT),	// フォント
-	m_sound			(SOUND_DEFAULT)	// サウンド
+	m_pContext		(nullptr),	// コンテキスト
+	m_sCurTextKey	("")		// 割当済みテキストの検索キー
 {
 
 }
@@ -63,13 +71,11 @@ void CFrame2DTextState::BindTextBuffer(CFrame2DTextBuffer* pBuffer)
 	// 割り当てるテキストの検索キーを保存
 	m_sCurTextKey = pBuffer->m_sKey;
 
-	// フォントを保存/割当
-	m_font = pBuffer->m_font;
-	SetFontPath(m_font);
+	// フォントを割当
+	SetFontPath(pBuffer->m_font);
 
-	// サウンドを保存/割当
-	m_sound = pBuffer->m_sound;
-	SetSoundLabel(m_sound);
+	// サウンドを割当
+	SetSoundLabel(pBuffer->m_sound);
 
 	// 相対位置の設定
 	SetPositionRelative();
@@ -78,16 +84,25 @@ void CFrame2DTextState::BindTextBuffer(CFrame2DTextBuffer* pBuffer)
 //============================================================
 //	フォントパスの取得処理
 //============================================================
-std::string CFrame2DTextState::GetFontPath(const EFont font)
+std::string CFrame2DTextState::GetFontPath(const CFrame2DModuleText::EFont font)
 {
 	// フォントパスを返す
 	return FONT_PATH[font];
 }
 
 //============================================================
+//	フォント縦幅の取得処理
+//============================================================
+float CFrame2DTextState::GetFontHeight(const CFrame2DModuleText::EFont font)
+{
+	// フォント縦幅を返す
+	return FONT_HEIGHT[font];
+}
+
+//============================================================
 //	サウンドラベルの取得処理
 //============================================================
-CSound::ELabel CFrame2DTextState::GetSoundLabel(const ESound sound)
+CSound::ELabel CFrame2DTextState::GetSoundLabel(const CFrame2DModuleText::ESound sound)
 {
 	// サウンドラベルを返す
 	return SOUND_LABEL[sound];
