@@ -23,6 +23,12 @@
 #include "loadtext.h"
 #include "frame2DModule.h"
 
+// TODO
+#include "gameState.h"
+#include "renderer.h"
+#include "effect2D.h"
+#include "effect3D.h"
+
 //************************************************************
 //	静的メンバ変数宣言
 //************************************************************
@@ -93,7 +99,7 @@ HRESULT CSceneGame::Init()
 
 #if 1
 	// TODO：プレイヤーの生成
-	if (CPlayer::Create(VECTOR3(0.0f, 0.0f, -1.0f)) == nullptr)
+	if (CPlayer::Create(VECTOR3(0.0f, 0.0f, -100.0f)) == nullptr)
 	{ // 生成に失敗した場合
 
 		assert(false);
@@ -128,11 +134,11 @@ void CSceneGame::Uninit()
 	// ゲームマネージャーの破棄
 	SAFE_REF_RELEASE(m_pGameManager);
 
-	// メニューマネージャーの破棄
-	CMenuManager::GetInstance()->Release();
-
 	// ポーズの破棄
 	SAFE_REF_RELEASE(m_pPause);
+
+	// メニューマネージャーの破棄
+	CMenuManager::GetInstance()->Release();
 
 	// ステージの破棄
 	SAFE_REF_RELEASE(m_pStage);
@@ -152,17 +158,6 @@ void CSceneGame::Update(const float fDeltaTime)
 	// ゲームマネージャーの更新
 	assert(m_pGameManager != nullptr);
 	m_pGameManager->Update(fDeltaTime);
-
-	// メニューマネージャーの更新
-	CMenuManager::GetInstance()->Update(fDeltaTime);
-
-	if (m_pGameManager->GetState() == CGameManager::STATE_NORMAL)
-	{ // ゲームが通常状態の場合
-
-		// ポーズの更新
-		assert(m_pPause != nullptr);
-		m_pPause->Update(fDeltaTime);
-	}
 
 	if (!m_pPause->IsPause())
 	{ // ポーズ中ではない場合
@@ -188,6 +183,7 @@ void CSceneGame::Update(const float fDeltaTime)
 
 	// TODO
 #if 1
+	// テキストボックステスト
 	if (GET_INPUTKEY->IsTrigger(DIK_0))
 	{
 #if 0
@@ -207,6 +203,27 @@ void CSceneGame::Update(const float fDeltaTime)
 			"0"
 		);
 	}
+	// バトルシステム遷移テスト
+	else if (GET_INPUTKEY->IsTrigger(DIK_9))
+	{
+#if 0
+		// スタート画面に遷移する
+		GET_MANAGER->SetScene(CScene::MODE_GAME);
+#else
+		m_pGameManager->ChangeState(new CGameStateEncount);
+#endif
+	}
+
+	// TODO：3D→2Dへの座標変換
+#if 0
+	VECTOR3 rot3D = GetPlayer()->GetVec3Rotation();
+	VECTOR3 pos3D = GetPlayer()->GetVec3Position();
+	VECTOR3 pos2D = useful::Position3DToPosition2D(pos3D, rot3D);
+
+	CEffect2D::Create(pos2D, 30.0f);
+	CEffect3D::Create(pos3D, 40.0f, CEffect3D::TYPE_BUBBLE);
+#endif
+
 #endif
 }
 

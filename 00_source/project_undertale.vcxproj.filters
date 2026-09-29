@@ -109,6 +109,9 @@
     <Filter Include="system\renderer">
       <UniqueIdentifier>{1d629d4f-54f1-48a0-9cff-67931db8084a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="scene\game\state">
+      <UniqueIdentifier>{e53e13ae-9f0f-45d7-a30b-f9d88677f37d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="resource\camera.cpp">
@@ -563,6 +566,21 @@
     </ClCompile>
     <ClCompile Include="resource\frame2DTextStateFaceSelect.cpp">
       <Filter>ingame\frame\module\text\state</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\gameState.cpp">
+      <Filter>scene\game\state</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\gameStateNormal.cpp">
+      <Filter>scene\game\state</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\gameStateEncount.cpp">
+      <Filter>scene\game\state</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\playerStateEncount.cpp">
+      <Filter>ingame\player\state</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\balloonEncount.cpp">
+      <Filter>ingame\player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1021,6 +1039,21 @@
     </ClInclude>
     <ClInclude Include="resource\frame2DTextStateFaceSelect.h">
       <Filter>ingame\frame\module\text\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\gameState.h">
+      <Filter>scene\game\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\gameStateNormal.h">
+      <Filter>scene\game\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\gameStateEncount.h">
+      <Filter>scene\game\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\playerStateEncount.h">
+      <Filter>ingame\player\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\balloonEncount.h">
+      <Filter>ingame\player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

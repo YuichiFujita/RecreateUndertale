@@ -859,6 +859,13 @@ namespace useful
 		float* pMaxPosY = nullptr	// 最大到達Y座標
 	);
 
+	VECTOR3 Position3DToPosition2D	// 3D座標の2D座標変換 (位置/向き/拡大率指定)
+	( // 引数
+		const VECTOR3& rPos3D,				// 位置
+		const VECTOR3& rRot3D,				// 向き
+		const VECTOR3& rScale3D = VEC3_ONE	// 拡大率
+	);
+	VECTOR3 Position3DToPosition2D(const MATRIX& rMatrix);				// 3D座標の2D座標変換 (マトリックス指定)
 	float Random(const float fMin, const float fMax, const int nDigit);	// ランダム値取得 (float型)
 	int Random(int nMin, int nMax);		// ランダム値取得 (int型)
 	float RandomRot();					// ランダム向き取得

@@ -65,7 +65,7 @@ HRESULT CSceneTitle::Init()
 	pCamera->SetState(CCamera::STATE_NONE);			// ŒÅ’èó‘Ô‚ğİ’è
 
 	// BGM‚ÌÄ¶
-	PLAY_SOUND(CSound::LABEL_BGM_GENERAL);
+	//PLAY_SOUND(CSound::LABEL_BGM_GENERAL);
 
 	return S_OK;
 }

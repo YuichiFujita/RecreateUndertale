@@ -11,6 +11,11 @@
 #define _GAMEMANAGER_H_
 
 //************************************************************
+//	前方宣言
+//************************************************************
+class CGameState;	// ゲーム状態クラス
+
+//************************************************************
 //	クラス定義
 //************************************************************
 // ゲームマネージャークラス
@@ -34,9 +39,8 @@ public:
 	// メンバ関数
 	HRESULT Init();	// 初期化
 	void Uninit();	// 終了
-	void Update(const float fDeltaTime);	// 更新
-	void SetState(const EState state);		// 状態設定
-	EState GetState() const;				// 状態取得
+	void Update(const float fDeltaTime);		// 更新
+	HRESULT ChangeState(CGameState* pState);	// 状態変更
 
 	// 静的メンバ関数
 	static CGameManager* Create();	// 生成
@@ -44,7 +48,7 @@ public:
 
 private:
 	// メンバ変数
-	EState m_state;	// 状態
+	CGameState* m_pState;	// 状態
 };
 
 #endif	// _GAMEMANAGER_H_

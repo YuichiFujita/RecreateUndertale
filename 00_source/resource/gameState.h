@@ -1,50 +1,50 @@
 //============================================================
 //
-//	プレイヤー状態ヘッダー [playerState.h]
+//	ゲーム状態ヘッダー [gameState.h]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	二重インクルード防止
 //************************************************************
-#ifndef _PLAYER_STATE_H_
-#define _PLAYER_STATE_H_
+#ifndef _GAME_STATE_H_
+#define _GAME_STATE_H_
 
 //************************************************************
 //	前方宣言
 //************************************************************
-class CPlayer;	// プレイヤークラス
+class CGameManager;	// ゲームマネージャークラス
 
 //************************************************************
 //	クラス定義
 //************************************************************
-// プレイヤー状態クラス
-class CPlayerState
+// ゲーム状態クラス
+class CGameState
 {
 public:
 	// コンストラクタ
-	CPlayerState();
+	CGameState();
 
 	// デストラクタ
-	virtual ~CPlayerState();
+	virtual ~CGameState();
 
 	// 純粋仮想関数
 	virtual HRESULT Init()	= 0;	// 初期化
 	virtual void Uninit()	= 0;	// 終了
-	virtual int Update(const float fDeltaTime) = 0;	// 更新
+	virtual void Update(const float fDeltaTime) = 0;	// 更新
 
 	// メンバ関数
-	inline void SetContext(CPlayer* pContext) { m_pContext = pContext; }	// コンテキスト設定
+	inline void SetContext(CGameManager* pContext) { m_pContext = pContext; }	// コンテキスト設定
 
 protected:
 	// メンバ変数
-	CPlayer* m_pContext;	// コンテキスト
+	CGameManager* m_pContext;	// コンテキスト
 };
 
 //************************************************************
 //	インクルードファイル
 //************************************************************
-#include "playerStateNormal.h"
-#include "playerStateEncount.h"
+#include "gameStateNormal.h"
+#include "gameStateEncount.h"
 
-#endif	// _PLAYER_STATE_H_
+#endif	// _GAME_STATE_H_

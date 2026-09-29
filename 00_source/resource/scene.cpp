@@ -59,20 +59,20 @@ void CScene::Update(const float fDeltaTime)
 {
 	CManager*		pManager	= GET_MANAGER;				// マネージャー
 	CLightManager*	pLight		= pManager->GetLight();		// ライト
-	CCamera*		pCamera		= pManager->GetCamera();	// カメラ
 	CRenderer*		pRenderer	= pManager->GetRenderer();	// レンダラー
+	CCamera*		pCamera		= pManager->GetCamera();	// カメラ
 
 	// ライトの更新
 	assert(pLight != nullptr);
 	pLight->Update(fDeltaTime);
 
-	// カメラの更新
-	assert(pCamera != nullptr);
-	pCamera->Update(fDeltaTime);
-
 	// レンダラーの更新
 	assert(pRenderer != nullptr);
 	pRenderer->Update(fDeltaTime);
+
+	// カメラの更新
+	assert(pCamera != nullptr);
+	pCamera->Update(fDeltaTime);
 }
 
 //============================================================

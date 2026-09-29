@@ -9,6 +9,7 @@
 //************************************************************
 #include "useful.h"
 #include "manager.h"
+#include "camera.h"
 #include "texture.h"
 #include <regex>
 
@@ -402,6 +403,55 @@ float useful::GetTexHeightFromAspect(const float fWidth, const int nTexIdx)
 
 	// アスペクト比から計算した縦幅を返す
 	return fWidth * aspect.y;
+}
+
+//============================================================
+//	3D座標の2D座標変換 (位置/向き/拡大率指定)
+//============================================================
+VECTOR3 useful::Position3DToPosition2D(const VECTOR3& rPos3D, const VECTOR3& rRot3D, const VECTOR3& rScale3D)
+{
+	MATRIX mtxWorld, mtxScale, mtxRot, mtxTrans;	// ワールドマトリックス/計算用マトリックス
+
+	// ワールドマトリックスの初期化
+	mtxWorld.Identity();
+
+	// 拡大率を反映
+	mtxScale.Scaling(rScale3D);
+	mtxWorld.Multiply(mtxWorld, mtxScale);
+
+	// 向きを反映
+	mtxRot.Rotation(rRot3D);
+	mtxWorld.Multiply(mtxWorld, mtxRot);
+
+	// 位置を反映
+	mtxTrans.Translation(rPos3D);
+	mtxWorld.Multiply(mtxWorld, mtxTrans);
+
+	// 3D座標を2D座標に変換し返す
+	return useful::Position3DToPosition2D(mtxWorld);
+}
+
+//============================================================
+//	3D座標の2D座標変換 (マトリックス指定)
+//============================================================
+VECTOR3 useful::Position3DToPosition2D(const MATRIX& rMatrix)
+{
+	// カメラ情報の取得
+	CCamera*		 pCamera = GET_MANAGER->GetCamera();
+	CCamera::SCamera info	 = pCamera->GetCamera();
+
+	// 3D座標を2D座標に変換し返す
+	VECTOR3 pos2D;
+	VECTOR3 pos3D;
+	D3DXVec3Project(
+		&pos2D,			// 2D座標 (返り値)
+		&pos3D,			// 3D座標 (ワールドマトリックスに位置が反映されているため原点指定)
+		&info.viewport,	// ビューポート情報
+		&info.mtxProj,	// マトリックス
+		&info.mtxView,	// プロジェクションマトリックス
+		&rMatrix		// ワールドマトリックス
+	);
+	return pos2D;
 }
 
 //============================================================
