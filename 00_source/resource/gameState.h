@@ -46,5 +46,6 @@ protected:
 //************************************************************
 #include "gameStateNormal.h"
 #include "gameStateEncount.h"
+#include "gameStateEncountBlink.h"
 
 #endif	// _GAME_STATE_H_

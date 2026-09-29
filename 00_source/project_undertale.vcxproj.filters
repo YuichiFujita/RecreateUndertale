@@ -582,6 +582,12 @@
     <ClCompile Include="resource\balloonEncount.cpp">
       <Filter>ingame\player</Filter>
     </ClCompile>
+    <ClCompile Include="resource\gameStateEncountBlink.cpp">
+      <Filter>scene\game\state</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\playerStateNone.cpp">
+      <Filter>ingame\player\state</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h">
@@ -1054,6 +1060,12 @@
     </ClInclude>
     <ClInclude Include="resource\balloonEncount.h">
       <Filter>ingame\player</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\gameStateEncountBlink.h">
+      <Filter>scene\game\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\playerStateNone.h">
+      <Filter>ingame\player\state</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

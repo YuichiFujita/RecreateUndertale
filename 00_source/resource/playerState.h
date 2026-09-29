@@ -44,6 +44,7 @@ protected:
 //************************************************************
 //	インクルードファイル
 //************************************************************
+#include "playerStateNone.h"
 #include "playerStateNormal.h"
 #include "playerStateEncount.h"
 

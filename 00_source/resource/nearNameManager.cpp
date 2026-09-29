@@ -410,7 +410,7 @@ void CNearNameManager::MoveName(const float fDeltaTime)
 	// 経過時刻の割合を計算
 	float fRate = easing::Liner(m_fCurTimeMove, 0.0f, MOVE_TIME);
 
-	// 目標への差分を計算
+	// 目標位置への差分を計算
 	VECTOR3 posDest = VECTOR3(m_fNameDestPosX, name::DEST_POSY, 0.0f);	// 目標位置
 	VECTOR3 posDiff = posDest - name::INIT_POS;					// 差分位置
 	float fHeightDiff = name::DEST_HEIGHT - name::INIT_HEIGHT;	// 差分縦幅

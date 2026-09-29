@@ -18,7 +18,7 @@
 //************************************************************
 namespace
 {
-	const float BALLOON_DISP_TIME = 1.0f;	// 吹き出しを表示し続ける時間
+	const float BALLOON_DISP_TIME = 0.65f;	// 吹き出しを表示し続ける時間
 }
 
 //************************************************************
@@ -79,13 +79,17 @@ void CGameStateEncount::Update(const float fDeltaTime)
 	if (m_fCurTime >= BALLOON_DISP_TIME)
 	{ // 待機終了した場合
 
+		CPlayer* pPlayer = CSceneGame::GetPlayer();	// プレイヤー情報
+		if (pPlayer != nullptr)
+		{
+			// プレイヤーを何もしない状態にする
+			pPlayer->ChangeState(new CPlayerStateNone);
+		}
+
 		// 待機時間を初期化
 		m_fCurTime = 0.0f;
 
-		// TODO：ソウルちかちか状態へ遷移
-#if 0
-		// フェード状態にする
-		m_pContext->ChangeState(new CGameStateFade);
-#endif
+		// ソウル点滅状態にする
+		m_pContext->ChangeState(new CGameStateEncountBlink);
 	}
 }

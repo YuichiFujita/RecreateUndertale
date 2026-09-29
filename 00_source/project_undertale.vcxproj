@@ -192,6 +192,7 @@
     <ClCompile Include="resource\gameManager.cpp" />
     <ClCompile Include="resource\gameState.cpp" />
     <ClCompile Include="resource\gameStateEncount.cpp" />
+    <ClCompile Include="resource\gameStateEncountBlink.cpp" />
     <ClCompile Include="resource\gameStateNormal.cpp" />
     <ClCompile Include="resource\gauge2D.cpp" />
     <ClCompile Include="resource\hitStop.cpp" />
@@ -255,6 +256,7 @@
     <ClCompile Include="resource\playerItem.cpp" />
     <ClCompile Include="resource\playerState.cpp" />
     <ClCompile Include="resource\playerStateEncount.cpp" />
+    <ClCompile Include="resource\playerStateNone.cpp" />
     <ClCompile Include="resource\playerStateNormal.cpp" />
     <ClCompile Include="resource\playerStatus.cpp" />
     <ClCompile Include="resource\precompile.cpp">
@@ -353,6 +355,7 @@
     <ClInclude Include="resource\gameManager.h" />
     <ClInclude Include="resource\gameState.h" />
     <ClInclude Include="resource\gameStateEncount.h" />
+    <ClInclude Include="resource\gameStateEncountBlink.h" />
     <ClInclude Include="resource\gameStateNormal.h" />
     <ClInclude Include="resource\gauge2D.h" />
     <ClInclude Include="resource\hitStop.h" />
@@ -416,6 +419,7 @@
     <ClInclude Include="resource\playerItem.h" />
     <ClInclude Include="resource\playerState.h" />
     <ClInclude Include="resource\playerStateEncount.h" />
+    <ClInclude Include="resource\playerStateNone.h" />
     <ClInclude Include="resource\playerStateNormal.h" />
     <ClInclude Include="resource\playerStatus.h" />
     <ClInclude Include="resource\precompile.h" />
