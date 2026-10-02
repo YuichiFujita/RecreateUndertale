@@ -29,8 +29,7 @@ namespace
 
 #endif	// _DEBUG
 
-	const int	PRIORITY		= 7;	// フェードの優先順位
-	const float	LEVEL_ROOMTRANS	= 2.5f;	// ルーム遷移時のフェードのα値加減量
+	const float	LEVEL_ROOMTRANS = 2.5f;	// ルーム遷移時のフェードのα値加減量
 }
 
 //************************************************************

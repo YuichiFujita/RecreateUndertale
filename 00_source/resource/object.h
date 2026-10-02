@@ -60,7 +60,7 @@ public:
 	static constexpr DWORD FVF_VERTEX_3D		= (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1);	// 頂点フォーマット [3D]
 	static constexpr DWORD FVF_VERTEX_MULTEX3D	= (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX2);	// 頂点フォーマット [MULTEX3D]
 
-	static constexpr int MAX_PRIO		= 8;	// 優先順位の総数
+	static constexpr int MAX_PRIO		= 9;	// 優先順位の総数
 	static constexpr int DEFAULT_PRIO	= 3;	// デフォルトの優先順位
 
 	// 次元列挙

@@ -39,6 +39,10 @@ public:
 	void Update(const float fDeltaTime) override;	// 更新
 
 private:
+	// メンバ関数
+	void UpdateBlink(const float fDeltaTime);	// 点滅の更新
+	bool UpdateMove(const float fDeltaTime);	// 移動の更新
+
 	// メンバ変数
 	CObject2D*	m_pSoul;		// ソウル情報
 	VECTOR3		m_posInit;		// 初期位置

@@ -12,7 +12,11 @@
 #include "sceneGame.h"
 #include "object2D.h"
 #include "object3D.h"
+#include "camera.h"
 #include "player.h"
+
+// TODO：適当仮遷移
+#include "manager.h"
 
 //************************************************************
 //	定数宣言
@@ -26,15 +30,16 @@ namespace
 	namespace soul
 	{
 		const char*		PATH		= "data\\TEXTURE\\spr_heartsmall.png";	// ソウルのテクスチャパス
-		const int		PRIORITY	= 6;									// ソウルの優先順位
+		const int		PRIO_NORMAL	= 6;									// ソウルの優先順位（通常時）
+		const int		PRIO_FADE	= 8;									// ソウルの優先順位（フェード時）
 		const VECTOR3	OFFSET		= VECTOR3(0.0f, -35.0f, 0.0f);			// ソウルのオフセット
 		const VECTOR3	SIZE		= VECTOR3(26.5f, 26.5f, 0.0f);			// ソウルの大きさ
 	}
 
 	namespace bg
 	{
-		const int		PRIORITY	= 3;									// 背景の優先順位
-		const VECTOR3	SIZE		= VECTOR3(1280.0f, 1280.0f, -50.0f);	// 背景の大きさ
+		const int		PRIORITY	= 3;								// 背景の優先順位
+		const VECTOR3	SIZE		= VECTOR3(1280.0f, 1280.0f, 0.0f);	// 背景の大きさ
 	}
 }
 
@@ -112,11 +117,21 @@ HRESULT CGameStateEncountBlink::Init()
 	m_pSoul->SetLabel(CObject::LABEL_UI);
 
 	// 優先順位を設定
-	m_pSoul->SetPriority(soul::PRIORITY);
+	m_pSoul->SetPriority(soul::PRIO_NORMAL);
 
-	// TODO：Z座標どうするか決める
+	CCamera* pCamera = GET_MANAGER->GetCamera();	// カメラ情報
+	VECTOR3  posR, posBG;							// 背景位置情報
+	if (pCamera != nullptr)
+	{
+		// カメラの注視点位置を取得
+		posR = pCamera->GetPositionR();
+
+		// TODO：Z座標どうするか決める
+		// 背景位置を設定
+		posBG = VECTOR3(posR.x, posR.y, -50.0f);
+	}
+
 	// 黒背景の生成
-	VECTOR3    posBG    = VECTOR3(posPlayer.x, posPlayer.y, -50.0f);	// 背景位置
 	CObject3D* pBlackBG = CObject3D::Create
 	( // 引数
 		posBG,			// 位置
@@ -160,49 +175,79 @@ void CGameStateEncountBlink::Update(const float fDeltaTime)
 	if (m_nNumBlink < BLINK_NUM)
 	{ // 点滅中の場合
 
-		if (m_fCurTime >= BLINK_TIME)
-		{ // 待機終了した場合
-
-			// 待機時間を初期化
-			m_fCurTime = 0.0f;
-
-			// 点滅回数の加算
-			m_nNumBlink++;
-
-			// ソウルの表示を切り替え
-			m_pSoul->SetEnableDraw(!m_pSoul->IsDraw());
-
-			if (m_nNumBlink >= BLINK_NUM)
-			{ // 点滅中の場合
-
-				CPlayer* pPlayer = CSceneGame::GetPlayer();	// プレイヤー情報
-				if (pPlayer != nullptr)
-				{
-					// プレイヤーの自動描画をOFFにする
-					pPlayer->SetEnableDraw(false);
-				}
-			}
-		}
+		// 点滅の更新
+		UpdateBlink(fDeltaTime);
 	}
 	else
 	{ // 点滅終了した場合
 
-		// TODO：ソウルの移動
-		const VECTOR3 DEST_POS = VECTOR3(60.0f, 640.0f, 0.0f);
+		// 移動の更新
+		if (UpdateMove(fDeltaTime))
+		{
+			// ソウルの優先順位を再設定し、フェードより上に描画する
+			m_pSoul->SetPriority(soul::PRIO_FADE);
 
-		// 経過時刻の割合を計算
-		float fRate = easing::Liner(m_fCurTime, 0.0f, MOVE_TIME);
-
-		// 目標位置への差分を計算
-		VECTOR3 posDiff = DEST_POS - m_posInit;
-
-		if (useful::LimitMaxNum(m_fCurTime, MOVE_TIME))
-		{ // 移動しきった場合
-
-			// TODO：ここで遷移
+			// TODO：適当仮遷移
+			// スタート画面に遷移する
+			GET_MANAGER->SetFadeScene(CScene::MODE_GAME, 0.0f, CFade::SKIP_LEVEL, CFade::DEF_LEVEL);
 		}
-
-		// ソウル位置を反映
-		m_pSoul->SetVec3Position(m_posInit + posDiff * fRate);
 	}
+}
+
+//============================================================
+//	点滅の更新処理
+//============================================================
+void CGameStateEncountBlink::UpdateBlink(const float fDeltaTime)
+{
+	// 待機中の場合抜ける
+	if (m_fCurTime < BLINK_TIME) { return; }
+
+	// 待機時間を初期化
+	m_fCurTime = 0.0f;
+
+	// 点滅回数の加算
+	m_nNumBlink++;
+
+	// ソウルの表示を切り替え
+	m_pSoul->SetEnableDraw(!m_pSoul->IsDraw());
+
+	if (m_nNumBlink >= BLINK_NUM)
+	{ // 点滅中の場合
+
+		CPlayer* pPlayer = CSceneGame::GetPlayer();	// プレイヤー情報
+		if (pPlayer != nullptr)
+		{
+			// プレイヤーの自動描画をOFFにする
+			pPlayer->SetEnableDraw(false);
+		}
+	}
+}
+
+//============================================================
+//	移動の更新処理
+//============================================================
+bool CGameStateEncountBlink::UpdateMove(const float fDeltaTime)
+{
+	// TODO：ソウルの移動
+	const VECTOR3 DEST_POS = VECTOR3(60.0f, 640.0f, 0.0f);
+
+	bool bEnd = false;	// 移動が終了しているか
+	if (useful::LimitMaxNum(m_fCurTime, MOVE_TIME))
+	{ // 移動しきった場合
+
+		// 移動終了を判定
+		bEnd = true;
+	}
+
+	// 経過時刻の割合を計算
+	float fRate = easing::Liner(m_fCurTime, 0.0f, MOVE_TIME);
+
+	// 目標位置への差分を計算
+	VECTOR3 posDiff = DEST_POS - m_posInit;
+
+	// ソウル位置を反映
+	m_pSoul->SetVec3Position(m_posInit + posDiff * fRate);
+
+	// 移動が終了しているかを返す
+	return bEnd;
 }
