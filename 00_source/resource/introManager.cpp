@@ -202,13 +202,13 @@ void CIntroManager::Update(const float fDeltaTime)
 		{ // セーブデータがある場合
 
 			// タイトル画面に遷移する
-			GET_MANAGER->SetFadeScene(CScene::MODE_TITLE, 0.0f, CFade::DEF_LEVEL, CFade::SKIP_LEVEL);
+			GET_MANAGER->SetFadeScene(CScene::EMode::MODE_TITLE, 0.0f, CFade::DEF_LEVEL, CFade::SKIP_LEVEL);
 		}
 		else
 		{ // セーブデータがない場合
 
 			// スタート画面に遷移する
-			GET_MANAGER->SetFadeScene(CScene::MODE_START, 0.0f, CFade::DEF_LEVEL, CFade::SKIP_LEVEL);
+			GET_MANAGER->SetFadeScene(CScene::EMode::MODE_START, 0.0f, CFade::DEF_LEVEL, CFade::SKIP_LEVEL);
 		}
 	}
 }

@@ -16,6 +16,7 @@
 #include "sceneStart.h"
 #include "sceneTitle.h"
 #include "sceneGame.h"
+#include "sceneBattle.h"
 
 //************************************************************
 //	親クラス [CScene] のメンバ関数
@@ -84,20 +85,24 @@ CScene* CScene::Create(EMode mode)
 	CScene* pScene = nullptr;	// シーン情報
 	switch (mode)
 	{ // モードごとの処理
-	case MODE_INTRO:
+	case EMode::MODE_INTRO:
 		pScene = new CSceneIntro(mode);
 		break;
 
-	case MODE_START:
+	case EMode::MODE_START:
 		pScene = new CSceneStart(mode);
 		break;
 
-	case MODE_TITLE:
+	case EMode::MODE_TITLE:
 		pScene = new CSceneTitle(mode);
 		break;
 
-	case MODE_GAME:
+	case EMode::MODE_GAME:
 		pScene = new CSceneGame(mode);
+		break;
+
+	case EMode::MODE_BATTLE:
+		pScene = new CSceneBattle(mode);
 		break;
 
 	default:	// 例外処理

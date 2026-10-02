@@ -158,6 +158,9 @@
     <ClCompile Include="resource\anim2D.cpp" />
     <ClCompile Include="resource\anim3D.cpp" />
     <ClCompile Include="resource\balloonEncount.cpp" />
+    <ClCompile Include="resource\battleManager.cpp" />
+    <ClCompile Include="resource\battleState.cpp" />
+    <ClCompile Include="resource\battleStateNormal.cpp" />
     <ClCompile Include="resource\camera.cpp" />
     <ClCompile Include="resource\char2D.cpp" />
     <ClCompile Include="resource\character.cpp" />
@@ -269,6 +272,7 @@
     <ClCompile Include="resource\renderTexture.cpp" />
     <ClCompile Include="resource\retention.cpp" />
     <ClCompile Include="resource\scene.cpp" />
+    <ClCompile Include="resource\sceneBattle.cpp" />
     <ClCompile Include="resource\sceneGame.cpp" />
     <ClCompile Include="resource\sceneIntro.cpp" />
     <ClCompile Include="resource\sceneStart.cpp" />
@@ -321,6 +325,9 @@
     <ClInclude Include="resource\anim2D.h" />
     <ClInclude Include="resource\anim3D.h" />
     <ClInclude Include="resource\balloonEncount.h" />
+    <ClInclude Include="resource\battleManager.h" />
+    <ClInclude Include="resource\battleState.h" />
+    <ClInclude Include="resource\battleStateNormal.h" />
     <ClInclude Include="resource\camera.h" />
     <ClInclude Include="resource\char2D.h" />
     <ClInclude Include="resource\character.h" />
@@ -430,6 +437,7 @@
     <ClInclude Include="resource\resource.h" />
     <ClInclude Include="resource\retention.h" />
     <ClInclude Include="resource\scene.h" />
+    <ClInclude Include="resource\sceneBattle.h" />
     <ClInclude Include="resource\sceneGame.h" />
     <ClInclude Include="resource\sceneIntro.h" />
     <ClInclude Include="resource\sceneStart.h" />

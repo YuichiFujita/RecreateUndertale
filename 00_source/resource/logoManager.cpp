@@ -216,7 +216,7 @@ void CLogoManager::UpdateDispTrans(const float fDeltaTime)
 			CIntroManager::SetEnableLogoSkip(true);
 
 			// ƒCƒ“ƒgƒ‰æ–Ê‚É‘JˆÚ‚·‚é
-			GET_MANAGER->SetScene(CScene::MODE_INTRO);
+			GET_MANAGER->SetScene(CScene::EMode::MODE_INTRO);
 		}
 	}
 }

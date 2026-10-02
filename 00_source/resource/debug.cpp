@@ -228,23 +228,25 @@ void CDebug::UpdateDebugControl()
 
 	switch (GET_MANAGER->GetMode())
 	{ // モードごとの処理
-	case CScene::MODE_INTRO:
+	case CScene::EMode::MODE_INTRO:
 		break;
 
-	case CScene::MODE_START:
+	case CScene::EMode::MODE_START:
 		break;
 
-	case CScene::MODE_TITLE:
+	case CScene::EMode::MODE_TITLE:
 		break;
 
-	case CScene::MODE_GAME:
+	case CScene::EMode::MODE_GAME:
 
 		// エディターモード変更
 		ChangeEditMode();
 
 		// ポーズ表示変更
 		ChangeDispPause();
+		break;
 
+	case CScene::EMode::MODE_BATTLE:
 		break;
 
 	default:
@@ -278,21 +280,23 @@ void CDebug::DrawDebugControl()
 
 	switch (GET_MANAGER->GetMode())
 	{ // モードごとの処理
-	case CScene::MODE_INTRO:
+	case CScene::EMode::MODE_INTRO:
 		break;
 
-	case CScene::MODE_START:
+	case CScene::EMode::MODE_START:
 		break;
 
-	case CScene::MODE_TITLE:
+	case CScene::EMode::MODE_TITLE:
 		break;
 
-	case CScene::MODE_GAME:
+	case CScene::EMode::MODE_GAME:
 
 		pDebugProc->Print(CDebugProc::POINT_LEFT, "[%s]：エディットモードのON/OFF\n", NAME_EDITMODE);
 		pDebugProc->Print(CDebugProc::POINT_LEFT, "[%s]：ポーズ描画のON/OFF\n", NAME_PAUSE_DISP);
 		pDebugProc->Print(CDebugProc::POINT_LEFT, "[%s]：リザルト遷移\n", NAME_RESULT_TRANS);
+		break;
 
+	case CScene::EMode::MODE_BATTLE:
 		break;
 
 	default:

@@ -459,7 +459,7 @@ void CManager::Uninit()
 	//--------------------------------------------------------
 	// TODO：内部データの書き出し　本来はセーブ時以外あんましない
 #if 1
-	if (GetMode() == CScene::MODE_GAME)
+	if (GetMode() == CScene::EMode::MODE_GAME)
 	{ // ゲームシーンの場合
 
 		CUserDataManager* pUserData = CUserDataManager::GetInstance();	// ユーザーデータ

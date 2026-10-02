@@ -278,7 +278,7 @@ void CNearNameManager::TransGame()
 	PLAY_SOUND(CSound::LABEL_SE_CYMBAL);
 
 	// ƒQ[ƒ€‰æ–Ê‚É‘JˆÚ‚·‚é
-	GET_MANAGER->SetFadeScene(CScene::MODE_GAME, 0.0f, FADE_ADDOUT, FADE_SUBIN, color::White(0.0f));
+	GET_MANAGER->SetFadeScene(CScene::EMode::MODE_GAME, 0.0f, FADE_ADDOUT, FADE_SUBIN, color::White(0.0f));
 }
 
 //============================================================

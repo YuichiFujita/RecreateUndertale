@@ -112,6 +112,12 @@
     <Filter Include="scene\game\state">
       <UniqueIdentifier>{e53e13ae-9f0f-45d7-a30b-f9d88677f37d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="scene\battle">
+      <UniqueIdentifier>{a2fb7970-dc7e-46f2-acda-dfd09bb1dae3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scene\battle\state">
+      <UniqueIdentifier>{7eee68c7-c89f-4033-9d02-4fcd4d617af5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="resource\camera.cpp">
@@ -587,6 +593,18 @@
     </ClCompile>
     <ClCompile Include="resource\playerStateNone.cpp">
       <Filter>ingame\player\state</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\battleManager.cpp">
+      <Filter>scene\battle</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\sceneBattle.cpp">
+      <Filter>scene\battle</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\battleState.cpp">
+      <Filter>scene\battle\state</Filter>
+    </ClCompile>
+    <ClCompile Include="resource\battleStateNormal.cpp">
+      <Filter>scene\battle\state</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1066,6 +1084,18 @@
     </ClInclude>
     <ClInclude Include="resource\playerStateNone.h">
       <Filter>ingame\player\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\battleManager.h">
+      <Filter>scene\battle</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\sceneBattle.h">
+      <Filter>scene\battle</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\battleStateNormal.h">
+      <Filter>scene\battle\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\battleState.h">
+      <Filter>scene\battle\state</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

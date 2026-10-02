@@ -76,7 +76,7 @@ void CUserDataManager::Uninit()
 //============================================================
 void CUserDataManager::Update(const float fDeltaTime)
 {
-	if (GET_MANAGER->GetMode() == CScene::MODE_GAME)
+	if (GET_MANAGER->GetMode() == CScene::EMode::MODE_GAME)
 	{ // ƒQ[ƒ€‰æ–Ê‚Ìê‡
 
 		// ‘ƒvƒŒƒCŽžŠÔ‚ð‰ÁŽZ

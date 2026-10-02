@@ -1,46 +1,37 @@
 //============================================================
 //
-//	ゲームマネージャーヘッダー [gameManager.h]
+//	通常状態ヘッダー [battleStateNormal.h]
 //	Author：藤田勇一
 //
 //============================================================
 //************************************************************
 //	二重インクルード防止
 //************************************************************
-#ifndef _GAMEMANAGER_H_
-#define _GAMEMANAGER_H_
+#ifndef _BATTLE_STATE_NORMAL_H_
+#define _BATTLE_STATE_NORMAL_H_
 
 //************************************************************
-//	前方宣言
+//	インクルードファイル
 //************************************************************
-class CGameState;	// ゲーム状態クラス
+#include "battleState.h"
 
 //************************************************************
 //	クラス定義
 //************************************************************
-// ゲームマネージャークラス
-class CGameManager
+// 通常状態クラス
+class CBattleStateNormal : public CBattleState
 {
 public:
 	// コンストラクタ
-	CGameManager();
+	CBattleStateNormal();
 
 	// デストラクタ
-	~CGameManager();
+	~CBattleStateNormal() override;
 
-	// メンバ関数
-	HRESULT Init();	// 初期化
-	void Uninit();	// 終了
-	void Update(const float fDeltaTime);		// 更新
-	HRESULT ChangeState(CGameState* pState);	// 状態変更
-
-	// 静的メンバ関数
-	static CGameManager* Create();	// 生成
-	static void Release(CGameManager*& prGameManager);	// 破棄
-
-private:
-	// メンバ変数
-	CGameState* m_pState;	// 状態
+	// オーバーライド関数
+	HRESULT Init() override;	// 初期化
+	void Uninit() override;		// 終了
+	void Update(const float fDeltaTime) override;	// 更新
 };
 
-#endif	// _GAMEMANAGER_H_
+#endif	// _BATTLE_STATE_NORMAL_H_

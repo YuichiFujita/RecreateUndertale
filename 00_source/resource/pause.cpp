@@ -358,13 +358,13 @@ void CPause::Select()
 		case SELECT_RETRY:	// リトライ
 
 			// ゲーム画面に遷移
-			GET_MANAGER->SetFadeScene(CScene::MODE_GAME);
+			GET_MANAGER->SetFadeScene(CScene::EMode::MODE_GAME);
 			break;
 
 		case SELECT_EXIT:	// 終了
 
 			// タイトル画面に遷移
-			GET_MANAGER->SetFadeScene(CScene::MODE_TITLE);
+			GET_MANAGER->SetFadeScene(CScene::EMode::MODE_TITLE);
 			break;
 		}
 	}

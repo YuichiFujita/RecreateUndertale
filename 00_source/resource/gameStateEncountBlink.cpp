@@ -189,7 +189,7 @@ void CGameStateEncountBlink::Update(const float fDeltaTime)
 
 			// TODO：適当仮遷移
 			// スタート画面に遷移する
-			GET_MANAGER->SetFadeScene(CScene::MODE_GAME, 0.0f, CFade::SKIP_LEVEL, CFade::DEF_LEVEL);
+			GET_MANAGER->SetFadeScene(CScene::EMode::MODE_BATTLE, 0.0f, CFade::SKIP_LEVEL, CFade::DEF_LEVEL);
 		}
 	}
 }

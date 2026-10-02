@@ -208,7 +208,7 @@ void CSceneGame::Update(const float fDeltaTime)
 	{
 #if 0
 		// スタート画面に遷移する
-		GET_MANAGER->SetScene(CScene::MODE_GAME);
+		GET_MANAGER->SetScene(CScene::EMode::MODE_GAME);
 #else
 		m_pGameManager->ChangeState(new CGameStateEncount);
 #endif
