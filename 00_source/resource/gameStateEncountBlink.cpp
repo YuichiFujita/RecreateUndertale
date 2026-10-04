@@ -229,7 +229,7 @@ void CGameStateEncountBlink::UpdateBlink(const float fDeltaTime)
 bool CGameStateEncountBlink::UpdateMove(const float fDeltaTime)
 {
 	// TODO：ソウルの移動
-	const VECTOR3 DEST_POS = VECTOR3(60.0f, 640.0f, 0.0f);
+	const VECTOR3 DEST_POS = VECTOR3(72.0f, 680.0f, 0.0f);
 
 	bool bEnd = false;	// 移動が終了しているか
 	if (useful::LimitMaxNum(m_fCurTime, MOVE_TIME))

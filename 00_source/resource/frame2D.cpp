@@ -18,19 +18,26 @@ namespace
 {
 	const VECTOR3 FRAME_POS[] =		// フレーム位置プリセット
 	{
-		VECTOR3(SCREEN_CENT.x, 594.0f, 0.0f)	// 下部配置
+		VECTOR3(SCREEN_CENT.x, 594.0f, 0.0f),	// 下部配置
+		VECTOR3(SCREEN_CENT.x, 480.0f, 0.0f),	// 戦闘時のテキスト表示配置
 	};
 	const VECTOR3 FRAME_ROT[] =		// フレーム向きプリセット
 	{
-		VEC3_ZERO	// 下部配置
+		VEC3_ZERO,	// 下部配置
+		VEC3_ZERO,	// 戦闘時のテキスト表示配置
 	};
 	const VECTOR3 FRAME_SIZE[] =	// フレーム大きさプリセット
 	{
-		VECTOR3(850.0f, 210.0f, 0.0f)	// 下部配置
+		VECTOR3(850.0f, 210.0f, 0.0f),	// 下部配置
+		VECTOR3(850.0f, 190.0f, 0.0f),	// 戦闘時のテキスト表示配置
+	};
+	const float	BORD_THICK[] =	// 縁取り太さ
+	{
+		18.0f,	// 下部配置
+		14.0f,	// 戦闘時のテキスト表示配置
 	};
 	const COLOR	COL_FRAME[]	= { color::White(), color::Black() };	// フレーム色
-	const int	PRIORITY	= 6;		// フレーム2Dの優先順位
-	const float	BORD_THICK	= 18.0f;	// 縁取り太さ
+	const int	PRIORITY	= 6;	// フレーム2Dの優先順位
 }
 
 //************************************************************
@@ -39,6 +46,7 @@ namespace
 static_assert(NUM_ARRAY(FRAME_POS)  == CFrame2D::PRESET_MAX, "ERROR : Preset Count Mismatch");
 static_assert(NUM_ARRAY(FRAME_ROT)  == CFrame2D::PRESET_MAX, "ERROR : Preset Count Mismatch");
 static_assert(NUM_ARRAY(FRAME_SIZE) == CFrame2D::PRESET_MAX, "ERROR : Preset Count Mismatch");
+static_assert(NUM_ARRAY(BORD_THICK) == CFrame2D::PRESET_MAX, "ERROR : Preset Count Mismatch");
 
 //************************************************************
 //	子クラス [CFrame2D] のメンバ関数
@@ -236,20 +244,14 @@ void CFrame2D::SetVec3Size(const VECTOR3& rSize)
 	// 自身の大きさを設定
 	m_size = rSize;
 
+	// 縁取りの太さを設定
+	SetBordThick(m_fBordThick);
+
 	if (m_pModule != nullptr)
 	{ // 機能が割り当てられている場合
 
 		// 機能の大きさを設定
 		m_pModule->SetVec3Size(rSize);
-	}
-
-	for (int i = 0; i < POLYGON_MAX; i++)
-	{ // ポリゴンの総数分繰り返す
-
-		// フレームの大きさを設定
-		VECTOR3 bord = VECTOR3(BORD_THICK, BORD_THICK, 0.0f);	// 縁取り太さ
-		float fCalcScale = (-1.0f * (i - 1));					// 大きさ調整値
-		m_apFrame[i]->SetVec3Size(rSize + fCalcScale * bord);	// 大きさ設定
 	}
 }
 
@@ -266,7 +268,8 @@ CFrame2D* CFrame2D::Create(const EPreset preset)
 	( // 引数
 		FRAME_POS[preset],	// 位置
 		FRAME_ROT[preset],	// 向き
-		FRAME_SIZE[preset]	// 大きさ
+		FRAME_SIZE[preset],	// 大きさ
+		BORD_THICK[preset]	// 縁取りの太さ
 	);
 	if (pFrame2D == nullptr)
 	{ // 生成に失敗した場合
@@ -288,7 +291,8 @@ CFrame2D* CFrame2D::Create
 (
 	const VECTOR3& rPos,	// 位置
 	const VECTOR3& rRot,	// 向き
-	const VECTOR3& rSize	// 大きさ
+	const VECTOR3& rSize,	// 大きさ
+	const float fBordThick	// 縁取りの太さ
 )
 {
 	// フレーム2Dの生成
@@ -318,6 +322,9 @@ CFrame2D* CFrame2D::Create
 
 		// 大きさを設定
 		pFrame2D->SetVec3Size(rSize);
+
+		// 縁取りの太さを設定
+		pFrame2D->SetBordThick(fBordThick);
 
 		// 確保したアドレスを返す
 		return pFrame2D;
@@ -367,6 +374,30 @@ void CFrame2D::SetPreset(const EPreset preset)
 	// 大きさを設定
 	SetVec3Size(FRAME_SIZE[preset]);
 
+	// 縁取りの太さを設定
+	SetBordThick(BORD_THICK[preset]);
+
 	// 配置プリセットの保存
 	m_preset = preset;
+}
+
+//============================================================
+//	縁取りの太さの設定処理
+//============================================================
+void CFrame2D::SetBordThick(const float fBordThick)
+{
+	// 配置プリセットの初期化
+	m_preset = PRESET_NONE;
+
+	// 自身の縁取りの太さを設定
+	m_fBordThick = fBordThick;
+
+	for (int i = 0; i < POLYGON_MAX; i++)
+	{ // ポリゴンの総数分繰り返す
+
+		// フレームの大きさを設定
+		VECTOR3 bord = VECTOR2(fBordThick);						// 縁取り太さ
+		float fCalcScale = (-1.0f * (i - 1));					// 大きさ調整値
+		m_apFrame[i]->SetVec3Size(m_size + fCalcScale * bord);	// 大きさ設定
+	}
 }

@@ -33,6 +33,7 @@ public:
 	{
 		PRESET_NONE = -1,	// 指定無し
 		PRESET_DOWN,		// 下部配置
+		PRESET_BATTLE_TEXT,	// 戦闘時のテキスト表示配置
 		PRESET_MAX			// この列挙型の総数
 	};
 
@@ -61,12 +62,14 @@ public:
 	( // 引数
 		const VECTOR3& rPos,	// 位置
 		const VECTOR3& rRot,	// 向き
-		const VECTOR3& rSize	// 大きさ
+		const VECTOR3& rSize,	// 大きさ
+		const float fBordThick	// 縁取りの太さ
 	);
 
 	// メンバ関数
 	HRESULT ChangeModule(CFrame2DModule* pModule);	// 機能変更
 	void SetPreset(const EPreset preset);			// 配置プリセット設定
+	void SetBordThick(const float fBordThick);		// 縁取りの太さ設定
 	inline void InitModule()				 { m_pModule = nullptr; }	// 機能初期化
 	inline CFrame2DModule* GetModule() const { return m_pModule; }		// 機能取得
 	inline EPreset GetPreset() const		 { return m_preset; }		// 配置プリセット取得
@@ -84,12 +87,13 @@ private:
 	inline void Release() override { CObject::Release(); }	// 破棄
 
 	// メンバ変数
-	CObject2D* m_apFrame[POLYGON_MAX];	// フレーム情報
-	CFrame2DModule* m_pModule;	// 機能
-	VECTOR3 m_pos;		// 位置
-	VECTOR3 m_rot;		// 向き
-	VECTOR3 m_size;		// 大きさ
-	EPreset m_preset;	// 配置プリセット
+	CObject2D*		m_apFrame[POLYGON_MAX];	// フレーム情報
+	CFrame2DModule*	m_pModule;	// 機能
+	VECTOR3	m_pos;				// 位置
+	VECTOR3	m_rot;				// 向き
+	VECTOR3	m_size;				// 大きさ
+	float	m_fBordThick;		// 縁取りの太さ
+	EPreset	m_preset;			// 配置プリセット
 };
 
 #endif	// _FRAME2D_H_

@@ -25,6 +25,7 @@ namespace
 			const float OFFSET_X[] =	// テキストオフセットプリセット
 			{
 				-154.0f,	// 下部配置
+				-154.0f,	// 戦闘時のテキスト表示配置
 			};
 		}
 		namespace R
@@ -32,6 +33,7 @@ namespace
 			const float OFFSET_X[] =	// テキストオフセットプリセット
 			{
 				154.0f,		// 下部配置
+				154.0f,		// 戦闘時のテキスト表示配置
 			};
 		}
 
@@ -55,6 +57,7 @@ namespace
 CFrame2DTextStateSelect::AFuncOffset CFrame2DTextStateSelect::m_aFuncOffset[][SELECT_MAX] =	// オフセット取得関数リスト
 {
 	{ &CFrame2DTextStateSelect::GetOffsetDownLeft, &CFrame2DTextStateSelect::GetOffsetDownRight },	// 下部配置オフセット
+	{ &CFrame2DTextStateSelect::GetOffsetDownLeft, &CFrame2DTextStateSelect::GetOffsetDownRight },	// 戦闘時のテキスト表示配置オフセット
 };
 
 //************************************************************

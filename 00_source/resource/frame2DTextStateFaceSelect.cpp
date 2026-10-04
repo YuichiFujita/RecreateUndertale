@@ -21,7 +21,8 @@ namespace
 	{
 		const VECTOR3 OFFSET[] =	// テキストオフセットプリセット
 		{
-			VECTOR3(-238.0f, -80.0f, 0.0f)	// 下部配置
+			VECTOR3(-238.0f, -80.0f, 0.0f),	// 下部配置
+			VECTOR3(-238.0f, -75.0f, 0.0f),	// 戦闘時のテキスト表示配置
 		};
 	}
 
@@ -32,6 +33,7 @@ namespace
 			const float OFFSET_X[] =	// テキストオフセットプリセット
 			{
 				-102.0f,	// 下部配置
+				-102.0f,	// 戦闘時のテキスト表示配置
 			};
 		}
 		namespace R
@@ -39,6 +41,7 @@ namespace
 			const float OFFSET_X[] =	// テキストオフセットプリセット
 			{
 				192.0f,		// 下部配置
+				192.0f,		// 戦闘時のテキスト表示配置
 			};
 		}
 	}
@@ -47,7 +50,8 @@ namespace
 	{
 		const VECTOR3 OFFSET[] =	// 表情オフセットプリセット
 		{
-			VECTOR3(-329.0f, 0.0f, 0.0f)	// 下部配置
+			VECTOR3(-329.0f, 0.0f, 0.0f),	// 下部配置
+			VECTOR3(-329.0f, 0.0f, 0.0f),	// 戦闘時のテキスト表示配置
 		};
 	}
 }

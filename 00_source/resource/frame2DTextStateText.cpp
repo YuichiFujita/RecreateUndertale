@@ -20,7 +20,8 @@ namespace
 	{
 		const VECTOR3 OFFSET[] =	// テキストオフセットプリセット
 		{
-			VECTOR3(-410.0f, -80.0f, 0.0f)	// 下部配置
+			VECTOR3(-410.0f, -80.0f, 0.0f),	// 下部配置
+			VECTOR3(-410.0f, -75.0f, 0.0f),	// 戦闘時のテキスト表示配置
 		};
 		const char*	FONT = "data\\FONT\\JFドット東雲ゴシック14.ttf";	// フォントパス
 		const bool	ITALIC		= false;		// イタリック

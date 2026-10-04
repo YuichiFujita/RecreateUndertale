@@ -26,9 +26,10 @@ namespace
 
 	namespace frame
 	{
-		const VECTOR3 POS	= VECTOR3(155.0f, 160.0f, 0.0f);	// フレーム位置
-		const VECTOR3 ROT	= VEC3_ZERO;						// フレーム向き
-		const VECTOR3 SIZE	= VECTOR3(200.0f, 145.0f, 0.0f);	// フレーム大きさ
+		const VECTOR3	POS			= VECTOR3(155.0f, 160.0f, 0.0f);	// フレーム位置
+		const VECTOR3	ROT			= VEC3_ZERO;						// フレーム向き
+		const VECTOR3	SIZE		= VECTOR3(200.0f, 145.0f, 0.0f);	// フレーム大きさ
+		const float		BORD_THICK	= 18.0f;							// フレーム縁取り太さ
 	}
 
 	namespace name
@@ -112,9 +113,10 @@ HRESULT CMenuStatusUI::Init()
 	// フレームの生成
 	m_pFrame = CFrame2D::Create
 	( // 引数
-		frame::POS,	// 位置
-		frame::ROT,	// 向き
-		frame::SIZE	// 大きさ
+		frame::POS,			// 位置
+		frame::ROT,			// 向き
+		frame::SIZE,		// 大きさ
+		frame::BORD_THICK	// 縁取りの太さ
 	);
 	if (m_pFrame == nullptr)
 	{ // 生成に失敗した場合
