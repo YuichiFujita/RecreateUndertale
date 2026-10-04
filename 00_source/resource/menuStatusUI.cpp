@@ -46,7 +46,7 @@ namespace
 
 	namespace status
 	{
-		const char*	FONT = "data\\FONT\\Crypt of Tomorrow.ttf";	// フォントパス7
+		const char*	FONT = "data\\FONT\\Crypt of Tomorrow.ttf";	// フォントパス
 		const char*	PATH = "data\\TXT\\TEXT\\menu.txt";	// テキストパス
 		const bool	ITALIC		= false;	// イタリック
 		const float	CHAR_HEIGHT	= 22.0f;	// 文字縦幅

@@ -29,7 +29,7 @@ namespace
 	const VECTOR3 FRAME_SIZE[] =	// フレーム大きさプリセット
 	{
 		VECTOR3(850.0f, 210.0f, 0.0f),	// 下部配置
-		VECTOR3(850.0f, 190.0f, 0.0f),	// 戦闘時のテキスト表示配置
+		VECTOR3(850.0f, 194.0f, 0.0f),	// 戦闘時のテキスト表示配置
 	};
 	const float	BORD_THICK[] =	// 縁取り太さ
 	{
