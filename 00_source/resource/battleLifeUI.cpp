@@ -342,7 +342,7 @@ void CBattleLifeUI::SetMaxHpGaugeSize(const int nMaxHp)
 	const VECTOR3 size = VECTOR3(nMaxHp * gauge::RATE_SIZE_X, gauge::SIZE_Y, 0.0f);
 
 	// ゲージの大きさ設定
-	m_pGauge->SetSizeGauge(size);
+	m_pGauge->SetVec3Size(size);
 
 	// 相対位置の設定
 	SetPositionRelative();
@@ -381,7 +381,7 @@ void CBattleLifeUI::SetPositionRelative()
 
 		// -- オフセットを計算
 		// ※ HPの大きさ分ずらす。ゲージの原点が中央のため、大きさの半分をずらす。
-		offset.x += m_pHp->GetVec3Size().x + m_pGauge->GetSizeGauge().x;
+		offset.x += m_pHp->GetVec3Size().x + m_pGauge->GetVec3Size().x;
 
 		// X座標オフセット分ずらす
 		pos.x += sinf(m_rot.z + HALF_PI) * offset.x;
@@ -402,7 +402,7 @@ void CBattleLifeUI::SetPositionRelative()
 
 		// -- オフセットを計算
 		// ※ HPとHPゲージの大きさ分ずらす。
-		offset.x += m_pHp->GetVec3Size().x + m_pGauge->GetSizeGauge().x * 2.0f;
+		offset.x += m_pHp->GetVec3Size().x + m_pGauge->GetVec3Size().x * 2.0f;
 
 		// X座標オフセット分ずらす
 		pos.x += sinf(m_rot.z + HALF_PI) * offset.x;

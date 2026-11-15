@@ -31,9 +31,7 @@ CGauge2D::CGauge2D(const int nFrame) : CObject(CObject::LABEL_UI, CObject::DIM_2
 	m_nFrame			(nFrame),			// 表示値の変動フレーム定数
 	m_pVtxBuff			(nullptr),			// 頂点バッファへのポインタ
 	m_pos				(VEC3_ZERO),		// 位置
-	m_offsetFrame		(VEC3_ZERO),		// 枠オフセット
-	m_sizeGauge			(VEC3_ZERO),		// ゲージ大きさ
-	m_sizeFrame			(VEC3_ZERO),		// 枠大きさ
+	m_size				(VEC3_ZERO),		// 大きさ
 	m_colFront			(color::White()),	// 表ゲージ色
 	m_colBack			(color::White()),	// 裏ゲージ色
 	m_state				(STATE_NONE),		// 状態
@@ -42,8 +40,7 @@ CGauge2D::CGauge2D(const int nFrame) : CObject(CObject::LABEL_UI, CObject::DIM_2
 	m_fAddRight			(0.0f),				// 横幅加算量
 	m_nCounterState		(0),				// 状態管理カウンター
 	m_nMaxNumGauge		(0),				// 表示値の最大値
-	m_fCurrentNumGauge	(0.0f),				// 現在表示値
-	m_bDrawFrame		(false)				// 枠表示状況
+	m_fCurrentNumGauge	(0.0f)				// 現在表示値
 {
 	// メンバ変数をクリア
 	memset(&m_aTextureIdx[0], 0, sizeof(m_aTextureIdx));	// テクスチャインデックス
@@ -67,9 +64,7 @@ HRESULT CGauge2D::Init()
 	// メンバ変数を初期化
 	m_pVtxBuff			= nullptr;			// 頂点バッファへのポインタ
 	m_pos				= VEC3_ZERO;		// 位置
-	m_offsetFrame		= VEC3_ZERO;		// 枠オフセット
-	m_sizeGauge			= VEC3_ZERO;		// ゲージ大きさ
-	m_sizeFrame			= VEC3_ZERO;		// 枠大きさ
+	m_size				= VEC3_ZERO;		// 大きさ
 	m_colFront			= color::White();	// 表ゲージ色
 	m_colBack			= color::White();	// 裏ゲージ色
 	m_state				= STATE_NONE;		// 状態
@@ -79,7 +74,6 @@ HRESULT CGauge2D::Init()
 	m_nCounterState		= 0;				// 状態管理カウンター
 	m_nMaxNumGauge		= 0;				// 表示値の最大値
 	m_fCurrentNumGauge	= 0.0f;				// 現在表示値
-	m_bDrawFrame		= false;			// 枠表示状況
 
 	for (int nCntTexture = 0; nCntTexture < POLYGON_MAX; nCntTexture++)
 	{ // 使用する四角形ポリゴン数分繰り返す
@@ -141,7 +135,7 @@ void CGauge2D::Update(const float fDeltaTime)
 		useful::LimitNum(m_fCurrentNumGauge, 0.0f, (float)m_nMaxNumGauge);
 
 		// ゲージの横幅加算量を設定
-		m_fAddRight = (m_fCurrentNumGauge * ((m_sizeGauge.x * 2.0f) / (float)m_nMaxNumGauge)) - m_sizeGauge.x;
+		m_fAddRight = (m_fCurrentNumGauge * ((m_size.x * 2.0f) / (float)m_nMaxNumGauge)) - m_size.x;
 
 		// 頂点情報の設定
 		SetVtx();
@@ -171,28 +165,11 @@ void CGauge2D::Draw(CShader* /*pShader*/)
 	for (int nCntGauge = 0; nCntGauge < POLYGON_MAX; nCntGauge++)
 	{ // 使用する四角形ポリゴン数分繰り返す
 
-		if (nCntGauge == POLYGON_FRAME)
-		{ // 描画する四角形ポリゴンが枠の場合
-
-			if (m_bDrawFrame)
-			{ // 枠を表示する場合
-
-				// テクスチャの設定
-				pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_aTextureIdx[nCntGauge]));
-
-				// ポリゴンの描画
-				pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, nCntGauge * 4, 2);
-			}
-		}
-		else
-		{ // 描画する四角形ポリゴンが枠以外の場合
-
-			// テクスチャの設定
-			pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_aTextureIdx[nCntGauge]));
-
-			// ポリゴンの描画
-			pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, nCntGauge * 4, 2);
-		}
+		// テクスチャの設定
+		pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_aTextureIdx[nCntGauge]));
+		
+		// ポリゴンの描画
+		pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, nCntGauge * 4, 2);
 	}
 }
 
@@ -209,6 +186,21 @@ void CGauge2D::SetVec3Position(const VECTOR3& rPos)
 }
 
 //============================================================
+//	大きさの設定処理
+//============================================================
+void CGauge2D::SetVec3Size(const VECTOR3& rSize)
+{
+	// 引数の大きさを設定
+	m_size = rSize;
+
+	// ゲージの設定
+	SetNum(m_nNumGauge);
+
+	// 頂点情報の設定
+	SetVtx();
+}
+
+//============================================================
 //	生成処理
 //============================================================
 CGauge2D* CGauge2D::Create
@@ -216,13 +208,9 @@ CGauge2D* CGauge2D::Create
 	const int nMax,				// 最大表示値
 	const int nFrame,			// 表示値変動フレーム
 	const VECTOR3& rPos,		// 位置
-	const VECTOR3& rSizeGauge,	// ゲージ大きさ
+	const VECTOR3& rSize,		// 大きさ
 	const COLOR& rColFront,		// 表ゲージ色
-	const COLOR& rColBack,		// 裏ゲージ色
-	const bool bDrawFrame,		// 枠描画状況
-	const char* pPathTex,		// フレームテクスチャパス
-	const VECTOR3& rSizeFrame,	// 枠大きさ
-	const VECTOR3& rOffsetFrame	// 枠オフセット
+	const COLOR& rColBack		// 裏ゲージ色
 )
 {
 	// ゲージ2Dの生成
@@ -244,28 +232,18 @@ CGauge2D* CGauge2D::Create
 			return nullptr;
 		}
 
-		// テクスチャを登録・割当
-		pGauge2D->BindTexture(POLYGON_FRAME, pPathTex);
-
 		// ゲージ最大値を設定
 		pGauge2D->SetMaxNum(nMax);
 
 		// 位置を設定
 		pGauge2D->SetVec3Position(rPos);
 
-		// オフセットを設定
-		pGauge2D->SetOffsetFrame(rOffsetFrame);
-
 		// 大きさを設定
-		pGauge2D->SetSizeGauge(rSizeGauge);	// ゲージ大きさ
-		pGauge2D->SetSizeFrame(rSizeFrame);	// 枠大きさ
+		pGauge2D->SetVec3Size(rSize);
 
 		// 色を設定
 		pGauge2D->SetColorFront(rColFront);	// 表ゲージ色
 		pGauge2D->SetColorBack(rColBack);	// 裏ゲージ色
-
-		// 枠の表示状況を設定
-		pGauge2D->SetEnableDrawFrame(bDrawFrame);
 
 		// 確保したアドレスを返す
 		return pGauge2D;
@@ -366,7 +344,7 @@ void CGauge2D::SetNum(const int nNum)
 	m_nCounterState = 0;	// 状態管理カウンター
 
 	// ゲージの横幅加算量を設定
-	m_fAddRight = (m_fCurrentNumGauge * ((m_sizeGauge.x * 2.0f) / (float)m_nMaxNumGauge)) - m_sizeGauge.x;
+	m_fAddRight = (m_fCurrentNumGauge * ((m_size.x * 2.0f) / (float)m_nMaxNumGauge)) - m_size.x;
 
 	// 頂点情報の設定
 	SetVtx();
@@ -382,45 +360,6 @@ void CGauge2D::SetMaxNum(const int nMax)
 
 	// ゲージの設定
 	SetNum(m_nMaxNumGauge);
-}
-
-//============================================================
-//	枠オフセットの設定処理
-//============================================================
-void CGauge2D::SetOffsetFrame(const VECTOR3& rOffset)
-{
-	// 引数の枠オフセットを代入
-	m_offsetFrame = rOffset;
-
-	// 頂点情報の設定
-	SetVtx();
-}
-
-//============================================================
-//	ゲージ大きさの設定処理
-//============================================================
-void CGauge2D::SetSizeGauge(const VECTOR3& rSize)
-{
-	// 引数のゲージ大きさを代入
-	m_sizeGauge = rSize;
-
-	// ゲージの設定
-	SetNum(m_nNumGauge);
-
-	// 頂点情報の設定
-	SetVtx();
-}
-
-//============================================================
-//	背景大きさの設定処理
-//============================================================
-void CGauge2D::SetSizeFrame(const VECTOR3& rSize)
-{
-	// 引数の背景大きさを代入
-	m_sizeFrame = rSize;
-
-	// 頂点情報の設定
-	SetVtx();
 }
 
 //============================================================
@@ -472,15 +411,6 @@ void CGauge2D::SetColorBack(const COLOR& rCol)
 }
 
 //============================================================
-//	枠表示状況設定処理
-//============================================================
-void CGauge2D::SetEnableDrawFrame(const bool bDraw)
-{
-	// 引数の枠の表示状況を設定
-	m_bDrawFrame = bDraw;
-}
-
-//============================================================
 //	頂点情報の設定処理
 //============================================================
 void CGauge2D::SetVtx()
@@ -500,10 +430,10 @@ void CGauge2D::SetVtx()
 			case POLYGON_BACK:	// 背景
 
 				// 頂点座標を設定
-				pVtx[0].pos = VECTOR3(m_pos.x - m_sizeGauge.x, m_pos.y - m_sizeGauge.y, 0.0f);
-				pVtx[1].pos = VECTOR3(m_pos.x + m_sizeGauge.x, m_pos.y - m_sizeGauge.y, 0.0f);
-				pVtx[2].pos = VECTOR3(m_pos.x - m_sizeGauge.x, m_pos.y + m_sizeGauge.y, 0.0f);
-				pVtx[3].pos = VECTOR3(m_pos.x + m_sizeGauge.x, m_pos.y + m_sizeGauge.y, 0.0f);
+				pVtx[0].pos = VECTOR3(m_pos.x - m_size.x, m_pos.y - m_size.y, 0.0f);
+				pVtx[1].pos = VECTOR3(m_pos.x + m_size.x, m_pos.y - m_size.y, 0.0f);
+				pVtx[2].pos = VECTOR3(m_pos.x - m_size.x, m_pos.y + m_size.y, 0.0f);
+				pVtx[3].pos = VECTOR3(m_pos.x + m_size.x, m_pos.y + m_size.y, 0.0f);
 
 				// 頂点カラーの設定
 				pVtx[0].col = m_colBack;
@@ -516,32 +446,16 @@ void CGauge2D::SetVtx()
 			case POLYGON_FRONT:	// ゲージ
 
 				// 頂点座標を設定
-				pVtx[0].pos = VECTOR3(m_pos.x - m_sizeGauge.x, m_pos.y - m_sizeGauge.y, 0.0f);
-				pVtx[1].pos = VECTOR3(m_pos.x + m_fAddRight,   m_pos.y - m_sizeGauge.y, 0.0f);
-				pVtx[2].pos = VECTOR3(m_pos.x - m_sizeGauge.x, m_pos.y + m_sizeGauge.y, 0.0f);
-				pVtx[3].pos = VECTOR3(m_pos.x + m_fAddRight,   m_pos.y + m_sizeGauge.y, 0.0f);
+				pVtx[0].pos = VECTOR3(m_pos.x - m_size.x,    m_pos.y - m_size.y, 0.0f);
+				pVtx[1].pos = VECTOR3(m_pos.x + m_fAddRight, m_pos.y - m_size.y, 0.0f);
+				pVtx[2].pos = VECTOR3(m_pos.x - m_size.x,    m_pos.y + m_size.y, 0.0f);
+				pVtx[3].pos = VECTOR3(m_pos.x + m_fAddRight, m_pos.y + m_size.y, 0.0f);
 
 				// 頂点カラーの設定
 				pVtx[0].col = m_colFront;
 				pVtx[1].col = m_colFront;
 				pVtx[2].col = m_colFront;
 				pVtx[3].col = m_colFront;
-
-				break;
-
-			case POLYGON_FRAME:	// 枠
-
-				// 頂点座標を設定
-				pVtx[0].pos = VECTOR3(m_pos.x + m_offsetFrame.x - m_sizeFrame.x, m_pos.y + m_offsetFrame.y - m_sizeFrame.y, 0.0f);
-				pVtx[1].pos = VECTOR3(m_pos.x + m_offsetFrame.x + m_sizeFrame.x, m_pos.y + m_offsetFrame.y - m_sizeFrame.y, 0.0f);
-				pVtx[2].pos = VECTOR3(m_pos.x + m_offsetFrame.x - m_sizeFrame.x, m_pos.y + m_offsetFrame.y + m_sizeFrame.y, 0.0f);
-				pVtx[3].pos = VECTOR3(m_pos.x + m_offsetFrame.x + m_sizeFrame.x, m_pos.y + m_offsetFrame.y + m_sizeFrame.y, 0.0f);
-
-				// 頂点カラーの設定
-				pVtx[0].col = color::White();
-				pVtx[1].col = color::White();
-				pVtx[2].col = color::White();
-				pVtx[3].col = color::White();
 
 				break;
 
