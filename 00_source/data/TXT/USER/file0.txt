@@ -8,9 +8,9 @@
 #	ステータス情報
 #------------------------------------------------------------------------------
 STATUSSET
-	NAME 		= ああああああ
+	NAME 		= ああああ
 	LOVE 		= 1
-	HP 			= 20
+	HP 			= 10
 	MAX_HP 		= 20
 	EXP			= 0
 	WPN_ITEMIDX	= 0
@@ -43,5 +43,5 @@ END_ITEMBOXSET
 USERSET
 	ROOM	 = 0
 	FUN		 = 0
-	PLAYTIME = 7.5330
+	PLAYTIME = 15.8779
 END_USERSET
