@@ -33,6 +33,8 @@ CObject2D::CObject2D(const CObject::ELabel label, const CObject::EDim dimension,
 	m_rot			(VEC3_ZERO),		// 向き
 	m_size			(VEC3_ZERO),		// 大きさ
 	m_col			(color::White()),	// 色
+	m_alignX		(XALIGN_CENTER),	// 横配置
+	m_alignY		(YALIGN_CENTER),	// 縦配置
 	m_fAngle		(0.0f),				// 対角線の角度
 	m_fLength		(0.0f),				// 対角線の長さ
 	m_nTextureIdx	(0)					// テクスチャインデックス
@@ -62,6 +64,8 @@ HRESULT CObject2D::Init()
 	m_rot			= VEC3_ZERO;		// 向き
 	m_size			= VEC3_ZERO;		// 大きさ
 	m_col			= color::White();	// 色
+	m_alignX		= XALIGN_CENTER;	// 横配置
+	m_alignY		= YALIGN_CENTER;	// 縦配置
 	m_fAngle		= 0.0f;				// 対角線の角度
 	m_fLength		= 0.0f;				// 対角線の長さ
 	m_nTextureIdx	= NONE_IDX;			// テクスチャインデックス
@@ -155,7 +159,9 @@ CObject2D* CObject2D::Create
 	const VECTOR3& rPos,	// 位置
 	const VECTOR3& rSize,	// 大きさ
 	const VECTOR3& rRot,	// 向き
-	const COLOR& rCol		// 色
+	const COLOR& rCol,		// 色
+	const EAlignX alignX,	// 横配置
+	const EAlignY alignY	// 縦配置
 )
 {
 	// オブジェクト2Dの生成
@@ -188,6 +194,12 @@ CObject2D* CObject2D::Create
 
 		// 色を設定
 		pObject2D->SetColor(rCol);
+
+		// 横配置を設定
+		pObject2D->SetAlignX(alignX);
+
+		// 縦配置を設定
+		pObject2D->SetAlignY(alignY);
 
 		// 確保したアドレスを返す
 		return pObject2D;
@@ -229,11 +241,8 @@ void CObject2D::SetVec3Size(const VECTOR3& rSize)
 	// 引数の大きさを代入
 	m_size = rSize;
 
-	// 対角線の角度を求める
-	m_fAngle = atan2f(m_size.x, m_size.y);
-
-	// 対角線の長さを求める
-	m_fLength = sqrtf(m_size.x * m_size.x + m_size.y * m_size.y) * 0.5f;
+	// 対角線の角度/長さの設定
+	SetAngleLength();
 
 	// 頂点情報の設定
 	SetVtx();
@@ -310,6 +319,36 @@ void CObject2D::SetColor(const COLOR& rCol)
 }
 
 //============================================================
+//	横配置の設定処理
+//============================================================
+void CObject2D::SetAlignX(const EAlignX align)
+{
+	// 引数の横配置を代入
+	m_alignX = align;
+
+	// 対角線の角度/長さの設定
+	SetAngleLength();
+
+	// 頂点情報の設定
+	SetVtx();
+}
+
+//============================================================
+//	縦配置の設定処理
+//============================================================
+void CObject2D::SetAlignY(const EAlignY align)
+{
+	// 引数の縦配置を代入
+	m_alignY = align;
+
+	// 対角線の角度/長さの設定
+	SetAngleLength();
+
+	// 頂点情報の設定
+	SetVtx();
+}
+
+//============================================================
 //	頂点情報の設定処理
 //============================================================
 void CObject2D::SetVtx()
@@ -322,33 +361,13 @@ void CObject2D::SetVtx()
 		m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
 		// 頂点座標を設定
-		pVtx[0].pos.x = m_pos.x + sinf(m_rot.z + (D3DX_PI + m_fAngle)) * m_fLength;
-		pVtx[0].pos.y = m_pos.y + cosf(m_rot.z + (D3DX_PI + m_fAngle)) * m_fLength;
-		pVtx[0].pos.z = 0.0f;
-
-		pVtx[1].pos.x = m_pos.x + sinf(m_rot.z + (D3DX_PI - m_fAngle)) * m_fLength;
-		pVtx[1].pos.y = m_pos.y + cosf(m_rot.z + (D3DX_PI - m_fAngle)) * m_fLength;
-		pVtx[1].pos.z = 0.0f;
-
-		pVtx[2].pos.x = m_pos.x + sinf(m_rot.z - m_fAngle) * m_fLength;
-		pVtx[2].pos.y = m_pos.y + cosf(m_rot.z - m_fAngle) * m_fLength;
-		pVtx[2].pos.z = 0.0f;
-
-		pVtx[3].pos.x = m_pos.x + sinf(m_rot.z + m_fAngle) * m_fLength;
-		pVtx[3].pos.y = m_pos.y + cosf(m_rot.z + m_fAngle) * m_fLength;
-		pVtx[3].pos.z = 0.0f;
+		SetVtxPosition(pVtx);
 
 		// rhw の設定
-		pVtx[0].rhw = 1.0f;
-		pVtx[1].rhw = 1.0f;
-		pVtx[2].rhw = 1.0f;
-		pVtx[3].rhw = 1.0f;
+		pVtx[0].rhw = pVtx[1].rhw = pVtx[2].rhw = pVtx[3].rhw = 1.0f;
 
 		// 頂点カラーの設定
-		pVtx[0].col = m_col;
-		pVtx[1].col = m_col;
-		pVtx[2].col = m_col;
-		pVtx[3].col = m_col;
+		pVtx[0].col = pVtx[1].col = pVtx[2].col = pVtx[3].col = m_col;
 
 		// テクスチャ座標の設定
 		pVtx[0].tex = VECTOR2(0.0f, 0.0f);
@@ -419,5 +438,199 @@ void CObject2D::SetScrollTex
 
 		// 頂点バッファをアンロックする
 		m_pVtxBuff->Unlock();
+	}
+}
+
+//============================================================
+//	対角線の角度/長さの設定処理
+//============================================================
+void CObject2D::SetAngleLength()
+{
+	// 中央原点かの判定
+	const bool bCC = (m_alignX == EAlignX::XALIGN_CENTER && m_alignY == EAlignY::YALIGN_CENTER);
+
+	// 角原点かの判定
+	const bool bLT = (m_alignX == EAlignX::XALIGN_LEFT  && m_alignY == EAlignY::YALIGN_TOP);
+	const bool bRT = (m_alignX == EAlignX::XALIGN_RIGHT && m_alignY == EAlignY::YALIGN_TOP);
+	const bool bLB = (m_alignX == EAlignX::XALIGN_LEFT  && m_alignY == EAlignY::YALIGN_BOTTOM);
+	const bool bRB = (m_alignX == EAlignX::XALIGN_RIGHT && m_alignY == EAlignY::YALIGN_BOTTOM);
+
+	// 辺の中央原点かの判定
+	const bool bCT = (m_alignX == EAlignX::XALIGN_CENTER && m_alignY == EAlignY::YALIGN_TOP);
+	const bool bCB = (m_alignX == EAlignX::XALIGN_CENTER && m_alignY == EAlignY::YALIGN_BOTTOM);
+	const bool bLC = (m_alignX == EAlignX::XALIGN_LEFT   && m_alignY == EAlignY::YALIGN_CENTER);
+	const bool bRC = (m_alignX == EAlignX::XALIGN_RIGHT  && m_alignY == EAlignY::YALIGN_CENTER);
+
+	if (bCC)
+	{ // 原点が中央の場合
+
+		// 対角線の角度を求める
+		m_fAngle = atan2f(m_size.x, m_size.y);
+
+		// 対角線の長さを求める
+		m_fLength = sqrtf(m_size.x * m_size.x + m_size.y * m_size.y) * 0.5f;
+	}
+	else if (bLT || bRT || bLB || bRB)
+	{ // 原点が角の場合
+
+		// 対角線の角度を求める
+		m_fAngle = atan2f(m_size.x, m_size.y);
+
+		// 対角線の長さを求める
+		m_fLength = sqrtf(m_size.x * m_size.x + m_size.y * m_size.y);
+	}
+	else if (bCT || bCB || bLC || bRC)
+	{ // 原点が辺の中央の場合
+
+		const float sizeX = m_size.x;
+		const float sizeY = m_size.y * 2.0f;
+
+		// 対角線の角度を求める
+		m_fAngle = atan2f(sizeX, sizeY);
+
+		// 対角線の長さを求める
+		m_fLength = sqrtf(sizeX * sizeX + sizeY * sizeY) * 0.5f;
+	}
+}
+
+//============================================================
+//	頂点座標の設定処理
+//============================================================
+void CObject2D::SetVtxPosition(VERTEX_2D* pVtx)
+{
+	// 頂点座標のZ座標を初期化
+	pVtx[0].pos.z = pVtx[1].pos.z = pVtx[2].pos.z = pVtx[3].pos.z = 0.0f;
+
+	switch (m_alignX)
+	{
+	case EAlignX::XALIGN_CENTER:
+	{
+		switch (m_alignY)
+		{
+		case EAlignY::YALIGN_CENTER:
+		{
+			pVtx[0].pos.x = m_pos.x + sinf(m_rot.z + (D3DX_PI + m_fAngle)) * m_fLength;
+			pVtx[0].pos.y = m_pos.y + cosf(m_rot.z + (D3DX_PI + m_fAngle)) * m_fLength;
+			pVtx[1].pos.x = m_pos.x + sinf(m_rot.z + (D3DX_PI - m_fAngle)) * m_fLength;
+			pVtx[1].pos.y = m_pos.y + cosf(m_rot.z + (D3DX_PI - m_fAngle)) * m_fLength;
+			pVtx[2].pos.x = m_pos.x + sinf(m_rot.z - m_fAngle) * m_fLength;
+			pVtx[2].pos.y = m_pos.y + cosf(m_rot.z - m_fAngle) * m_fLength;
+			pVtx[3].pos.x = m_pos.x + sinf(m_rot.z + m_fAngle) * m_fLength;
+			pVtx[3].pos.y = m_pos.y + cosf(m_rot.z + m_fAngle) * m_fLength;
+		}
+		break;
+		case EAlignY::YALIGN_TOP:
+		{
+			pVtx[0].pos.x = m_pos.x + sinf(m_rot.z - HALF_PI) * m_size.x * 0.5f;
+			pVtx[0].pos.y = m_pos.y + cosf(m_rot.z - HALF_PI) * m_size.x * 0.5f;
+			pVtx[1].pos.x = m_pos.x + sinf(m_rot.z + HALF_PI) * m_size.x * 0.5f;
+			pVtx[1].pos.y = m_pos.y + cosf(m_rot.z + HALF_PI) * m_size.x * 0.5f;
+			pVtx[2].pos.x = m_pos.x + sinf(m_rot.z - m_fAngle) * m_fLength;
+			pVtx[2].pos.y = m_pos.y + cosf(m_rot.z - m_fAngle) * m_fLength;
+			pVtx[3].pos.x = m_pos.x + sinf(m_rot.z + m_fAngle) * m_fLength;
+			pVtx[3].pos.y = m_pos.y + cosf(m_rot.z + m_fAngle) * m_fLength;
+		}
+		break;
+		case EAlignY::YALIGN_BOTTOM:
+		{
+			pVtx[0].pos.x = m_pos.x + sinf(m_rot.z - (D3DX_PI - m_fAngle)) * m_fLength;
+			pVtx[0].pos.y = m_pos.y + cosf(m_rot.z - (D3DX_PI - m_fAngle)) * m_fLength;
+			pVtx[1].pos.x = m_pos.x + sinf(m_rot.z + (D3DX_PI - m_fAngle)) * m_fLength;
+			pVtx[1].pos.y = m_pos.y + cosf(m_rot.z + (D3DX_PI - m_fAngle)) * m_fLength;
+			pVtx[2].pos.x = m_pos.x + sinf(m_rot.z - HALF_PI) * m_size.x * 0.5f;
+			pVtx[2].pos.y = m_pos.y + cosf(m_rot.z - HALF_PI) * m_size.x * 0.5f;
+			pVtx[3].pos.x = m_pos.x + sinf(m_rot.z + HALF_PI) * m_size.x * 0.5f;
+			pVtx[3].pos.y = m_pos.y + cosf(m_rot.z + HALF_PI) * m_size.x * 0.5f;
+		}
+		break;
+		}
+	}
+	break;
+	case EAlignX::XALIGN_LEFT:
+	{
+		switch (m_alignY)
+		{
+		case EAlignY::YALIGN_CENTER:
+		{
+			pVtx[0].pos.x = m_pos.x + sinf(m_rot.z + D3DX_PI) * m_size.y * 0.5f;
+			pVtx[0].pos.y = m_pos.y + cosf(m_rot.z + D3DX_PI) * m_size.y * 0.5f;
+			pVtx[1].pos.x = m_pos.x + sinf(m_rot.z + (D3DX_PI - m_fAngle)) * m_fLength;
+			pVtx[1].pos.y = m_pos.y + cosf(m_rot.z + (D3DX_PI - m_fAngle)) * m_fLength;
+			pVtx[2].pos.x = m_pos.x + sinf(m_rot.z) * m_size.y * 0.5f;
+			pVtx[2].pos.y = m_pos.y + cosf(m_rot.z) * m_size.y * 0.5f;
+			pVtx[3].pos.x = m_pos.x + sinf(m_rot.z + m_fAngle) * m_fLength;
+			pVtx[3].pos.y = m_pos.y + cosf(m_rot.z + m_fAngle) * m_fLength;
+		}
+		break;
+		case EAlignY::YALIGN_TOP:
+		{
+			pVtx[0].pos.x = m_pos.x;
+			pVtx[0].pos.y = m_pos.y;
+			pVtx[1].pos.x = m_pos.x + sinf(m_rot.z + HALF_PI) * m_size.x;
+			pVtx[1].pos.y = m_pos.y + cosf(m_rot.z + HALF_PI) * m_size.x;
+			pVtx[2].pos.x = m_pos.x + sinf(m_rot.z) * m_size.y;
+			pVtx[2].pos.y = m_pos.y + cosf(m_rot.z) * m_size.y;
+			pVtx[3].pos.x = m_pos.x + sinf(m_rot.z + m_fAngle) * m_fLength;
+			pVtx[3].pos.y = m_pos.y + cosf(m_rot.z + m_fAngle) * m_fLength;
+		}
+		break;
+		case EAlignY::YALIGN_BOTTOM:
+		{
+			pVtx[0].pos.x = m_pos.x + sinf(m_rot.z + D3DX_PI) * m_size.y;
+			pVtx[0].pos.y = m_pos.y + cosf(m_rot.z + D3DX_PI) * m_size.y;
+			pVtx[1].pos.x = m_pos.x + sinf(m_rot.z + (D3DX_PI - m_fAngle)) * m_fLength;
+			pVtx[1].pos.y = m_pos.y + cosf(m_rot.z + (D3DX_PI - m_fAngle)) * m_fLength;
+			pVtx[2].pos.x = m_pos.x;
+			pVtx[2].pos.y = m_pos.y;
+			pVtx[3].pos.x = m_pos.x + sinf(m_rot.z + HALF_PI) * m_size.x;
+			pVtx[3].pos.y = m_pos.y + cosf(m_rot.z + HALF_PI) * m_size.x;
+		}
+		break;
+		}
+	}
+	break;
+	case EAlignX::XALIGN_RIGHT:
+	{
+		switch (m_alignY)
+		{
+		case EAlignY::YALIGN_CENTER:
+		{
+			pVtx[0].pos.x = m_pos.x + sinf(m_rot.z + (D3DX_PI + m_fAngle)) * m_fLength;
+			pVtx[0].pos.y = m_pos.y + cosf(m_rot.z + (D3DX_PI + m_fAngle)) * m_fLength;
+			pVtx[1].pos.x = m_pos.x + sinf(m_rot.z + D3DX_PI) * m_size.y * 0.5f;
+			pVtx[1].pos.y = m_pos.y + cosf(m_rot.z + D3DX_PI) * m_size.y * 0.5f;
+			pVtx[2].pos.x = m_pos.x + sinf(m_rot.z - m_fAngle) * m_fLength;
+			pVtx[2].pos.y = m_pos.y + cosf(m_rot.z - m_fAngle) * m_fLength;
+			pVtx[3].pos.x = m_pos.x + sinf(m_rot.z) * m_size.y * 0.5f;
+			pVtx[3].pos.y = m_pos.y + cosf(m_rot.z) * m_size.y * 0.5f;
+		}
+		break;
+		case EAlignY::YALIGN_TOP:
+		{
+			pVtx[0].pos.x = m_pos.x + sinf(m_rot.z - HALF_PI) * m_size.x;
+			pVtx[0].pos.y = m_pos.y + cosf(m_rot.z - HALF_PI) * m_size.x;
+			pVtx[1].pos.x = m_pos.x;
+			pVtx[1].pos.y = m_pos.y;
+			pVtx[2].pos.x = m_pos.x + sinf(m_rot.z - m_fAngle) * m_fLength;
+			pVtx[2].pos.y = m_pos.y + cosf(m_rot.z - m_fAngle) * m_fLength;
+			pVtx[3].pos.x = m_pos.x + sinf(m_rot.z) * m_size.y;
+			pVtx[3].pos.y = m_pos.y + cosf(m_rot.z) * m_size.y;
+		}
+		break;
+		case EAlignY::YALIGN_BOTTOM:
+		{
+			pVtx[0].pos.x = m_pos.x + sinf(m_rot.z + (D3DX_PI + m_fAngle)) * m_fLength;
+			pVtx[0].pos.y = m_pos.y + cosf(m_rot.z + (D3DX_PI + m_fAngle)) * m_fLength;
+			pVtx[1].pos.x = m_pos.x + sinf(m_rot.z + D3DX_PI) * m_size.y;
+			pVtx[1].pos.y = m_pos.y + cosf(m_rot.z + D3DX_PI) * m_size.y;
+			pVtx[2].pos.x = m_pos.x + sinf(m_rot.z - HALF_PI) * m_size.x;
+			pVtx[2].pos.y = m_pos.y + cosf(m_rot.z - HALF_PI) * m_size.x;
+			pVtx[3].pos.x = m_pos.x;
+			pVtx[3].pos.y = m_pos.y;
+		}
+		break;
+		}
+	}
+	break;
 	}
 }

@@ -47,17 +47,23 @@ public:
 	void BindTexture(const char* pTexturePath);	// テクスチャ割当 (パス)
 	void SetAlpha(const float fAlpha);			// 透明度設定
 	void SetColor(const COLOR& rCol);			// 色設定
+	void SetAlignX(const EAlignX align);		// 横配置設定
+	void SetAlignY(const EAlignY align);		// 縦配置設定
 	inline int GetTextureIndex() const	{ return m_nTextureIdx; }	// テクスチャインデックス取得
 	inline float GetAlpha() const		{ return m_col.a; }			// 透明度取得
 	inline COLOR GetColor() const		{ return m_col; }			// 色取得
+	inline EAlignX GetAlignX() const	{ return m_alignX; }		// 横配置取得
+	inline EAlignY GetAlignY() const	{ return m_alignY; }		// 縦配置取得
 
 	// 静的メンバ関数
 	static CObject2D* Create	// 生成
 	( // 引数
-		const VECTOR3& rPos,				// 位置
-		const VECTOR3& rSize = VEC3_ONE,	// 大きさ
-		const VECTOR3& rRot = VEC3_ZERO,	// 向き
-		const COLOR& rCol = color::White()	// 色
+		const VECTOR3& rPos,					// 位置
+		const VECTOR3& rSize = VEC3_ONE,		// 大きさ
+		const VECTOR3& rRot = VEC3_ZERO,		// 向き
+		const COLOR& rCol = color::White(),		// 色
+		const EAlignX alignX = XALIGN_CENTER,	// 横配置
+		const EAlignY alignY = YALIGN_CENTER	// 縦配置
 	);
 
 protected:
@@ -78,6 +84,11 @@ protected:
 	);
 
 private:
+	// メンバ関数
+	void SetAngleLength();					// 対角線の角度/長さの設定
+	void SetVtxPosition(VERTEX_2D* pVtx);	// 頂点座標の設定
+
+private:
 	// オーバーライド関数
 	inline void Release() override { CObject::Release(); }	// 破棄
 
@@ -88,6 +99,8 @@ private:
 	VECTOR3	m_rot;			// 向き
 	VECTOR3	m_size;			// 大きさ
 	COLOR	m_col;			// 色
+	EAlignX	m_alignX;		// 横配置
+	EAlignY	m_alignY;		// 縦配置
 	float	m_fAngle;		// 対角線の角度
 	float	m_fLength;		// 対角線の長さ
 	int		m_nTextureIdx;	// テクスチャインデックス
