@@ -99,8 +99,9 @@ HRESULT CBattleLifeUI::Init()
 	// ソウルテクスチャを割当
 	m_pHp->BindTexture(hp::PATH);
 
-	// ラベルを設定
-	m_pHp->SetLabel(CObject::LABEL_UI);
+	// 自動更新・自動描画をOFFにする
+	m_pHp->SetEnableUpdate(false);
+	m_pHp->SetEnableDraw(false);
 
 	// HPゲージの生成
 	m_pGauge = CGauge2D::Create
@@ -119,6 +120,13 @@ HRESULT CBattleLifeUI::Init()
 		return E_FAIL;
 	}
 
+	// ラベルを設定
+	m_pGauge->SetLabel(CObject::LABEL_NONE);
+
+	// 自動更新・自動描画をOFFにする
+	m_pGauge->SetEnableUpdate(false);
+	m_pGauge->SetEnableDraw(false);
+
 	// 最大HPの生成
 	m_pMaxHp = CString2D::Create
 	( // 引数
@@ -135,6 +143,13 @@ HRESULT CBattleLifeUI::Init()
 		assert(false);
 		return E_FAIL;
 	}
+
+	// ラベルを設定
+	m_pMaxHp->SetLabel(CObject::LABEL_NONE);
+
+	// 自動更新・自動描画をOFFにする
+	m_pMaxHp->SetEnableUpdate(false);
+	m_pMaxHp->SetEnableDraw(false);
 
 	// 優先順位を設定
 	SetPriority(PRIORITY);
@@ -165,15 +180,29 @@ void CBattleLifeUI::Uninit()
 //============================================================
 void CBattleLifeUI::Update(const float fDeltaTime)
 {
+	// HPの更新
+	m_pHp->Update(fDeltaTime);
 
+	// HPゲージの更新
+	m_pGauge->Update(fDeltaTime);
+
+	// 最大HPの更新
+	m_pMaxHp->Update(fDeltaTime);
 }
 
 //============================================================
 //	描画処理
 //============================================================
-void CBattleLifeUI::Draw(CShader* /*pShader*/)
+void CBattleLifeUI::Draw(CShader* pShader)
 {
+	// HPの描画
+	m_pHp->Draw(pShader);
 
+	// HPゲージの描画
+	m_pGauge->Draw(pShader);
+
+	// 最大HPの描画
+	m_pMaxHp->Draw(pShader);
 }
 
 //============================================================

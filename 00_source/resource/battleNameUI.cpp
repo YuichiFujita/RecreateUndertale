@@ -91,6 +91,13 @@ HRESULT CBattleNameUI::Init()
 		return E_FAIL;
 	}
 
+	// ラベルを設定
+	m_pName->SetLabel(CObject::LABEL_NONE);
+
+	// 自動更新・自動描画をOFFにする
+	m_pName->SetEnableUpdate(false);
+	m_pName->SetEnableDraw(false);
+
 	// LVの生成
 	m_pLv = CString2D::Create
 	( // 引数
@@ -107,6 +114,13 @@ HRESULT CBattleNameUI::Init()
 		assert(false);
 		return E_FAIL;
 	}
+
+	// ラベルを設定
+	m_pLv->SetLabel(CObject::LABEL_NONE);
+
+	// 自動更新・自動描画をOFFにする
+	m_pLv->SetEnableUpdate(false);
+	m_pLv->SetEnableDraw(false);
 
 	// 優先順位を設定
 	SetPriority(PRIORITY);
@@ -134,15 +148,23 @@ void CBattleNameUI::Uninit()
 //============================================================
 void CBattleNameUI::Update(const float fDeltaTime)
 {
+	// 名前の更新
+	m_pName->Update(fDeltaTime);
 
+	// LVの更新
+	m_pLv->Update(fDeltaTime);
 }
 
 //============================================================
 //	描画処理
 //============================================================
-void CBattleNameUI::Draw(CShader* /*pShader*/)
+void CBattleNameUI::Draw(CShader* pShader)
 {
+	// 名前の描画
+	m_pName->Draw(pShader);
 
+	// LVの描画
+	m_pLv->Draw(pShader);
 }
 
 //============================================================
