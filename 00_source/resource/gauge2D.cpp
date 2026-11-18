@@ -8,17 +8,14 @@
 //	インクルードファイル
 //************************************************************
 #include "gauge2D.h"
-#include "manager.h"
-#include "renderer.h"
-#include "texture.h"
+#include "object2D.h"
 
 //************************************************************
 //	定数宣言
 //************************************************************
 namespace
 {
-	const int MAX_VERTEX	= 12;	// 頂点数
-	const int PRIORITY		= 5;	// ゲージ2Dの優先順位
+	const int PRIORITY = 5;	// ゲージ2Dの優先順位
 }
 
 //************************************************************
@@ -27,23 +24,17 @@ namespace
 //============================================================
 //	コンストラクタ
 //============================================================
-CGauge2D::CGauge2D(const int nFrame) : CObject(CObject::LABEL_UI, CObject::DIM_2D, PRIORITY),
-	m_nFrame			(nFrame),			// 表示値の変動フレーム定数
-	m_pVtxBuff			(nullptr),			// 頂点バッファへのポインタ
-	m_pos				(VEC3_ZERO),		// 位置
-	m_size				(VEC3_ZERO),		// 大きさ
-	m_colFront			(color::White()),	// 表ゲージ色
-	m_colBack			(color::White()),	// 裏ゲージ色
-	m_state				(STATE_NONE),		// 状態
-	m_nNumGauge			(0),				// 表示値
-	m_fChange			(0.0f),				// ゲージ変動量
-	m_fAddRight			(0.0f),				// 横幅加算量
-	m_nCounterState		(0),				// 状態管理カウンター
-	m_nMaxNumGauge		(0),				// 表示値の最大値
-	m_fCurrentNumGauge	(0.0f)				// 現在表示値
+CGauge2D::CGauge2D(const float fChangeTime) : CObject(CObject::LABEL_UI, CObject::DIM_2D, PRIORITY),
+	m_fChangeTime	(fChangeTime),	// ゲージの変動時間
+	m_state			(STATE_NONE),	// 状態
+	m_nNum			(0),			// 表示値
+	m_nMaxNum		(0),			// 最大値
+	m_fInitNum		(0.0f),			// 変動開始時の表示値
+	m_fDestNum		(0.0f),			// 変動終了時の表示値
+	m_fCurTime		(0.0f)			// 現在の経過時間
 {
 	// メンバ変数をクリア
-	memset(&m_aTextureIdx[0], 0, sizeof(m_aTextureIdx));	// テクスチャインデックス
+	memset(&m_pGauge[0], 0, sizeof(m_pGauge));	// ゲージ情報
 }
 
 //============================================================
@@ -59,47 +50,39 @@ CGauge2D::~CGauge2D()
 //============================================================
 HRESULT CGauge2D::Init()
 {
-	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
-
 	// メンバ変数を初期化
-	m_pVtxBuff			= nullptr;			// 頂点バッファへのポインタ
-	m_pos				= VEC3_ZERO;		// 位置
-	m_size				= VEC3_ZERO;		// 大きさ
-	m_colFront			= color::White();	// 表ゲージ色
-	m_colBack			= color::White();	// 裏ゲージ色
-	m_state				= STATE_NONE;		// 状態
-	m_nNumGauge			= 0;				// 表示値
-	m_fChange			= 0.0f;				// ゲージ変動量
-	m_fAddRight			= 0.0f;				// 横幅加算量
-	m_nCounterState		= 0;				// 状態管理カウンター
-	m_nMaxNumGauge		= 0;				// 表示値の最大値
-	m_fCurrentNumGauge	= 0.0f;				// 現在表示値
+	memset(&m_pGauge[0], 0, sizeof(m_pGauge));	// ゲージ情報
+	m_state		= STATE_NONE;	// 状態
+	m_nNum		= 0;			// 表示値
+	m_nMaxNum	= 0;			// 最大値
+	m_fInitNum	= 0.0f;			// 変動開始時の表示値
+	m_fDestNum	= 0.0f;			// 変動終了時の表示値
+	m_fCurTime	= 0.0f;			// 現在の経過時間
 
-	for (int nCntTexture = 0; nCntTexture < POLYGON_MAX; nCntTexture++)
+	for (int nCntGauge = 0; nCntGauge < POLYGON_MAX; nCntGauge++)
 	{ // 使用する四角形ポリゴン数分繰り返す
 
-		// テクスチャインデックスをクリア
-		m_aTextureIdx[nCntTexture] = NONE_IDX;
+		// ゲージの生成
+		m_pGauge[nCntGauge] = CObject2D::Create
+		(
+			VEC3_ZERO,				// 位置
+			VEC3_ZERO,				// 大きさ
+			VEC3_ZERO,				// 向き
+			color::White(),			// 色
+			EAlignX::XALIGN_LEFT,	// 横配置
+			EAlignY::YALIGN_CENTER	// 縦配置
+		);
+		if (m_pGauge[nCntGauge] == nullptr)
+		{ // 生成に失敗した場合
+
+			assert(false);
+			return E_FAIL;
+		}
+
+		// 自動更新・自動描画をOFFにする
+		m_pGauge[nCntGauge]->SetEnableUpdate(false);
+		m_pGauge[nCntGauge]->SetEnableDraw(false);
 	}
-
-	// 頂点バッファの生成
-	if (FAILED(pDevice->CreateVertexBuffer
-	( // 引数
-		sizeof(VERTEX_2D) * MAX_VERTEX,	// 必要頂点数
-		D3DUSAGE_WRITEONLY,				// 使用方法
-		CObject::FVF_VERTEX_2D,			// 頂点フォーマット
-		D3DPOOL_MANAGED,				// メモリの指定
-		&m_pVtxBuff,					// 頂点バッファへのポインタ
-		nullptr
-	)))
-	{ // 頂点バッファの生成に失敗した場合
-
-		assert(false);
-		return E_FAIL;
-	}
-
-	// 頂点情報の設定
-	SetVtx();
 
 	return S_OK;
 }
@@ -109,10 +92,14 @@ HRESULT CGauge2D::Init()
 //============================================================
 void CGauge2D::Uninit()
 {
-	// 頂点バッファの破棄
-	SAFE_RELEASE(m_pVtxBuff);
+	for (int nCntGauge = 0; nCntGauge < POLYGON_MAX; nCntGauge++)
+	{ // 使用する四角形ポリゴン数分繰り返す
 
-	// オブジェクトを破棄
+		// ゲージの終了
+		SAFE_UNINIT(m_pGauge[nCntGauge]);
+	}
+
+	// 自身のオブジェクトを破棄
 	Release();
 }
 
@@ -121,55 +108,41 @@ void CGauge2D::Uninit()
 //============================================================
 void CGauge2D::Update(const float fDeltaTime)
 {
-	// ゲージの設定
-	if (m_state == STATE_CHANGE)
-	{ // 体力が変動中の場合
+	// ゲージが変動中ではない場合抜ける
+	if (m_state != STATE_CHANGE) { return; }
 
-		// カウンターを減算
-		m_nCounterState--;
+	// ゲージの横幅更新
+	if (UpdateGaugeWidthFront(fDeltaTime))
+	{ // 変動しきった場合
 
-		// 現在のゲージに変動量を加算
-		m_fCurrentNumGauge += m_fChange;
+		// 通常状態にする
+		m_state = STATE_NONE;
 
-		// 現在の表示値を補正
-		useful::LimitNum(m_fCurrentNumGauge, 0.0f, (float)m_nMaxNumGauge);
+		// 表ゲージの横幅を補正
+		SetGaugeWidthFront(m_fDestNum);
 
-		// ゲージの横幅加算量を設定
-		m_fAddRight = (m_fCurrentNumGauge * ((m_size.x * 2.0f) / (float)m_nMaxNumGauge)) - m_size.x;
+		// 変動時間の初期化
+		m_fCurTime = 0.0f;
+	}
 
-		// 頂点情報の設定
-		SetVtx();
+	for (int nCntGauge = 0; nCntGauge < POLYGON_MAX; nCntGauge++)
+	{ // 使用する四角形ポリゴン数分繰り返す
 
-		if (m_nCounterState <= 0)
-		{ // カウンターが 0以下になった場合
-
-			// 通常状態にする
-			m_state = STATE_NONE;
-		}
+		// ゲージの更新
+		m_pGauge[nCntGauge]->Update(fDeltaTime);
 	}
 }
 
 //============================================================
 //	描画処理
 //============================================================
-void CGauge2D::Draw(CShader* /*pShader*/)
+void CGauge2D::Draw(CShader* pShader)
 {
-	LPDIRECT3DDEVICE9 pDevice = GET_DEVICE;	// デバイスのポインタ
-
-	// 頂点バッファをデータストリームに設定
-	pDevice->SetStreamSource(0, m_pVtxBuff, 0, sizeof(VERTEX_2D));
-
-	// 頂点フォーマットの設定
-	pDevice->SetFVF(CObject::FVF_VERTEX_2D);
-
 	for (int nCntGauge = 0; nCntGauge < POLYGON_MAX; nCntGauge++)
 	{ // 使用する四角形ポリゴン数分繰り返す
 
-		// テクスチャの設定
-		pDevice->SetTexture(0, GET_MANAGER->GetTexture()->GetPtr(m_aTextureIdx[nCntGauge]));
-		
-		// ポリゴンの描画
-		pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, nCntGauge * 4, 2);
+		// ゲージの描画
+		m_pGauge[nCntGauge]->Draw(pShader);
 	}
 }
 
@@ -178,11 +151,25 @@ void CGauge2D::Draw(CShader* /*pShader*/)
 //============================================================
 void CGauge2D::SetVec3Position(const VECTOR3& rPos)
 {
-	// 引数の位置を設定
-	m_pos = rPos;
+	for (int nCntGauge = 0; nCntGauge < POLYGON_MAX; nCntGauge++)
+	{ // 使用する四角形ポリゴン数分繰り返す
 
-	// 頂点情報の設定
-	SetVtx();
+		// ゲージの位置を設定
+		m_pGauge[nCntGauge]->SetVec3Position(rPos);
+	}
+}
+
+//============================================================
+//	向きの設定処理
+//============================================================
+void CGauge2D::SetVec3Rotation(const VECTOR3& rRot)
+{
+	for (int nCntGauge = 0; nCntGauge < POLYGON_MAX; nCntGauge++)
+	{ // 使用する四角形ポリゴン数分繰り返す
+
+		// ゲージの向きを設定
+		m_pGauge[nCntGauge]->SetVec3Rotation(rRot);
+	}
 }
 
 //============================================================
@@ -190,14 +177,42 @@ void CGauge2D::SetVec3Position(const VECTOR3& rPos)
 //============================================================
 void CGauge2D::SetVec3Size(const VECTOR3& rSize)
 {
-	// 引数の大きさを設定
-	m_size = rSize;
+	for (int nCntGauge = 0; nCntGauge < POLYGON_MAX; nCntGauge++)
+	{ // 使用する四角形ポリゴン数分繰り返す
+
+		// ゲージの大きさを設定
+		m_pGauge[nCntGauge]->SetVec3Size(rSize);
+	}
 
 	// ゲージの設定
-	SetNum(m_nNumGauge);
+	SetNum(m_nNum);
+}
 
-	// 頂点情報の設定
-	SetVtx();
+//============================================================
+//	位置の取得処理
+//============================================================
+VECTOR3 CGauge2D::GetVec3Position() const
+{
+	// 裏ゲージの位置を返す
+	return m_pGauge[EPolygon::POLYGON_BACK]->GetVec3Position();
+}
+
+//============================================================
+//	向きの取得処理
+//============================================================
+VECTOR3 CGauge2D::GetVec3Rotation() const
+{
+	// 裏ゲージの向きを返す
+	return m_pGauge[EPolygon::POLYGON_BACK]->GetVec3Rotation();
+}
+
+//============================================================
+//	大きさの取得処理
+//============================================================
+VECTOR3 CGauge2D::GetVec3Size() const
+{
+	// 裏ゲージの大きさを返す
+	return m_pGauge[EPolygon::POLYGON_BACK]->GetVec3Size();
 }
 
 //============================================================
@@ -205,8 +220,8 @@ void CGauge2D::SetVec3Size(const VECTOR3& rSize)
 //============================================================
 CGauge2D* CGauge2D::Create
 (
-	const int nMax,				// 最大表示値
-	const int nFrame,			// 表示値変動フレーム
+	const int nMax,				// 最大値
+	const float fChangeTime,	// ゲージの変動時間
 	const VECTOR3& rPos,		// 位置
 	const VECTOR3& rSize,		// 大きさ
 	const COLOR& rColFront,		// 表ゲージ色
@@ -214,7 +229,7 @@ CGauge2D* CGauge2D::Create
 )
 {
 	// ゲージ2Dの生成
-	CGauge2D* pGauge2D = new CGauge2D(nFrame);
+	CGauge2D* pGauge2D = new CGauge2D(fChangeTime);
 	if (pGauge2D == nullptr)
 	{ // 生成に失敗した場合
 
@@ -258,13 +273,8 @@ void CGauge2D::BindTexture(const int nPolygonIdx, const int nTextureIdx)
 	if (nPolygonIdx > NONE_IDX && nPolygonIdx < POLYGON_MAX)
 	{ // 正規インデックスの場合
 
-		if (nTextureIdx >= NONE_IDX)
-		{ // テクスチャインデックスが使用可能な場合
-
-			// テクスチャインデックスを代入
-			m_aTextureIdx[nPolygonIdx] = nTextureIdx;
-		}
-		else { assert(false); }	// 範囲外
+		// テクスチャインデックスを代入
+		m_pGauge[nPolygonIdx]->BindTexture(nTextureIdx);
 	}
 }
 
@@ -273,22 +283,11 @@ void CGauge2D::BindTexture(const int nPolygonIdx, const int nTextureIdx)
 //============================================================
 void CGauge2D::BindTexture(const int nPolygonIdx, const char* pTexturePath)
 {
-	CTexture* pTexture = GET_MANAGER->GetTexture();	// テクスチャへのポインタ
 	if (nPolygonIdx > NONE_IDX && nPolygonIdx < POLYGON_MAX)
 	{ // 正規インデックスの場合
 
-		if (pTexturePath != nullptr)
-		{ // 割り当てるテクスチャパスがある場合
-	
-			// テクスチャインデックスを設定
-			m_aTextureIdx[nPolygonIdx] = pTexture->Regist(pTexturePath);
-		}
-		else
-		{ // 割り当てるテクスチャパスがない場合
-
-			// テクスチャなしインデックスを設定
-			m_aTextureIdx[nPolygonIdx] = NONE_IDX;
-		}
+		// テクスチャパスを代入
+		m_pGauge[nPolygonIdx]->BindTexture(pTexturePath);
 	}
 }
 
@@ -301,77 +300,161 @@ int CGauge2D::GetTextureIndex(const int nPolygonIdx) const
 	if (nPolygonIdx <= NONE_IDX || nPolygonIdx >= POLYGON_MAX) { assert(false); return NONE_IDX; }
 
 	// テクスチャインデックスを返す
-	return m_aTextureIdx[nPolygonIdx];
+	return m_pGauge[nPolygonIdx]->GetTextureIndex();
 }
 
 //============================================================
-//	ゲージの加算処理
+//	表示値の加算処理
 //============================================================
-void CGauge2D::AddNum(const int nAdd)
+void CGauge2D::AddNum(const int nAdd, const bool bAnim)
 {
-	// 現在の表示値を設定
-	m_fCurrentNumGauge = (float)m_nNumGauge;
+	switch (m_state)
+	{
+	case STATE_NONE:
+	{
+		// 加算前の表示値を保存
+		m_fInitNum = (float)m_nNum;
 
-	// 表示値の変動量を求める
-	m_fChange = ((float)nAdd / (float)m_nFrame);
+		// 表示値の加算/補正
+		m_nNum += nAdd;
+		useful::LimitNum(m_nNum, 0, m_nMaxNum);
 
-	// 情報を設定
-	m_state = STATE_CHANGE;		// ゲージ変動状態
-	m_nCounterState = m_nFrame;	// 状態管理カウンター
+		// 加算後の表示値を保存
+		m_fDestNum = (float)m_nNum;
 
-	// 表示値を引数分加算
-	m_nNumGauge += nAdd;
+		// 変動時間の初期化
+		m_fCurTime = 0.0f;
+	}
+	break;
+	case STATE_CHANGE:
+	{
+		// 変動時間の割合を計算
+		float fRate = easing::Liner(m_fCurTime, 0.0f, m_fChangeTime);
 
-	// 表示値の制限
-	useful::LimitNum(m_nNumGauge, 0, m_nMaxNumGauge);
+		// 目標値への差分を計算
+		float fDiffNum = m_fDestNum - m_fInitNum;
+
+		// 途中経過の表示値を保存
+		const float fMoveNum = m_fInitNum + fDiffNum * fRate;
+		m_fInitNum = fMoveNum;
+
+		// 表示値の加算/補正
+		m_nNum += nAdd;
+		useful::LimitNum(m_nNum, 0, m_nMaxNum);
+
+		// 加算後の表示値を保存
+		m_fDestNum = (float)m_nNum;
+
+		// 変動時間の初期化
+		m_fCurTime = 0.0f;
+	}
+	break;
+	}
+
+	if (bAnim)
+	{ // 時間をかけてゲージを動かす場合
+
+		// ゲージ変動状態にする
+		m_state = STATE_CHANGE;
+	}
+	else
+	{ // 瞬時にゲージを動かす場合
+
+		// 通常状態にする
+		m_state = STATE_NONE;
+
+		// 表ゲージの横幅設定
+		SetGaugeWidthFront(m_fDestNum);
+	}
 }
 
 //============================================================
-//	ゲージの設定処理
+//	表示値の設定処理
 //============================================================
-void CGauge2D::SetNum(const int nNum)
+void CGauge2D::SetNum(const int nNum, const bool bAnim)
 {
-	// 引数の表示値を設定
-	m_nNumGauge = nNum;
-	useful::LimitNum(m_nNumGauge, 0, m_nMaxNumGauge);	// 表示値の制限
+	switch (m_state)
+	{
+	case STATE_NONE:
+	{
+		// 加算前の表示値を保存
+		m_fInitNum = (float)m_nNum;
 
-	// 現在の表示値を設定
-	m_fCurrentNumGauge = (float)m_nNumGauge;
-	useful::LimitNum(m_fCurrentNumGauge, 0.0f, (float)m_nMaxNumGauge);	// 現在の表示値の制限
+		// 表示値の設定/補正
+		m_nNum = nNum;
+		useful::LimitNum(m_nNum, 0, m_nMaxNum);
 
-	// 情報を設定
-	m_state = STATE_NONE;	// ゲージ変動状態
-	m_nCounterState = 0;	// 状態管理カウンター
+		// 加算後の表示値を保存
+		m_fDestNum = (float)m_nNum;
 
-	// ゲージの横幅加算量を設定
-	m_fAddRight = (m_fCurrentNumGauge * ((m_size.x * 2.0f) / (float)m_nMaxNumGauge)) - m_size.x;
+		// 変動時間の初期化
+		m_fCurTime = 0.0f;
+	}
+	break;
+	case STATE_CHANGE:
+	{
+		// 変動時間の割合を計算
+		float fRate = easing::Liner(m_fCurTime, 0.0f, m_fChangeTime);
 
-	// 頂点情報の設定
-	SetVtx();
+		// 目標値への差分を計算
+		float fDiffNum = m_fDestNum - m_fInitNum;
+
+		// 途中経過の表示値を保存
+		const float fMoveNum = m_fInitNum + fDiffNum * fRate;
+		m_fInitNum = fMoveNum;
+
+		// 表示値の設定/補正
+		m_nNum = nNum;
+		useful::LimitNum(m_nNum, 0, m_nMaxNum);
+
+		// 加算後の表示値を保存
+		m_fDestNum = (float)m_nNum;
+
+		// 変動時間の初期化
+		m_fCurTime = 0.0f;
+	}
+	break;
+	}
+
+	if (bAnim)
+	{ // 時間をかけてゲージを動かす場合
+
+		// ゲージ変動状態にする
+		m_state = STATE_CHANGE;
+	}
+	else
+	{ // 瞬時にゲージを動かす場合
+
+		// 通常状態にする
+		m_state = STATE_NONE;
+
+		// 表ゲージの横幅設定
+		SetGaugeWidthFront(m_fDestNum);
+	}
 }
 
 //============================================================
-//	ゲージ最大値の設定処理
+//	最大値の設定処理
 //============================================================
 void CGauge2D::SetMaxNum(const int nMax)
 {
-	// 引数の表示最大値を設定
-	m_nMaxNumGauge = nMax;
+	// 引数の最大値を設定
+	m_nMaxNum = nMax;
 
-	// ゲージの設定
-	SetNum(m_nMaxNumGauge);
+	// 表示値が最大値以上の場合は補正
+	useful::LimitMaxNum(m_nNum, m_nMaxNum);
+
+	// ゲージの再設定
+	SetNum(m_nNum);
 }
 
 //============================================================
-//	表ゲージ透明度の取得処理
+//	表ゲージ透明度の設定処理
 //============================================================
 void CGauge2D::SetAlphaFront(const float fAlpha)
 {
-	// 引数の透明度を代入
-	m_colFront.a = fAlpha;
-
-	// 表ゲージ色の設定
-	SetColorFront(m_colFront);
+	// 引数の表ゲージ透明度を設定
+	m_pGauge[EPolygon::POLYGON_FRONT]->SetAlpha(fAlpha);
 }
 
 //============================================================
@@ -379,23 +462,17 @@ void CGauge2D::SetAlphaFront(const float fAlpha)
 //============================================================
 void CGauge2D::SetColorFront(const COLOR& rCol)
 {
-	// 引数の表ゲージ色を代入
-	m_colFront = rCol;
-
-	// 頂点情報の設定
-	SetVtx();
+	// 引数の表ゲージ色を設定
+	m_pGauge[EPolygon::POLYGON_FRONT]->SetColor(rCol);
 }
 
 //============================================================
-//	裏ゲージ透明度の取得処理
+//	裏ゲージ透明度の設定処理
 //============================================================
 void CGauge2D::SetAlphaBack(const float fAlpha)
 {
-	// 引数の透明度を代入
-	m_colBack.a = fAlpha;
-
-	// 裏ゲージ色の設定
-	SetColorBack(m_colBack);
+	// 引数の裏ゲージ透明度を設定
+	m_pGauge[EPolygon::POLYGON_BACK]->SetAlpha(fAlpha);
 }
 
 //============================================================
@@ -403,84 +480,87 @@ void CGauge2D::SetAlphaBack(const float fAlpha)
 //============================================================
 void CGauge2D::SetColorBack(const COLOR& rCol)
 {
-	// 引数の裏ゲージ色を代入
-	m_colBack = rCol;
-
-	// 頂点情報の設定
-	SetVtx();
+	// 引数の裏ゲージ色を設定
+	m_pGauge[EPolygon::POLYGON_BACK]->SetColor(rCol);
 }
 
 //============================================================
-//	頂点情報の設定処理
+//	表ゲージ透明度の取得処理
 //============================================================
-void CGauge2D::SetVtx()
+float CGauge2D::GetAlphaFront() const
 {
-	VERTEX_2D* pVtx;	// 頂点情報へのポインタ
-	if (m_pVtxBuff != nullptr)
-	{ // 使用中の場合
+	// 表ゲージ透明度を返す
+	return m_pGauge[EPolygon::POLYGON_FRONT]->GetAlpha();
+}
 
-		// 頂点バッファをロックし、頂点情報へのポインタを取得
-		m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
+//============================================================
+//	表ゲージ色の取得処理
+//============================================================
+COLOR CGauge2D::GetColorFront() const
+{
+	// 表ゲージ色を返す
+	return m_pGauge[EPolygon::POLYGON_FRONT]->GetColor();
+}
 
-		for (int nCntGauge = 0; nCntGauge < POLYGON_MAX; nCntGauge++)
-		{ // 使用する四角形ポリゴン数分繰り返す
+//============================================================
+//	裏ゲージ透明度の取得処理
+//============================================================
+float CGauge2D::GetAlphaBack() const
+{
+	// 裏ゲージ透明度を返す
+	return m_pGauge[EPolygon::POLYGON_BACK]->GetAlpha();
+}
 
-			switch (nCntGauge)
-			{ // 四角形ポリゴンごとの処理
-			case POLYGON_BACK:	// 背景
+//============================================================
+//	裏ゲージ色の取得処理
+//============================================================
+COLOR CGauge2D::GetColorBack() const
+{
+	// 裏ゲージ色を返す
+	return m_pGauge[EPolygon::POLYGON_BACK]->GetColor();
+}
 
-				// 頂点座標を設定
-				pVtx[0].pos = VECTOR3(m_pos.x - m_size.x, m_pos.y - m_size.y, 0.0f);
-				pVtx[1].pos = VECTOR3(m_pos.x + m_size.x, m_pos.y - m_size.y, 0.0f);
-				pVtx[2].pos = VECTOR3(m_pos.x - m_size.x, m_pos.y + m_size.y, 0.0f);
-				pVtx[3].pos = VECTOR3(m_pos.x + m_size.x, m_pos.y + m_size.y, 0.0f);
+//============================================================
+//	表ゲージの横幅更新処理
+//============================================================
+bool CGauge2D::UpdateGaugeWidthFront(const float fDeltaTime)
+{
+	// 変動時間を進める
+	m_fCurTime += fDeltaTime;
 
-				// 頂点カラーの設定
-				pVtx[0].col = m_colBack;
-				pVtx[1].col = m_colBack;
-				pVtx[2].col = m_colBack;
-				pVtx[3].col = m_colBack;
+	// 変動時間の補正
+	bool bEnd = false;
+	if (useful::LimitMaxNum(m_fCurTime, m_fChangeTime))
+	{ // 変動しきった場合
 
-				break;
-
-			case POLYGON_FRONT:	// ゲージ
-
-				// 頂点座標を設定
-				pVtx[0].pos = VECTOR3(m_pos.x - m_size.x,    m_pos.y - m_size.y, 0.0f);
-				pVtx[1].pos = VECTOR3(m_pos.x + m_fAddRight, m_pos.y - m_size.y, 0.0f);
-				pVtx[2].pos = VECTOR3(m_pos.x - m_size.x,    m_pos.y + m_size.y, 0.0f);
-				pVtx[3].pos = VECTOR3(m_pos.x + m_fAddRight, m_pos.y + m_size.y, 0.0f);
-
-				// 頂点カラーの設定
-				pVtx[0].col = m_colFront;
-				pVtx[1].col = m_colFront;
-				pVtx[2].col = m_colFront;
-				pVtx[3].col = m_colFront;
-
-				break;
-
-			default:	// 例外処理
-				assert(false);
-				break;
-			}
-
-			// rhw の設定
-			pVtx[0].rhw = 1.0f;
-			pVtx[1].rhw = 1.0f;
-			pVtx[2].rhw = 1.0f;
-			pVtx[3].rhw = 1.0f;
-
-			// テクスチャ座標の設定
-			pVtx[0].tex = VECTOR2(0.0f, 0.0f);
-			pVtx[1].tex = VECTOR2(1.0f, 0.0f);
-			pVtx[2].tex = VECTOR2(0.0f, 1.0f);
-			pVtx[3].tex = VECTOR2(1.0f, 1.0f);
-
-			// 頂点データのポインタを 4つ分進める
-			pVtx += 4;
-		}
-
-		// 頂点バッファをアンロックする
-		m_pVtxBuff->Unlock();
+		// 変動終了を判定
+		bEnd = true;
 	}
+
+	// 変動時間の割合を計算
+	float fRate = easing::Liner(m_fCurTime, 0.0f, m_fChangeTime);
+
+	// 目標値への差分を計算
+	float fDiffNum = m_fDestNum - m_fInitNum;
+
+	// 表ゲージの横幅設定
+	const float fMoveNum = m_fInitNum + fDiffNum * fRate;
+	SetGaugeWidthFront(fMoveNum);
+
+	// 変動が終了しているかを返す
+	return bEnd;
+}
+
+//============================================================
+//	表ゲージの横幅設定処理
+//============================================================
+void CGauge2D::SetGaugeWidthFront(const float fNum)
+{
+	const VECTOR3 size = GetVec3Size();	// ゲージの大きさ
+
+	// ゲージの横幅加算量を計算
+	const float fFrontWidth = fNum * (size.x / (float)m_nMaxNum);
+
+	// 表ゲージの大きさ設定
+	m_pGauge[EPolygon::POLYGON_FRONT]->SetVec3Size(VECTOR3(fFrontWidth, size.y, 0.0f));
 }

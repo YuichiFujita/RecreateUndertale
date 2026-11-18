@@ -27,12 +27,12 @@ namespace
 
 	namespace gauge
 	{
-		const int		CHANGE_FRAME	= 1;							// ゲージ変動フレーム
-		const float		RATE_SIZE_X		= 0.912f;						// 最大HPから計算する横幅割合
-		const float		SIZE_Y			= 16.0f;						// 縦幅
-		const VECTOR3	OFFSET			= VECTOR3(12.5f, 1.0f, 0.0f);	// オフセット
-		const COLOR		COL_FRONT		= color::Yellow();				// 表ゲージ色
-		const COLOR		COL_BACK		= color::Red();					// 裏ゲージ色
+		const float		CHANGE_TIME	= 0.0f;							// ゲージ変動フレーム
+		const float		RATE_SIZE_X	= 1.824f;						// 最大HPから計算する横幅割合
+		const float		SIZE_Y		= 32.0f;						// 縦幅
+		const VECTOR3	OFFSET		= VECTOR3(12.5f, 1.0f, 0.0f);	// オフセット
+		const COLOR		COL_FRONT	= color::Yellow();				// 表ゲージ色
+		const COLOR		COL_BACK	= color::Red();					// 裏ゲージ色
 	}
 
 	namespace text
@@ -105,12 +105,12 @@ HRESULT CBattleLifeUI::Init()
 	// HPゲージの生成
 	m_pGauge = CGauge2D::Create
 	( // 引数
-		1,						// 最大表示値
-		gauge::CHANGE_FRAME,	// 表示値変動フレーム
-		VEC3_ZERO,				// 位置
-		VEC3_ZERO,				// ゲージ大きさ
-		gauge::COL_FRONT,		// 表ゲージ色
-		gauge::COL_BACK			// 裏ゲージ色
+		1,					// 最大表示値
+		gauge::CHANGE_TIME,	// 表示値変動フレーム
+		VEC3_ZERO,			// 位置
+		VEC3_ZERO,			// ゲージ大きさ
+		gauge::COL_FRONT,	// 表ゲージ色
+		gauge::COL_BACK		// 裏ゲージ色
 	);
 	if (m_pGauge == nullptr)
 	{ // 生成に失敗した場合
@@ -210,7 +210,7 @@ void CBattleLifeUI::SetVec3Rotation(const VECTOR3& rRot)
 
 	// オブジェクト向きの設定
 	m_pHp->SetVec3Rotation(rRot);		// HP
-	//m_pGauge->SetVec3Rotation(rRot);	// HPゲージ	// TODO：ゲージに向きがない
+	m_pGauge->SetVec3Rotation(rRot);	// HPゲージ
 	m_pMaxHp->SetVec3Rotation(rRot);	// 最大HP
 
 	// 相対位置の設定
@@ -270,7 +270,7 @@ CBattleLifeUI* CBattleLifeUI::Create
 void CBattleLifeUI::AddHp(const int nAddHp)
 {
 	// HPの加算
-	m_pGauge->AddNum(nAddHp);
+	m_pGauge->AddNum(nAddHp, false);
 
 	// 最大HPの文字列設定
 	SetMaxHpString(GetHp(), GetMaxHp());
@@ -282,7 +282,7 @@ void CBattleLifeUI::AddHp(const int nAddHp)
 void CBattleLifeUI::SetHp(const int nNumHp)
 {
 	// HPの設定
-	m_pGauge->SetNum(nNumHp);
+	m_pGauge->SetNum(nNumHp, false);
 
 	// 最大HPの文字列設定
 	SetMaxHpString(nNumHp, GetMaxHp());
@@ -380,8 +380,8 @@ void CBattleLifeUI::SetPositionRelative()
 		VECTOR3 offset = gauge::OFFSET;	// 原点からのオフセット
 
 		// -- オフセットを計算
-		// ※ HPの大きさ分ずらす。ゲージの原点が中央のため、大きさの半分をずらす。
-		offset.x += m_pHp->GetVec3Size().x + m_pGauge->GetVec3Size().x;
+		// ※ HPの大きさ分ずらす。
+		offset.x += m_pHp->GetVec3Size().x;
 
 		// X座標オフセット分ずらす
 		pos.x += sinf(m_rot.z + HALF_PI) * offset.x;
@@ -402,7 +402,7 @@ void CBattleLifeUI::SetPositionRelative()
 
 		// -- オフセットを計算
 		// ※ HPとHPゲージの大きさ分ずらす。
-		offset.x += m_pHp->GetVec3Size().x + m_pGauge->GetVec3Size().x * 2.0f;
+		offset.x += m_pHp->GetVec3Size().x + m_pGauge->GetVec3Size().x;
 
 		// X座標オフセット分ずらす
 		pos.x += sinf(m_rot.z + HALF_PI) * offset.x;

@@ -479,11 +479,23 @@ void CObject2D::SetAngleLength()
 		// ‘ÎŠpü‚Ì’·‚³‚ğ‹‚ß‚é
 		m_fLength = sqrtf(m_size.x * m_size.x + m_size.y * m_size.y);
 	}
-	else if (bCT || bCB || bLC || bRC)
+	else if (bCT || bCB)
 	{ // Œ´“_‚ª•Ó‚Ì’†‰›‚Ìê‡
 
 		const float sizeX = m_size.x;
 		const float sizeY = m_size.y * 2.0f;
+
+		// ‘ÎŠpü‚ÌŠp“x‚ğ‹‚ß‚é
+		m_fAngle = atan2f(sizeX, sizeY);
+
+		// ‘ÎŠpü‚Ì’·‚³‚ğ‹‚ß‚é
+		m_fLength = sqrtf(sizeX * sizeX + sizeY * sizeY) * 0.5f;
+	}
+	else if (bLC || bRC)
+	{ // Œ´“_‚ª•Ó‚Ì’†‰›‚Ìê‡
+
+		const float sizeX = m_size.x * 2.0f;
+		const float sizeY = m_size.y;
 
 		// ‘ÎŠpü‚ÌŠp“x‚ğ‹‚ß‚é
 		m_fAngle = atan2f(sizeX, sizeY);
