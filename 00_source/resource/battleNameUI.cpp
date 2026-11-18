@@ -15,7 +15,8 @@
 //************************************************************
 namespace
 {
-	const int PRIORITY = 6;	// 戦闘時の名前表示の優先順位
+	const int     PRIORITY	= 6;							// 戦闘時の名前表示の優先順位
+	const VECTOR3 POS		= VECTOR3(48.0f, 616.0f, 0.0f);	// 位置
 
 	namespace text
 	{
@@ -125,6 +126,9 @@ HRESULT CBattleNameUI::Init()
 	// 優先順位を設定
 	SetPriority(PRIORITY);
 
+	// 位置を設定
+	SetVec3Position(POS);
+
 	return S_OK;
 }
 
@@ -212,9 +216,7 @@ void CBattleNameUI::SetVec3Rotation(const VECTOR3& rRot)
 CBattleNameUI* CBattleNameUI::Create
 (
 	const std::string& rName,	// 名前
-	const int nLv,				// LV
-	const VECTOR3& rPos,		// 位置
-	const VECTOR3& rRot			// 向き
+	const int nLv				// LV
 )
 {
 	// 戦闘時の名前表示の生成
@@ -241,12 +243,6 @@ CBattleNameUI* CBattleNameUI::Create
 
 		// LVを設定
 		pBattleNameUI->SetLv(nLv);
-
-		// 位置を設定
-		pBattleNameUI->SetVec3Position(rPos);
-
-		// 向きを設定
-		pBattleNameUI->SetVec3Rotation(rRot);
 
 		// 確保したアドレスを返す
 		return pBattleNameUI;
@@ -259,9 +255,7 @@ CBattleNameUI* CBattleNameUI::Create
 CBattleNameUI* CBattleNameUI::Create
 (
 	const std::wstring& rName,	// 名前
-	const int nLv,				// LV
-	const VECTOR3& rPos,		// 位置
-	const VECTOR3& rRot			// 向き
+	const int nLv				// LV
 )
 {
 	// 戦闘時の名前表示の生成
@@ -288,12 +282,6 @@ CBattleNameUI* CBattleNameUI::Create
 
 		// LVを設定
 		pBattleNameUI->SetLv(nLv);
-
-		// 位置を設定
-		pBattleNameUI->SetVec3Position(rPos);
-
-		// 向きを設定
-		pBattleNameUI->SetVec3Rotation(rRot);
 
 		// 確保したアドレスを返す
 		return pBattleNameUI;

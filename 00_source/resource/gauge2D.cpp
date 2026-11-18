@@ -34,7 +34,7 @@ CGauge2D::CGauge2D(const float fChangeTime) : CObject(CObject::LABEL_UI, CObject
 	m_fCurTime		(0.0f)			// 現在の経過時間
 {
 	// メンバ変数をクリア
-	memset(&m_pGauge[0], 0, sizeof(m_pGauge));	// ゲージ情報
+	memset(&m_apGauge[0], 0, sizeof(m_apGauge));	// ゲージ情報
 }
 
 //============================================================
@@ -51,7 +51,7 @@ CGauge2D::~CGauge2D()
 HRESULT CGauge2D::Init()
 {
 	// メンバ変数を初期化
-	memset(&m_pGauge[0], 0, sizeof(m_pGauge));	// ゲージ情報
+	memset(&m_apGauge[0], 0, sizeof(m_apGauge));	// ゲージ情報
 	m_state		= STATE_NONE;	// 状態
 	m_nNum		= 0;			// 表示値
 	m_nMaxNum	= 0;			// 最大値
@@ -63,7 +63,7 @@ HRESULT CGauge2D::Init()
 	{ // 使用する四角形ポリゴン数分繰り返す
 
 		// ゲージの生成
-		m_pGauge[nCntGauge] = CObject2D::Create
+		m_apGauge[nCntGauge] = CObject2D::Create
 		(
 			VEC3_ZERO,				// 位置
 			VEC3_ZERO,				// 大きさ
@@ -72,7 +72,7 @@ HRESULT CGauge2D::Init()
 			EAlignX::XALIGN_LEFT,	// 横配置
 			EAlignY::YALIGN_CENTER	// 縦配置
 		);
-		if (m_pGauge[nCntGauge] == nullptr)
+		if (m_apGauge[nCntGauge] == nullptr)
 		{ // 生成に失敗した場合
 
 			assert(false);
@@ -80,8 +80,8 @@ HRESULT CGauge2D::Init()
 		}
 
 		// 自動更新・自動描画をOFFにする
-		m_pGauge[nCntGauge]->SetEnableUpdate(false);
-		m_pGauge[nCntGauge]->SetEnableDraw(false);
+		m_apGauge[nCntGauge]->SetEnableUpdate(false);
+		m_apGauge[nCntGauge]->SetEnableDraw(false);
 	}
 
 	return S_OK;
@@ -96,7 +96,7 @@ void CGauge2D::Uninit()
 	{ // 使用する四角形ポリゴン数分繰り返す
 
 		// ゲージの終了
-		SAFE_UNINIT(m_pGauge[nCntGauge]);
+		SAFE_UNINIT(m_apGauge[nCntGauge]);
 	}
 
 	// 自身のオブジェクトを破棄
@@ -129,7 +129,7 @@ void CGauge2D::Update(const float fDeltaTime)
 	{ // 使用する四角形ポリゴン数分繰り返す
 
 		// ゲージの更新
-		m_pGauge[nCntGauge]->Update(fDeltaTime);
+		m_apGauge[nCntGauge]->Update(fDeltaTime);
 	}
 }
 
@@ -142,7 +142,7 @@ void CGauge2D::Draw(CShader* pShader)
 	{ // 使用する四角形ポリゴン数分繰り返す
 
 		// ゲージの描画
-		m_pGauge[nCntGauge]->Draw(pShader);
+		m_apGauge[nCntGauge]->Draw(pShader);
 	}
 }
 
@@ -155,7 +155,7 @@ void CGauge2D::SetVec3Position(const VECTOR3& rPos)
 	{ // 使用する四角形ポリゴン数分繰り返す
 
 		// ゲージの位置を設定
-		m_pGauge[nCntGauge]->SetVec3Position(rPos);
+		m_apGauge[nCntGauge]->SetVec3Position(rPos);
 	}
 }
 
@@ -168,7 +168,7 @@ void CGauge2D::SetVec3Rotation(const VECTOR3& rRot)
 	{ // 使用する四角形ポリゴン数分繰り返す
 
 		// ゲージの向きを設定
-		m_pGauge[nCntGauge]->SetVec3Rotation(rRot);
+		m_apGauge[nCntGauge]->SetVec3Rotation(rRot);
 	}
 }
 
@@ -181,7 +181,7 @@ void CGauge2D::SetVec3Size(const VECTOR3& rSize)
 	{ // 使用する四角形ポリゴン数分繰り返す
 
 		// ゲージの大きさを設定
-		m_pGauge[nCntGauge]->SetVec3Size(rSize);
+		m_apGauge[nCntGauge]->SetVec3Size(rSize);
 	}
 
 	// ゲージの設定
@@ -194,7 +194,7 @@ void CGauge2D::SetVec3Size(const VECTOR3& rSize)
 VECTOR3 CGauge2D::GetVec3Position() const
 {
 	// 裏ゲージの位置を返す
-	return m_pGauge[EPolygon::POLYGON_BACK]->GetVec3Position();
+	return m_apGauge[EPolygon::POLYGON_BACK]->GetVec3Position();
 }
 
 //============================================================
@@ -203,7 +203,7 @@ VECTOR3 CGauge2D::GetVec3Position() const
 VECTOR3 CGauge2D::GetVec3Rotation() const
 {
 	// 裏ゲージの向きを返す
-	return m_pGauge[EPolygon::POLYGON_BACK]->GetVec3Rotation();
+	return m_apGauge[EPolygon::POLYGON_BACK]->GetVec3Rotation();
 }
 
 //============================================================
@@ -212,7 +212,7 @@ VECTOR3 CGauge2D::GetVec3Rotation() const
 VECTOR3 CGauge2D::GetVec3Size() const
 {
 	// 裏ゲージの大きさを返す
-	return m_pGauge[EPolygon::POLYGON_BACK]->GetVec3Size();
+	return m_apGauge[EPolygon::POLYGON_BACK]->GetVec3Size();
 }
 
 //============================================================
@@ -274,7 +274,7 @@ void CGauge2D::BindTexture(const int nPolygonIdx, const int nTextureIdx)
 	{ // 正規インデックスの場合
 
 		// テクスチャインデックスを代入
-		m_pGauge[nPolygonIdx]->BindTexture(nTextureIdx);
+		m_apGauge[nPolygonIdx]->BindTexture(nTextureIdx);
 	}
 }
 
@@ -287,7 +287,7 @@ void CGauge2D::BindTexture(const int nPolygonIdx, const char* pTexturePath)
 	{ // 正規インデックスの場合
 
 		// テクスチャパスを代入
-		m_pGauge[nPolygonIdx]->BindTexture(pTexturePath);
+		m_apGauge[nPolygonIdx]->BindTexture(pTexturePath);
 	}
 }
 
@@ -300,7 +300,7 @@ int CGauge2D::GetTextureIndex(const int nPolygonIdx) const
 	if (nPolygonIdx <= NONE_IDX || nPolygonIdx >= POLYGON_MAX) { assert(false); return NONE_IDX; }
 
 	// テクスチャインデックスを返す
-	return m_pGauge[nPolygonIdx]->GetTextureIndex();
+	return m_apGauge[nPolygonIdx]->GetTextureIndex();
 }
 
 //============================================================
@@ -454,7 +454,7 @@ void CGauge2D::SetMaxNum(const int nMax)
 void CGauge2D::SetAlphaFront(const float fAlpha)
 {
 	// 引数の表ゲージ透明度を設定
-	m_pGauge[EPolygon::POLYGON_FRONT]->SetAlpha(fAlpha);
+	m_apGauge[EPolygon::POLYGON_FRONT]->SetAlpha(fAlpha);
 }
 
 //============================================================
@@ -463,7 +463,7 @@ void CGauge2D::SetAlphaFront(const float fAlpha)
 void CGauge2D::SetColorFront(const COLOR& rCol)
 {
 	// 引数の表ゲージ色を設定
-	m_pGauge[EPolygon::POLYGON_FRONT]->SetColor(rCol);
+	m_apGauge[EPolygon::POLYGON_FRONT]->SetColor(rCol);
 }
 
 //============================================================
@@ -472,7 +472,7 @@ void CGauge2D::SetColorFront(const COLOR& rCol)
 void CGauge2D::SetAlphaBack(const float fAlpha)
 {
 	// 引数の裏ゲージ透明度を設定
-	m_pGauge[EPolygon::POLYGON_BACK]->SetAlpha(fAlpha);
+	m_apGauge[EPolygon::POLYGON_BACK]->SetAlpha(fAlpha);
 }
 
 //============================================================
@@ -481,7 +481,7 @@ void CGauge2D::SetAlphaBack(const float fAlpha)
 void CGauge2D::SetColorBack(const COLOR& rCol)
 {
 	// 引数の裏ゲージ色を設定
-	m_pGauge[EPolygon::POLYGON_BACK]->SetColor(rCol);
+	m_apGauge[EPolygon::POLYGON_BACK]->SetColor(rCol);
 }
 
 //============================================================
@@ -490,7 +490,7 @@ void CGauge2D::SetColorBack(const COLOR& rCol)
 float CGauge2D::GetAlphaFront() const
 {
 	// 表ゲージ透明度を返す
-	return m_pGauge[EPolygon::POLYGON_FRONT]->GetAlpha();
+	return m_apGauge[EPolygon::POLYGON_FRONT]->GetAlpha();
 }
 
 //============================================================
@@ -499,7 +499,7 @@ float CGauge2D::GetAlphaFront() const
 COLOR CGauge2D::GetColorFront() const
 {
 	// 表ゲージ色を返す
-	return m_pGauge[EPolygon::POLYGON_FRONT]->GetColor();
+	return m_apGauge[EPolygon::POLYGON_FRONT]->GetColor();
 }
 
 //============================================================
@@ -508,7 +508,7 @@ COLOR CGauge2D::GetColorFront() const
 float CGauge2D::GetAlphaBack() const
 {
 	// 裏ゲージ透明度を返す
-	return m_pGauge[EPolygon::POLYGON_BACK]->GetAlpha();
+	return m_apGauge[EPolygon::POLYGON_BACK]->GetAlpha();
 }
 
 //============================================================
@@ -517,7 +517,7 @@ float CGauge2D::GetAlphaBack() const
 COLOR CGauge2D::GetColorBack() const
 {
 	// 裏ゲージ色を返す
-	return m_pGauge[EPolygon::POLYGON_BACK]->GetColor();
+	return m_apGauge[EPolygon::POLYGON_BACK]->GetColor();
 }
 
 //============================================================
@@ -562,5 +562,5 @@ void CGauge2D::SetGaugeWidthFront(const float fNum)
 	const float fFrontWidth = fNum * (size.x / (float)m_nMaxNum);
 
 	// 表ゲージの大きさ設定
-	m_pGauge[EPolygon::POLYGON_FRONT]->SetVec3Size(VECTOR3(fFrontWidth, size.y, 0.0f));
+	m_apGauge[EPolygon::POLYGON_FRONT]->SetVec3Size(VECTOR3(fFrontWidth, size.y, 0.0f));
 }

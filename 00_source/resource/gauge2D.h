@@ -101,7 +101,7 @@ private:
 	void SetGaugeWidthFront(const float fNum);			// 表ゲージの横幅設定
 
 	// メンバ変数
-	CObject2D*	m_pGauge[POLYGON_MAX];	// ゲージ情報
+	CObject2D*	m_apGauge[POLYGON_MAX];	// ゲージ情報
 	EState		m_state;				// 状態
 	int			m_nNum;					// 表示値
 	int			m_nMaxNum;				// 最大値

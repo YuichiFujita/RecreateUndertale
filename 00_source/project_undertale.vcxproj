@@ -158,6 +158,7 @@
     <ClCompile Include="resource\anim2D.cpp" />
     <ClCompile Include="resource\anim3D.cpp" />
     <ClCompile Include="resource\balloonEncount.cpp" />
+    <ClCompile Include="resource\battleCommandUI.cpp" />
     <ClCompile Include="resource\battleLifeUI.cpp" />
     <ClCompile Include="resource\battleManager.cpp" />
     <ClCompile Include="resource\battleNameUI.cpp" />
@@ -328,6 +329,7 @@
     <ClInclude Include="resource\anim2D.h" />
     <ClInclude Include="resource\anim3D.h" />
     <ClInclude Include="resource\balloonEncount.h" />
+    <ClInclude Include="resource\battleCommandUI.h" />
     <ClInclude Include="resource\battleLifeUI.h" />
     <ClInclude Include="resource\battleManager.h" />
     <ClInclude Include="resource\battleNameUI.h" />

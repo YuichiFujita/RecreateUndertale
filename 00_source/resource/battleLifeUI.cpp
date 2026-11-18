@@ -17,7 +17,8 @@
 //************************************************************
 namespace
 {
-	const int PRIORITY = 6;	// 戦闘時の体力表示の優先順位
+	const int     PRIORITY	= 6;								// 戦闘時の体力表示の優先順位
+	const VECTOR3 POS		= VECTOR3(366.0f, 615.0f, 0.0f);	// 位置
 
 	namespace hp
 	{
@@ -154,6 +155,9 @@ HRESULT CBattleLifeUI::Init()
 	// 優先順位を設定
 	SetPriority(PRIORITY);
 
+	// 位置を設定
+	SetVec3Position(POS);
+
 	return S_OK;
 }
 
@@ -251,10 +255,8 @@ void CBattleLifeUI::SetVec3Rotation(const VECTOR3& rRot)
 //============================================================
 CBattleLifeUI* CBattleLifeUI::Create
 (
-	const int nMaxHp,		// 最大HP
-	const int nNumHp,		// HP
-	const VECTOR3& rPos,	// 位置
-	const VECTOR3& rRot		// 向き
+	const int nMaxHp,	// 最大HP
+	const int nNumHp	// HP
 )
 {
 	// 戦闘時の体力表示の生成
@@ -281,12 +283,6 @@ CBattleLifeUI* CBattleLifeUI::Create
 
 		// HPを設定
 		pBattleLifeUI->SetHp(nNumHp);
-
-		// 位置を設定
-		pBattleLifeUI->SetVec3Position(rPos);
-
-		// 向きを設定
-		pBattleLifeUI->SetVec3Rotation(rRot);
 
 		// 確保したアドレスを返す
 		return pBattleLifeUI;

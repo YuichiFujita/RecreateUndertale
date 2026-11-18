@@ -49,10 +49,8 @@ public:
 	// 静的メンバ関数
 	static CBattleLifeUI* Create	// 生成
 	( // 引数
-		const int nMaxHp,				// 最大HP
-		const int nNumHp,				// HP
-		const VECTOR3& rPos,			// 位置
-		const VECTOR3& rRot = VEC3_ZERO	// 向き
+		const int nMaxHp,	// 最大HP
+		const int nNumHp	// HP
 	);
 
 	// メンバ関数

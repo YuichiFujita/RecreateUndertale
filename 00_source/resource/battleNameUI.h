@@ -47,17 +47,13 @@ public:
 	// 静的メンバ関数
 	static CBattleNameUI* Create	// 生成 (マルチバイト文字列)
 	( // 引数
-		const std::string& rName,		// 名前
-		const int nLv,					// LV
-		const VECTOR3& rPos,			// 位置
-		const VECTOR3& rRot = VEC3_ZERO	// 向き
+		const std::string& rName,	// 名前
+		const int nLv				// LV
 	);
 	static CBattleNameUI* Create	// 生成
 	( // 引数
-		const std::wstring& rName,		// 名前 (ワイド文字列)
-		const int nLv,					// LV
-		const VECTOR3& rPos,			// 位置
-		const VECTOR3& rRot = VEC3_ZERO	// 向き
+		const std::wstring& rName,	// 名前 (ワイド文字列)
+		const int nLv				// LV
 	);
 
 	// メンバ関数

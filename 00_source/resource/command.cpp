@@ -17,7 +17,7 @@
 //************************************************************
 namespace
 {
-	const char *TEXTURE_FILE[] =	// テクスチャファイル
+	const char* TEXTURE_FILE[] =	// テクスチャファイル
 	{
 		"data\\TEXTURE\\BATTLE\\spr_fightbt.png",	// たたかうテクスチャ
 		"data\\TEXTURE\\BATTLE\\spr_talkbt.png",	// こうどうテクスチャ

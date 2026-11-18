@@ -14,12 +14,12 @@
 // TODO：ちらつきがないかの検証
 #if 1
 #include "object2D.h"
-#include "command.h"
 #include "frame2D.h"
 #include "frame2DModule.h"
 
 #include "userdataManager.h"
 #include "playerStatus.h"
+#include "battleCommandUI.h"
 #include "battleNameUI.h"
 #include "battleLifeUI.h"
 #endif
@@ -33,20 +33,13 @@ namespace
 #if 1
 	namespace soul
 	{
+		// TODO：ソウルの移動
+		const VECTOR3 DEST_POS = VECTOR3(72.0f, 680.0f, 0.0f);
+
 		const char*		PATH		= "data\\TEXTURE\\spr_heart_0.png";	// ソウルのテクスチャパス
 		const int		PRIO_NORMAL	= 6;								// ソウルの優先順位（通常時）
 		const int		PRIO_FADE	= 8;								// ソウルの優先順位（フェード時）
 		const VECTOR3	SIZE		= VECTOR3(25.5f, 25.5f, 0.0f);		// ソウルの大きさ
-	}
-
-	namespace name
-	{
-		const VECTOR3 POS = VECTOR3(48.0f, 616.0f, 0.0f);	// 位置
-	}
-
-	namespace life
-	{
-		const VECTOR3 POS = VECTOR3(366.0f, 615.0f, 0.0f);	// 位置
 	}
 #endif
 }
@@ -105,55 +98,26 @@ HRESULT CBattleStateNormal::Init()
 	// TODO：ちらつきがないかの検証
 #if 1
 	// ソウルの生成
-	{
-		// TODO：ソウルの移動
-		const VECTOR3 DEST_POS = VECTOR3(72.0f, 680.0f, 0.0f);
+	CObject2D* pSoul = CObject2D::Create
+	( // 引数
+		soul::DEST_POS,	// 位置
+		soul::SIZE		// 大きさ
+	);
+	if (pSoul == nullptr)
+	{ // 生成に失敗した場合
 
-		// ソウルの生成
-		CObject2D* pSoul = CObject2D::Create
-		( // 引数
-			DEST_POS,	// 位置
-			soul::SIZE	// 大きさ
-		);
-		if (pSoul == nullptr)
-		{ // 生成に失敗した場合
-
-			assert(false);
-			return E_FAIL;
-		}
-
-		// ソウルテクスチャを割当
-		pSoul->BindTexture(soul::PATH);
-
-		// ラベルを設定
-		pSoul->SetLabel(CObject::LABEL_UI);
-
-		// 優先順位を設定
-		pSoul->SetPriority(soul::PRIO_FADE);
+		assert(false);
+		return E_FAIL;
 	}
 
-	// コマンドの生成
-	const float aX[CCommand::TYPE_MAX] = { 130.0f, 363.5f, 596.5f, 830.0f };
-	for (int i = 0; i < CCommand::TYPE_MAX; i++)
-	{
-		// コマンドの生成
-		CCommand* pCommand = CCommand::Create
-		( // 引数
-			(CCommand::EType)i,
-			VECTOR3(aX[i], 680.0f, 0.0f)
-		);
-		if (pCommand == nullptr)
-		{ // 生成に失敗した場合
+	// ソウルテクスチャを割当
+	pSoul->BindTexture(soul::PATH);
 
-			assert(false);
-			return E_FAIL;
-		}
+	// ラベルを設定
+	pSoul->SetLabel(CObject::LABEL_UI);
 
-		if (i == 0)
-		{
-			pCommand->SetState(CCommand::STATE_ON);
-		}
-	}
+	// 優先順位を設定
+	pSoul->SetPriority(soul::PRIO_FADE);
 
 	// テキストボックスの生成
 	CFrame2D* pFrame = CFrame2D::Create(CFrame2D::PRESET_BATTLE_TEXT);
@@ -174,8 +138,17 @@ HRESULT CBattleStateNormal::Init()
 		return E_FAIL;
 	}
 
+	// コマンド表示の生成
+	CBattleCommandUI* pCommandUI = CBattleCommandUI::Create();
+	if (pCommandUI == nullptr)
+	{ // 生成に失敗した場合
+
+		assert(false);
+		return E_FAIL;
+	}
+
 	// 名前表示の生成
-	CBattleNameUI* pNameUI = CBattleNameUI::Create(status.GetName(), status.GetLove(), name::POS);
+	CBattleNameUI* pNameUI = CBattleNameUI::Create(status.GetName(), status.GetLove());
 	if (pNameUI == nullptr)
 	{ // 生成に失敗した場合
 	
@@ -184,7 +157,7 @@ HRESULT CBattleStateNormal::Init()
 	}
 
 	// 体力表示の生成
-	CBattleLifeUI* pLifeUI = CBattleLifeUI::Create(status.GetMaxHP(), status.GetHP(), life::POS);
+	CBattleLifeUI* pLifeUI = CBattleLifeUI::Create(status.GetMaxHP(), status.GetHP());
 	if (pLifeUI == nullptr)
 	{ // 生成に失敗した場合
 	

@@ -618,6 +618,9 @@
     <ClCompile Include="resource\battleNameUI.cpp">
       <Filter>ingame\battle</Filter>
     </ClCompile>
+    <ClCompile Include="resource\battleCommandUI.cpp">
+      <Filter>ingame\battle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h">
@@ -1116,6 +1119,9 @@
       <Filter>ingame\battle</Filter>
     </ClInclude>
     <ClInclude Include="resource\battleNameUI.h">
+      <Filter>ingame\battle</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\battleCommandUI.h">
       <Filter>ingame\battle</Filter>
     </ClInclude>
   </ItemGroup>
