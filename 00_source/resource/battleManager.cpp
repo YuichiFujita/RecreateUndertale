@@ -10,6 +10,35 @@
 #include "battleManager.h"
 #include "battleState.h"
 
+// TODO：ちらつきがないかの検証
+#if 1
+#include "object2D.h"
+#endif
+
+#include "userdataManager.h"
+#include "playerStatus.h"
+#include "frame2D.h"
+#include "battleCommandUI.h"
+#include "battleNameUI.h"
+#include "battleLifeUI.h"
+
+//************************************************************
+//	定数宣言
+//************************************************************
+namespace
+{
+	// TODO：ちらつきがないかの検証
+#if 1
+	namespace soul
+	{
+		const char*		PATH		= "data\\TEXTURE\\spr_heart_0.png";	// ソウルのテクスチャパス
+		const int		PRIO_NORMAL	= 6;								// ソウルの優先順位（通常時）
+		const int		PRIO_FADE	= 8;								// ソウルの優先順位（フェード時）
+		const VECTOR3	SIZE		= VECTOR3(25.5f, 25.5f, 0.0f);		// ソウルの大きさ
+	}
+#endif
+}
+
 //************************************************************
 //	親クラス [CBattleManager] のメンバ関数
 //************************************************************
@@ -17,7 +46,12 @@
 //	コンストラクタ
 //============================================================
 CBattleManager::CBattleManager() :
-	m_pState	(nullptr)	// 状態
+	m_pState		(nullptr),	// 状態
+	m_pPlayer		(nullptr),	// プレイヤー情報
+	m_pFrame		(nullptr),	// フレーム情報
+	m_pCommandUI	(nullptr),	// コマンド表示
+	m_pNameUI		(nullptr),	// 名前表示
+	m_pLifeUI		(nullptr)	// 体力表示
 {
 
 }
@@ -36,10 +70,86 @@ CBattleManager::~CBattleManager()
 HRESULT CBattleManager::Init()
 {
 	// メンバ変数を初期化
-	m_pState = nullptr;	// 状態
+	m_pState	 = nullptr;	// 状態
+	m_pPlayer	 = nullptr;	// プレイヤー情報
+	m_pFrame	 = nullptr;	// フレーム情報
+	m_pCommandUI = nullptr;	// コマンド表示
+	m_pNameUI	 = nullptr;	// 名前表示
+	m_pLifeUI	 = nullptr;	// 体力表示
 
-	// 通常状態にする
-	ChangeState(new CBattleStateNormal);
+	// TODO：ちらつきがないかの検証
+#if 1
+	// ソウルの生成
+	m_pPlayer = CObject2D::Create
+	( // 引数
+		VEC3_ZERO,	// 位置
+		soul::SIZE	// 大きさ
+	);
+	if (m_pPlayer == nullptr)
+	{ // 生成に失敗した場合
+
+		assert(false);
+		return E_FAIL;
+	}
+
+	// ソウルテクスチャを割当
+	m_pPlayer->BindTexture(soul::PATH);
+
+	// ラベルを設定
+	m_pPlayer->SetLabel(CObject::LABEL_UI);
+
+	// 優先順位を設定
+	m_pPlayer->SetPriority(soul::PRIO_FADE);
+#endif
+
+	// ステータスの読込
+	CUserDataManager* pUserData = CUserDataManager::GetInstance();	// ユーザーデータ情報
+	CPlayerStatus     status;	// ステータス情報
+	if (FAILED(pUserData->LoadPlayerStatus(&status)))
+	{ // 読込に失敗した場合
+
+		assert(false);
+		return E_FAIL;
+	}
+
+	// テキストボックスの生成
+	m_pFrame = CFrame2D::Create(CFrame2D::PRESET_BATTLE_TEXT);
+	if (m_pFrame == nullptr)
+	{ // 生成に失敗した場合
+
+		assert(false);
+		return E_FAIL;
+	}
+
+	// コマンド表示の生成
+	m_pCommandUI = CBattleCommandUI::Create(m_pPlayer);
+	if (m_pCommandUI == nullptr)
+	{ // 生成に失敗した場合
+
+		assert(false);
+		return E_FAIL;
+	}
+
+	// 名前表示の生成
+	m_pNameUI = CBattleNameUI::Create(status.GetName(), status.GetLove());
+	if (m_pNameUI == nullptr)
+	{ // 生成に失敗した場合
+
+		assert(false);
+		return E_FAIL;
+	}
+
+	// 体力表示の生成
+	m_pLifeUI = CBattleLifeUI::Create(status.GetMaxHP(), status.GetHP());
+	if (m_pLifeUI == nullptr)
+	{ // 生成に失敗した場合
+
+		assert(false);
+		return E_FAIL;
+	}
+
+	// コマンド選択状態にする
+	ChangeState(new CBattleStateCommand);
 
 	return S_OK;
 }

@@ -45,5 +45,6 @@ protected:
 //	インクルードファイル
 //************************************************************
 #include "battleStateNormal.h"
+#include "battleStateCommand.h"
 
 #endif	// _BATTLE_STATE_H_

@@ -1,0 +1,46 @@
+#==============================================================================
+#
+#	テストテキストボックス情報テキスト [battle_test00.txt]
+#	Author : 藤田 勇一
+#
+#==============================================================================
+
+# エンカウント時のテキストボックス情報
+TEXTBOX_ENCOUNT
+	NEXT_PATH	= NONE	# 次テキストボックスパス
+	NEXT_BOX	= 0		# 次テキストボックスキー
+	START_KEY	= 0		# テキスト開始キー
+	FACE		= -1	# 顔インデックス
+	
+	# テキスト情報
+	TEXT_0
+		MODULE	= TEXT	# 使用モジュール
+		NEXT	= -1	# 次テキストキー
+		EMOTION	= -1	# 表情インデックス
+		
+		# 文字列情報
+		STR = ＊ Switch Sports Resort 買った？
+	END_TEXT
+	
+END_TEXTBOX
+
+# MERCY選択時のテキストボックス情報
+TEXTBOX_MERCY
+	NEXT_PATH	= NONE	# 次テキストボックスパス
+	NEXT_BOX	= 0		# 次テキストボックスキー
+	START_KEY	= 0		# テキスト開始キー
+	FACE		= -1	# 顔インデックス
+	
+	# テキスト情報
+	TEXT_0
+		MODULE	= TEXT	# 使用モジュール
+		NEXT	= -1	# 次テキストキー
+		EMOTION	= -1	# 表情インデックス
+		
+		# 文字列情報
+		STR = ＊ にげる
+		STR = ＊ にがす
+	END_TEXT
+	
+END_TEXTBOX
+

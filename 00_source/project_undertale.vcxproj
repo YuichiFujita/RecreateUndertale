@@ -163,6 +163,7 @@
     <ClCompile Include="resource\battleManager.cpp" />
     <ClCompile Include="resource\battleNameUI.cpp" />
     <ClCompile Include="resource\battleState.cpp" />
+    <ClCompile Include="resource\battleStateCommand.cpp" />
     <ClCompile Include="resource\battleStateNormal.cpp" />
     <ClCompile Include="resource\camera.cpp" />
     <ClCompile Include="resource\char2D.cpp" />
@@ -334,6 +335,7 @@
     <ClInclude Include="resource\battleManager.h" />
     <ClInclude Include="resource\battleNameUI.h" />
     <ClInclude Include="resource\battleState.h" />
+    <ClInclude Include="resource\battleStateCommand.h" />
     <ClInclude Include="resource\battleStateNormal.h" />
     <ClInclude Include="resource\camera.h" />
     <ClInclude Include="resource\char2D.h" />
