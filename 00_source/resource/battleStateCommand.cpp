@@ -102,7 +102,7 @@ void CBattleStateCommand::Update(const float fDeltaTime)
 		case CCommand::EType::TYPE_ITEM:
 		{
 			// ƒAƒCƒeƒ€ó‘Ô‚É‚·‚é
-			//m_pContext->ChangeState(new CBattleStateItem);
+			m_pContext->ChangeState(new CBattleStateItem);
 		}
 		break;
 		case CCommand::EType::TYPE_MERCY:

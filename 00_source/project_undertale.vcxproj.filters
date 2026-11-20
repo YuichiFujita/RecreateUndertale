@@ -627,6 +627,9 @@
     <ClCompile Include="resource\battleStateMercy.cpp">
       <Filter>scene\battle\state</Filter>
     </ClCompile>
+    <ClCompile Include="resource\battleStateItem.cpp">
+      <Filter>scene\battle\state</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\anim2D.h">
@@ -1134,6 +1137,9 @@
       <Filter>scene\battle\state</Filter>
     </ClInclude>
     <ClInclude Include="resource\battleStateMercy.h">
+      <Filter>scene\battle\state</Filter>
+    </ClInclude>
+    <ClInclude Include="resource\battleStateItem.h">
       <Filter>scene\battle\state</Filter>
     </ClInclude>
   </ItemGroup>

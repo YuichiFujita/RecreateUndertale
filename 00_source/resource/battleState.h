@@ -46,6 +46,7 @@ protected:
 //************************************************************
 #include "battleStateNormal.h"
 #include "battleStateCommand.h"
+#include "battleStateItem.h"
 #include "battleStateMercy.h"
 
 #endif	// _BATTLE_STATE_H_
