@@ -89,7 +89,7 @@ HRESULT CBattleCommandUI::Init()
 	// 優先順位を設定
 	SetPriority(PRIORITY);
 
-	// 選択項目の初期化
+	// 現在の選択肢の初期化
 	SetSelect(0);
 
 	return S_OK;
@@ -190,7 +190,22 @@ CBattleCommandUI* CBattleCommandUI::Create(CObject* pSoul)
 }
 
 //============================================================
-//	選択項目の設定処理
+//	ソウルカーソルの設定処理
+//============================================================
+void CBattleCommandUI::SetSoul(CObject* pSoul)
+{
+	// ソウルカーソルオブジェクトの設定
+	m_pSoul = pSoul;
+
+	// ソウルカーソルの位置を移動
+	if (m_pSoul != nullptr)
+	{
+		m_pSoul->SetVec3Position(m_apCommand[m_nCurSelect]->GetVec3Position() + OFFSET);
+	}
+}
+
+//============================================================
+//	現在の選択肢の設定処理
 //============================================================
 void CBattleCommandUI::SetSelect(const int nSelect)
 {
@@ -214,17 +229,22 @@ void CBattleCommandUI::SetSelect(const int nSelect)
 }
 
 //============================================================
-//	ソウルカーソルの設定処理
+//	決定状況のリセット処理
 //============================================================
-void CBattleCommandUI::SetSoul(CObject* pSoul)
+void CBattleCommandUI::ResetDecide(const int nSelect)
 {
-	// ソウルカーソルオブジェクトの設定
-	m_pSoul = pSoul;
+	// 決定状況を解除
+	m_bDecide = false;
 
-	// ソウルカーソルの位置を移動
-	if (m_pSoul != nullptr)
+	if (nSelect >= 0)
 	{
-		m_pSoul->SetVec3Position(m_apCommand[m_nCurSelect]->GetVec3Position() + OFFSET);
+		// 指定インデックスを選択
+		SetSelect(nSelect);
+	}
+	else
+	{
+		// 前回選択していたインデックスを再選択
+		SetSelect(m_nCurSelect);
 	}
 }
 

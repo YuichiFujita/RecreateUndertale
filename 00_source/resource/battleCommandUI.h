@@ -43,10 +43,12 @@ public:
 	static CBattleCommandUI* Create(CObject* pSoul);	// 生成
 
 	// メンバ関数
-	void SetSelect(const int nSelect);					// 選択項目の設定
-	void SetSoul(CObject* pSoul);						// ソウルカーソルの設定
-	CCommand::EType GetTypeSelect() const;				// 選択中タイプの取得
-	inline bool IsDecide() const { return m_bDecide; }	// 決定状況の取得
+	void SetSoul(CObject* pSoul);							// ソウルカーソルの設定
+	void SetSelect(const int nSelect);						// 現在の選択肢設定
+	void ResetDecide(const int nSelect);					// 決定状況のリセット
+	CCommand::EType GetTypeSelect() const;					// 選択中タイプの取得
+	inline int GetSelect() const { return m_nCurSelect; }	// 現在の選択肢取得
+	inline bool IsDecide() const { return m_bDecide; }		// 決定状況の取得
 
 private:
 	// オーバーライド関数
